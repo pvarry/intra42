@@ -1,0 +1,42 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="notifications_allow"
+        android:title="@string/pref_title_notifications_allow" />
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+     dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <ListPreference
+        android:defaultValue="15"
+        android:dependency="notifications_allow"
+        android:entries="@array/pref_notifications_frequency_titles"
+        android:entryValues="@array/pref_notifications_frequency_values"
+        android:key="notifications_frequency"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_notifications_frequency" />
+
+    <PreferenceCategory
+        android:dependency="notifications_allow"
+        android:title="Notifications">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="check_box_preference_notifications_events"
+            android:title="@string/pref_title_notifications_events" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="check_box_preference_notifications_scales"
+            android:title="@string/pref_title_notifications_scales" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="check_box_preference_notifications_forum"
+            android:title="@string/pref_title_notifications_forum" />
+    </PreferenceCategory>
+</PreferenceScreen>

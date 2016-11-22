@@ -1,0 +1,46 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="switch_preference_advanced_allow_beta"
+        android:summary="default false"
+        android:title="@string/pref_title_beta_allow" />
+
+    <PreferenceCategory
+        android:dependency="switch_preference_advanced_allow_beta"
+        android:title="Advanced features">
+
+        <SwitchPreference
+            android:defaultValue="false"
+
+            android:key="switch_preference_advanced_allow_advanced_data"
+            android:summary="Like id"
+            android:title="Show advanced data" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="switch_preference_advanced_allow_markdown_renderer"
+            android:summary="For forum and events (default true)"
+            android:title="Use markdown renderer" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:dependency="switch_preference_advanced_allow_beta"
+        android:title="Others features">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="switch_preference_advanced_allow_friends"
+            android:summaryOff="default true"
+            android:title="Friends" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_advanced_allow_cluster_map"
+            android:summary="Only available for Paris"
+            android:title="Cluster map (beta)" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

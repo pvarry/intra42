@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSecondary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <Spinner
+            android:id="@+id/spinnerCampus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp" />
+
+        <Spinner
+            android:id="@+id/spinnerCluster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--<com.paulvarry.intra42.ui.ZoomLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:columnCount="22"
+                    android:horizontalSpacing="10dp"
+                    android:padding="8dp"
+                    android:rowCount="3"
+                    android:verticalSpacing="10dp" />
+
+            </HorizontalScrollView>
+
+
+            <!--</com.paulvarry.intra42.ui.ZoomLayout>-->
+        </android.support.v4.widget.NestedScrollView>
+
+        <include layout="@layout/include_constraint_layout_loading" />
+
+    </FrameLayout>
+
+</LinearLayout>

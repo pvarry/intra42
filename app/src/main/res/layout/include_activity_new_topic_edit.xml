@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            android:maxLines="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spinnerKind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+    <com.paulvarry.intra42.Adapter.CompletionViewTags
+        android:id="@+id/completion_view_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/tags" />
+
+    <com.paulvarry.intra42.Adapter.CompletionViewCursus
+        android:id="@+id/completion_view_cursus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cursus" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/editTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/content"
+            android:inputType="textMultiLine" />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

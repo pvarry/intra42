@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorSecondary">#7a89dc</color>
+    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="textColorPrimary">#DEffffff</color>
+    <color name="textColorSecondary">#8Affffff</color>
+    <color name="textColorDisabled">#61ffffff</color>
+
+    <color name="textColorBlackPrimary">#de000000</color>
+    <color name="textColorBlackSecondary">#8a000000</color>
+    <color name="textColorBlackDisabled">#61000000</color>
+
+    <color name="windowBackground">#EDEDED</color>
+    <color name="navigationBarColor">#000000</color>
+
+    <color name="transparent">#00ffffff</color>
+
+    <color name="colorGrayLight">#EEEEEE</color>
+    <color name="colorGray">#737373</color>
+    <color name="colorGrayDark">#484747</color>
+    <color name="colorGrayTint">#75ffffff</color>
+    <color name="colorSuccess">#66bb6a</color>
+    <color name="colorFail">#e57373</color>
+    <color name="colorTintCheck">#2e7d32</color>
+    <color name="colorTintCross">#c62828</color>
+
+    <color name="color_preloader_start">#000000</color>
+    <color name="color_preloader_center">#000000</color>
+    <color name="color_preloader_end">#ff56a9c7</color>
+
+    <color name="user_achievements_bronze">#955822</color>
+    <color name="user_achievements_solver">#C9D4D6</color>
+    <color name="user_achievements_gold">#BAAE64</color>
+    <color name="user_achievements_platinum">#e2e2e2</color>
+
+    <color name="topic_message_up_0">#785cb85c</color>
+    <color name="topic_message_up_1">#aa5cb85c</color>
+    <color name="topic_message_up_2">#5cb85c</color>
+    <color name="topic_message_down_0">#78d8636f</color>
+    <color name="topic_message_down_1">#aad8636f</color>
+    <color name="topic_message_down_2">#d8636f</color>
+
+    <color name="tag__">#b35b5b60</color>
+    <color name="tag__a">#b30091bc</color>
+    <color name="tag__b">#b30065bc</color>
+    <color name="tag__c">#b3003abc</color>
+    <color name="tag__d">#b3000ebc</color>
+    <color name="tag__e">#b31e00bc</color>
+    <color name="tag__f">#b34a00bc</color>
+    <color name="tag__g">#b37300bc</color>
+    <color name="tag__h">#b39f00bc</color>
+    <color name="tag__i">#b3bc00ad</color>
+    <color name="tag__j">#b3bc0082</color>
+    <color name="tag__k">#b3bc0056</color>
+    <color name="tag__l">#b3bc002a</color>
+    <color name="tag__m">#b3bc0200</color>
+    <color name="tag__n">#b3bc2b00</color>
+    <color name="tag__o">#b3bc5700</color>
+    <color name="tag__p">#b3bc8200</color>
+    <color name="tag__q">#b3bcae00</color>
+    <color name="tag__r">#b39ebc00</color>
+    <color name="tag__s">#b372bc00</color>
+    <color name="tag__t">#b349bc00</color>
+    <color name="tag__u">#b31dbc00</color>
+    <color name="tag__v">#b300bc0f</color>
+    <color name="tag__w">#b300bc3a</color>
+    <color name="tag__x">#b300bc66</color>
+    <color name="tag__y">#b300bc92</color>
+    <color name="tag__z">#b300babc</color>
+
+</resources>

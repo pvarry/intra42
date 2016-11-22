@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24px"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_users"
+            android:icon="@drawable/ic_people_black_24px"
+            android:title="@string/users" />
+        <item
+            android:id="@+id/nav_projects"
+            android:icon="@drawable/ic_class_black_24px"
+            android:title="@string/projects" />
+        <item
+            android:id="@+id/nav_forum"
+            android:icon="@drawable/ic_forum_black_24px"
+            android:title="@string/forum" />
+        <item
+            android:id="@+id/nav_elearning"
+            android:icon="@drawable/ic_videocam_black_24dp"
+            android:title="@string/elearning" />
+
+    </group>
+
+    <item android:title="@string/info">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="@string/about" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share_black_24dp"
+                android:title="@string/share" />
+        </menu>
+    </item>
+    <item android:title="Actions">
+        <menu>
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_open_in_new_black_24dp"
+                android:title="@string/logout" />
+
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/action_settings" />
+
+        </menu>
+    </item>
+</menu>
