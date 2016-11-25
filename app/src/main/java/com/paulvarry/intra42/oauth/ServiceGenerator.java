@@ -61,6 +61,9 @@ public class ServiceGenerator {
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
 
+        getLogInterceptor(httpClient);
+        httpClient.addInterceptor(getInterceptor());
+
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
         return retrofit.create(serviceClass);
@@ -91,11 +94,7 @@ public class ServiceGenerator {
             mToken = accessToken;
             ServiceGenerator.app = app;
             httpClient.addInterceptor(getInterceptor(accessToken));
-            // logging interceptor
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            if (BuildConfig.DEBUG)
-                httpClient.addInterceptor(logging);// add logging as last interceptor
+            getLogInterceptor(httpClient);
             httpClient.authenticator(getAuthenticator(c));
 
             httpClient.readTimeout(20, TimeUnit.SECONDS);
@@ -140,13 +139,6 @@ public class ServiceGenerator {
                                 .header("User-Agent", getUserAgent())
                                 .header("Accept", "application/json")
                                 .build();
-                    } else if (tokenResponse.code() == 401) {
-                        try {
-                            Toast.makeText(context, "Intra42 can't perform some request due to api bugs or user logout\n Please logout on app and login again", Toast.LENGTH_LONG).show();
-                        } catch (RuntimeException ex) {
-                            // do something with the runtime exception
-                        }
-                        return null;
                     } else {
                         return null;
                     }
@@ -174,6 +166,32 @@ public class ServiceGenerator {
                 return chain.proceed(request);
             }
         };
+    }
+
+    private static Interceptor getInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+
+                Request.Builder requestBuilder = original.newBuilder()
+                        .header("Accept", "application/json")
+//                        .header("Content-type", "application/json")
+                        .header("User-Agent", getUserAgent())
+                        .method(original.method(), original.body());
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
+            }
+        };
+    }
+
+    private static void getLogInterceptor(OkHttpClient.Builder httpClient) {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        if (BuildConfig.DEBUG)
+            ServiceGenerator.httpClient.addInterceptor(logging);// add logging as last interceptor
+
     }
 
     static public Gson getGson() {
