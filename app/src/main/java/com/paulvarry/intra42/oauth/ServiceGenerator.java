@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -114,11 +113,6 @@ public class ServiceGenerator {
                     // If both the original call and the call with refreshed token failed,
                     // it will probably keep failing, so don't try again.
 
-                    try {
-                        Toast.makeText(context, "Intra42 can't perform some request due to api bugs or user logout\n Please logout on app and login again", Toast.LENGTH_LONG).show();
-                    } catch (RuntimeException ex) {
-                        // do something with the runtime exception
-                    }
                     return null;
                 }
 
