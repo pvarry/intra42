@@ -66,6 +66,16 @@ public class UsersAllFragment extends BasicFragmentCallGrid<UserLTE, GridAdapter
         mListener = null;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        UsersActivity activity = (UsersActivity) getActivity();
+
+        if (activity != null && activity.menuItemFilter != null) {
+            activity.menuItemFilter.setVisible(isVisibleToUser);
+        }
+    }
+
     @Nullable
     @Override
     public Call<List<UserLTE>> getCall(ApiService apiService, @Nullable List<UserLTE> list) {

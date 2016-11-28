@@ -46,9 +46,11 @@ public abstract class BasicTabActivity extends AppCompatActivity implements Navi
     public Toolbar toolbar;
     public TabLayout tabLayout;
     public ViewPager viewPager;
+    public MenuItem menuItemFilter;
     protected CoordinatorLayout coordinatorLayout;
     DrawerLayout drawer;
     NavigationView navigationView;
+    MenuItem menuItemSearch;
     private ConstraintLayout constraintLayoutLoading;
     private ConstraintLayout constraintOnError;
     private TextView textViewLoadingStatus;
@@ -166,9 +168,11 @@ public abstract class BasicTabActivity extends AppCompatActivity implements Navi
         if (getUrlIntra() == null)
             menu.removeItem(R.id.action_open_intra);
 
-        final MenuItem searchItem = menu.findItem(R.id.search);
+        menuItemFilter = menu.findItem(R.id.filter);
+
+        menuItemSearch = menu.findItem(R.id.search);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItemSearch);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
 
         final String[] from = new String[]{"cityName"};
@@ -201,7 +205,7 @@ public abstract class BasicTabActivity extends AppCompatActivity implements Navi
             public boolean onQueryTextSubmit(String s) {
                 if (SuperSearch.open(BasicTabActivity.this, s)) {
                     searchView.clearFocus();
-                    searchItem.collapseActionView();
+                    menuItemSearch.collapseActionView();
                     return true;
                 } else {
                     Bundle appData = new Bundle();
