@@ -168,4 +168,5 @@
     <string name="search_section_topics">topics</string>
     <string name="search_section_projects">projets</string>
     <string name="network_error">" Erreur de réseau"</string>
+    <string name="action_open_intra">Afficher la version Web</string>
 </resources>
