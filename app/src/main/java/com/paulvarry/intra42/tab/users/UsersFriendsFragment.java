@@ -189,6 +189,11 @@ public class UsersFriendsFragment
         super.onResume();
         if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.addValueEventListener(friendsEventListener);
+        else {
+            setViewHide();
+            constraintLayoutError.setVisibility(View.VISIBLE);
+            textViewError.setText(R.string.auth_error);
+        }
     }
 
     @Override
