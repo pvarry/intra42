@@ -70,7 +70,9 @@ public class ProjectsDoingFragment extends BasicFragment<ProjectsUsers, ListAdap
     @Override
     public List<ProjectsUsers> getData() {
         AppClass app = (AppClass) getActivity().getApplication();
-        return ProjectsUsers.getListDoing(app.me.projectsUsers);
+        if (app != null && app.me != null && app.me.projectsUsers != null)
+            return ProjectsUsers.getListDoing(app.me.projectsUsers);
+        return null;
     }
 
     @Override

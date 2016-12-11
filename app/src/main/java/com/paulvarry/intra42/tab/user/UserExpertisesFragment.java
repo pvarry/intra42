@@ -76,8 +76,13 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, L
 
     @Override
     public String getEmptyMessage() {
+        if (activity == null)
+            return null;
+
+        AppClass app = (AppClass) activity.getApplication();
+
         String login = activity.login;
-        if (((AppClass) activity.getApplication()).me.id == activity.user.id)
+        if (app.me != null && app.me.id == activity.user.id)
             login = getString(R.string.you);
         return String.format(getString(R.string.format_dont_have_any_expertises_yet), login);
     }

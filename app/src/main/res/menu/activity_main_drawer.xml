@@ -26,7 +26,9 @@
     </group>
 
     <item android:title="@string/info">
-        <menu>
+
+        <group android:id="@+id/group_action">
+
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_info_black_24dp"
@@ -35,10 +37,10 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_share_black_24dp"
                 android:title="@string/share" />
-        </menu>
-    </item>
-    <item android:title="Actions">
-        <menu>
+
+        </group>
+
+        <group android:id="@+id/group_log">
 
             <item
                 android:id="@+id/nav_logout"
@@ -50,6 +52,7 @@
                 android:icon="@drawable/ic_settings_black_24dp"
                 android:title="@string/action_settings" />
 
-        </menu>
+        </group>
+
     </item>
 </menu>

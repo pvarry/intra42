@@ -162,9 +162,7 @@ public class AppClass extends Application {
 
         usersDbHelper = new CacheSQLiteHelper(this);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        if (me != null)
-            firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
+        initFirebase();
     }
 
     public ApiService getApiService() {
@@ -191,9 +189,7 @@ public class AppClass extends Application {
         } else
             me = User.fromString(strUser);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        if (me != null)
-            firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
+        initFirebase();
 
         if (me == null)
             return false;
@@ -223,6 +219,16 @@ public class AppClass extends Application {
             return true;
         }
 
+    }
+
+    void initFirebase() {
+        try {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            if (me != null)
+                firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
+        } catch (IllegalStateException e) {
+
+        }
     }
 
     public void refreshUser(final Runnable callback) {

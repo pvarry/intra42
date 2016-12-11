@@ -156,7 +156,7 @@
     <string name="nothing_to_show">Nothing to show</string>
     <string name="soon">Soon</string>
     <string name="login_student_42_fr" translatable="false">login@student.42.fr</string>
-    <string name="action_open_intra">Open in intra</string>
+    <string name="action_open_intra">Show web version</string>
     <string name="open_chrome">Open Web browser</string>
     <string name="main_activity_loading">loading . . .</string>
     <string name="unofficial_intra" translatable="false">Unofficial intra</string>
@@ -379,6 +379,7 @@
     <string name="you_cant_have_mark_for_this_project">You can\'t have mark for this project</string>
     <string name="calling">calling ...</string>
     <string name="no_achievements">No achievement</string>
+    <string name="auth_error">Authentication error</string>
     <string name="filter">filter</string>
 
 </resources>
