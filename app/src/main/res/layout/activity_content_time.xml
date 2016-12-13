@@ -17,6 +17,7 @@
         android:horizontalSpacing="10dp"
         android:numColumns="auto_fit"
         android:padding="10dp"
+        android:scrollbarStyle="outsideInset"
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp" />
 </LinearLayout>

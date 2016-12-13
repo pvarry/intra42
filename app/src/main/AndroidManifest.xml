@@ -116,7 +116,7 @@
         <activity
             android:name=".activity.TimeActivity"
             android:label="Time"
-            android:theme="@style/AppTheme.Settings" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ClusterMapActivity"
             android:label="Cluster Map"

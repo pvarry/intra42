@@ -381,5 +381,6 @@
     <string name="no_achievements">No achievement</string>
     <string name="auth_error">Authentication error</string>
     <string name="filter">filter</string>
+    <string name="time">Time</string>
 
 </resources>
