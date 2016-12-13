@@ -55,6 +55,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private ConstraintLayout constraintOnError;
     private TextView textViewLoadingStatus;
     private TextView textViewError;
+    private int drawerSelectedItemPosition = -1;
 
     private boolean activeHamburger = false;
 
@@ -281,13 +282,20 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      * @param text Status text to put on loading view.
      * @return If everything finish good.
      */
-    public boolean setLoadingStatus(String text) {
+    public boolean setLoadingStatus(final String text) {
         if (textViewLoadingStatus != null) {
-            if (text != null) {
-                textViewLoadingStatus.setVisibility(View.VISIBLE);
-                textViewLoadingStatus.setText(text);
-            } else
-                textViewLoadingStatus.setVisibility(View.GONE);
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (text != null) {
+                        textViewLoadingStatus.setVisibility(View.VISIBLE);
+                        textViewLoadingStatus.setText(text);
+                    } else
+                        textViewLoadingStatus.setVisibility(View.GONE);
+                }
+            });
+
             return true;
         }
         return false;
@@ -322,7 +330,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     }
 
     public void setSelectedMenu(int position) {
-        navigationView.getMenu().getItem(position).setChecked(true);
+        drawerSelectedItemPosition = position;
     }
 
     /**
@@ -344,6 +352,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                 if (p != null)
                     p.into(imageView);
             }
+
+            if (drawerSelectedItemPosition != -1)
+                navigationView.getMenu().getItem(drawerSelectedItemPosition).setChecked(true);
         }
     }
 

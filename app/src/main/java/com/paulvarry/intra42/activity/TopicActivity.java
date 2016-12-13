@@ -2,15 +2,12 @@ package com.paulvarry.intra42.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -23,8 +20,6 @@ import android.widget.Toast;
 import com.paulvarry.intra42.Adapter.ExpandableListAdapterTopic;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.Interface.InterfaceViewActivity;
-import com.paulvarry.intra42.MenuActivity;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.BypassPicassoImageGetter;
 import com.paulvarry.intra42.api.Messages;
@@ -32,14 +27,16 @@ import com.paulvarry.intra42.api.Topics;
 import com.paulvarry.intra42.api.model.Topic;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.tools.Navigation;
 import com.squareup.picasso.Picasso;
 
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class TopicActivity extends MenuActivity.NoMenu
-        implements InterfaceViewActivity, AdapterView.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+public class TopicActivity extends BasicActivity
+        implements AdapterView.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private final static String INTENT_ID = "intent_topic_id";
     private final static String INTENT_TOPIC_JSON = "intent_topic_json";
@@ -72,11 +69,55 @@ public class TopicActivity extends MenuActivity.NoMenu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_topic);
 
 //        topics = Parcels.unwrap(getIntent().getParcelableExtra("lol"));
         id = getIntent().getIntExtra(INTENT_ID, 0);
-        app = (AppClass) getApplication();
+        app = (AppClass) this.getApplication();
+
+        super.setSelectedMenu(Navigation.MENU_SELECTED_FORUM);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public String getUrlIntra() {
+        if (topic != null && topic.topic != null) {
+            return getString(R.string.base_url_intra_forum) + "topics/" + String.valueOf(topic.topic.id);
+        }
+        return getString(R.string.base_url_intra_forum);
+    }
+
+    @Override
+    public boolean getDataOnOtherThread() {
+        String b = getIntent().getStringExtra(INTENT_TOPIC_JSON);
+
+        if (b != null) {
+            Topics topics = ServiceGenerator.getGson().fromJson(b, Topics.class);
+            if (topics != null && topics.id != 0) {
+                topic = Topic.get(this, app.getApiService(), topics);
+                return true;
+            }
+        }
+
+        topic = Topic.get(this, app.getApiService(), id);
+        return true;
+    }
+
+    @Override
+    public boolean getDataOnMainThread() {
+        return false;
+    }
+
+    @Override
+    public String getToolbarName() {
+        if (topic != null && topic.topic != null) {
+            return topic.topic.name;
+        }
+        return null;
+    }
+
+    @Override
+    public void setViewContent() {
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         scrollViewReply = (ScrollView) findViewById(R.id.scrollViewReply);
@@ -89,40 +130,11 @@ public class TopicActivity extends MenuActivity.NoMenu
         scrollViewReply.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
         buttonReply.setOnClickListener(this);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-        super.onCreate(savedInstanceState);
-        super.setSelectedMenu(MENU_SELECTED_FORUM);
-    }
 
-    @Override
-    public void getData() {
-        String b = getIntent().getStringExtra(INTENT_TOPIC_JSON);
-
-        if (b != null) {
-            Topics topics = ServiceGenerator.getGson().fromJson(b, Topics.class);
-            if (topics != null && topics.id != 0) {
-                topic = Topic.get(app.getApiService(), topics);
-                return;
-            }
-        }
-
-        topic = Topic.get(app.getApiService(), id);
-    }
-
-    @Override
-    public void setView() {
         if (topic == null) {
             swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (topic.topic != null) {
-            getSupportActionBar().setTitle(topic.topic.name);
         }
 
         ExpandableListAdapterTopic adapterTopic = new ExpandableListAdapterTopic(this, topic);
@@ -156,32 +168,21 @@ public class TopicActivity extends MenuActivity.NoMenu
             }
         });
 
-//        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//            public boolean onGroupClick(ExpandableListView arg0, View itemView, int itemPosition, long itemId) {
-//                listView.expandGroup(itemPosition);
-//                BottomSheetDialogFragment bottomSheetDialogFragment =
-//                        BottomSheetTopicInfoDialogFragment.newInstance(topic.messages.get(itemPosition));
-//                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-//                return true;
-//            }
-//        });
-//        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//
-//                BottomSheetDialogFragment bottomSheetDialogFragment =
-//                        BottomSheetTopicInfoDialogFragment.newInstance(topic.messages.get(groupPosition).replies.get(childPosition));
-//                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-//                return true;
-//            }
-//        });
-//        listView.setOnItemLongClickListener(this);
-
         for (int i = 0; i < topic.messages.size(); i++) {
             listView.expandGroup(i);
         }
 
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public int getViewContentResID() {
+        return R.layout.activity_content_topic;
+    }
+
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     @Override
@@ -195,46 +196,21 @@ public class TopicActivity extends MenuActivity.NoMenu
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getData();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getDataOnOtherThread();
+                    }
+                }).start();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
                         setView();
                     }
                 });
             }
         }).start();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_old, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_open_intra) {
-            if (topic != null && topic.topic != null) {
-                String url = getString(R.string.base_url_intra_forum) + "topics/" + String.valueOf(topic.topic.id);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-                return true;
-            }
-            return false;
-        } else if (id == R.id.home) {
-            onBackPressed();
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void newMessage(View view) {
