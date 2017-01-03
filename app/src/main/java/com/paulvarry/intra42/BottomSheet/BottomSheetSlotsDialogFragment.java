@@ -1,5 +1,6 @@
 package com.paulvarry.intra42.BottomSheet;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -334,16 +335,22 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
         call.enqueue(new Callback<List<Slots>>() {
             @Override
             public void onResponse(Call<List<Slots>> call, retrofit2.Response<List<Slots>> response) {
+                Activity a = getActivity();
+                if (a == null)
+                    return;
                 if (response.isSuccessful()) {
-                    Toast.makeText(getActivity(), R.string.success, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(a, R.string.success, Toast.LENGTH_SHORT).show();
                     dialogFragment.dismiss();
                 } else
-                    Toast.makeText(getActivity(), response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(a, response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<List<Slots>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Activity a = getActivity();
+                if (a == null)
+                    return;
+                Toast.makeText(a, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
