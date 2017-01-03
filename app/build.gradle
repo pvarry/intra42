@@ -79,4 +79,5 @@ dependencies {
     compile 'jp.wasabeef:picasso-transformations:2.1.0'
     testCompile 'junit:junit:4.12'
     compile 'com.splitwise:tokenautocomplete:2.0.8'
+    compile 'com.wdullaer:materialdatetimepicker:3.0.0'
 }

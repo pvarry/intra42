@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,11 +14,11 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.ApiService;
@@ -29,6 +28,7 @@ import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.SlotsTools;
 import com.paulvarry.intra42.api.Slots;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -56,6 +56,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
     private TextView textViewError;
     private Button buttonSave;
     private Button buttonDelete;
+
+    private Date min_date;
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -106,9 +108,10 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_slots, null);
         dialog.setContentView(contentView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            Window w = dialog.getWindow();
+            if (w != null)
+                w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-
 
         textViewTitle = (TextView) contentView.findViewById(R.id.textViewTitle);
         textViewStartDate = (TextView) contentView.findViewById(R.id.textViewStartDate);
@@ -125,8 +128,18 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
             buttonDelete.setVisibility(View.GONE);
 
             slotsGroup = new SlotsTools.SlotsGroup();
-            slotsGroup.beginAt = new Date(System.currentTimeMillis() + 1800 * 1000);
-            slotsGroup.endAt = new Date(System.currentTimeMillis() + 1800 * 1000 + 900 * 1000);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.SECOND, 1800);
+            int amount = calendar.get(Calendar.MINUTE) % 15;
+            if (amount != 0)
+                calendar.add(Calendar.MINUTE, 15 - amount);
+
+            min_date = calendar.getTime();
+            slotsGroup.beginAt = min_date;
+
+            calendar.add(Calendar.MINUTE, 30);
+            slotsGroup.endAt = calendar.getTime();
 
         } else if (slotsGroup.scaleTeam != null || slotsGroup.isBooked) {
             textViewTitle.setText(R.string.booked_slot);
@@ -242,11 +255,13 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Calendar calendar = Calendar.getInstance(Locale.getDefault());
                 calendar.setTime(date);
-                TimePickerDialog timePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+
+                TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
                         Calendar calendar = Calendar.getInstance(Locale.getDefault());
                         calendar.setTime(date);
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -256,11 +271,13 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
                         setView();
                     }
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
-                timePicker.show();
+
+                timePickerDialog.setTimeInterval(1, 15);
+                timePickerDialog.show(getActivity().getFragmentManager(), "");
+
             }
         });
     }
-
 
     private void saveSlot() {
         final ApiService api = app.getApiService();

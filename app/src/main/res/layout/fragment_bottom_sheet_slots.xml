@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -28,85 +27,84 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:minHeight="300dp"
-        android:orientation="vertical"
-        android:paddingBottom="16dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="8dp">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Begin at" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <ImageView
+            <TextView
+                android:id="@+id/textViewStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/icon_time"
-                app:srcCompat="@drawable/ic_access_time_black_24dp" />
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="New Text"
+                android:textColor="@color/colorGrayDark" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="-"
+                android:textColor="@color/colorGrayDark" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textViewStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:text="New Text"
+                android:textColor="@color/colorGrayDark" />
 
-                    <TextView
-                        android:id="@+id/textViewStartDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="24dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:text="New Text"
-                        android:textColor="@color/colorGrayDark" />
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textViewStartTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical|right"
-                        android:layout_marginLeft="32dp"
-                        android:gravity="center_vertical|right"
-                        android:padding="8dp"
-                        android:text="New Text"
-                        android:textColor="@color/colorGrayDark" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="End at" />
 
-                </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textViewEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="New Text"
+                android:textColor="@color/colorGrayDark" />
 
-                    <TextView
-                        android:id="@+id/textViewEndDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="24dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:text="New Text"
-                        android:textColor="@color/colorGrayDark" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="-"
+                android:textColor="@color/colorGrayDark" />
 
-                    <TextView
-                        android:id="@+id/textViewEndTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical|right"
-                        android:layout_marginLeft="32dp"
-                        android:gravity="center_vertical|right"
-                        android:padding="8dp"
-                        android:text="New Text"
-                        android:textColor="@color/colorGrayDark" />
+            <TextView
+                android:id="@+id/textViewEndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:text="New Text"
+                android:textColor="@color/colorGrayDark" />
 
-                </FrameLayout>
-            </LinearLayout>
         </LinearLayout>
 
         <FrameLayout
@@ -146,7 +144,6 @@
             </FrameLayout>
 
         </FrameLayout>
-
     </LinearLayout>
 
 </LinearLayout>
