@@ -82,7 +82,7 @@ public class UserActivity extends BasicTabActivity
     public static boolean openIt(final Context context, final String login, final AppClass app) {
         if (app != null) {
 
-            if (CacheUsers.isCached(app.usersDbHelper, login)) {
+            if (CacheUsers.isCached(app.cacheSQLiteHelper, login)) {
                 UserActivity.openIt(context, login);
                 return true;
             }
@@ -104,7 +104,7 @@ public class UserActivity extends BasicTabActivity
                         UserActivity.openIt(context, response.body());
 
                         String gson = ServiceGenerator.getGson().toJson(response.body());
-                        CacheUsers.put(app.usersDbHelper, response.body(), gson);
+                        CacheUsers.put(app.cacheSQLiteHelper, response.body(), gson);
 
                     }
                     dialog.cancel();
@@ -306,7 +306,7 @@ public class UserActivity extends BasicTabActivity
             return true;
         }
 
-        User tmp = CacheUsers.get(app.usersDbHelper, login);
+        User tmp = CacheUsers.get(app.cacheSQLiteHelper, login);
         if (tmp != null) {
             user = tmp;
             return true;
@@ -351,7 +351,7 @@ public class UserActivity extends BasicTabActivity
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
                         user = response.body();
-                        CacheUsers.put(app.usersDbHelper, user);
+                        CacheUsers.put(app.cacheSQLiteHelper, user);
                     }
                     localRunnable.run();
                 }

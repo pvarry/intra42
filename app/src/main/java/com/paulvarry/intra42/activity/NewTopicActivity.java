@@ -32,6 +32,7 @@ import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.api.Language;
 import com.paulvarry.intra42.api.Tags;
 import com.paulvarry.intra42.api.Topics;
+import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 import com.squareup.picasso.Picasso;
 import com.tokenautocomplete.TokenCompleteTextView;
@@ -141,7 +142,7 @@ public class NewTopicActivity extends AppCompatActivity {
 
         char[] splitChar = {',', ';'};
 
-        ArrayAdapter<Tags> adapterTags = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, app.allTags);
+        ArrayAdapter<Tags> adapterTags = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, CacheTags.get(app.cacheSQLiteHelper));
         completionViewTag.setAdapter(adapterTags);
         completionViewTag.allowDuplicates(false);
         completionViewTag.allowCollapse(false);

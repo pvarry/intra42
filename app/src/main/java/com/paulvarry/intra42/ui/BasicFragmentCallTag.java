@@ -1,16 +1,12 @@
 package com.paulvarry.intra42.ui;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.widget.BaseAdapter;
 
-import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.api.Tags;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.paulvarry.intra42.cache.CacheTags;
 
 import java.util.List;
 
@@ -19,18 +15,8 @@ public abstract class BasicFragmentCallTag<T, ADAPTER extends BaseAdapter> exten
     @Nullable
     @Override
     public List<Tags> getSpinnerElemList() {
-        Activity a = getActivity();
-        if (a != null)
-            return ((AppClass) a.getApplication()).allTags;
-        else {
-            SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-            String strTags = sharedPref.getString(AppClass.CACHE_API_TAGS, "");
-
-            if (!strTags.isEmpty())
-                return ServiceGenerator.getGson().fromJson(strTags, new TypeToken<List<Tags>>() {
-                }.getType());
-        }
-        return null;
+        AppClass app = (AppClass) getActivity().getApplication();
+        return CacheTags.get(app.cacheSQLiteHelper);
     }
 
     @Override
@@ -50,6 +36,7 @@ public abstract class BasicFragmentCallTag<T, ADAPTER extends BaseAdapter> exten
 
     @Override
     public List<Tags> getSpinnerItems(ApiService apiService) {
-        return AppClass.getCacheTags(null, apiService);
+        AppClass app = (AppClass) getActivity().getApplication();
+        return CacheTags.getAllowInternet(app.cacheSQLiteHelper, app);
     }
 }

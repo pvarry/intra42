@@ -24,6 +24,7 @@ import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.api.Tags;
 import com.paulvarry.intra42.api.User;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
+import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 
@@ -49,11 +50,10 @@ public class AppClass extends Application {
     public List<CursusUsers> cursus;
     public List<Cursus> allCursus;
     public List<Campus> allCampus;
-    public List<Tags> allTags;
     public User me;
 
     public AccessToken accessToken;
-    public CacheSQLiteHelper usersDbHelper;
+    public CacheSQLiteHelper cacheSQLiteHelper;
     @Nullable
     public DatabaseReference firebaseRefFriends;
 
@@ -160,7 +160,7 @@ public class AppClass extends Application {
         if (!strUser.isEmpty())
             me = User.fromString(strUser);
 
-        usersDbHelper = new CacheSQLiteHelper(this);
+        cacheSQLiteHelper = new CacheSQLiteHelper(this);
 
         initFirebase();
     }
@@ -204,17 +204,8 @@ public class AppClass extends Application {
             allCursus = saveCache(typeTokenCursus, allCursus, editor, api.getCursus(), CACHE_API_CURSUS, sharedPreferences, forceAPI);
             allCampus = saveCache(typeTokenCampus, allCampus, editor, api.getCampus(), CACHE_API_CAMPUS, sharedPreferences, forceAPI);
 
-            String strTags = sharedPreferences.getString(CACHE_API_TAGS, "");
-            if (strTags.isEmpty() || forceAPI)
-                allTags = getCacheTags(editor, api);
-            else
-                try {
-                    allTags = ServiceGenerator.getGson().fromJson(strTags, new TypeToken<List<Tags>>() {
-                    }.getType());
-                } catch (Exception e) {
-                    Log.e("error", "json parsing error", e);
-                    allTags = getCacheTags(editor, api);
-                }
+            CacheTags.getAllowInternet(cacheSQLiteHelper, this);
+            //TODO: add integration to force use API with a cache manager in the UI !!
             editor.apply();
             return true;
         }

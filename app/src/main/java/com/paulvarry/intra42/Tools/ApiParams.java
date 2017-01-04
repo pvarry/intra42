@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+@Deprecated
 public class ApiParams {
 
     public static final String PREFS_CURSUS = "list_cursus";

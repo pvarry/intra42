@@ -248,7 +248,7 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
         ApiService apiService = ((AppClass) getActivity().getApplication()).getApiService();
 
         Call<List<T>> call = null;
-        if (listSpinner != null) {
+        if (listSpinner != null && listSpinner.size() > positionSelected) {
             call = getCall(apiService, listSpinner.get(positionSelected), list);
         }
 
@@ -256,6 +256,8 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
             this.call = call;
             call.enqueue(callback);
         }
+
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -271,7 +273,8 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
 
 
     @Nullable
-    abstract public Call<List<T>> getCall(ApiService apiService, SPINNER spinner, @Nullable List<T> list);
+    abstract public Call<List<T>> getCall(ApiService apiService, SPINNER
+            spinner, @Nullable List<T> list);
 
     public abstract void onItemClick(T item);
 

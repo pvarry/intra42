@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CacheSQLiteHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "Cache.db";
 
     public CacheSQLiteHelper(Context context) {
@@ -15,6 +15,7 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CacheUsers.SQL_CREATE_TABLE);
+        db.execSQL(CacheTags.SQL_CREATE_TABLE);
     }
 
 
