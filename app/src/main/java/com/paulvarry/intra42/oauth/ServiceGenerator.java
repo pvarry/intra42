@@ -138,6 +138,8 @@ public class ServiceGenerator {
                     }
                 } catch (IOException e) {
                     return null;
+                } catch (NullPointerException e) {
+                    return null;
                 }
             }
         };

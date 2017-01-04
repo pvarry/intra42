@@ -24,20 +24,17 @@ public class AppSettings {
         }
 
         public static boolean getAllowAdvanced(Context context) {
-            return getAllowAdvanced(getSharedPreferences(context));
+            return context != null && getAllowAdvanced(getSharedPreferences(context));
         }
 
         // advanced data
         public static boolean getAllowAdvancedData(SharedPreferences settings) {
             boolean mDefault = false;
-            if (getAllowAdvanced(settings))
-                return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_DATA, false);
-            else
-                return false;
+            return getAllowAdvanced(settings) && settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_DATA, false);
         }
 
         public static boolean getAllowAdvancedData(Context context) {
-            return getAllowAdvancedData(getSharedPreferences(context));
+            return context != null && getAllowAdvancedData(getSharedPreferences(context));
         }
 
         // markdown renderer
@@ -49,6 +46,8 @@ public class AppSettings {
         }
 
         public static boolean getAllowMarkdownRenderer(Context context) {
+            if (context == null)
+                return false;
             return getAllowMarkdownRenderer(getSharedPreferences(context));
         }
 
@@ -61,7 +60,7 @@ public class AppSettings {
         }
 
         public static boolean getAllowFriends(Context context) {
-            return getAllowFriends(getSharedPreferences(context));
+            return context != null && getAllowFriends(getSharedPreferences(context));
         }
 
         // cluster map
@@ -88,7 +87,7 @@ public class AppSettings {
         }
 
         public static boolean getNotificationsEvents(Context context) {
-            return getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_EVENTS, false);
+            return context != null && getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_EVENTS, false);
         }
 
         public static boolean getNotificationsScales(SharedPreferences settings) {
@@ -96,7 +95,7 @@ public class AppSettings {
         }
 
         public static boolean getNotificationsScales(Context context) {
-            return getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_SCALES, false);
+            return context != null && getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_SCALES, false);
         }
 
         public static boolean getNotificationsFrequency(SharedPreferences settings) {
@@ -104,7 +103,7 @@ public class AppSettings {
         }
 
         public static boolean getNotificationsFrequency(Context context) {
-            return getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_FREQUENCY, false);
+            return context != null && getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_FREQUENCY, false);
         }
 
     }

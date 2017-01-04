@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -67,10 +68,14 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
 
         @Override
         public void onFailure(Call<List<T>> call, Throwable t) {
-            if (!call.isCanceled())
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+            if (!call.isCanceled()) {
+                Context c = getContext();
+                if (c != null)
+                    Toast.makeText(c, "Error", Toast.LENGTH_SHORT).show();
+            }
             t.printStackTrace();
-            setView();
+            if (BasicFragmentCallSpinner.this.isAdded())
+                setView();
             flag_loading = false;
         }
     };

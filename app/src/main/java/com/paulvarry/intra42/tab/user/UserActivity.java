@@ -68,11 +68,13 @@ public class UserActivity extends BasicTabActivity
     }
 
     public static void openIt(final Context context, final UserLTE user, Activity activity) {
-        openIt(context, user.login, activity);
+        if (user != null)
+            openIt(context, user.login, activity);
     }
 
     public static void openIt(final Context context, final UserLTE user, AppClass app) {
-        openIt(context, user.login, app);
+        if (user != null)
+            openIt(context, user.login, app);
     }
 
     public static boolean openIt(final Context context, final String login, final Activity activity) {

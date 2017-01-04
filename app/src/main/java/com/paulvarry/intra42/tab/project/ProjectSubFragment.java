@@ -76,8 +76,11 @@ public class ProjectSubFragment extends BasicFragment<ProjectsLTE, ListAdapterPr
 
     @Override
     public void onItemClick(ProjectsLTE item) {
-        if (activity.projectUser.user.user != null) {
-            ProjectActivity.openIt(getContext(), item, activity.projectUser.user.user.id);
+        if (activity.projectUser != null) {
+            if (activity.projectUser.user != null && activity.projectUser.user.user != null)
+                ProjectActivity.openIt(getContext(), item, activity.projectUser.user.user.id);
+            else
+                ProjectActivity.openIt(getContext(), item);
         }
     }
 
