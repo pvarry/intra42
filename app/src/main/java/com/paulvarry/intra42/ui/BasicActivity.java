@@ -47,9 +47,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     public MenuItem menuItemFilter;
     protected CoordinatorLayout coordinatorLayout;
     protected View viewContent;
+    protected NavigationView navigationView;
     MenuItem menuItemSearch;
     DrawerLayout drawer;
-    NavigationView navigationView;
     private SimpleCursorAdapter searchAdapter;
     private ConstraintLayout constraintLayoutLoading;
     private ConstraintLayout constraintOnError;

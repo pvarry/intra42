@@ -25,34 +25,61 @@
 
     </group>
 
+    <item android:title="@string/tools">
+        <menu>
+            <group
+                android:id="@+id/group_tools"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_time_on_campus"
+                    android:icon="@drawable/ic_access_time_black_24dp"
+                    android:title="@string/time_on_campus" />
+                <item
+                    android:id="@+id/nav_cluster_map"
+                    android:icon="@drawable/ic_place_black_24dp"
+                    android:title="@string/cluster_map" />
+
+            </group>
+        </menu>
+    </item>
+
     <item android:title="@string/info">
+        <menu>
+            <group
+                android:id="@+id/group_action"
+                android:checkableBehavior="single">
 
-        <group android:id="@+id/group_action">
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_info_black_24dp"
+                    android:title="@string/about" />
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_share_black_24dp"
+                    android:title="@string/share" />
 
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_info_black_24dp"
-                android:title="@string/about" />
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_share_black_24dp"
-                android:title="@string/share" />
+            </group>
+        </menu>
+    </item>
 
-        </group>
+    <item android:title="@string/action">
+        <menu>
 
-        <group android:id="@+id/group_log">
+            <group android:id="@+id/group_log">
 
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_open_in_new_black_24dp"
-                android:title="@string/logout" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_open_in_new_black_24dp"
+                    android:title="@string/logout" />
 
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings_black_24dp"
-                android:title="@string/action_settings" />
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_settings_black_24dp"
+                    android:title="@string/action_settings" />
 
-        </group>
+            </group>
+        </menu>
 
     </item>
 </menu>

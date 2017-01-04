@@ -382,5 +382,10 @@
     <string name="auth_error">Authentication error</string>
     <string name="filter">filter</string>
     <string name="time">Time</string>
+    <string name="action">Action</string>
+    <string name="tools">Tools</string>
+    <string name="cluster_map">Cluster Map</string>
+    <string name="title_activity_cluster_map">Cluster Map</string>
+    <string name="time_on_campus">Time on campus</string>
 
 </resources>

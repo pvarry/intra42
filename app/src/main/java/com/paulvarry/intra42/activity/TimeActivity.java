@@ -34,7 +34,10 @@ public class TimeActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.activeHamburger();
         super.onCreate(savedInstanceState);
+
+        navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
     }
 
     @Override

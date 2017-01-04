@@ -119,7 +119,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ClusterMapActivity"
-            android:label="Cluster Map"
+            android:label="@string/title_activity_cluster_map"
             android:theme="@style/AppTheme.Settings" />
 
         <receiver android:name=".notifications.AlarmReceiverNotifications" />

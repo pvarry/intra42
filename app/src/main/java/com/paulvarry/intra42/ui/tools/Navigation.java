@@ -9,8 +9,10 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.ApiParams;
 import com.paulvarry.intra42.activity.AboutActivity;
+import com.paulvarry.intra42.activity.ClusterMapActivity;
 import com.paulvarry.intra42.activity.MainActivity;
 import com.paulvarry.intra42.activity.SettingsActivity;
+import com.paulvarry.intra42.activity.TimeActivity;
 import com.paulvarry.intra42.tab.forum.ForumActivity;
 import com.paulvarry.intra42.tab.home.HomeActivity;
 import com.paulvarry.intra42.tab.notions.NotionsActivity;
@@ -28,7 +30,11 @@ public class Navigation {
     public static final int MENU_SELECTED_PROJECTS = 2;
     public static final int MENU_SELECTED_FORUM = 3;
     public static final int MENU_SELECTED_ELEARNING = 4;
-
+    public static final int MENU_SELECTED_TIME_ON_CAMPUS = 5;
+    public static final int MENU_SELECTED_CLUSTER_MAP = 6;
+    public static final int MENU_SELECTED_ABOUT = 7;
+    public static final int MENU_SELECTED_SHARE = 8;
+    public static final int MENU_SELECTED_SETTINGS = 10;
 
     public static boolean onNavigationItemSelected(Activity activity, MenuItem item) {
         // Handle navigation view item clicks here.
@@ -56,6 +62,12 @@ public class Navigation {
             activity.startActivity(intent);
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(activity, AboutActivity.class);
+            activity.startActivity(intent);
+        } else if (id == R.id.nav_time_on_campus) {
+            Intent intent = new Intent(activity, TimeActivity.class);
+            activity.startActivity(intent);
+        } else if (id == R.id.nav_cluster_map) {
+            Intent intent = new Intent(activity, ClusterMapActivity.class);
             activity.startActivity(intent);
         } else if (id == R.id.nav_share) {
             Intent sendIntent = new Intent();

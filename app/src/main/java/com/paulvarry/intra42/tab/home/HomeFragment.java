@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.tab.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,11 +17,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.ApiParams;
-import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.UserImage;
-import com.paulvarry.intra42.activity.ClusterMapActivity;
-import com.paulvarry.intra42.activity.TimeActivity;
 import com.paulvarry.intra42.tab.user.UserActivity;
 import com.squareup.picasso.RequestCreator;
 
@@ -48,8 +42,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     private ProgressBar progressBarLevel;
     private TextView textViewLevel;
     private ImageButton imageButtonOpenProfile;
-    private Button buttonTime;
-    private Button buttonClusterMap;
 
     private HomeFragment fragment;
     private HomeActivity activity;
@@ -101,13 +93,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         progressBarLevel = (ProgressBar) view.findViewById(R.id.progressBarLevel);
         textViewLevel = (TextView) view.findViewById(R.id.textViewLevel);
         imageButtonOpenProfile = (ImageButton) view.findViewById(R.id.imageButtonOpenProfile);
-        buttonTime = (Button) view.findViewById(R.id.buttonTime42);
-        buttonClusterMap = (Button) view.findViewById(R.id.buttonClusterMap);
 
         linearLayoutContent.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
-        buttonTime.setOnClickListener(this);
-        buttonClusterMap.setOnClickListener(this);
 
         setView();
     }
@@ -139,13 +127,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public void onClick(View v) {
         if (v == imageButtonOpenProfile)
             UserActivity.openIt(getContext(), app.me, activity);
-        else if (v == buttonTime) {
-            Intent i = new Intent(getContext(), TimeActivity.class);
-            getContext().startActivity(i);
-        } else if (v == buttonClusterMap) {
-            Intent i = new Intent(getContext(), ClusterMapActivity.class);
-            getContext().startActivity(i);
-        }
     }
 
     public void getData(boolean forceApi) {
@@ -170,9 +151,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
             RequestCreator p = UserImage.getPicassoCorned(app, app.me);
             if (p != null)
                 p.into(imageViewProfile);
-
-            if (AppSettings.Advanced.getAllowClusterMap(getContext()) && ApiParams.getCampus(getContext()) == 1)
-                buttonClusterMap.setVisibility(View.VISIBLE);
         }
         swipeRefreshLayout.setRefreshing(false);
         linearLayoutContent.setVisibility(View.VISIBLE);

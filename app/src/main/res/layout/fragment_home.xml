@@ -154,21 +154,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/buttonTime42"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Time @ 42" />
-
-                <Button
-                    android:id="@+id/buttonClusterMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Cluster Map"
-                    android:visibility="gone" />
-
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
