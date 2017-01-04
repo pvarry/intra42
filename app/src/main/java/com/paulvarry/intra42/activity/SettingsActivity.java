@@ -25,6 +25,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.cache.CacheCampus;
+import com.paulvarry.intra42.cache.CacheCursus;
 
 import java.util.List;
 import java.util.Map;
@@ -270,17 +271,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_content);
             setHasOptionsMenu(true);
+            AppClass app = (AppClass) getActivity().getApplication();
 
+            List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCursus = (ListPreference) findPreference("list_cursus");
-            List<Cursus> categoryListCursus = ((AppClass) getActivity().getApplication()).allCursus;
-            if (listPreferenceCursus != null && categoryListCursus != null) {
-                CharSequence entries[] = new String[categoryListCursus.size() + 1];
-                CharSequence entryValues[] = new String[categoryListCursus.size() + 1];
+            if (listPreferenceCursus != null && cursusCache != null) {
+                CharSequence entries[] = new String[cursusCache.size() + 1];
+                CharSequence entryValues[] = new String[cursusCache.size() + 1];
 
                 entries[0] = "All";
                 entryValues[0] = "0";
                 int i = 1;
-                for (Cursus cursus : categoryListCursus) {
+                for (Cursus cursus : cursusCache) {
                     entries[i] = cursus.name;
                     entryValues[i] = String.valueOf(cursus.id);
                     i++;
@@ -289,7 +291,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 listPreferenceCursus.setEntryValues(entryValues);
             }
 
-            AppClass app = (AppClass) getActivity().getApplication();
             List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCampus = (ListPreference) findPreference("list_campus");
             if (listPreferenceCampus != null && campusCache != null) {

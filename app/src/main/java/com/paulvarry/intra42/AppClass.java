@@ -18,11 +18,11 @@ import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.activity.MainActivity;
 import com.paulvarry.intra42.api.AccessToken;
-import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.api.Tags;
 import com.paulvarry.intra42.api.User;
 import com.paulvarry.intra42.cache.CacheCampus;
+import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
 import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
@@ -48,7 +48,6 @@ public class AppClass extends Application {
 
     private static AppClass sInstance;
     public List<CursusUsers> cursus;
-    public List<Cursus> allCursus;
     public User me;
 
     public AccessToken accessToken;
@@ -195,11 +194,7 @@ public class AppClass extends Application {
         else {
             cursus = me.cursusUsers;
 
-            TypeToken<List<Cursus>> typeTokenCursus = new TypeToken<List<Cursus>>() {
-            };
-
-            allCursus = saveCache(typeTokenCursus, allCursus, editor, api.getCursus(), CACHE_API_CURSUS, sharedPreferences, forceAPI);
-
+            CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
             CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
             CacheTags.getAllowInternet(cacheSQLiteHelper, this);
             //TODO: add integration to force use API with a cache manager in the UI !!

@@ -270,6 +270,9 @@ public interface ApiService {
     @GET("/v2/cursus?sort=name")
     Call<List<Cursus>> getCursus();
 
+    @GET("/v2/cursus?sort=name")
+    Call<List<Cursus>> getCursus(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+
     /* Cursus */
     @GET("/v2/campus?sort=name")
     Call<List<Campus>> getCampus();

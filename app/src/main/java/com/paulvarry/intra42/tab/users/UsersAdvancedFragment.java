@@ -8,11 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Cursus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,9 +63,9 @@ public class UsersAdvancedFragment extends Fragment {
         spinnerCursus = (Spinner) view.findViewById(R.id.spinnerCursus);
         spinnerCampus = (Spinner) view.findViewById(R.id.spinnerCampus);
 
-        ArrayAdapter<String> adapterCursus = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, Cursus.getStrings(activity.app.allCursus));
-        adapterCursus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCursus.setAdapter(adapterCursus);
+//        ArrayAdapter<String> adapterCursus = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, Cursus.getStrings(activity.app.allCursus));
+//        adapterCursus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerCursus.setAdapter(adapterCursus);
 
 //        ArrayAdapter<String> adapterCampus = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, Campus.getStrings(activity.app.allCampus));
 //        adapterCampus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

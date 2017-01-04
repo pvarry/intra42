@@ -32,6 +32,7 @@ import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.api.Language;
 import com.paulvarry.intra42.api.Tags;
 import com.paulvarry.intra42.api.Topics;
+import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 import com.squareup.picasso.Picasso;
@@ -154,7 +155,7 @@ public class NewTopicActivity extends AppCompatActivity {
             for (Tags t : topic.tags)
                 completionViewTag.addObject(t);
 
-        ArrayAdapter<Cursus> adapterCursus = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, app.allCursus);
+        ArrayAdapter<Cursus> adapterCursus = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, CacheCursus.get(app.cacheSQLiteHelper));
         completionViewCursus.setAdapter(adapterCursus);
         completionViewCursus.allowDuplicates(false);
         completionViewCursus.allowCollapse(false);

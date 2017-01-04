@@ -1,12 +1,19 @@
 package com.paulvarry.intra42.api;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.ApiService;
+import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Response;
 
 public class Cursus implements Serializable {
 
@@ -32,6 +39,29 @@ public class Cursus implements Serializable {
         }
 
         return l;
+    }
+
+    @Nullable
+    public static List<Cursus> getCursus(ApiService api) {
+        List<Cursus> list = new ArrayList<>();
+        int i = 0;
+        int pageSize = 30;
+
+        try {
+            while (i < 10 && Pagination.canAdd(list, pageSize)) {
+                Response<List<Cursus>> response = api.getCursus(pageSize, Pagination.getPage(list, pageSize)).execute();
+                List<Cursus> tmp = response.body();
+                if (!response.isSuccessful())
+                    break;
+                list.addAll(tmp);
+                ++i;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (list.isEmpty())
+            return null;
+        return list;
     }
 
     public String toString() {

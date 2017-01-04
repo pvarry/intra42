@@ -17,6 +17,7 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CacheUsers.SQL_CREATE_TABLE);
         db.execSQL(CacheTags.SQL_CREATE_TABLE);
         db.execSQL(CacheCampus.SQL_CREATE_TABLE);
+        db.execSQL(CacheCursus.SQL_CREATE_TABLE);
     }
 
 
@@ -24,6 +25,9 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         db.execSQL(CacheUsers.SQL_DROP_TABLE);
+        db.execSQL(CacheTags.SQL_DROP_TABLE);
+        db.execSQL(CacheCampus.SQL_DROP_TABLE);
+        db.execSQL(CacheCursus.SQL_DROP_TABLE);
         onCreate(db);
     }
 
