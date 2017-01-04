@@ -3,10 +3,8 @@ package com.paulvarry.intra42.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,23 +14,43 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.ui.BasicActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.activeHamburger();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        navigationView.getMenu().getItem(6).getSubMenu().getItem(0).setChecked(true);
+    }
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+    @Nullable
+    @Override
+    public String getUrlIntra() {
+        return null;
+    }
 
+    @Override
+    public boolean getDataOnOtherThread() {
+        return false;
+    }
+
+    @Override
+    public boolean getDataOnMainThread() {
+        return true;
+    }
+
+    @Override
+    public String getToolbarName() {
+        return null;
+    }
+
+    @Override
+    public void setViewContent() {
         ListView listView = (ListView) findViewById(R.id.listView);
 
         List<Item> list = new ArrayList<>();
@@ -59,17 +77,16 @@ public class AboutActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public int getViewContentResID() {
+        return R.layout.activity_about;
+    }
+
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     class Item {

@@ -90,7 +90,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AboutActivity"
-            android:theme="@style/AppTheme.Settings" />
+            android:label="@string/about"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".tab.forum.ForumActivity"
             android:theme="@style/AppTheme.NoActionBar" />
