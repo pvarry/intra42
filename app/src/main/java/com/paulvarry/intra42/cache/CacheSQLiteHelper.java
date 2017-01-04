@@ -16,6 +16,7 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CacheUsers.SQL_CREATE_TABLE);
         db.execSQL(CacheTags.SQL_CREATE_TABLE);
+        db.execSQL(CacheCampus.SQL_CREATE_TABLE);
     }
 
 

@@ -24,6 +24,7 @@ import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Locations;
 import com.paulvarry.intra42.api.UserLTE;
+import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.tab.user.UserActivity;
 
 import java.io.IOException;
@@ -70,8 +71,9 @@ public class ClusterMapActivity extends AppCompatActivity implements AdapterView
         app = (AppClass) getApplication();
 
         List<Campus> campus = new ArrayList<>();
-        if (app.allCampus != null) {
-            for (Campus c : app.allCampus) {
+        List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
+        if (campusCache != null) {
+            for (Campus c : campusCache) {
                 if (c.id == 1)
                     campus.add(c);
             }

@@ -8,7 +8,11 @@ import android.widget.GridView;
 
 import com.paulvarry.intra42.Adapter.GridAdapterTimeTool;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.Campus;
+import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicActivity;
+
+import java.util.List;
 
 public class TimeActivity extends BasicActivity {
 
@@ -25,6 +29,8 @@ public class TimeActivity extends BasicActivity {
             timerHandler.postDelayed(this, 500);
         }
     };
+
+    private List<Campus> campusList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +61,14 @@ public class TimeActivity extends BasicActivity {
 
     @Override
     public boolean getDataOnOtherThread() {
-        return false;
+        campusList = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
+        return !(campusList == null || campusList.size() == 0);
     }
 
     @Override
     public boolean getDataOnMainThread() {
-        return true;
+        campusList = CacheCampus.get(app.cacheSQLiteHelper);
+        return !(campusList == null || campusList.size() == 0);
     }
 
     @Override
@@ -71,8 +79,11 @@ public class TimeActivity extends BasicActivity {
     @Override
     public void setViewContent() {
 
+        if (campusList == null)
+            return;
+
         gridView = (GridView) coordinatorLayout.findViewById(R.id.gridViewTime);
-        adapterTimeTool = new GridAdapterTimeTool(this, app.allCampus);
+        adapterTimeTool = new GridAdapterTimeTool(this, campusList);
         gridView.setAdapter(adapterTimeTool);
 
         timerHandler.postDelayed(timerRunnable, 0);

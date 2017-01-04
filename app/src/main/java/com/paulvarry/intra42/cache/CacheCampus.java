@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.api.Tags;
+import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 
 import java.text.ParseException;
@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CacheTags {
+public class CacheCampus {
 
-    private static final String TAG = "Cache tags";
+    private static final String TAG = "Cache campus";
 
-    private static final String TABLE_NAME = "tags";
+    private static final String TABLE_NAME = "campus";
 
     static final String SQL_DROP_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -49,11 +49,11 @@ public class CacheTags {
 
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
-    private CacheTags() {
+    private CacheCampus() {
     }
 
-    private static boolean isCached(CacheSQLiteHelper base, Tags tag) {
-        return isCached(base, tag.id);
+    private static boolean isCached(CacheSQLiteHelper base, Campus campus) {
+        return isCached(base, campus.id);
     }
 
     public static boolean isCached(CacheSQLiteHelper base, int id) {
@@ -97,21 +97,21 @@ public class CacheTags {
         }
     }
 
-    public static long put(CacheSQLiteHelper base, Tags tag) {
-        return put(base, tag, ServiceGenerator.getGson().toJson(tag));
+    public static long put(CacheSQLiteHelper base, Campus campus) {
+        return put(base, campus, ServiceGenerator.getGson().toJson(campus));
     }
 
-    public static long put(CacheSQLiteHelper base, Tags tag, String gson) {
+    public static long put(CacheSQLiteHelper base, Campus campus, String gson) {
         // Gets the data repository in write mode
         SQLiteDatabase db = base.getWritableDatabase();
 
-        String[] l = {String.valueOf(tag.id)};
+        String[] l = {String.valueOf(campus.id)};
         db.delete(TABLE_NAME, COLUMN_ID + "=?", l);
 
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, tag.id);
-        values.put(COLUMN_NAME, tag.name);
+        values.put(COLUMN_ID, campus.id);
+        values.put(COLUMN_NAME, campus.name);
         values.put(COLUMN_DATA, gson);
 
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -122,15 +122,15 @@ public class CacheTags {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public static void put(CacheSQLiteHelper base, List<Tags> tag) {
-        if (tag == null)
+    public static void put(CacheSQLiteHelper base, List<Campus> list) {
+        if (list == null)
             return;
-        for (Tags t : tag) {
+        for (Campus t : list) {
             put(base, t);
         }
     }
 
-    public static Tags get(CacheSQLiteHelper base, int id) {
+    public static Campus get(CacheSQLiteHelper base, int id) {
         SQLiteDatabase db = base.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
@@ -167,13 +167,13 @@ public class CacheTags {
 
         String item = c.getString(columnIndexData);
 
-        Tags tag = ServiceGenerator.getGson().fromJson(item, Tags.class);
+        Campus campus = ServiceGenerator.getGson().fromJson(item, Campus.class);
 
         c.close();
-        return tag;
+        return campus;
     }
 
-    public static List<Tags> get(CacheSQLiteHelper base) {
+    public static List<Campus> get(CacheSQLiteHelper base) {
         SQLiteDatabase db = base.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
@@ -197,13 +197,13 @@ public class CacheTags {
                 sortOrder                                 // The sort order
         );
 
-        List<Tags> tagsList = new ArrayList<>();
+        List<Campus> tagsList = new ArrayList<>();
 
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
             String data = cursor.getString(cursor.getColumnIndex(COLUMN_DATA));
-            tagsList.add(ServiceGenerator.getGson().fromJson(data, Tags.class));
+            tagsList.add(ServiceGenerator.getGson().fromJson(data, Campus.class));
 
             cursor.moveToNext();
         }
@@ -214,7 +214,7 @@ public class CacheTags {
         return tagsList;
     }
 
-    public static List<Tags> getAllowInternet(CacheSQLiteHelper base, AppClass app) {
+    public static List<Campus> getAllowInternet(CacheSQLiteHelper base, AppClass app) {
         SQLiteDatabase db = base.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
@@ -238,14 +238,14 @@ public class CacheTags {
                 sortOrder                                 // The sort order
         );
 
-        List<Tags> tagsList = new ArrayList<>();
+        List<Campus> tagsList = new ArrayList<>();
         Date lastAdded = null;
 
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
             String data = cursor.getString(cursor.getColumnIndex(COLUMN_DATA));
-            tagsList.add(ServiceGenerator.getGson().fromJson(data, Tags.class));
+            tagsList.add(ServiceGenerator.getGson().fromJson(data, Campus.class));
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             try {
@@ -267,7 +267,8 @@ public class CacheTags {
         Calendar now = Calendar.getInstance();
         now.add(Calendar.DAY_OF_YEAR, -4);
         if (lastAdded == null || now.getTime().after(lastAdded)) {
-            List<Tags> tagsFromApi = Tags.getTags(app.getApiService());
+
+            List<Campus> tagsFromApi = Campus.getCampus(app.getApiService());
             put(base, tagsFromApi);
             return tagsFromApi;
         }

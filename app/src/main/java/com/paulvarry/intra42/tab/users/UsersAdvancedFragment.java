@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Cursus;
 
 /**
@@ -70,9 +69,9 @@ public class UsersAdvancedFragment extends Fragment {
         adapterCursus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCursus.setAdapter(adapterCursus);
 
-        ArrayAdapter<String> adapterCampus = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, Campus.getStrings(activity.app.allCampus));
-        adapterCampus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCampus.setAdapter(adapterCampus);
+//        ArrayAdapter<String> adapterCampus = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, Campus.getStrings(activity.app.allCampus));
+//        adapterCampus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerCampus.setAdapter(adapterCampus);
     }
 
     public void onButtonPressed(Uri uri) {

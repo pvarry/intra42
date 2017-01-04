@@ -24,6 +24,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Cursus;
+import com.paulvarry.intra42.cache.CacheCampus;
 
 import java.util.List;
 import java.util.Map;
@@ -288,17 +289,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 listPreferenceCursus.setEntryValues(entryValues);
             }
 
-
+            AppClass app = (AppClass) getActivity().getApplication();
+            List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCampus = (ListPreference) findPreference("list_campus");
-            if (listPreferenceCampus != null && ((AppClass) getActivity().getApplication()).allCampus != null) {
-                List<Campus> categoryListCampus = ((AppClass) getActivity().getApplication()).allCampus;
-                CharSequence entries[] = new String[categoryListCampus.size() + 1];
-                CharSequence entryValues[] = new String[categoryListCampus.size() + 1];
+            if (listPreferenceCampus != null && campusCache != null) {
+                CharSequence entries[] = new String[campusCache.size() + 1];
+                CharSequence entryValues[] = new String[campusCache.size() + 1];
 
                 entries[0] = "All";
                 entryValues[0] = "0";
                 int i = 1;
-                for (Campus campus : categoryListCampus) {
+                for (Campus campus : campusCache) {
                     entries[i] = campus.name;
                     entryValues[i] = String.valueOf(campus.id);
                     i++;

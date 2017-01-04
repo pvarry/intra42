@@ -274,6 +274,9 @@ public interface ApiService {
     @GET("/v2/campus?sort=name")
     Call<List<Campus>> getCampus();
 
+    @GET("/v2/campus?sort=name")
+    Call<List<Campus>> getCampus(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+
     /* Tags */
     @GET("/v2/tags")
     Call<List<Tags>> getTags(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
