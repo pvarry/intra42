@@ -119,9 +119,9 @@
             android:label="Time"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ClusterMapActivity"
+            android:name=".tab.clusterMap.ClusterMapActivity"
             android:label="@string/title_activity_cluster_map"
-            android:theme="@style/AppTheme.Settings" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".notifications.AlarmReceiverNotifications" />
 

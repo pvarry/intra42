@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.paulvarry.intra42.tab.clusterMap.ClusterMapFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<com.paulvarry.intra42.ui.ZoomLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:columnCount="22"
+                android:horizontalSpacing="10dp"
+                android:padding="8dp"
+                android:rowCount="3"
+                android:verticalSpacing="10dp" />
+
+        </HorizontalScrollView>
+
+
+        <!--</com.paulvarry.intra42.ui.ZoomLayout>-->
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>
