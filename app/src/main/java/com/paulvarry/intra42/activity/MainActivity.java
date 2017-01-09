@@ -15,7 +15,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.ApiParams;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.api.AccessToken;
 import com.paulvarry.intra42.api.CursusUsers;
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initCursus() {
-        int cursus = ApiParams.getCursus(getApplicationContext());
+        int cursus = AppSettings.ContentOption.getCursus(getApplicationContext());
         if (cursus == -1 && app.cursus != null && !app.cursus.isEmpty()) {
             int c = -1;
             for (CursusUsers cursusTmp : app.cursus) {
@@ -175,15 +175,15 @@ public class MainActivity extends AppCompatActivity {
             }
             if (c == -1)
                 c = app.cursus.get(0).cursus.id;
-            ApiParams.setCursus(getApplicationContext(), c);
+            AppSettings.ContentOption.setCursus(getApplicationContext(), c);
         }
     }
 
     private void initCampus() {
-        int campus = ApiParams.getCampus(getApplicationContext());
+        int campus = AppSettings.ContentOption.getCampus(getApplicationContext());
         if (campus == -1 && app.me != null && app.me.campus != null && !app.me.campus.isEmpty()) {
             int c = app.me.campus.get(0).id;
-            ApiParams.setCampus(getApplicationContext(), c);
+            AppSettings.ContentOption.setCampus(getApplicationContext(), c);
         }
     }
 

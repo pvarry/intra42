@@ -55,7 +55,7 @@ public class UserImage {
 
     private static RequestCreator getRequestCreator(Context context, UserLTE user) {
 
-        SharedPreferences sharedPreferences = ApiParams.getSharedPreferences(context);
+        SharedPreferences sharedPreferences = AppSettings.getSharedPreferences(context);
 
         String type;
 

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.Tools.ApiParams;
+import com.paulvarry.intra42.Tools.AppSettings;
 
 import java.util.Date;
 import java.util.List;
@@ -71,9 +71,9 @@ public class ProjectsSessions {
     public static ProjectsSessions getScaleForMe(Context context, List<ProjectsSessions> sessions) {
         if (sessions == null)
             return null;
-        SharedPreferences preferences = ApiParams.getSharedPreferences(context);
-        int campus = ApiParams.getCampus(preferences);
-        int cursus = ApiParams.getCursus(preferences);
+        SharedPreferences preferences = AppSettings.getSharedPreferences(context);
+        int campus = AppSettings.ContentOption.getCampus(preferences);
+        int cursus = AppSettings.ContentOption.getCursus(preferences);
 
         for (ProjectsSessions s : sessions) {
             if (campus != 0 && campus != -1 && s.campusId != null && s.campusId != campus)

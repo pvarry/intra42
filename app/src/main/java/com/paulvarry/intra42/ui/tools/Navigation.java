@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.ApiParams;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.activity.AboutActivity;
 import com.paulvarry.intra42.activity.MainActivity;
 import com.paulvarry.intra42.activity.SettingsActivity;
@@ -77,7 +77,7 @@ public class Navigation {
             activity.startActivity(sendIntent);
         } else if (id == R.id.nav_logout) {
             ((AppClass) activity.getApplication()).logout();
-            SharedPreferences sharedPreferences = ApiParams.getSharedPreferences(activity);
+            SharedPreferences sharedPreferences = AppSettings.getSharedPreferences(activity);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.remove(CACHE_API_ME);
             editor.remove(CACHE_API_CURSUS);

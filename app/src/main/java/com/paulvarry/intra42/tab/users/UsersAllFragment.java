@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.paulvarry.intra42.Adapter.GridAdapterUsers;
 import com.paulvarry.intra42.ApiService;
-import com.paulvarry.intra42.Tools.ApiParams;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.api.UserLTE;
 import com.paulvarry.intra42.tab.user.UserActivity;
@@ -80,7 +80,7 @@ public class UsersAllFragment extends BasicFragmentCallGrid<UserLTE, GridAdapter
     @Override
     public Call<List<UserLTE>> getCall(ApiService apiService, @Nullable List<UserLTE> list) {
 
-        int campus = ApiParams.getCampus(getContext());
+        int campus = AppSettings.ContentOption.getCampus(getContext());
 
         if (campus != -1 && campus != 0)
             return apiService.getUsersCampus(campus, Pagination.getPage(list));

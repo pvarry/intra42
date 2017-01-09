@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Locations;
 import com.paulvarry.intra42.api.UserLTE;
@@ -61,14 +62,16 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     public boolean getDataOnOtherThread() {
 
         final List<Locations> locationsTmp = new ArrayList<>();
+        int campus_id = AppSettings.ContentOption.getCampus(this);
+        if (campus_id != 1)
+            return false;
 
         int page = 1;
         int pageSize = 100;
         try {
             while (true) {
 
-                //TODO: replace 1 by the actual campus ID.
-                Response<List<Locations>> r = app.getApiService().getLocations(1, pageSize, page).execute();
+                Response<List<Locations>> r = app.getApiService().getLocations(campus_id, pageSize, page).execute();
                 if (r.isSuccessful()) {
                     locationsTmp.addAll(r.body());
                     if (r.body().size() == pageSize) {

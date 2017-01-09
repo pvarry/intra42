@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
-import com.paulvarry.intra42.Tools.ApiParams;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Pagination;
@@ -50,14 +49,14 @@ public class IntentServiceNotifications extends IntentService {
     }
 
     void notifyEvents(AppClass app, ApiService apiService) {
-        SharedPreferences sharedPreferences = ApiParams.getSharedPreferences(this);
+        SharedPreferences sharedPreferences = AppSettings.getSharedPreferences(this);
         final Call<List<Events>> events;
 
         String date = NotificationsTools.getDateSince(settings);
         if (date == null)
             return;
-        int campus = ApiParams.getCampus(sharedPreferences);
-        int cursus = ApiParams.getCursus(sharedPreferences);
+        int campus = AppSettings.ContentOption.getCampus(sharedPreferences);
+        int cursus = AppSettings.ContentOption.getCursus(sharedPreferences);
 
         if (BuildConfig.DEBUG && false)
             events = apiService.getEventCreatedAt("2016-09-28T22:14:29.224Z,2016-09-29T22:29:29.232Z", 1);

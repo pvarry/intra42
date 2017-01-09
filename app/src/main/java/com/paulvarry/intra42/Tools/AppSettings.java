@@ -11,6 +11,51 @@ public class AppSettings {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    public static class ContentOption {
+
+        public static final String PREFERENCE_CONTENT_CURSUS = "list_cursus";
+        public static final String PREFERENCE_CONTENT_CAMPUS = "list_campus";
+
+        // cursus
+
+        public static int getCampus(SharedPreferences settings) {
+            return Integer.parseInt(settings.getString(PREFERENCE_CONTENT_CAMPUS, "-1"));
+        }
+
+        public static int getCampus(Context context) {
+            if (context == null)
+                return -1;
+            return getCampus(getSharedPreferences(context));
+        }
+
+        public static void setCampus(Context context, int value) {
+            SharedPreferences settings = getSharedPreferences(context);
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putString(PREFERENCE_CONTENT_CAMPUS, String.valueOf(value));
+            edit.apply();
+        }
+
+        //campus
+
+        public static int getCursus(SharedPreferences settings) {
+            return Integer.parseInt(settings.getString(PREFERENCE_CONTENT_CURSUS, "-1"));
+        }
+
+        public static int getCursus(Context context) {
+            if (context == null)
+                return -1;
+            return getCursus(getSharedPreferences(context));
+        }
+
+        public static void setCursus(Context context, int value) {
+            SharedPreferences settings = getSharedPreferences(context);
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putString(PREFERENCE_CONTENT_CURSUS, String.valueOf(value));
+            edit.apply();
+        }
+
+    }
+
     public static class Advanced {
 
         public static final String PREFERENCE_ADVANCED_ALLOW_ADVANCED = "switch_preference_advanced_allow_beta";
@@ -107,6 +152,5 @@ public class AppSettings {
         }
 
     }
-
 
 }

@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import com.paulvarry.intra42.Adapter.ListAdapterEvents;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.BottomSheet.BottomSheetEventDialogFragment;
-import com.paulvarry.intra42.Tools.ApiParams;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.api.Events;
@@ -77,8 +77,9 @@ public class HomeEventsFragment extends BasicFragmentCall<Events, ListAdapterEve
     @Nullable
     @Override
     public Call<List<Events>> getCall(ApiService apiService, @Nullable List<Events> list) {
-        int cursus = ApiParams.getCursus(getContext());
-        int campus = ApiParams.getCampus(getContext());
+        Context context = getContext();
+        int cursus = AppSettings.ContentOption.getCursus(context);
+        int campus = AppSettings.ContentOption.getCampus(context);
 
         Calendar c = Calendar.getInstance();
         c.add(Calendar.YEAR, 2);

@@ -29,7 +29,7 @@ import com.paulvarry.intra42.Adapter.SectionListViewSearch;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.ApiParams;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.SuperSearch;
 import com.paulvarry.intra42.api.Projects;
 import com.paulvarry.intra42.api.Topics;
@@ -223,7 +223,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int cursus = ApiParams.getCursus(SearchableActivity.this);
+                int cursus = AppSettings.ContentOption.getCursus(SearchableActivity.this);
                 String[] split = finalQuery.split(" ");
                 String stringToSearch;
                 if (split.length > 1)

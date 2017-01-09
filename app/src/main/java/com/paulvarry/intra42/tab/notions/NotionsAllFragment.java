@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.paulvarry.intra42.Adapter.ListAdapterNotions;
 import com.paulvarry.intra42.ApiService;
-import com.paulvarry.intra42.Tools.ApiParams;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.activity.SubnotionListActivity;
 import com.paulvarry.intra42.api.Notions;
@@ -69,7 +69,7 @@ public class NotionsAllFragment extends BasicFragmentCall<Notions, ListAdapterNo
     @Nullable
     @Override
     public Call<List<Notions>> getCall(ApiService apiService, @Nullable List<Notions> list) {
-        int cursus = ApiParams.getCursus(getContext());
+        int cursus = AppSettings.ContentOption.getCursus(getContext());
         if (cursus != 0 && cursus != -1)
             return apiService.getNotionsCursus(cursus, Pagination.getPage(list));
         else
