@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
@@ -15,7 +16,7 @@ public class NotionsActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.allowHamburger();
+        super.activeHamburger();
         super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_ELEARNING);
     }
@@ -31,6 +32,16 @@ public class NotionsActivity
 
     @Override
     public String getToolbarName() {
+        return null;
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
         return null;
     }
 

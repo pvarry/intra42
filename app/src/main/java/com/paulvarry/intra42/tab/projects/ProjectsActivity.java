@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
@@ -15,7 +16,7 @@ public class ProjectsActivity extends BasicTabActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        allowHamburger();
+        activeHamburger();
         super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
     }
@@ -33,6 +34,16 @@ public class ProjectsActivity extends BasicTabActivity
     @Override
     public String getToolbarName() {
         return getString(R.string.projects);
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     @Override

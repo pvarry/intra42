@@ -12,6 +12,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.Tags;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class TagsActivity
         if (intent.hasExtra(INTENT_TAG))
             ServiceGenerator.getGson().fromJson(intent.getStringExtra(INTENT_TAG), Tags.class);
 
-        super.allowHamburger();
+        super.activeHamburger();
         super.onCreate(savedInstanceState);
     }
 
@@ -85,6 +86,16 @@ public class TagsActivity
         if (tag != null)
             return tag.name;
         return String.valueOf(tagId);
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     @Override

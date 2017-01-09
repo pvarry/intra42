@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.widget.TextView;
 
 import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.R;
@@ -12,6 +11,7 @@ import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Locations;
 import com.paulvarry.intra42.api.UserLTE;
 import com.paulvarry.intra42.cache.CacheCampus;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 
 import java.io.IOException;
@@ -23,16 +23,16 @@ import retrofit2.Response;
 
 public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener {
 
-    TextView textViewStatus;
-
     HashMap<String, UserLTE> locations;
     List<Campus> campus = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.allowHamburger();
+        super.activeHamburger();
 
         super.onCreate(savedInstanceState);
+
+        navigationView.getMenu().getItem(5).getSubMenu().getItem(1).setChecked(true);
     }
 
     @Nullable
@@ -67,18 +67,14 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         try {
             while (true) {
 
+                //TODO: replace 1 by the actual campus ID.
                 Response<List<Locations>> r = app.getApiService().getLocations(1, pageSize, page).execute();
                 if (r.isSuccessful()) {
                     locationsTmp.addAll(r.body());
                     if (r.body().size() == pageSize) {
                         page++;
                         final int finalPage = page;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-//                                textViewStatus.setText("page " + String.valueOf(finalPage));
-                            }
-                        });
+                        setLoadingStatus("page " + String.valueOf(finalPage));
                     } else
                         break;
                 } else
@@ -112,6 +108,16 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
 
     @Override
     public String getToolbarName() {
+        return null;
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
         return null;
     }
 

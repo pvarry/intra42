@@ -410,7 +410,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     abstract public int getViewContentResID();
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link com.paulvarry.intra42.ui.BasicActivity#getDataOnMainThread()} and {@link com.paulvarry.intra42.ui.BasicActivity#getDataOnOtherThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

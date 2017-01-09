@@ -18,6 +18,7 @@ import com.paulvarry.intra42.api.ProjectsUsers;
 import com.paulvarry.intra42.api.UserLTE;
 import com.paulvarry.intra42.api.model.ProjectUser;
 import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
@@ -229,6 +230,16 @@ public class ProjectActivity extends BasicTabActivity
                 return projectUser.project.parent.name + " / " + projectUser.project.name;
         else if (slugProject != null)
             return slugProject;
+        return null;
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
         return null;
     }
 }

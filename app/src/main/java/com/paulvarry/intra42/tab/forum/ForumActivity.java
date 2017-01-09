@@ -10,6 +10,7 @@ import android.view.View;
 import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activity.NewTopicActivity;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
@@ -21,7 +22,7 @@ public class ForumActivity extends BasicTabActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.allowHamburger();
+        super.activeHamburger();
         super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_FORUM);
 
@@ -58,6 +59,16 @@ public class ForumActivity extends BasicTabActivity
     @Override
     public String getToolbarName() {
         return getString(R.string.forum);
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     @Override

@@ -31,6 +31,7 @@ import com.paulvarry.intra42.api.User;
 import com.paulvarry.intra42.api.UserLTE;
 import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.squareup.picasso.RequestCreator;
@@ -323,6 +324,16 @@ public class UserActivity extends BasicTabActivity
             return user.login;
         else
             return login;
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     public void refresh(final Runnable runnable) {
