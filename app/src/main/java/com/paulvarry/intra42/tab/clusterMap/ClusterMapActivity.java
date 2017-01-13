@@ -121,7 +121,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
      */
     @Override
     public String getEmptyText() {
-        return null;
+        return "Nothing to show. Not available in your campus";
     }
 
     @Override

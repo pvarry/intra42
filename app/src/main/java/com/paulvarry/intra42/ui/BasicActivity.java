@@ -76,6 +76,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         constraintOnError = (ConstraintLayout) findViewById(R.id.constraintOnError);
 
         textViewLoadingStatus = (TextView) findViewById(R.id.textViewLoading);
+        textViewError = (TextView) findViewById(R.id.textViewError);
 
         setViewNavigation(); // set drawer menu
 
