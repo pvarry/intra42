@@ -15,6 +15,7 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.Tools.ClusterMap;
 import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.api.UserLTE;
 import com.paulvarry.intra42.tab.user.UserActivity;
@@ -86,49 +87,25 @@ public class ClusterMapFragment extends Fragment {
 
     void makeMap() {
 
-        final int cluster[][] = {
-                {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, //r13
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, //r12
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, //r11
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, //r10
-                {0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0}, //r9
-                {0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, //r8
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, //r7
-                {0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 0, 0, 0, 0, 0, 0}, //r6
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, //r5
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, //r4
-                {0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0}, //r3
-                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, //r2
-                {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}  //r1
-        };
+        ClusterMap.LocationItem[][] cluster = ClusterMap.getParisCluster(clusterName);
 
         gridLayout.removeAllViews();
 
-        int row = cluster.length;
-        int max_poste = 0;
-        gridLayout.setRowCount(row + 1);
+        gridLayout.setRowCount(cluster.length + 1);
+        gridLayout.setColumnCount(cluster[0].length + 1);
 
         for (int r = 0; r < cluster.length; r++) {
-            int realP = 1;
 
             for (int p = 0; p < cluster[r].length; p++) {
-                if (cluster[r].length > max_poste) {
-                    max_poste = cluster[r].length;
-                    gridLayout.setColumnCount(max_poste + 1);
-                }
 
-                View viewContent;
+                ImageView imageViewContent = new ImageView(getContext());
+                if (cluster[r][p].kind == ClusterMap.LocationItem.KIND_USER) {
+                    imageViewContent.setImageResource(R.drawable.ic_desktop_mac_black_24dp);
 
-
-                ImageView oImageView = new ImageView(getContext());
-                if (cluster[r][p] == 0) {
-                    oImageView.setImageResource(R.drawable.ic_desktop_mac_black_24dp);
-
-                    String poste = clusterName + "r" + String.valueOf(13 - r) + "p" + String.valueOf(realP);
-                    if (locations != null && locations.containsKey(poste)) {
-                        final UserLTE user = locations.get(poste);
-                        UserImage.setImageSmall(getContext(), user, oImageView);
-                        oImageView.setOnClickListener(new View.OnClickListener() {
+                    if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
+                        final UserLTE user = locations.get(cluster[r][p].locationName);
+                        UserImage.setImageSmall(getContext(), user, imageViewContent);
+                        imageViewContent.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 UserActivity.openIt(ClusterMapFragment.this.getContext(), user, activity);
@@ -136,30 +113,28 @@ public class ClusterMapFragment extends Fragment {
                         });
                     }
 
-                    realP++;
-                } else if (cluster[r][p] == 2)
-                    oImageView.setImageResource(R.drawable.ic_close_black_24dp);
+                } else if (cluster[r][p].kind == ClusterMap.LocationItem.KIND_WALL)
+                    imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
                 else {
-                    oImageView.setImageResource(R.drawable.ic_add_black_24dp);
-                    oImageView.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
+                    imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
+                    imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
                 }
-                viewContent = oImageView;
 
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-                param.height = 100;
-                param.width = 100;
+                param.height = (int) (100 * cluster[r][p].sizeY);
+                param.width = (int) (100 * cluster[r][p].sizeX);
                 param.rightMargin = 5;
                 param.topMargin = 5;
                 param.setGravity(Gravity.FILL);
                 param.columnSpec = GridLayout.spec(p);
                 param.rowSpec = GridLayout.spec(r);
-                viewContent.setLayoutParams(param);
-                gridLayout.addView(viewContent);
+                imageViewContent.setLayoutParams(param);
+//                imageViewContent.setRotation(10);
+                gridLayout.addView(imageViewContent);
             }
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -194,7 +169,6 @@ public class ClusterMapFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
