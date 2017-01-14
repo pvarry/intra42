@@ -87,16 +87,28 @@ public class ClusterMapFragment extends Fragment {
 
     void makeMap() {
 
-        ClusterMap.LocationItem[][] cluster = ClusterMap.getParisCluster(clusterName);
+        ClusterMap.LocationItem[][] cluster;
+
+        if (activity.campusId == 1)
+            cluster = ClusterMap.getParisCluster(clusterName);
+        else if (activity.campusId == 7) {
+            if (clusterName.contentEquals("e1z1"))
+                cluster = ClusterMap.getFremontCluster1Zone1();
+            else
+                cluster = ClusterMap.getFremontCluster(clusterName);
+        } else
+            return;
 
         gridLayout.removeAllViews();
-
-        gridLayout.setRowCount(cluster.length + 1);
-        gridLayout.setColumnCount(cluster[0].length + 1);
+        gridLayout.setRowCount(cluster.length);
 
         for (int r = 0; r < cluster.length; r++) {
 
+            gridLayout.setColumnCount(cluster[r].length);
             for (int p = 0; p < cluster[r].length; p++) {
+
+                if (cluster[r][p] == null)
+                    break;
 
                 ImageView imageViewContent = new ImageView(getContext());
                 if (cluster[r][p].kind == ClusterMap.LocationItem.KIND_USER) {

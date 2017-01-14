@@ -26,6 +26,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
 
     HashMap<String, UserLTE> locations;
     List<Campus> campus = new ArrayList<>();
+    int campusId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         super.onCreate(savedInstanceState);
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(1).setChecked(true);
+        campusId = AppSettings.ContentOption.getCampus(this);
     }
 
     @Nullable
@@ -46,12 +48,17 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        if (true) //Paris
-        {
+        if (campusId == 1) { //Paris
             adapter.addFragment(ClusterMapFragment.newInstance("e1"), "E1");
             adapter.addFragment(ClusterMapFragment.newInstance("e2"), "E2");
             adapter.addFragment(ClusterMapFragment.newInstance("e3"), "E3");
+        } else if (campusId == 7) { // Fremont
+            adapter.addFragment(ClusterMapFragment.newInstance("e1z1"), "E1Z1");
+            adapter.addFragment(ClusterMapFragment.newInstance("e1z2"), "E1Z2");
+            adapter.addFragment(ClusterMapFragment.newInstance("e1z3"), "E1Z3");
+            adapter.addFragment(ClusterMapFragment.newInstance("e1z4"), "E1Z4");
         }
+
         viewPager.setAdapter(adapter);
 
         viewPager.setPageMargin(20);
@@ -62,8 +69,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     public boolean getDataOnOtherThread() {
 
         final List<Locations> locationsTmp = new ArrayList<>();
-        int campus_id = AppSettings.ContentOption.getCampus(this);
-        if (campus_id != 1)
+        if (!(campusId == 1 || campusId == 7))
             return false;
 
         int page = 1;
@@ -71,7 +77,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         try {
             while (true) {
 
-                Response<List<Locations>> r = app.getApiService().getLocations(campus_id, pageSize, page).execute();
+                Response<List<Locations>> r = app.getApiService().getLocations(campusId, pageSize, page).execute();
                 if (r.isSuccessful()) {
                     locationsTmp.addAll(r.body());
                     if (r.body().size() == pageSize) {
