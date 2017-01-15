@@ -85,7 +85,7 @@ public class ProjectsUsers {
                     !slug.contains("piscine-php-") &&
                     !slug.contains("piscine-after-effect-") &&
                     !slug.contains("electronics-") &&
-                    !slug.contains("piscine-c-") &&
+                    !slug.contains("piscine-c-day-09-") &&
                     !slug.contains("piscine-ocaml-") &&
                     !slug.contains("piscine-unity-"))
                 ret.add(p);
