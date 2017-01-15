@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.ClusterMap;
@@ -87,7 +88,7 @@ public class ClusterMapFragment extends Fragment {
 
     void makeMap() {
 
-        ClusterMap.LocationItem[][] cluster;
+        final ClusterMap.LocationItem[][] cluster;
 
         if (activity.campusId == 1)
             cluster = ClusterMap.getParisCluster(clusterName);
@@ -121,6 +122,15 @@ public class ClusterMapFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 UserActivity.openIt(ClusterMapFragment.this.getContext(), user, activity);
+                            }
+                        });
+                    } else {
+                        final int finalR = r;
+                        final int finalP = p;
+                        imageViewContent.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(activity, cluster[finalR][finalP].locationName, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

@@ -50,23 +50,92 @@ public class ClusterMap {
     }
 
     public static LocationItem[][] getFremontCluster(String clusterName) {
-        return getParisCluster(clusterName);
+
+        int row = 20;
+        int poste = 100;
+        String locationName;
+
+        LocationItem map[][] = new LocationItem[row][poste];
+
+        for (int r = 0; r < row; r++) {
+
+            for (int p = 0; p < poste; p++) {
+
+                locationName = clusterName + "r" + String.valueOf(r) + "p" + String.valueOf(p);
+                map[r][p] = new LocationItem(locationName, LocationItem.KIND_USER);
+            }
+        }
+
+        return map;
     }
 
     public static LocationItem[][] getFremontCluster1Zone1() {
 
-        String clusterID = "e1z1";
-//        int x = 33;
-//        int y = 22;
-
         LocationItem map[][] = new LocationItem[CLUSTER_FREMONT_E1_Z1_HEIGHT][CLUSTER_FREMONT_E1_Z1_WIDTH];
 
-        int locationKind;
-        String locationName;
+        String clusterID = "e1z1";
         int r = 0;
         int realR = 1;
 
+        createFremont1z1r1(map, clusterID, r, realR);
+
+        r++;
+        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+
+        r++;
+        realR++;
+        createFremont1z1r2(map, clusterID, r, realR);
+
+        r += 2;
+        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+
+        r++;
+        realR++;
+        createFremont1z1r3(map, clusterID, r, realR);
+
+        r += 2;
+        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+
+        r++;
+        realR++;
+        createFremont1z1r4(map, clusterID, r, realR);
+
+        r += 2;
+        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+
+        r++;
+        realR++;
+        createFremont1z1r5(map, clusterID, r, realR);
+
+        r += 2;
+        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+
+        r++;
+        realR++;
+        createFremont1z1r6(map, clusterID, r, realR);
+
+        r += 2;
+        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+
+        r++;
+        realR++;
+        createFremont1z1r7(map, clusterID, r, realR);
+
+        r += 2;
+        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+
+        r++;
+        realR++;
+        createFremont1z1r8(map, clusterID, r, realR);
+
+        return map;
+    }
+
+    private static void createFremont1z1r1(LocationItem[][] map, String clusterID, int r, int realR) {
+        int locationKind;
+        String locationName;
         int realP = 7;
+
         for (int p = 0; p < CLUSTER_FREMONT_E1_Z1_WIDTH; p++) {//r1
 
             locationKind = LocationItem.KIND_CORRIDOR;
@@ -79,37 +148,6 @@ public class ClusterMap {
 
             map[r][p] = new LocationItem(locationName, locationKind);
         }
-        r++;
-
-        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
-        r++;
-
-        realR++;
-        createFremont1z1r2(map, clusterID, r, realR);
-        r += 2;
-
-        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
-        r++;
-
-        realR++;
-        createFremont1z1r3(map, clusterID, r, realR);
-        r += 2;
-
-        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
-        r++;
-
-        realR++;
-        createFremont1z1r4(map, clusterID, r, realR);
-        r += 2;
-
-        addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
-        r++;
-
-        realR++;
-        createFremont1z1r5(map, clusterID, r, realR);
-        r += 2;
-
-        return map;
     }
 
     private static void createFremont1z1r2(LocationItem[][] map, String clusterID, int r, int realR) {
@@ -130,6 +168,8 @@ public class ClusterMap {
             } else
                 addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
         }
+        map[r][12] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
+        map[r][13] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
     }
 
     private static void createFremont1z1r3(LocationItem[][] map, String clusterID, int r, int realR) {
@@ -171,7 +211,16 @@ public class ClusterMap {
                     map[r][p] = new LocationItem(null, locationKind);
                     map[r + 1][p] = new LocationItem(null, locationKind);
                 } else {
-                    addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    if (p > 18)
+                        addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    else if (p < 18)
+                        addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    else {
+                        locationName = clusterID + "r" + String.valueOf(realR) + "p" + String.valueOf(realP + 1);
+                        map[r][p] = new LocationItem(locationName, LocationItem.KIND_USER);
+                        map[r + 1][p] = new LocationItem(null, LocationItem.KIND_WALL);
+                        realP--;
+                    }
                     realP += 2;
                 }
             } else
@@ -180,18 +229,15 @@ public class ClusterMap {
     }
 
     private static void createFremont1z1r5(LocationItem[][] map, String clusterID, int r, int realR) {
-        int locationKind;
         int realP = 0;
 
         for (int p = CLUSTER_FREMONT_E1_Z1_WIDTH - 1; p >= 0; p--) {//r4
 
-            locationKind = LocationItem.KIND_CORRIDOR;
             if (p >= 8 && p < 33) {
-                if (p == 28 || p == 14) {
-                    map[r][p] = new LocationItem(null, locationKind);
-                    map[r + 1][p] = new LocationItem(null, locationKind);
-                } else {
-                    addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                if (p == 28 || p == 14)
+                    addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                else {
+                    addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     realP += 2;
                 }
             } else
@@ -199,10 +245,90 @@ public class ClusterMap {
         }
     }
 
+    private static void createFremont1z1r6(LocationItem[][] map, String clusterID, int r, int realR) {
+        int realP = 0;
+
+        for (int p = CLUSTER_FREMONT_E1_Z1_WIDTH - 1; p >= 0; p--) {//r4
+
+            if (p >= 10 && p < 33) {
+                if (p == 27 || p == 13)
+                    addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                else {
+                    addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    realP += 2;
+                }
+            } else
+                addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+        }
+        map[r + 1][10] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
+    }
+
+    private static void createFremont1z1r7(LocationItem[][] map, String clusterID, int r, int realR) {
+        String locationName;
+        int realP = 1;
+
+        locationName = clusterID + "r" + String.valueOf(realR) + "p" + String.valueOf(realP);
+        map[r][CLUSTER_FREMONT_E1_Z1_WIDTH - 1] = new LocationItem(null, LocationItem.KIND_WALL);
+        map[r + 1][CLUSTER_FREMONT_E1_Z1_WIDTH - 1] = new LocationItem(locationName, LocationItem.KIND_USER);
+        for (int p = CLUSTER_FREMONT_E1_Z1_WIDTH - 2; p >= 0; p--) {//r4
+
+            if (p >= 13 && p < 33) {
+                if (p == 26 || p == 12)
+                    addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                else {
+                    addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    realP += 2;
+                }
+            } else
+                addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+        }
+        map[r + 1][13] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
+        map[r + 1][14] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
+    }
+
+    private static void createFremont1z1r8(LocationItem[][] map, String clusterID, int r, int realR) {
+        int realP = 0;
+
+        for (int p = CLUSTER_FREMONT_E1_Z1_WIDTH - 1; p >= 0; p--) {//r4
+
+            if (p >= 17 && p < 33) {
+                if (p == 25 || p == 11)
+                    addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                else {
+                    addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    realP += 2;
+                }
+            } else
+                addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+        }
+        for (int i = 0; i < 8; i++) {
+            map[r + 1][17 + i] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
+        }
+    }
+
     private static void addEmptyRow(LocationItem[] map, int KIND_OF_ROW) {
         for (int p = 0; p < CLUSTER_FREMONT_E1_Z1_WIDTH; p++) {
             map[p] = new LocationItem(null, KIND_OF_ROW);
+            map[p].sizeY = (float) 0.5;
         }
+    }
+
+    private static void addDoublePostFromDown(LocationItem[][] map, String clusterID, int locationKind, int r, int p, int realP, int realR) {
+        addDoublePostFromDown(map, clusterID, locationKind, locationKind, r, p, realP, realR);
+    }
+
+    private static void addDoublePostFromDown(LocationItem[][] map, String clusterID, int locationKindTop, int locationKindBottom, int r, int p, int realP, int realR) {
+        String locationName = null;
+
+        realP++;
+        if (locationKindBottom == LocationItem.KIND_USER)
+            locationName = clusterID + "r" + String.valueOf(realR) + "p" + String.valueOf(realP);
+        map[r + 1][p] = new LocationItem(locationName, locationKindBottom);
+
+        realP++;
+        if (locationKindTop == LocationItem.KIND_USER)
+            locationName = clusterID + "r" + String.valueOf(realR) + "p" + String.valueOf(realP);
+        map[r][p] = new LocationItem(locationName, locationKindTop);
     }
 
     private static void addDoublePost(LocationItem[][] map, String clusterID, int locationKind, int r, int p, int realP, int realR) {
@@ -218,7 +344,7 @@ public class ClusterMap {
         map[r][p] = new LocationItem(locationName, locationKindTop);
 
         realP++;
-        if (locationKindTop == LocationItem.KIND_USER)
+        if (locationKindBottom == LocationItem.KIND_USER)
             locationName = clusterID + "r" + String.valueOf(realR) + "p" + String.valueOf(realP);
         map[r + 1][p] = new LocationItem(locationName, locationKindBottom);
     }
