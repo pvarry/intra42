@@ -8,6 +8,8 @@ public class AppSettings {
 
 
     public static SharedPreferences getSharedPreferences(Context context) {
+        if (context == null)
+            return null;
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
@@ -72,7 +74,7 @@ public class AppSettings {
         }
 
         public static boolean getAllowClusterMap(Context context) {
-            return getAllowClusterMap(getSharedPreferences(context));
+            return context != null && getAllowClusterMap(getSharedPreferences(context));
         }
     }
 

@@ -193,7 +193,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setView();
+                        if (isAdded())
+                            setView();
                     }
                 });
             }
