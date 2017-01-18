@@ -8,6 +8,8 @@ public class AppSettings {
 
 
     public static SharedPreferences getSharedPreferences(Context context) {
+        if (context == null)
+            return null;
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 

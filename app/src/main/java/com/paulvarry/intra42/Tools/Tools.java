@@ -25,7 +25,11 @@ public class Tools {
      */
     public static void openAttachment(Activity activity, String url) {
         if (url != null) {
-            Uri uri = Uri.parse("http://cdn.intra.42.fr" + url.replace("/uploads", ""));
+
+            if (!url.startsWith("http"))
+                url = "https://cdn.intra.42.fr" + url;
+
+            Uri uri = Uri.parse(url.replace("/uploads", ""));
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
             // Check what kind of file you are trying to open, by comparing the url with extensions.
