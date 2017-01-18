@@ -35,12 +35,6 @@
             android:summaryOff="default true"
             android:title="Friends" />
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="switch_preference_advanced_allow_cluster_map"
-            android:summary="Only available for Paris"
-            android:title="Cluster map (beta)" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>

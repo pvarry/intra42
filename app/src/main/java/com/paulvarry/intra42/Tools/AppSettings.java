@@ -62,7 +62,6 @@ public class AppSettings {
         public static final String PREFERENCE_ADVANCED_ALLOW_DATA = "switch_preference_advanced_allow_advanced_data";
         public static final String PREFERENCE_ADVANCED_ALLOW_MARKDOWN = "switch_preference_advanced_allow_markdown_renderer";
         public static final String PREFERENCE_ADVANCED_ALLOW_FRIENDS = "switch_preference_advanced_allow_friends";
-        public static final String PREFERENCE_ADVANCED_ALLOW_CLUSTER_MAP = "switch_preference_advanced_allow_cluster_map";
 
         public static boolean getAllowAdvanced(SharedPreferences settings) {
             return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_ADVANCED, false);
@@ -106,18 +105,6 @@ public class AppSettings {
 
         public static boolean getAllowFriends(Context context) {
             return context != null && getAllowFriends(getSharedPreferences(context));
-        }
-
-        // cluster map
-        public static boolean getAllowClusterMap(SharedPreferences settings) {
-            if (getAllowAdvanced(settings))
-                return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_CLUSTER_MAP, false);
-            else
-                return false;
-        }
-
-        public static boolean getAllowClusterMap(Context context) {
-            return getAllowClusterMap(getSharedPreferences(context));
         }
     }
 
