@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
 
     public void getData(boolean forceApi) {
         if (app.me != null)
-            app.initUser(forceApi);
+            app.initCache(forceApi);
     }
 
     public void setView() {

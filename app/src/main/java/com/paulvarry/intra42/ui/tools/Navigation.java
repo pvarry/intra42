@@ -2,14 +2,11 @@ package com.paulvarry.intra42.ui.tools;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.MenuItem;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.activity.AboutActivity;
-import com.paulvarry.intra42.activity.MainActivity;
 import com.paulvarry.intra42.activity.SettingsActivity;
 import com.paulvarry.intra42.activity.TimeActivity;
 import com.paulvarry.intra42.tab.clusterMap.ClusterMapActivity;
@@ -18,10 +15,6 @@ import com.paulvarry.intra42.tab.home.HomeActivity;
 import com.paulvarry.intra42.tab.notions.NotionsActivity;
 import com.paulvarry.intra42.tab.projects.ProjectsActivity;
 import com.paulvarry.intra42.tab.users.UsersActivity;
-
-import static com.paulvarry.intra42.AppClass.CACHE_API_CAMPUS;
-import static com.paulvarry.intra42.AppClass.CACHE_API_CURSUS;
-import static com.paulvarry.intra42.AppClass.CACHE_API_ME;
 
 public class Navigation {
 
@@ -76,17 +69,7 @@ public class Navigation {
             sendIntent.setType("text/plain");
             activity.startActivity(sendIntent);
         } else if (id == R.id.nav_logout) {
-            ((AppClass) activity.getApplication()).logout();
-            SharedPreferences sharedPreferences = AppSettings.getSharedPreferences(activity);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.remove(CACHE_API_ME);
-            editor.remove(CACHE_API_CURSUS);
-            editor.remove(CACHE_API_CAMPUS);
-            editor.apply();
-
-            Intent i = new Intent(activity, MainActivity.class);
-            activity.startActivity(i);
-            activity.finish();
+            ((AppClass) activity.getApplication()).logoutAndRedirect();
         } else if (id == R.id.nav_settings) {
             final Intent i = new Intent(activity, SettingsActivity.class);
             activity.startActivity(i);

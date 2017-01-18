@@ -13,38 +13,27 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.reflect.TypeToken;
-import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.activity.MainActivity;
 import com.paulvarry.intra42.api.AccessToken;
 import com.paulvarry.intra42.api.CursusUsers;
-import com.paulvarry.intra42.api.Tags;
 import com.paulvarry.intra42.api.User;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
 import com.paulvarry.intra42.cache.CacheTags;
+import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AppClass extends Application {
 
     public static final String PREFS_APP_VERSION = "prefs_app_version";
     public static final String PREFS_NAME = "intra_prefs";
     public static final String PREFS_API_TOKEN = "api_token";
-    public static final String CACHE_API_ME = "cache_me";
-    public static final String CACHE_API_CAMPUS = "cache_campus";
-    public static final String CACHE_API_CURSUS = "cache_cursus";
-    public static final String CACHE_API_TAGS = "cache_tags";
+    public static final String API_ME_LOGIN = "me_login";
 
     private static AppClass sInstance;
     public List<CursusUsers> cursus;
@@ -57,61 +46,6 @@ public class AppClass extends Application {
 
     public static AppClass instance() {
         return sInstance;
-    }
-
-    public static <T> List<T> getCache(List<T> list, Call<List<T>> call, SharedPreferences.Editor editor, String cache_key) {
-        try {
-            Response<List<T>> c = call.execute();
-            list = c.body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (list != null && editor != null) {
-            editor.putString(cache_key, ServiceGenerator.getGson().toJson(list));
-            editor.apply();
-        }
-        return list;
-    }
-
-    public static <T> List<T> saveCache(final TypeToken<List<T>> type, List<T> list, SharedPreferences.Editor editor, Call<List<T>> call, String cache_key, SharedPreferences sharedPreferences, boolean forceAPI) {
-        String string = sharedPreferences.getString(cache_key, "");
-        if (string.isEmpty() || forceAPI)
-            list = getCache(list, call, editor, cache_key);
-        else
-            try {
-                list = ServiceGenerator.getGson().fromJson(string, type.getType());
-            } catch (Exception e) {
-                Log.e("error", "json parsing error", e);
-                list = getCache(list, call, editor, cache_key);
-            }
-        return list;
-    }
-
-    @Nullable
-    public static List<Tags> getCacheTags(SharedPreferences.Editor editor, ApiService api) {
-        List<Tags> list = new ArrayList<>();
-        int i = 0;
-        int pageSize = 100;
-
-        try {
-            while (i < 10 && Pagination.canAdd(list, pageSize)) {
-                Response<List<Tags>> c = api.getTags(pageSize, Pagination.getPage(list, pageSize)).execute();
-                List<Tags> tmp = c.body();
-                if (!c.isSuccessful())
-                    break;
-                list.addAll(tmp);
-                ++i;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (!list.isEmpty() && editor != null) {
-            editor.putString(CACHE_API_TAGS, ServiceGenerator.getGson().toJson(list));
-            editor.apply();
-        }
-        if (list.isEmpty())
-            return null;
-        return list;
     }
 
     public static void scheduleAlarm(Context context) {
@@ -151,16 +85,21 @@ public class AppClass extends Application {
     public void onCreate() {
         super.onCreate();
 
+        initFirebase();
+
         accessToken = Token.getTokenFromShared(this);
+        cacheSQLiteHelper = new CacheSQLiteHelper(this);
+        sInstance = this;
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String strUser = sharedPreferences.getString(CACHE_API_ME, "");
-        if (!strUser.isEmpty())
-            me = User.fromString(strUser);
+        String login = sharedPreferences.getString(API_ME_LOGIN, "");
+        if (login.isEmpty()) {
+            logoutAndRedirect();
+            return;
+        }
 
-        cacheSQLiteHelper = new CacheSQLiteHelper(this);
-
-        initFirebase();
+        if (CacheUsers.isCached(cacheSQLiteHelper, login))
+            me = CacheUsers.get(cacheSQLiteHelper, login);
     }
 
     public ApiService getApiService() {
@@ -172,22 +111,21 @@ public class AppClass extends Application {
      *
      * @return status
      */
-    public boolean initUser(boolean forceAPI) {
+    public boolean initCache(boolean forceAPI) {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         ApiService api = getApiService();
 
-        sInstance = this;
+        String login = sharedPreferences.getString(API_ME_LOGIN, "");
 
-        String strUser = sharedPreferences.getString(CACHE_API_ME, "");
-        if (strUser.isEmpty() || forceAPI) {
+        if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = User.me(api);
-            if (me != null)
-                editor.putString(CACHE_API_ME, me.toString());
+            if (me != null) {
+                CacheUsers.put(cacheSQLiteHelper, me);
+                editor.putString(API_ME_LOGIN, me.login);
+            }
         } else
-            me = User.fromString(strUser);
-
-        initFirebase();
+            me = CacheUsers.get(cacheSQLiteHelper, login);
 
         if (me == null)
             return false;
@@ -214,36 +152,12 @@ public class AppClass extends Application {
         }
     }
 
-    public void refreshUser(final Runnable callback) {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        getApiService().getUserMe().enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    me = response.body();
-                    if (me != null)
-                        editor.putString(CACHE_API_ME, me.toString());
-                    editor.apply();
-                    callback.run();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
-
-    }
-
     public void logout() {
         me = null;
         accessToken = null;
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(CACHE_API_ME);
+        editor.remove(API_ME_LOGIN);
         editor.apply();
         Token.removeToken(this);
     }
@@ -260,14 +174,4 @@ public class AppClass extends Application {
 
     }
 
-//    interface getCall<T> {
-//        Call<List<T>> get();
-//    }
-//    class Func1 implements getCall<Cursus>
-//    {
-//        @Override
-//        public Call<List<Cursus>> get() {
-//            return null;
-//        }
-//    }
 }

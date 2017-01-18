@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     public AppClass app;
     private LinearLayout linearLayoutNeedLogin;
     private FrameLayout frameLayoutLoading;
-    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
         AppClass.scheduleAlarm(this);
 
-        sharedPreferences = getSharedPreferences(AppClass.PREFS_NAME, 0);
+        SharedPreferences sharedPreferences = getSharedPreferences(AppClass.PREFS_NAME, 0);
         int appVersion = sharedPreferences.getInt(AppClass.PREFS_APP_VERSION, 0);
         if (appVersion == 0 || appVersion != BuildConfig.VERSION_CODE) {
             SharedPreferences.Editor edit = sharedPreferences.edit();
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
-            edit.remove(AppClass.CACHE_API_ME);
             edit.apply();
         }
 
@@ -66,18 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-//                    try { // check good token
-//                        Response<ResponseBody> l = app.getApiService().getOther("/oauth/token/info").execute();
-//                        if (l.code() != 200) {
-//                            app.logoutAndRedirect();
-//                            finish();
-//                            return;
-//                        }
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-
-                    final boolean ret = app.initUser(false);
+                    final boolean ret = app.initCache(false);
 
                     initCursus();
                     initCampus();
@@ -127,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    app.initUser(true);
+                                    app.initCache(true);
 
                                     initCursus();
                                     initCampus();

@@ -47,6 +47,8 @@ public class CacheTags {
                     COLUMN_CACHED + " " + COLUMN_CACHED_TYPE +
                     ")";
 
+    private static final int cacheValidDay = 14;
+
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
     private CacheTags() {
@@ -265,7 +267,7 @@ public class CacheTags {
         cursor.close();
 
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.DAY_OF_YEAR, -4);
+        now.add(Calendar.DAY_OF_YEAR, -cacheValidDay);
         if (lastAdded == null || now.getTime().after(lastAdded)) {
             List<Tags> tagsFromApi = Tags.getTags(app.getApiService());
             put(base, tagsFromApi);

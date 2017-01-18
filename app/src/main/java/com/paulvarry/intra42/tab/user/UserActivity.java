@@ -353,11 +353,7 @@ public class UserActivity extends BasicTabActivity
             }
         };
 
-
-        if (app.me != null && login != null && login.contentEquals(app.me.login)) {
-            app.refreshUser(localRunnable);
-
-        } else if (login != null) {
+        if (login != null) {
 
             app.getApiService().getUser(login).enqueue(new Callback<User>() {
                 @Override
