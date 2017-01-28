@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.Pagination;
+import com.paulvarry.intra42.Tools.Tag;
+import com.paulvarry.intra42.api.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -250,11 +253,17 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
         list = null;
         adapter = null;
 
+        Call<List<T>> call = null;
+        SPINNER selected;
+        Context context = getContext();
         ApiService apiService = ((AppClass) getActivity().getApplication()).getApiService();
 
-        Call<List<T>> call = null;
+
         if (listSpinner != null && listSpinner.size() > positionSelected) {
-            call = getCall(apiService, listSpinner.get(positionSelected), list);
+            selected = listSpinner.get(positionSelected);
+            call = getCall(apiService, selected, list);
+            if (selected instanceof Tags)
+                linearLayoutHeader.setBackgroundColor(ContextCompat.getColor(context, Tag.getTagColor(context, ((Tags) selected))));
         }
 
         if (call != null) {
