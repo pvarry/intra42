@@ -27,7 +27,7 @@ public class Tools {
         if (url != null) {
 
             if (!url.startsWith("http"))
-                url = "https://cdn.intra.42.fr" + url;
+                url = "http://cdn.intra.42.fr" + url;
 
             Uri uri = Uri.parse(url.replace("/uploads", ""));
 
@@ -81,7 +81,13 @@ public class Tools {
             try {
                 activity.startActivity(intent);
             } catch (android.content.ActivityNotFoundException ex) {
-                Toast.makeText(activity, "There are no applications installed to open this", Toast.LENGTH_SHORT).show();
+
+                if (url.contains(".3gp") || url.contains(".mpg") || url.contains(".mpeg") || url.contains(".mpe") || url.contains(".mp4") || url.contains(".avi"))
+                    Toast.makeText(activity, "There are no applications installed to open this, you can install VLC", Toast.LENGTH_SHORT).show();
+                else if (url.contains(".pdf"))
+                    Toast.makeText(activity, "There are no applications installed to open this, you can install a pdfviewer", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(activity, "There are no applications installed to open this", Toast.LENGTH_SHORT).show();
             }
         }
     }
