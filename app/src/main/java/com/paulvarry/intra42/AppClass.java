@@ -85,8 +85,6 @@ public class AppClass extends Application {
     public void onCreate() {
         super.onCreate();
 
-        initFirebase();
-
         accessToken = Token.getTokenFromShared(this);
         cacheSQLiteHelper = new CacheSQLiteHelper(this);
         sInstance = this;
@@ -100,6 +98,8 @@ public class AppClass extends Application {
 
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
             me = CacheUsers.get(cacheSQLiteHelper, login);
+
+        initFirebase();
     }
 
     public ApiService getApiService() {
@@ -131,6 +131,7 @@ public class AppClass extends Application {
             return false;
         else {
             cursus = me.cursusUsers;
+            initFirebase();
 
             CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
             CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
@@ -139,7 +140,6 @@ public class AppClass extends Application {
             editor.apply();
             return true;
         }
-
     }
 
     void initFirebase() {

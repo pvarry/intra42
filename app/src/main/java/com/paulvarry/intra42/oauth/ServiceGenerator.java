@@ -14,7 +14,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
@@ -29,7 +28,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -55,22 +53,33 @@ public class ServiceGenerator {
     private static AppClass app;
 
     public static <S> S createService(Class<S> serviceClass) {
-        httpClient = new OkHttpClient.Builder();
-        builder = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create());
 
-        getLogInterceptor(httpClient);
-        httpClient.addInterceptor(getInterceptor());
+        httpClient = getBaseClient();
+        httpClient.addInterceptor(getHeaderInterceptor());
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
+
         return retrofit.create(serviceClass);
     }
 
     public static <S> S createService(Class<S> serviceClass, AccessToken accessToken, Context c, AppClass app) {
 
-        return getRetrofit(c, accessToken, app).create(serviceClass);
+        httpClient = getBaseClient();
+
+        if (accessToken != null) {
+            mToken = accessToken;
+            ServiceGenerator.app = app;
+            httpClient.addInterceptor(getHeaderInterceptor(accessToken));
+
+            httpClient.authenticator(getAuthenticator(c));
+
+        }
+
+        OkHttpClient client = httpClient.build();
+        Retrofit retrofit = builder.client(client).build();
+
+        return retrofit.create(serviceClass);
     }
 
     private static int responseCount(Response response) {
@@ -81,27 +90,21 @@ public class ServiceGenerator {
         return result;
     }
 
-    /* */
-
-    public static Retrofit getRetrofit(Context c, AccessToken accessToken, AppClass app) {
+    private static OkHttpClient.Builder getBaseClient() {
         httpClient = new OkHttpClient.Builder();
         builder = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(getGson()));
 
-        if (accessToken != null) {
-            mToken = accessToken;
-            ServiceGenerator.app = app;
-            httpClient.addInterceptor(getInterceptor(accessToken));
-            getLogInterceptor(httpClient);
-            httpClient.authenticator(getAuthenticator(c));
+        getLogInterceptor(httpClient);
+        httpClient.addNetworkInterceptor(new LoginInterceptor());
 
-            httpClient.readTimeout(20, TimeUnit.SECONDS);
-            httpClient.connectTimeout(5, TimeUnit.SECONDS);
-        }
+        httpClient.readTimeout(20, TimeUnit.SECONDS);
+        httpClient.connectTimeout(5, TimeUnit.SECONDS);
 
-        OkHttpClient client = httpClient.build();
-        return builder.client(client).build();
+        return httpClient;
+
+
     }
 
     private static Authenticator getAuthenticator(final Context context) {
@@ -116,36 +119,42 @@ public class ServiceGenerator {
                     return null;
                 }
 
-                // We need a new client, since we don't want to make another call using our client with access token
-                ApiService tokenClient = createService(ApiService.class);
-                Call<AccessToken> call = tokenClient.getRefreshAccessToken(mToken.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
-                try {
-                    retrofit2.Response<AccessToken> tokenResponse = call.execute();
-                    if (tokenResponse.code() == 200) {
-                        AccessToken newToken = tokenResponse.body();
-                        mToken = newToken;
-                        Token.save(context, mToken);
-                        if (app != null)
-                            app.accessToken = newToken;
+                if (app.accessToken == null)
+                    return null;
 
-                        return response.request().newBuilder()
-                                .header("Authorization", newToken.tokenType + " " + newToken.accessToken)
-                                .header("User-Agent", getUserAgent())
-                                .header("Accept", "application/json")
-                                .build();
-                    } else {
+                //noinspection SynchronizeOnNonFinalField
+                synchronized (app.accessToken.refreshToken) {
+                    // We need a new client, since we don't want to make another call using our client with access token
+                    ApiService tokenClient = createService(ApiService.class);
+                    Call<AccessToken> call = tokenClient.getRefreshAccessToken(mToken.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
+                    try {
+                        retrofit2.Response<AccessToken> tokenResponse = call.execute();
+                        if (tokenResponse.code() == 200) {
+                            AccessToken newToken = tokenResponse.body();
+                            mToken = newToken;
+                            Token.save(context, mToken);
+                            if (app != null)
+                                app.accessToken = newToken;
+
+                            return response.request().newBuilder()
+                                    .header("Authorization", newToken.tokenType + " " + newToken.accessToken)
+                                    .header("User-Agent", getUserAgent())
+                                    .header("Accept", "application/json")
+                                    .build();
+                        } else {
+                            return null;
+                        }
+                    } catch (IOException e) {
+                        return null;
+                    } catch (NullPointerException e) {
                         return null;
                     }
-                } catch (IOException e) {
-                    return null;
-                } catch (NullPointerException e) {
-                    return null;
                 }
             }
         };
     }
 
-    private static Interceptor getInterceptor(final AccessToken accessToken) {
+    private static Interceptor getHeaderInterceptor(final AccessToken accessToken) {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
@@ -164,7 +173,7 @@ public class ServiceGenerator {
         };
     }
 
-    private static Interceptor getInterceptor() {
+    private static Interceptor getHeaderInterceptor() {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
@@ -186,13 +195,13 @@ public class ServiceGenerator {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         if (BuildConfig.DEBUG)
-            ServiceGenerator.httpClient.addInterceptor(logging);// add logging as last interceptor
+            httpClient.addInterceptor(logging);// add logging as last interceptor
 
     }
 
     static public Gson getGson() {
 
-        final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+        final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS'Z'";
 
         class DateDeserializer implements JsonDeserializer<Date> {
 
@@ -235,9 +244,6 @@ public class ServiceGenerator {
 
         }
 
-        Type listType = new TypeToken<ArrayList<UserLTE>>() {
-        }.getType();
-
         return new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .registerTypeAdapter(Slots.class, new Slots.SlotsDeserializer())
@@ -257,5 +263,16 @@ public class ServiceGenerator {
     private static String getUserAgent() {
         return "Intra42Android/" + BuildConfig.VERSION_NAME + "/" + BuildConfig.VERSION_CODE +
                 " (Android/" + Build.VERSION.RELEASE + " ; " + Build.MODEL + ") retrofit2/2.1.0";
+    }
+
+    private static class LoginInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+
+            Response response = chain.proceed(chain.request());
+            if (response.code() == 401 && chain.request().url().encodedPath().contains("/oauth/token"))
+                app.logoutAndRedirect();
+            return response;
+        }
     }
 }
