@@ -6,13 +6,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.activity.MainActivity;
 import com.paulvarry.intra42.api.AccessToken;
@@ -58,12 +58,11 @@ public class AppClass extends Application {
         long firstMillis = System.currentTimeMillis(); // alarm is set right away
         AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean notifications_allow = settings.getBoolean("notifications_allow", false);
-        int notifications_frequency = Integer.parseInt(settings.getString("notifications_frequency", "-1"));
+        SharedPreferences settings = AppSettings.getSharedPreferences(context);
+        int notificationsFrequency = AppSettings.Notifications.getNotificationsFrequency(settings);
 
-        if (notifications_allow && notifications_frequency != -1)
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, firstMillis + 60000, 60000 * notifications_frequency, pIntent);
+        if (AppSettings.Notifications.getNotificationsAllow(settings) && notificationsFrequency != -1)
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP, firstMillis + 100, 60000 * notificationsFrequency, pIntent);
 
         Log.d("alarm", "schedule");
     }

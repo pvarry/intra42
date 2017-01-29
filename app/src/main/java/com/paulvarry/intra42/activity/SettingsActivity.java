@@ -22,6 +22,7 @@ import android.view.MenuItem;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.cache.CacheCampus;
@@ -89,18 +90,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     preference.setSummary(stringValue);
             }
 
-            if (value instanceof Boolean && preference.getKey().equals("notifications_allow")) {
+            if (value instanceof Boolean && preference.getKey().equals(AppSettings.Notifications.ALLOW)) {
                 if ((boolean) value)
                     AppClass.scheduleAlarm(preference.getContext());
                 else
                     AppClass.unscheduleAlarm(preference.getContext());
-            } else if (preference.getKey().equals("notifications_frequency")) {
+            } else if (preference.getKey().equals(AppSettings.Notifications.FREQUENCY)) {
                 AppClass.scheduleAlarm(preference.getContext());
             }
 
             return true;
         }
     };
+
+    AppClass app;
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -181,8 +184,38 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void onBuildHeaders(List<Header> target) {
+    public void onBuildHeaders(final List<Header> target) {
         loadHeadersFromResource(R.xml.pref_headers, target);
+        final SharedPreferences preferences = AppSettings.getSharedPreferences(this);
+        app = (AppClass) getApplication();
+
+        for (Header h : target) {
+            if (ContentPreferenceFragment.class.getName().equals(h.fragment)) {
+                int campusID = AppSettings.ContentOption.getCampus(preferences);
+                String campusName = "all";
+                int cursusID = AppSettings.ContentOption.getCursus(preferences);
+                String cursusName = "all";
+
+                if (campusID != 0 && campusID != -1) {
+                    Campus campus = CacheCampus.get(app.cacheSQLiteHelper, campusID);
+                    if (campus != null)
+                        campusName = campus.name;
+                }
+
+                if (cursusID != 0 && campusID != -1) {
+                    Cursus cursus = CacheCursus.get(app.cacheSQLiteHelper, cursusID);
+                    if (cursus != null)
+                        cursusName = cursus.name;
+                }
+
+                h.summary = "Campus: " + campusName + " ; Cursus: " + cursusName;
+            } else if (NotificationPreferenceFragment.class.getName().equals(h.fragment)) {
+                if (AppSettings.Notifications.getNotificationsAllow(preferences))
+                    h.summaryRes = R.string.activated;
+                else
+                    h.summaryRes = R.string.unactivated;
+            }
+        }
     }
 
     /**
@@ -245,8 +278,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_allow"));
-            bindPreferenceSummaryToValue(findPreference("notifications_frequency"));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.Notifications.ALLOW));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.Notifications.FREQUENCY));
         }
 
         @Override
@@ -274,7 +307,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             AppClass app = (AppClass) getActivity().getApplication();
 
             List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
-            ListPreference listPreferenceCursus = (ListPreference) findPreference("list_cursus");
+            ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.ContentOption.CURSUS);
             if (listPreferenceCursus != null && cursusCache != null) {
                 CharSequence entries[] = new String[cursusCache.size() + 1];
                 CharSequence entryValues[] = new String[cursusCache.size() + 1];
@@ -292,7 +325,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
 
             List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
-            ListPreference listPreferenceCampus = (ListPreference) findPreference("list_campus");
+            ListPreference listPreferenceCampus = (ListPreference) findPreference(AppSettings.ContentOption.CAMPUS);
             if (listPreferenceCampus != null && campusCache != null) {
                 CharSequence entries[] = new String[campusCache.size() + 1];
                 CharSequence entryValues[] = new String[campusCache.size() + 1];
@@ -313,8 +346,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("list_cursus"));
-            bindPreferenceSummaryToValue(findPreference("list_campus"));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.ContentOption.CAMPUS));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.ContentOption.CURSUS));
         }
 
         @Override

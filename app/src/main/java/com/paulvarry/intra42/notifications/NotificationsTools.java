@@ -16,6 +16,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.activity.EventActivity;
+import com.paulvarry.intra42.api.Announcements;
 import com.paulvarry.intra42.api.Events;
 import com.paulvarry.intra42.api.ScaleTeams;
 import com.paulvarry.intra42.api.UserLTE;
@@ -153,11 +154,40 @@ class NotificationsTools {
         notificationManager.notify(app.getString(R.string.notifications_scales_tag), scaleTeams.id, notification);
     }
 
+    static void send(Context context, Announcements announcements) {
+
+        Intent notificationIntent = new Intent(context, EventActivity.class);
+
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+        NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
+                .setContentTitle(announcements.title)
+                .setContentText(announcements.text.replace('\n', ' '))
+                .setSubText(context.getString(R.string.notifications_announcements_sub_text) + " • " + announcements.author)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(announcements.text))
+                .setGroup(context.getString(R.string.notifications_event_group))
+                .setGroupSummary(true)
+                .setContentIntent(intent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setCategory(Notification.CATEGORY_EVENT);
+        }
+
+        Notification notification = notificationBuilder.build();
+
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_event_tag), announcements.id, notification);
+    }
+
     static String getDateSince(SharedPreferences settings) {
 
         if (settings == null)
             return null;
-        int since = Integer.parseInt(settings.getString(AppSettings.Notifications.PREFERENCE_NOTIFICATIONS_FREQUENCY, "15"));
+        int since = Integer.parseInt(settings.getString(AppSettings.Notifications.FREQUENCY, "15"));
 
         if (since == -1)
             return null;

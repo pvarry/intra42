@@ -11,6 +11,7 @@ import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Pagination;
+import com.paulvarry.intra42.api.Announcements;
 import com.paulvarry.intra42.api.Events;
 import com.paulvarry.intra42.api.ScaleTeams;
 
@@ -45,6 +46,8 @@ public class IntentServiceNotifications extends IntentService {
                 notifyScales(app, apiService);
                 notifyImminentScales(app, apiService);
             }
+//            if (AppSettings.Notifications.getNotificationsAnnouncements(settings))
+//                notifyAnnouncements(app, apiService);
         }
     }
 
@@ -143,6 +146,33 @@ public class IntentServiceNotifications extends IntentService {
 
             @Override
             public void onFailure(Call<List<ScaleTeams>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void notifyAnnouncements(final AppClass app, ApiService apiService) {
+
+        Call<List<Announcements>> call;
+
+        if (BuildConfig.DEBUG)
+            call = apiService.getAnnouncements("2015-09-15T22:14:29.224Z,2017-09-16T22:29:29.232Z", 1);
+        else
+            call = apiService.getAnnouncements(NotificationsTools.getDateSince(settings), 1);
+
+
+        call.enqueue(new Callback<List<Announcements>>() {
+            @Override
+            public void onResponse(Call<List<Announcements>> call, Response<List<Announcements>> response) {
+                if (response.isSuccessful()) {
+                    for (Announcements announcements : response.body()) {
+                        NotificationsTools.send(app, announcements);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Announcements>> call, Throwable t) {
 
             }
         });

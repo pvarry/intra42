@@ -15,13 +15,13 @@ public class AppSettings {
 
     public static class ContentOption {
 
-        public static final String PREFERENCE_CONTENT_CURSUS = "list_cursus";
-        public static final String PREFERENCE_CONTENT_CAMPUS = "list_campus";
+        public static final String CURSUS = "list_cursus";
+        public static final String CAMPUS = "list_campus";
 
         // cursus
 
         public static int getCampus(SharedPreferences settings) {
-            return Integer.parseInt(settings.getString(PREFERENCE_CONTENT_CAMPUS, "-1"));
+            return Integer.parseInt(settings.getString(CAMPUS, "-1"));
         }
 
         public static int getCampus(Context context) {
@@ -33,14 +33,14 @@ public class AppSettings {
         public static void setCampus(Context context, int value) {
             SharedPreferences settings = getSharedPreferences(context);
             SharedPreferences.Editor edit = settings.edit();
-            edit.putString(PREFERENCE_CONTENT_CAMPUS, String.valueOf(value));
+            edit.putString(CAMPUS, String.valueOf(value));
             edit.apply();
         }
 
         //campus
 
         public static int getCursus(SharedPreferences settings) {
-            return Integer.parseInt(settings.getString(PREFERENCE_CONTENT_CURSUS, "-1"));
+            return Integer.parseInt(settings.getString(CURSUS, "-1"));
         }
 
         public static int getCursus(Context context) {
@@ -52,7 +52,7 @@ public class AppSettings {
         public static void setCursus(Context context, int value) {
             SharedPreferences settings = getSharedPreferences(context);
             SharedPreferences.Editor edit = settings.edit();
-            edit.putString(PREFERENCE_CONTENT_CURSUS, String.valueOf(value));
+            edit.putString(CURSUS, String.valueOf(value));
             edit.apply();
         }
 
@@ -112,32 +112,53 @@ public class AppSettings {
 
     static public class Notifications {
 
-        public static final String PREFERENCE_NOTIFICATIONS_CHECKBOX_EVENTS = "check_box_preference_notifications_events";
-        public static final String PREFERENCE_NOTIFICATIONS_CHECKBOX_SCALES = "check_box_preference_notifications_scales";
-        public static final String PREFERENCE_NOTIFICATIONS_FREQUENCY = "notifications_frequency";
+        public static final String ALLOW = "notifications_allow";
+        public static final String FREQUENCY = "notifications_frequency";
+        public static final String CHECKBOX_EVENTS = "check_box_preference_notifications_events";
+        public static final String CHECKBOX_SCALES = "check_box_preference_notifications_scales";
+        public static final String CHECKBOX_ANNOUNCEMENTS = "check_box_preference_notifications_announcements";
+
+        public static boolean getNotificationsAllow(SharedPreferences settings) {
+            return settings.getBoolean(ALLOW, true);
+        }
+
+        public static boolean getNotificationsAllow(Context context) {
+            return context != null && getNotificationsAllow(getSharedPreferences(context));
+        }
+
+        public static int getNotificationsFrequency(SharedPreferences settings) {
+            return Integer.parseInt(settings.getString(FREQUENCY, "-1"));
+        }
+
+        public static int getNotificationsFrequency(Context context) {
+            if (context != null)
+                return getNotificationsFrequency(getSharedPreferences(context));
+            return -1;
+        }
+
 
         public static boolean getNotificationsEvents(SharedPreferences settings) {
-            return settings.getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_EVENTS, false);
+            return settings.getBoolean(CHECKBOX_EVENTS, false);
         }
 
         public static boolean getNotificationsEvents(Context context) {
-            return context != null && getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_EVENTS, false);
+            return context != null && getNotificationsEvents(getSharedPreferences(context));
         }
 
         public static boolean getNotificationsScales(SharedPreferences settings) {
-            return settings.getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_SCALES, false);
+            return settings.getBoolean(CHECKBOX_SCALES, false);
         }
 
         public static boolean getNotificationsScales(Context context) {
-            return context != null && getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_CHECKBOX_SCALES, false);
+            return context != null && getNotificationsScales(getSharedPreferences(context));
         }
 
-        public static boolean getNotificationsFrequency(SharedPreferences settings) {
-            return settings.getBoolean(PREFERENCE_NOTIFICATIONS_FREQUENCY, false);
+        public static boolean getNotificationsAnnouncements(SharedPreferences settings) {
+            return settings.getBoolean(CHECKBOX_SCALES, false);
         }
 
-        public static boolean getNotificationsFrequency(Context context) {
-            return context != null && getSharedPreferences(context).getBoolean(PREFERENCE_NOTIFICATIONS_FREQUENCY, false);
+        public static boolean getNotificationsAnnouncements(Context context) {
+            return context != null && getNotificationsAnnouncements(getSharedPreferences(context));
         }
 
     }

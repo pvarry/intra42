@@ -3,7 +3,7 @@
     <!-- A 'parent' preference, which enables/disables child preferences (below)
          when checked/unchecked. -->
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="notifications_allow"
         android:title="@string/pref_title_notifications_allow" />
 
@@ -23,6 +23,11 @@
     <PreferenceCategory
         android:dependency="notifications_allow"
         android:title="Notifications">
+
+        <!--<CheckBoxPreference-->
+        <!--android:defaultValue="true"-->
+        <!--android:key="check_box_pref_title_notifications_announcements"-->
+        <!--android:title="@string/pref_title_notifications_announcements" />-->
 
         <CheckBoxPreference
             android:defaultValue="true"

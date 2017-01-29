@@ -1,6 +1,7 @@
 package com.paulvarry.intra42;
 
 import com.paulvarry.intra42.api.AccessToken;
+import com.paulvarry.intra42.api.Announcements;
 import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.api.Events;
@@ -297,9 +298,12 @@ public interface ApiService {
     @GET("/v2/locations?sort=-begin_at&page[size]=5")
     Call<List<Locations>> getLocationsHost(@Query("filter[host]") String host);
 
+    /* Announcements */
+    @GET("/v2/announcements?sort=begin_at")
+    Call<List<Announcements>> getAnnouncements(@Query("range[created_at]") String rangeCreated, @Query("page") int page);
+
     /* Other */
 
     @GET
     Call<ResponseBody> getOther(@Url String path);
-
 }

@@ -387,5 +387,9 @@
     <string name="cluster_map">Cluster Map</string>
     <string name="title_activity_cluster_map">Cluster Map</string>
     <string name="time_on_campus">Time on campus</string>
+    <string name="activated">Activated</string>
+    <string name="unactivated">Unactivated</string>
+    <string name="pref_title_notifications_announcements">Notify announcements</string>
+    <string name="notifications_announcements_sub_text">announcements</string>
 
 </resources>
