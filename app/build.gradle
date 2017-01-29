@@ -12,11 +12,12 @@ android {
         applicationId "com.paulvarry.intra42"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 20170114
-        versionName "0.6.0-beta2"
+        versionCode 20170128
+        versionName "0.6.0-beta3"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        project.ext.set("archivesBaseName", "com.paulvarry.intra42-" + defaultConfig.versionName);
     }
     buildTypes {
         release {
