@@ -54,7 +54,7 @@ public class ServiceGenerator {
 
     public static <S> S createService(Class<S> serviceClass) {
 
-        httpClient = getBaseClient();
+        httpClient = getBaseClient(true);
         httpClient.addInterceptor(getHeaderInterceptor());
 
         OkHttpClient client = httpClient.build();
@@ -63,9 +63,9 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-    public static <S> S createService(Class<S> serviceClass, AccessToken accessToken, Context c, AppClass app) {
+    public static <S> S createService(Class<S> serviceClass, AccessToken accessToken, Context c, AppClass app, boolean allowRedirectWrongAuth) {
 
-        httpClient = getBaseClient();
+        httpClient = getBaseClient(allowRedirectWrongAuth);
 
         if (accessToken != null) {
             mToken = accessToken;
@@ -90,21 +90,20 @@ public class ServiceGenerator {
         return result;
     }
 
-    private static OkHttpClient.Builder getBaseClient() {
+    private static OkHttpClient.Builder getBaseClient(boolean allowRedirectWrongAuth) {
         httpClient = new OkHttpClient.Builder();
         builder = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         getLogInterceptor(httpClient);
-        httpClient.addNetworkInterceptor(new LoginInterceptor());
+        if (allowRedirectWrongAuth)
+            httpClient.addNetworkInterceptor(new AuthInterceptorRedirectActivity());
 
         httpClient.readTimeout(20, TimeUnit.SECONDS);
         httpClient.connectTimeout(5, TimeUnit.SECONDS);
 
         return httpClient;
-
-
     }
 
     private static Authenticator getAuthenticator(final Context context) {
@@ -265,7 +264,7 @@ public class ServiceGenerator {
                 " (Android/" + Build.VERSION.RELEASE + " ; " + Build.MODEL + ") retrofit2/2.1.0";
     }
 
-    private static class LoginInterceptor implements Interceptor {
+    private static class AuthInterceptorRedirectActivity implements Interceptor {
         @Override
         public Response intercept(Chain chain) throws IOException {
 

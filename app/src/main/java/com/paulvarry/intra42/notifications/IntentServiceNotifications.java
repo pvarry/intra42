@@ -37,7 +37,7 @@ public class IntentServiceNotifications extends IntentService {
 
         if (app != null) {
 
-            ApiService apiService = app.getApiService();
+            ApiService apiService = app.getApiServiceDisableRedirectActivity();
             settings = PreferenceManager.getDefaultSharedPreferences(this);
 
             if (AppSettings.Notifications.getNotificationsEvents(settings))

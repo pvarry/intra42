@@ -102,7 +102,11 @@ public class AppClass extends Application {
     }
 
     public ApiService getApiService() {
-        return ServiceGenerator.createService(ApiService.class, accessToken, this, this);
+        return ServiceGenerator.createService(ApiService.class, accessToken, this, this, true);
+    }
+
+    public ApiService getApiServiceDisableRedirectActivity() {
+        return ServiceGenerator.createService(ApiService.class, accessToken, this, this, false);
     }
 
     /**
