@@ -87,6 +87,9 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
     TextView textViewGrade;
     TextView textViewLvl;
     ProgressBar progressBarLevel;
+    TextView textViewNoCursusAvailable;
+    LinearLayout linearLayoutCursus;
+
     AppClass app;
 
     ValueEventListener friendsEventListener = new ValueEventListener() {
@@ -168,6 +171,9 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
         linePool = view.findViewById(R.id.viewPool);
         linearLayoutPool = (LinearLayout) view.findViewById(R.id.linearLayoutPool);
         textViewPiscine = (TextView) view.findViewById(R.id.textViewPiscine);
+
+        linearLayoutCursus = (LinearLayout) view.findViewById(R.id.linearLayoutCursus);
+        textViewNoCursusAvailable = (TextView) view.findViewById(R.id.textViewNoCursusAvailable);
         spinnerCursus = (Spinner) view.findViewById(R.id.spinnerCursus);
         linearLayoutGrade = (LinearLayout) view.findViewById(R.id.linearLayoutGrade);
         viewSeparatorGrade = view.findViewById(R.id.viewSeparatorGrade);
@@ -247,12 +253,19 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
         relativeLayoutMail.setOnClickListener(this);
         linearLayoutLocation.setOnClickListener(this);
 
-        SpinnerAdapterCursusAccent adapterUserCursus = new SpinnerAdapterCursusAccent(getActivity(), user.cursusUsers);
-        spinnerCursus.setAdapter(adapterUserCursus);
-        spinnerCursus.setOnItemSelectedListener(this);
-        for (int i = 0; i < user.cursusUsers.size(); i++) {
-            if (user.cursusUsers.get(i).cursus.id == 1)
-                spinnerCursus.setSelection(i, false);
+        if (user.cursusUsers != null && user.cursusUsers.size() != 0) {
+            linearLayoutCursus.setVisibility(View.VISIBLE);
+            textViewNoCursusAvailable.setVisibility(View.GONE);
+            SpinnerAdapterCursusAccent adapterUserCursus = new SpinnerAdapterCursusAccent(getActivity(), user.cursusUsers);
+            spinnerCursus.setAdapter(adapterUserCursus);
+            spinnerCursus.setOnItemSelectedListener(this);
+            for (int i = 0; i < user.cursusUsers.size(); i++) {
+                if (user.cursusUsers.get(i).cursus.id == 1)
+                    spinnerCursus.setSelection(i, false);
+            }
+        } else {
+            linearLayoutCursus.setVisibility(View.GONE);
+            textViewNoCursusAvailable.setVisibility(View.VISIBLE);
         }
 
         UserImage.setImage(getContext(), user, imageViewProfile);

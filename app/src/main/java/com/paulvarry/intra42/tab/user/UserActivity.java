@@ -292,7 +292,7 @@ public class UserActivity extends BasicTabActivity
                     e.printStackTrace();
                 }
             }
-            if (user != null && !user.cursusUsers.isEmpty()) {
+            if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
                 userCursus = user.cursusUsers.get(0);
             }
         }

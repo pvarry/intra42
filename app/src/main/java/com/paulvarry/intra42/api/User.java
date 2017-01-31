@@ -63,6 +63,7 @@ public class User extends UserLTE {
     public int wallet;
     @SerializedName(API_GROUPS)
     public List<Tags> groups;
+    @Nullable
     @SerializedName(API_CURSUS_USERS)
     public List<CursusUsers> cursusUsers;
     @SerializedName(API_PROJECTS_USERS)
