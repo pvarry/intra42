@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import com.paulvarry.intra42.Adapter.ListAdapterEvents;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.BottomSheet.BottomSheetEventDialogFragment;
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Pagination;
@@ -108,7 +109,7 @@ public class HomeEventsFragment extends BasicFragmentCall<Events, ListAdapterEve
 
     @Override
     public String getEmptyMessage() {
-        return null;
+        return getString(R.string.no_event_found_for_your_campus_cursus);
     }
 
 

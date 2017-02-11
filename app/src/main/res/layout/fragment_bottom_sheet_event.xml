@@ -176,14 +176,54 @@
                 android:text="New Text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <Button
-                android:id="@+id/buttonSubscribe"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="@string/subscribe"
-                android:textColor="@color/colorAccent" />
+                android:layout_marginBottom="16dp"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarButton"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="4dp" />
+
+                    <Button
+
+                        android:id="@+id/buttonSubscribe"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subscribe" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/check_your_registration"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:textSize="12sp" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

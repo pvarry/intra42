@@ -392,5 +392,8 @@
     <string name="pref_title_notifications_announcements">Notify announcements</string>
     <string name="notifications_announcements_sub_text">announcements</string>
     <string name="no_cursus_available">No cursus available</string>
+    <string name="no_event_found_for_your_campus_cursus">No event found for you campus/cursus</string>
+    <string name="check_your_registration">Checking your registration</string>
+    <string name="unsubscribe">Unsubscribe</string>
 
 </resources>

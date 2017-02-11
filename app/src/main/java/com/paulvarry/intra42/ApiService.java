@@ -5,6 +5,7 @@ import com.paulvarry.intra42.api.Announcements;
 import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.api.Events;
+import com.paulvarry.intra42.api.EventsUsers;
 import com.paulvarry.intra42.api.ExpertisesUsers;
 import com.paulvarry.intra42.api.Locations;
 import com.paulvarry.intra42.api.Messages;
@@ -172,6 +173,16 @@ public interface ApiService {
 
     @GET("/v2/campus/{campus_id}/events")
     Call<List<Events>> getEventCreatedAtCampus(@Path("campus_id") int campus, @Query("range[created_at]") String rangeCreated, @Query("page") int page);
+
+    /* Event User */
+    @GET("/v2/events_users")
+    Call<List<EventsUsers>> getEventsUsers(@Query("filter[user_id]") int user, @Query("filter[event_id]") int event);
+
+    @POST("/v2/events_users")
+    Call<List<EventsUsers>> createEventsUsers(@Query("events_user[event_id]") int eventId, @Query("events_user[user_id]") int userId);
+
+    @DELETE("/v2/events_users/{id}")
+    Call<List<EventsUsers>> deleteEventsUsers(@Path("id") int eventUser);
 
     /* Scale Teams */
     @GET("/v2/me/scale_teams?sort=begin_at")
