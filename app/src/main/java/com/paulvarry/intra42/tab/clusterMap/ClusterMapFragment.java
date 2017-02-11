@@ -95,6 +95,8 @@ public class ClusterMapFragment extends Fragment {
         else if (activity.campusId == 7) {
             if (clusterName.contentEquals("e1z1"))
                 cluster = ClusterMap.getFremontCluster1Zone1();
+            else if (clusterName.contentEquals("e1z2"))
+                cluster = ClusterMap.getFremontCluster1Zone2();
             else
                 cluster = ClusterMap.getFremontCluster(clusterName);
         } else
