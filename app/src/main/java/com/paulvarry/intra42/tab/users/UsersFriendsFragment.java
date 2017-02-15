@@ -29,6 +29,8 @@ import com.paulvarry.intra42.api.UserLTE;
 import com.paulvarry.intra42.tab.user.UserActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +45,6 @@ public class UsersFriendsFragment
     private ConstraintLayout constraintLayoutLoading;
     private ConstraintLayout constraintLayoutError;
     private GridView listView;
-    private GridAdapterUsers adapter;
     private List<UserLTE> list;
 
     ValueEventListener friendsEventListener = new ValueEventListener() {
@@ -65,6 +66,14 @@ public class UsersFriendsFragment
                     tmp.login = messages.get(k);
                     list.add(tmp);
                 }
+
+                Collections.sort(list, new Comparator<UserLTE>() {
+                    @Override
+                    public int compare(UserLTE o1, UserLTE o2) {
+                        return o1.login.compareTo(o2.login);
+                    }
+                });
+
                 setView();
             }
 
@@ -138,7 +147,7 @@ public class UsersFriendsFragment
             textViewError.setText(R.string.nothing_to_show);
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
-            adapter = new GridAdapterUsers(getContext(), list);
+            GridAdapterUsers adapter = new GridAdapterUsers(getContext(), list);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }

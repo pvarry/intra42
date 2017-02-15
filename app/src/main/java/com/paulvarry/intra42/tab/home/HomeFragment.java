@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.UserImage;
+import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.tab.user.UserActivity;
 import com.squareup.picasso.RequestCreator;
 
@@ -145,8 +146,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
             textViewName.setText(app.me.displayName);
             textViewWallet.setText(String.valueOf(app.me.wallet));
             textViewCP.setText(String.valueOf(app.me.correction_point));
-            progressBarLevel.setProgress((int) (app.me.cursusUsers.get(0).level / 21.0 * 100.0));
-            textViewLevel.setText(String.valueOf(app.me.cursusUsers.get(0).level));
+
+            if (app.me.cursusUsers != null && app.me.cursusUsers.size() != 0) {
+                progressBarLevel.setVisibility(View.VISIBLE);
+                textViewLevel.setVisibility(View.VISIBLE);
+
+                CursusUsers mainCursus = app.me.cursusUsers.get(0);
+                for (CursusUsers cursusUsers : app.me.cursusUsers) {
+                    if (cursusUsers.cursus.id == 1) {
+                        mainCursus = cursusUsers;
+                        break;
+                    }
+                }
+                progressBarLevel.setProgress((int) (mainCursus.level / 21.0 * 100.0));
+                textViewLevel.setText(String.valueOf(mainCursus.level));
+            } else {
+                progressBarLevel.setVisibility(View.GONE);
+                textViewLevel.setVisibility(View.GONE);
+            }
 
             RequestCreator p = UserImage.getPicassoCorned(app, app.me);
             if (p != null)

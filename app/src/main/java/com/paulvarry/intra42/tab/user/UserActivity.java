@@ -360,6 +360,8 @@ public class UserActivity extends BasicTabActivity
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
                         user = response.body();
+                        if (app.me != null && login != null && login.contentEquals(app.me.login)) // when refreshing
+                            app.me = response.body();
                         CacheUsers.put(app.cacheSQLiteHelper, user);
                     }
                     localRunnable.run();
