@@ -71,4 +71,6 @@
     <color name="tag__y">#b300bc92</color>
     <color name="tag__z">#b300babc</color>
 
+    <color name="colorClusterMapWall">#bebebe</color>
+
 </resources>

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.ClusterMap;
 import com.paulvarry.intra42.Tools.UserImage;
+import com.paulvarry.intra42.Tools.clusterMap.ClusterMap;
+import com.paulvarry.intra42.Tools.clusterMap.ClusterMapFremontE1Z1;
+import com.paulvarry.intra42.Tools.clusterMap.ClusterMapFremontE1Z2;
+import com.paulvarry.intra42.Tools.clusterMap.ClusterMapFremontE1Z3;
+import com.paulvarry.intra42.Tools.clusterMap.ClusterMapParis;
+import com.paulvarry.intra42.Tools.clusterMap.LocationItem;
 import com.paulvarry.intra42.api.UserLTE;
 import com.paulvarry.intra42.tab.user.UserActivity;
 
@@ -88,15 +94,17 @@ public class ClusterMapFragment extends Fragment {
 
     void makeMap() {
 
-        final ClusterMap.LocationItem[][] cluster;
+        final LocationItem[][] cluster;
 
         if (activity.campusId == 1)
-            cluster = ClusterMap.getParisCluster(clusterName);
+            cluster = ClusterMapParis.getParisCluster(clusterName);
         else if (activity.campusId == 7) {
             if (clusterName.contentEquals("e1z1"))
-                cluster = ClusterMap.getFremontCluster1Zone1();
+                cluster = ClusterMapFremontE1Z1.getFremontCluster1Zone1();
             else if (clusterName.contentEquals("e1z2"))
-                cluster = ClusterMap.getFremontCluster1Zone2();
+                cluster = ClusterMapFremontE1Z2.getFremontCluster1Zone2();
+            else if (clusterName.contentEquals("e1z3"))
+                cluster = ClusterMapFremontE1Z3.getFremontCluster1Zone3();
             else
                 cluster = ClusterMap.getFremontCluster(clusterName);
         } else
@@ -114,8 +122,12 @@ public class ClusterMapFragment extends Fragment {
                     break;
 
                 ImageView imageViewContent = new ImageView(getContext());
-                if (cluster[r][p].kind == ClusterMap.LocationItem.KIND_USER) {
-                    imageViewContent.setImageResource(R.drawable.ic_desktop_mac_black_24dp);
+                if (cluster[r][p].kind == LocationItem.KIND_USER) {
+
+                    if (cluster[r][p].locationName.contains("null") || cluster[r][p].locationName.contains("TBD"))
+                        imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
+                    else
+                        imageViewContent.setImageResource(R.drawable.ic_desktop_mac_black_24dp);
 
                     if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
                         final UserLTE user = locations.get(cluster[r][p].locationName);
@@ -137,8 +149,8 @@ public class ClusterMapFragment extends Fragment {
                         });
                     }
 
-                } else if (cluster[r][p].kind == ClusterMap.LocationItem.KIND_WALL)
-                    imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
+                } else if (cluster[r][p].kind == LocationItem.KIND_WALL)
+                    imageViewContent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorClusterMapWall));
                 else {
                     imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
                     imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);

@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.ApiService;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     public AppClass app;
     private LinearLayout linearLayoutNeedLogin;
-    private FrameLayout frameLayoutLoading;
+    private TextView textViewLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         app = (AppClass) getApplication();
 
         linearLayoutNeedLogin = (LinearLayout) findViewById(R.id.linearLayoutNeedLogin);
-        frameLayoutLoading = (FrameLayout) findViewById(R.id.frameLayoutLoading);
+        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
 
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT))// oauth callback
@@ -185,12 +185,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewLoading() {
-        frameLayoutLoading.setVisibility(View.VISIBLE);
+        textViewLoading.setVisibility(View.VISIBLE);
         linearLayoutNeedLogin.setVisibility(View.GONE);
     }
 
     private void setViewLogin() {
-        frameLayoutLoading.setVisibility(View.GONE);
+        textViewLoading.setVisibility(View.GONE);
         linearLayoutNeedLogin.setVisibility(View.VISIBLE);
     }
 

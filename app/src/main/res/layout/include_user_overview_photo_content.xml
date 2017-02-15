@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:chip="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:id="@+id/textViewName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@drawable/shape_user"
         android:gravity="center|bottom"
         android:paddingBottom="16dp"
@@ -22,37 +22,40 @@
         android:paddingTop="40dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/textColorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        chip:layout_editor_absoluteX="0dp" />
+        android:textColor="@color/textColorPrimary" />
 
-    <com.plumillonforge.android.chipview.ChipView
-        android:id="@+id/chipViewTags"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:padding="8dp"
-        chip:chip_background="@color/deep_orange"
-        chip:chip_background_res="@drawable/chip_selector"
-        chip:chip_background_selected="@color/blue_grey"
-        chip:chip_line_spacing="20dp"
-        chip:chip_padding="10dp"
-        chip:chip_side_padding="10dp"
-        chip:chip_spacing="16dp"
-        chip:layout_editor_absoluteX="0dp"
-        chip:layout_editor_absoluteY="0dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageButton
-        android:id="@+id/imageButtonFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/chipViewTags"
-        android:background="#00ffffff"
-        android:contentDescription="@string/icon_friends"
-        android:padding="4dp"
-        app:layout_constraintRight_toRightOf="@+id/textViewName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+        <com.plumillonforge.android.chipview.ChipView
+            android:id="@+id/chipViewTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            chip:chip_background="@color/deep_orange"
+            chip:chip_background_res="@drawable/chip_selector"
+            chip:chip_background_selected="@color/blue_grey"
+            chip:chip_line_spacing="20dp"
+            chip:chip_padding="10dp"
+            chip:chip_side_padding="10dp"
+            chip:chip_spacing="16dp"
+            chip:layout_editor_absoluteX="0dp"
+            chip:layout_editor_absoluteY="0dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/imageButtonFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:background="#00ffffff"
+            android:contentDescription="@string/icon_friends"
+            android:padding="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+    </RelativeLayout>
+
+</FrameLayout>
