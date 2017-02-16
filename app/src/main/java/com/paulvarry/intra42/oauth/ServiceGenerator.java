@@ -200,7 +200,7 @@ public class ServiceGenerator {
 
     static public Gson getGson() {
 
-        final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SS'Z'";
+        final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
 
         class DateDeserializer implements JsonDeserializer<Date> {
 

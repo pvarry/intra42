@@ -395,5 +395,7 @@
     <string name="no_event_found_for_your_campus_cursus">No event found for you campus/cursus</string>
     <string name="check_your_registration">Checking your registration</string>
     <string name="unsubscribe">Unsubscribe</string>
+    <string name="cantina_menu">Cantina Menu</string>
+    <string name="title_activity_cantina_menu">Cantina Menu (Fremont)</string>
 
 </resources>

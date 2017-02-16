@@ -109,6 +109,10 @@ public class AppClass extends Application {
         return ServiceGenerator.createService(ApiService.class, accessToken, this, this, false);
     }
 
+    public ApiServiceCantina getApiServiceCantina() {
+        return ServiceGenerator.createService(ApiServiceCantina.class, null, this, this, false);
+    }
+
     /**
      * Method to init some data for user (/me, cursus, campus).
      *

@@ -7,9 +7,9 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <!--<uses-permission android:name="android.permission.WRITE_CONTACTS" />-->
-    <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
 
+    <!-- <uses-permission android:name="android.permission.WRITE_CONTACTS" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
     <application
         android:name=".AppClass"
         android:allowBackup="true"
@@ -150,11 +150,13 @@
             android:label="@string/tag"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.LibraryListActivity"
             android:label="library list"
             android:theme="@style/AppTheme.Settings" />
+        <activity
+            android:name=".activity.MarvinMealsActivity"
+            android:label="@string/title_activity_cantina_menu" />
     </application>
 
 </manifest>

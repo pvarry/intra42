@@ -40,6 +40,11 @@
                     android:icon="@drawable/ic_place_black_24dp"
                     android:title="@string/cluster_map" />
 
+                <item
+                    android:id="@+id/nav_cantina_menu"
+                    android:icon="@drawable/ic_restaurant_menu_black_24dp"
+                    android:title="@string/cantina_menu" />
+
             </group>
         </menu>
     </item>

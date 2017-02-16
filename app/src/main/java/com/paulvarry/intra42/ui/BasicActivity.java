@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.SuperSearch;
 import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.activity.SearchableActivity;
@@ -356,6 +357,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
             if (drawerSelectedItemPosition != -1)
                 navigationView.getMenu().getItem(drawerSelectedItemPosition).setChecked(true);
+
+            if (AppSettings.ContentOption.getCampus(this) != 7)
+                navigationView.getMenu().getItem(5).getSubMenu().getItem(2).setVisible(false);
         }
     }
 

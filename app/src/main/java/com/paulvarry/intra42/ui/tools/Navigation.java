@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activity.AboutActivity;
+import com.paulvarry.intra42.activity.MarvinMealsActivity;
 import com.paulvarry.intra42.activity.SettingsActivity;
 import com.paulvarry.intra42.activity.TimeActivity;
 import com.paulvarry.intra42.tab.clusterMap.ClusterMapActivity;
@@ -61,6 +62,9 @@ public class Navigation {
             activity.startActivity(intent);
         } else if (id == R.id.nav_cluster_map) {
             Intent intent = new Intent(activity, ClusterMapActivity.class);
+            activity.startActivity(intent);
+        } else if (id == R.id.nav_cantina_menu) {
+            Intent intent = new Intent(activity, MarvinMealsActivity.class);
             activity.startActivity(intent);
         } else if (id == R.id.nav_share) {
             Intent sendIntent = new Intent();
