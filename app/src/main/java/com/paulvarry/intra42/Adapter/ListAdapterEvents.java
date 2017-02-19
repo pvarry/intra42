@@ -81,6 +81,7 @@ public class ListAdapterEvents extends BaseAdapter {
             holder.textViewDescription = (TextView) convertView.findViewById(R.id.textViewDescription);
             holder.textViewTime = (TextView) convertView.findViewById(R.id.textViewTime);
             holder.textViewPlace = (TextView) convertView.findViewById(R.id.textViewPlace);
+            holder.textViewFull = (TextView) convertView.findViewById(R.id.textViewFull);
 
             convertView.setTag(holder);
 
@@ -108,6 +109,11 @@ public class ListAdapterEvents extends BaseAdapter {
 
         Tag.setTagEvent(item, holder.tagViewKind);
 
+        if (item.nbrSubscribers >= item.maxPeople)
+            holder.textViewFull.setVisibility(View.VISIBLE);
+        else
+            holder.textViewFull.setVisibility(View.GONE);
+
         return convertView;
     }
 
@@ -120,5 +126,6 @@ public class ListAdapterEvents extends BaseAdapter {
         TextView textViewDescription;
         TextView textViewTime;
         TextView textViewPlace;
+        TextView textViewFull;
     }
 }

@@ -67,6 +67,10 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
     private Callback<List<EventsUsers>> callback = new Callback<List<EventsUsers>>() {
         @Override
         public void onResponse(Call<List<EventsUsers>> call, Response<List<EventsUsers>> response) {
+
+            linearLayoutProgress.setVisibility(View.INVISIBLE);
+            progressBarButton.setVisibility(View.GONE);
+            buttonSubscribe.setEnabled(true);
             if (response.isSuccessful()) {
                 if (!response.body().isEmpty())
                     eventsUsers = response.body().get(0);
@@ -79,10 +83,16 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
                 else
                     buttonSubscribe.setText(R.string.unsubscribe);
 
+                if ((eventsUsers != null && eventsUsers.event.nbrSubscribers >= eventsUsers.event.maxPeople) ||
+                        (eventsUsers == null && event.nbrSubscribers >= event.maxPeople)) {
+                    buttonSubscribe.setText(R.string.full);
+                    buttonSubscribe.setEnabled(false);
+                }
+
                 if (call.request().method().equals("POST"))
                     Toast.makeText(getContext(), R.string.subscribed, Toast.LENGTH_SHORT).show();
                 else if (call.request().method().equals("DELETE"))
-                    Toast.makeText(getContext(), "Unsuscibed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.unsubscribed, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -163,13 +173,6 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
             textViewDescription.setMovementMethod(LinkMovementMethod.getInstance());
         } else
             textViewDescription.setText(event.description);
-
-        buttonSubscribe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Soon", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         CoordinatorLayout.Behavior behavior = params.getBehavior();

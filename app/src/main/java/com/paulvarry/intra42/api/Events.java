@@ -30,9 +30,9 @@ public class Events {
     @SerializedName(API_KIND)
     public String kind;
     @SerializedName(API_MAX_PEOPLE)
-    public String maxPeople;
+    public int maxPeople;
     @SerializedName(API_NBR_SUBSCRIBERS)
-    public String nbrSubscribers;
+    public int nbrSubscribers;
     @SerializedName(API_BEGIN_AT)
     public Date beginAt;
     @SerializedName(API_END_AT)
