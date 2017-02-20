@@ -28,7 +28,7 @@ public class Tags implements Chip, Serializable {
     public static List<Tags> getTags(ApiService api) {
         List<Tags> list = new ArrayList<>();
         int i = 0;
-        int pageSize = 30;
+        int pageSize = 100;
 
         try {
             while (i < 10 && Pagination.canAdd(list, pageSize)) {
