@@ -12,8 +12,8 @@ android {
         applicationId "com.paulvarry.intra42"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 2017012830
-        versionName "0.6.0-beta4"
+        versionCode 20170220
+        versionName "0.6.0-beta5"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
