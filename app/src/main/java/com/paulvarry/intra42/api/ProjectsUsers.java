@@ -83,11 +83,12 @@ public class ProjectsUsers {
             if (!slug.contains("piscine-cpp-") &&
                     !slug.contains("first-internship-") &&
                     !slug.contains("piscine-php-") &&
-                    !slug.contains("piscine-after-effect-") &&
+                    !slug.contains("piscine-after-effects-") &&
                     !slug.contains("electronics-") &&
                     !slug.contains("piscine-c-day-09-") &&
                     !slug.contains("piscine-ocaml-") &&
-                    !slug.contains("piscine-unity-"))
+                    !slug.contains("piscine-unity-") &&
+                    !slug.contains("rushes-"))
                 ret.add(p);
         }
         return ret;
