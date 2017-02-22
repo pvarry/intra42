@@ -88,6 +88,9 @@ public class ProjectsUsers {
                     !slug.contains("piscine-c-day-09-") &&
                     !slug.contains("piscine-ocaml-") &&
                     !slug.contains("piscine-unity-") &&
+                    !slug.contains("piscine-python-django-") &&
+                    !slug.contains("piscine-ruby-on-rails-") &&
+                    !slug.contains("piscine-unity-") &&
                     !slug.contains("rushes-"))
                 ret.add(p);
         }
