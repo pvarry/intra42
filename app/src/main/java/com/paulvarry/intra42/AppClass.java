@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
@@ -26,7 +27,12 @@ import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AppClass extends Application {
 
@@ -99,6 +105,35 @@ public class AppClass extends Application {
             me = CacheUsers.get(cacheSQLiteHelper, login);
 
         initFirebase();
+
+        if (isExternalStorageWritable()) {
+
+            File appDirectory = getExternalFilesDir(null);
+            File logDirectory = new File(appDirectory + "/logs");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSX", Locale.getDefault());
+            Date now = new Date();
+            File logFile = new File(logDirectory, "logcat_" + formatter.format(now) + ".txt");
+
+            // create log folder
+            if (!logDirectory.exists()) {
+                logDirectory.mkdir();
+            }
+
+            // clear the previous logcat and then write the new one to the file
+            try {
+                logFile.createNewFile();
+                Process process = Runtime.getRuntime().exec("logcat -c");
+                process = Runtime.getRuntime().exec("logcat -f " + logFile);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else if (isExternalStorageReadable()) {
+            // only readable
+        } else {
+            // not accessible
+        }
     }
 
     public ApiService getApiService() {
@@ -179,6 +214,25 @@ public class AppClass extends Application {
             e.printStackTrace();
         }
 
+    }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
     }
 
 }
