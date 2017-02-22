@@ -399,5 +399,8 @@
     <string name="title_activity_cantina_menu">Cantina Menu (Fremont)</string>
     <string name="unsubscribed">Unsubscribed</string>
     <string name="full">Full</string>
+    <string name="icon_edit">Edit Icon</string>
+    <string name="icon_delete">Delete Icon</string>
+    <string name="edit_expertises">Edit Expertises</string>
 
 </resources>

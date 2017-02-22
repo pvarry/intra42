@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -14,12 +15,12 @@ import com.paulvarry.intra42.api.ExpertisesUsers;
 
 import java.util.List;
 
-public class ListAdapterExpertises extends BaseAdapter {
+public class ListAdapterExpertisesEdit extends BaseAdapter {
 
     Context context;
     private List<ExpertisesUsers> expertisesUsersList;
 
-    public ListAdapterExpertises(Context context, List<ExpertisesUsers> expertisesUsersList) {
+    public ListAdapterExpertisesEdit(Context context, List<ExpertisesUsers> expertisesUsersList) {
         this.expertisesUsersList = expertisesUsersList;
         this.context = context;
     }
@@ -84,10 +85,12 @@ public class ListAdapterExpertises extends BaseAdapter {
 
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            convertView = vi.inflate(R.layout.list_view_expertises, parent, false);
+            convertView = vi.inflate(R.layout.list_view_expertises_edit, parent, false);
             holder.textView = (TextView) convertView.findViewById(R.id.textView);
             holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
             holder.checkboxInterested = (CheckBox) convertView.findViewById(R.id.checkboxInterested);
+            holder.imageButtonEdit = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
+            holder.imageButtonRemove = (ImageButton) convertView.findViewById(R.id.imageButtonRemove);
 
             convertView.setTag(holder);
         } else {
@@ -101,6 +104,20 @@ public class ListAdapterExpertises extends BaseAdapter {
         holder.checkboxInterested.setChecked(item.interested);
         holder.ratingBar.setRating(item.value);
 
+        holder.imageButtonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        holder.imageButtonRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return convertView;
     }
 
@@ -108,5 +125,7 @@ public class ListAdapterExpertises extends BaseAdapter {
         private TextView textView;
         private RatingBar ratingBar;
         private CheckBox checkboxInterested;
+        private ImageButton imageButtonEdit;
+        private ImageButton imageButtonRemove;
     }
 }

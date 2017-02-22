@@ -83,6 +83,8 @@ public class ListAdapterMarks extends BaseAdapter {
         holder.textViewProjectSlug.setText(item.project.slug);
         ProjectUserStatus.setMark(context, item, holder.textViewProjectMark);
 
+//        holder.textViewProjectSlug.setVisibility(View.GONE);
+
         return convertView;
     }
 

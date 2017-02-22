@@ -144,10 +144,10 @@ public interface ApiService {
     Call<List<Topics>> getUserTopics(@Path("slug") String slug, @Query("page") int page);
 
     @GET("/v2/users/{id}/expertises_users?sort=-value")
-    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") int id, @Query("page") int page);
+    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") int userId, @Query("page") int page);
 
     @GET("/v2/users/{id}/expertises_users?sort=-value")
-    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") String slug, @Query("page") int page);
+    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") String userSlug, @Query("page") int page);
 
     /* Events */
     @GET("/v2/campus/{campus_id}/cursus/{cursus_id}/events?sort=begin_at")

@@ -1,8 +1,17 @@
 package com.paulvarry.intra42.api;
 
-import com.google.gson.annotations.SerializedName;
+import android.support.annotation.Nullable;
 
+import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.ApiService;
+import com.paulvarry.intra42.Tools.Pagination;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Response;
 
 public class ExpertisesUsers {
 
@@ -34,5 +43,28 @@ public class ExpertisesUsers {
     public Expertises expertise;
     @SerializedName(API_USER)
     public UserLTE user;
+
+    @Nullable
+    public static List<ExpertisesUsers> getExpertisesUsers(ApiService api, User user) {
+        List<ExpertisesUsers> list = new ArrayList<>();
+        int i = 0;
+        int pageSize = 100;
+
+        try {
+            while (i < 10 && Pagination.canAdd(list, pageSize)) {
+                Response<List<ExpertisesUsers>> response = api.getUserExpertises(user.login, Pagination.getPage(list, pageSize)).execute();
+                List<ExpertisesUsers> tmp = response.body();
+                if (!response.isSuccessful())
+                    break;
+                list.addAll(tmp);
+                ++i;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (list.isEmpty())
+            return null;
+        return list;
+    }
 
 }

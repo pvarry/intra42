@@ -2,23 +2,45 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
         android:text="New Text" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        style="?android:attr/ratingBarStyleSmall"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:numStars="5"
-        android:rating="2" />
+        android:layout_marginStart="16dp">
+
+        <CheckBox
+            android:id="@+id/checkboxInterested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:checked="true"
+            android:clickable="false"
+            android:focusable="false" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:numStars="5"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:rating="2" />
+
+    </LinearLayout>
 </FrameLayout>

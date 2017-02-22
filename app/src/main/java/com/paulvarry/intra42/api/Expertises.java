@@ -1,8 +1,17 @@
 package com.paulvarry.intra42.api;
 
-import com.google.gson.annotations.SerializedName;
+import android.support.annotation.Nullable;
 
+import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.ApiService;
+import com.paulvarry.intra42.Tools.Pagination;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Response;
 
 public class Expertises {
     private static final String API_ID = "id";
