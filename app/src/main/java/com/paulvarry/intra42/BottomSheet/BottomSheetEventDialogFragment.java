@@ -71,33 +71,43 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
             linearLayoutProgress.setVisibility(View.INVISIBLE);
             progressBarButton.setVisibility(View.GONE);
             buttonSubscribe.setEnabled(true);
+            eventsUsers = null;
             if (response.isSuccessful()) {
-                if (!response.body().isEmpty())
+                if (response.body() != null && !response.body().isEmpty())
                     eventsUsers = response.body().get(0);
-                linearLayoutProgress.setVisibility(View.INVISIBLE);
-                progressBarButton.setVisibility(View.GONE);
-                buttonSubscribe.setEnabled(true);
 
-                if (eventsUsers == null)
-                    buttonSubscribe.setText(R.string.subscribe);
-                else
-                    buttonSubscribe.setText(R.string.unsubscribe);
-
-                if ((eventsUsers != null && eventsUsers.event.nbrSubscribers >= eventsUsers.event.maxPeople) ||
-                        (eventsUsers == null && event.nbrSubscribers >= event.maxPeople)) {
-                    buttonSubscribe.setText(R.string.full);
-                    buttonSubscribe.setEnabled(false);
-                }
-
-                if (call.request().method().equals("POST"))
-                    Toast.makeText(getContext(), R.string.subscribed, Toast.LENGTH_SHORT).show();
-                else if (call.request().method().equals("DELETE"))
+                setButtonSubscribe();
+                if (call.request().method().equals("DELETE"))
                     Toast.makeText(getContext(), R.string.unsubscribed, Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         public void onFailure(Call<List<EventsUsers>> call, Throwable t) {
+            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            linearLayoutProgress.setVisibility(View.INVISIBLE);
+            progressBarButton.setVisibility(View.GONE);
+            buttonSubscribe.setEnabled(true);
+        }
+    };
+
+    private Callback<EventsUsers> callbackSubscribe = new Callback<EventsUsers>() {
+        @Override
+        public void onResponse(Call<EventsUsers> call, Response<EventsUsers> response) {
+
+            linearLayoutProgress.setVisibility(View.INVISIBLE);
+            progressBarButton.setVisibility(View.GONE);
+            buttonSubscribe.setEnabled(true);
+            eventsUsers = null;
+            if (response.isSuccessful()) {
+                eventsUsers = response.body();
+                setButtonSubscribe();
+                Toast.makeText(getContext(), R.string.subscribed, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<EventsUsers> call, Throwable t) {
             Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             linearLayoutProgress.setVisibility(View.INVISIBLE);
             progressBarButton.setVisibility(View.GONE);
@@ -163,7 +173,11 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
         }
 
         textViewPlace.setText(event.location);
-        String people = event.nbrSubscribers + " / " + event.maxPeople;
+        String people;
+        if (event.maxPeople == 0)
+            people = getString(R.string.subscription_unavailable);
+        else
+            people = String.valueOf(event.nbrSubscribers) + " / " + String.valueOf(event.maxPeople);
         textViewPeople.setText(people);
 
         if (AppSettings.Advanced.getAllowMarkdownRenderer(getContext())) {
@@ -208,8 +222,29 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
         progressBarButton.setVisibility(View.VISIBLE);
         buttonSubscribe.setEnabled(false);
         if (eventsUsers == null)
-            api.createEventsUsers(event.id, appClass.me.id).enqueue(callback);
+            api.createEventsUsers(event.id, appClass.me.id).enqueue(callbackSubscribe);
         else
             api.deleteEventsUsers(eventsUsers.id).enqueue(callback);
+    }
+
+    void setButtonSubscribe() {
+        linearLayoutProgress.setVisibility(View.INVISIBLE);
+        progressBarButton.setVisibility(View.GONE);
+        buttonSubscribe.setEnabled(true);
+
+        if (eventsUsers == null)
+            buttonSubscribe.setText(R.string.subscribe);
+        else
+            buttonSubscribe.setText(R.string.unsubscribe);
+
+        if ((eventsUsers != null && eventsUsers.event.nbrSubscribers >= eventsUsers.event.maxPeople) ||
+                (eventsUsers == null && event.nbrSubscribers >= event.maxPeople)) {
+
+            if (event.maxPeople == 0)
+                buttonSubscribe.setText(R.string.subscription_unavailable);
+            else
+                buttonSubscribe.setText(R.string.full);
+            buttonSubscribe.setEnabled(false);
+        }
     }
 }

@@ -130,7 +130,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="FULL"
-        android:textColor="#3bff0000"
-        android:textSize="80dp"/>
+        android:text="@string/full"
+        android:textAllCaps="true"
+        android:textColor="#28ff0000"
+        android:textSize="80sp"/>
 </FrameLayout>

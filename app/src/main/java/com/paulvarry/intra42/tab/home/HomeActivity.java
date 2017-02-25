@@ -8,9 +8,6 @@ import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activity.ExpertisesEditActivity;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
-import com.paulvarry.intra42.tab.user.UserActivity;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
@@ -30,9 +27,6 @@ public class HomeActivity extends BasicTabActivity
         super.setSelectedMenu(Navigation.MENU_SELECTED_HOME);
 
         super.onCreate(savedInstanceState);
-
-        Intent intent = new Intent(this, ExpertisesEditActivity.class);
-        startActivity(intent);
     }
 
     @Override

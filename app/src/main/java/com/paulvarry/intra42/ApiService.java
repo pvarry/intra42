@@ -179,7 +179,7 @@ public interface ApiService {
     Call<List<EventsUsers>> getEventsUsers(@Query("filter[user_id]") int user, @Query("filter[event_id]") int event);
 
     @POST("/v2/events_users")
-    Call<List<EventsUsers>> createEventsUsers(@Query("events_user[event_id]") int eventId, @Query("events_user[user_id]") int userId);
+    Call<EventsUsers> createEventsUsers(@Query("events_user[event_id]") int eventId, @Query("events_user[user_id]") int userId);
 
     @DELETE("/v2/events_users/{id}")
     Call<List<EventsUsers>> deleteEventsUsers(@Path("id") int eventUser);

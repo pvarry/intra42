@@ -109,7 +109,7 @@ public class ListAdapterEvents extends BaseAdapter {
 
         Tag.setTagEvent(item, holder.tagViewKind);
 
-        if (item.nbrSubscribers >= item.maxPeople)
+        if (item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0)
             holder.textViewFull.setVisibility(View.VISIBLE);
         else
             holder.textViewFull.setVisibility(View.GONE);

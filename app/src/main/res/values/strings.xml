@@ -402,5 +402,6 @@
     <string name="icon_edit">Edit Icon</string>
     <string name="icon_delete">Delete Icon</string>
     <string name="edit_expertises">Edit Expertises</string>
+    <string name="subscription_unavailable">Subscription unavailable</string>
 
 </resources>
