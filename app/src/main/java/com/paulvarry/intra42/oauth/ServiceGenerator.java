@@ -215,7 +215,7 @@ public class ServiceGenerator {
                 java.util.Date returnDate;
                 try {
                     returnDate = formatter.parse(date);
-                } catch (ParseException e) {
+                } catch (ParseException | IllegalArgumentException e) {
                     Log.e(TAG, "Failed to parse dateString: (" + date + "),  due to:", e);
 
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
