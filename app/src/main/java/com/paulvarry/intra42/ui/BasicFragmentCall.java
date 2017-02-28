@@ -2,6 +2,7 @@ package com.paulvarry.intra42.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
 
+    protected FloatingActionButton fabBasicFragmentCall;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textView;
     private ListView listView;
@@ -83,11 +85,13 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         listView = (ListView) view.findViewById(R.id.listView);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         textView = (TextView) view.findViewById(R.id.textView);
+        fabBasicFragmentCall = (FloatingActionButton) view.findViewById(R.id.fabBasicFragmentCall);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);
         listView.setOnScrollListener(this);
         textView.setVisibility(View.GONE);
+        fabBasicFragmentCall.setVisibility(View.GONE);
         onRefresh();
     }
 

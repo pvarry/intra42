@@ -403,5 +403,11 @@
     <string name="icon_delete">Delete Icon</string>
     <string name="edit_expertises">Edit Expertises</string>
     <string name="subscription_unavailable">Subscription unavailable</string>
+    <string name="interested">Interested:</string>
+    <string name="discard">discard</string>
+    <string name="created">Created</string>
+    <string name="edit_expertise">Edit Expertise</string>
+    <string name="new_expertise">Add new expertise</string>
+    <string name="deleted">Deleted</string>
 
 </resources>

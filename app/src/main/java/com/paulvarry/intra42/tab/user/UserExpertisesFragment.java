@@ -1,16 +1,19 @@
 package com.paulvarry.intra42.tab.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.paulvarry.intra42.Adapter.ListAdapterExpertises;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.Pagination;
+import com.paulvarry.intra42.activity.ExpertisesEditActivity;
 import com.paulvarry.intra42.api.ExpertisesUsers;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
 
@@ -26,7 +29,7 @@ import retrofit2.Call;
  * Use the {@link UserExpertisesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, ListAdapterExpertises> {
+public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, ListAdapterExpertises> implements View.OnClickListener {
 
     @Nullable
     private
@@ -53,6 +56,15 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, L
         super.onCreate(savedInstanceState);
 
         activity = (UserActivity) getActivity();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        fabBasicFragmentCall.setVisibility(View.VISIBLE);
+        fabBasicFragmentCall.setOnClickListener(this);
+        fabBasicFragmentCall.setImageResource(R.drawable.ic_mode_edit_black_24dp);
     }
 
     @Nullable
@@ -108,6 +120,14 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, L
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == fabBasicFragmentCall) {
+            Intent intent = new Intent(getContext(), ExpertisesEditActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**

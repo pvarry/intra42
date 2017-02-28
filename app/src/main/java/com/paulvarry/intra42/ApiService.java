@@ -6,6 +6,7 @@ import com.paulvarry.intra42.api.Campus;
 import com.paulvarry.intra42.api.Cursus;
 import com.paulvarry.intra42.api.Events;
 import com.paulvarry.intra42.api.EventsUsers;
+import com.paulvarry.intra42.api.Expertises;
 import com.paulvarry.intra42.api.ExpertisesUsers;
 import com.paulvarry.intra42.api.Locations;
 import com.paulvarry.intra42.api.Messages;
@@ -313,8 +314,24 @@ public interface ApiService {
     @GET("/v2/announcements?sort=begin_at")
     Call<List<Announcements>> getAnnouncements(@Query("range[created_at]") String rangeCreated, @Query("page") int page);
 
-    /* Other */
+    /* Expertises */
+    @GET("/v2/expertises?sort=name")
+    Call<List<Expertises>> getExpertises();
 
+    @GET("/v2/expertises?sort=name")
+    Call<List<Expertises>> getExpertises(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+
+    /* Expertises Users */
+    @POST("/v2/expertises_users")
+    Call<Expertises> createExpertisesUsers(@Query("expertises_user[expertise_id]") int expertiseID, @Query("expertises_user[user_id]") int userID, @Query("expertises_user[value]") int value, @Query("expertises_user[interested]") boolean interested);
+
+    @PUT("/v2/expertises_users/{expertises_users_id}")
+    Call<Expertises> updateExpertisesUsers(@Path("expertises_users_id") int expertisesUsersID, @Query("expertises_user[expertise_id]") int expertiseID, @Query("expertises_user[user_id]") int userID, @Query("expertises_user[value]") int value, @Query("expertises_user[interested]") boolean interested);
+
+    @DELETE("/v2/expertises_users/{expertises_users_id}")
+    Call<Expertises> deleteExpertisesUsers(@Path("expertises_users_id") int expertisesUsersID);
+
+    /* Other */
     @GET
     Call<ResponseBody> getOther(@Url String path);
 }

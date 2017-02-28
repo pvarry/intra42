@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -28,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +51,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     protected CoordinatorLayout coordinatorLayout;
     protected View viewContent;
     protected NavigationView navigationView;
+    protected FloatingActionButton fabBaseActivity;
     MenuItem menuItemSearch;
     DrawerLayout drawer;
     private SimpleCursorAdapter searchAdapter;
@@ -56,6 +59,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private ConstraintLayout constraintOnError;
     private TextView textViewLoadingStatus;
     private TextView textViewError;
+    private Button buttonForceRefresh;
     private int drawerSelectedItemPosition = -1;
 
     private boolean activeHamburger = false;
@@ -78,6 +82,10 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
         textViewLoadingStatus = (TextView) findViewById(R.id.textViewLoading);
         textViewError = (TextView) findViewById(R.id.textViewError);
+        buttonForceRefresh = (Button) findViewById(R.id.buttonRefresh);
+
+        fabBaseActivity = (FloatingActionButton) findViewById(R.id.fabBaseActivity);
+        fabBaseActivity.setVisibility(View.GONE);
 
         setViewNavigation(); // set drawer menu
 
@@ -101,6 +109,10 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             toolbar.setTitle(toolbarName);
         }
 
+        refresh();
+    }
+
+    protected void refresh() {
         if (getDataOnMainThread())
             setView();
         else {
@@ -278,6 +290,12 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         if (error == null)
             error = getString(R.string.nothing_to_show);
         textViewError.setText(error);
+        buttonForceRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
     }
 
     /**

@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CacheSQLiteHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "Cache.db";
+    private static final int DATABASE_VERSION = 4;
+    private static final String DATABASE_NAME = "Cache.db";
 
     public CacheSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -18,6 +18,7 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CacheTags.SQL_CREATE_TABLE);
         db.execSQL(CacheCampus.SQL_CREATE_TABLE);
         db.execSQL(CacheCursus.SQL_CREATE_TABLE);
+        db.execSQL(CacheExpertises.SQL_CREATE_TABLE);
     }
 
 
@@ -28,6 +29,7 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CacheTags.SQL_DROP_TABLE);
         db.execSQL(CacheCampus.SQL_DROP_TABLE);
         db.execSQL(CacheCursus.SQL_DROP_TABLE);
+        db.execSQL(CacheExpertises.SQL_DROP_TABLE);
         onCreate(db);
     }
 

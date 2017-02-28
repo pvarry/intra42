@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="16dp"
-    android:layout_marginStart="8dp">
+    android:paddingEnd="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingStart="8dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,7 +22,7 @@
             android:layout_gravity="start|center_vertical"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="New Text" />
+            android:text="New Text"/>
 
         <CheckBox
             android:id="@+id/checkboxInterested"
@@ -30,7 +33,7 @@
             android:layout_marginRight="8dp"
             android:checked="true"
             android:clickable="false"
-            android:focusable="false" />
+            android:focusable="false"/>
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -41,15 +44,13 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:numStars="5"
-            android:rating="2" />
+            android:rating="2"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp">
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center_vertical">
 
         <ImageButton
             android:id="@+id/imageButtonEdit"
@@ -58,7 +59,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/icon_edit"
             android:padding="4dp"
-            app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
+            android:src="@drawable/ic_mode_edit_black_24dp"
+            app:srcCompat="@drawable/ic_mode_edit_black_24dp"/>
 
         <ImageButton
             android:id="@+id/imageButtonRemove"
@@ -67,7 +69,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/icon_delete"
             android:padding="4dp"
+            android:src="@drawable/ic_delete_black_24dp"
             android:tint="@color/colorTintCross"
-            app:srcCompat="@drawable/ic_delete_black_24dp" />
+            app:srcCompat="@drawable/ic_delete_black_24dp"/>
     </LinearLayout>
 </FrameLayout>

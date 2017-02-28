@@ -1,4 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="New Text"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -46,14 +47,16 @@
                         android:contentDescription="@string/user_profile_image"
                         android:cropToPadding="false"
                         android:minWidth="70dp"
-                        app:srcCompat="@drawable/ic_person_black_custom" />
+                        app:srcCompat="@drawable/ic_person_black_custom"/>
 
                     <LinearLayout
                         android:id="@+id/linearLayoutInfo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="0dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="0dp"
+                        android:layout_marginStart="16dp"
                         android:orientation="vertical">
 
                         <FrameLayout
@@ -66,7 +69,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical|start"
                                 android:text="@string/name"
-                                android:textAppearance="?android:attr/textAppearanceLarge" />
+                                android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                             <ImageButton
                                 android:id="@+id/imageButtonOpenProfile"
@@ -78,7 +81,7 @@
                                 android:contentDescription="@string/icon_eye"
                                 android:padding="4dp"
                                 android:tint="@color/colorGrayTint"
-                                app:srcCompat="@drawable/ic_remove_red_eye_black_24px" />
+                                app:srcCompat="@drawable/ic_remove_red_eye_black_24px"/>
                         </FrameLayout>
 
                         <HorizontalScrollView
@@ -94,43 +97,55 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:paddingBottom="2dp"
+                                android:paddingEnd="4dp"
                                 android:paddingLeft="0dp"
                                 android:paddingRight="4dp"
+                                android:paddingStart="0dp"
                                 android:paddingTop="2dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:paddingEnd="0dp"
                                     android:paddingLeft="@dimen/user_inline_stat"
                                     android:paddingRight="0dp"
+                                    android:paddingStart="@dimen/user_inline_stat"
                                     android:text="@string/wallet"
-                                    android:textColor="@color/textColorBlackDisabled" />
+                                    android:textColor="@color/textColorBlackDisabled"/>
 
                                 <TextView
                                     android:id="@+id/textViewWallet"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="2dp"
+                                    android:layout_marginStart="2dp"
+                                    android:paddingEnd="0dp"
                                     android:paddingLeft="@dimen/user_inline_stat"
-                                    android:paddingRight="0dp" />
+                                    android:paddingRight="0dp"
+                                    android:paddingStart="@dimen/user_inline_stat"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="6dp"
+                                    android:layout_marginStart="6dp"
+                                    android:paddingEnd="0dp"
                                     android:paddingLeft="@dimen/user_inline_stat"
                                     android:paddingRight="0dp"
+                                    android:paddingStart="@dimen/user_inline_stat"
                                     android:text="@string/correction_points"
-                                    android:textColor="@color/textColorBlackDisabled" />
+                                    android:textColor="@color/textColorBlackDisabled"/>
 
                                 <TextView
                                     android:id="@+id/textViewCP"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="2dp"
+                                    android:layout_marginStart="2dp"
+                                    android:paddingEnd="0dp"
                                     android:paddingLeft="@dimen/user_inline_stat"
-                                    android:paddingRight="0dp" />
-
+                                    android:paddingRight="0dp"
+                                    android:paddingStart="@dimen/user_inline_stat"/>
 
                             </LinearLayout>
                         </HorizontalScrollView>
@@ -140,7 +155,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="New Text" />
+                            android:text="New Text"/>
 
                         <ProgressBar
                             android:id="@+id/progressBarLevel"
@@ -149,7 +164,7 @@
                             android:layout_height="wrap_content"
                             android:indeterminate="false"
                             android:max="100"
-                            android:progress="50" />
+                            android:progress="50"/>
 
                     </LinearLayout>
                 </LinearLayout>

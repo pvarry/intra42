@@ -11,18 +11,19 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activity.ExpertisesEditActivity;
 import com.paulvarry.intra42.api.ExpertisesUsers;
 
 import java.util.List;
 
 public class ListAdapterExpertisesEdit extends BaseAdapter {
 
-    Context context;
+    ExpertisesEditActivity activity;
     private List<ExpertisesUsers> expertisesUsersList;
 
-    public ListAdapterExpertisesEdit(Context context, List<ExpertisesUsers> expertisesUsersList) {
+    public ListAdapterExpertisesEdit(ExpertisesEditActivity expertisesEditActivity, List<ExpertisesUsers> expertisesUsersList) {
         this.expertisesUsersList = expertisesUsersList;
-        this.context = context;
+        this.activity = expertisesEditActivity;
     }
 
     /**
@@ -83,7 +84,7 @@ public class ListAdapterExpertisesEdit extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_expertises_edit, parent, false);
             holder.textView = (TextView) convertView.findViewById(R.id.textView);
@@ -97,7 +98,7 @@ public class ListAdapterExpertisesEdit extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ExpertisesUsers item = getItem(position);
+        final ExpertisesUsers item = getItem(position);
 
         if (item.expertise != null)
             holder.textView.setText(item.expertise.name);
@@ -107,14 +108,14 @@ public class ListAdapterExpertisesEdit extends BaseAdapter {
         holder.imageButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activity.prepareDialog(item);
             }
         });
 
         holder.imageButtonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activity.deleteExpertiseUser(item);
             }
         });
 

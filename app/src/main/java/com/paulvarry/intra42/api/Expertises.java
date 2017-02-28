@@ -37,4 +37,40 @@ public class Expertises {
     @SerializedName(API_EXPERTISES_USERS_URL)
     public String expertises_users_url;
 
+    @Nullable
+    public static List<Expertises> getAll(ApiService api) {
+        List<Expertises> list = new ArrayList<>();
+        int i = 0;
+        int pageSize = 30;
+
+        try {
+            while (i < 10 && Pagination.canAdd(list, pageSize)) {
+                Response<List<Expertises>> response = api.getExpertises(pageSize, Pagination.getPage(list, pageSize)).execute();
+                List<Expertises> tmp = response.body();
+                if (!response.isSuccessful())
+                    break;
+                list.addAll(tmp);
+                ++i;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (list.isEmpty())
+            return null;
+        return list;
+    }
+
+    public static List<String> getStrings(List<Expertises> expertises) {
+        List<String> arrayList = new ArrayList<>();
+
+        if (expertises == null)
+            return null;
+
+        for (Expertises c : expertises) {
+            arrayList.add(c.name);
+        }
+
+        return arrayList;
+    }
+
 }
