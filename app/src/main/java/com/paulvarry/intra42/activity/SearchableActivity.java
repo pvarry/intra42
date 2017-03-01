@@ -319,7 +319,15 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             textViewLoading.setText(R.string.calling);
             buttonApiOpen.setVisibility(View.GONE);
 
-            api.getOther(split[1]).enqueue(new Callback<ResponseBody>() {
+            String URL = split[1];
+            if (URL.startsWith("v2/"))
+                URL = "/" + URL;
+            else if (!URL.startsWith("/v2/"))
+                URL = "/v2/" + URL;
+            else if (!URL.startsWith("/v2"))
+                URL = "/v2" + URL;
+
+            api.getOther(URL).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     visibilityGoneAll();
