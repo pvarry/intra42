@@ -35,6 +35,7 @@ import com.paulvarry.intra42.api.Votes;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 
 import java.text.DateFormat;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +62,7 @@ public class BottomSheetTopicInfoDialogFragment extends BottomSheetDialogFragmen
     private ProgressBar progressBarDown;
     private ProgressBar progressBarReport;
     private ProgressBar progressBarTroll;
+    private TextView massageWithoutRendering;
 
     private Button buttonReply;
     private Button buttonShare;
@@ -137,7 +139,9 @@ public class BottomSheetTopicInfoDialogFragment extends BottomSheetDialogFragmen
         TextView textViewUpdated = (TextView) contentView.findViewById(R.id.textViewUpdated);
         TextView textViewView = (TextView) contentView.findViewById(R.id.textViewView);
 
-        textViewMessage.setText(message.content);
+        massageWithoutRendering = (TextView) contentView.findViewById(R.id.massageWithoutRendering);
+
+        textViewMessage.setText(message.content.replace('\n', ' '));
         textViewUp.setText(String.valueOf(message.votesCount.upvote));
         textViewDown.setText(String.valueOf(message.votesCount.downvote));
         textViewReport.setText(String.valueOf(message.votesCount.problem));
@@ -170,11 +174,13 @@ public class BottomSheetTopicInfoDialogFragment extends BottomSheetDialogFragmen
         }
 
         DateFormat timeFormatter =
-                DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.LONG, getResources().getConfiguration().locale);
+                DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.LONG, Locale.getDefault());
 
         textViewCreated.setText(timeFormatter.format(message.createdAt));
         textViewUpdated.setText(timeFormatter.format(message.updatedAt));
         textViewView.setText(String.valueOf(message.readings));
+
+        massageWithoutRendering.setText(message.content);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         CoordinatorLayout.Behavior behavior = params.getBehavior();
