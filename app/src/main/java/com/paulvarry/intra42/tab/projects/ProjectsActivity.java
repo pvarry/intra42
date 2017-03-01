@@ -17,8 +17,8 @@ public class ProjectsActivity extends BasicTabActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         activeHamburger();
-        super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
+        super.onCreate(savedInstanceState);
     }
 
     @Override

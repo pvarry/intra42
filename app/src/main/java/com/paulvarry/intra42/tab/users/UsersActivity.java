@@ -20,8 +20,8 @@ public class UsersActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.activeHamburger();
-        super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable

@@ -3,7 +3,6 @@ package com.paulvarry.intra42.tab.forum;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -17,18 +16,11 @@ import com.paulvarry.intra42.ui.tools.Navigation;
 public class ForumActivity extends BasicTabActivity
         implements ForumUnreadFragment.OnFragmentInteractionListener, ForumLastTopicsFragment.OnFragmentInteractionListener, ForumTagFragment.OnFragmentInteractionListener, View.OnClickListener {
 
-    private FloatingActionButton fab;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.activeHamburger();
-        super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_FORUM);
-
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(View.VISIBLE);
-        fab.setOnClickListener(this);
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -43,11 +35,14 @@ public class ForumActivity extends BasicTabActivity
         adapter.addFragment(ForumLastTopicsFragment.newInstance(), "Last topics");
         adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.tag));
         viewPager.setAdapter(adapter);
+
+        fabBaseActivity.setVisibility(View.VISIBLE);
+        fabBaseActivity.setImageResource(R.drawable.ic_add_black_24dp);
+        fabBaseActivity.setOnClickListener(this);
     }
 
     @Override
     public boolean getDataOnOtherThread() {
-
         return true;
     }
 
@@ -78,7 +73,7 @@ public class ForumActivity extends BasicTabActivity
 
     @Override
     public void onClick(View v) {
-        if (v == fab)
+        if (v == fabBaseActivity)
             NewTopicActivity.openIt(this);
     }
 }

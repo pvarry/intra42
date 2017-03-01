@@ -17,8 +17,8 @@ public class NotionsActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.activeHamburger();
-        super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_ELEARNING);
+        super.onCreate(savedInstanceState);
     }
 
     public boolean getDataOnOtherThread() {

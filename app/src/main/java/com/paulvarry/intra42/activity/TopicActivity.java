@@ -124,7 +124,6 @@ public class TopicActivity extends BasicActivity
         editTextReply = (EditText) findViewById(R.id.editTextReply);
         listView = (ExpandableListView) findViewById(R.id.expandableListView);
         buttonReply = (ImageButton) findViewById(R.id.buttonReply);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
         textViewPreviewMessage = (TextView) findViewById(R.id.textViewPreviewMessage);
 
         scrollViewReply.setVisibility(View.GONE);
