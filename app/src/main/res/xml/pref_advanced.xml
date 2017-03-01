@@ -23,6 +23,12 @@
             android:summary="For forum and events (default true)"
             android:title="Use markdown renderer" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_advanced_allow_save_logs_on_file"
+            android:summary='Also print API call on logs, private data can be save on External Storage. You can read the logs on \"Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. (default false)'
+            android:title="Active save logs on disk" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

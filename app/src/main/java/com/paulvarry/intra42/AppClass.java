@@ -106,7 +106,7 @@ public class AppClass extends Application {
 
         initFirebase();
 
-        if (isExternalStorageWritable()) {
+        if (isExternalStorageWritable() && (AppSettings.Advanced.getAllowSaveLogs(this) | BuildConfig.DEBUG)) {
 
             File appDirectory = getExternalFilesDir(null);
             File logDirectory = new File(appDirectory + "/logs");
@@ -190,7 +190,7 @@ public class AppClass extends Application {
             if (me != null)
                 firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
         } catch (IllegalStateException e) {
-
+            Log.e("Firebase", "Fail to init friends with firebase");
         }
     }
 
@@ -219,20 +219,14 @@ public class AppClass extends Application {
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     /* Checks if external storage is available to at least read */
     public boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
     }
 
 }

@@ -64,6 +64,7 @@ public class AppSettings {
         public static final String PREFERENCE_ADVANCED_ALLOW_DATA = "switch_preference_advanced_allow_advanced_data";
         public static final String PREFERENCE_ADVANCED_ALLOW_MARKDOWN = "switch_preference_advanced_allow_markdown_renderer";
         public static final String PREFERENCE_ADVANCED_ALLOW_FRIENDS = "switch_preference_advanced_allow_friends";
+        public static final String PREFERENCE_ADVANCED_ALLOW_SAVE_LOGS = "switch_preference_advanced_allow_save_logs_on_file";
 
         public static boolean getAllowAdvanced(SharedPreferences settings) {
             return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_ADVANCED, false);
@@ -107,6 +108,18 @@ public class AppSettings {
 
         public static boolean getAllowFriends(Context context) {
             return context != null && getAllowFriends(getSharedPreferences(context));
+        }
+
+        // save logs
+        public static boolean getAllowSaveLogs(SharedPreferences settings) {
+            if (getAllowAdvanced(settings))
+                return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_SAVE_LOGS, true);
+            else
+                return false;
+        }
+
+        public static boolean getAllowSaveLogs(Context context) {
+            return context != null && getAllowSaveLogs(getSharedPreferences(context));
         }
     }
 

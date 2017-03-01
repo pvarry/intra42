@@ -18,6 +18,7 @@ import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.api.AccessToken;
 import com.paulvarry.intra42.api.Messages;
@@ -193,7 +194,7 @@ public class ServiceGenerator {
     private static void getLogInterceptor(OkHttpClient.Builder httpClient) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        if (BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG || AppSettings.Advanced.getAllowSaveLogs(app))
             httpClient.addInterceptor(logging);// add logging as last interceptor
 
     }
