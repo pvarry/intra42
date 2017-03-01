@@ -29,6 +29,7 @@ public class User extends UserLTE {
     private final static String API_GROUPS = "groups";
     private final static String API_CURSUS_USERS = "cursus_users";
     private final static String API_PROJECTS_USERS = "projects_users";
+    private final static String API_LANGUAGES_USERS = "languages_users";
     private final static String API_ACHIEVEMENTS = "achievements";
     private final static String API_TITLES = "titles";
     private final static String API_PARTNERSHIPS = "partnerships";
@@ -36,6 +37,7 @@ public class User extends UserLTE {
     private final static String API_PATRONING = "patroning";
     private final static String API_EXPERTISES_USERS = "expertises_users";
     private final static String API_CAMPUS = "campus";
+    private final static String API_CAMPUS_USER = "campus_users";
 
     @SerializedName(API_EMAIL)
     public String email;
@@ -68,6 +70,8 @@ public class User extends UserLTE {
     public List<CursusUsers> cursusUsers;
     @SerializedName(API_PROJECTS_USERS)
     public List<ProjectsUsers> projectsUsers;
+    @SerializedName(API_LANGUAGES_USERS)
+    public List<LanguagesUsers> languagesUsers;
     @SerializedName(API_ACHIEVEMENTS)
     public List<Achievements> achievements;
     @SerializedName(API_TITLES)
@@ -82,6 +86,8 @@ public class User extends UserLTE {
     public List<ExpertisesUsers> expertisesUsers;
     @SerializedName(API_CAMPUS)
     public List<Campus> campus;
+    @SerializedName(API_CAMPUS_USER)
+    public List<CampusUsers> campusUsers;
 
     static public User me(ApiService apiService) {
 

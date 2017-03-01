@@ -18,6 +18,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.api.AccessToken;
+import com.paulvarry.intra42.api.CampusUsers;
 import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 import com.paulvarry.intra42.tab.home.HomeActivity;
@@ -169,7 +170,13 @@ public class MainActivity extends AppCompatActivity {
     private void initCampus() {
         int campus = AppSettings.ContentOption.getCampus(getApplicationContext());
         if (campus == -1 && app.me != null && app.me.campus != null && !app.me.campus.isEmpty()) {
-            int c = app.me.campus.get(0).id;
+            int c = -1;
+            for (CampusUsers campusUsers : app.me.campusUsers) {
+                if (campusUsers.isPrimary) {
+                    c = campusUsers.campusId;
+                    break;
+                }
+            }
             AppSettings.ContentOption.setCampus(getApplicationContext(), c);
         }
     }
