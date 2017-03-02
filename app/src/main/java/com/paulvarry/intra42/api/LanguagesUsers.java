@@ -2,6 +2,8 @@ package com.paulvarry.intra42.api;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class LanguagesUsers {
 
     private static final String API_ID = "id";
@@ -19,5 +21,5 @@ public class LanguagesUsers {
     @SerializedName(API_POSITION)
     public int position;
     @SerializedName(API_CREATED_AT)
-    public int createdAt;
+    public Date createdAt;
 }
