@@ -5,12 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.api.CampusUsers;
-import com.paulvarry.intra42.api.CursusUsers;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This class is a interface for app Settings set with {@link com.paulvarry.intra42.activity.SettingsActivity SettingsActivity}.
@@ -29,48 +23,58 @@ public class AppSettings {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static int getUserCampus(AppClass appClass) {
-        int appForce = Advanced.getContentForceCampus(appClass);
-        if (appForce > 0)
-            return appForce;
-        else if (appClass.me == null || appClass.me.cursusUsers == null)
-            return -1;
-        else {
-            int campusUserIntra = 0;
-
-            for (CampusUsers campusUsers : appClass.me.campusUsers) {
-                if (campusUsers.isPrimary) {
-                    campusUserIntra = campusUsers.campusId;
-                    break;
-                }
-            }
-            return campusUserIntra;
-        }
+    /**
+     * Return the main Campus of the user logged.
+     *
+     * @param app AppClass.
+     * @return The id of a Campus.
+     * @see com.paulvarry.intra42.api.User#getCampusUsersToDisplay(Context)
+     */
+    public static int getUserCampus(AppClass app) {
+        if (app.me != null)
+            return app.me.getCampusUsersToDisplayID(app);
+        return -1;
     }
 
-    public static int getUserCursus(AppClass appClass) {
-        int appForce = Advanced.getContentForceCursus(appClass);
-        if (appForce > 0)
-            return appForce;
-        else if (appClass.me == null || appClass.me.cursusUsers == null)
-            return -1;
-        else {
-            List<CursusUsers> campusUserActive = new ArrayList<>();
-            boolean is_subscribe42 = false;
-            for (CursusUsers cursusUsers : appClass.me.cursusUsers) { // check for active campus
-                if (cursusUsers.begin_at == null || cursusUsers.begin_at.after(new Date())) {
-                    if (cursusUsers.cursusId == 1)
-                        is_subscribe42 = true;
-                    campusUserActive.add(cursusUsers);
-                }
-            }
-            if (campusUserActive.size() == 0)
-                return 0;
-            else if (is_subscribe42)
-                return 1; // id of cursus 42 is 1
-            else
-                return campusUserActive.get(0).cursusId;
-        }
+    /**
+     * Return the forced Campus if is set or the main Campus of the user logged.
+     *
+     * @param app AppClass.
+     * @return The id of a Campus.
+     * @see com.paulvarry.intra42.api.User#getCampusUsersToDisplay(Context)
+     */
+    public static int getAppCampus(AppClass app) {
+        int forced = Advanced.getContentForceCampus(app);
+        if (forced > 0)
+            return forced;
+        return getUserCampus(app);
+    }
+
+    /**
+     * Return the main Cursus of the user logged.
+     *
+     * @param app AppClass.
+     * @return The id of a Cursus.
+     * @see com.paulvarry.intra42.api.User#getCursusUsersToDisplay(Context)
+     */
+    public static int getUserCursus(AppClass app) {
+        if (app.me != null)
+            return app.me.getCursusUsersToDisplayID(app);
+        return -1;
+    }
+
+    /**
+     * Return the forced Cursus if is set or the main Cursus of the user logged.
+     *
+     * @param app AppClass.
+     * @return The id of a Cursus.
+     * @see com.paulvarry.intra42.api.User#getCursusUsersToDisplay(Context)
+     */
+    public static int getAppCursus(AppClass app) {
+        int forced = Advanced.getContentForceCursus(app);
+        if (forced > 0)
+            return forced;
+        return getUserCursus(app);
     }
 
     public static class Advanced {

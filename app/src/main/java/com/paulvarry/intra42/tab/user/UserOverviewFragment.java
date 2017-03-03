@@ -35,6 +35,7 @@ import com.paulvarry.intra42.Tools.Friends;
 import com.paulvarry.intra42.Tools.Tag;
 import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.api.Campus;
+import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.api.Locations;
 import com.paulvarry.intra42.api.User;
 import com.plumillonforge.android.chipview.ChipView;
@@ -253,14 +254,16 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
         relativeLayoutMail.setOnClickListener(this);
         linearLayoutLocation.setOnClickListener(this);
 
-        if (user.cursusUsers != null && user.cursusUsers.size() != 0) {
+        CursusUsers selected = user.getCursusUsersToDisplay(getContext());
+        if (selected != null && user.cursusUsers != null) {
             linearLayoutCursus.setVisibility(View.VISIBLE);
             textViewNoCursusAvailable.setVisibility(View.GONE);
             SpinnerAdapterCursusAccent adapterUserCursus = new SpinnerAdapterCursusAccent(getActivity(), user.cursusUsers);
             spinnerCursus.setAdapter(adapterUserCursus);
             spinnerCursus.setOnItemSelectedListener(this);
+
             for (int i = 0; i < user.cursusUsers.size(); i++) {
-                if (user.cursusUsers.get(i).cursus.id == 1)
+                if (user.cursusUsers.get(i).cursusId == selected.cursusId)
                     spinnerCursus.setSelection(i, false);
             }
         } else {

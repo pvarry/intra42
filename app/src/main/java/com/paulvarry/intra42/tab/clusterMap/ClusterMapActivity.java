@@ -68,7 +68,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     public boolean getDataOnOtherThread() {
 
         final List<Locations> locationsTmp = new ArrayList<>();
-        campusId = AppSettings.getUserCampus(app);
+        campusId = AppSettings.getAppCampus(app);
         if (!(campusId == 1 || campusId == 7))
             return false;
 

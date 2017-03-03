@@ -1,12 +1,17 @@
 package com.paulvarry.intra42.api;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.ApiService;
+import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -109,6 +114,114 @@ public class User extends UserLTE {
     @Override
     public String toString() {
         return ServiceGenerator.getGson().toJson(this);
+    }
+
+    /**
+     * get a CampusUsers from this user to display on the app. If a forced Campus is found and if
+     * the user is register to this campus, so this campus is returned. In the other case, the main
+     * campus is returned.
+     * <p>
+     * NOTE: Is the user have set force campus on the settings, this campus is not returned in any
+     * case, it is returned only if the user is subscribed to this campus. To have the forced Campus
+     * even if the user is not subscribe use : {@link AppSettings#getAppCampus(AppClass)}.
+     *
+     * @param context The Context
+     * @return The CampusUsers to use on the app.
+     */
+    @Nullable
+    public CampusUsers getCampusUsersToDisplay(Context context) {
+        int appForce = AppSettings.Advanced.getContentForceCampus(context);
+        CampusUsers mainCampus = null;
+
+        if (this.campusUsers == null || this.campusUsers.size() == 0)
+            return null;
+
+        if (appForce > 0) { // use when a cursus if force on the setting
+            for (CampusUsers c : this.campusUsers) {
+                if (c.campusId == appForce) {
+                    mainCampus = c;
+                    break;
+                }
+            }
+            if (mainCampus != null) // only return a cursus if it is found
+                return mainCampus;
+        }
+
+        for (CampusUsers campusUsers : this.campusUsers) {
+            if (campusUsers.isPrimary) {
+                mainCampus = campusUsers;
+                break;
+            }
+        }
+        return mainCampus;
+    }
+
+    public int getCampusUsersToDisplayID(Context context) {
+        CampusUsers tmp = getCampusUsersToDisplay(context);
+        if (tmp == null)
+            return 0;
+        else
+            return tmp.campusId;
+    }
+
+    /**
+     * get a CursusUsers from this user to display on the app. If a forced Cursus is found and if
+     * the user is register to this cursus, so this cursus is returned. In the other case, the main
+     * cursus is found (with end_at data) and returned.
+     * <p>
+     * NOTE: Is the user have set force cursus on the settings, this cursus is not returned in any
+     * case, it is returned only if the user is subscribed to this cursus. To have the forced Cursus
+     * even if the user is not subscribe use : {@link AppSettings#getAppCursus(AppClass)}.
+     *
+     * @param context The Context
+     * @return The CursusUsers to use on the app.
+     */
+    @Nullable
+    public CursusUsers getCursusUsersToDisplay(Context context) {
+        int appForce = AppSettings.Advanced.getContentForceCursus(context);
+        CursusUsers mainCursus = null;
+        CursusUsers cursus42Active = null;
+        CursusUsers cursusActiveMaxLevel = null;
+
+        if (this.cursusUsers == null || this.campusUsers.size() == 0)
+            return null;
+
+        if (appForce > 0) { // use when a cursus if force on the setting
+            for (CursusUsers c : this.cursusUsers) {
+                if (c.cursusId == appForce) {
+                    mainCursus = c;
+                    break;
+                }
+            }
+            if (mainCursus != null) // only return a cursus if it is found
+                return mainCursus;
+        }
+
+        List<CursusUsers> campusUserActive = new ArrayList<>();
+        for (CursusUsers cursusUsers : this.cursusUsers) { // check for active campus and add then on a list
+            if (cursusUsers.end_at == null || cursusUsers.end_at.after(new Date())) {
+                if (cursusUsers.cursusId == 1)
+                    cursus42Active = cursusUsers;
+                campusUserActive.add(cursusUsers);
+                if (cursusActiveMaxLevel == null || cursusUsers.level > cursusActiveMaxLevel.level)
+                    cursusActiveMaxLevel = cursusUsers;
+            }
+        }
+
+        if (cursus42Active != null)
+            return cursus42Active;
+        if (campusUserActive.size() > 0 && cursusActiveMaxLevel != null)
+            return cursusActiveMaxLevel;
+        else
+            return cursusUsers.get(0);
+    }
+
+    public int getCursusUsersToDisplayID(Context context) {
+        CursusUsers tmp = getCursusUsersToDisplay(context);
+        if (tmp == null)
+            return 0;
+        else
+            return tmp.cursusId;
     }
 
     static public class UserTitle {

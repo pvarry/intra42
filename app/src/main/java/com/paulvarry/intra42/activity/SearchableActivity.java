@@ -29,8 +29,8 @@ import com.paulvarry.intra42.Adapter.SectionListViewSearch;
 import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.SuperSearch;
+import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.api.Projects;
 import com.paulvarry.intra42.api.Topics;
 import com.paulvarry.intra42.api.UserLTE;
@@ -224,7 +224,8 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int cursus = AppSettings.getUserCursus(app);
+                CursusUsers cursusUsers = app.me.getCursusUsersToDisplay(SearchableActivity.this);
+
                 String[] split = finalQuery.split(" ");
                 String stringToSearch;
                 if (split.length > 1)
@@ -235,14 +236,14 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 Call<List<UserLTE>> callUsers = apiService.getUsersSearch(stringToSearch);
 
                 Call<List<Projects>> callProjects;
-                if (cursus != -1 && cursus != 0)
-                    callProjects = apiService.getProjectsSearch(cursus, stringToSearch);
+                if (cursusUsers != null)
+                    callProjects = apiService.getProjectsSearch(cursusUsers.cursusId, stringToSearch);
                 else
                     callProjects = apiService.getProjectsSearch(stringToSearch);
 
                 Call<List<Topics>> callTopics;
-                if (cursus != -1 && cursus != 0)
-                    callTopics = apiService.getTopicsSearch(cursus, stringToSearch);
+                if (cursusUsers != null)
+                    callTopics = apiService.getTopicsSearch(cursusUsers.cursusId, stringToSearch);
                 else
                     callTopics = apiService.getTopicsSearch(stringToSearch);
 
