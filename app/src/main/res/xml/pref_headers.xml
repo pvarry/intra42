@@ -8,11 +8,6 @@
     <!--android:title="@string/pref_header_general" />-->
 
     <header
-        android:fragment="com.paulvarry.intra42.activity.SettingsActivity$ContentPreferenceFragment"
-        android:icon="@drawable/ic_location_searching_black_24px"
-        android:title="@string/pref_header_content" />
-
-    <header
         android:fragment="com.paulvarry.intra42.activity.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/pref_header_notifications" />
