@@ -91,7 +91,6 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         listView.setOnItemClickListener(this);
         listView.setOnScrollListener(this);
         textView.setVisibility(View.GONE);
-        fabBasicFragmentCall.setVisibility(View.GONE);
         onRefresh();
     }
 

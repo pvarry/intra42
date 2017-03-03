@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,7 +50,6 @@ public class TopicActivity extends BasicActivity
     private ScrollView scrollViewReply;
     private EditText editTextReply;
     private ImageButton buttonReply;
-    private FloatingActionButton fab;
     private TextView textViewPreviewMessage;
 
     public static void openIt(Context context, Topics topics) {
@@ -139,8 +137,8 @@ public class TopicActivity extends BasicActivity
         ExpandableListAdapterTopic adapterTopic = new ExpandableListAdapterTopic(this, topic);
         listView.setAdapter(adapterTopic);
 
-        fab.setOnClickListener(this);
-        fab.setVisibility(View.VISIBLE);
+        fabBaseActivity.setOnClickListener(this);
+        fabBaseActivity.setVisibility(View.VISIBLE);
         scrollViewReply.setVisibility(View.GONE);
         editTextReply.addTextChangedListener(new TextWatcher() {
             @Override
@@ -261,7 +259,7 @@ public class TopicActivity extends BasicActivity
                     else
                         Toast.makeText(TopicActivity.this, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     editTextReply.setText("");
-                    fab.setVisibility(View.VISIBLE);
+                    fabBaseActivity.setVisibility(View.VISIBLE);
                     scrollViewReply.setVisibility(View.GONE);
                 }
 
@@ -273,8 +271,8 @@ public class TopicActivity extends BasicActivity
                 }
             });
 
-        } else if (v == fab) {
-            fab.setVisibility(View.GONE);
+        } else if (v == fabBaseActivity) {
+            fabBaseActivity.setVisibility(View.GONE);
             scrollViewReply.setVisibility(View.VISIBLE);
             textViewPreviewMessage.setVisibility(View.GONE);
         }

@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -260,7 +259,7 @@ public class NewTopicActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Topics> call, Throwable t) {
-                    Log.d("topics", t.getMessage());
+                    Toast.makeText(NewTopicActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -275,7 +274,7 @@ public class NewTopicActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Topics> call, Throwable t) {
-                    Log.d("topics", t.getMessage());
+                    Toast.makeText(NewTopicActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

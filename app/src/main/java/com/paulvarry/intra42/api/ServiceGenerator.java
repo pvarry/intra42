@@ -192,7 +192,11 @@ public class ServiceGenerator {
 
     private static void getLogInterceptor(OkHttpClient.Builder httpClient) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        if (BuildConfig.DEBUG)
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        else
+            logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+
         if (BuildConfig.DEBUG || AppSettings.Advanced.getAllowSaveLogs(app))
             httpClient.addInterceptor(logging);// add logging as last interceptor
 

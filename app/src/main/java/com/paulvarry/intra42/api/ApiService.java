@@ -110,14 +110,15 @@ public interface ApiService {
                              @Query("topic[tag_ids]") String tagsIds,
                              @Query("topic[cursus_ids]") String cursusIds);
 
+    @FormUrlEncoded
     @PUT("/v2/topics/{id}")
     Call<Topics> updateTopic(@Path("id") int topicId,
-                             @Query("topic[name]") String name,
-                             @Query("topic[kind]") String kind,
-                             @Query("topic[language_id]") int languageId,
-                             @Query("topic[messages_attributes][content]") String content,
-                             @Query("topic[tag_ids]") String tagsIds,
-                             @Query("topic[cursus_ids]") String cursusIds);
+                             @Field("topic[name]") String name,
+                             @Field("topic[kind]") String kind,
+                             @Field("topic[language_id]") int languageId,
+                             @Field("topic[messages_attributes][content]") String content,
+                             @Field("topic[tag_ids]") String tagsIds,
+                             @Field("topic[cursus_ids]") String cursusIds);
 
     /* Users */
     @GET("/v2/users?sort=login")
