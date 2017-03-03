@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.UserLTE;
+import com.paulvarry.intra42.api.model.UsersLTE;
 
 import org.parceler.Parcels;
 
@@ -21,7 +21,7 @@ public class BottomSheetUserDialogFragment extends BottomSheetDialogFragment {
 
     BottomSheetUserDialogFragment dialogFragment;
     Activity activity;
-    UserLTE mUser;
+    UsersLTE mUser;
 
     ImageView imageViewProfile;
     TextView textViewName;
@@ -41,7 +41,7 @@ public class BottomSheetUserDialogFragment extends BottomSheetDialogFragment {
         }
     };
 
-    public static BottomSheetUserDialogFragment newInstance(UserLTE user) {
+    public static BottomSheetUserDialogFragment newInstance(UsersLTE user) {
         BottomSheetUserDialogFragment fragment = new BottomSheetUserDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable("lol", Parcels.wrap(user));

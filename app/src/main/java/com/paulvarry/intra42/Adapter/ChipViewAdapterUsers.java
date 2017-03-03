@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.Tag;
-import com.paulvarry.intra42.api.Tags;
+import com.paulvarry.intra42.api.model.Tags;
 import com.plumillonforge.android.chipview.Chip;
 import com.plumillonforge.android.chipview.ChipViewAdapter;
 

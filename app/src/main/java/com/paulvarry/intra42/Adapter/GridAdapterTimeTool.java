@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Campus;
+import com.paulvarry.intra42.api.model.Campus;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

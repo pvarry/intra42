@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Attachments;
+import com.paulvarry.intra42.api.model.Attachments;
 
 import java.util.List;
 

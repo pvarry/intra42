@@ -28,13 +28,13 @@ import com.paulvarry.intra42.Adapter.CompletionViewTags;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.BypassPicassoImageGetter;
-import com.paulvarry.intra42.api.Cursus;
-import com.paulvarry.intra42.api.Language;
-import com.paulvarry.intra42.api.Tags;
-import com.paulvarry.intra42.api.Topics;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.Cursus;
+import com.paulvarry.intra42.api.model.Language;
+import com.paulvarry.intra42.api.model.Tags;
+import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheTags;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
 import com.squareup.picasso.Picasso;
 import com.tokenautocomplete.TokenCompleteTextView;
 

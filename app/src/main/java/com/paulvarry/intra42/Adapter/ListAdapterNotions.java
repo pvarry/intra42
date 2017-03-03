@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Notions;
+import com.paulvarry.intra42.api.model.Notions;
 
 import java.util.List;
 

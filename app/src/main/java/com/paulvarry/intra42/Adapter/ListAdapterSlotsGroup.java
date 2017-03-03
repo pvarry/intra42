@@ -13,8 +13,8 @@ import com.paulvarry.intra42.BottomSheet.BottomSheetSlotsDialogFragment;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.SlotsTools;
-import com.paulvarry.intra42.api.Slots;
-import com.paulvarry.intra42.tab.home.HomeActivity;
+import com.paulvarry.intra42.activity.home.HomeActivity;
+import com.paulvarry.intra42.api.model.Slots;
 
 import java.util.List;
 

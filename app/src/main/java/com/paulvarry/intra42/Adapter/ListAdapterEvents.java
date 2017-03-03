@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Tag;
-import com.paulvarry.intra42.api.Events;
+import com.paulvarry.intra42.api.model.Events;
 import com.veinhorn.tagview.TagView;
 
 import java.util.List;

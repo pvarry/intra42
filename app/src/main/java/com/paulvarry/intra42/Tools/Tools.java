@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.paulvarry.intra42.api.Attachments;
+import com.paulvarry.intra42.api.model.Attachments;
 
 public class Tools {
 

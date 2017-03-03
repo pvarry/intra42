@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.TeamsUploads;
+import com.paulvarry.intra42.api.model.TeamsUploads;
 
 import java.util.List;
 

@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.activity.TopicActivity;
-import com.paulvarry.intra42.api.Tags;
-import com.paulvarry.intra42.api.Topics;
+import com.paulvarry.intra42.api.model.Tags;
+import com.paulvarry.intra42.api.model.Topics;
 
 import org.ocpsoft.prettytime.PrettyTime;
 

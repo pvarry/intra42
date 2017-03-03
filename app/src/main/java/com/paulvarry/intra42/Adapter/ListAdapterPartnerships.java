@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Partnerships;
-import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.activity.user.UserActivity;
+import com.paulvarry.intra42.api.model.Partnerships;
 
 import java.util.List;
 

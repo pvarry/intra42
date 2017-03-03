@@ -11,16 +11,16 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.UserImage;
-import com.paulvarry.intra42.api.UserLTE;
+import com.paulvarry.intra42.api.model.UsersLTE;
 
 import java.util.List;
 
 public class GridAdapterUsers extends BaseAdapter {
 
     Context context;
-    private List<UserLTE> users;
+    private List<UsersLTE> users;
 
-    public GridAdapterUsers(Context context, List<UserLTE> users) {
+    public GridAdapterUsers(Context context, List<UsersLTE> users) {
 
         this.context = context;
         this.users = users;
@@ -32,7 +32,7 @@ public class GridAdapterUsers extends BaseAdapter {
     }
 
     @Override
-    public UserLTE getItem(int position) {
+    public UsersLTE getItem(int position) {
         return users.get(position);
     }
 
@@ -59,7 +59,7 @@ public class GridAdapterUsers extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        UserLTE user = getItem(position);
+        UsersLTE user = getItem(position);
         holder.textViewUserLogin.setText(user.login);
         UserImage.setImage(context, user, holder.imageViewUsers);
 

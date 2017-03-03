@@ -7,14 +7,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.paulvarry.intra42.api.User;
+import com.paulvarry.intra42.api.model.Users;
 
 import java.util.HashMap;
 import java.util.Set;
 
 public class Friends {
 
-    public static void actionAddRemove(final DatabaseReference reference, final User user) {
+    public static void actionAddRemove(final DatabaseReference reference, final Users user) {
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

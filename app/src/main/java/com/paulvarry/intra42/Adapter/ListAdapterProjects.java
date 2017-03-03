@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Projects;
-import com.paulvarry.intra42.api.ProjectsSessions;
+import com.paulvarry.intra42.api.model.Projects;
+import com.paulvarry.intra42.api.model.ProjectsSessions;
 
 import org.ocpsoft.prettytime.PrettyTime;
 

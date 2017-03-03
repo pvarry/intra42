@@ -4,7 +4,7 @@ import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.provider.ContactsContract;
 
-import com.paulvarry.intra42.api.User;
+import com.paulvarry.intra42.api.model.Users;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Contacts {
 
-    public static boolean add(Context context, User user) {
+    public static boolean add(Context context, Users user) {
         ArrayList<ContentProviderOperation> ops =
                 new ArrayList<ContentProviderOperation>();
 

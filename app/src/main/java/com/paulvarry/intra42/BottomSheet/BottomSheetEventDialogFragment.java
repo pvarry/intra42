@@ -18,15 +18,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Tag;
-import com.paulvarry.intra42.api.Events;
-import com.paulvarry.intra42.api.EventsUsers;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.EventsUsers;
 import com.veinhorn.tagview.TagView;
 
 import java.util.List;

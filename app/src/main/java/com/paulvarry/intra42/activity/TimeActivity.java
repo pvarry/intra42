@@ -8,7 +8,7 @@ import android.widget.GridView;
 
 import com.paulvarry.intra42.Adapter.GridAdapterTimeTool;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Campus;
+import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicActivity;
 

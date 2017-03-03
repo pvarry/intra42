@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Expertises;
+import com.paulvarry.intra42.api.model.Expertises;
 
 import java.util.List;
 

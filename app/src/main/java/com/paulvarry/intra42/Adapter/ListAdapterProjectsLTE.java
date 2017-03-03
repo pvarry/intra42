@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.ProjectsLTE;
-import com.paulvarry.intra42.tab.project.ProjectActivity;
+import com.paulvarry.intra42.activity.project.ProjectActivity;
+import com.paulvarry.intra42.api.model.ProjectsLTE;
 
 import java.util.List;
 

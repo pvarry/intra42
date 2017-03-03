@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.paulvarry.intra42.tab.forum.ForumTagFragment">
+    tools:context=".activity.forum.ForumTagFragment">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linearLayoutHeader"

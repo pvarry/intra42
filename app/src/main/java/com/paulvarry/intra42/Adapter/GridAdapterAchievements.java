@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.Tag;
 import com.paulvarry.intra42.Tools.mImage;
-import com.paulvarry.intra42.api.Achievements;
-import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.activity.user.UserActivity;
+import com.paulvarry.intra42.api.model.Achievements;
 import com.veinhorn.tagview.TagView;
 
 import java.util.List;

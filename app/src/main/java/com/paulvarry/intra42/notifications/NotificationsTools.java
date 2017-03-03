@@ -16,12 +16,12 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.activity.EventActivity;
-import com.paulvarry.intra42.api.Announcements;
-import com.paulvarry.intra42.api.Events;
-import com.paulvarry.intra42.api.ScaleTeams;
-import com.paulvarry.intra42.api.UserLTE;
-import com.paulvarry.intra42.tab.project.ProjectActivity;
-import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.activity.project.ProjectActivity;
+import com.paulvarry.intra42.activity.user.UserActivity;
+import com.paulvarry.intra42.api.model.Announcements;
+import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.api.model.UsersLTE;
 
 import java.util.Date;
 
@@ -69,7 +69,7 @@ class NotificationsTools {
         Intent notificationIntent = null;
         PendingIntent pendingIntentOpen = null;
 
-        UserLTE userAction = null;
+        UsersLTE userAction = null;
         Integer projectsAction = null;
 
         if (imminentCorrection)

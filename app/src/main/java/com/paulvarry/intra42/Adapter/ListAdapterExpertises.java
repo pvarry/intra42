@@ -10,7 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.ExpertisesUsers;
+import com.paulvarry.intra42.api.model.ExpertisesUsers;
 
 import java.util.List;
 

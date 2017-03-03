@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.UserImage;
-import com.paulvarry.intra42.api.TeamsUsers;
+import com.paulvarry.intra42.api.model.TeamsUsers;
 
 import java.util.List;
 

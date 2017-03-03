@@ -26,14 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.Adapter.SectionListViewSearch;
-import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.SuperSearch;
-import com.paulvarry.intra42.api.CursusUsers;
-import com.paulvarry.intra42.api.Projects;
-import com.paulvarry.intra42.api.Topics;
-import com.paulvarry.intra42.api.UserLTE;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.CursusUsers;
+import com.paulvarry.intra42.api.model.Projects;
+import com.paulvarry.intra42.api.model.Topics;
+import com.paulvarry.intra42.api.model.UsersLTE;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -233,7 +233,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 else
                     stringToSearch = finalQuery;
 
-                Call<List<UserLTE>> callUsers = apiService.getUsersSearch(stringToSearch);
+                Call<List<UsersLTE>> callUsers = apiService.getUsersSearch(stringToSearch);
 
                 Call<List<Projects>> callProjects;
                 if (cursusUsers != null)
@@ -247,7 +247,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 else
                     callTopics = apiService.getTopicsSearch(stringToSearch);
 
-                Response<List<UserLTE>> responseUsers = null;
+                Response<List<UsersLTE>> responseUsers = null;
                 Response<List<Projects>> responseProjects = null;
                 Response<List<Topics>> responseTopics = null;
 
@@ -275,8 +275,8 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                     items = new ArrayList<>();
 
                     if (responseUsers != null && responseUsers.isSuccessful()) {
-                        items.add(new SectionListViewSearch.Item<UserLTE>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users)));
-                        for (UserLTE u : responseUsers.body())
+                        items.add(new SectionListViewSearch.Item<UsersLTE>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users)));
+                        for (UsersLTE u : responseUsers.body())
                             items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
                     }
 
@@ -371,7 +371,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         return false;
     }
 
-    Response<List<UserLTE>> execUsers(Call<List<UserLTE>> callUsers) throws IOException {
+    Response<List<UsersLTE>> execUsers(Call<List<UsersLTE>> callUsers) throws IOException {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

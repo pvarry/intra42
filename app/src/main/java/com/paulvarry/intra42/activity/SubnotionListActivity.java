@@ -16,14 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.Adapter.ListAdapterSubnotions;
-import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.Tools.Tools;
-import com.paulvarry.intra42.api.Attachments;
-import com.paulvarry.intra42.api.Notions;
-import com.paulvarry.intra42.api.Subnotions;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.Attachments;
+import com.paulvarry.intra42.api.model.Notions;
+import com.paulvarry.intra42.api.model.Subnotions;
 
 import java.util.ArrayList;
 import java.util.List;

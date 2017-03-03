@@ -6,7 +6,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="8dp"
-    tools:context=".tab.users.UsersAdvancedFragment">
+    tools:context=".activity.users.UsersAdvancedFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -19,9 +19,9 @@ import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.ProjectUserStatus;
-import com.paulvarry.intra42.api.ScaleTeams;
-import com.paulvarry.intra42.api.Teams;
-import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.activity.user.UserActivity;
+import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.api.model.Teams;
 
 import java.util.ArrayList;
 import java.util.List;

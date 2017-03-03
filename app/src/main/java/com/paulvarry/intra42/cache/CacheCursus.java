@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.api.Cursus;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.Cursus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

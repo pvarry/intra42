@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Cursus;
+import com.paulvarry.intra42.api.model.Cursus;
 import com.tokenautocomplete.TokenCompleteTextView;
 
 public class CompletionViewCursus extends TokenCompleteTextView<Cursus> {

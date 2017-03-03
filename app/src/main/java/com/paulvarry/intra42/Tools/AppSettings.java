@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.api.model.Users;
 
 /**
  * This class is a interface for app Settings set with {@link com.paulvarry.intra42.activity.SettingsActivity SettingsActivity}.
@@ -28,7 +29,7 @@ public class AppSettings {
      *
      * @param app AppClass.
      * @return The id of a Campus.
-     * @see com.paulvarry.intra42.api.User#getCampusUsersToDisplay(Context)
+     * @see Users#getCampusUsersToDisplay(Context)
      */
     public static int getUserCampus(AppClass app) {
         if (app.me != null)
@@ -41,7 +42,7 @@ public class AppSettings {
      *
      * @param app AppClass.
      * @return The id of a Campus.
-     * @see com.paulvarry.intra42.api.User#getCampusUsersToDisplay(Context)
+     * @see Users#getCampusUsersToDisplay(Context)
      */
     public static int getAppCampus(AppClass app) {
         int forced = Advanced.getContentForceCampus(app);
@@ -55,7 +56,7 @@ public class AppSettings {
      *
      * @param app AppClass.
      * @return The id of a Cursus.
-     * @see com.paulvarry.intra42.api.User#getCursusUsersToDisplay(Context)
+     * @see Users#getCursusUsersToDisplay(Context)
      */
     public static int getUserCursus(AppClass app) {
         if (app.me != null)
@@ -68,7 +69,7 @@ public class AppSettings {
      *
      * @param app AppClass.
      * @return The id of a Cursus.
-     * @see com.paulvarry.intra42.api.User#getCursusUsersToDisplay(Context)
+     * @see Users#getCursusUsersToDisplay(Context)
      */
     public static int getAppCursus(AppClass app) {
         int forced = Advanced.getContentForceCursus(app);

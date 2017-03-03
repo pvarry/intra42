@@ -5,15 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Pagination;
-import com.paulvarry.intra42.api.Announcements;
-import com.paulvarry.intra42.api.Events;
-import com.paulvarry.intra42.api.ScaleTeams;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.Announcements;
+import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.ScaleTeams;
 
 import java.util.Date;
 import java.util.List;

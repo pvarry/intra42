@@ -10,15 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.Token;
-import com.paulvarry.intra42.api.AccessToken;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
-import com.paulvarry.intra42.tab.home.HomeActivity;
+import com.paulvarry.intra42.activity.home.HomeActivity;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.AccessToken;
 
 import java.io.IOException;
 

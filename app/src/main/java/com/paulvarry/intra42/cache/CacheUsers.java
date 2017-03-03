@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.paulvarry.intra42.api.User;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.Users;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,11 +89,11 @@ public class CacheUsers {
         }
     }
 
-    public static long put(CacheSQLiteHelper base, User user) {
+    public static long put(CacheSQLiteHelper base, Users user) {
         return put(base, user, ServiceGenerator.getGson().toJson(user));
     }
 
-    public static long put(CacheSQLiteHelper base, User user, String gson) {
+    public static long put(CacheSQLiteHelper base, Users user, String gson) {
         // Gets the data repository in write mode
         SQLiteDatabase db = base.getWritableDatabase();
 
@@ -114,7 +114,7 @@ public class CacheUsers {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public static User get(CacheSQLiteHelper base, String login) {
+    public static Users get(CacheSQLiteHelper base, String login) {
         SQLiteDatabase db = base.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
@@ -152,7 +152,7 @@ public class CacheUsers {
 
         String item = c.getString(columnIndexData);
 
-        User user = ServiceGenerator.getGson().fromJson(item, User.class);
+        Users user = ServiceGenerator.getGson().fromJson(item, Users.class);
         if (columnIndexCachedAt != -1 &&
                 columnIndexCachedAt != 0 &&
                 !c.isNull(columnIndexCachedAt)) {

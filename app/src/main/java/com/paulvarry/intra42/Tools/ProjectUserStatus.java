@@ -9,8 +9,8 @@ import android.support.v7.widget.AppCompatDrawableManager;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.ProjectsUsers;
-import com.paulvarry.intra42.api.Teams;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.api.model.Teams;
 
 public class ProjectUserStatus {
 

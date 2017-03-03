@@ -10,12 +10,12 @@ import com.paulvarry.intra42.activity.AboutActivity;
 import com.paulvarry.intra42.activity.MarvinMealsActivity;
 import com.paulvarry.intra42.activity.SettingsActivity;
 import com.paulvarry.intra42.activity.TimeActivity;
-import com.paulvarry.intra42.tab.clusterMap.ClusterMapActivity;
-import com.paulvarry.intra42.tab.forum.ForumActivity;
-import com.paulvarry.intra42.tab.home.HomeActivity;
-import com.paulvarry.intra42.tab.notions.NotionsActivity;
-import com.paulvarry.intra42.tab.projects.ProjectsActivity;
-import com.paulvarry.intra42.tab.users.UsersActivity;
+import com.paulvarry.intra42.activity.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.activity.forum.ForumActivity;
+import com.paulvarry.intra42.activity.home.HomeActivity;
+import com.paulvarry.intra42.activity.notions.NotionsActivity;
+import com.paulvarry.intra42.activity.projects.ProjectsActivity;
+import com.paulvarry.intra42.activity.users.UsersActivity;
 
 public class Navigation {
 

@@ -44,10 +44,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".tab.home.HomeActivity"
+            android:name=".activity.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tab.user.UserActivity"
+            android:name=".activity.user.UserActivity"
             android:configChanges="screenSize"
             android:label="@string/user"
             android:theme="@style/AppTheme.NoActionBar">
@@ -74,17 +74,17 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".tab.users.UsersActivity"
+            android:name=".activity.users.UsersActivity"
             android:label="@string/users"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tab.projects.ProjectsActivity"
+            android:name=".activity.projects.ProjectsActivity"
             android:label="@string/projects"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tab.project.ProjectActivity"
+            android:name=".activity.project.ProjectActivity"
             android:label="@string/project"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -93,7 +93,7 @@
             android:label="@string/about"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tab.forum.ForumActivity"
+            android:name=".activity.forum.ForumActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SettingsActivity"
@@ -108,7 +108,7 @@
             android:label="@string/new_topic"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tab.notions.NotionsActivity"
+            android:name=".activity.notions.NotionsActivity"
             android:label="@string/title_activity_elearning"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -119,7 +119,7 @@
             android:label="Time"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tab.clusterMap.ClusterMapActivity"
+            android:name=".activity.clusterMap.ClusterMapActivity"
             android:label="@string/title_activity_cluster_map"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -146,7 +146,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".tab.tags.TagsActivity"
+            android:name=".activity.tags.TagsActivity"
             android:label="@string/tag"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

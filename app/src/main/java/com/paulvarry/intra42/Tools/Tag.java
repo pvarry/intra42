@@ -10,9 +10,9 @@ import android.view.View;
 import com.paulvarry.intra42.Adapter.ChipViewAdapterForum;
 import com.paulvarry.intra42.Adapter.ChipViewAdapterUsers;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Achievements;
-import com.paulvarry.intra42.api.Events;
-import com.paulvarry.intra42.api.Tags;
+import com.paulvarry.intra42.api.model.Achievements;
+import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.Tags;
 import com.plumillonforge.android.chipview.ChipView;
 import com.veinhorn.tagview.TagView;
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.paulvarry.intra42.api.Campus;
+import com.paulvarry.intra42.api.model.Campus;
 
 import java.util.List;
 

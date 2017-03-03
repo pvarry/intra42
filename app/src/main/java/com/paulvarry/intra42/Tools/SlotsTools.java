@@ -3,8 +3,8 @@ package com.paulvarry.intra42.Tools;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.ScaleTeams;
-import com.paulvarry.intra42.api.Slots;
+import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.api.model.Slots;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -16,16 +16,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.activity.MainActivity;
-import com.paulvarry.intra42.api.AccessToken;
-import com.paulvarry.intra42.api.CursusUsers;
-import com.paulvarry.intra42.api.User;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiServiceCantina;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.AccessToken;
+import com.paulvarry.intra42.api.model.CursusUsers;
+import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
 import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class AppClass extends Application {
 
     private static AppClass sInstance;
     public List<CursusUsers> cursus;
-    public User me;
+    public Users me;
 
     public AccessToken accessToken;
     public CacheSQLiteHelper cacheSQLiteHelper;
@@ -161,7 +163,7 @@ public class AppClass extends Application {
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
 
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
-            me = User.me(api);
+            me = Users.me(api);
             if (me != null) {
                 CacheUsers.put(cacheSQLiteHelper, me);
                 editor.putString(API_ME_LOGIN, me.login);

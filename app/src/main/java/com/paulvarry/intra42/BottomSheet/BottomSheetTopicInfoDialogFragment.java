@@ -27,12 +27,12 @@ import android.widget.Toast;
 
 import com.goebl.david.Response;
 import com.google.gson.Gson;
-import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Messages;
-import com.paulvarry.intra42.api.Votes;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.Messages;
+import com.paulvarry.intra42.api.model.Votes;
 
 import java.text.DateFormat;
 import java.util.Locale;

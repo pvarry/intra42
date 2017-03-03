@@ -16,10 +16,10 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.Adapter.ListAdapterExpertisesEdit;
 import com.paulvarry.intra42.Adapter.SpinnerAdapterExpertises;
-import com.paulvarry.intra42.ApiService;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.Expertises;
-import com.paulvarry.intra42.api.ExpertisesUsers;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.Expertises;
+import com.paulvarry.intra42.api.model.ExpertisesUsers;
 import com.paulvarry.intra42.cache.CacheExpertises;
 import com.paulvarry.intra42.ui.BasicActivity;
 

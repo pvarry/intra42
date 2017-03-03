@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.paulvarry.intra42.BaseItem;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.List;
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.UserImage;
-import com.paulvarry.intra42.api.ScaleTeams;
+import com.paulvarry.intra42.api.model.ScaleTeams;
 
 import java.util.List;
 

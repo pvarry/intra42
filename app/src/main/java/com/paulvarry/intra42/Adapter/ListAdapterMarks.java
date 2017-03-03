@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.ProjectUserStatus;
-import com.paulvarry.intra42.api.ProjectsUsers;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
 
 import java.util.List;
 

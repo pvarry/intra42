@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.UserLTE;
+import com.paulvarry.intra42.api.model.UsersLTE;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Transformation;
@@ -53,7 +53,7 @@ public class UserImage {
                 .resize(146, 175);
     }
 
-    private static RequestCreator getRequestCreator(Context context, UserLTE user) {
+    private static RequestCreator getRequestCreator(Context context, UsersLTE user) {
 
         SharedPreferences sharedPreferences = AppSettings.getSharedPreferences(context);
 
@@ -69,7 +69,7 @@ public class UserImage {
         return getRequestCreator(context, user, type);
     }
 
-    private static RequestCreator getRequestCreator(Context context, UserLTE user, String type) {
+    private static RequestCreator getRequestCreator(Context context, UsersLTE user, String type) {
         Picasso picasso = Picasso.with(context);
         RequestCreator requestCreator;
 
@@ -117,7 +117,7 @@ public class UserImage {
         return request;
     }
 
-    public static RequestCreator getPicassoCorned(Context context, UserLTE user) {
+    public static RequestCreator getPicassoCorned(Context context, UsersLTE user) {
         RequestCreator p = getRequestCreator(context, user);
         if (p == null)
             return null;
@@ -130,14 +130,14 @@ public class UserImage {
         return request;
     }
 
-    public static RequestCreator getPicassoRounded(Context context, UserLTE user) {
+    public static RequestCreator getPicassoRounded(Context context, UsersLTE user) {
         RequestCreator p = getRequestCreator(context, user);
         if (p == null)
             return null;
         return getPicassoRounded(p);
     }
 
-    static public void setImage(Context context, UserLTE user, ImageView imageView) {
+    static public void setImage(Context context, UsersLTE user, ImageView imageView) {
         RequestCreator picasso = getRequestCreator(context, user);
 
         if (picasso == null)
@@ -146,7 +146,7 @@ public class UserImage {
         picasso.into(imageView);
     }
 
-    static public void setImageSmall(Context context, UserLTE user, ImageView imageView) {
+    static public void setImageSmall(Context context, UsersLTE user, ImageView imageView) {
         RequestCreator picasso = getRequestCreator(context, user, "small");
 
         if (picasso == null)

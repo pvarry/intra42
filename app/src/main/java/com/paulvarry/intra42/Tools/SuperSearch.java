@@ -13,9 +13,9 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activity.SubnotionListActivity;
 import com.paulvarry.intra42.activity.TopicActivity;
-import com.paulvarry.intra42.tab.project.ProjectActivity;
-import com.paulvarry.intra42.tab.tags.TagsActivity;
-import com.paulvarry.intra42.tab.user.UserActivity;
+import com.paulvarry.intra42.activity.project.ProjectActivity;
+import com.paulvarry.intra42.activity.tags.TagsActivity;
+import com.paulvarry.intra42.activity.user.UserActivity;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.DateTool;
-import com.paulvarry.intra42.api.ScaleTeams;
-import com.paulvarry.intra42.api.UserLTE;
-import com.paulvarry.intra42.tab.home.HomeActivity;
+import com.paulvarry.intra42.activity.home.HomeActivity;
+import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.api.model.UsersLTE;
 
 import java.util.List;
 
@@ -89,7 +89,7 @@ public class ListAdapterCorrections extends BaseAdapter {
         if (item.corrector != null && item.corrector.isMe(activity.app) && item.correcteds != null) {
             String login = "";
             String sep = "";
-            for (UserLTE u : item.correcteds) {
+            for (UsersLTE u : item.correcteds) {
                 login += sep + u.login;
                 sep = ", ";
             }

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.paulvarry.intra42.BuildConfig;
-import com.paulvarry.intra42.api.AccessToken;
-import com.paulvarry.intra42.oauth.ServiceGenerator;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.AccessToken;
 
 public class Token {
 
