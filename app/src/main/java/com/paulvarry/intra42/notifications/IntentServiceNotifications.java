@@ -15,6 +15,7 @@ import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -37,14 +38,13 @@ public class IntentServiceNotifications extends IntentService {
 
         if (app != null) {
 
-            ApiService apiService = app.getApiServiceDisableRedirectActivity();
             settings = PreferenceManager.getDefaultSharedPreferences(this);
 
             if (AppSettings.Notifications.getNotificationsEvents(settings))
-                notifyEvents(app, apiService);
+                notifyEvents(app, app.getApiServiceDisableRedirectActivity());
             if (AppSettings.Notifications.getNotificationsScales(settings)) {
-                notifyScales(app, apiService);
-                notifyImminentScales(app, apiService);
+                notifyScales(app, app.getApiServiceDisableRedirectActivity());
+                notifyImminentScales(app, app.getApiServiceDisableRedirectActivity());
             }
 //            if (AppSettings.Notifications.getNotificationsAnnouncements(settings))
 //                notifyAnnouncements(app, apiService);
@@ -71,13 +71,12 @@ public class IntentServiceNotifications extends IntentService {
         else
             events = apiService.getEventCreatedAt(date, Pagination.getPage(null));
 
-        events.enqueue(new Callback<List<Events>>() {
-            @Override
-            public void onResponse(Call<List<Events>> call, Response<List<Events>> response) {
-                if (response.isSuccessful()) {
-                    for (Events e : response.body()) {
-                        NotificationsTools.send(getBaseContext(), e);
-                    }
+        try {
+            Response<List<Events>> response = events.execute();
+            if (response.isSuccessful()) {
+                for (Events e : response.body()) {
+                    NotificationsTools.send(getBaseContext(), e);
+                }
 
 //                    Events events1 = new Events();
 //                    events1.description = "lol";
@@ -90,14 +89,10 @@ public class IntentServiceNotifications extends IntentService {
 //                    events1.nbrSubscribers = "0";
 //
 //                    NotificationsTools.send(getBaseContext(), events1);
-                }
             }
-
-            @Override
-            public void onFailure(Call<List<Events>> call, Throwable t) {
-
-            }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void notifyScales(final AppClass app, ApiService apiService) {
@@ -108,22 +103,17 @@ public class IntentServiceNotifications extends IntentService {
         else
             scaleTeams = apiService.getScaleTeamsMe(NotificationsTools.getDateSince(settings), 1);
 
-
-        scaleTeams.enqueue(new Callback<List<ScaleTeams>>() {
-            @Override
-            public void onResponse(Call<List<ScaleTeams>> call, Response<List<ScaleTeams>> response) {
-                if (response.isSuccessful()) {
-                    for (ScaleTeams s : response.body()) {
-                        NotificationsTools.send(app, s, false);
-                    }
+        Response<List<ScaleTeams>> response;
+        try {
+            response = scaleTeams.execute();
+            if (response.isSuccessful()) {
+                for (ScaleTeams s : response.body()) {
+                    NotificationsTools.send(app, s, false);
                 }
             }
-
-            @Override
-            public void onFailure(Call<List<ScaleTeams>> call, Throwable t) {
-
-            }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void notifyImminentScales(final AppClass app, ApiService apiService) {
@@ -133,21 +123,16 @@ public class IntentServiceNotifications extends IntentService {
 
         Call<List<ScaleTeams>> scaleTeams = apiService.getScaleTeamsMeBegin(date, 1);
 
-        scaleTeams.enqueue(new Callback<List<ScaleTeams>>() {
-            @Override
-            public void onResponse(Call<List<ScaleTeams>> call, Response<List<ScaleTeams>> response) {
-                if (response.isSuccessful()) {
-                    for (ScaleTeams s : response.body()) {
-                        NotificationsTools.send(app, s, true);
-                    }
+        try {
+            Response<List<ScaleTeams>> response = scaleTeams.execute();
+            if (response.isSuccessful()) {
+                for (ScaleTeams s : response.body()) {
+                    NotificationsTools.send(app, s, true);
                 }
             }
-
-            @Override
-            public void onFailure(Call<List<ScaleTeams>> call, Throwable t) {
-
-            }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void notifyAnnouncements(final AppClass app, ApiService apiService) {

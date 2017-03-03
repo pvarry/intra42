@@ -72,7 +72,7 @@ public class AppClass extends Application {
         if (AppSettings.Notifications.getNotificationsAllow(settings) && notificationsFrequency != -1)
             alarm.setRepeating(AlarmManager.RTC_WAKEUP, firstMillis + 100, 60000 * notificationsFrequency, pIntent);
 
-        Log.d("alarm", "schedule");
+        Log.d("Notification", "schedule");
     }
 
     public static void unscheduleAlarm(Context context) {
@@ -85,7 +85,7 @@ public class AppClass extends Application {
         AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarm.cancel(pIntent);
 
-        Log.d("alarm", "unschedule");
+        Log.d("Notification", "unschedule");
     }
 
     @Override
@@ -99,7 +99,7 @@ public class AppClass extends Application {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
         if (login.isEmpty()) {
-            logoutAndRedirect();
+//            logoutAndRedirect();
             return;
         }
 
