@@ -15,11 +15,8 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.api.AccessToken;
-import com.paulvarry.intra42.api.CampusUsers;
-import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.oauth.ServiceGenerator;
 import com.paulvarry.intra42.tab.home.HomeActivity;
 
@@ -66,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
 
                     final boolean ret = app.initCache(false);
-
-                    initCursus();
-                    initCampus();
-
                     runOnUiThread(new Runnable() {
                                       @Override
                                       public void run() {
@@ -117,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     app.initCache(true);
 
-                                    initCursus();
-                                    initCampus();
-
                                     final Intent intent = new Intent(getApplication(), HomeActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
@@ -149,35 +139,6 @@ public class MainActivity extends AppCompatActivity {
             } else { // Handle a missing code in the redirect URI
                 Toast.makeText(MainActivity.this, "code is missing", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    private void initCursus() {
-        int cursus = AppSettings.ContentOption.getCursus(getApplicationContext());
-        if (cursus == -1 && app.cursus != null && !app.cursus.isEmpty()) {
-            int c = -1;
-            for (CursusUsers cursusTmp : app.cursus) {
-                if (cursusTmp.cursus.id == 1) {
-                    c = cursusTmp.cursus.id;
-                }
-            }
-            if (c == -1)
-                c = app.cursus.get(0).cursus.id;
-            AppSettings.ContentOption.setCursus(getApplicationContext(), c);
-        }
-    }
-
-    private void initCampus() {
-        int campus = AppSettings.ContentOption.getCampus(getApplicationContext());
-        if (campus == -1 && app.me != null && app.me.campus != null && !app.me.campus.isEmpty()) {
-            int c = -1;
-            for (CampusUsers campusUsers : app.me.campusUsers) {
-                if (campusUsers.isPrimary) {
-                    c = campusUsers.campusId;
-                    break;
-                }
-            }
-            AppSettings.ContentOption.setCampus(getApplicationContext(), c);
         }
     }
 

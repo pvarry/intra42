@@ -190,26 +190,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         app = (AppClass) getApplication();
 
         for (Header h : target) {
-            if (ContentPreferenceFragment.class.getName().equals(h.fragment)) {
-                int campusID = AppSettings.ContentOption.getCampus(preferences);
-                String campusName = "all";
-                int cursusID = AppSettings.ContentOption.getCursus(preferences);
-                String cursusName = "all";
-
-                if (campusID != 0 && campusID != -1) {
-                    Campus campus = CacheCampus.get(app.cacheSQLiteHelper, campusID);
-                    if (campus != null)
-                        campusName = campus.name;
-                }
-
-                if (cursusID != 0 && campusID != -1) {
-                    Cursus cursus = CacheCursus.get(app.cacheSQLiteHelper, cursusID);
-                    if (cursus != null)
-                        cursusName = cursus.name;
-                }
-
-                h.summary = "Campus: " + campusName + " ; Cursus: " + cursusName;
-            } else if (NotificationPreferenceFragment.class.getName().equals(h.fragment)) {
+            if (NotificationPreferenceFragment.class.getName().equals(h.fragment)) {
                 if (AppSettings.Notifications.getNotificationsAllow(preferences))
                     h.summaryRes = R.string.activated;
                 else
@@ -225,7 +206,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-                || ContentPreferenceFragment.class.getName().equals(fragmentName)
                 || NotificationPreferenceFragment.class.getName().equals(fragmentName)
                 || NetworkPreferenceFragment.class.getName().equals(fragmentName)
                 || AdvancedPreferenceFragment.class.getName().equals(fragmentName);
@@ -294,74 +274,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     /**
-     * This fragment shows data and sync preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class ContentPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_content);
-            setHasOptionsMenu(true);
-            AppClass app = (AppClass) getActivity().getApplication();
-
-            List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
-            ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.ContentOption.CURSUS);
-            if (listPreferenceCursus != null && cursusCache != null) {
-                CharSequence entries[] = new String[cursusCache.size() + 1];
-                CharSequence entryValues[] = new String[cursusCache.size() + 1];
-
-                entries[0] = "All";
-                entryValues[0] = "0";
-                int i = 1;
-                for (Cursus cursus : cursusCache) {
-                    entries[i] = cursus.name;
-                    entryValues[i] = String.valueOf(cursus.id);
-                    i++;
-                }
-                listPreferenceCursus.setEntries(entries);
-                listPreferenceCursus.setEntryValues(entryValues);
-            }
-
-            List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
-            ListPreference listPreferenceCampus = (ListPreference) findPreference(AppSettings.ContentOption.CAMPUS);
-            if (listPreferenceCampus != null && campusCache != null) {
-                CharSequence entries[] = new String[campusCache.size() + 1];
-                CharSequence entryValues[] = new String[campusCache.size() + 1];
-
-                entries[0] = "All";
-                entryValues[0] = "0";
-                int i = 1;
-                for (Campus campus : campusCache) {
-                    entries[i] = campus.name;
-                    entryValues[i] = String.valueOf(campus.id);
-                    i++;
-                }
-                listPreferenceCampus.setEntries(entries);
-                listPreferenceCampus.setEntryValues(entryValues);
-            }
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference(AppSettings.ContentOption.CAMPUS));
-            bindPreferenceSummaryToValue(findPreference(AppSettings.ContentOption.CURSUS));
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    /**
      * This fragment shows network preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
@@ -404,12 +316,55 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_advanced);
             setHasOptionsMenu(true);
+            AppClass app = (AppClass) getActivity().getApplication();
+
+            List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
+            ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS);
+            if (listPreferenceCursus != null && cursusCache != null) {
+                CharSequence entries[] = new String[cursusCache.size() + 2];
+                CharSequence entryValues[] = new String[cursusCache.size() + 2];
+
+                entries[0] = app.getString(R.string.disable_dont_force);
+                entryValues[0] = "-1";
+                entries[1] = app.getString(R.string.all);
+                entryValues[1] = "0";
+                int i = 2;
+                for (Cursus cursus : cursusCache) {
+                    entries[i] = cursus.name;
+                    entryValues[i] = String.valueOf(cursus.id);
+                    i++;
+                }
+                listPreferenceCursus.setEntries(entries);
+                listPreferenceCursus.setEntryValues(entryValues);
+            }
+
+            List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
+            ListPreference listPreferenceCampus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CAMPUS);
+            if (listPreferenceCampus != null && campusCache != null) {
+                CharSequence entries[] = new String[campusCache.size() + 2];
+                CharSequence entryValues[] = new String[campusCache.size() + 2];
+
+                entries[0] = app.getString(R.string.disable_dont_force);
+                entryValues[0] = "-1";
+                entries[1] = app.getString(R.string.all);
+                entryValues[1] = "0";
+                int i = 2;
+                for (Campus campus : campusCache) {
+                    entries[i] = campus.name;
+                    entryValues[i] = String.valueOf(campus.id);
+                    i++;
+                }
+                listPreferenceCampus.setEntries(entries);
+                listPreferenceCampus.setEntryValues(entryValues);
+            }
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("switch_preference_advanced_allow_friends"));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CAMPUS));
         }
 
         @Override

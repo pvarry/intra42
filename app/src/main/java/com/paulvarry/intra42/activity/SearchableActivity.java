@@ -61,6 +61,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
     List<SectionListViewSearch.Item> items;
 
+    AppClass app;
     ApiService apiService;
     String query;
     private SimpleCursorAdapter searchAdapter;
@@ -207,8 +208,8 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             return;
         }
         this.query = query;
-        apiService = ((AppClass) getApplication()).getApiService();
-
+        app = (AppClass) getApplication();
+        apiService = app.getApiService();
 
         // Api call
         if (doSearchApiCall(query))
@@ -223,7 +224,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int cursus = AppSettings.ContentOption.getCursus(SearchableActivity.this);
+                int cursus = AppSettings.getUserCursus(app);
                 String[] split = finalQuery.split(" ");
                 String stringToSearch;
                 if (split.length > 1)
@@ -345,9 +346,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
                             textViewJson.setText(output);
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
+                        } catch (IOException | JSONException e) {
                             e.printStackTrace();
                         }
                     else {

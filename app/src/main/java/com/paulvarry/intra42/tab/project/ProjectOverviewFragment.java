@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.ApiService;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.ProjectUserStatus;
@@ -77,7 +78,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             if (activity.projectUser.user != null)
                 projectUser = activity.projectUser.user;
             if (project.sessionsList != null && !project.sessionsList.isEmpty())
-                session = ProjectsSessions.getScaleForMe(getContext(), project.sessionsList);
+                session = ProjectsSessions.getScaleForMe((AppClass) getActivity().getApplication(), project.sessionsList);
         }
     }
 
@@ -93,7 +94,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             if (activity.projectUser.user != null)
                 projectUser = activity.projectUser.user;
             if (project.sessionsList != null && !project.sessionsList.isEmpty())
-                session = ProjectsSessions.getScaleForMe(getContext(), project.sessionsList);
+                session = ProjectsSessions.getScaleForMe((AppClass) getActivity().getApplication(), project.sessionsList);
         }
     }
 

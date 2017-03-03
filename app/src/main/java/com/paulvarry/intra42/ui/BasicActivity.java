@@ -376,7 +376,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             if (drawerSelectedItemPosition != -1)
                 navigationView.getMenu().getItem(drawerSelectedItemPosition).setChecked(true);
 
-            if (AppSettings.ContentOption.getCampus(this) != 7)
+            if (AppSettings.getUserCampus(app) != 7)
                 navigationView.getMenu().getItem(5).getSubMenu().getItem(2).setVisible(false);
         }
     }

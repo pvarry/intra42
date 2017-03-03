@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.api.CursusUsers;
 import com.paulvarry.intra42.tab.user.UserActivity;
@@ -151,15 +152,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                 progressBarLevel.setVisibility(View.VISIBLE);
                 textViewLevel.setVisibility(View.VISIBLE);
 
-                CursusUsers mainCursus = app.me.cursusUsers.get(0);
-                for (CursusUsers cursusUsers : app.me.cursusUsers) {
-                    if (cursusUsers.cursus.id == 1) {
-                        mainCursus = cursusUsers;
-                        break;
+                int cursus = AppSettings.getUserCursus(app);
+                CursusUsers mainCursus = null;
+                CursusUsers cursus42 = null;
+
+                for (CursusUsers c : app.me.cursusUsers) {
+                    if (c.cursusId == cursus)
+                        mainCursus = c;
+                    if (c.cursus.id == 1) {
+                        cursus42 = c;
                     }
                 }
+                if (mainCursus == null && cursus42 != null)
+                    mainCursus = cursus42;
+                if (mainCursus == null)
+                    mainCursus = app.me.cursusUsers.get(0);
+
                 progressBarLevel.setProgress((int) (mainCursus.level / 21.0 * 100.0));
                 textViewLevel.setText(String.valueOf(mainCursus.level));
+
             } else {
                 progressBarLevel.setVisibility(View.GONE);
                 textViewLevel.setVisibility(View.GONE);

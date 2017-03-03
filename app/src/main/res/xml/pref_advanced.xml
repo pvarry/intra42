@@ -12,7 +12,6 @@
 
         <SwitchPreference
             android:defaultValue="false"
-
             android:key="switch_preference_advanced_allow_advanced_data"
             android:summary="Like id"
             android:title="Show advanced data" />
@@ -28,6 +27,30 @@
             android:key="switch_preference_advanced_allow_save_logs_on_file"
             android:summary='Also print API call on logs, private data can be save on External Storage. You can read the logs on \"Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. (default false)'
             android:title="Active save logs on disk" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:dependency="switch_preference_advanced_allow_beta"
+        android:title="@string/force_content_location">
+
+        <ListPreference
+            android:defaultValue="-1"
+            android:entries="@array/pref_example_list_titles"
+            android:entryValues="@array/pref_example_list_values"
+            android:key="list_preference_advanced_force_cursus"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/cursus" />
+
+        <ListPreference
+            android:defaultValue="-1"
+            android:entries="@array/pref_example_list_titles"
+            android:entryValues="@array/pref_example_list_values"
+            android:key="list_preference_advanced_force_campus"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/campus" />
 
     </PreferenceCategory>
 

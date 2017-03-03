@@ -1,10 +1,9 @@
 package com.paulvarry.intra42.api;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.Tools.AppSettings;
 
 import java.util.Date;
@@ -68,12 +67,11 @@ public class ProjectsSessions {
         return null;
     }
 
-    public static ProjectsSessions getScaleForMe(Context context, List<ProjectsSessions> sessions) {
+    public static ProjectsSessions getScaleForMe(AppClass app, List<ProjectsSessions> sessions) {
         if (sessions == null)
             return null;
-        SharedPreferences preferences = AppSettings.getSharedPreferences(context);
-        int campus = AppSettings.ContentOption.getCampus(preferences);
-        int cursus = AppSettings.ContentOption.getCursus(preferences);
+        int campus = AppSettings.getUserCampus(app);
+        int cursus = AppSettings.getUserCursus(app);
 
         for (ProjectsSessions s : sessions) {
             if (campus != 0 && campus != -1 && s.campusId != null && s.campusId != campus)

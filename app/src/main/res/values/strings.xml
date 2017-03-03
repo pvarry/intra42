@@ -409,5 +409,8 @@
     <string name="edit_expertise">Edit Expertise</string>
     <string name="new_expertise">Add new expertise</string>
     <string name="deleted">Deleted</string>
+    <string name="force_content_location">Force content location</string>
+    <string name="disable_dont_force">Disable (don\'t force)</string>
+    <string name="all">All</string>
 
 </resources>

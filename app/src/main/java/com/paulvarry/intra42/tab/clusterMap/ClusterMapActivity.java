@@ -33,7 +33,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         super.activeHamburger();
 
         super.onCreate(savedInstanceState);
-        campusId = AppSettings.ContentOption.getCampus(this);
+        campusId = AppSettings.getUserCampus(app);
         navigationView.getMenu().getItem(5).getSubMenu().getItem(1).setChecked(true);
     }
 
@@ -68,7 +68,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     public boolean getDataOnOtherThread() {
 
         final List<Locations> locationsTmp = new ArrayList<>();
-        campusId = AppSettings.ContentOption.getCampus(this);
+        campusId = AppSettings.getUserCampus(app);
         if (!(campusId == 1 || campusId == 7))
             return false;
 

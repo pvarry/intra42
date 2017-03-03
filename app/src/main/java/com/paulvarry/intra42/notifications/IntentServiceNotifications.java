@@ -52,14 +52,13 @@ public class IntentServiceNotifications extends IntentService {
     }
 
     void notifyEvents(AppClass app, ApiService apiService) {
-        SharedPreferences sharedPreferences = AppSettings.getSharedPreferences(this);
         final Call<List<Events>> events;
 
         String date = NotificationsTools.getDateSince(settings);
         if (date == null)
             return;
-        int campus = AppSettings.ContentOption.getCampus(sharedPreferences);
-        int cursus = AppSettings.ContentOption.getCursus(sharedPreferences);
+        int campus = AppSettings.getUserCampus(app);
+        int cursus = AppSettings.getUserCursus(app);
 
         if (BuildConfig.DEBUG && false)
             events = apiService.getEventCreatedAt("2016-09-28T22:14:29.224Z,2016-09-29T22:29:29.232Z", 1);
