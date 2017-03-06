@@ -160,13 +160,6 @@
         <activity
             android:name=".activity.ExpertisesEditActivity"
             android:label="@string/edit_expertises">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

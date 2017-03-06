@@ -226,18 +226,20 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             separator = " • ";
         }
 
-        if (session.solo)
-            info += separator + "solo";
-        else
-            info += separator + "group";
-        separator = " • ";
-
-        if (session.estimateTime != 0) {
-            long ago = System.currentTimeMillis() - session.estimateTime * 1000;
-            PrettyTime p = new PrettyTime(Locale.getDefault());
-            info += separator + p.formatApproximateDuration(new Date(ago));
-        }
         if (session != null) {
+
+            if (session.solo)
+                info += separator + "solo";
+            else
+                info += separator + "group";
+            separator = " • ";
+
+            if (session.estimateTime != 0) {
+                long ago = System.currentTimeMillis() - session.estimateTime * 1000;
+                PrettyTime p = new PrettyTime(Locale.getDefault());
+                info += separator + p.formatApproximateDuration(new Date(ago));
+            }
+
             ProjectsSessions.Scales scales = ProjectsSessions.Scales.getPrimary(session.scales);
             if (scales != null) {
                 info += separator + scales.correctionNumber;
