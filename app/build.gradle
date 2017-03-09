@@ -12,7 +12,7 @@ android {
         applicationId "com.paulvarry.intra42"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 20170306
+        versionCode getVersionCodeTimestamp()
         versionName "0.6.0-beta7"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
@@ -81,4 +81,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.splitwise:tokenautocomplete:2.0.8'
     compile 'com.wdullaer:materialdatetimepicker:3.0.0'
+}
+
+static def getVersionCodeTimestamp() {
+    def currentDate = new Date()
+    def formattedDate = currentDate.format('yyyyMMdd')
+    def code = formattedDate.toInteger()
+    return code
 }
