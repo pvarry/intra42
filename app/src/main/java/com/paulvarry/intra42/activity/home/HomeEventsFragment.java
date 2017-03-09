@@ -79,10 +79,9 @@ public class HomeEventsFragment extends BasicFragmentCall<Events, ListAdapterEve
     @Nullable
     @Override
     public Call<List<Events>> getCall(ApiService apiService, @Nullable List<Events> list) {
-        Context context = getContext();
         AppClass app = (AppClass) getActivity().getApplication();
-        int cursus = AppSettings.getUserCursus(app);
-        int campus = AppSettings.getUserCampus(app);
+        int cursus = AppSettings.getAppCursus(app);
+        int campus = AppSettings.getAppCampus(app);
 
         Calendar c = Calendar.getInstance();
         c.add(Calendar.YEAR, 2);

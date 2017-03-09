@@ -48,7 +48,13 @@ public class ProjectsUsers {
     public transient List<Teams> teams;
 
     static public List<ProjectsUsers> getListDoing(List<ProjectsUsers> projects) {
-        return getListCursus(projects, null);
+        List<ProjectsUsers> ret = new ArrayList<>();
+
+        for (ProjectsUsers p : projects) {
+            if (!p.status.equals(ProjectUserStatus.FINISHED))
+                ret.add(p);
+        }
+        return ret;
     }
 
     static public List<ProjectsUsers> getListCursusDoing(List<ProjectsUsers> projects, CursusUsers userCursus) {
@@ -75,26 +81,24 @@ public class ProjectsUsers {
         return ret;
     }
 
-    static public List<ProjectsUsers> getListOnlyRoot(List<ProjectsUsers> list) { // c pas propre mais il y pas d'aiutres moyens
+    static public List<ProjectsUsers> getListOnlyRoot(List<ProjectsUsers> list) {
         List<ProjectsUsers> ret = new ArrayList<>();
 
         for (ProjectsUsers p : list) {
-            String slug = p.project.slug;
-            if (!slug.contains("piscine-cpp-") &&
-                    !slug.contains("first-internship-") &&
-                    !slug.contains("piscine-php-") &&
-                    !slug.contains("piscine-after-effects-") &&
-                    !slug.contains("electronics-") &&
-                    !slug.contains("piscine-c-day-09-") &&
-                    !slug.contains("piscine-ocaml-") &&
-                    !slug.contains("piscine-unity-") &&
-                    !slug.contains("piscine-python-django-") &&
-                    !slug.contains("piscine-ruby-on-rails-") &&
-                    !slug.contains("piscine-unity-") &&
-                    !slug.contains("rushes-"))
+            if (p.project.parentId == null)
                 ret.add(p);
         }
         return ret;
     }
+
+    public class ProjectsLTE extends com.paulvarry.intra42.api.model.ProjectsLTE {
+
+        private static final String API_PARENT_ID = "parent_id";
+
+        @SerializedName(API_PARENT_ID)
+        public Integer parentId;
+
+    }
+
 
 }

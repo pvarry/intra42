@@ -70,7 +70,7 @@ public class NotionsAllFragment extends BasicFragmentCall<Notions, ListAdapterNo
     @Nullable
     @Override
     public Call<List<Notions>> getCall(ApiService apiService, @Nullable List<Notions> list) {
-        int cursus = AppSettings.getUserCursus((AppClass) getActivity().getApplication());
+        int cursus = AppSettings.getAppCursus((AppClass) getActivity().getApplication());
         if (cursus != 0 && cursus != -1)
             return apiService.getNotionsCursus(cursus, Pagination.getPage(list));
         else

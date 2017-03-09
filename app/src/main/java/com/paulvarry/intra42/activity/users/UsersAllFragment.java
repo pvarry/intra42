@@ -81,7 +81,7 @@ public class UsersAllFragment extends BasicFragmentCallGrid<UsersLTE, GridAdapte
     @Override
     public Call<List<UsersLTE>> getCall(ApiService apiService, @Nullable List<UsersLTE> list) {
 
-        int campus = AppSettings.getUserCampus((AppClass) getActivity().getApplication());
+        int campus = AppSettings.getAppCampus((AppClass) getActivity().getApplication());
 
         if (campus != -1 && campus != 0)
             return apiService.getUsersCampus(campus, Pagination.getPage(list));

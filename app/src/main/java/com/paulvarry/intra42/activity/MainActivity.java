@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppClass.scheduleAlarm(this);
-
         SharedPreferences sharedPreferences = getSharedPreferences(AppClass.PREFS_NAME, 0);
         int appVersion = sharedPreferences.getInt(AppClass.PREFS_APP_VERSION, 0);
         if (appVersion == 0 || appVersion != BuildConfig.VERSION_CODE) {
@@ -48,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         app = (AppClass) getApplication();
+
+        AppClass.scheduleAlarm(this);
 
         linearLayoutNeedLogin = (LinearLayout) findViewById(R.id.linearLayoutNeedLogin);
         textViewLoading = (TextView) findViewById(R.id.textViewLoading);

@@ -27,6 +27,10 @@ public class HomeActivity extends BasicTabActivity
         super.setSelectedMenu(Navigation.MENU_SELECTED_HOME);
 
         super.onCreate(savedInstanceState);
+
+        if (app.me == null) {
+            app.logoutAndRedirect();
+        }
     }
 
     @Override

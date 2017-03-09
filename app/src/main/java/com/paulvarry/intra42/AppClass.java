@@ -98,10 +98,6 @@ public class AppClass extends Application {
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
-        if (login.isEmpty()) {
-//            logoutAndRedirect();
-            return;
-        }
 
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
             me = CacheUsers.get(cacheSQLiteHelper, login);
