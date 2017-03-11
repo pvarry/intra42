@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.api;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
@@ -14,6 +13,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
@@ -27,9 +27,8 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.ParsePosition;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -213,23 +212,12 @@ public class ServiceGenerator {
             @Override
             public java.util.Date deserialize(JsonElement element, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
                 String date = element.getAsString();
+                Date returnDate = null;
 
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
-                formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-                java.util.Date returnDate;
                 try {
-                    returnDate = formatter.parse(date);
+                    returnDate = ISO8601Utils.parse(date, new ParsePosition(0));
                 } catch (ParseException | IllegalArgumentException e) {
                     Log.e(TAG, "Failed to parse dateString: (" + date + "),  due to:", e);
-
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                    format.setTimeZone(TimeZone.getTimeZone("GMT"));
-                    try {
-                        returnDate = format.parse(date);
-                    } catch (ParseException e1) {
-                        e1.printStackTrace();
-                        returnDate = null;
-                    }
                 }
                 return returnDate;
             }
@@ -239,9 +227,7 @@ public class ServiceGenerator {
 
             @Override
             public JsonElement serialize(java.util.Date src, Type typeOfSrc, JsonSerializationContext context) {
-                SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-                formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-                String dateFormatAsString = formatter.format(src);
+                String dateFormatAsString = ISO8601Utils.format(src, false, TimeZone.getTimeZone("GMT"));
                 return new JsonPrimitive(dateFormatAsString);
             }
 

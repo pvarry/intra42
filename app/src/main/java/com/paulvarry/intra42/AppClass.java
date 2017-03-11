@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.activity.MainActivity;
@@ -31,10 +32,8 @@ import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class AppClass extends Application {
 
@@ -108,9 +107,8 @@ public class AppClass extends Application {
 
             File appDirectory = getExternalFilesDir(null);
             File logDirectory = new File(appDirectory + "/logs");
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSX", Locale.getDefault());
             Date now = new Date();
-            File logFile = new File(logDirectory, "logcat_" + formatter.format(now) + ".txt");
+            File logFile = new File(logDirectory, "logcat_" + ISO8601Utils.format(now) + ".txt");
 
             // create log folder
             if (!logDirectory.exists()) {

@@ -66,7 +66,7 @@ dependencies {
     compile 'com.github.Commit451:bypasses:1.0.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.caverock:androidsvg:1.2.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.google.firebase:firebase-crash:10.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
