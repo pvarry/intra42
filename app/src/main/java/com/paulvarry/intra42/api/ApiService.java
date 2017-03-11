@@ -305,7 +305,7 @@ public interface ApiService {
     @GET("/v2/campus/{campus_id}/locations?filter[active]=true")
     Call<List<Locations>> getLocations(@Path("campus_id") int campus, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
 
-    @GET("/v2/users/{id_user}/locations?sort=-end_at")
+    @GET("/v2/users/{id_user}/locations?sort=-begin_at")
     Call<List<Locations>> getLastLocations(@Path("id_user") String user);
 
     @GET("/v2/locations?sort=-begin_at&page[size]=5")

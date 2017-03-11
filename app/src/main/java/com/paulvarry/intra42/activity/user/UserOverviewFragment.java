@@ -38,6 +38,7 @@ import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
+import com.paulvarry.intra42.cache.CacheCampus;
 import com.plumillonforge.android.chipview.ChipView;
 
 import java.util.HashMap;
@@ -378,10 +379,28 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
                     Locations location = response.body().get(0);
                     linearLayoutLoadingData.setVisibility(View.GONE);
                     linearLayoutLocation.setVisibility(View.VISIBLE);
-                    textViewLocation.setText(location.host);
-                    if (location.endAt != null)
-                        textViewDate.setText(DateTool.getDateTimeLong(location.endAt));
-                    else
+
+                    Campus campus;
+                    String host;
+
+                    campus = CacheCampus.get(app.cacheSQLiteHelper, location.campus);
+                    host = location.host;
+                    if (campus != null)
+                        host += " • " + campus.name;
+                    textViewLocation.setText(host);
+                    if (location.endAt != null || location.beginAt != null) {
+                        String date = "";
+                        if (location.beginAt != null)
+                            date += DateTool.getDateTimeLong(location.beginAt);
+                        else
+                            date += "?";
+                        date += " to ";
+                        if (location.endAt != null)
+                            date += DateTool.getDateTimeLong(location.endAt);
+                        else
+                            date += "?";
+                        textViewDate.setText(date);
+                    } else
                         textViewDate.setVisibility(View.GONE);
                 } else if (response.isSuccessful()) {
                     Toast.makeText(getContext(), R.string.nothing_found, Toast.LENGTH_SHORT).show();

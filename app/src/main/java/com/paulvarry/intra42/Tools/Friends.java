@@ -16,6 +16,9 @@ public class Friends {
 
     public static void actionAddRemove(final DatabaseReference reference, final Users user) {
 
+        if (reference == null)
+            return;
+
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
