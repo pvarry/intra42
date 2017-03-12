@@ -412,5 +412,6 @@
     <string name="force_content_location">Force content location</string>
     <string name="disable_dont_force">Disable (don\'t force)</string>
     <string name="all">All</string>
+    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
 
 </resources>

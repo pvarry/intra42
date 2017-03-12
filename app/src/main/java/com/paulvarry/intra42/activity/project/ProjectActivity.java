@@ -22,6 +22,8 @@ import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
+import java.util.List;
+
 public class ProjectActivity extends BasicTabActivity
         implements ProjectOverviewFragment.OnFragmentInteractionListener, ProjectUserFragment.OnFragmentInteractionListener,
         ProjectAttachmentsFragment.OnFragmentInteractionListener, ProjectSubFragment.OnFragmentInteractionListener,
@@ -122,8 +124,29 @@ public class ProjectActivity extends BasicTabActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        app = (AppClass) getApplication();
+        //handle just logged users.
         Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        app = (AppClass) getApplication();
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            if (intent.getData().getHost().equals("projects.intra.42.fr")) {
+                List<String> pathSegments = intent.getData().getPathSegments();
+                if (pathSegments.size() == 2) {
+                    if (pathSegments.get(0).equals("projects"))
+                        slugProject = pathSegments.get(1);
+                    else {
+                        slugProject = pathSegments.get(0);
+                        if (pathSegments.get(1).equals("mine"))
+                            login = app.me.login;
+                        else
+                            login = pathSegments.get(1);
+                    }
+                }
+            }
+        }
+
         if (intent.hasExtra(INTENT_ID_PROJECT_USER))
             idProjectUser = intent.getIntExtra(INTENT_ID_PROJECT_USER, 0);
         if (intent.hasExtra(INTENT_ID_PROJECT))

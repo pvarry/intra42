@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements" />
+        <meta-data
             android:name="android.app.default_searchable"
             android:value=".SearchableActivity" />
 
@@ -51,27 +54,25 @@
             android:configChanges="screenSize"
             android:label="@string/user"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+            <intent-filter android:label="Intra42 user login">
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
-            <!-- <intent-filter> -->
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+            <intent-filter android:label="Intra42 user">
 
+                <action android:name="android.intent.action.VIEW" />
 
-            <!-- <action android:name="android.intent.action.VIEW"/> -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-
-            <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
-
-
-            <!-- <data -->
-            <!-- android:host="profile.intra.42.fr" -->
-            <!-- android:scheme="https"/> -->
-            <!-- </intent-filter> -->
+                <data
+                    android:host="profile.intra.42.fr"
+                    android:pathPrefix="/users"
+                    android:scheme="https" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.users.UsersActivity"
@@ -87,7 +88,19 @@
             android:name=".activity.project.ProjectActivity"
             android:label="@string/project"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter android:label="Intra42 project">-->
+            <!--<action android:name="android.intent.action.VIEW" />-->
+
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--<category android:name="android.intent.category.BROWSABLE" />-->
+
+            <!--<data-->
+            <!--android:host="projects.intra.42.fr"-->
+            <!--android:scheme="https"-->
+            <!--android:pathPattern="/*/*" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity
             android:name=".activity.AboutActivity"
             android:label="@string/about"
@@ -159,8 +172,7 @@
             android:label="@string/title_activity_cantina_menu" />
         <activity
             android:name=".activity.ExpertisesEditActivity"
-            android:label="@string/edit_expertises">
-        </activity>
+            android:label="@string/edit_expertises" />
     </application>
 
 </manifest>
