@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.activity.home;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -123,6 +124,13 @@ public class HomeSlotsFragment extends BasicFragmentCall<Slots, ListAdapterSlots
         if (v == fabNew) {
             BottomSheetSlotsDialogFragment bottomSheetDialogFragment = BottomSheetSlotsDialogFragment.newInstance();
             bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+
+            bottomSheetDialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    onRefresh();
+                }
+            });
         }
     }
 

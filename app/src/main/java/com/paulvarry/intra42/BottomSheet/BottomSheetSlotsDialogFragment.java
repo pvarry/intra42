@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -29,9 +28,11 @@ import com.paulvarry.intra42.Tools.SlotsTools;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Slots;
+import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,8 +40,9 @@ import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
-public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDialogFragment {
+public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomSheetDialogFragment {
 
     private static final String ARG_SLOTS = "arg_slots";
     private SlotsTools.SlotsGroup slotsGroup;
@@ -57,8 +59,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
     private TextView textViewError;
     private Button buttonSave;
     private Button buttonDelete;
-
-    private Date min_date;
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -136,8 +136,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
             if (amount != 0)
                 calendar.add(Calendar.MINUTE, 15 - amount);
 
-            min_date = calendar.getTime();
-            slotsGroup.beginAt = min_date;
+            slotsGroup.beginAt = calendar.getTime();
 
             calendar.add(Calendar.MINUTE, 30);
             slotsGroup.endAt = calendar.getTime();
@@ -187,7 +186,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
 
                     alert.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            dialog.cancel();
+                            dialog.dismiss();
                         }
                     });
                     alert.show();
@@ -282,8 +281,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
 
     private void saveSlot() {
         final ApiService api = app.getApiService();
-//        List<Call<?>> call = new ArrayList<>();
-        final ProgressDialog dialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.loading_please_wait), true);
+        final List<Response<?>> responseList = new ArrayList<>();
+        final ProgressDialog progressDialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.loading_please_wait), true);
 
         new Thread(new Runnable() {
             @Override
@@ -291,13 +290,15 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
                 boolean isSuccess = true;
                 if (slotsGroup.group != null) {
                     Date groupFirst = slotsGroup.group.get(0).beginAt;
-                    if (slotsGroup.beginAt.compareTo(groupFirst) < 0) { //create new before
+
+                    /* Add or delete slots at the beginning */
+                    if (slotsGroup.beginAt.compareTo(groupFirst) < 0) { //create new slots before
                         try {
-                            api.createSlot(app.me.id, DateTool.getUTC(slotsGroup.beginAt), DateTool.getUTC(groupFirst)).execute();
+                            responseList.add(api.createSlot(app.me.id, DateTool.getUTC(slotsGroup.beginAt), DateTool.getUTC(groupFirst)).execute());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else if (slotsGroup.beginAt.compareTo(groupFirst) > 0) { //delete a the begin
+                    } else if (slotsGroup.beginAt.compareTo(groupFirst) > 0) { //delete slots at the begin
                         int i = 0;
 
                         while (slotsGroup.beginAt.compareTo(slotsGroup.group.get(i).beginAt) > 0 && i < slotsGroup.group.size()) {
@@ -305,7 +306,9 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
                             Call<Slots> call = api.destroySlot(slotsGroup.group.get(i).id);
 
                             try {
-                                if (!call.execute().isSuccessful())
+                                Response<Slots> res = call.execute();
+                                responseList.add(res);
+                                if (!res.isSuccessful())
                                     isSuccess = false;
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -314,15 +317,18 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
                         }
                     }
 
+                    /* Add or delete slots at the end */
                     Date groupLast = slotsGroup.group.get(slotsGroup.group.size() - 1).endAt;
-                    if (slotsGroup.endAt.compareTo(groupLast) > 0) { //create new before
+                    if (slotsGroup.endAt.compareTo(groupLast) > 0) { //create new slots after
                         try {
-                            if (!api.createSlot(app.me.id, DateTool.getUTC(groupLast), DateTool.getUTC(slotsGroup.endAt)).execute().isSuccessful())
+                            Response<List<Slots>> res = api.createSlot(app.me.id, DateTool.getUTC(groupLast), DateTool.getUTC(slotsGroup.endAt)).execute();
+                            responseList.add(res);
+                            if (!res.isSuccessful())
                                 isSuccess = false;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else if (slotsGroup.beginAt.compareTo(groupLast) < 0) { //delete a the begin
+                    } else if (slotsGroup.beginAt.compareTo(groupLast) < 0) { //delete slots at the end
                         int i = slotsGroup.group.size() - 1;
 
                         while (slotsGroup.endAt.compareTo(slotsGroup.group.get(i).endAt) < 0 && i >= 0) {
@@ -330,7 +336,9 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
                             Call<Slots> call = api.destroySlot(slotsGroup.group.get(i).id);
 
                             try {
-                                if (!call.execute().isSuccessful())
+                                Response<Slots> res = call.execute();
+                                responseList.add(res);
+                                if (!res.isSuccessful())
                                     isSuccess = false;
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -340,7 +348,32 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
                     }
 
                 }
-                dialog.cancel();
+
+                final boolean finalIsSuccess = isSuccess;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+
+                        if (finalIsSuccess) {
+                            Toast.makeText(getContext(), R.string.success, Toast.LENGTH_SHORT).show();
+                            dialogFragment.dismiss();
+                        } else {
+
+                            boolean errorFound = false;
+                            for (Response<?> r : responseList)
+                                if (r != null && !r.isSuccessful()) {
+                                    Toast.makeText(getContext(), r.message(), Toast.LENGTH_LONG).show();
+                                    errorFound = true;
+                                    break;
+                                }
+
+                            if (!errorFound)
+                                Toast.makeText(getContext(), R.string.error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             }
         }).start();
     }
@@ -392,13 +425,19 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
         }).start();
     }
 
-    private boolean deleteSlot(ProgressDialog dialog) {
+    private boolean deleteSlot(ProgressDialog progressDialog) {
+
+        if (slotsGroup.group == null) {
+            progressDialog.dismiss();
+            return true;
+        }
+
         boolean isSuccess = true;
-        dialog.setMax(slotsGroup.group.size());
+        progressDialog.setMax(slotsGroup.group.size());
         int i = 0;
 
         for (Slots slot : slotsGroup.group) {
-            dialog.setProgress(i);
+            progressDialog.setProgress(i);
             ApiService api = app.getApiService();
             Call<Slots> call = api.destroySlot(slot.id);
 
@@ -410,9 +449,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends BottomSheetDial
             }
             ++i;
         }
-        dialog.cancel();
+        progressDialog.dismiss();
         return isSuccess;
     }
-
-//    abstract void refresh();
 }
