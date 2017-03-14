@@ -180,8 +180,8 @@ public class UsersSearchFragment extends Fragment implements View.OnClickListene
 
     private void search() {
         ApiService s = app.getApiService();
-        s.getUsersSearch(editTextLogin.getText().toString());
-        callSearch = s.getUsersSearch(editTextLogin.getText().toString());
+        s.getUsersSearchLogin(editTextLogin.getText().toString());
+        callSearch = s.getUsersSearchLogin(editTextLogin.getText().toString());
         callSearch.enqueue(callbackSearch);
     }
 

@@ -233,7 +233,8 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 else
                     stringToSearch = finalQuery;
 
-                Call<List<UsersLTE>> callUsers = apiService.getUsersSearch(stringToSearch);
+                Call<List<UsersLTE>> callUsersLogin = apiService.getUsersSearchLogin(stringToSearch);
+                Call<List<UsersLTE>> callUsersFirstName = apiService.getUsersSearchFirstName(stringToSearch);
 
                 Call<List<Projects>> callProjects;
                 if (cursusUsers != null)
@@ -247,7 +248,8 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 else
                     callTopics = apiService.getTopicsSearch(stringToSearch);
 
-                Response<List<UsersLTE>> responseUsers = null;
+                Response<List<UsersLTE>> responseUsersLogin = null;
+                Response<List<UsersLTE>> responseUsersFirstName = null;
                 Response<List<Projects>> responseProjects = null;
                 Response<List<Topics>> responseTopics = null;
 
@@ -256,27 +258,37 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                     if (split.length > 1) {
 
                         if (SuperSearch.searchOnArray(R.array.search_users, split[0], SearchableActivity.this)) {
-                            responseUsers = execUsers(callUsers);
+                            responseUsersLogin = execUsers(callUsersLogin);
+                            responseUsersFirstName = execUsers(callUsersFirstName);
                         } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
                             responseProjects = execProjects(callProjects);
                         } else if (SuperSearch.searchOnArray(R.array.search_topics, split[0], SearchableActivity.this)) {
                             responseTopics = execTopics(callTopics);
                         } else {
-                            responseUsers = execUsers(callUsers);
+                            responseUsersLogin = execUsers(callUsersLogin);
+                            responseUsersFirstName = execUsers(callUsersFirstName);
                             responseProjects = execProjects(callProjects);
                             responseTopics = execTopics(callTopics);
                         }
                     } else {
-                        responseUsers = execUsers(callUsers);
+                        responseUsersLogin = execUsers(callUsersLogin);
+                        responseUsersFirstName = execUsers(callUsersFirstName);
                         responseProjects = execProjects(callProjects);
                         responseTopics = execTopics(callTopics);
                     }
 
                     items = new ArrayList<>();
 
-                    if (responseUsers != null && responseUsers.isSuccessful()) {
+                    if ((responseUsersLogin != null && responseUsersLogin.isSuccessful()) || responseUsersFirstName != null && responseUsersFirstName.isSuccessful())
                         items.add(new SectionListViewSearch.Item<UsersLTE>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users)));
-                        for (UsersLTE u : responseUsers.body())
+
+                    if (responseUsersLogin != null && responseUsersLogin.isSuccessful()) {
+
+                        for (UsersLTE u : responseUsersLogin.body())
+                            items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
+                    }
+                    if (responseUsersFirstName != null && responseUsersFirstName.isSuccessful()) {
+                        for (UsersLTE u : responseUsersFirstName.body())
                             items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
                     }
 

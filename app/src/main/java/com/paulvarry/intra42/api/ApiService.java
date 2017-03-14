@@ -134,7 +134,13 @@ public interface ApiService {
     Call<Users> getUser(@Path("slug") String slug);
 
     @GET("/v2/users")
-    Call<List<UsersLTE>> getUsersSearch(@Query("search[login]") String slug);
+    Call<List<UsersLTE>> getUsersSearchLogin(@Query("search[login]") String slug);
+
+    @GET("/v2/users?page[size]=100")
+    Call<List<UsersLTE>> getUsersSearchFirstName(@Query("search[first_name]") String firstName);
+
+    @GET("/v2/users")
+    Call<List<UsersLTE>> getUsersSearchLastName(@Query("search[last_name]") String lastName);
 
     @GET("/v2/me")
     Call<Users> getUserMe();
