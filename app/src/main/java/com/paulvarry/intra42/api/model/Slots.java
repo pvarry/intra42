@@ -56,6 +56,8 @@ public class Slots {
             if (elementScaleTeam != null && elementScaleTeam.isJsonObject()) { // when is booked and can't be see by user, value is "invisible"
                 slots.scaleTeam = gson.fromJson(elementScaleTeam, ScaleTeams.class);
                 slots.isBooked = true;
+            } else if (elementScaleTeam != null && elementScaleTeam.isJsonPrimitive()) { // when is booked and can't be see by user, value is "invisible"
+                slots.isBooked = true;
             } else
                 slots.isBooked = false;
             JsonElement elementUser = jsonObject.get(API_USER);

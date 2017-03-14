@@ -62,14 +62,14 @@ public class AppClass extends Application {
         // Create a PendingIntent to be triggered when the alarm goes off
         final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        long firstMillis = System.currentTimeMillis(); // alarm is set right away
         AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         SharedPreferences settings = AppSettings.getSharedPreferences(context);
         int notificationsFrequency = AppSettings.Notifications.getNotificationsFrequency(settings);
 
+        int epoch = 1451607360; // Human time (GMT): Fri, 01 Jan 2016 00:16:00 GMT
         if (AppSettings.Notifications.getNotificationsAllow(settings) && notificationsFrequency != -1)
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, firstMillis + 100, 60000 * notificationsFrequency, pIntent);
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP, epoch * 1000, 60000 * notificationsFrequency, pIntent);
 
         Log.d("Notification", "schedule");
     }

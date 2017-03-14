@@ -95,7 +95,7 @@ public class HomeSlotsFragment extends BasicFragmentCall<Slots, ListAdapterSlots
 
     @Override
     public ListAdapterSlotsGroup generateAdapter(List<Slots> list) {
-        return new ListAdapterSlotsGroup(activity, list);
+        return new ListAdapterSlotsGroup(this, list);
     }
 
     @Override
