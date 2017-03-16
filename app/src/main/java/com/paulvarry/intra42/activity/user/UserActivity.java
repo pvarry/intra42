@@ -193,6 +193,11 @@ public class UserActivity extends BasicTabActivity
     }
 
     @Override
+    public final Object onRetainCustomNonConfigurationInstance() {
+        return user;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //handle just logged users.
@@ -220,6 +225,8 @@ public class UserActivity extends BasicTabActivity
             } else if (intent.hasExtra(INTENT_LOGIN))
                 login = intent.getStringExtra(INTENT_LOGIN).toLowerCase();
         }
+
+        user = (Users) getLastCustomNonConfigurationInstance();
 
         super.onCreate(savedInstanceState);
         if (user == null && login == null)
