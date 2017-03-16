@@ -83,8 +83,8 @@
                     android:contentDescription="@string/icon_reply"
                     android:onClick="newMessage"
                     android:padding="2dp"
-                    android:src="@drawable/ic_reply_black_24dp"
-                    android:tint="@color/colorGrayTint" />
+                    android:tint="@color/colorGrayTint"
+                    app:srcCompat="@drawable/ic_reply_black_24dp" />
 
             </RelativeLayout>
         </LinearLayout>

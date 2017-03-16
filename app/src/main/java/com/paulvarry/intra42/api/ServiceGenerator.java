@@ -259,7 +259,7 @@ public class ServiceGenerator {
         public Response intercept(Chain chain) throws IOException {
 
             Response response = chain.proceed(chain.request());
-            if (response.code() == 401 && chain.request().url().encodedPath().contains("/oauth/token"))
+            if (response.code() == 401 && chain.request().url().encodedPath().contains("/oauth/token") && app != null)
                 app.logoutAndRedirect();
             return response;
         }
