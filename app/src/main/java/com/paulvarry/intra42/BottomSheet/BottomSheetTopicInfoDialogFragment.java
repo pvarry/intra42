@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.BottomSheet;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -25,7 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.goebl.david.Response;
 import com.google.gson.Gson;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -393,17 +391,5 @@ public class BottomSheetTopicInfoDialogFragment extends BottomSheetDialogFragmen
         a.show();
         input.requestFocus();
 //        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-    }
-
-    private void response(Activity activity, final Response<String> r) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (r.isSuccess())
-                    Toast.makeText(getContext(), R.string.success, Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getContext(), r.getErrorBody().toString(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 }

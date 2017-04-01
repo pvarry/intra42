@@ -89,7 +89,7 @@ public class ListAdapterProjects extends BaseAdapter {
         if (sessions != null) {
             PrettyTime p = new PrettyTime(Locale.getDefault());
             time = DateUtils.getRelativeTimeSpanString(context, sessions.estimateTime).toString();
-            time = p.formatApproximateDuration(new Date(System.currentTimeMillis() - sessions.estimateTime * 1000));
+            time = p.formatDuration(new Date(System.currentTimeMillis() - sessions.estimateTime * 1000));
         }
         String tier = "T" + String.valueOf(item.tier);
 

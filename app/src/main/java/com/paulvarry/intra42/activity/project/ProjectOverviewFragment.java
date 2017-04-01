@@ -237,7 +237,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             if (session.estimateTime != 0) {
                 long ago = System.currentTimeMillis() - session.estimateTime * 1000;
                 PrettyTime p = new PrettyTime(Locale.getDefault());
-                info += separator + p.formatApproximateDuration(new Date(ago));
+                info += separator + p.formatDuration(new Date(ago));
             }
 
             ProjectsSessions.Scales scales = ProjectsSessions.Scales.getPrimary(session.scales);
