@@ -71,9 +71,9 @@ public class ProjectSubFragment extends BasicFragment<ProjectsLTE, ListAdapterPr
 
     @Override
     public List<ProjectsLTE> getData() {
-        if (activity.projectUser == null || activity.projectUser.project == null)
-            return null;
-        return activity.projectUser.project.children;
+        if (activity != null && activity.projectUser != null && activity.projectUser.project != null)
+            return activity.projectUser.project.children;
+        return null;
     }
 
     @Override

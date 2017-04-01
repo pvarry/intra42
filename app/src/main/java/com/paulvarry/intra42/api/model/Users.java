@@ -10,7 +10,6 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -180,14 +179,14 @@ public class Users extends UsersLTE {
     public CursusUsers getCursusUsersToDisplay(Context context) {
         int appForce = AppSettings.Advanced.getContentForceCursus(context);
         CursusUsers mainCursus = null;
-        CursusUsers cursus42Active = null;
+        CursusUsers cursus42IfIsActive = null;
         CursusUsers cursusActiveMaxLevel = null;
 
-        if (this.cursusUsers == null || this.campusUsers.size() == 0)
+        if (cursusUsers == null || campusUsers.size() == 0)
             return null;
 
         if (appForce > 0) { // use when a cursus if force on the setting
-            for (CursusUsers c : this.cursusUsers) {
+            for (CursusUsers c : cursusUsers) {
                 if (c.cursusId == appForce) {
                     mainCursus = c;
                     break;
@@ -197,23 +196,23 @@ public class Users extends UsersLTE {
                 return mainCursus;
         }
 
-        List<CursusUsers> campusUserActive = new ArrayList<>();
-        for (CursusUsers cursusUsers : this.cursusUsers) { // check for active campus and add then on a list
-            if (cursusUsers.end_at == null || cursusUsers.end_at.after(new Date())) {
-                if (cursusUsers.cursusId == 1)
-                    cursus42Active = cursusUsers;
-                campusUserActive.add(cursusUsers);
-                if (cursusActiveMaxLevel == null || cursusUsers.level > cursusActiveMaxLevel.level)
-                    cursusActiveMaxLevel = cursusUsers;
+        for (CursusUsers cursusUsersFor : cursusUsers) { // check for active campus and add then on a list
+            if (cursusUsersFor.end_at == null || cursusUsersFor.end_at.after(new Date())) {
+                if (cursusUsersFor.cursusId == 1)
+                    cursus42IfIsActive = cursusUsersFor;
+                if (cursusActiveMaxLevel == null || cursusUsersFor.level > cursusActiveMaxLevel.level)
+                    cursusActiveMaxLevel = cursusUsersFor;
             }
         }
 
-        if (cursus42Active != null)
-            return cursus42Active;
-        if (campusUserActive.size() > 0 && cursusActiveMaxLevel != null)
+        if (cursus42IfIsActive != null)
+            return cursus42IfIsActive;
+        if (cursusActiveMaxLevel != null)
             return cursusActiveMaxLevel;
-        else
+        else if (cursusUsers.size() != 0)
             return cursusUsers.get(0);
+        else
+            return null;
     }
 
     public int getCursusUsersToDisplayID(Context context) {

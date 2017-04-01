@@ -91,6 +91,7 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
     ProgressBar progressBarLevel;
     TextView textViewNoCursusAvailable;
     LinearLayout linearLayoutCursus;
+    TextView textViewCursusDate;
 
     AppClass app;
 
@@ -182,6 +183,7 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
         textViewGrade = (TextView) view.findViewById(R.id.textViewGrade);
         textViewLvl = (TextView) view.findViewById(R.id.textViewLvl);
         progressBarLevel = (ProgressBar) view.findViewById(R.id.progressBarLevel);
+        textViewCursusDate = (TextView) view.findViewById(R.id.textViewCursusDate);
 
         setView();
 
@@ -434,17 +436,40 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        activity.userCursus = user.cursusUsers.get(position);
-        if (activity.userCursus.grade == null) {
+        CursusUsers userCursus = user.cursusUsers.get(position);
+        if (activity != null) {
+            activity.userCursus = userCursus;
+        }
+
+        if (userCursus.grade == null) {
             linearLayoutGrade.setVisibility(View.GONE);
             viewSeparatorGrade.setVisibility(View.GONE);
         } else {
             linearLayoutGrade.setVisibility(View.VISIBLE);
             viewSeparatorGrade.setVisibility(View.VISIBLE);
-            textViewGrade.setText(activity.userCursus.grade);
+            textViewGrade.setText(userCursus.grade);
         }
-        textViewLvl.setText(String.valueOf(activity.userCursus.level));
-        progressBarLevel.setProgress((int) (activity.userCursus.level / 21.0 * 100.0));
+        textViewLvl.setText(String.valueOf(userCursus.level));
+        progressBarLevel.setProgress((int) (userCursus.level / 21.0 * 100.0));
+
+        String dateInfo;
+
+        if (userCursus.begin_at == null && userCursus.end_at == null)
+            dateInfo = "Not begun and finish yet";
+        else {
+            if (userCursus.begin_at != null)
+                dateInfo = DateTool.getDateLong(userCursus.begin_at);
+            else
+                dateInfo = "Not begun yet";
+
+            dateInfo += " • ";
+
+            if (userCursus.end_at != null)
+                dateInfo += DateTool.getDateLong(userCursus.end_at);
+            else
+                dateInfo += "Not finished yet";
+        }
+        textViewCursusDate.setText(dateInfo);
     }
 
     /**
