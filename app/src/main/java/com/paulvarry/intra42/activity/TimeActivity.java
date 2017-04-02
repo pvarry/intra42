@@ -17,7 +17,6 @@ import java.util.List;
 public class TimeActivity extends BasicActivity {
 
     private final Handler timerHandler = new Handler();
-    private GridView gridView;
     private GridAdapterTimeTool adapterTimeTool;
     private Runnable timerRunnable = new Runnable() {
 
@@ -34,16 +33,11 @@ public class TimeActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setContentView(R.layout.activity_content_time);
         super.activeHamburger();
         super.onCreate(savedInstanceState);
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        timerHandler.removeCallbacks(timerRunnable);
     }
 
     @Override
@@ -85,7 +79,7 @@ public class TimeActivity extends BasicActivity {
         if (campusList == null)
             return;
 
-        gridView = (GridView) coordinatorLayout.findViewById(R.id.gridViewTime);
+        GridView gridView = (GridView) coordinatorLayout.findViewById(R.id.gridViewTime);
         adapterTimeTool = new GridAdapterTimeTool(this, campusList);
         gridView.setAdapter(adapterTimeTool);
 
@@ -94,12 +88,13 @@ public class TimeActivity extends BasicActivity {
     }
 
     @Override
-    public int getViewContentResID() {
-        return R.layout.activity_content_time;
+    public String getEmptyText() {
+        return null;
     }
 
     @Override
-    public String getEmptyText() {
-        return null;
+    public void onPause() {
+        super.onPause();
+        timerHandler.removeCallbacks(timerRunnable);
     }
 }

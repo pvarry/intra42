@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.Adapter.ExpandableListAdapterTopic;
-import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.BypassPicassoImageGetter;
 import com.paulvarry.intra42.activity.user.UserActivity;
@@ -34,12 +33,12 @@ import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class TopicActivity extends BasicActivity
+public class TopicActivity
+        extends BasicActivity
         implements AdapterView.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private final static String INTENT_ID = "intent_topic_id";
     private final static String INTENT_TOPIC_JSON = "intent_topic_json";
-    public AppClass app;
     TopicActivity activity = this;
     @Nullable
     private Topic topic;
@@ -67,10 +66,10 @@ public class TopicActivity extends BasicActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setContentView(R.layout.activity_content_topic);
 
 //        topics = Parcels.unwrap(getIntent().getParcelableExtra("lol"));
         id = getIntent().getIntExtra(INTENT_ID, 0);
-        app = (AppClass) this.getApplication();
 
         super.setSelectedMenu(Navigation.MENU_SELECTED_FORUM);
         super.onCreate(savedInstanceState);
@@ -173,11 +172,6 @@ public class TopicActivity extends BasicActivity
     }
 
     @Override
-    public int getViewContentResID() {
-        return R.layout.activity_content_topic;
-    }
-
-    @Override
     public String getEmptyText() {
         return null;
     }
@@ -219,6 +213,9 @@ public class TopicActivity extends BasicActivity
         int itemType = ExpandableListView.getPackedPositionType(id);
         long pos = listView.getExpandableListPosition(position);
 
+        if (topic == null)
+            return false;
+
         if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
             int childPosition = ExpandableListView.getPackedPositionChild(pos);
             int groupPosition = ExpandableListView.getPackedPositionGroup(pos);
@@ -249,6 +246,8 @@ public class TopicActivity extends BasicActivity
     public void onClick(View v) {
         if (v == buttonReply) {
 
+            if (topic == null)
+                return;
             ApiService api = activity.app.getApiService();
             Call<Messages> call = api.createTopicReply(topic.topic.id, app.me.id, editTextReply.getText().toString());
             call.enqueue(new Callback<Messages>() {

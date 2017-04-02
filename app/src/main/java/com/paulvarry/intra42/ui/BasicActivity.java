@@ -63,13 +63,15 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private Button buttonForceRefresh;
     private int drawerSelectedItemPosition = -1;
 
-    private boolean activeHamburger = false;
+    @LayoutRes
+    private int resContentId;
 
+    private boolean activeHamburger = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__basic);
+        super.setContentView(R.layout.activity__basic);
 
         app = (AppClass) this.getApplication();
 
@@ -91,8 +93,11 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         setViewNavigation(); // set drawer menu
 
         // add content view programmatically
+
+        if (resContentId == 0)
+            throw new RuntimeException("ContentView must be set");
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewContent = inflater.inflate(getViewContentResID(), coordinatorLayout, false);
+        viewContent = inflater.inflate(resContentId, coordinatorLayout, false);
         coordinatorLayout.addView(viewContent);
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) viewContent.getLayoutParams();
         params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
@@ -111,6 +116,16 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         }
 
         refresh();
+    }
+
+    /**
+     * Use this method to set the content of the view. This method must be used on the {@link #onCreate(Bundle)}
+     *
+     * @param layoutResID The resource if of the content
+     */
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        this.resContentId = layoutResID;
     }
 
     protected void refresh() {
@@ -146,33 +161,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         } else {
             super.onBackPressed();
         }
-    }
-
-    /**
-     * Handle clicks on ActionBar
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        String url = getUrlIntra();
-
-        // Handle item selection// Handle item selection
-        switch (item.getItemId()) {
-
-            case R.id.action_settings:
-                final Intent i = new Intent(this, SettingsActivity.class);
-                startActivity(i);
-                break;
-            case R.id.action_open_intra:
-                if (url != null) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(browserIntent);
-                }
-                break;
-            case R.id.action_share:
-                Share.shareString(this, url);
-                break;
-        }
-        return true;
     }
 
     /**
@@ -218,15 +206,15 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         // Getting selected (clicked) item suggestion
         searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
             @Override
-            public boolean onSuggestionClick(int position) {
-                searchView.setQuery(SuperSearch.suggestionsReplace[position], false);
-                return true;
-            }
-
-            @Override
             public boolean onSuggestionSelect(int position) {
                 // Your code here
                 return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                searchView.setQuery(SuperSearch.suggestionsReplace[position], false);
+                return true;
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -252,6 +240,41 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
         return true;
     }
+
+    /**
+     * Handle clicks on ActionBar
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String url = getUrlIntra();
+
+        // Handle item selection// Handle item selection
+        switch (item.getItemId()) {
+
+            case R.id.action_settings:
+                final Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.action_open_intra:
+                if (url != null) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(browserIntent);
+                }
+                break;
+            case R.id.action_share:
+                Share.shareString(this, url);
+                break;
+        }
+        return true;
+    }
+
+    /**
+     * This is call when the user want to open this view on true Intra. Is triggered at the beginning to know if you want activate "show web version" on menu.
+     *
+     * @return The urls (on intra) to this page.
+     */
+    @Nullable
+    abstract public String getUrlIntra();
 
     // You must implements your logic to get data using OrmLite
     private void populateAdapter(String query) {
@@ -396,14 +419,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     }
 
     /**
-     * This is call when the user want to open this view on true Intra. Is triggered at the beginning to know if you want activate "show web version" on menu.
-     *
-     * @return The urls (on intra) to this page.
-     */
-    @Nullable
-    abstract public String getUrlIntra();
-
-    /**
      * Triggered when the activity start, after {@link BasicActivity#getDataOnMainThread()}.
      * <p>
      * This method is run on a Thread, so you can make API calls and other long stuff.
@@ -429,15 +444,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     abstract public String getToolbarName();
 
     /**
-     * Burn when activity build view, after getting data.
+     * Run when activity build view, just after getting data.
      */
     abstract public void setViewContent();
-
-    /**
-     * @return Resource ID if a layout to be added on the view, this layout content all interested stuff for the activity.
-     */
-    @LayoutRes
-    abstract public int getViewContentResID();
 
     /**
      * This text is useful when both {@link com.paulvarry.intra42.ui.BasicActivity#getDataOnMainThread()} and {@link com.paulvarry.intra42.ui.BasicActivity#getDataOnOtherThread()} return false.

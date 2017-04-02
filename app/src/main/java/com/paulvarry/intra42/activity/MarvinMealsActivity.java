@@ -21,6 +21,7 @@ public class MarvinMealsActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setContentView(R.layout.activity_marvin_meal);
         super.activeHamburger();
         super.onCreate(savedInstanceState);
 
@@ -85,21 +86,13 @@ public class MarvinMealsActivity extends BasicActivity {
     }
 
     /**
-     * Burn when activity build view, after getting data.
+     * Run when activity build view, just after getting data.
      */
     @Override
     public void setViewContent() {
         ListView listView = (ListView) findViewById(R.id.listView);
         ListAdapterMarvinMeal adapterMarvinMeal = new ListAdapterMarvinMeal(this, marvinMealList);
         listView.setAdapter(adapterMarvinMeal);
-    }
-
-    /**
-     * @return Resource ID if a layout to be added on the view, this layout content all interested stuff for the activity.
-     */
-    @Override
-    public int getViewContentResID() {
-        return R.layout.activity_marvin_meal;
     }
 
     /**

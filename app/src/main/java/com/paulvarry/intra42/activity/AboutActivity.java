@@ -23,6 +23,7 @@ public class AboutActivity extends BasicActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setContentView(R.layout.activity_about);
         super.activeHamburger();
         super.onCreate(savedInstanceState);
         navigationView.getMenu().getItem(6).getSubMenu().getItem(0).setChecked(true);
@@ -80,16 +81,11 @@ public class AboutActivity extends BasicActivity {
     }
 
     @Override
-    public int getViewContentResID() {
-        return R.layout.activity_about;
-    }
-
-    @Override
     public String getEmptyText() {
         return null;
     }
 
-    class Item {
+    private class Item {
 
         public String name;
         public String content;

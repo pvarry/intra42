@@ -18,8 +18,18 @@ public abstract class BasicTabActivity extends BasicActivity implements Navigati
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setContentView(R.layout.activity__basic_tab);
         super.onCreate(savedInstanceState);
+    }
 
+    public void setNoHamburger(Toolbar toolbar) {
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void setViewContent() {
@@ -37,23 +47,8 @@ public abstract class BasicTabActivity extends BasicActivity implements Navigati
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    public void setNoHamburger(Toolbar toolbar) {
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-    }
-
-    @Override
-    public int getViewContentResID() {
-        return R.layout.activity__basic_tab;
-    }
-
     /**
-     * Burn after {@link BasicTabActivity#getDataOnOtherThread()}
+     * Run after getting data: {@link BasicTabActivity#getDataOnOtherThread()}
      *
      * @param viewPager Current view pager (container of tabs)
      */

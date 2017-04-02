@@ -35,6 +35,7 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setContentView(R.layout.activity_expertises_edit);
         super.onCreate(savedInstanceState);
     }
 
@@ -79,11 +80,6 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
             }
         });
         swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public int getViewContentResID() {
-        return R.layout.activity_expertises_edit;
     }
 
     @Override

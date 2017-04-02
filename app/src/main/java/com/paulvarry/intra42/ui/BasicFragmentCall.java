@@ -51,6 +51,7 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
                 list = listTmp;
             setView();
             flag_loading = false;
+            swipeRefreshLayout.setRefreshing(false);
         }
 
         @Override
@@ -72,13 +73,6 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        if (call != null)
-            call.cancel();
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -93,6 +87,60 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         textView.setVisibility(View.GONE);
         onRefresh();
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (call != null)
+            call.cancel();
+    }
+
+    @Override
+    public void onRefresh() {
+        flag_loading = true;
+        if (call != null)
+            call.cancel();
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+
+        list = null;
+        adapter = null;
+
+        addItems();
+    }
+
+    private void addItems() {
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+
+        ApiService apiService = ((AppClass) getActivity().getApplication()).getApiService();
+
+        Call<List<T>> call = getCall(apiService, list);
+
+        if (call != null) {
+            this.call = call;
+            call.enqueue(callback);
+        }
+    }
+
+    /**
+     * Return a Call of retrofit2 can be enqueue()
+     *
+     * @param apiService Service
+     * @param list       The current item on list (for pagination)
+     * @return The Call
+     */
+    @Nullable
+    public abstract Call<List<T>> getCall(ApiService apiService, @Nullable List<T> list);
 
     public void setView() {
         if (!isAdded())
@@ -119,6 +167,21 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    /**
+     * Get the message displayed when list view is empty
+     *
+     * @return The Message.
+     */
+    public abstract String getEmptyMessage();
+
+    /**
+     * Generate a new adapter for the list, called on create fragment and after refresh.
+     *
+     * @param list The list for the ListViewAdapter
+     * @return A Adapter.
+     */
+    public abstract ADAPTER generateAdapter(List<T> list);
+
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -131,18 +194,6 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
                 flag_loading = true;
                 addItems();
             }
-        }
-    }
-
-    private void addItems() {
-
-        ApiService apiService = ((AppClass) getActivity().getApplication()).getApiService();
-
-        Call<List<T>> call = getCall(apiService, list);
-
-        if (call != null) {
-            this.call = call;
-            call.enqueue(callback);
         }
     }
 
@@ -165,55 +216,11 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
             onItemClick(list.get(position));
     }
 
-
-    @Override
-    public void onRefresh() {
-        flag_loading = true;
-        if (call != null)
-            call.cancel();
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-
-        list = null;
-        adapter = null;
-
-        addItems();
-    }
-
-    /**
-     * Return a Call of retrofit2 can be enqueue()
-     *
-     * @param apiService Service
-     * @param list       The current item on list (for pagination)
-     * @return The Call
-     */
-    @Nullable
-    public abstract Call<List<T>> getCall(ApiService apiService, @Nullable List<T> list);
-
     /**
      * When a item on the list is clicked
      *
      * @param item The item clicked
      */
     public abstract void onItemClick(T item);
-
-    /**
-     * Generate a new adapter for the list, called on create fragment and after refresh.
-     *
-     * @param list The list for the ListViewAdapter
-     * @return A Adapter.
-     */
-    public abstract ADAPTER generateAdapter(List<T> list);
-
-    /**
-     * Get the message displayed when list view is empty
-     *
-     * @return The Message.
-     */
-    public abstract String getEmptyMessage();
 
 }
