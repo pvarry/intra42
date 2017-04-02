@@ -168,7 +168,7 @@
     <string name="no_slots">No slots</string>
     <string name="name">Name</string>
     <string name="unable_to_connect_to_internet">unable to connect to internet</string>
-    <string name="copy">copy</string>
+    <string name="copy">Copy</string>
     <string name="git_repository">Git repository for this team</string>
     <string name="user_in_this_team">Users in this team</string>
     <string name="automatic_corrections">Automatic corrections</string>
@@ -414,5 +414,6 @@
     <string name="all">All</string>
     <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
     <string name="date">Date</string>
+    <string name="share_using">Share using</string>
 
 </resources>

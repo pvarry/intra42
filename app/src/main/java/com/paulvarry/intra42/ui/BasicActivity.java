@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
+import com.paulvarry.intra42.Tools.Share;
 import com.paulvarry.intra42.Tools.SuperSearch;
 import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.activity.SearchableActivity;
@@ -152,6 +153,8 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        String url = getUrlIntra();
+
         // Handle item selection// Handle item selection
         switch (item.getItemId()) {
 
@@ -160,11 +163,13 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                 startActivity(i);
                 break;
             case R.id.action_open_intra:
-                String url = getUrlIntra();
                 if (url != null) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(browserIntent);
                 }
+                break;
+            case R.id.action_share:
+                Share.shareString(this, url);
                 break;
         }
         return true;
@@ -187,8 +192,10 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        if (getUrlIntra() == null)
+        if (getUrlIntra() == null) {
             menu.removeItem(R.id.action_open_intra);
+            menu.removeItem(R.id.action_share);
+        }
 
         menuItemFilter = menu.findItem(R.id.filter);
 

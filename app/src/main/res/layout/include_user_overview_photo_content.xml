@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignBottom="@+id/imageViewProfile"
+    android:layout_alignEnd="@+id/imageViewProfile"
     android:layout_alignLeft="@+id/imageViewProfile"
     android:layout_alignRight="@+id/imageViewProfile"
+    android:layout_alignStart="@+id/imageViewProfile"
     android:layout_alignTop="@+id/imageViewProfile">
 
     <TextView
@@ -22,7 +24,8 @@
         android:paddingTop="40dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/textColorPrimary" />
+        android:textColor="@color/textColorPrimary"
+        android:textIsSelectable="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"

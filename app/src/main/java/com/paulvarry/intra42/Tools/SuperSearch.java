@@ -120,6 +120,9 @@ public class SuperSearch {
         } else if (searchOnArray(R.array.search_location, split[0], activity)) {
             UserActivity.openLocation(activity, split[1], (AppClass) activity.getApplication());
             return true;
+        } else if (query.contains("@student.42")) {
+            UserActivity.openIt(activity, query.split("@")[0]);
+            return true;
         } else
             return false;
     }

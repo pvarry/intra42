@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.activity.user;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.DateTool;
 import com.paulvarry.intra42.Tools.Friends;
+import com.paulvarry.intra42.Tools.Share;
 import com.paulvarry.intra42.Tools.Tag;
 import com.paulvarry.intra42.Tools.UserImage;
 import com.paulvarry.intra42.api.model.Campus;
@@ -59,7 +61,9 @@ import static com.paulvarry.intra42.R.string.error;
  * Use the {@link UserOverviewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserOverviewFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
+public class UserOverviewFragment
+        extends Fragment
+        implements View.OnClickListener, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, View.OnLongClickListener {
 
     @Nullable
     UserActivity activity;
@@ -256,6 +260,11 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
         imageButtonSMS.setOnClickListener(this);
         relativeLayoutMail.setOnClickListener(this);
         linearLayoutLocation.setOnClickListener(this);
+
+        linearLayoutPhone.setOnLongClickListener(this);
+        imageButtonSMS.setOnLongClickListener(this);
+        relativeLayoutMail.setOnLongClickListener(this);
+        linearLayoutLocation.setOnLongClickListener(this);
 
         CursusUsers selected = user.getCursusUsersToDisplay(getContext());
         if (selected != null && user.cursusUsers != null) {
@@ -493,6 +502,42 @@ public class UserOverviewFragment extends Fragment implements View.OnClickListen
                     setView();
                 }
             });
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+        if (v == linearLayoutPhone)
+            dialogCopyOrShare(user.phone);
+        else if (v == imageButtonSMS)
+            dialogCopyOrShare(user.phone);
+        else if (v == relativeLayoutMail)
+            dialogCopyOrShare(user.email);
+        else if (v == linearLayoutLocation)
+            dialogCopyOrShare(user.location);
+        else
+            return false;
+        return true;
+    }
+
+    void dialogCopyOrShare(final String string) {
+        final Context context = getContext();
+        CharSequence action[] = new CharSequence[]{
+                context.getString(R.string.copy),
+                context.getString(R.string.share)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(string);
+        builder.setItems(action, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0)
+                    Share.copyString(context, string);
+                else
+                    Share.shareString(activity, string);
+            }
+        });
+        builder.show();
     }
 
     /**
