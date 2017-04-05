@@ -51,30 +51,9 @@ public class UsersAllFragment extends BasicFragmentCallGrid<UsersLTE, GridAdapte
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        UsersActivity activity = (UsersActivity) getActivity();
-
-        if (activity != null && activity.menuItemFilter != null) {
-            activity.menuItemFilter.setVisible(isVisibleToUser);
-        }
     }
 
     @Nullable
@@ -108,6 +87,27 @@ public class UsersAllFragment extends BasicFragmentCallGrid<UsersLTE, GridAdapte
     @Override
     public String getEmptyMessage() {
         return null;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        UsersActivity activity = (UsersActivity) getActivity();
+
+        if (activity != null && activity.menuItemFilter != null && false) {// it is not finish
+            activity.menuItemFilter.setVisible(isVisibleToUser);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     /**

@@ -415,5 +415,6 @@
     <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
     <string name="date">Date</string>
     <string name="share_using">Share using</string>
+    <string name="friends">Friends</string>
 
 </resources>

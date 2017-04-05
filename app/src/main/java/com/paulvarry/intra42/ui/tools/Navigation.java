@@ -57,6 +57,9 @@ public class Navigation {
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(activity, AboutActivity.class);
             activity.startActivity(intent);
+        } else if (id == R.id.nav_friends) {
+            Intent intent = new Intent(activity, UsersActivity.class);
+            activity.startActivity(intent);
         } else if (id == R.id.nav_time_on_campus) {
             Intent intent = new Intent(activity, TimeActivity.class);
             activity.startActivity(intent);

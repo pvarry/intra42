@@ -25,7 +25,7 @@ public class MarvinMealsActivity extends BasicActivity {
         super.activeHamburger();
         super.onCreate(savedInstanceState);
 
-        MenuItem menuItem = navigationView.getMenu().getItem(5).getSubMenu().getItem(2);
+        MenuItem menuItem = navigationView.getMenu().getItem(5).getSubMenu().getItem(3);
         if (menuItem != null)
             menuItem.setChecked(true);
     }

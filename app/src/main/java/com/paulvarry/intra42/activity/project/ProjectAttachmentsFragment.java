@@ -40,15 +40,12 @@ public class ProjectAttachmentsFragment extends BasicFragment<Attachments, ListA
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        activity = (ProjectActivity) getActivity();
-    }
-
-    @Override
     public List<Attachments> getData() {
-        return activity.projectUser.project.attachments;
+        if (activity != null &&
+                activity.projectUser != null &&
+                activity.projectUser.project != null)
+            return activity.projectUser.project.attachments;
+        return null;
     }
 
     @Override
@@ -76,6 +73,13 @@ public class ProjectAttachmentsFragment extends BasicFragment<Attachments, ListA
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        activity = (ProjectActivity) getActivity();
     }
 
     @Override

@@ -62,7 +62,10 @@ public class UserPartnershipsFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listView);
         textViewNothingToShow = (TextView) view.findViewById(R.id.textViewNothingToShow);
 
-        if (activity.user.partnerships != null && activity.user.partnerships.size() != 0) {
+        if (activity != null &&
+                activity.user != null &&
+                activity.user.partnerships != null &&
+                activity.user.partnerships.size() != 0) {
             ListAdapterPartnerships adapterPartnerships = new ListAdapterPartnerships(activity, activity.user.partnerships);
             listView.setVisibility(View.VISIBLE);
             listView.setAdapter(adapterPartnerships);
@@ -74,10 +77,10 @@ public class UserPartnershipsFragment extends Fragment {
         }
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 //    @Override
@@ -91,10 +94,10 @@ public class UserPartnershipsFragment extends Fragment {
 //        }
 //    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     /**

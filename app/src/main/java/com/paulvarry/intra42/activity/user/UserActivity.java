@@ -68,14 +68,18 @@ public class UserActivity extends BasicTabActivity
         }
     }
 
+    public static Intent getIntent(Context context, UsersLTE user) {
+        if (user != null) {
+            Intent intent = new Intent(context, UserActivity.class);
+            intent.putExtra(UserActivity.INTENT_USER_LTE, ServiceGenerator.getGson().toJson(user));
+            return intent;
+        }
+        return null;
+    }
+
     public static void openIt(final Context context, final UsersLTE user, Activity activity) {
         if (user != null)
             openIt(context, user.login, activity);
-    }
-
-    public static void openIt(final Context context, final UsersLTE user, AppClass app) {
-        if (user != null)
-            openIt(context, user.login, app);
     }
 
     public static boolean openIt(final Context context, final String login, final Activity activity) {
@@ -124,14 +128,6 @@ public class UserActivity extends BasicTabActivity
         return false;
     }
 
-    public static void openIt(Context context, Users user) {
-        if (user != null) {
-            Intent intent = new Intent(context, UserActivity.class);
-            intent.putExtra(UserActivity.INTENT_USER_FULL, ServiceGenerator.getGson().toJson(user));
-            context.startActivity(intent);
-        }
-    }
-
     public static void openIt(Context context, String login) {
 
         Intent intent = new Intent(context, UserActivity.class);
@@ -140,13 +136,12 @@ public class UserActivity extends BasicTabActivity
 
     }
 
-    public static Intent getIntent(Context context, UsersLTE user) {
+    public static void openIt(Context context, Users user) {
         if (user != null) {
             Intent intent = new Intent(context, UserActivity.class);
-            intent.putExtra(UserActivity.INTENT_USER_LTE, ServiceGenerator.getGson().toJson(user));
-            return intent;
+            intent.putExtra(UserActivity.INTENT_USER_FULL, ServiceGenerator.getGson().toJson(user));
+            context.startActivity(intent);
         }
-        return null;
     }
 
     public static void openLocation(final Context context, String location, final AppClass app) {
@@ -190,6 +185,11 @@ public class UserActivity extends BasicTabActivity
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static void openIt(final Context context, final UsersLTE user, AppClass app) {
+        if (user != null)
+            openIt(context, user.login, app);
     }
 
     @Override
@@ -236,151 +236,12 @@ public class UserActivity extends BasicTabActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        menu.add(R.string.action_user_add_to_home).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                addShortCut();
-                return true;
-            }
-        });
-
-//        menu.add("Add to contacts").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Contacts.add(UserActivity.this, user);
-//                    }
-//                }).start();
-//
-//                return true;
-//            }
-//        });
-
-        menu.add(R.string.action_user_add_friends).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Friends.actionAddRemove(app.firebaseRefFriends, user);
-                return true;
-            }
-        });
-
-        return true;
-    }
-
     private String handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
             return sharedText.toLowerCase();
         }
         return null;
-    }
-
-    @Override
-    public boolean getDataOnOtherThread() {
-        if (app != null && app.me != null && login != null && login.contentEquals(app.me.login))
-            user = app.me;
-        else if (login != null) {
-            if (user == null) {
-                ApiService service = app.getApiService();
-                Call<Users> call = service.getUser(login);
-                try {
-                    Response<Users> ret = call.execute();
-                    if (ret.code() == 200)
-                        user = ret.body();
-                    else
-                        return false;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
-                userCursus = user.cursusUsers.get(0);
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean getDataOnMainThread() {
-        if (user != null)
-            return true;
-
-        if (app != null && app.me != null && login != null && login.contentEquals(app.me.login)) {
-            user = app.me;
-            return true;
-        }
-
-        Users tmp = CacheUsers.get(app.cacheSQLiteHelper, login);
-        if (tmp != null) {
-            user = tmp;
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public String getToolbarName() {
-        if (user != null)
-            return user.login;
-        else
-            return login;
-    }
-
-    /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
-     *
-     * @return A simple text to display on screen, may return null;
-     */
-    @Override
-    public String getEmptyText() {
-        return null;
-    }
-
-    public void refresh(final Runnable runnable) {
-        if (app == null)
-            return;
-
-        final Runnable localRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (app.me != null && login != null && login.contentEquals(app.me.login))
-                    user = app.me;
-                if (user != null && !user.cursusUsers.isEmpty()) {
-                    userCursus = user.cursusUsers.get(0);
-                }
-                if (runnable != null)
-                    runnable.run();
-            }
-        };
-
-        if (login != null) {
-
-            app.getApiService().getUser(login).enqueue(new Callback<Users>() {
-                @Override
-                public void onResponse(Call<Users> call, Response<Users> response) {
-                    if (response.isSuccessful()) {
-                        user = response.body();
-                        if (app.me != null && login != null && login.contentEquals(app.me.login)) // when refreshing
-                            app.me = response.body();
-                        CacheUsers.put(app.cacheSQLiteHelper, user);
-                    }
-                    localRunnable.run();
-                }
-
-                @Override
-                public void onFailure(Call<Users> call, Throwable t) {
-                    localRunnable.run();
-                }
-            });
-
-        }
     }
 
     @Override
@@ -425,6 +286,83 @@ public class UserActivity extends BasicTabActivity
         }
     }
 
+    public void refresh(final Runnable runnable) {
+        if (app == null)
+            return;
+
+        final Runnable localRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (app.me != null && login != null && login.contentEquals(app.me.login))
+                    user = app.me;
+                if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
+                    userCursus = user.cursusUsers.get(0);
+                }
+                if (runnable != null)
+                    runnable.run();
+            }
+        };
+
+        if (login != null) {
+
+            app.getApiService().getUser(login).enqueue(new Callback<Users>() {
+                @Override
+                public void onResponse(Call<Users> call, Response<Users> response) {
+                    if (response.isSuccessful()) {
+                        user = response.body();
+                        if (app.me != null && login != null && login.contentEquals(app.me.login)) // when refreshing
+                            app.me = response.body();
+                        CacheUsers.put(app.cacheSQLiteHelper, user);
+                    }
+                    localRunnable.run();
+                }
+
+                @Override
+                public void onFailure(Call<Users> call, Throwable t) {
+                    localRunnable.run();
+                }
+            });
+
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(R.string.action_user_add_to_home).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                addShortCut();
+                return true;
+            }
+        });
+
+//        menu.add("Add to contacts").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Contacts.add(UserActivity.this, user);
+//                    }
+//                }).start();
+//
+//                return true;
+//            }
+//        });
+
+        menu.add(R.string.action_user_add_friends).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Friends.actionAddRemove(app.firebaseRefFriends, user);
+                return true;
+            }
+        });
+
+        return true;
+    }
+
     @Nullable
     @Override
     public String getUrlIntra() {
@@ -434,20 +372,73 @@ public class UserActivity extends BasicTabActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public boolean getDataOnOtherThread() {
+        if (login != null) {
+            if (user == null) {
+                ApiService service = app.getApiService();
+                Call<Users> call = service.getUser(login);
+                try {
+                    Response<Users> ret = call.execute();
+                    if (ret.code() == 200)
+                        user = ret.body();
+                    else
+                        return false;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
+                userCursus = user.cursusUsers.get(0);
+            }
+        }
+        return true;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public boolean getDataOnMainThread() {
+        if (user != null)
+            return true;
+        if (app == null)
+            return false;
+
+        if (app.me != null && login != null && login.contentEquals(app.me.login)) {
+            user = app.me;
+            return true;
+        }
+
+        Users tmp = CacheUsers.get(app.cacheSQLiteHelper, login);
+        if (tmp != null) {
+            user = tmp;
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public String getToolbarName() {
+        if (user != null)
+            return user.login;
+        else
+            return login;
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     private void addShortCut() {
         final Intent addIntent = new Intent();
         final RequestCreator p = UserImage.getPicassoCorned(UserActivity.this, user);
-        if (p != null)
-            p.resize(200, 240);
+        if (p == null)
+            return;
+        p.resize(200, 240);
 
         new Thread(new Runnable() {
             @Override
@@ -488,5 +479,15 @@ public class UserActivity extends BasicTabActivity
                 });
             }
         }).start();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 }

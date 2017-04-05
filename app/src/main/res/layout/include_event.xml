@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:layout_gravity="top"
             android:contentDescription="@string/icon_time"
             android:tint="@color/colorGrayTint"
-            app:srcCompat="@drawable/ic_access_time_black_24dp" />
+            app:srcCompat="@drawable/ic_access_time_black_24dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="32dp"
                 android:text="New Text"
-                android:textColor="@color/colorGray" />
+                android:textColor="@color/colorGray"/>
 
             <TextView
                 android:id="@+id/textViewTime"
@@ -44,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="32dp"
                 android:text="New Text"
-                android:textColor="@color/colorGray" />
+                android:textColor="@color/colorGray"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -61,7 +62,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/icon_people"
             android:tint="@color/colorGrayTint"
-            app:srcCompat="@drawable/ic_people_black_24px" />
+            app:srcCompat="@drawable/ic_people_black_24dp"/>
 
         <TextView
             android:id="@+id/textViewPeople"
@@ -71,7 +72,7 @@
             android:layout_marginLeft="32dp"
             android:gravity="center_vertical"
             android:text="New Text"
-            android:textColor="@color/colorGray" />
+            android:textColor="@color/colorGray"/>
     </LinearLayout>
 
     <LinearLayout
@@ -86,7 +87,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/icon_location"
             android:tint="@color/colorGrayTint"
-            app:srcCompat="@drawable/ic_place_black_24dp" />
+            app:srcCompat="@drawable/ic_place_black_24dp"/>
 
         <TextView
             android:id="@+id/textViewPlace"
@@ -96,7 +97,7 @@
             android:layout_marginLeft="32dp"
             android:gravity="center_vertical"
             android:text="New Text"
-            android:textColor="@color/colorGray" />
+            android:textColor="@color/colorGray"/>
     </LinearLayout>
 
     <LinearLayout
@@ -111,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:contentDescription="@string/icon_cursus"
-            app:srcCompat="@drawable/ic_cursus_black_24px" />
+            app:srcCompat="@drawable/ic_cursus_black_24px"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -120,7 +121,7 @@
             android:layout_marginLeft="32dp"
             android:gravity="center_vertical"
             android:text="New Text"
-            android:textColor="@color/colorGray" />
+            android:textColor="@color/colorGray"/>
     </LinearLayout>
 
     <TextView
@@ -130,14 +131,54 @@
         android:layout_marginBottom="32dp"
         android:layout_marginTop="16dp"
         android:text="New Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    <Button
-        android:id="@+id/buttonSubscribe"
-        style="?attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/subscribe"
-        android:textColor="@color/colorAccent" />
+        android:layout_marginBottom="16dp"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progressBarButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="4dp"/>
+
+            <Button
+
+                android:id="@+id/buttonSubscribe"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subscribe"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/check_your_registration"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:textSize="12sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

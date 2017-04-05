@@ -34,13 +34,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
 
         super.onCreate(savedInstanceState);
         campusId = AppSettings.getAppCampus(app);
-        navigationView.getMenu().getItem(5).getSubMenu().getItem(1).setChecked(true);
-    }
-
-    @Nullable
-    @Override
-    public String getUrlIntra() {
-        return "https://meta.intra.42.fr/clusters";
+        navigationView.getMenu().getItem(5).getSubMenu().getItem(2).setChecked(true);
     }
 
     @Override
@@ -62,6 +56,12 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
 
         viewPager.setPageMargin(20);
         viewPager.setPageMarginDrawable(R.color.textColorBlackPrimary);
+    }
+
+    @Nullable
+    @Override
+    public String getUrlIntra() {
+        return "https://meta.intra.42.fr/clusters";
     }
 
     @Override
