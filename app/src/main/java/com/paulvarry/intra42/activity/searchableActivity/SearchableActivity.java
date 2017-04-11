@@ -1,4 +1,4 @@
-package com.paulvarry.intra42.activity;
+package com.paulvarry.intra42.activity.searchableActivity;
 
 import android.app.SearchManager;
 import android.content.ComponentName;
@@ -8,13 +8,13 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,14 +26,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.Adapter.SectionListViewSearch;
+import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.SuperSearch;
+import com.paulvarry.intra42.activity.SettingsActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicTabActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchableActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class SearchableActivity extends BasicTabActivity implements AdapterView.OnItemClickListener {
 
     ConstraintLayout constraintLayoutLoading;
     SwipeRefreshLayout layoutResult;
@@ -68,35 +72,76 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchable);
 
-        constraintLayoutLoading = (ConstraintLayout) findViewById(R.id.constraintLayoutLoading);
-        layoutResult = (SwipeRefreshLayout) findViewById(R.id.layoutResult);
-        layoutApi = (FrameLayout) findViewById(R.id.layoutApi);
+//        setContentView(R.layout.activity_searchable);
 
-        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
-        listView = (ListView) findViewById(R.id.listView);
-        textViewJson = (TextView) findViewById(R.id.textViewJson);
-        buttonApiOpen = (Button) findViewById(R.id.buttonApiOpen);
+//        constraintLayoutLoading = (ConstraintLayout) findViewById(R.id.constraintLayoutLoading);
+//        layoutResult = (SwipeRefreshLayout) findViewById(R.id.layoutResult);
+//        layoutApi = (FrameLayout) findViewById(R.id.layoutApi);
+//
+//        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
+//        listView = (ListView) findViewById(R.id.listView);
+//        textViewJson = (TextView) findViewById(R.id.textViewJson);
+//        buttonApiOpen = (Button) findViewById(R.id.buttonApiOpen);
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            if (query != null) {
-                setTitle(query);
-            }
-            doSearch(query);
+            query = intent.getStringExtra(SearchManager.QUERY);
+//            if (query != null) {
+//                setTitle(query);
+//            }
+//            doSearch(query);
         } else {
             finish();
             Toast.makeText(this, "Can't open this", Toast.LENGTH_SHORT).show();
         }
+//
+//        listView.setOnItemClickListener(this);
+//
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+        super.onCreate(savedInstanceState);
+    }
 
-        listView.setOnItemClickListener(this);
+    /**
+     * Run after getting data: {@link BasicTabActivity#getDataOnOtherThread()}
+     *
+     * @param viewPager Current view pager (container of tabs)
+     */
+    @Override
+    public void setupViewPager(ViewPager viewPager) {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if (query == null)
+            return;
+
+        String[] split = query.split(" ");
+        String stringToSearch;
+        if (split.length > 1)
+            stringToSearch = query.replaceFirst(split[0] + " ", "");
+        else
+            stringToSearch = query;
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        boolean searchCategoryDetected = false;
+
+        if (SuperSearch.searchOnArray(R.array.search_users, split[0], SearchableActivity.this)) {
+
+        } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
+            adapter.addFragment(SearchOnProjectsFragment.newInstance(stringToSearch), getString(R.string.tab_user_projects));
+            searchCategoryDetected = true;
+        } else if (SuperSearch.searchOnArray(R.array.search_topics, split[0], SearchableActivity.this)) {
+            adapter.addFragment(SearchOnTopicsFragment.newInstance(stringToSearch), getString(R.string.tab_user_projects));
+            searchCategoryDetected = true;
+        }
+
+        if (!searchCategoryDetected) {
+            adapter.addFragment(SearchOnProjectsFragment.newInstance(stringToSearch), getString(R.string.tab_user_projects));
+            adapter.addFragment(SearchOnTopicsFragment.newInstance(stringToSearch), getString(R.string.tab_searchable_topics));
+        }
+
+        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -121,15 +166,15 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         // Getting selected (clicked) item suggestion
         searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
             @Override
-            public boolean onSuggestionClick(int position) {
-                searchView.setQuery(SuperSearch.suggestionsReplace[position], false);
-                return true;
-            }
-
-            @Override
             public boolean onSuggestionSelect(int position) {
                 // Your code here
                 return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                searchView.setQuery(SuperSearch.suggestionsReplace[position], false);
+                return true;
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -189,6 +234,61 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 break;
         }
         return true;
+    }
+
+    /**
+     * This is call when the user want to open this view on true Intra. Is triggered at the beginning to know if you want activate "show web version" on menu.
+     *
+     * @return The urls (on intra) to this page.
+     */
+    @Nullable
+    @Override
+    public String getUrlIntra() {
+        return null;
+    }
+
+    /**
+     * Triggered when the activity start, after {@link BasicActivity#getDataOnMainThread()}.
+     * <p>
+     * This method is run on a Thread, so you can make API calls and other long stuff.
+     *
+     * @return Return true if something append on this method.
+     */
+    @Override
+    public boolean getDataOnOtherThread() {
+        return false;
+    }
+
+    /**
+     * Triggered when the activity start.
+     * <p>
+     * This method is run on main Thread, so you can make api call.
+     *
+     * @return Return true if something append on this method, if false -> the activity run {@link BasicActivity#getDataOnOtherThread()}.
+     */
+    @Override
+    public boolean getDataOnMainThread() {
+        return true;
+    }
+
+    /**
+     * Use to get the text on the toolbar, triggered when the activity start and after {@link BasicActivity#getDataOnOtherThread()} (only if it return true).
+     *
+     * @return Return the text on the toolbar.
+     */
+    @Override
+    public String getToolbarName() {
+        return null;
+    }
+
+    /**
+     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     *
+     * @return A simple text to display on screen, may return null;
+     */
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     // You must implements your logic to get data using OrmLite
@@ -383,6 +483,12 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         return false;
     }
 
+    private void visibilityGoneAll() {
+        layoutResult.setVisibility(View.GONE);
+        constraintLayoutLoading.setVisibility(View.GONE);
+        layoutApi.setVisibility(View.GONE);
+    }
+
     Response<List<UsersLTE>> execUsers(Call<List<UsersLTE>> callUsers) throws IOException {
         runOnUiThread(new Runnable() {
             @Override
@@ -431,11 +537,5 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         SectionListViewSearch.Item i = items.get(position);
         if (i.type == SectionListViewSearch.Item.ITEM)
             i.item.openIt(this);
-    }
-
-    private void visibilityGoneAll() {
-        layoutResult.setVisibility(View.GONE);
-        constraintLayoutLoading.setVisibility(View.GONE);
-        layoutApi.setVisibility(View.GONE);
     }
 }

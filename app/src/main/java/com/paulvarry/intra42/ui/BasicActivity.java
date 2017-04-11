@@ -39,8 +39,8 @@ import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Share;
 import com.paulvarry.intra42.Tools.SuperSearch;
 import com.paulvarry.intra42.Tools.UserImage;
-import com.paulvarry.intra42.activity.SearchableActivity;
 import com.paulvarry.intra42.activity.SettingsActivity;
+import com.paulvarry.intra42.activity.searchableActivity.SearchableActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.squareup.picasso.RequestCreator;
 

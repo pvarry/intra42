@@ -416,5 +416,6 @@
     <string name="date">Date</string>
     <string name="share_using">Share using</string>
     <string name="friends">Friends</string>
+    <string name="tab_searchable_topics">Topics</string>
 
 </resources>
