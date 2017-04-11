@@ -25,19 +25,6 @@ public class AppSettings {
     }
 
     /**
-     * Return the main Campus of the user logged.
-     *
-     * @param app AppClass.
-     * @return The id of a Campus.
-     * @see Users#getCampusUsersToDisplay(Context)
-     */
-    public static int getUserCampus(AppClass app) {
-        if (app.me != null)
-            return app.me.getCampusUsersToDisplayID(app);
-        return -1;
-    }
-
-    /**
      * Return the forced Campus if is set or the main Campus of the user logged.
      *
      * @param app AppClass.
@@ -52,15 +39,15 @@ public class AppSettings {
     }
 
     /**
-     * Return the main Cursus of the user logged.
+     * Return the main Campus of the user logged.
      *
      * @param app AppClass.
-     * @return The id of a Cursus.
-     * @see Users#getCursusUsersToDisplay(Context)
+     * @return The id of a Campus.
+     * @see Users#getCampusUsersToDisplay(Context)
      */
-    public static int getUserCursus(AppClass app) {
+    public static int getUserCampus(AppClass app) {
         if (app.me != null)
-            return app.me.getCursusUsersToDisplayID(app);
+            return app.me.getCampusUsersToDisplayID(app);
         return -1;
     }
 
@@ -78,6 +65,19 @@ public class AppSettings {
         return getUserCursus(app);
     }
 
+    /**
+     * Return the main Cursus of the user logged.
+     *
+     * @param app AppClass.
+     * @return The id of a Cursus.
+     * @see Users#getCursusUsersToDisplay(Context)
+     */
+    public static int getUserCursus(AppClass app) {
+        if (app.me != null)
+            return app.me.getCursusUsersToDisplayID(app);
+        return -1;
+    }
+
     public static class Advanced {
 
         public static final String PREFERENCE_ADVANCED_ALLOW_ADVANCED = "switch_preference_advanced_allow_beta";
@@ -88,12 +88,16 @@ public class AppSettings {
         public static final String PREFERENCE_ADVANCED_FORCE_CURSUS = "list_preference_advanced_force_cursus";
         public static final String PREFERENCE_ADVANCED_FORCE_CAMPUS = "list_preference_advanced_force_campus";
 
+        public static boolean getAllowAdvanced(Context context) {
+            return context != null && getAllowAdvanced(getSharedPreferences(context));
+        }
+
         public static boolean getAllowAdvanced(SharedPreferences settings) {
             return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_ADVANCED, false);
         }
 
-        public static boolean getAllowAdvanced(Context context) {
-            return context != null && getAllowAdvanced(getSharedPreferences(context));
+        public static boolean getAllowAdvancedData(Context context) {
+            return context != null && getAllowAdvancedData(getSharedPreferences(context));
         }
 
         // advanced data
@@ -102,8 +106,10 @@ public class AppSettings {
             return getAllowAdvanced(settings) && settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_DATA, false);
         }
 
-        public static boolean getAllowAdvancedData(Context context) {
-            return context != null && getAllowAdvancedData(getSharedPreferences(context));
+        public static boolean getAllowMarkdownRenderer(Context context) {
+            if (context == null)
+                return false;
+            return getAllowMarkdownRenderer(getSharedPreferences(context));
         }
 
         // markdown renderer
@@ -114,10 +120,8 @@ public class AppSettings {
                 return true;
         }
 
-        public static boolean getAllowMarkdownRenderer(Context context) {
-            if (context == null)
-                return false;
-            return getAllowMarkdownRenderer(getSharedPreferences(context));
+        public static boolean getAllowFriends(Context context) {
+            return context != null && getAllowFriends(getSharedPreferences(context));
         }
 
         // friends
@@ -128,8 +132,8 @@ public class AppSettings {
                 return true;
         }
 
-        public static boolean getAllowFriends(Context context) {
-            return context != null && getAllowFriends(getSharedPreferences(context));
+        public static boolean getAllowSaveLogs(Context context) {
+            return context != null && getAllowSaveLogs(getSharedPreferences(context));
         }
 
         // save logs
@@ -140,8 +144,11 @@ public class AppSettings {
                 return false;
         }
 
-        public static boolean getAllowSaveLogs(Context context) {
-            return context != null && getAllowSaveLogs(getSharedPreferences(context));
+        public static int getContentForceCampus(Context context) {
+            if (context == null)
+                return -1;
+            else
+                return getContentForceCampus(getSharedPreferences(context));
         }
 
         // force campus
@@ -152,11 +159,11 @@ public class AppSettings {
                 return -1;
         }
 
-        public static int getContentForceCampus(Context context) {
+        public static int getContentForceCursus(Context context) {
             if (context == null)
                 return -1;
             else
-                return getContentForceCampus(getSharedPreferences(context));
+                return getContentForceCursus(getSharedPreferences(context));
         }
 
         // force cursus
@@ -165,13 +172,6 @@ public class AppSettings {
                 return Integer.parseInt(settings.getString(PREFERENCE_ADVANCED_FORCE_CURSUS, "-1"));
             else
                 return -1;
-        }
-
-        public static int getContentForceCursus(Context context) {
-            if (context == null)
-                return -1;
-            else
-                return getContentForceCursus(getSharedPreferences(context));
         }
     }
 
@@ -183,16 +183,19 @@ public class AppSettings {
         public static final String CHECKBOX_SCALES = "check_box_preference_notifications_scales";
         public static final String CHECKBOX_ANNOUNCEMENTS = "check_box_preference_notifications_announcements";
 
-        public static boolean getNotificationsAllow(SharedPreferences settings) {
-            return settings.getBoolean(ALLOW, true);
-        }
-
         public static boolean getNotificationsAllow(Context context) {
             return context != null && getNotificationsAllow(getSharedPreferences(context));
         }
 
-        public static int getNotificationsFrequency(SharedPreferences settings) {
-            return Integer.parseInt(settings.getString(FREQUENCY, "-1"));
+        public static boolean getNotificationsAllow(SharedPreferences settings) {
+            return settings.getBoolean(ALLOW, true);
+        }
+
+        public static void setNotificationsAllow(Context context, boolean allow) {
+            SharedPreferences sharedPreferences = getSharedPreferences(context);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(ALLOW, allow);
+            editor.apply();
         }
 
         public static int getNotificationsFrequency(Context context) {
@@ -201,29 +204,32 @@ public class AppSettings {
             return -1;
         }
 
-
-        public static boolean getNotificationsEvents(SharedPreferences settings) {
-            return settings.getBoolean(CHECKBOX_EVENTS, false);
+        public static int getNotificationsFrequency(SharedPreferences settings) {
+            return Integer.parseInt(settings.getString(FREQUENCY, "-1"));
         }
 
         public static boolean getNotificationsEvents(Context context) {
             return context != null && getNotificationsEvents(getSharedPreferences(context));
         }
 
-        public static boolean getNotificationsScales(SharedPreferences settings) {
-            return settings.getBoolean(CHECKBOX_SCALES, false);
+        public static boolean getNotificationsEvents(SharedPreferences settings) {
+            return settings.getBoolean(CHECKBOX_EVENTS, false);
         }
 
         public static boolean getNotificationsScales(Context context) {
             return context != null && getNotificationsScales(getSharedPreferences(context));
         }
 
-        public static boolean getNotificationsAnnouncements(SharedPreferences settings) {
+        public static boolean getNotificationsScales(SharedPreferences settings) {
             return settings.getBoolean(CHECKBOX_SCALES, false);
         }
 
         public static boolean getNotificationsAnnouncements(Context context) {
             return context != null && getNotificationsAnnouncements(getSharedPreferences(context));
+        }
+
+        public static boolean getNotificationsAnnouncements(SharedPreferences settings) {
+            return settings.getBoolean(CHECKBOX_SCALES, false);
         }
 
     }

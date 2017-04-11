@@ -45,13 +45,6 @@ public class ProjectUsersListFragment extends BasicFragmentCallGrid<UsersLTE, Gr
         return new ProjectUsersListFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        activity = (ProjectActivity) getActivity();
-    }
-
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -70,6 +63,13 @@ public class ProjectUsersListFragment extends BasicFragmentCallGrid<UsersLTE, Gr
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        activity = (ProjectActivity) getActivity();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -78,7 +78,9 @@ public class ProjectUsersListFragment extends BasicFragmentCallGrid<UsersLTE, Gr
     @Nullable
     @Override
     public Call<List<UsersLTE>> getCall(ApiService apiService, @Nullable List<UsersLTE> list) {
-        return apiService.getProjectUsers(activity.projectUser.project.id, Pagination.getPage(list));
+        if (activity != null && activity.projectUser != null && activity.projectUser.project != null)
+            return apiService.getProjectUsers(activity.projectUser.project.id, Pagination.getPage(list));
+        return null;
     }
 
     @Override

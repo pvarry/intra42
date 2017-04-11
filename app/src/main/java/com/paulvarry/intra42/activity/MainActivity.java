@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.activity.home.HomeActivity;
 import com.paulvarry.intra42.api.ApiService;
@@ -43,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor edit = sharedPreferences.edit();
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
             edit.apply();
+
+            if (appVersion < 20170411) {
+                AppSettings.Notifications.setNotificationsAllow(this, true);
+                Log.i("notifications", "Notifications activated due to upgrade");
+            }
         }
 
         app = (AppClass) getApplication();
@@ -81,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
             }).start();
         } else
             setViewLogin();
+    }
+
+    private void setViewLoading() {
+        textViewLoading.setVisibility(View.VISIBLE);
+        linearLayoutNeedLogin.setVisibility(View.GONE);
+    }
+
+    private void setViewLogin() {
+        textViewLoading.setVisibility(View.GONE);
+        linearLayoutNeedLogin.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -150,16 +167,6 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
-    }
-
-    private void setViewLoading() {
-        textViewLoading.setVisibility(View.VISIBLE);
-        linearLayoutNeedLogin.setVisibility(View.GONE);
-    }
-
-    private void setViewLogin() {
-        textViewLoading.setVisibility(View.GONE);
-        linearLayoutNeedLogin.setVisibility(View.VISIBLE);
     }
 
 }

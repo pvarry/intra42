@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.BottomSheet;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -84,7 +85,9 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
 
         @Override
         public void onFailure(Call<List<EventsUsers>> call, Throwable t) {
-            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            Context context = getContext();
+            if (context != null)
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             linearLayoutProgress.setVisibility(View.INVISIBLE);
             progressBarButton.setVisibility(View.GONE);
             buttonSubscribe.setEnabled(true);
@@ -130,6 +133,14 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
         if (getArguments() != null) {
             event = ServiceGenerator.getGson().fromJson(getArguments().getString(ARG_EVENT), Events.class);
         }
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        if (linearLayoutProgress != null)
+            listCallEventsUsers.cancel();
     }
 
     @Override
@@ -202,14 +213,6 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
         listCallEventsUsers.enqueue(callback);
 
         buttonSubscribe.setOnClickListener(this);
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        super.onCancel(dialog);
-
-        if (linearLayoutProgress != null)
-            listCallEventsUsers.cancel();
     }
 
     /**
