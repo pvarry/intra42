@@ -23,13 +23,13 @@ public class ProjectDataIntra {
     private static final String API_SLUG = "slug";
 
     @SerializedName(API_STATE)
-    public String state;
+    public State state;
     @SerializedName(API_FINAL_MARK)
     public Integer finalMark;
     @SerializedName(API_ID)
     public int id;
     @SerializedName(API_KIND)
-    public String kind;
+    public Kind kind;
     @SerializedName(API_NAME)
     public String name;
     @SerializedName(API_X)
@@ -55,6 +55,24 @@ public class ProjectDataIntra {
     @SerializedName(API_SLUG)
     @Expose
     public String slug;
+
+    public enum Kind {
+        project,
+        big_project,
+        piscine,
+        rush,
+        part_time,
+        first_internship,
+        second_internship,
+        exam
+    }
+
+    public enum State {
+        @SerializedName("done")DONE,
+        @SerializedName("available")AVAILABLE,
+        @SerializedName("in_progress")IN_PROGRESS,
+        @SerializedName("unavailable")UNAVAILABLE
+    }
 
     public class By {
 

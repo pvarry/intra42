@@ -13,8 +13,12 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         app:backgroundColor="#000"
-        app:colorPath="@color/colorPrimary"
-        app:colorProjectAvailable="@color/colorAccent"
-        app:weightPath="5dp"/>
+        app:colorProjectAvailable="#ffffff"
+        app:colorProjectFailed="@color/colorFail"
+        app:colorProjectInProgress="#afafaf"
+        app:colorProjectUnavailable="#46484C"
+        app:colorProjectValidated="@color/colorSuccess"
+        app:textColor="@color/colorPrimary"
+        app:weightPath="4.5dp"/>
 
 </FrameLayout>

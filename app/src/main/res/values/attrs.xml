@@ -2,11 +2,12 @@
 <resources>
     <declare-styleable name="Galaxy">
         <attr name="backgroundColor" format="color"/>
-        <attr name="colorPath" format="color"/>
         <attr name="colorProjectUnavailable" format="color"/>
         <attr name="colorProjectAvailable" format="color"/>
         <attr name="colorProjectValidated" format="color"/>
-        <attr name="colorProjectFinish" format="color"/>
+        <attr name="colorProjectFailed" format="color"/>
+        <attr name="colorProjectInProgress" format="color"/>
+        <attr name="textColor" format="color"/>
         <attr name="weightPath" format="dimension"/>
         <attr name="labelPosition" format="enum">
             <enum name="left" value="0"/>
