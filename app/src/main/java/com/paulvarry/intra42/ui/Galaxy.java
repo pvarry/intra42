@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.ui;
 
-
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -22,6 +21,10 @@ import java.util.List;
 
 public class Galaxy extends View {
 
+    static int GRAPH_MAP_LIMIT_MIN = -2000;
+    static int GRAPH_MAP_LIMIT_MAX = 2000;
+    static int GRAPH_MAP_MIN = -3000;
+    static int GRAPH_MAP_MAX = 2000;
     ProjectDataIntra projectDataFirstInternship = null;
     ProjectDataIntra projectDataFinalInternship = null;
     private float weightPath;
@@ -37,13 +40,15 @@ public class Galaxy extends View {
     private Scroller mScroller;
     private ValueAnimator mScrollAnimator;
     private ScaleGestureDetector mScaleDetector;
-    private float mScaleFactor = 0.5f;
+    private float mScaleFactor = 1f;
     private Paint mPaintBackground;
     private Paint mPaintPath;
     private Paint mPaintProject;
     private Paint mPaintText;
-    private int posY = 0;
-    private int posX = 0;
+    private float posY;
+    private float posX;
+    private int height;
+    private int width;
 
     public Galaxy(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -118,7 +123,7 @@ public class Galaxy extends View {
     private void tickScrollAnimation() {
         if (!mScroller.isFinished()) {
             mScroller.computeScrollOffset();
-//            posX = mScroller.getCurrX();
+            posX = mScroller.getCurrX();
             posY = mScroller.getCurrY();
         } else {
             mScrollAnimator.cancel();
@@ -151,9 +156,9 @@ public class Galaxy extends View {
 
         for (ProjectDataIntra projectData : data) {
 
-            if (projectData.kind == ProjectDataIntra.Kind.first_internship)
+            if (projectData.kind == ProjectDataIntra.Kind.FIRST_INTERNSHIP)
                 projectDataFirstInternship = projectData;
-            else if (projectData.kind == ProjectDataIntra.Kind.second_internship)
+            else if (projectData.kind == ProjectDataIntra.Kind.SECOND_INTERNSHIP)
                 projectDataFinalInternship = projectData;
         }
 
@@ -248,28 +253,28 @@ public class Galaxy extends View {
         for (ProjectDataIntra projectData : data) {
 
             switch (projectData.kind) {
-                case project:
+                case PROJECT:
                     drawProject(canvas, projectData, 60);
                     break;
-                case big_project:
+                case BIG_PROJECT:
                     drawProject(canvas, projectData, 75);
                     break;
-                case part_time:
+                case PART_TIME:
                     drawProject(canvas, projectData, 150);
                     break;
-                case first_internship:
+                case FIRST_INTERNSHIP:
                     drawProject(canvas, projectData, 100);
                     break;
-                case second_internship:
+                case SECOND_INTERNSHIP:
                     drawProject(canvas, projectData, 100);
                     break;
-                case exam:
+                case EXAM:
                     drawProject(canvas, projectData, 75);
                     break;
-                case piscine:
+                case PISCINE:
                     drawPiscine(canvas, projectData);
                     break;
-                case rush:
+                case RUSH:
                     drawRush(canvas, projectData);
                     break;
             }
@@ -296,20 +301,31 @@ public class Galaxy extends View {
         onScrollFinished();
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        height = h;
+        width = w;
+
+        posX = 0;
+        posY = 0;
+
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
     private float getDrawPosX(float pos) {
-        return posX + (pos - 3000) * mScaleFactor;
+        return ((pos - 3000) + posX) * mScaleFactor + width / 2;
     }
 
     private float getDrawPosY(float pos) {
-        return posY + (pos - 3000) * mScaleFactor;
+        return ((pos - 3000) + posY) * mScaleFactor + height / 2;
     }
 
     private float getDrawPosX(ProjectDataIntra projectData) {
-        return posX + (projectData.x - 3000) * mScaleFactor;
+        return getDrawPosX(projectData.x);
     }
 
     private float getDrawPosY(ProjectDataIntra projectData) {
-        return posY + (projectData.y - 3000) * mScaleFactor;
+        return getDrawPosY(projectData.y);
     }
 
     private Paint getColorProject(ProjectDataIntra projectData) {
@@ -320,8 +336,8 @@ public class Galaxy extends View {
 
     private void drawProject(Canvas canvas, ProjectDataIntra projectData, int size) {
         canvas.drawCircle(
-                getDrawPosX(projectData.x),
-                getDrawPosY(projectData.y),
+                getDrawPosX(projectData),
+                getDrawPosY(projectData),
                 size * mScaleFactor,
                 getColorProject(projectData));
 
@@ -339,8 +355,8 @@ public class Galaxy extends View {
 
     private void drawPiscine(Canvas canvas, ProjectDataIntra projectData) {
 
-        float x = getDrawPosX(projectData.x);
-        float y = getDrawPosY(projectData.y);
+        float x = getDrawPosX(projectData);
+        float y = getDrawPosY(projectData);
 
         float width = 250 * mScaleFactor;
         float height = 60 * mScaleFactor;
@@ -411,8 +427,22 @@ public class Galaxy extends View {
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            posX -= distanceX;
-            posY -= distanceY;
+
+            float tempPosX = posX - distanceX * (1 / mScaleFactor);
+            float tempPosY = posY - distanceY * (1 / mScaleFactor);
+
+            if (tempPosX < GRAPH_MAP_LIMIT_MIN)
+                tempPosX = GRAPH_MAP_LIMIT_MIN;
+            else if (tempPosX > GRAPH_MAP_LIMIT_MAX)
+                tempPosX = GRAPH_MAP_LIMIT_MAX;
+
+            if (tempPosY < GRAPH_MAP_LIMIT_MIN)
+                tempPosY = GRAPH_MAP_LIMIT_MIN;
+            else if (tempPosY > GRAPH_MAP_LIMIT_MAX)
+                tempPosY = GRAPH_MAP_LIMIT_MAX;
+
+            posX = tempPosX;
+            posY = tempPosY;
 
             postInvalidate();
             return true;
@@ -420,7 +450,15 @@ public class Galaxy extends View {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            mScroller.fling(posX, posY, (int) velocityX, (int) velocityY, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            mScroller.fling(
+                    (int) posX,
+                    (int) posY,
+                    (int) velocityX,
+                    (int) velocityY,
+                    GRAPH_MAP_LIMIT_MIN,
+                    GRAPH_MAP_LIMIT_MAX,
+                    GRAPH_MAP_LIMIT_MIN,
+                    GRAPH_MAP_LIMIT_MAX);
 
             // Start the animator and tell it to animate for the expected duration of the fling.
             mScrollAnimator.setDuration(mScroller.getDuration());
@@ -436,6 +474,11 @@ public class Galaxy extends View {
             if (isAnimationRunning()) {
                 stopScrolling();
             }
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
             return true;
         }
     }

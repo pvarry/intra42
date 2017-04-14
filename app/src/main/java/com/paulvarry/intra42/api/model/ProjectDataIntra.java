@@ -57,14 +57,14 @@ public class ProjectDataIntra {
     public String slug;
 
     public enum Kind {
-        project,
-        big_project,
-        piscine,
-        rush,
-        part_time,
-        first_internship,
-        second_internship,
-        exam
+        @SerializedName("project")PROJECT,
+        @SerializedName("big_project")BIG_PROJECT,
+        @SerializedName("piscine")PISCINE,
+        @SerializedName("rush")RUSH,
+        @SerializedName("part_time")PART_TIME,
+        @SerializedName("first_internship")FIRST_INTERNSHIP,
+        @SerializedName("second_internship")SECOND_INTERNSHIP,
+        @SerializedName("exam")EXAM
     }
 
     public enum State {
