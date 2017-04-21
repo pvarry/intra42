@@ -62,7 +62,6 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
             <intent-filter android:label="Intra42 user">
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -89,17 +88,20 @@
             android:label="@string/project"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter android:label="Intra42 project">-->
-            <!--<action android:name="android.intent.action.VIEW" />-->
 
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--<category android:name="android.intent.category.BROWSABLE" />-->
+            <!-- <intent-filter android:label="Intra42 project"> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-            <!--<data-->
-            <!--android:host="projects.intra.42.fr"-->
-            <!--android:scheme="https"-->
-            <!--android:pathPattern="/*/*" />-->
-            <!--</intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+
+
+            <!-- <data -->
+            <!-- android:host="projects.intra.42.fr" -->
+            <!-- android:scheme="https" -->
+            <!-- android:pathPattern="/*/*" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activity.AboutActivity"
@@ -173,6 +175,9 @@
         <activity
             android:name=".activity.ExpertisesEditActivity"
             android:label="@string/edit_expertises" />
+        <activity
+            android:name=".activity.FriendsActivity"
+            android:label="@string/friends" />
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activity.AboutActivity;
+import com.paulvarry.intra42.activity.FriendsActivity;
 import com.paulvarry.intra42.activity.MarvinMealsActivity;
 import com.paulvarry.intra42.activity.SettingsActivity;
 import com.paulvarry.intra42.activity.TimeActivity;
@@ -58,7 +59,7 @@ public class Navigation {
             Intent intent = new Intent(activity, AboutActivity.class);
             activity.startActivity(intent);
         } else if (id == R.id.nav_friends) {
-            Intent intent = new Intent(activity, UsersActivity.class);
+            Intent intent = new Intent(activity, FriendsActivity.class);
             activity.startActivity(intent);
         } else if (id == R.id.nav_time_on_campus) {
             Intent intent = new Intent(activity, TimeActivity.class);

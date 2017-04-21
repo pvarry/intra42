@@ -286,7 +286,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         searchAdapter.changeCursor(c);
     }
 
-    private void setViewHide() {
+    protected void setViewHide() {
         viewContent.setVisibility(View.GONE);
         constraintLayoutLoading.setVisibility(View.GONE);
         constraintOnError.setVisibility(View.GONE);
@@ -309,7 +309,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         constraintLayoutLoading.setVisibility(View.VISIBLE);
     }
 
-    private void setViewError() {
+    protected void setViewError() {
         setViewHide();
 
         String toolbarName = getToolbarName();
