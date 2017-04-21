@@ -2,12 +2,25 @@ package com.paulvarry.intra42.activity.projects;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.ProjectDataIntra;
+import com.paulvarry.intra42.ui.Galaxy;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,10 +63,44 @@ public class ProjectsGraphFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_projects_graph, container, false);
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Gson gson = ServiceGenerator.getGson();
+
+        InputStream ins = getResources().openRawResource(R.raw.project_data);
+        String data = readTextFile(ins);
+
+        Type listType = new TypeToken<ArrayList<ProjectDataIntra>>() {
+        }.getType();
+        List<ProjectDataIntra> list = gson.fromJson(data, listType);
+
+        Galaxy galaxy = (Galaxy) view.findViewById(R.id.galaxy);
+        galaxy.setData(list);
+    }
+
+    public String readTextFile(InputStream inputStream) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        byte buf[] = new byte[1024];
+        int len;
+        try {
+            while ((len = inputStream.read(buf)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return outputStream.toString();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 //    @Override
@@ -67,10 +114,10 @@ public class ProjectsGraphFragment extends Fragment {
 //        }
 //    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     /**

@@ -1,13 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.projects.ProjectsGraphFragment">
 
-    <TextView
+    <com.paulvarry.intra42.ui.Galaxy
+        android:id="@+id/galaxy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/soon" />
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:backgroundColor="#000"
+        app:colorProjectAvailable="#ffffff"
+        app:colorProjectFailed="@color/colorFail"
+        app:colorProjectInProgress="#afafaf"
+        app:colorProjectUnavailable="#46484C"
+        app:colorProjectValidated="@color/colorSuccess"
+        app:textColor="@color/colorPrimary"
+        app:weightPath="4.5dp"/>
 
 </FrameLayout>
