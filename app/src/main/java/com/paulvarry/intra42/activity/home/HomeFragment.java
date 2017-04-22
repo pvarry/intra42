@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     @Override
     public void onClick(View v) {
         if (v == imageButtonOpenProfile)
-            UserActivity.openIt(getContext(), app.me, activity);
+            UserActivity.openIt(app, app.me);
     }
 
     public void getData(boolean forceApi) {

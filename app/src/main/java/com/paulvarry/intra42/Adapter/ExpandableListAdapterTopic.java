@@ -250,7 +250,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
         holder.imageViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserActivity.openIt(context, message.author, context);
+                UserActivity.openIt(context, message.author);
             }
         });
 
@@ -325,7 +325,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
         holder.imageViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserActivity.openIt(context, message.author, context);
+                UserActivity.openIt(context, message.author);
             }
         });
 

@@ -1,19 +1,29 @@
 package com.paulvarry.intra42.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.Adapter.GridAdapterUsers;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.Tools.AppSettings;
+import com.paulvarry.intra42.activity.user.UserActivity;
+import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,10 +31,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class FriendsActivity extends BasicActivity {
+import retrofit2.Call;
+import retrofit2.Response;
+
+public class FriendsActivity extends BasicActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     List<UsersLTE> list;
+    HashMap<String, Locations> locations;
+
     GridView gridView;
+    GridAdapterUsers adapter;
 
     ValueEventListener friendsEventListener = new ValueEventListener() {
         @Override
@@ -52,7 +68,7 @@ public class FriendsActivity extends BasicActivity {
                     }
                 });
 
-                setView();
+                refresh();
             }
 
         }
@@ -72,6 +88,12 @@ public class FriendsActivity extends BasicActivity {
         activeHamburger();
 
         super.onCreate(savedInstanceState);
+
+        if (app.firebaseRefFriends != null)
+            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
+        else {
+            setViewError();
+        }
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
         gridView = (GridView) findViewById(R.id.gridView);
@@ -95,17 +117,35 @@ public class FriendsActivity extends BasicActivity {
 
     @Override
     public boolean getDataOnOtherThread() {
-        return false;
+
+        if (list == null)
+            return true;
+
+        String searchOn = "";
+        String separator = "";
+
+        for (UsersLTE u : list) {
+            searchOn += u.id + separator;
+            separator = ",";
+        }
+
+        Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOn, 100, 1);
+        try {
+            Response<List<Locations>> response = c.execute();
+            if (response != null && response.isSuccessful()) {
+                locations = new HashMap<>(response.body().size());
+                for (Locations l : response.body())
+                    locations.put(l.user.login, l);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override
     public boolean getDataOnMainThread() {
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-        else {
-            setViewError();
-        }
-        return true;
+        return false;
     }
 
     @Override
@@ -118,10 +158,11 @@ public class FriendsActivity extends BasicActivity {
         if (list == null || list.isEmpty()) {
             setViewError();
         } else {
-
-            GridAdapterUsers adapter = new GridAdapterUsers(this, list);
+            adapter = new GridAdapterUsers(this, list, locations);
             gridView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            gridView.setOnItemClickListener(this);
+            gridView.setOnItemLongClickListener(this);
         }
     }
 
@@ -135,5 +176,34 @@ public class FriendsActivity extends BasicActivity {
         super.onPause();
         if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.removeEventListener(friendsEventListener);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        UserActivity.openIt(app, adapter.getItem(position));
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        final UsersLTE user = adapter.getItem(position);
+        String[] items = {getString(R.string.remove_from_friends), getString(R.string.view_profile)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.choose_action_colon) + user.login);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    DatabaseReference ref = user.getFriendsFirebaseRef(app);
+                    if (ref != null)
+                        ref.removeValue();
+                    else
+                        Toast.makeText(app, "Can't perform this action", Toast.LENGTH_SHORT).show();
+                } else if (which == 1)
+                    UserActivity.openIt(app, user);
+
+            }
+        });
+        builder.show();
+        return true;
     }
 }

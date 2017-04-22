@@ -86,14 +86,14 @@ public class HomeCorrectionsFragment extends BasicFragmentCall<ScaleTeams, ListA
     public void onItemClick(ScaleTeams scaleTeams) {
 
         if (scaleTeams.corrector != null && activity != null && !scaleTeams.corrector.isMe(activity.app))
-            UserActivity.openIt(getContext(), scaleTeams.corrector, activity);
+            UserActivity.openIt(activity, scaleTeams.corrector);
         else if (scaleTeams.correcteds != null && !scaleTeams.correcteds.isEmpty()) {
             boolean correcteds = true;
             for (UsersLTE u : scaleTeams.correcteds)
                 if (u.isMe(activity.app))
                     correcteds = false;
             if (correcteds)
-                UserActivity.openIt(getContext(), scaleTeams.correcteds.get(0), activity);
+                UserActivity.openIt(activity, scaleTeams.correcteds.get(0));
         }
     }
 

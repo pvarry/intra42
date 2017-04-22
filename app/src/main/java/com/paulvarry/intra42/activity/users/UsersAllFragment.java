@@ -71,7 +71,7 @@ public class UsersAllFragment extends BasicFragmentCallGrid<UsersLTE, GridAdapte
 
     @Override
     public void onItemClick(UsersLTE item) {
-        UserActivity.openIt(getContext(), item, getActivity());
+        UserActivity.openIt(getActivity(), item);
     }
 
     @Override

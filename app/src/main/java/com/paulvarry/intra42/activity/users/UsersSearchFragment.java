@@ -83,7 +83,7 @@ public class UsersSearchFragment extends Fragment implements View.OnClickListene
             buttonSearch.setVisibility(View.VISIBLE);
             textViewSearching.setVisibility(View.INVISIBLE);
             if (user != null)
-                UserActivity.openIt(getContext(), user, app);
+                UserActivity.openIt(app, user);
             else
                 search();
         }

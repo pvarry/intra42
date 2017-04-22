@@ -317,6 +317,9 @@ public interface ApiService {
     @GET("/v2/locations?sort=-begin_at&page[size]=5")
     Call<List<Locations>> getLocationsHost(@Query("filter[host]") String host);
 
+    @GET("/v2/campus/{campus_id}/locations?filter[active]=true")
+    Call<List<Locations>> getLocationsUsers(@Path("campus_id") int campus, @Query("filter[user_id]") String filter_users, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+
     /* Announcements */
     @GET("/v2/announcements?sort=begin_at")
     Call<List<Announcements>> getAnnouncements(@Query("range[created_at]") String rangeCreated, @Query("page") int page);

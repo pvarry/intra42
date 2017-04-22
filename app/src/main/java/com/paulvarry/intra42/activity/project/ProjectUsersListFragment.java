@@ -85,7 +85,7 @@ public class ProjectUsersListFragment extends BasicFragmentCallGrid<UsersLTE, Gr
 
     @Override
     public void onItemClick(UsersLTE item) {
-        UserActivity.openIt(getContext(), item, getActivity());
+        UserActivity.openIt(activity, item);
     }
 
     @Override

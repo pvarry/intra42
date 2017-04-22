@@ -135,7 +135,7 @@ public class ClusterMapFragment extends Fragment {
                         imageViewContent.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                UserActivity.openIt(ClusterMapFragment.this.getContext(), user, activity);
+                                UserActivity.openIt(activity, user);
                             }
                         });
                     } else {

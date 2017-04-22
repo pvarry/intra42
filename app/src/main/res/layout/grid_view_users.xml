@@ -12,6 +12,33 @@
         android:contentDescription="@string/user_profile_image"
         app:srcCompat="@drawable/ic_person_black_custom" />
 
+    <LinearLayout
+        android:id="@+id/linearLayoutLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_user_reversed"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_location"
+            android:paddingEnd="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingStart="4dp"
+            android:src="@drawable/shape_locations_dot" />
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textViewUserLogin"
         android:layout_width="match_parent"

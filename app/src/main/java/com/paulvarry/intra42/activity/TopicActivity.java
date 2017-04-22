@@ -223,7 +223,7 @@ public class TopicActivity
                     topic.messages.size() > groupPosition &&
                     topic.messages.get(groupPosition).replies != null &&
                     topic.messages.get(groupPosition).replies.size() > childPosition) {
-                UserActivity.openIt(this, topic.messages.get(groupPosition).replies.get(childPosition).author, activity);
+                UserActivity.openIt(app, topic.messages.get(groupPosition).replies.get(childPosition).author);
                 return true; //true if we consumed the click, false if not
             }
 
@@ -234,7 +234,7 @@ public class TopicActivity
                     if (groupPosition == 0 && topic.topic.author.isMe(app))
                         NewTopicActivity.openIt(activity, topic.topic);
                     else
-                        UserActivity.openIt(this, topic.messages.get(groupPosition).author, app);
+                        UserActivity.openIt(app, topic.messages.get(groupPosition).author);
                     return true; //true if we consumed the click, false if not
                 }
             }

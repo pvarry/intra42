@@ -176,7 +176,7 @@ public class UsersFriendsFragment
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (list.size() > position)
-            UserActivity.openIt(getContext(), list.get(position), app);
+            UserActivity.openIt(app, list.get(position));
     }
 
 
