@@ -50,6 +50,8 @@ public class Galaxy extends View {
     private int height;
     private int width;
 
+    private OnProjectClickListener onClickListener;
+
     public Galaxy(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray attributes = context.getTheme().obtainStyledAttributes(
@@ -72,6 +74,10 @@ public class Galaxy extends View {
         }
 
         init();
+    }
+
+    public void setOnProjectClickListener(OnProjectClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
     private void init() {
@@ -173,7 +179,6 @@ public class Galaxy extends View {
 
         onScrollFinished();
         invalidate();
-        requestLayout();
     }
 
     /**
@@ -184,9 +189,9 @@ public class Galaxy extends View {
     }
 
     private void setLayerToHW(View v) {
-        if (!v.isInEditMode()) {
+  /*      if (!v.isInEditMode()) {
             setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        }
+        }*/
     }
 
     @Override
@@ -254,22 +259,22 @@ public class Galaxy extends View {
 
             switch (projectData.kind) {
                 case PROJECT:
-                    drawProject(canvas, projectData, 60);
+                    drawProject(canvas, projectData, ProjectRadius.PROJECT);
                     break;
                 case BIG_PROJECT:
-                    drawProject(canvas, projectData, 75);
+                    drawProject(canvas, projectData, ProjectRadius.BIG_PROJECT);
                     break;
                 case PART_TIME:
-                    drawProject(canvas, projectData, 150);
+                    drawProject(canvas, projectData, ProjectRadius.PART_TIME);
                     break;
                 case FIRST_INTERNSHIP:
-                    drawProject(canvas, projectData, 100);
+                    drawProject(canvas, projectData, ProjectRadius.FIRST_INTERNSHIP);
                     break;
                 case SECOND_INTERNSHIP:
-                    drawProject(canvas, projectData, 100);
+                    drawProject(canvas, projectData, ProjectRadius.SECOND_INTERNSHIP);
                     break;
                 case EXAM:
-                    drawProject(canvas, projectData, 75);
+                    drawProject(canvas, projectData, ProjectRadius.EXAM);
                     break;
                 case PISCINE:
                     drawPiscine(canvas, projectData);
@@ -328,6 +333,29 @@ public class Galaxy extends View {
         return getDrawPosY(projectData.y);
     }
 
+
+    private float getDrawRadius(ProjectDataIntra projectData) {
+        switch (projectData.kind) {
+            case PROJECT:
+                return getDrawRadius(ProjectRadius.PROJECT);
+            case BIG_PROJECT:
+                return getDrawRadius(ProjectRadius.BIG_PROJECT);
+            case PART_TIME:
+                return getDrawRadius(ProjectRadius.PART_TIME);
+            case FIRST_INTERNSHIP:
+                return getDrawRadius(ProjectRadius.FIRST_INTERNSHIP);
+            case SECOND_INTERNSHIP:
+                return getDrawRadius(ProjectRadius.SECOND_INTERNSHIP);
+            case EXAM:
+                return getDrawRadius(ProjectRadius.EXAM);
+        }
+        return 0;
+    }
+
+    private float getDrawRadius(int size) {
+        return size * mScaleFactor;
+    }
+
     private Paint getColorProject(ProjectDataIntra projectData) {
         mPaintProject.setColor(getColor(projectData));
 
@@ -338,7 +366,7 @@ public class Galaxy extends View {
         canvas.drawCircle(
                 getDrawPosX(projectData),
                 getDrawPosY(projectData),
-                size * mScaleFactor,
+                getDrawRadius(size),
                 getColorProject(projectData));
 
         drawProjectTitle(canvas, projectData);
@@ -358,8 +386,8 @@ public class Galaxy extends View {
         float x = getDrawPosX(projectData);
         float y = getDrawPosY(projectData);
 
-        float width = 250 * mScaleFactor;
-        float height = 60 * mScaleFactor;
+        float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
+        float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
 
         float left = x - width / 2;
         float top = y + height / 2;
@@ -375,8 +403,8 @@ public class Galaxy extends View {
         float x = getDrawPosX(projectData.x);
         float y = getDrawPosY(projectData.y);
 
-        float width = 180 * mScaleFactor;
-        float height = 60 * mScaleFactor;
+        float width = ProjectRectSize.RUSH_WIDTH * mScaleFactor;
+        float height = ProjectRectSize.RUSH_HEIGHT * mScaleFactor;
 
         float left = x - width / 2;
         float top = y + height / 2;
@@ -418,6 +446,49 @@ public class Galaxy extends View {
 
     private boolean isAnimationRunning() {
         return !mScroller.isFinished();
+    }
+
+    boolean ptInsideCircle(float x, float y, ProjectDataIntra projectData) {
+
+        float projectCenterX = getDrawPosX(projectData);
+        float projectCenterY = getDrawPosY(projectData);
+
+        double distanceBetween = Math.pow(x - projectCenterX, 2) + Math.pow(y - projectCenterY, 2);
+        double radius = Math.pow(getDrawRadius(projectData), 2);
+
+        return distanceBetween <= radius;
+    }
+
+    boolean ptInsideRectPiscine(float clickX, float clickY, ProjectDataIntra projectData) {
+
+        float x = getDrawPosX(projectData);
+        float y = getDrawPosY(projectData);
+
+        float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
+        float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
+
+        return clickX >= x &&
+                clickX <= x + width &&
+                clickY >= y &&
+                clickY <= y + height;
+    }
+
+    boolean ptInsideRectRush(float clickX, float clickY, ProjectDataIntra projectData) {
+
+        float x = getDrawPosX(projectData);
+        float y = getDrawPosY(projectData);
+
+        float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
+        float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
+
+        return clickX >= x &&
+                clickX <= x + width &&
+                clickY >= y &&
+                clickY <= y + height;
+    }
+
+    public interface OnProjectClickListener {
+        void onClick(ProjectDataIntra projectData);
     }
 
     /**
@@ -479,7 +550,42 @@ public class Galaxy extends View {
 
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+            mScaleFactor *= 1.5f;
+            postInvalidate();
             return true;
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+
+            float x = e.getX();
+            float y = e.getY();
+
+            boolean clicked = false;
+
+            for (ProjectDataIntra p : data) {
+                if (p.kind == ProjectDataIntra.Kind.PISCINE) {
+                    if (ptInsideRectPiscine(x, y, p)) {
+                        clicked = true;
+                        if (onClickListener != null)
+                            onClickListener.onClick(p);
+                        break;
+                    }
+                } else if (p.kind == ProjectDataIntra.Kind.RUSH) {
+                    if (ptInsideRectRush(x, y, p)) {
+                        clicked = true;
+                        if (onClickListener != null)
+                            onClickListener.onClick(p);
+                        break;
+                    }
+                } else if (ptInsideCircle(x, y, p)) {
+                    clicked = true;
+                    if (onClickListener != null)
+                        onClickListener.onClick(p);
+                    break;
+                }
+            }
+            return clicked;
         }
     }
 
@@ -494,5 +600,21 @@ public class Galaxy extends View {
             invalidate();
             return true;
         }
+    }
+
+    private class ProjectRadius {
+        private static final int PROJECT = 60;
+        private static final int BIG_PROJECT = 75;
+        private static final int PART_TIME = 150;
+        private static final int FIRST_INTERNSHIP = 100;
+        private static final int SECOND_INTERNSHIP = 100;
+        private static final int EXAM = 75;
+    }
+
+    private class ProjectRectSize {
+        private static final int PISCINE_HEIGHT = 60;
+        private static final int PISCINE_WIDTH = 250;
+        private static final int RUSH_HEIGHT = 60;
+        private static final int RUSH_WIDTH = 180;
     }
 }

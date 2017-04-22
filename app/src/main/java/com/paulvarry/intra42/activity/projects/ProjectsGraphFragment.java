@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activity.project.ProjectActivity;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
 import com.paulvarry.intra42.ui.Galaxy;
@@ -30,7 +32,7 @@ import java.util.List;
  * Use the {@link ProjectsGraphFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectsGraphFragment extends Fragment {
+public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectClickListener {
 
     ProjectsActivity activity;
     private OnFragmentInteractionListener mListener;
@@ -78,6 +80,7 @@ public class ProjectsGraphFragment extends Fragment {
 
         Galaxy galaxy = (Galaxy) view.findViewById(R.id.galaxy);
         galaxy.setData(list);
+        galaxy.setOnProjectClickListener(this);
     }
 
     public String readTextFile(InputStream inputStream) {
@@ -118,6 +121,12 @@ public class ProjectsGraphFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onClick(ProjectDataIntra projectData) {
+        AppClass app = (AppClass) getActivity().getApplication();
+        ProjectActivity.openIt(getContext(), projectData.slug);
     }
 
     /**
