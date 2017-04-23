@@ -89,11 +89,11 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
 
         super.onCreate(savedInstanceState);
 
-        if (app.firebaseRefFriends != null)
+/*        if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.addValueEventListener(friendsEventListener);
         else {
             setViewError();
-        }
+        }*/
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
         gridView = (GridView) findViewById(R.id.gridView);
