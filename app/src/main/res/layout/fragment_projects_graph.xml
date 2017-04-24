@@ -16,9 +16,11 @@
         app:colorProjectAvailable="#ffffff"
         app:colorProjectFailed="@color/colorFail"
         app:colorProjectInProgress="#afafaf"
+        app:colorProjectTextAvailable="@color/colorPrimary"
+        app:colorProjectTextUnavailable="#ffffff"
+        app:colorProjectTextValidated="#ffffff"
         app:colorProjectUnavailable="#46484C"
         app:colorProjectValidated="@color/colorSuccess"
-        app:textColor="@color/colorPrimary"
         app:weightPath="4.5dp"/>
 
 </FrameLayout>

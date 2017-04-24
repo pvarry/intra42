@@ -7,7 +7,11 @@
         <attr name="colorProjectValidated" format="color"/>
         <attr name="colorProjectFailed" format="color"/>
         <attr name="colorProjectInProgress" format="color"/>
-        <attr name="textColor" format="color"/>
+        <attr name="colorProjectTextUnavailable" format="color"/>
+        <attr name="colorProjectTextAvailable" format="color"/>
+        <attr name="colorProjectTextValidated" format="color"/>
+        <attr name="colorProjectTextFailed" format="color"/>
+        <attr name="colorProjectTextInProgress" format="color"/>
         <attr name="weightPath" format="dimension"/>
         <attr name="labelPosition" format="enum">
             <enum name="left" value="0"/>

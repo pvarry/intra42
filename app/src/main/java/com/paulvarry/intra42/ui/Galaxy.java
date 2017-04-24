@@ -4,10 +4,12 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -32,9 +34,13 @@ public class Galaxy extends View {
     private int colorProjectUnavailable;
     private int colorProjectAvailable;
     private int colorProjectValidated;
-    private int textColor;
     private int colorProjectInProgress;
     private int colorProjectFailed;
+    private int colorProjectTextUnavailable;
+    private int colorProjectTextAvailable;
+    private int colorProjectTextValidated;
+    private int colorProjectTextInProgress;
+    private int colorProjectTextFailed;
     private List<ProjectDataIntra> data;
     private GestureDetector mGestureDetector;
     private Scroller mScroller;
@@ -60,13 +66,18 @@ public class Galaxy extends View {
                 0, 0);
 
         try {
+            int defaultTextColor = Color.parseColor("#3F51B5");
             backgroundColor = attributes.getColor(R.styleable.Galaxy_backgroundColor, 0);
             colorProjectUnavailable = attributes.getColor(R.styleable.Galaxy_colorProjectUnavailable, 0);
             colorProjectAvailable = attributes.getColor(R.styleable.Galaxy_colorProjectAvailable, 0);
             colorProjectValidated = attributes.getColor(R.styleable.Galaxy_colorProjectValidated, 0);
             colorProjectFailed = attributes.getColor(R.styleable.Galaxy_colorProjectFailed, 0);
             colorProjectInProgress = attributes.getColor(R.styleable.Galaxy_colorProjectInProgress, 0);
-            textColor = attributes.getColor(R.styleable.Galaxy_textColor, 0);
+            colorProjectTextUnavailable = attributes.getColor(R.styleable.Galaxy_colorProjectTextUnavailable, defaultTextColor);
+            colorProjectTextAvailable = attributes.getColor(R.styleable.Galaxy_colorProjectTextAvailable, defaultTextColor);
+            colorProjectTextValidated = attributes.getColor(R.styleable.Galaxy_colorProjectTextValidated, defaultTextColor);
+            colorProjectTextFailed = attributes.getColor(R.styleable.Galaxy_colorProjectTextFailed, defaultTextColor);
+            colorProjectTextInProgress = attributes.getColor(R.styleable.Galaxy_colorProjectTextInProgress, defaultTextColor);
             weightPath = attributes.getDimension(R.styleable.Galaxy_weightPath, 1.f);
 
         } finally {
@@ -74,10 +85,6 @@ public class Galaxy extends View {
         }
 
         init();
-    }
-
-    public void setOnProjectClickListener(OnProjectClickListener onClickListener) {
-        this.onClickListener = onClickListener;
     }
 
     private void init() {
@@ -97,7 +104,6 @@ public class Galaxy extends View {
 
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintText.setAntiAlias(true);
-        mPaintText.setColor(textColor);
         mPaintText.setFakeBoldText(true);
 
 
@@ -157,6 +163,10 @@ public class Galaxy extends View {
         }
     }
 
+    public void setOnProjectClickListener(OnProjectClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
     public void setData(List<ProjectDataIntra> data) {
         this.data = data;
 
@@ -212,6 +222,26 @@ public class Galaxy extends View {
         }
 
         return resultGesture;
+    }
+
+    /**
+     * Force a stop to all pie motion. Called when the user taps during a fling.
+     */
+    private void stopScrolling() {
+        mScroller.forceFinished(true);
+
+        onScrollFinished();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        height = h;
+        width = w;
+
+        posX = 0;
+        posY = 0;
+
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 
     @Override
@@ -297,131 +327,16 @@ public class Galaxy extends View {
         requestLayout();
     }
 
-    /**
-     * Force a stop to all pie motion. Called when the user taps during a fling.
-     */
-    private void stopScrolling() {
-        mScroller.forceFinished(true);
-
-        onScrollFinished();
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        height = h;
-        width = w;
-
-        posX = 0;
-        posY = 0;
-
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
-
-    private float getDrawPosX(float pos) {
-        return ((pos - 3000) + posX) * mScaleFactor + width / 2;
-    }
-
-    private float getDrawPosY(float pos) {
-        return ((pos - 3000) + posY) * mScaleFactor + height / 2;
-    }
-
-    private float getDrawPosX(ProjectDataIntra projectData) {
-        return getDrawPosX(projectData.x);
-    }
-
-    private float getDrawPosY(ProjectDataIntra projectData) {
-        return getDrawPosY(projectData.y);
-    }
-
-
-    private float getDrawRadius(ProjectDataIntra projectData) {
-        switch (projectData.kind) {
-            case PROJECT:
-                return getDrawRadius(ProjectRadius.PROJECT);
-            case BIG_PROJECT:
-                return getDrawRadius(ProjectRadius.BIG_PROJECT);
-            case PART_TIME:
-                return getDrawRadius(ProjectRadius.PART_TIME);
-            case FIRST_INTERNSHIP:
-                return getDrawRadius(ProjectRadius.FIRST_INTERNSHIP);
-            case SECOND_INTERNSHIP:
-                return getDrawRadius(ProjectRadius.SECOND_INTERNSHIP);
-            case EXAM:
-                return getDrawRadius(ProjectRadius.EXAM);
-        }
-        return 0;
-    }
-
-    private float getDrawRadius(int size) {
-        return size * mScaleFactor;
-    }
-
-    private Paint getColorProject(ProjectDataIntra projectData) {
+    private Paint getPaintProject(ProjectDataIntra projectData) {
         mPaintProject.setColor(getColor(projectData));
 
         return mPaintProject;
     }
 
-    private void drawProject(Canvas canvas, ProjectDataIntra projectData, int size) {
-        canvas.drawCircle(
-                getDrawPosX(projectData),
-                getDrawPosY(projectData),
-                getDrawRadius(size),
-                getColorProject(projectData));
+    private Paint getPaintProjectText(ProjectDataIntra projectData) {
+        mPaintText.setColor(getColorText(projectData));
 
-        drawProjectTitle(canvas, projectData);
-    }
-
-    private void drawProjectTitle(Canvas canvas, ProjectDataIntra projectData) {
-        float textWidth = mPaintText.measureText(projectData.name);
-        canvas.drawText(
-                projectData.name,
-                getDrawPosX(projectData) - textWidth / 2,
-                getDrawPosY(projectData) + mPaintText.getTextSize() / 2,
-                mPaintText);
-    }
-
-    private void drawPiscine(Canvas canvas, ProjectDataIntra projectData) {
-
-        float x = getDrawPosX(projectData);
-        float y = getDrawPosY(projectData);
-
-        float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
-        float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
-
-        float left = x - width / 2;
-        float top = y + height / 2;
-        float right = x + width / 2;
-        float bottom = y - height / 2;
-
-        canvas.drawRect(left, top, right, bottom, getColorProject(projectData));
-        drawProjectTitle(canvas, projectData);
-    }
-
-    private void drawRush(Canvas canvas, ProjectDataIntra projectData) {
-
-        float x = getDrawPosX(projectData.x);
-        float y = getDrawPosY(projectData.y);
-
-        float width = ProjectRectSize.RUSH_WIDTH * mScaleFactor;
-        float height = ProjectRectSize.RUSH_HEIGHT * mScaleFactor;
-
-        float left = x - width / 2;
-        float top = y + height / 2;
-        float right = x + width / 2;
-        float bottom = y - height / 2;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            canvas.drawRoundRect(left, top, right, bottom, 100, 100, getColorProject(projectData));
-        else
-            canvas.drawRect(left, top, right, bottom, getColorProject(projectData));
-
-        drawProjectTitle(canvas, projectData);
-    }
-
-    private Paint getColorPath(ProjectDataIntra projectData) {
-        mPaintPath.setColor(getColor(projectData));
-        return mPaintPath;
+        return mPaintText;
     }
 
     private int getColor(ProjectDataIntra projectData) {
@@ -444,6 +359,94 @@ public class Galaxy extends View {
         return colorProjectUnavailable;
     }
 
+    private int getColorText(ProjectDataIntra projectData) {
+
+        if (projectData != null)
+            switch (projectData.state) {
+                case DONE:
+                    return colorProjectTextValidated;
+
+                case AVAILABLE:
+                    return colorProjectTextAvailable;
+
+                case IN_PROGRESS:
+                    return colorProjectTextInProgress;
+
+                case UNAVAILABLE:
+                    return colorProjectTextUnavailable;
+
+            }
+        return colorProjectTextUnavailable;
+    }
+
+    private void drawProject(Canvas canvas, ProjectDataIntra projectData, int size) {
+
+        if (projectData.slug.equals("fillit")) {
+            Log.d("lol", "fillit");
+        }
+
+        canvas.drawCircle(
+                getDrawPosX(projectData),
+                getDrawPosY(projectData),
+                getDrawRadius(size),
+                getPaintProject(projectData));
+
+        drawProjectTitle(canvas, projectData);
+    }
+
+    private void drawProjectTitle(Canvas canvas, ProjectDataIntra projectData) {
+        float textWidth = mPaintText.measureText(projectData.name);
+        float textHeight = mPaintText.getTextSize();
+        canvas.drawText(
+                projectData.name,
+                getDrawPosX(projectData) - textWidth / 2,
+                getDrawPosY(projectData) + textHeight / 2,
+                getPaintProjectText(projectData));
+    }
+
+    private void drawPiscine(Canvas canvas, ProjectDataIntra projectData) {
+
+        float x = getDrawPosX(projectData);
+        float y = getDrawPosY(projectData);
+
+        float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
+        float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
+
+        float left = x - width / 2;
+        float top = y + height / 2;
+        float right = x + width / 2;
+        float bottom = y - height / 2;
+
+        canvas.drawRect(left, top, right, bottom, getPaintProject(projectData));
+        drawProjectTitle(canvas, projectData);
+    }
+
+    private void drawRush(Canvas canvas, ProjectDataIntra projectData) {
+
+        float x = getDrawPosX(projectData.x);
+        float y = getDrawPosY(projectData.y);
+
+        float width = ProjectRectSize.RUSH_WIDTH * mScaleFactor;
+        float height = ProjectRectSize.RUSH_HEIGHT * mScaleFactor;
+
+        float left = x - width / 2;
+        float top = y + height / 2;
+        float right = x + width / 2;
+        float bottom = y - height / 2;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            canvas.drawRoundRect(left, top, right, bottom, 100, 100, getPaintProject(projectData));
+        else
+            canvas.drawRect(left, top, right, bottom, getPaintProject(projectData));
+
+        drawProjectTitle(canvas, projectData);
+    }
+
+    private Paint getColorPath(ProjectDataIntra projectData) {
+        mPaintPath.setColor(getColor(projectData));
+        return mPaintPath;
+    }
+
     private boolean isAnimationRunning() {
         return !mScroller.isFinished();
     }
@@ -457,6 +460,44 @@ public class Galaxy extends View {
         double radius = Math.pow(getDrawRadius(projectData), 2);
 
         return distanceBetween <= radius;
+    }
+
+    private float getDrawPosX(ProjectDataIntra projectData) {
+        return getDrawPosX(projectData.x);
+    }
+
+    private float getDrawPosY(ProjectDataIntra projectData) {
+        return getDrawPosY(projectData.y);
+    }
+
+    private float getDrawRadius(ProjectDataIntra projectData) {
+        switch (projectData.kind) {
+            case PROJECT:
+                return getDrawRadius(ProjectRadius.PROJECT);
+            case BIG_PROJECT:
+                return getDrawRadius(ProjectRadius.BIG_PROJECT);
+            case PART_TIME:
+                return getDrawRadius(ProjectRadius.PART_TIME);
+            case FIRST_INTERNSHIP:
+                return getDrawRadius(ProjectRadius.FIRST_INTERNSHIP);
+            case SECOND_INTERNSHIP:
+                return getDrawRadius(ProjectRadius.SECOND_INTERNSHIP);
+            case EXAM:
+                return getDrawRadius(ProjectRadius.EXAM);
+        }
+        return 0;
+    }
+
+    private float getDrawPosX(float pos) {
+        return ((pos - 3000) + posX) * mScaleFactor + width / 2;
+    }
+
+    private float getDrawPosY(float pos) {
+        return ((pos - 3000) + posY) * mScaleFactor + height / 2;
+    }
+
+    private float getDrawRadius(int size) {
+        return size * mScaleFactor;
     }
 
     boolean ptInsideRectPiscine(float clickX, float clickY, ProjectDataIntra projectData) {
