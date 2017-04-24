@@ -27,6 +27,7 @@ public class ProjectsSessions {
     private static final String API_IS_SUBSCRIPTABLE = "is_subscriptable";
     private static final String API_SCALES = "scales";
     private static final String API_UPLOADS = "uploads";
+    private static final String API_TEAM_BEHAVIOUR = "team_behaviour";
 
     @SerializedName(API_ID)
     public int id;
@@ -57,7 +58,10 @@ public class ProjectsSessions {
     public boolean isSubscribable;
     @SerializedName(API_SCALES)
     public List<Scales> scales;
-    public List<Object> uploads;
+    @SerializedName(API_UPLOADS)
+    public List<Uploads> uploads;
+    @SerializedName(API_TEAM_BEHAVIOUR)
+    public String teamBehaviour;
 
     static public ProjectsSessions getSessionSubscribable(List<ProjectsSessions> sessionses) {
         for (ProjectsSessions item : sessionses) {
@@ -105,5 +109,15 @@ public class ProjectsSessions {
                 }
             return null;
         }
+    }
+
+    public static class Uploads {
+        private static final String API_ID = "id";
+        private static final String API_NAME = "name";
+
+        @SerializedName(API_ID)
+        public int id;
+        @SerializedName(API_NAME)
+        public String name;
     }
 }

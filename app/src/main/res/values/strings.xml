@@ -416,5 +416,8 @@
     <string name="date">Date</string>
     <string name="share_using">Share using</string>
     <string name="friends">Friends</string>
+    <string name="correction">correction</string>
+    <string name="corrections">corrections</string>
+    <string name="automatic_correction">Automatic correction</string>
 
 </resources>

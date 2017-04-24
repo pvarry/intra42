@@ -29,6 +29,7 @@ import com.paulvarry.intra42.api.model.Skills;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -68,17 +69,25 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         return new ProjectOverviewFragment();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
 
-        if (activity != null && activity.projectUser != null) {
-            activity = (ProjectActivity) getActivity();
-            project = activity.projectUser.project;
-            if (activity.projectUser.user != null)
-                projectUser = activity.projectUser.user;
-            if (project.sessionsList != null && !project.sessionsList.isEmpty())
-                session = ProjectsSessions.getScaleForMe((AppClass) getActivity().getApplication(), project.sessionsList);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ProjectActivity)
+            activity = (ProjectActivity) context;
+
+
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -97,8 +106,6 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 session = ProjectsSessions.getScaleForMe((AppClass) getActivity().getApplication(), project.sessionsList);
         }
     }
-
-    // TODO : add "recommendation": "forbidden"
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -149,7 +156,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             return;
         }
         if (projectUser == null) { // register
-            if (project.recommendation.equals("forbidden")) {
+            if (session != null && !session.isSubscribable) {
                 linearLayoutStatus.setVisibility(View.VISIBLE);
                 textViewStatus.setText(getString(R.string.forbidden));
                 textViewStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
@@ -244,9 +251,26 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             if (scales != null) {
                 info += separator + scales.correctionNumber;
                 if (scales.correctionNumber > 1)
-                    info += " " + getContext().getString(R.string.scales);
+                    info += " " + getContext().getString(R.string.corrections);
                 else
-                    info += " " + getContext().getString(R.string.scale);
+                    info += " " + getContext().getString(R.string.correction);
+            }
+
+            List<ProjectsSessions.Uploads> uploads = session.uploads;
+            if (uploads != null) {
+                info += separator + " ";
+
+                if (uploads.size() > 1)
+                    info += getContext().getString(R.string.automatic_corrections);
+                else
+                    info += getContext().getString(R.string.automatic_correction);
+
+                info += ": ";
+                String localSeparator = "";
+                for (ProjectsSessions.Uploads u : uploads) {
+                    info += u.name + localSeparator;
+                    localSeparator = ", ";
+                }
             }
         }
         tvInfo.setText(info);
@@ -286,25 +310,17 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        if (context instanceof ProjectActivity)
-            activity = (ProjectActivity) context;
-
-
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        if (activity != null && activity.projectUser != null) {
+            activity = (ProjectActivity) getActivity();
+            project = activity.projectUser.project;
+            if (activity.projectUser.user != null)
+                projectUser = activity.projectUser.user;
+            if (project.sessionsList != null && !project.sessionsList.isEmpty())
+                session = ProjectsSessions.getScaleForMe((AppClass) getActivity().getApplication(), project.sessionsList);
         }
     }
 
