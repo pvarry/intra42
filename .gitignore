@@ -7,6 +7,6 @@
 /build
 /captures
 
-**/google-services.json
+app/src/*/google-services.json
 
 app/src/**/java/com/paulvarry/intra42/Credential.java
