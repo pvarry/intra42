@@ -19,9 +19,17 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.Tools.UserImage;
+import com.paulvarry.intra42.activity.FriendsActivity;
+import com.paulvarry.intra42.activity.MarvinMealsActivity;
+import com.paulvarry.intra42.activity.TimeActivity;
+import com.paulvarry.intra42.activity.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activity.user.UserActivity;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.squareup.picasso.RequestCreator;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,10 +41,12 @@ import com.squareup.picasso.RequestCreator;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    @BindView(R.id.linearLayoutCantinaMenu)
+    LinearLayout linearLayoutCantinaMenu;
+
     private LinearLayout linearLayoutContent;
     private TextView textViewStatus;
     private SwipeRefreshLayout swipeRefreshLayout;
-
     private TextView textViewWallet;
     private TextView textViewCP;
     private TextView textViewName;
@@ -44,7 +54,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     private ProgressBar progressBarLevel;
     private TextView textViewLevel;
     private ImageButton imageButtonOpenProfile;
-
     private HomeFragment fragment;
     private HomeActivity activity;
     private AppClass app;
@@ -77,7 +86,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -98,6 +109,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
 
         linearLayoutContent.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        if (app.me != null && AppSettings.getAppCampus(app) != 7)
+            linearLayoutCantinaMenu.setVisibility(View.GONE);
+        else
+            linearLayoutCantinaMenu.setVisibility(View.VISIBLE);
 
         setView();
     }
@@ -182,6 +198,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         }
         swipeRefreshLayout.setRefreshing(false);
         linearLayoutContent.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.linearLayoutFriends)
+    void openFriend() {
+        FriendsActivity.openIt(getContext());
+    }
+
+    @OnClick(R.id.linearLayoutTimeOnCampus)
+    void openTimeOnCursus() {
+        TimeActivity.openIt(getContext());
+    }
+
+    @OnClick(R.id.linearLayoutClusterMap)
+    void openClusterMap() {
+        ClusterMapActivity.openIt(getContext());
+    }
+
+    @OnClick(R.id.linearLayoutCantinaMenu)
+    void openCantinaMenu() {
+        MarvinMealsActivity.openIt(getContext());
     }
 
     @Override

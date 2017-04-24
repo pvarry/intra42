@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
@@ -18,6 +20,11 @@ import retrofit2.Response;
 public class MarvinMealsActivity extends BasicActivity {
 
     List<MarvinMeals> marvinMealList;
+
+    public static void openIt(Context context) {
+        Intent intent = new Intent(context, MarvinMealsActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

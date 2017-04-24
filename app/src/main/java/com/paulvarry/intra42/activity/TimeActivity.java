@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -30,6 +32,11 @@ public class TimeActivity extends BasicActivity {
     };
 
     private List<Campus> campusList;
+
+    public static void openIt(Context context) {
+        Intent intent = new Intent(context, TimeActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.activity.clusterMap;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +29,11 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     HashMap<String, UsersLTE> locations;
     List<Campus> campus = new ArrayList<>();
     int campusId;
+
+    public static void openIt(Context context) {
+        Intent intent = new Intent(context, ClusterMapActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
