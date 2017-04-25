@@ -257,7 +257,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             }
 
             List<ProjectsSessions.Uploads> uploads = session.uploads;
-            if (uploads != null) {
+            if (uploads != null && uploads.size() > 0) {
                 info += separator + " ";
 
                 if (uploads.size() > 1)
@@ -268,7 +268,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 info += ": ";
                 String localSeparator = "";
                 for (ProjectsSessions.Uploads u : uploads) {
-                    info += u.name + localSeparator;
+                    info += localSeparator + u.name;
                     localSeparator = ", ";
                 }
             }

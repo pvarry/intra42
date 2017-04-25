@@ -113,16 +113,6 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-        else {
-            setViewError();
-        }
-    }
-
-    @Override
     public boolean getDataOnOtherThread() {
 
         if (list == null)
@@ -132,7 +122,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         String separator = "";
 
         for (UsersLTE u : list) {
-            searchOn += u.id + separator;
+            searchOn += separator + u.id;
             separator = ",";
         }
 
@@ -183,6 +173,16 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         super.onPause();
         if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.removeEventListener(friendsEventListener);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (app.firebaseRefFriends != null)
+            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
+        else {
+            setViewError();
+        }
     }
 
     @Override
