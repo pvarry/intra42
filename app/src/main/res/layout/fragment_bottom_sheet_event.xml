@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               app:theme="@style/AppTheme.NoActionBar"
-              tools:context=".BottomSheet.BottomSheetEventDialogFragment">
+    tools:context=".bottomSheet.BottomSheetEventDialogFragment">
 
     <FrameLayout
         android:layout_width="match_parent"

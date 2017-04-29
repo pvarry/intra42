@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.projects.ProjectsGraphFragment">
+    tools:context=".activities.projects.ProjectsGraphFragment">
 
     <com.paulvarry.intra42.ui.Galaxy
         android:id="@+id/galaxy"

@@ -26,7 +26,7 @@
             android:value=".SearchableActivity" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Login">
             <intent-filter>
@@ -47,10 +47,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.home.HomeActivity"
+            android:name=".activities.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.user.UserActivity"
+            android:name=".activities.user.UserActivity"
             android:configChanges="screenSize"
             android:label="@string/user"
             android:theme="@style/AppTheme.NoActionBar">
@@ -74,17 +74,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.users.UsersActivity"
+            android:name=".activities.users.UsersActivity"
             android:label="@string/users"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.projects.ProjectsActivity"
+            android:name=".activities.projects.ProjectsActivity"
             android:label="@string/projects"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.project.ProjectActivity"
+            android:name=".activities.project.ProjectActivity"
             android:label="@string/project"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -104,37 +104,37 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".activity.AboutActivity"
+            android:name=".activities.AboutActivity"
             android:label="@string/about"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.forum.ForumActivity"
+            android:name=".activities.forum.ForumActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.Settings" />
         <activity
-            android:name=".activity.TopicActivity"
+            android:name=".activities.TopicActivity"
             android:label="Topic"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.NewTopicActivity"
+            android:name=".activities.NewTopicActivity"
             android:label="@string/new_topic"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.notions.NotionsActivity"
+            android:name=".activities.notions.NotionsActivity"
             android:label="@string/title_activity_elearning"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SubnotionListActivity"
+            android:name=".activities.SubnotionListActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.TimeActivity"
+            android:name=".activities.TimeActivity"
             android:label="Time"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.clusterMap.ClusterMapActivity"
+            android:name=".activities.clusterMap.ClusterMapActivity"
             android:label="@string/title_activity_cluster_map"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -145,11 +145,11 @@
             android:exported="false" />
 
         <activity
-            android:name=".activity.EventActivity"
+            android:name=".activities.EventActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SearchableActivity"
+            android:name=".activities.SearchableActivity"
             android:label="@string/search"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -161,22 +161,22 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".activity.tags.TagsActivity"
+            android:name=".activities.tags.TagsActivity"
             android:label="@string/tag"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.LibraryListActivity"
+            android:name=".activities.LibraryListActivity"
             android:label="library list"
             android:theme="@style/AppTheme.Settings" />
         <activity
-            android:name=".activity.MarvinMealsActivity"
+            android:name=".activities.MarvinMealsActivity"
             android:label="@string/title_activity_cantina_menu" />
         <activity
-            android:name=".activity.ExpertisesEditActivity"
+            android:name=".activities.ExpertisesEditActivity"
             android:label="@string/edit_expertises" />
         <activity
-            android:name=".activity.FriendsActivity"
+            android:name=".activities.FriendsActivity"
             android:label="@string/friends" />
     </application>
 

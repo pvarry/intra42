@@ -3,8 +3,8 @@ package com.paulvarry.intra42.api.model;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.utils.Pagination;
 import com.plumillonforge.android.chipview.Chip;
 
 import java.io.IOException;

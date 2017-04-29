@@ -35,13 +35,13 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.AppSettings;
-import com.paulvarry.intra42.Tools.Share;
-import com.paulvarry.intra42.Tools.SuperSearch;
-import com.paulvarry.intra42.Tools.UserImage;
-import com.paulvarry.intra42.activity.SearchableActivity;
-import com.paulvarry.intra42.activity.SettingsActivity;
+import com.paulvarry.intra42.activities.SearchableActivity;
+import com.paulvarry.intra42.activities.SettingsActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
+import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Share;
+import com.paulvarry.intra42.utils.SuperSearch;
+import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
 public abstract class BasicActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

@@ -22,10 +22,10 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.Pagination;
-import com.paulvarry.intra42.Tools.Tag;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Tags;
+import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Tag;
 
 import java.util.ArrayList;
 import java.util.List;

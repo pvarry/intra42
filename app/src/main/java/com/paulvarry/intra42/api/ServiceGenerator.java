@@ -17,12 +17,12 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
-import com.paulvarry.intra42.Tools.AppSettings;
-import com.paulvarry.intra42.Tools.Token;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Slots;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Token;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

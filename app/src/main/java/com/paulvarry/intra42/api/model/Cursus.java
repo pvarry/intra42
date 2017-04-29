@@ -4,9 +4,9 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.utils.Pagination;
 
 import java.io.IOException;
 import java.io.Serializable;

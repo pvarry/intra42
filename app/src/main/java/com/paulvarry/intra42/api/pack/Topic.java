@@ -2,7 +2,7 @@ package com.paulvarry.intra42.api.pack;
 
 import android.support.annotation.Nullable;
 
-import com.paulvarry.intra42.activity.TopicActivity;
+import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Topics;

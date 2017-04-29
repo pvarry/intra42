@@ -4,7 +4,7 @@
     android:id="@+id/activity_library_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paulvarry.intra42.activity.LibraryListActivity">
+    tools:context="com.paulvarry.intra42.activities.LibraryListActivity">
 
     <ListView
         android:id="@+id/listView"

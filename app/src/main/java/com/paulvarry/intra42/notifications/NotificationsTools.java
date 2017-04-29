@@ -13,15 +13,15 @@ import android.support.v4.content.ContextCompat;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.AppSettings;
-import com.paulvarry.intra42.Tools.DateTool;
-import com.paulvarry.intra42.activity.EventActivity;
-import com.paulvarry.intra42.activity.project.ProjectActivity;
-import com.paulvarry.intra42.activity.user.UserActivity;
+import com.paulvarry.intra42.activities.EventActivity;
+import com.paulvarry.intra42.activities.project.ProjectActivity;
+import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.Date;
 

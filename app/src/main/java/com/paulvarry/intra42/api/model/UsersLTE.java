@@ -14,7 +14,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.activity.user.UserActivity;
+import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.BaseItem;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.cache.BaseCacheData;

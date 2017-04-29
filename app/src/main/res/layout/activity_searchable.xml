@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.paulvarry.intra42.activity.SearchableActivity">
+    tools:context="com.paulvarry.intra42.activities.SearchableActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activity.TopicActivity;
+import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.api.BaseItem;
 import com.paulvarry.intra42.api.ServiceGenerator;
 

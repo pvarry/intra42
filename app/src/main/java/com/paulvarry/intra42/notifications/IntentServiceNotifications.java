@@ -7,13 +7,13 @@ import android.preference.PreferenceManager;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
-import com.paulvarry.intra42.Tools.AppSettings;
-import com.paulvarry.intra42.Tools.DateTool;
-import com.paulvarry.intra42.Tools.Pagination;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.DateTool;
+import com.paulvarry.intra42.utils.Pagination;
 
 import java.io.IOException;
 import java.util.Date;

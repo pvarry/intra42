@@ -3,7 +3,7 @@ package com.paulvarry.intra42.api.model;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.Tools.ProjectUserStatus;
+import com.paulvarry.intra42.utils.ProjectUserStatus;
 
 import java.util.ArrayList;
 import java.util.List;

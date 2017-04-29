@@ -4,7 +4,7 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.activity.project.ProjectActivity;
+import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.List;

@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -425,9 +424,6 @@ public class Galaxy extends View {
         float projectWidth = getProjectDrawWidth(projectData);
         float textWidth = paintText.measureText(projectData.name);
 
-        if (projectData.id == 112)
-            Log.d("Stop", projectData.name);
-
         List<String> textToDraw = new ArrayList<>();
 
         if (projectWidth != -1 && projectWidth < textWidth) {
@@ -456,8 +452,6 @@ public class Galaxy extends View {
 
         } else
             textToDraw.add(projectData.name);
-
-        Log.d("Text Split", projectData.name + " | " + textToDraw.toString());
 
         float textHeight = paintText.getTextSize();
         float posYStartDraw = getDrawPosY(projectData) - (textHeight * (textToDraw.size() - 1)) / 2;

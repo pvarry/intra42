@@ -5,9 +5,9 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.utils.AppSettings;
 
 import java.io.IOException;
 import java.util.Date;

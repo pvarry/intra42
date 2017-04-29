@@ -8,17 +8,17 @@
     <!--android:title="@string/pref_header_general" />-->
 
     <header
-        android:fragment="com.paulvarry.intra42.activity.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="com.paulvarry.intra42.activity.SettingsActivity$NetworkPreferenceFragment"
+        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$NetworkPreferenceFragment"
         android:icon="@drawable/ic_wifi_black_24dp"
         android:title="@string/pref_header_network" />
 
     <header
-        android:fragment="com.paulvarry.intra42.activity.SettingsActivity$AdvancedPreferenceFragment"
+        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$AdvancedPreferenceFragment"
         android:icon="@drawable/ic_developer_mode_black_24dp"
         android:title="Advanced" />
 

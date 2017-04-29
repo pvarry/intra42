@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     android:orientation="vertical"
-    tools:context=".activity.AboutActivity">
+    tools:context=".activities.AboutActivity">
 
     <GridView
         android:id="@+id/gridViewTime"

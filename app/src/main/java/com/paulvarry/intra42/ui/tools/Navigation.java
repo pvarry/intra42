@@ -6,17 +6,17 @@ import android.view.MenuItem;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activity.AboutActivity;
-import com.paulvarry.intra42.activity.FriendsActivity;
-import com.paulvarry.intra42.activity.MarvinMealsActivity;
-import com.paulvarry.intra42.activity.SettingsActivity;
-import com.paulvarry.intra42.activity.TimeActivity;
-import com.paulvarry.intra42.activity.clusterMap.ClusterMapActivity;
-import com.paulvarry.intra42.activity.forum.ForumActivity;
-import com.paulvarry.intra42.activity.home.HomeActivity;
-import com.paulvarry.intra42.activity.notions.NotionsActivity;
-import com.paulvarry.intra42.activity.projects.ProjectsActivity;
-import com.paulvarry.intra42.activity.users.UsersActivity;
+import com.paulvarry.intra42.activities.AboutActivity;
+import com.paulvarry.intra42.activities.FriendsActivity;
+import com.paulvarry.intra42.activities.MarvinMealsActivity;
+import com.paulvarry.intra42.activities.SettingsActivity;
+import com.paulvarry.intra42.activities.TimeActivity;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.activities.forum.ForumActivity;
+import com.paulvarry.intra42.activities.home.HomeActivity;
+import com.paulvarry.intra42.activities.notions.NotionsActivity;
+import com.paulvarry.intra42.activities.projects.ProjectsActivity;
+import com.paulvarry.intra42.activities.users.UsersActivity;
 
 public class Navigation {
 
