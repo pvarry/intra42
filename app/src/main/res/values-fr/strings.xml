@@ -169,4 +169,12 @@
     <string name="search_section_projects">projets</string>
     <string name="network_error">" Erreur de réseau"</string>
     <string name="action_open_intra">Afficher la version Web</string>
+    <string name="succeeded">Réussi</string>
+    <string name="tools">Outils</string>
+    <string name="unsubscribe">Se désinscrire</string>
+    <string name="unsubscribed">Désinscrit</string>
+    <string name="unactivated">Désactivé</string>
+    <string name="time">Heure</string>
+    <string name="time_on_campus">Heure sur les campus</string>
+    <string name="activated">Activé</string>
 </resources>

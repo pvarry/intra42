@@ -419,5 +419,9 @@
     <string name="correction">correction</string>
     <string name="corrections">corrections</string>
     <string name="automatic_correction">Automatic correction</string>
+    <string name="icon_info">Info icon</string>
+    <string name="available">Available</string>
+    <string name="failed">Failed</string>
+    <string name="succeeded">Succeeded</string>
 
 </resources>

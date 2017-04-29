@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
+import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
 import com.paulvarry.intra42.ui.Galaxy;
 
 import java.io.ByteArrayOutputStream;
@@ -125,8 +124,7 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
 
     @Override
     public void onClick(ProjectDataIntra projectData) {
-        AppClass app = (AppClass) getActivity().getApplication();
-        ProjectActivity.openIt(getContext(), projectData.slug);
+        BottomSheetProjectsGalaxyFragment.openIt(activity, projectData);
     }
 
     /**

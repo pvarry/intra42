@@ -68,6 +68,7 @@ public class ProjectDataIntra {
     }
 
     public enum State {
+        @SerializedName("fail")FAIL,
         @SerializedName("done")DONE,
         @SerializedName("available")AVAILABLE,
         @SerializedName("in_progress")IN_PROGRESS,
