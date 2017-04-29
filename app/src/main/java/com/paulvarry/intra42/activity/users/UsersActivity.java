@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.Adapter.ViewPagerAdapter;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.Tools.AppSettings;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
@@ -59,8 +58,8 @@ public class UsersActivity
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(UsersSearchFragment.newInstance(), getString(R.string.tab_users_search));
-        if (AppSettings.Advanced.getAllowFriends(this))
-            adapter.addFragment(UsersFriendsFragment.newInstance(), getString(R.string.tab_users_friends));
+//        if (AppSettings.Advanced.getAllowFriends(this))
+//            adapter.addFragment(UsersFriendsFragment.newInstance(), getString(R.string.tab_users_friends));
         adapter.addFragment(UsersAllFragment.newInstance(), getString(R.string.tab_users_all));
 //        adapter.addFragment(UsersAdvancedFragment.newInstance(), getString(R.string.tab_users_advanced_search));
         viewPager.setAdapter(adapter);

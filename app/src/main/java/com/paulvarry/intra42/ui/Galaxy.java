@@ -19,6 +19,7 @@ import android.widget.Scroller;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Galaxy extends View {
@@ -27,6 +28,7 @@ public class Galaxy extends View {
     static int GRAPH_MAP_LIMIT_MAX = 2000;
     static int GRAPH_MAP_MIN = -3000;
     static int GRAPH_MAP_MAX = 2000;
+    static int TEXT_HEIGHT = 25;
     ProjectDataIntra projectDataFirstInternship = null;
     ProjectDataIntra projectDataFinalInternship = null;
     private float weightPath;
@@ -105,6 +107,7 @@ public class Galaxy extends View {
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintText.setAntiAlias(true);
         mPaintText.setFakeBoldText(true);
+        mPaintText.setTextAlign(Paint.Align.CENTER);
 
 
         // Create a Scroller to handle the fling gesture.
@@ -257,7 +260,7 @@ public class Galaxy extends View {
 
         mPaintProject.setStrokeWidth(weightPath * mScaleFactor);
         mPaintPath.setStrokeWidth(weightPath * mScaleFactor);
-        mPaintText.setTextSize(25 * mScaleFactor);
+        mPaintText.setTextSize(TEXT_HEIGHT * mScaleFactor);
 
         // draw projects path
         for (ProjectDataIntra projectData : data) {
@@ -381,10 +384,6 @@ public class Galaxy extends View {
 
     private void drawProject(Canvas canvas, ProjectDataIntra projectData, int size) {
 
-        if (projectData.slug.equals("fillit")) {
-            Log.d("lol", "fillit");
-        }
-
         canvas.drawCircle(
                 getDrawPosX(projectData),
                 getDrawPosY(projectData),
@@ -394,14 +393,121 @@ public class Galaxy extends View {
         drawProjectTitle(canvas, projectData);
     }
 
+    float getProjectDrawWidth(ProjectDataIntra projectData) {
+        switch (projectData.kind) {
+            case PROJECT:
+                return getProjectDrawWidthCircle(projectData);
+            case BIG_PROJECT:
+                return getProjectDrawWidthCircle(projectData);
+            case PART_TIME:
+                return getProjectDrawWidthCircle(projectData);
+            case FIRST_INTERNSHIP:
+                return getProjectDrawWidthCircle(projectData);
+            case SECOND_INTERNSHIP:
+                return getProjectDrawWidthCircle(projectData);
+            case EXAM:
+                return getProjectDrawWidthCircle(projectData);
+            case PISCINE:
+                return -1;
+            case RUSH:
+                return -1;
+        }
+        return -1;
+    }
+
+    float getProjectDrawWidthCircle(ProjectDataIntra projectData) {
+        return getDrawRadius(projectData) * 2;
+    }
+
     private void drawProjectTitle(Canvas canvas, ProjectDataIntra projectData) {
-        float textWidth = mPaintText.measureText(projectData.name);
-        float textHeight = mPaintText.getTextSize();
-        canvas.drawText(
-                projectData.name,
-                getDrawPosX(projectData) - textWidth / 2,
-                getDrawPosY(projectData) + textHeight / 2,
-                getPaintProjectText(projectData));
+        Paint paintText = getPaintProjectText(projectData);
+
+        float projectWidth = getProjectDrawWidth(projectData);
+        float textWidth = paintText.measureText(projectData.name);
+
+        if (projectData.id == 112)
+            Log.d("Stop", projectData.name);
+
+        List<String> textToDraw = new ArrayList<>();
+
+        if (projectWidth != -1 && projectWidth < textWidth) {
+            int numberCut = (int) (textWidth / projectWidth) + 1;
+            String tmpText = projectData.name;
+            int posToCut = tmpText.length() / numberCut;
+
+            int i = 0;
+            while (true) {
+                posToCut = splitAt(tmpText, posToCut);
+                if (posToCut == -1) {
+                    textToDraw.add(tmpText);
+                    break;
+                }
+
+                if (tmpText.charAt(posToCut) == ' ') {
+                    textToDraw.add(tmpText.substring(0, posToCut));
+                    tmpText = tmpText.substring(posToCut + 1);
+                } else {
+                    textToDraw.add(tmpText.substring(0, posToCut + 1));
+                    tmpText = tmpText.substring(posToCut + 1);
+                }
+                posToCut = tmpText.length() / numberCut - i;
+                i++;
+            }
+
+        } else
+            textToDraw.add(projectData.name);
+
+        Log.d("Text Split", projectData.name + " | " + textToDraw.toString());
+
+        float textHeight = paintText.getTextSize();
+        float posYStartDraw = getDrawPosY(projectData) - (textHeight * (textToDraw.size() - 1)) / 2;
+        for (int i = 0; i < textToDraw.size(); i++) {
+
+            float heightTextDraw = posYStartDraw + textHeight * i - (paintText.descent() + paintText.ascent()) / 2;
+            canvas.drawText(
+                    textToDraw.get(i),
+                    getDrawPosX(projectData),
+                    heightTextDraw,
+                    paintText);
+        }
+
+    }
+
+    private int splitAt(String stringToSplit, int posSplit) {
+
+        if (posSplit < 0 || stringToSplit == null || stringToSplit.length() <= posSplit)
+            return -1;
+
+        if (isSplitableChar(stringToSplit.charAt(posSplit)))
+            return posSplit;
+
+        int stringLength = stringToSplit.length();
+        int searchShift = 0;
+
+        boolean pursueBefore = true;
+        boolean pursueAfter = true;
+        while (pursueBefore || pursueAfter) {
+
+            if (pursueBefore && posSplit - searchShift >= 0) {
+                if (isSplitableChar(stringToSplit.charAt(posSplit - searchShift)))
+                    return posSplit - searchShift;
+            } else
+                pursueBefore = false;
+            if (pursueAfter && posSplit + searchShift < stringLength) {
+                if (isSplitableChar(stringToSplit.charAt(posSplit + searchShift)))
+                    return posSplit + searchShift;
+            } else
+                pursueAfter = false;
+
+            searchShift++;
+        }
+
+        return -1;
+    }
+
+    boolean isSplitableChar(char c) {
+        return c == ' ' || c == '-' || c == '_';
+
     }
 
     private void drawPiscine(Canvas canvas, ProjectDataIntra projectData) {

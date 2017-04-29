@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00ffffff"
+        android:clipToPadding="false"
         android:columnWidth="160dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"

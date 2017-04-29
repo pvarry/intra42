@@ -1,33 +1,63 @@
 [
   {
-    "state": "unavailable",
-    "final_mark": null,
-    "id": 182,
+    "state": "done",
+    "final_mark": 97,
+    "id": 185,
     "kind": "project",
-    "name": "Piscine Reloaded",
-    "x": 2350.0,
+    "name": "Get_Next_Line",
+    "x": 3000.0,
     "y": 3000.0,
     "by": [
       {
-        "parent_id": 817,
+        "parent_id": 540,
         "points": [
           [
-            2150,
+            2725,
             3000
           ],
           [
-            2350,
+            3000,
             3000
           ]
         ]
       }
     ],
-    "project_id": 756,
-    "difficulty": "Tier 0",
-    "duration": "about 2 days",
-    "rules": "You must have validated 42-commandements",
-    "description": "Revoyez les bases de la piscine avec une suite d'exercices tirée des sujets de celle-ci.",
-    "slug": "piscine-reloaded"
+    "project_id": 2,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated fillit",
+    "description": "Qu'il s'agisse d'un fichier, de l'entrée standard, ou même plus tard d'une connexion réseau, vous aurez toujours besoin de lire du contenu ligne par ligne. Il est donc temps de vous attaquer à cette fonction, indispensable pour un certain nombre de vos prochains projets.",
+    "slug": "get_next_line"
+  },
+  {
+    "state": "done",
+    "final_mark": 95,
+    "id": 183,
+    "kind": "project",
+    "name": "Libft",
+    "x": 2550.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 756,
+        "points": [
+          [
+            2300,
+            3000
+          ],
+          [
+            2550,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 1,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated piscine-reloaded",
+    "description": "As a WeThinkCode_ student you'll be able, through this first project, to strengthen your skills learned during the bootcamp. You'll recode functions from the standard C library, and some other very useful functions that you'll be able to use all along the program.",
+    "slug": "libft"
   },
   {
     "state": "available",
@@ -62,82 +92,6 @@
   {
     "state": "available",
     "final_mark": null,
-    "id": 181,
-    "kind": "project",
-    "name": "42 Commandements",
-    "x": 2150.0,
-    "y": 3000.0,
-    "by": [],
-    "project_id": 817,
-    "difficulty": "Tier 0",
-    "duration": "about 1 day",
-    "rules": "",
-    "description": "Bienvenue à 42, jeune cadet !\r\nAvant d'entamer ton cursus, il est temps de savoir ce que l'on attends de toi tout au long de ta scolarité.",
-    "slug": "42-commandements"
-  },
-  {
-    "state": "done",
-    "final_mark": 95,
-    "id": 183,
-    "kind": "project",
-    "name": "Libft",
-    "x": 2550.0,
-    "y": 3000.0,
-    "by": [
-      {
-        "parent_id": 756,
-        "points": [
-          [
-            2300,
-            3000
-          ],
-          [
-            2550,
-            3000
-          ]
-        ]
-      }
-    ],
-    "project_id": 1,
-    "difficulty": "Tier 1",
-    "duration": "about 1 week",
-    "rules": "You must have validated piscine-reloaded",
-    "description": "Ce premier projet en tant qu'étudiant de 42 va vous faire consolider vos acquis de piscine. Vous allez recoder un certain nombre de fonctions de la librairie C standard, ainsi que d'autres fonctions utilitaires que vous réutiliserez tout au long de votre cursus.",
-    "slug": "libft"
-  },
-  {
-    "state": "done",
-    "final_mark": 97,
-    "id": 185,
-    "kind": "project",
-    "name": "Get_Next_Line",
-    "x": 3000.0,
-    "y": 3000.0,
-    "by": [
-      {
-        "parent_id": 540,
-        "points": [
-          [
-            2725,
-            3000
-          ],
-          [
-            3000,
-            3000
-          ]
-        ]
-      }
-    ],
-    "project_id": 2,
-    "difficulty": "Tier 1",
-    "duration": "about 1 week",
-    "rules": "You must have validated fillit",
-    "description": "Whether it's a file or the standard input, or even later on a network connexion, you'll always need to read content one line at a time. It's now time to work on that function essentiel a majority of your next projects.",
-    "slug": "get_next_line"
-  },
-  {
-    "state": "available",
-    "final_mark": null,
     "id": 184,
     "kind": "project",
     "name": "Fillit",
@@ -164,6 +118,244 @@
     "rules": "You must have validated libft",
     "description": "Fillit est un projet vous permettant de découvrir et/ou de vous familiariser avec une problématique récurrente en programmation : la recherche d'un solution optimale parmi un très grand nombre de possibilités, dans un délai raisonnable. Dans le cas de ce projet, il s'agira d'agencer des Tetriminos entre eux et de déterminer le plus petit carré possible pouvant les accueillir.",
     "slug": "fillit"
+  },
+  {
+    "state": "available",
+    "final_mark": null,
+    "id": 181,
+    "kind": "project",
+    "name": "42 Commandements",
+    "x": 2150.0,
+    "y": 3000.0,
+    "by": [],
+    "project_id": 817,
+    "difficulty": "Tier 0",
+    "duration": "about 1 day",
+    "rules": "",
+    "description": "Bienvenue à 42, jeune cadet !\r\nAvant d'entamer ton cursus, il est temps de savoir ce que l'on attends de toi tout au long de ta scolarité.",
+    "slug": "42-commandements"
+  },
+  {
+    "state": "unavailable",
+    "final_mark": null,
+    "id": 202,
+    "kind": "project",
+    "name": "fix-me",
+    "x": 1800.0,
+    "y": 4490.0,
+    "by": [
+      {
+        "parent_id": 871,
+        "points": [
+          [
+            1950,
+            4420
+          ],
+          [
+            1800,
+            4490
+          ]
+        ]
+      }
+    ],
+    "project_id": 872,
+    "difficulty": "Tier 3",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated swingy",
+    "description": "Final project of the Java Programming arc. Write a program that simulates stock exchanges and deals with trading algorithms, with networking and socket implementations. ",
+    "slug": "fix-me"
+  },
+  {
+    "state": "unavailable",
+    "final_mark": null,
+    "id": 201,
+    "kind": "project",
+    "name": "swingy",
+    "x": 1950.0,
+    "y": 4420.0,
+    "by": [
+      {
+        "parent_id": 870,
+        "points": [
+          [
+            2100,
+            4350
+          ],
+          [
+            1950,
+            4420
+          ]
+        ]
+      }
+    ],
+    "project_id": 871,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated avaj-launcher",
+    "description": "This is the second project from the Java world at 42. You will learn to develop GUI applications with the SWING framework, in order to create an RPG game.",
+    "slug": "swingy"
+  },
+  {
+    "state": "available",
+    "final_mark": null,
+    "id": 200,
+    "kind": "project",
+    "name": "avaj-launcher",
+    "x": 2100.0,
+    "y": 4350.0,
+    "by": [
+      {
+        "parent_id": 62,
+        "points": [
+          [
+            2220,
+            4200
+          ],
+          [
+            2220,
+            4303
+          ]
+        ]
+      },
+      {
+        "parent_id": 62,
+        "points": [
+          [
+            2220,
+            4300
+          ],
+          [
+            2100,
+            4350
+          ]
+        ]
+      }
+    ],
+    "project_id": 870,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated piscine-cpp",
+    "description": "First projet of the Java projects arc. Implementation of a simple Java program according to a given class diagram written in UML.",
+    "slug": "avaj-launcher"
+  },
+  {
+    "state": "unavailable",
+    "final_mark": null,
+    "id": 182,
+    "kind": "project",
+    "name": "Piscine Reloaded",
+    "x": 2350.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 817,
+        "points": [
+          [
+            2150,
+            3000
+          ],
+          [
+            2350,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 756,
+    "difficulty": "Tier 0",
+    "duration": "about 2 days",
+    "rules": "You must have validated 42-commandements",
+    "description": "Revoyez les bases de la piscine avec une suite d'exercices tirée des sujets de celle-ci.",
+    "slug": "piscine-reloaded"
+  },
+  {
+    "state": "unavailable",
+    "final_mark": null,
+    "id": 116,
+    "kind": "project",
+    "name": "Filesystem",
+    "x": 2050.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 710,
+        "points": [
+          [
+            2200,
+            1500
+          ],
+          [
+            2050,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 711,
+    "difficulty": "Tier 3",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated drivers-and-interrupts",
+    "description": "Create your own filesystem, for your linux kernel.",
+    "slug": "filesystem"
+  },
+  {
+    "state": "available",
+    "final_mark": null,
+    "id": 86,
+    "kind": "project",
+    "name": "Dr Quine",
+    "x": 3000.0,
+    "y": 1400.0,
+    "by": [],
+    "project_id": 700,
+    "difficulty": "Tier 2",
+    "duration": "about 1 week",
+    "rules": "You must have validated first-internship",
+    "description": "Ce petit projet d'algo vous permet d'aborder les problématiques de l'auto-réplication, et vous confronte au théorème de récursion de Kleene !\r\n",
+    "slug": "dr-quine"
+  },
+  {
+    "state": "unavailable",
+    "final_mark": null,
+    "id": 189,
+    "kind": "project",
+    "name": "H42N42",
+    "x": 1690.0,
+    "y": 3280.0,
+    "by": [
+      {
+        "parent_id": 370,
+        "points": [
+          [
+            1872,
+            3410
+          ],
+          [
+            1690,
+            3410
+          ]
+        ]
+      },
+      {
+        "parent_id": 370,
+        "points": [
+          [
+            1690,
+            3410
+          ],
+          [
+            1690,
+            3280
+          ]
+        ]
+      }
+    ],
+    "project_id": 819,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated piscine-ocaml",
+    "description": "Projet d'introduction au Framework OCSIGEN, permettant de créer des applications web riches en OCaml. Concevez un simulateur de Bestioles échappant à un dangereux virus !",
+    "slug": "h42n42"
   },
   {
     "state": "unavailable",
@@ -644,22 +836,6 @@
     "slug": "swifty-companion"
   },
   {
-    "state": "available",
-    "final_mark": null,
-    "id": 86,
-    "kind": "project",
-    "name": "Dr Quine",
-    "x": 3000.0,
-    "y": 1400.0,
-    "by": [],
-    "project_id": 700,
-    "difficulty": "Tier 2",
-    "duration": "about 1 week",
-    "rules": "You must have validated first-internship",
-    "description": "Ce petit projet d'algo vous permet d'aborder les problématiques de l'auto-réplication, et vous confronte au théorème de récursion de Kleene !\r\n",
-    "slug": "dr-quine"
-  },
-  {
     "state": "done",
     "final_mark": 100,
     "id": 113,
@@ -878,7 +1054,7 @@
     "difficulty": "Tier 3",
     "duration": "about 3 weeks",
     "rules": "You must have validated First Internship",
-    "description": "L’objectif de ce projet est de développer un jeu de tetris multijoueurs en réseau à partir d’une pile logicielle exclusivement Full Stack Javascript",
+    "description": "L’objectif de ce projet est de développer un jeu de tetris multijoueurs en réseau à partir d’une pile logicielle exclusivement Full Stack Javascript",
     "slug": "red-tetris"
   },
   {
@@ -2101,49 +2277,6 @@
   {
     "state": "unavailable",
     "final_mark": null,
-    "id": 189,
-    "kind": "project",
-    "name": "H42N42",
-    "x": 1690.0,
-    "y": 3280.0,
-    "by": [
-      {
-        "parent_id": 370,
-        "points": [
-          [
-            1872,
-            3410
-          ],
-          [
-            1690,
-            3410
-          ]
-        ]
-      },
-      {
-        "parent_id": 370,
-        "points": [
-          [
-            1690,
-            3410
-          ],
-          [
-            1690,
-            3280
-          ]
-        ]
-      }
-    ],
-    "project_id": 819,
-    "difficulty": "Tier 2",
-    "duration": "about 2 weeks",
-    "rules": "You must have validated piscine-ocaml",
-    "description": "Projet d'introduction au Framework OCSIGEN, permettant de créer des applications web riches en OCaml. Concevez un simulateur de Bestioles échappant à un dangereux virus !",
-    "slug": "h42n42"
-  },
-  {
-    "state": "unavailable",
-    "final_mark": null,
     "id": 15,
     "kind": "project",
     "name": "42run",
@@ -3148,36 +3281,6 @@
     "rules": "You must have validated piscine-cpp",
     "description": "Ce projet a pour but de vous initier au développement d'application Android. Il s'agit de réaliser, en JAVA, une application mobile de gestion de contacts sur la plateforme Android de Google. \r\nLe but ici est de comprendre comment fonctionne une application Android, comment Android gère votre application et comment utiliser le SDK.",
     "slug": "ft_hangouts"
-  },
-  {
-    "state": "unavailable",
-    "final_mark": null,
-    "id": 116,
-    "kind": "project",
-    "name": "Filesystem",
-    "x": 2050.0,
-    "y": 1500.0,
-    "by": [
-      {
-        "parent_id": 710,
-        "points": [
-          [
-            2200,
-            1500
-          ],
-          [
-            2050,
-            1500
-          ]
-        ]
-      }
-    ],
-    "project_id": 711,
-    "difficulty": "Tier 3",
-    "duration": "about 4 weeks",
-    "rules": "You must have validated drivers-and-interrupts",
-    "description": "Create your own filesystem, for your linux kernel.",
-    "slug": "filesystem"
   },
   {
     "state": "unavailable",
