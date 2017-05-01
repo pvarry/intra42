@@ -423,5 +423,6 @@
     <string name="available">Available</string>
     <string name="failed">Failed</string>
     <string name="succeeded">Succeeded</string>
+    <string name="error_on_loading_this_page">Error on loading this page</string>
 
 </resources>

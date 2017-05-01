@@ -36,13 +36,13 @@ public class AboutActivity extends BasicActivity {
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
-        return false;
+    public StatusCode getDataOnOtherThread() {
+        return StatusCode.CONTINUE;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
-        return true;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.FINISH;
     }
 
     @Override

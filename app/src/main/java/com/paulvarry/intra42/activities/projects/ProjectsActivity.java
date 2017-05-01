@@ -39,13 +39,13 @@ public class ProjectsActivity extends BasicTabActivity
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
-        return true;
+    public StatusCode getDataOnOtherThread() {
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
-        return true;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.FINISH;
     }
 
     @Override

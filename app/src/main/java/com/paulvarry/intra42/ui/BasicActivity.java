@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.annotation.LayoutRes;
@@ -31,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.AppClass;
@@ -49,6 +51,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     public AppClass app;
     public Toolbar toolbar;
     public MenuItem menuItemFilter;
+    public ProgressBar progressBarLoading;
     protected CoordinatorLayout coordinatorLayout;
     protected View viewContent;
     protected NavigationView navigationView;
@@ -58,14 +61,13 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private SimpleCursorAdapter searchAdapter;
     private ConstraintLayout constraintLayoutLoading;
     private ConstraintLayout constraintOnError;
+    private TextView textViewLoading;
     private TextView textViewLoadingStatus;
     private TextView textViewError;
     private Button buttonForceRefresh;
     private int drawerSelectedItemPosition = -1;
-
     @LayoutRes
     private int resContentId;
-
     private boolean activeHamburger = false;
 
     @Override
@@ -83,7 +85,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         constraintLayoutLoading = (ConstraintLayout) findViewById(R.id.constraintLayoutLoading);
         constraintOnError = (ConstraintLayout) findViewById(R.id.constraintOnError);
 
-        textViewLoadingStatus = (TextView) findViewById(R.id.textViewLoading);
+        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
+        textViewLoadingStatus = (TextView) findViewById(R.id.textViewStatus);
+        progressBarLoading = (ProgressBar) findViewById(R.id.progressBarLoading);
         textViewError = (TextView) findViewById(R.id.textViewError);
         buttonForceRefresh = (Button) findViewById(R.id.buttonRefresh);
 
@@ -129,23 +133,30 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     }
 
     protected void refresh() {
-        if (getDataOnMainThread())
+
+        StatusCode statusDataOnMain = getDataOnMainThread();
+        if (statusDataOnMain == StatusCode.FINISH)
             setView();
+        else if (statusDataOnMain == StatusCode.ERROR)
+            setViewError();
+        else if (statusDataOnMain == StatusCode.EMPTY)
+            setViewEmpty();
         else {
             setViewLoading();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 
-                    final boolean getDataSuccess = getDataOnOtherThread();
+                    final StatusCode statusDataOnThread = getDataOnOtherThread();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (getDataSuccess) {
+                            if (statusDataOnThread == StatusCode.FINISH || statusDataOnThread == StatusCode.CONTINUE)
                                 setView();
-                            } else {
+                            else if (statusDataOnThread == StatusCode.ERROR)
                                 setViewError();
-                            }
+                            else
+                                setViewEmpty();
                         }
                     });
 
@@ -286,6 +297,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         searchAdapter.changeCursor(c);
     }
 
+    /**
+     * Hide all the view.
+     */
     protected void setViewHide() {
         viewContent.setVisibility(View.GONE);
         constraintLayoutLoading.setVisibility(View.GONE);
@@ -309,38 +323,105 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         constraintLayoutLoading.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Set view error if something wrong append on loading data or view.
+     */
+    protected void setViewEmpty() {
+
+        String empty = getEmptyText();
+        if (empty == null || empty.isEmpty())
+            empty = getString(R.string.nothing_to_show);
+
+        setViewError(true, empty);
+    }
+
+    /**
+     * Set view error if something wrong append on loading data or view.
+     */
     protected void setViewError() {
+        setViewError(true, null);
+    }
+
+    /**
+     * Set view error if something wrong append on loading data or view.
+     *
+     * @param errorText Text to display.
+     */
+    protected void setViewError(String errorText) {
+        setViewError(true, errorText);
+    }
+
+    /**
+     * Set view error if something wrong append on loading data or view.
+     *
+     * @param allowRefresh Allow to display a refresh button.
+     * @param errorText    Text to display.
+     */
+    protected void setViewError(boolean allowRefresh, String errorText) {
         setViewHide();
 
         String toolbarName = getToolbarName();
         if (toolbarName != null)
             toolbar.setTitle(toolbarName);
         constraintOnError.setVisibility(View.VISIBLE);
-        String error = getEmptyText();
-        if (error == null)
-            error = getString(R.string.nothing_to_show);
-        textViewError.setText(error);
-        buttonForceRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
+
+        if (errorText == null)
+            errorText = getString(R.string.error_on_loading_this_page);
+        textViewError.setText(errorText);
+
+        if (allowRefresh) {
+            buttonForceRefresh.setVisibility(View.VISIBLE);
+            buttonForceRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refresh();
+                }
+            });
+        } else
+            buttonForceRefresh.setVisibility(View.GONE);
     }
 
     /**
-     * @param text Status text to put on loading view.
-     * @return If everything finish good.
+     * Set information about current loading page, for example "Loading user ...".
+     *
+     * @param loadingInfo Text to display.
+     * @return Boolean if the info is well display.
      */
-    public boolean setLoadingStatus(final String text) {
+    public boolean setLoadingInfo(final String loadingInfo) {
+        if (textViewLoading != null) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (loadingInfo != null) {
+                        textViewLoading.setVisibility(View.VISIBLE);
+                        textViewLoading.setText(loadingInfo);
+                    } else
+                        textViewLoading.setVisibility(View.GONE);
+                }
+            });
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Set the current progress when loading data. Set the progress bar to indeterminate.
+     *
+     * @param progressStatus Text to display under the progress bar with progress information.
+     * @return Boolean if the progress is well display.
+     */
+    public boolean setLoadingProgress(final String progressStatus) {
         if (textViewLoadingStatus != null) {
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (text != null) {
+                    if (progressStatus != null) {
+                        progressBarLoading.setIndeterminate(true);
                         textViewLoadingStatus.setVisibility(View.VISIBLE);
-                        textViewLoadingStatus.setText(text);
+                        textViewLoadingStatus.setText(progressStatus);
                     } else
                         textViewLoadingStatus.setVisibility(View.GONE);
                 }
@@ -349,6 +430,56 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             return true;
         }
         return false;
+    }
+
+    /**
+     * Set the current progress when loading data.
+     *
+     * @param progressStatus  Text to display under the progress bar with progress information.
+     * @param currentProgress The current progress to display.
+     * @param max             Progress when loading is supposedly finish.
+     * @return Boolean if the progress is well display.
+     */
+    public boolean setLoadingProgress(final String progressStatus, final int currentProgress, final int max) {
+        if (textViewLoadingStatus != null) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (progressStatus != null) {
+                        progressBarLoading.setIndeterminate(false);
+                        progressBarLoading.setMax(max);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            progressBarLoading.setProgress(currentProgress, true);
+                        } else {
+                            progressBarLoading.setProgress(currentProgress);
+                        }
+                        textViewLoadingStatus.setVisibility(View.VISIBLE);
+                        textViewLoadingStatus.setText(progressStatus);
+                    } else
+                        textViewLoadingStatus.setVisibility(View.GONE);
+                }
+            });
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Set the current progress when loading data.
+     *
+     * @param currentProgress The current progress to display.
+     * @param max             Progress when loading is supposedly finish.
+     * @return Boolean if the progress is well display.
+     */
+    public boolean setLoadingProgress(final int currentProgress, final int max) {
+        String progress = "Loading page " + String.valueOf(currentProgress);
+        if (max >= 0)
+            progress += " " + "on" + " " + String.valueOf(max);
+        else
+            progress += " " + "on" + " " + "undetermined";
+        return setLoadingProgress(progress, currentProgress, max);
     }
 
     /**
@@ -369,7 +500,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         setNoHamburger(toolbar);
     }
 
-    public void setNoHamburger(Toolbar toolbar) {
+    private void setNoHamburger(Toolbar toolbar) {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -423,18 +554,18 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      * <p>
      * This method is run on a Thread, so you can make API calls and other long stuff.
      *
-     * @return Return true if something append on this method.
+     * @return Return StatusCode of what appending.
      */
-    abstract public boolean getDataOnOtherThread();
+    abstract public StatusCode getDataOnOtherThread();
 
     /**
      * Triggered when the activity start.
      * <p>
      * This method is run on main Thread, so you can make api call.
      *
-     * @return Return true if something append on this method, if false -> the activity run {@link BasicActivity#getDataOnOtherThread()}.
+     * @return Return StatusCode of what appending {@link BasicActivity#getDataOnOtherThread()}.
      */
-    abstract public boolean getDataOnMainThread();
+    abstract public StatusCode getDataOnMainThread();
 
     /**
      * Use to get the text on the toolbar, triggered when the activity start and after {@link BasicActivity#getDataOnOtherThread()} (only if it return true).
@@ -454,4 +585,23 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      * @return A simple text to display on screen, may return null;
      */
     abstract public String getEmptyText();
+
+    protected enum StatusCode {
+        /**
+         * When a error obscure.
+         */
+        ERROR,
+        /**
+         * When noting to display.
+         */
+        EMPTY,
+        /**
+         * When getting data is finish.
+         */
+        FINISH,
+        /**
+         * When need to get more data (on the otherThread).
+         */
+        CONTINUE
+    }
 }

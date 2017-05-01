@@ -64,15 +64,19 @@ public class TimeActivity extends BasicActivity {
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
         campusList = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
-        return !(campusList == null || campusList.size() == 0);
+        if (campusList == null || campusList.size() == 0)
+            return StatusCode.ERROR;
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
+    public StatusCode getDataOnMainThread() {
         campusList = CacheCampus.get(app.cacheSQLiteHelper);
-        return !(campusList == null || campusList.size() == 0);
+        if (campusList == null || campusList.size() == 0)
+            return StatusCode.CONTINUE;
+        return StatusCode.FINISH;
     }
 
     @Override

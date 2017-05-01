@@ -85,24 +85,28 @@ public class TopicActivity
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
-        String b = getIntent().getStringExtra(INTENT_TOPIC_JSON);
+    public StatusCode getDataOnOtherThread() {
+        String json = getIntent().getStringExtra(INTENT_TOPIC_JSON);
 
-        if (b != null) {
-            Topics topics = ServiceGenerator.getGson().fromJson(b, Topics.class);
+        if (json != null) {
+            Topics topics = ServiceGenerator.getGson().fromJson(json, Topics.class);
             if (topics != null && topics.id != 0) {
                 topic = Topic.get(this, app.getApiService(), topics);
-                return true;
+                if (topic == null)
+                    return StatusCode.ERROR;
+                return StatusCode.FINISH;
             }
         }
 
         topic = Topic.get(this, app.getApiService(), id);
-        return true;
+        if (topic == null)
+            return StatusCode.ERROR;
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
-        return false;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.CONTINUE;
     }
 
     @Override

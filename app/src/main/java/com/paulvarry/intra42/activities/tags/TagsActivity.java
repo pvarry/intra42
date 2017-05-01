@@ -63,22 +63,24 @@ public class TagsActivity
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
         if (tag == null) {
             try {
                 Response<Tags> call = app.getApiService().getTag(tagId).execute();
                 if (call.isSuccessful())
                     tag = call.body();
+                else
+                    return StatusCode.ERROR;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return true;
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
-        return false;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.CONTINUE;
     }
 
     @Override

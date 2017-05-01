@@ -56,18 +56,22 @@ public class MarvinMealsActivity extends BasicActivity {
      * @return Return true if something append on this method.
      */
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
 
         try {
             Response<List<MarvinMeals>> response = app.getApiServiceCantina().getMeals().execute();
-            if (response.isSuccessful())
+            if (response.isSuccessful()) {
                 marvinMealList = response.body();
-            return true;
+                if (marvinMealList == null || marvinMealList.isEmpty())
+                    return StatusCode.EMPTY;
+                else return StatusCode.FINISH;
+            } else
+                return StatusCode.ERROR;
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return false;
+        return StatusCode.ERROR;
     }
 
     /**
@@ -78,8 +82,8 @@ public class MarvinMealsActivity extends BasicActivity {
      * @return Return true if something append on this method, if false -> the activity run {@link BasicActivity#getDataOnOtherThread()}.
      */
     @Override
-    public boolean getDataOnMainThread() {
-        return false;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.CONTINUE;
     }
 
     /**

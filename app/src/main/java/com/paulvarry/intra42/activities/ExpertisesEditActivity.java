@@ -46,15 +46,19 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
 
         expertisesList = ExpertisesUsers.getExpertisesUsers(app.getApiService(), app.me);
-        return expertisesList != null && expertisesList.size() != 0;
+
+        if (expertisesList != null && expertisesList.size() != 0)
+            return StatusCode.FINISH;
+        else
+            return StatusCode.EMPTY;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
-        return false;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.CONTINUE;
     }
 
     @Override

@@ -197,7 +197,7 @@ public class ProjectActivity extends BasicTabActivity
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
         ApiService apiService = app.getApiService();
 
         if (idProjectUser != 0)
@@ -236,12 +236,12 @@ public class ProjectActivity extends BasicTabActivity
 //            }
 //
 //        }
-        return true;
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
-        return false;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.CONTINUE;
     }
 
     @Override

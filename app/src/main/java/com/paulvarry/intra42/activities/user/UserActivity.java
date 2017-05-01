@@ -372,7 +372,7 @@ public class UserActivity extends BasicTabActivity
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
         if (login != null) {
             if (user == null) {
                 ApiService service = app.getApiService();
@@ -382,7 +382,7 @@ public class UserActivity extends BasicTabActivity
                     if (ret.code() == 200)
                         user = ret.body();
                     else
-                        return false;
+                        return StatusCode.ERROR;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -391,28 +391,28 @@ public class UserActivity extends BasicTabActivity
                 userCursus = user.cursusUsers.get(0);
             }
         }
-        return true;
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
+    public StatusCode getDataOnMainThread() {
         if (user != null)
-            return true;
+            return StatusCode.FINISH;
         if (app == null)
-            return false;
+            return StatusCode.ERROR;
 
         if (app.me != null && login != null && login.contentEquals(app.me.login)) {
             user = app.me;
-            return true;
+            return StatusCode.FINISH;
         }
 
         Users tmp = CacheUsers.get(app.cacheSQLiteHelper, login);
         if (tmp != null) {
             user = tmp;
-            return true;
+            return StatusCode.FINISH;
         }
 
-        return false;
+        return StatusCode.CONTINUE;
     }
 
     @Override

@@ -113,10 +113,10 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
 
         if (list == null)
-            return true;
+            return StatusCode.EMPTY;
 
         String searchOn = "";
         String separator = "";
@@ -137,12 +137,12 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
-        return false;
+    public StatusCode getDataOnMainThread() {
+        return StatusCode.CONTINUE;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Topics;
+import com.paulvarry.intra42.utils.AppSettings;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,12 +25,17 @@ public class Topic {
         Call<Topics> callTopic = service.getTopic(id);
         Call<List<Messages>> callMessages = service.getTopicMessages(id);
         try {
-            activity.setLoadingStatus("loading topic 1/2 ...");
+            String info = "Loading topic";
+            if (AppSettings.Advanced.getAllowAdvancedData(activity))
+                info += " n°" + String.valueOf(id);
+            info += " …";
+            activity.setLoadingInfo(info);
+            activity.setLoadingProgress("loading topic 1/2 …", 0, 2);
             retrofit2.Response<Topics> retTopic = callTopic.execute();
-            activity.setLoadingStatus("loading reply 2/2 ...");
+            activity.setLoadingProgress("loading reply 2/2 …", 1, 2);
             retrofit2.Response<List<Messages>> retMessages = callMessages.execute();
-            activity.setLoadingStatus("finishing");
-            if (!(retMessages.code() == 200 && retTopic.code() == 200))
+            activity.setLoadingProgress("finishing", 2, 2);
+            if (retMessages.code() != 200 || retTopic.code() != 200)
                 return null;
             topic.topic = retTopic.body();
             topic.messages = retMessages.body();
@@ -46,9 +52,14 @@ public class Topic {
 
         Call<List<Messages>> callMessages = service.getTopicMessages(topics.id);
         try {
-            activity.setLoadingStatus("loading reply 1/1 ...");
+            String info = "Loading topic";
+            if (AppSettings.Advanced.getAllowAdvancedData(activity))
+                info += " n°" + String.valueOf(topics.id);
+            info += " …";
+            activity.setLoadingInfo(info);
+            activity.setLoadingProgress("loading reply …");
             retrofit2.Response<List<Messages>> retMessages = callMessages.execute();
-            activity.setLoadingStatus("finishing");
+            activity.setLoadingProgress("finishing");
             if (!(retMessages.code() == 200))
                 return null;
             topic.topic = topics;

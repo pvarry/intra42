@@ -72,15 +72,19 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     }
 
     @Override
-    public boolean getDataOnOtherThread() {
+    public StatusCode getDataOnOtherThread() {
 
         final List<Locations> locationsTmp = new ArrayList<>();
         campusId = AppSettings.getAppCampus(app);
         if (!(campusId == 1 || campusId == 7))
-            return false;
+            return StatusCode.EMPTY;
+
+        setLoadingInfo("Loading locations …");
+        setLoadingProgress(0, -1);
 
         int page = 1;
-        int pageSize = 100;
+        int pageSize = 10;
+        int pageMax;
         try {
             while (true) {
 
@@ -88,9 +92,9 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
                 if (r.isSuccessful()) {
                     locationsTmp.addAll(r.body());
                     if (r.body().size() == pageSize) {
+                        pageMax = (int) Math.ceil(Double.parseDouble(r.headers().get("X-Total")) / pageSize);
+                        setLoadingProgress(page, pageMax);
                         page++;
-                        final int finalPage = page;
-                        setLoadingStatus("page " + String.valueOf(finalPage));
                     } else
                         break;
                 } else
@@ -105,11 +109,11 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             locations.put(l.host, l.user);
         }
 
-        return true;
+        return StatusCode.FINISH;
     }
 
     @Override
-    public boolean getDataOnMainThread() {
+    public BasicActivity.StatusCode getDataOnMainThread() {
 
         List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
         if (campusCache != null) {
@@ -119,7 +123,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             }
         }
 
-        return false;
+        return StatusCode.CONTINUE;
     }
 
     @Override
