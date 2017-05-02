@@ -26,6 +26,7 @@ import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
 import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.cache.CacheUsers;
+import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
@@ -145,16 +146,27 @@ public class AppClass extends Application {
     }
 
     /**
-     * Method to init some data for user (/me, cursus, campus).
+     * Method to init some data for user (/me, cursus, campus, tags).
      *
      * @return status
      */
     public boolean initCache(boolean forceAPI) {
+        return initCache(forceAPI, null);
+    }
+
+    /**
+     * Method to init some data for user (/me, cursus, campus, tags).
+     *
+     * @return status
+     */
+    public boolean initCache(boolean forceAPI, RefreshCallbackMainActivity refreshStatus) {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         ApiService api = getApiService();
 
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
+        if (refreshStatus != null)
+            refreshStatus.update("Get cache …", "current user", 1, 6);
 
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = Users.me(api);
@@ -171,9 +183,17 @@ public class AppClass extends Application {
             cursus = me.cursusUsers;
             initFirebase();
 
+            if (refreshStatus != null)
+                refreshStatus.update(null, "cursus", 1, 6);
             CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
+            if (refreshStatus != null)
+                refreshStatus.update(null, "campus", 2, 6);
             CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
+            if (refreshStatus != null)
+                refreshStatus.update(null, "tags", 3, 6);
             CacheTags.getAllowInternet(cacheSQLiteHelper, this);
+            if (refreshStatus != null)
+                refreshStatus.update(null, "finishing", 6, 6);
             //TODO: add integration to force use API with a cache manager in the UI !!
             editor.apply();
             return true;

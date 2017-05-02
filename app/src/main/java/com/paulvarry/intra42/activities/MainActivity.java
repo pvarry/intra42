@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
+import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     public AppClass app;
     private LinearLayout linearLayoutNeedLogin;
-    private TextView textViewLoading;
+    private TextView textViewLoadingInfo;
+    private ProgressBar progressBarLoading;
+    private TextView textViewStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
         AppClass.scheduleAlarm(this);
 
         linearLayoutNeedLogin = (LinearLayout) findViewById(R.id.linearLayoutNeedLogin);
-        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
+        textViewLoadingInfo = (TextView) findViewById(R.id.textViewLoadingInfo);
+        progressBarLoading = (ProgressBar) findViewById(R.id.progressBarLoading);
+        textViewStatus = (TextView) findViewById(R.id.textViewStatus);
 
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT))// oauth callback
@@ -90,13 +96,22 @@ public class MainActivity extends AppCompatActivity {
             setViewLogin();
     }
 
-    private void setViewLoading() {
-        textViewLoading.setVisibility(View.VISIBLE);
+    private void setViewHide() {
+        textViewLoadingInfo.setVisibility(View.GONE);
+        textViewStatus.setVisibility(View.GONE);
+        progressBarLoading.setVisibility(View.GONE);
         linearLayoutNeedLogin.setVisibility(View.GONE);
     }
 
+    private void setViewLoading() {
+        setViewHide();
+        textViewLoadingInfo.setVisibility(View.VISIBLE);
+        textViewStatus.setVisibility(View.VISIBLE);
+        progressBarLoading.setVisibility(View.VISIBLE);
+    }
+
     private void setViewLogin() {
-        textViewLoading.setVisibility(View.GONE);
+        setViewHide();
         linearLayoutNeedLogin.setVisibility(View.VISIBLE);
     }
 
@@ -125,7 +140,24 @@ public class MainActivity extends AppCompatActivity {
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    app.initCache(true);
+                                    app.initCache(true, new RefreshCallbackMainActivity() {
+                                        @Override
+                                        public void update(final String info, final String status, final int progress, final int progressMax) {
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    if (info != null)
+                                                        textViewLoadingInfo.setText(info);
+                                                    if (status != null)
+                                                        textViewStatus.setText(status);
+                                                    progressBarLoading.setIndeterminate(false);
+                                                    progressBarLoading.setProgress(progress);
+                                                    if (progressMax != -1)
+                                                        progressBarLoading.setMax(progressMax);
+                                                }
+                                            });
+                                        }
+                                    });
 
                                     final Intent intent = new Intent(getApplication(), HomeActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

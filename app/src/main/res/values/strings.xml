@@ -158,7 +158,7 @@
     <string name="login_student_42_fr" translatable="false">login@student.42.fr</string>
     <string name="action_open_intra">Show web version</string>
     <string name="open_chrome">Open Web browser</string>
-    <string name="main_activity_loading">loading . . .</string>
+    <string name="main_activity_loading">loading …</string>
     <string name="unofficial_intra" translatable="false">Unofficial intra</string>
     <string name="announcements">Announcements</string>
     <string name="user_profile_image" translatable="false">user profile image</string>
