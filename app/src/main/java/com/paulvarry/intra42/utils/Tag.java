@@ -25,24 +25,36 @@ public class Tag {
         String str;
         int color;
         switch (event.kind) {
-            case "conference":
+            case CONFERENCE:
                 str = "conf";
                 color = -16729412;
                 break;
-            case "other":
+            case OTHER:
                 str = "other";
                 color = -4144960;
                 break;
-            case "atelier":
+            case EXTERN:
+                str = "extern";
+                color = -4144960;
+                break;
+            case ATELIER:
                 str = "atelier";
                 color = -6432158;
                 break;
-            case "meet_up":
+            case MEET_UP:
                 str = "meet up";
                 color = -6114331;
                 break;
+            case HACKATHON:
+                str = "hackathon";
+                color = Color.parseColor("#39D88F");
+                break;
+            case WORKSHOP:
+                str = "workshop";
+                color = Color.parseColor("#39D88F");
+                break;
             default:
-                str = event.kind;
+                str = String.valueOf(event.kind);
                 color = -16729412;
         }
 
@@ -52,14 +64,20 @@ public class Tag {
 
     public static int getTagColor(Events event) {
         switch (event.kind) {
-            case "conference":
+            case CONFERENCE:
                 return -16729412;
-            case "other":
+            case OTHER:
                 return -4144960;
-            case "atelier":
+            case EXTERN:
+                return -4144960;
+            case ATELIER:
                 return -6432158;
-            case "meet_up":
+            case MEET_UP:
                 return -6114331;
+            case HACKATHON:
+                return Color.parseColor("#39D88F");
+            case WORKSHOP:
+                return Color.parseColor("#39D88F");
             default:
                 return -16729412;
         }

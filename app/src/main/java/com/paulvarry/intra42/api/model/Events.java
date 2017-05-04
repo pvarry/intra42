@@ -28,7 +28,7 @@ public class Events {
     @SerializedName(API_LOCATION)
     public String location;
     @SerializedName(API_KIND)
-    public String kind;
+    public EventKind kind;
     @SerializedName(API_MAX_PEOPLE)
     public int maxPeople;
     @SerializedName(API_NBR_SUBSCRIBERS)
@@ -41,5 +41,16 @@ public class Events {
     public List<Integer> campus;
     @SerializedName(API_CURSUS_IDS)
     public List<Integer> cursus;
+
+    public enum EventKind {
+        @SerializedName("conference")CONFERENCE,
+        @SerializedName("meet_up")MEET_UP,
+        @SerializedName("extern")EXTERN,
+        @SerializedName("hackathon")HACKATHON,
+        @SerializedName("workshop")WORKSHOP,
+        @SerializedName("event")EVENT,
+        @SerializedName("atelier")ATELIER,
+        @SerializedName("other")OTHER
+    }
 
 }

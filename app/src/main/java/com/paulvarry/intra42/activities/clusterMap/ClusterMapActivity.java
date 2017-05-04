@@ -83,7 +83,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         setLoadingProgress(0, -1);
 
         int page = 1;
-        int pageSize = 10;
+        int pageSize = 100;
         int pageMax;
         try {
             while (true) {
