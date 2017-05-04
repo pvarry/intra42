@@ -240,8 +240,7 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
         else
             buttonSubscribe.setText(R.string.unsubscribe);
 
-        if ((eventsUsers != null && eventsUsers.event.nbrSubscribers >= eventsUsers.event.maxPeople) ||
-                (eventsUsers == null && event.nbrSubscribers >= event.maxPeople)) {
+        if (eventsUsers == null && event.nbrSubscribers >= event.maxPeople) {
 
             if (event.maxPeople == 0)
                 buttonSubscribe.setText(R.string.subscription_unavailable);
