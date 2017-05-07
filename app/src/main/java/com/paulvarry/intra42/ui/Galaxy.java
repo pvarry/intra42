@@ -608,10 +608,10 @@ public class Galaxy extends View {
         float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
         float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
 
-        return clickX >= x &&
-                clickX <= x + width &&
-                clickY >= y &&
-                clickY <= y + height;
+        return clickX >= x - width / 2 &&
+                clickX <= x + width / 2 &&
+                clickY >= y - height / 2 &&
+                clickY <= y + height / 2;
     }
 
     boolean ptInsideRectRush(float clickX, float clickY, ProjectDataIntra projectData) {
@@ -622,10 +622,10 @@ public class Galaxy extends View {
         float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
         float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
 
-        return clickX >= x &&
-                clickX <= x + width &&
-                clickY >= y &&
-                clickY <= y + height;
+        return clickX >= x - width / 2 &&
+                clickX <= x + width / 2 &&
+                clickY >= y - height / 2 &&
+                clickY <= y + height / 2;
     }
 
     public interface OnProjectClickListener {
