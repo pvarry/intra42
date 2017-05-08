@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -250,9 +249,7 @@ public class Galaxy extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Rect c = canvas.getClipBounds();
-
-        canvas.drawRect(c, mPaintBackground);
+        canvas.drawPaint(mPaintBackground);
 
         if (data == null)
             return;
@@ -433,7 +430,7 @@ public class Galaxy extends View {
 
             int i = 0;
             while (true) {
-                posToCut = splitAt(tmpText, posToCut);
+                posToCut = TextCalculator.splitAt(tmpText, posToCut);
                 if (posToCut == -1) {
                     textToDraw.add(tmpText);
                     break;
@@ -464,43 +461,6 @@ public class Galaxy extends View {
                     heightTextDraw,
                     paintText);
         }
-
-    }
-
-    private int splitAt(String stringToSplit, int posSplit) {
-
-        if (posSplit < 0 || stringToSplit == null || stringToSplit.length() <= posSplit)
-            return -1;
-
-        if (isSplitableChar(stringToSplit.charAt(posSplit)))
-            return posSplit;
-
-        int stringLength = stringToSplit.length();
-        int searchShift = 0;
-
-        boolean pursueBefore = true;
-        boolean pursueAfter = true;
-        while (pursueBefore || pursueAfter) {
-
-            if (pursueBefore && posSplit - searchShift >= 0) {
-                if (isSplitableChar(stringToSplit.charAt(posSplit - searchShift)))
-                    return posSplit - searchShift;
-            } else
-                pursueBefore = false;
-            if (pursueAfter && posSplit + searchShift < stringLength) {
-                if (isSplitableChar(stringToSplit.charAt(posSplit + searchShift)))
-                    return posSplit + searchShift;
-            } else
-                pursueAfter = false;
-
-            searchShift++;
-        }
-
-        return -1;
-    }
-
-    boolean isSplitableChar(char c) {
-        return c == ' ' || c == '-' || c == '_';
 
     }
 
@@ -628,8 +588,50 @@ public class Galaxy extends View {
                 clickY <= y + height / 2;
     }
 
+    /* ********** interfaces and classes ********** */
+
     public interface OnProjectClickListener {
         void onClick(ProjectDataIntra projectData);
+    }
+
+    private static class TextCalculator {
+
+        private static int splitAt(String stringToSplit, int posSplit) {
+
+            if (posSplit < 0 || stringToSplit == null || stringToSplit.length() <= posSplit)
+                return -1;
+
+            if (isSplittableChar(stringToSplit.charAt(posSplit)))
+                return posSplit;
+
+            int stringLength = stringToSplit.length();
+            int searchShift = 0;
+
+            boolean pursueBefore = true;
+            boolean pursueAfter = true;
+            while (pursueBefore || pursueAfter) {
+
+                if (pursueBefore && posSplit - searchShift >= 0) {
+                    if (isSplittableChar(stringToSplit.charAt(posSplit - searchShift)))
+                        return posSplit - searchShift;
+                } else
+                    pursueBefore = false;
+                if (pursueAfter && posSplit + searchShift < stringLength) {
+                    if (isSplittableChar(stringToSplit.charAt(posSplit + searchShift)))
+                        return posSplit + searchShift;
+                } else
+                    pursueAfter = false;
+
+                searchShift++;
+            }
+
+            return -1;
+        }
+
+        static boolean isSplittableChar(char c) {
+            return c == ' ' || c == '-' || c == '_';
+
+        }
     }
 
     /**
