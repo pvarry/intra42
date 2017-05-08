@@ -35,7 +35,7 @@ import retrofit2.Callback;
 
 public class TopicActivity
         extends BasicActivity
-        implements AdapterView.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+        implements AdapterView.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, BasicActivity.GetDataOnThread {
 
     private final static String INTENT_ID = "intent_topic_id";
     private final static String INTENT_TOPIC_JSON = "intent_topic_json";
@@ -72,6 +72,9 @@ public class TopicActivity
         id = getIntent().getIntExtra(INTENT_ID, 0);
 
         super.setSelectedMenu(Navigation.MENU_SELECTED_FORUM);
+
+        registerGetDataOnOtherThread(this);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -102,11 +105,6 @@ public class TopicActivity
         if (topic == null)
             return StatusCode.ERROR;
         return StatusCode.FINISH;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.CONTINUE;
     }
 
     @Override

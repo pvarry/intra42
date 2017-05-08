@@ -21,15 +21,6 @@ public class NotionsActivity
         super.onCreate(savedInstanceState);
     }
 
-    public StatusCode getDataOnOtherThread() {
-        return StatusCode.FINISH;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.FINISH;
-    }
-
     @Override
     public String getToolbarName() {
         return null;

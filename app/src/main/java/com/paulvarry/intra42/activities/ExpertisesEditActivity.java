@@ -29,13 +29,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ExpertisesEditActivity extends BasicActivity implements View.OnClickListener {
+public class ExpertisesEditActivity extends BasicActivity implements View.OnClickListener, BasicActivity.GetDataOnThread {
 
     List<ExpertisesUsers> expertisesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.setContentView(R.layout.activity_expertises_edit);
+
+        registerGetDataOnOtherThread(this);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -54,11 +57,6 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
             return StatusCode.FINISH;
         else
             return StatusCode.EMPTY;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.CONTINUE;
     }
 
     @Override

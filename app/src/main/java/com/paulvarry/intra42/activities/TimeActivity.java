@@ -16,7 +16,7 @@ import com.paulvarry.intra42.ui.BasicActivity;
 
 import java.util.List;
 
-public class TimeActivity extends BasicActivity {
+public class TimeActivity extends BasicActivity implements BasicActivity.GetDataOnThread, BasicActivity.GetDataOnMain {
 
     private final Handler timerHandler = new Handler();
     private GridAdapterTimeTool adapterTimeTool;
@@ -42,6 +42,10 @@ public class TimeActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.setContentView(R.layout.activity_content_time);
         super.activeHamburger();
+
+        registerGetDataOnOtherThread(this);
+        registerGetDataOnMainTread(this);
+
         super.onCreate(savedInstanceState);
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(1).setChecked(true);

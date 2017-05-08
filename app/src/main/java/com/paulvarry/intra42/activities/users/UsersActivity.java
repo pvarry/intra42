@@ -30,16 +30,6 @@ public class UsersActivity
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
-        return StatusCode.FINISH;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.FINISH;
-    }
-
-    @Override
     public String getToolbarName() {
         return null;
     }

@@ -17,7 +17,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class MarvinMealsActivity extends BasicActivity {
+public class MarvinMealsActivity extends BasicActivity implements BasicActivity.GetDataOnThread {
 
     List<MarvinMeals> marvinMealList;
 
@@ -30,6 +30,9 @@ public class MarvinMealsActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.setContentView(R.layout.activity_marvin_meal);
         super.activeHamburger();
+
+        registerGetDataOnOtherThread(this);
+
         super.onCreate(savedInstanceState);
 
         MenuItem menuItem = navigationView.getMenu().getItem(5).getSubMenu().getItem(3);
@@ -72,18 +75,6 @@ public class MarvinMealsActivity extends BasicActivity {
         }
 
         return StatusCode.ERROR;
-    }
-
-    /**
-     * Triggered when the activity start.
-     * <p>
-     * This method is run on main Thread, so you can make api call.
-     *
-     * @return Return true if something append on this method, if false -> the activity run {@link BasicActivity#getDataOnOtherThread()}.
-     */
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.CONTINUE;
     }
 
     /**

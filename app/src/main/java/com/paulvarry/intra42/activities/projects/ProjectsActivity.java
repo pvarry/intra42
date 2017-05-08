@@ -39,16 +39,6 @@ public class ProjectsActivity extends BasicTabActivity
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
-        return StatusCode.FINISH;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.FINISH;
-    }
-
-    @Override
     public String getToolbarName() {
         return getString(R.string.projects);
     }

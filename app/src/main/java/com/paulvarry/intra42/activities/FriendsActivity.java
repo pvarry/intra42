@@ -36,7 +36,7 @@ import java.util.Set;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class FriendsActivity extends BasicActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class FriendsActivity extends BasicActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, BasicActivity.GetDataOnThread {
 
     List<UsersLTE> list;
     HashMap<String, Locations> locations;
@@ -94,6 +94,8 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_friends);
         activeHamburger();
 
+        registerGetDataOnOtherThread(this);
+
         super.onCreate(savedInstanceState);
 
 /*        if (app.firebaseRefFriends != null)
@@ -138,11 +140,6 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             e.printStackTrace();
         }
         return StatusCode.FINISH;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.CONTINUE;
     }
 
     @Override

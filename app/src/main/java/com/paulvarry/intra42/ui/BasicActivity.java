@@ -70,6 +70,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private int resContentId;
     private boolean activeHamburger = false;
 
+    private GetDataOnMain getDataOnMain;
+    private GetDataOnThread getDataOnTread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,20 +137,23 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
     protected void refresh() {
 
-        StatusCode statusDataOnMain = getDataOnMainThread();
-        if (statusDataOnMain == StatusCode.FINISH)
-            setView();
-        else if (statusDataOnMain == StatusCode.ERROR)
-            setViewError();
-        else if (statusDataOnMain == StatusCode.EMPTY)
-            setViewEmpty();
-        else {
+        if (getDataOnMain != null) {
+            StatusCode statusDataOnMain = getDataOnMain.getDataOnMainThread();
+
+            if (statusDataOnMain == StatusCode.FINISH)
+                setView();
+            else if (statusDataOnMain == StatusCode.ERROR)
+                setViewError();
+            else if (statusDataOnMain == StatusCode.EMPTY)
+                setViewEmpty();
+        }
+        if (getDataOnTread != null) {
             setViewLoading();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 
-                    final StatusCode statusDataOnThread = getDataOnOtherThread();
+                    final StatusCode statusDataOnThread = getDataOnTread.getDataOnOtherThread();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -163,6 +169,8 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                 }
             }).start();
         }
+        if (getDataOnMain == null && getDataOnTread == null)
+            setView();
     }
 
     @Override
@@ -550,25 +558,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     }
 
     /**
-     * Triggered when the activity start, after {@link BasicActivity#getDataOnMainThread()}.
-     * <p>
-     * This method is run on a Thread, so you can make API calls and other long stuff.
-     *
-     * @return Return StatusCode of what appending.
-     */
-    abstract public StatusCode getDataOnOtherThread();
-
-    /**
-     * Triggered when the activity start.
-     * <p>
-     * This method is run on main Thread, so you can make api call.
-     *
-     * @return Return StatusCode of what appending {@link BasicActivity#getDataOnOtherThread()}.
-     */
-    abstract public StatusCode getDataOnMainThread();
-
-    /**
-     * Use to get the text on the toolbar, triggered when the activity start and after {@link BasicActivity#getDataOnOtherThread()} (only if it return true).
+     * Use to get the text on the toolbar, triggered when the activity start and after {@link GetDataOnThread#getDataOnOtherThread()} (only if it return true).
      *
      * @return Return the text on the toolbar.
      */
@@ -580,11 +570,19 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     abstract public void setViewContent();
 
     /**
-     * This text is useful when both {@link com.paulvarry.intra42.ui.BasicActivity#getDataOnMainThread()} and {@link com.paulvarry.intra42.ui.BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */
     abstract public String getEmptyText();
+
+    public void registerGetDataOnMainTread(GetDataOnMain getDataOnMain) {
+        this.getDataOnMain = getDataOnMain;
+    }
+
+    public void registerGetDataOnOtherThread(GetDataOnThread getDataOnTread) {
+        this.getDataOnTread = getDataOnTread;
+    }
 
     protected enum StatusCode {
         /**
@@ -603,5 +601,27 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
          * When need to get more data (on the otherThread).
          */
         CONTINUE
+    }
+
+    public interface GetDataOnMain {
+        /**
+         * Triggered when the activity start.
+         * <p>
+         * This method is run on main Thread, so you can make api call.
+         *
+         * @return Return StatusCode of what appending {@link GetDataOnThread#getDataOnOtherThread()}.
+         */
+        StatusCode getDataOnMainThread();
+    }
+
+    public interface GetDataOnThread {
+        /**
+         * Triggered when the activity start.
+         * <p>
+         * This method is run on main Thread, so you can make api call.
+         *
+         * @return Return StatusCode of what appending {@link BasicActivity.GetDataOnMain#getDataOnMainThread()}.
+         */
+        StatusCode getDataOnOtherThread();
     }
 }

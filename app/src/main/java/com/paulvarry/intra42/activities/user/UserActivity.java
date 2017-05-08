@@ -50,7 +50,7 @@ public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
         UserProjectsDoingFragment.OnFragmentInteractionListener, UserSkillsFragment.OnFragmentInteractionListener,
         UserAchievementsFragment.OnFragmentInteractionListener, UserForumFragment.OnFragmentInteractionListener,
-        UserExpertisesFragment.OnFragmentInteractionListener {
+        UserExpertisesFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
 
     private static final String INTENT_USER_LTE = "user_lte";
     private static final String INTENT_USER_FULL = "user_full";
@@ -227,6 +227,9 @@ public class UserActivity extends BasicTabActivity
         }
 
         user = (Users) getLastCustomNonConfigurationInstance();
+
+        registerGetDataOnOtherThread(this);
+        registerGetDataOnMainTread(this);
 
         super.onCreate(savedInstanceState);
         if (user == null && login == null)

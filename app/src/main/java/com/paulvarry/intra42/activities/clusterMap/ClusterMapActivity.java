@@ -24,7 +24,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener {
+public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
 
     HashMap<String, UsersLTE> locations;
     List<Campus> campus = new ArrayList<>();
@@ -38,6 +38,9 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.activeHamburger();
+
+        registerGetDataOnOtherThread(this);
+        registerGetDataOnMainTread(this);
 
         super.onCreate(savedInstanceState);
         campusId = AppSettings.getAppCampus(app);

@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class TagsActivity
         extends BasicTabActivity
-        implements TagsForumFragment.OnFragmentInteractionListener, TagsNotionsFragment.OnFragmentInteractionListener, TagsProjectsFragment.OnFragmentInteractionListener {
+        implements TagsForumFragment.OnFragmentInteractionListener, TagsNotionsFragment.OnFragmentInteractionListener, TagsProjectsFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnThread {
 
     private static final String INTENT_TAG = "login";
     private static final String INTENT_TAG_ID = "tag_id";
@@ -59,6 +59,9 @@ public class TagsActivity
             ServiceGenerator.getGson().fromJson(intent.getStringExtra(INTENT_TAG), Tags.class);
 
         super.activeHamburger();
+
+        registerGetDataOnOtherThread(this);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -76,11 +79,6 @@ public class TagsActivity
             }
         }
         return StatusCode.FINISH;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.CONTINUE;
     }
 
     @Override

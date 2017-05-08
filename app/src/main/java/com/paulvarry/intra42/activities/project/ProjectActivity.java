@@ -27,7 +27,7 @@ import java.util.List;
 public class ProjectActivity extends BasicTabActivity
         implements ProjectOverviewFragment.OnFragmentInteractionListener, ProjectUserFragment.OnFragmentInteractionListener,
         ProjectAttachmentsFragment.OnFragmentInteractionListener, ProjectSubFragment.OnFragmentInteractionListener,
-        ProjectUsersListFragment.OnFragmentInteractionListener {
+        ProjectUsersListFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnThread {
 
     private static final String INTENT_ID_PROJECT_USER = "project_user_id";
     private static final String INTENT_ID_USER = "P_user_id";
@@ -158,6 +158,8 @@ public class ProjectActivity extends BasicTabActivity
         if (intent.hasExtra(INTENT_SLUG_USER))
             login = intent.getStringExtra(INTENT_SLUG_USER);
 
+        registerGetDataOnOtherThread(this);
+
         super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
     }
@@ -240,11 +242,6 @@ public class ProjectActivity extends BasicTabActivity
     }
 
     @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.CONTINUE;
-    }
-
-    @Override
     public String getToolbarName() {
         if (projectUser != null && projectUser.project != null)
             if (projectUser.project.isMaster())
@@ -256,11 +253,6 @@ public class ProjectActivity extends BasicTabActivity
         return null;
     }
 
-    /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
-     *
-     * @return A simple text to display on screen, may return null;
-     */
     @Override
     public String getEmptyText() {
         return null;

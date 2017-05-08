@@ -36,16 +36,6 @@ public class AboutActivity extends BasicActivity {
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
-        return StatusCode.CONTINUE;
-    }
-
-    @Override
-    public StatusCode getDataOnMainThread() {
-        return StatusCode.FINISH;
-    }
-
-    @Override
     public String getToolbarName() {
         return null;
     }
