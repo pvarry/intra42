@@ -426,6 +426,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    setViewLoading();
                     if (progressStatus != null) {
                         progressBarLoading.setIndeterminate(true);
                         textViewLoadingStatus.setVisibility(View.VISIBLE);
@@ -454,6 +455,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    setViewLoading();
                     if (progressStatus != null) {
                         progressBarLoading.setIndeterminate(false);
                         progressBarLoading.setMax(max);

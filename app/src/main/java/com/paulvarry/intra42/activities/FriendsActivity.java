@@ -36,7 +36,7 @@ import java.util.Set;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class FriendsActivity extends BasicActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, BasicActivity.GetDataOnThread {
+public class FriendsActivity extends BasicActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     List<UsersLTE> list;
     HashMap<String, Locations> locations;
@@ -44,9 +44,12 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
     GridView gridView;
     GridAdapterUsers adapter;
 
+    boolean firebaseFinished;
+
     ValueEventListener friendsEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot snapshot) {
+            firebaseFinished = true;
             GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
             };
             HashMap<String, String> messages = snapshot.getValue(t);
@@ -69,10 +72,8 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
                         return o1.login.compareTo(o2.login);
                     }
                 });
-
-                refresh();
             }
-
+            refresh();
         }
 
         @Override
@@ -90,19 +91,29 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
     }
 
     @Override
+    protected void refresh() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                setLoadingProgress("Locations", 1, 2);
+                getData();
+                setLoadingProgress("Finishing", 2, 2);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setView();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_friends);
         activeHamburger();
 
-        registerGetDataOnOtherThread(this);
-
         super.onCreate(savedInstanceState);
-
-/*        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-        else {
-            setViewError();
-        }*/
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
         gridView = (GridView) findViewById(R.id.gridView);
@@ -114,11 +125,10 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         return null;
     }
 
-    @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getData() {
 
         if (list == null)
-            return StatusCode.EMPTY;
+            return;
 
         String searchOn = "";
         String separator = "";
@@ -139,7 +149,6 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return StatusCode.FINISH;
     }
 
     @Override
@@ -149,15 +158,18 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
 
     @Override
     public void setViewContent() {
-        if (list == null || list.isEmpty()) {
+        if (!firebaseFinished)
+            setLoadingProgress("Friends", 0, 2);
+        else if (list == null)
             setViewError();
-        } else {
+        else if (!list.isEmpty()) {
             adapter = new GridAdapterUsers(this, list, locations);
             gridView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             gridView.setOnItemClickListener(this);
             gridView.setOnItemLongClickListener(this);
-        }
+        } else
+            setViewEmpty();
     }
 
     @Override
@@ -168,6 +180,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
     @Override
     public void onPause() {
         super.onPause();
+        firebaseFinished = false;
         if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.removeEventListener(friendsEventListener);
     }
