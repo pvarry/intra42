@@ -389,40 +389,32 @@ public class Galaxy extends View {
 
     private int getColor(ProjectDataIntra projectData) {
 
-        if (projectData != null)
+        if (projectData != null && projectData.state != null)
             switch (projectData.state) {
                 case DONE:
                     return colorProjectValidated;
-
                 case AVAILABLE:
                     return colorProjectAvailable;
-
                 case IN_PROGRESS:
                     return colorProjectInProgress;
-
                 case UNAVAILABLE:
                     return colorProjectUnavailable;
-
             }
         return colorProjectUnavailable;
     }
 
     private int getColorText(ProjectDataIntra projectData) {
 
-        if (projectData != null)
+        if (projectData != null && projectData.state != null)
             switch (projectData.state) {
                 case DONE:
                     return colorProjectTextValidated;
-
                 case AVAILABLE:
                     return colorProjectTextAvailable;
-
                 case IN_PROGRESS:
                     return colorProjectTextInProgress;
-
                 case UNAVAILABLE:
                     return colorProjectTextUnavailable;
-
             }
         return colorProjectTextUnavailable;
     }

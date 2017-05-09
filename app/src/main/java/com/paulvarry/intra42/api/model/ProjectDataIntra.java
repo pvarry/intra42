@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -22,6 +24,7 @@ public class ProjectDataIntra {
     private static final String API_DESCRIPTION = "description";
     private static final String API_SLUG = "slug";
 
+    @Nullable
     @SerializedName(API_STATE)
     public State state;
     @SerializedName(API_FINAL_MARK)
@@ -67,6 +70,9 @@ public class ProjectDataIntra {
         @SerializedName("exam")EXAM
     }
 
+    /**
+     * Enum of {@code FAIL, DONE, AVAILABLE, IN_PROGRESS, UNAVAILABLE}
+     */
     public enum State {
         @SerializedName("fail")FAIL,
         @SerializedName("done")DONE,

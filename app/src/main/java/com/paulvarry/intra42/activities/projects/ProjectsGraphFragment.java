@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,10 @@ import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
 import com.paulvarry.intra42.ui.Galaxy;
+import com.paulvarry.intra42.utils.ProjectUserStatus;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -76,6 +79,36 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
         Type listType = new TypeToken<ArrayList<ProjectDataIntra>>() {
         }.getType();
         List<ProjectDataIntra> list = gson.fromJson(data, listType);
+
+        SparseArray<ProjectsUsers> project = new SparseArray<>();
+        for (ProjectsUsers p : activity.app.me.projectsUsers) {
+            project.put(p.project.id, p);
+        }
+
+        for (ProjectDataIntra p : list) {
+            ProjectsUsers projectsUsers = project.get(p.projectId);
+
+            if (projectsUsers == null) {
+                p.state = null;
+                p.finalMark = null;
+                continue;
+            }
+            p.finalMark = projectsUsers.finalMark;
+            if (projectsUsers.status.equals(ProjectUserStatus.FINISHED)) {
+                if (projectsUsers.validated != null && projectsUsers.validated)
+                    p.state = ProjectDataIntra.State.DONE;
+                else
+                    p.state = ProjectDataIntra.State.FAIL;
+            } else if (projectsUsers.status.contentEquals(ProjectUserStatus.CREATING_GROUP) ||
+                    projectsUsers.status.contentEquals(ProjectUserStatus.IN_PROGRESS) ||
+                    projectsUsers.status.contentEquals(ProjectUserStatus.SEARCHING_A_GROUP) ||
+                    projectsUsers.status.contentEquals(ProjectUserStatus.WAITING_FOR_CORRECTION) ||
+                    projectsUsers.status.contentEquals(ProjectUserStatus.WAITING_TO_START))
+                p.state = ProjectDataIntra.State.IN_PROGRESS;
+            else
+                p.state = ProjectDataIntra.State.IN_PROGRESS;
+
+        }
 
         Galaxy galaxy = (Galaxy) view.findViewById(R.id.galaxy);
         galaxy.setData(list);

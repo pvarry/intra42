@@ -30,17 +30,17 @@ public class BottomSheetProjectsGalaxyFragment extends BottomSheetDialogFragment
 
     ProjectDataIntra projectData;
 
+    public static void openIt(FragmentActivity activity, ProjectDataIntra item) {
+        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item);
+        bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+    }
+
     public static BottomSheetProjectsGalaxyFragment newInstance(ProjectDataIntra projectData) {
         BottomSheetProjectsGalaxyFragment fragment = new BottomSheetProjectsGalaxyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PROJECT, ServiceGenerator.getGson().toJson(projectData));
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public static void openIt(FragmentActivity activity, ProjectDataIntra item) {
-        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item);
-        bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
     @Override
@@ -74,11 +74,13 @@ public class BottomSheetProjectsGalaxyFragment extends BottomSheetDialogFragment
         buttonOpen.setOnClickListener(this);
         textViewTitle.setText(projectData.name);
 
-        String state = "";
-        if (projectData.state == ProjectDataIntra.State.DONE)
-            state += getString(R.string.succeeded);
+        String state;
+        if (projectData.state == null)
+            state = getString(R.string.unknown_state);
+        else if (projectData.state == ProjectDataIntra.State.DONE)
+            state = getString(R.string.succeeded);
         else if (projectData.state == ProjectDataIntra.State.FAIL)
-            state += getString(R.string.failed);
+            state = getString(R.string.failed);
         else if (projectData.state == ProjectDataIntra.State.IN_PROGRESS)
             state = getString(R.string.in_progress);
         else if (projectData.state == ProjectDataIntra.State.AVAILABLE)
