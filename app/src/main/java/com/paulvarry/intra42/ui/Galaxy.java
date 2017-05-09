@@ -42,11 +42,18 @@ public class Galaxy extends View {
     private int colorProjectTextValidated;
     private int colorProjectTextInProgress;
     private int colorProjectTextFailed;
+    /**
+     * Data for current Galaxy.
+     */
     private List<ProjectDataIntra> data;
     private GestureDetector mGestureDetector;
     private Scroller mScroller;
     private ValueAnimator mScrollAnimator;
     private ScaleGestureDetector mScaleDetector;
+
+    /**
+     * Current scale factor.
+     */
     private float mScaleFactor = 1f;
     private Paint mPaintBackground;
     private Paint mPaintPath;
@@ -54,12 +61,31 @@ public class Galaxy extends View {
     private Paint mPaintText;
     private float posY;
     private float posX;
-    private int height;
-    private int width;
 
+    /**
+     * semiWidth is the height of the view divided by 2.
+     */
+    private float semiHeight;
+
+    /**
+     * semiWidth is the width of the view divided by 2.
+     */
+    private float semiWidth;
+
+    /**
+     * Compute title of each project once when data is added.
+     * This split the title in multi line to display inside of the circle.
+     */
     private SparseArray<List<String>> projectTitleComputed;
+
+    /**
+     * Save cache for project position. This is computed once per call of onDraw();
+     */
     private SparseArray<DrawPos> drawPosComputed;
 
+    /**
+     * Listener for project clicks.
+     */
     private OnProjectClickListener onClickListener;
 
     public Galaxy(Context context, AttributeSet attrs) {
@@ -151,6 +177,17 @@ public class Galaxy extends View {
         }
     }
 
+    private void onUpdateData() {
+        if (data != null) {
+            projectTitleComputed = new SparseArray<>(data.size());
+            drawPosComputed = new SparseArray<>();
+            for (ProjectDataIntra p : data) {
+                projectTitleComputed.put(p.id, TextCalculator.split(p, mPaintText));
+                drawPosComputed.put(p.id, new DrawPos());
+            }
+        }
+    }
+
     /**
      * Called when the user finishes a scroll action.
      */
@@ -200,17 +237,6 @@ public class Galaxy extends View {
         invalidate();
     }
 
-    private void onUpdateData() {
-        if (data != null) {
-            projectTitleComputed = new SparseArray<>(data.size());
-            drawPosComputed = new SparseArray<>();
-            for (ProjectDataIntra p : data) {
-                projectTitleComputed.put(p.id, TextCalculator.split(p, mPaintText));
-                drawPosComputed.put(p.id, new DrawPos());
-            }
-        }
-    }
-
     /**
      * Enable hardware acceleration (consumes memory)
      */
@@ -255,8 +281,8 @@ public class Galaxy extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        height = h;
-        width = w;
+        semiHeight = h / 2;
+        semiWidth = w / 2;
 
         posX = 0;
         posY = 0;
@@ -488,6 +514,14 @@ public class Galaxy extends View {
         return distanceBetween <= radius;
     }
 
+    private float getDrawPosX(ProjectDataIntra projectData) {
+        return drawPosComputed.get(projectData.id).x;
+    }
+
+    private float getDrawPosY(ProjectDataIntra projectData) {
+        return drawPosComputed.get(projectData.id).y;
+    }
+
     private float getDrawRadius(ProjectDataIntra projectData) {
         switch (projectData.kind) {
             case PROJECT:
@@ -506,6 +540,10 @@ public class Galaxy extends View {
         return 0;
     }
 
+    private float getDrawRadius(int size) {
+        return size * mScaleFactor;
+    }
+
     private float getDrawPosX(ProjectDataIntra projectData, boolean forceReCompute) {
         if (forceReCompute)
             drawPosComputed.get(projectData.id).x = getDrawPosX(projectData.x);
@@ -513,11 +551,7 @@ public class Galaxy extends View {
     }
 
     private float getDrawPosX(float pos) {
-        return ((pos - 3000) + posX) * mScaleFactor + width / 2;
-    }
-
-    private float getDrawPosX(ProjectDataIntra projectData) {
-        return drawPosComputed.get(projectData.id).x;
+        return ((pos - 3000) + posX) * mScaleFactor + semiWidth;
     }
 
     private float getDrawPosY(ProjectDataIntra projectData, boolean forceReCompute) {
@@ -526,16 +560,8 @@ public class Galaxy extends View {
         return drawPosComputed.get(projectData.id).y;
     }
 
-    private float getDrawPosY(ProjectDataIntra projectData) {
-        return drawPosComputed.get(projectData.id).y;
-    }
-
     private float getDrawPosY(float pos) {
-        return ((pos - 3000) + posY) * mScaleFactor + height / 2;
-    }
-
-    private float getDrawRadius(int size) {
-        return size * mScaleFactor;
+        return ((pos - 3000) + posY) * mScaleFactor + semiHeight;
     }
 
     boolean ptInsideRectPiscine(float clickX, float clickY, ProjectDataIntra projectData) {
@@ -543,13 +569,13 @@ public class Galaxy extends View {
         float x = getDrawPosX(projectData);
         float y = getDrawPosY(projectData);
 
-        float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
-        float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
+        float semiWidth = (ProjectRectSize.PISCINE_WIDTH * mScaleFactor) / 2;
+        float semiHeight = (ProjectRectSize.PISCINE_HEIGHT * mScaleFactor) / 2;
 
-        return clickX >= x - width / 2 &&
-                clickX <= x + width / 2 &&
-                clickY >= y - height / 2 &&
-                clickY <= y + height / 2;
+        return clickX >= x - semiWidth &&
+                clickX <= x + semiWidth / 2 &&
+                clickY >= y - semiHeight / 2 &&
+                clickY <= y + semiHeight / 2;
     }
 
     boolean ptInsideRectRush(float clickX, float clickY, ProjectDataIntra projectData) {
@@ -557,13 +583,13 @@ public class Galaxy extends View {
         float x = getDrawPosX(projectData);
         float y = getDrawPosY(projectData);
 
-        float width = ProjectRectSize.PISCINE_WIDTH * mScaleFactor;
-        float height = ProjectRectSize.PISCINE_HEIGHT * mScaleFactor;
+        float semiWidth = (ProjectRectSize.PISCINE_WIDTH * mScaleFactor) / 2;
+        float semiHeight = (ProjectRectSize.PISCINE_HEIGHT * mScaleFactor) / 2;
 
-        return clickX >= x - width / 2 &&
-                clickX <= x + width / 2 &&
-                clickY >= y - height / 2 &&
-                clickY <= y + height / 2;
+        return clickX >= x - semiWidth &&
+                clickX <= x + semiWidth / 2 &&
+                clickY >= y - semiHeight / 2 &&
+                clickY <= y + semiHeight / 2;
     }
 
     /* ********** interfaces and classes ********** */
@@ -609,6 +635,28 @@ public class Galaxy extends View {
             return textToDraw;
         }
 
+        private static float getProjectDrawWidth(ProjectDataIntra projectData) {
+            switch (projectData.kind) {
+                case PROJECT:
+                    return getProjectDrawWidthCircle(projectData);
+                case BIG_PROJECT:
+                    return getProjectDrawWidthCircle(projectData);
+                case PART_TIME:
+                    return getProjectDrawWidthCircle(projectData);
+                case FIRST_INTERNSHIP:
+                    return getProjectDrawWidthCircle(projectData);
+                case SECOND_INTERNSHIP:
+                    return getProjectDrawWidthCircle(projectData);
+                case EXAM:
+                    return getProjectDrawWidthCircle(projectData);
+                case PISCINE:
+                    return -1;
+                case RUSH:
+                    return -1;
+            }
+            return -1;
+        }
+
         private static int splitAt(String stringToSplit, int posSplit) {
 
             if (posSplit < 0 || stringToSplit == null || stringToSplit.length() <= posSplit)
@@ -641,35 +689,13 @@ public class Galaxy extends View {
             return -1;
         }
 
+        private static float getProjectDrawWidthCircle(ProjectDataIntra projectData) {
+            return getDrawRadius(projectData) * 2;
+        }
+
         private static boolean isSplittableChar(char c) {
             return c == ' ' || c == '-' || c == '_';
 
-        }
-
-        private static float getProjectDrawWidth(ProjectDataIntra projectData) {
-            switch (projectData.kind) {
-                case PROJECT:
-                    return getProjectDrawWidthCircle(projectData);
-                case BIG_PROJECT:
-                    return getProjectDrawWidthCircle(projectData);
-                case PART_TIME:
-                    return getProjectDrawWidthCircle(projectData);
-                case FIRST_INTERNSHIP:
-                    return getProjectDrawWidthCircle(projectData);
-                case SECOND_INTERNSHIP:
-                    return getProjectDrawWidthCircle(projectData);
-                case EXAM:
-                    return getProjectDrawWidthCircle(projectData);
-                case PISCINE:
-                    return -1;
-                case RUSH:
-                    return -1;
-            }
-            return -1;
-        }
-
-        private static float getProjectDrawWidthCircle(ProjectDataIntra projectData) {
-            return getDrawRadius(projectData) * 2;
         }
 
         static private float getDrawRadius(ProjectDataIntra projectData) {
