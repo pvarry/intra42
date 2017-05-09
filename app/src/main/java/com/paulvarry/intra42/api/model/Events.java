@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -27,6 +29,7 @@ public class Events {
     public String description;
     @SerializedName(API_LOCATION)
     public String location;
+    @Nullable
     @SerializedName(API_KIND)
     public EventKind kind;
     @SerializedName(API_MAX_PEOPLE)
@@ -50,7 +53,8 @@ public class Events {
         @SerializedName("workshop")WORKSHOP,
         @SerializedName("event")EVENT,
         @SerializedName("atelier")ATELIER,
-        @SerializedName("other")OTHER
+        @SerializedName("other")OTHER,
+        @SerializedName("association")ASSOCIATION
     }
 
 }

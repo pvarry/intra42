@@ -24,38 +24,47 @@ public class Tag {
 
         String str;
         int color;
-        switch (event.kind) {
-            case CONFERENCE:
-                str = "conf";
-                color = -16729412;
-                break;
-            case OTHER:
-                str = "other";
-                color = -4144960;
-                break;
-            case EXTERN:
-                str = "extern";
-                color = -4144960;
-                break;
-            case ATELIER:
-                str = "atelier";
-                color = -6432158;
-                break;
-            case MEET_UP:
-                str = "meet up";
-                color = -6114331;
-                break;
-            case HACKATHON:
-                str = "hackathon";
-                color = Color.parseColor("#39D88F");
-                break;
-            case WORKSHOP:
-                str = "workshop";
-                color = Color.parseColor("#39D88F");
-                break;
-            default:
-                str = String.valueOf(event.kind);
-                color = -16729412;
+        if (event.kind != null)
+            switch (event.kind) {
+                case CONFERENCE:
+                    str = "conf";
+                    color = -16729412;
+                    break;
+                case OTHER:
+                    str = "other";
+                    color = -4144960;
+                    break;
+                case EXTERN:
+                    str = "extern";
+                    color = -4144960;
+                    break;
+                case ATELIER:
+                    str = "atelier";
+                    color = -6432158;
+                    break;
+                case MEET_UP:
+                    str = "meet up";
+                    color = -6114331;
+                    break;
+                case HACKATHON:
+                    str = "hackathon";
+                    color = Color.parseColor("#39D88F");
+                    break;
+                case WORKSHOP:
+                    str = "workshop";
+                    color = Color.parseColor("#39D88F");
+                    break;
+                case ASSOCIATION:
+                    str = "association";
+                    color = Color.parseColor("#a2b3e5");
+                    break;
+                default:
+                    str = String.valueOf(event.kind);
+                    color = -16729412;
+            }
+        else {
+            str = "unknown";
+            color = -16729412;
         }
 
         tagView.setText(str);
@@ -63,6 +72,8 @@ public class Tag {
     }
 
     public static int getTagColor(Events event) {
+        if (event == null || event.kind == null)
+            return -16729412;
         switch (event.kind) {
             case CONFERENCE:
                 return -16729412;
