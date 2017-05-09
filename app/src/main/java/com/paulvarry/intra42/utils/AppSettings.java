@@ -83,7 +83,7 @@ public class AppSettings {
         public static final String PREFERENCE_ADVANCED_ALLOW_ADVANCED = "switch_preference_advanced_allow_beta";
         public static final String PREFERENCE_ADVANCED_ALLOW_DATA = "switch_preference_advanced_allow_advanced_data";
         public static final String PREFERENCE_ADVANCED_ALLOW_MARKDOWN = "switch_preference_advanced_allow_markdown_renderer";
-        public static final String PREFERENCE_ADVANCED_ALLOW_FRIENDS = "switch_preference_advanced_allow_friends";
+        public static final String PREFERENCE_ADVANCED_ALLOW_PAST_EVENTS = "switch_preference_advanced_allow_past_events";
         public static final String PREFERENCE_ADVANCED_ALLOW_SAVE_LOGS = "switch_preference_advanced_allow_save_logs_on_file";
         public static final String PREFERENCE_ADVANCED_FORCE_CURSUS = "list_preference_advanced_force_cursus";
         public static final String PREFERENCE_ADVANCED_FORCE_CAMPUS = "list_preference_advanced_force_campus";
@@ -120,16 +120,16 @@ public class AppSettings {
                 return true;
         }
 
-        public static boolean getAllowFriends(Context context) {
-            return context != null && getAllowFriends(getSharedPreferences(context));
+        public static boolean getAllowPastEvents(Context context) {
+            return context != null && getAllowPastEvents(getSharedPreferences(context));
         }
 
         // friends
-        public static boolean getAllowFriends(SharedPreferences settings) {
+        public static boolean getAllowPastEvents(SharedPreferences settings) {
             if (getAllowAdvanced(settings))
-                return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_FRIENDS, true);
+                return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_PAST_EVENTS, false);
             else
-                return true;
+                return false;
         }
 
         public static boolean getAllowSaveLogs(Context context) {

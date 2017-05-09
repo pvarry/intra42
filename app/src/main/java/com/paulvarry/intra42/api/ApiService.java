@@ -170,6 +170,20 @@ public interface ApiService {
     @GET("/v2/campus/{campus_id}/events")
     Call<List<Events>> getEventCampus(@Path("campus_id") int campus, @Query("range[end_at]") String rangeEnd, @Query("page") int page);
 
+
+    @GET("/v2/campus/{campus_id}/cursus/{cursus_id}/events?sort=-begin_at")
+    Call<List<Events>> getEventInvertedSort(@Path("campus_id") int campus, @Path("cursus_id") int cursus, @Query("range[begin_at]") String rangeBegin, @Query("page") int page);
+
+    @GET("/v2/events?sort=-begin_at")
+    Call<List<Events>> getEventInvertedSort(@Query("range[begin_at]") String rangeBegin, @Query("page") int page);
+
+    @GET("/v2/cursus/{cursus_id}/events?sort=-begin_at")
+    Call<List<Events>> getEventCursusInvertedSort(@Path("cursus_id") int cursus, @Query("range[begin_at]") String rangeBegin, @Query("page") int page);
+
+    @GET("/v2/campus/{campus_id}/events?sort=-begin_at")
+    Call<List<Events>> getEventCampusInvertedSort(@Path("campus_id") int campus, @Query("range[begin_at]") String rangeBegin, @Query("page") int page);
+
+    /* Events Notification */
     @GET("/v2/events")
     Call<List<Events>> getEventCreatedAt(@Query("range[created_at]") String rangeCreated, @Query("page") int page);
 

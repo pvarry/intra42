@@ -10,10 +10,12 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
+import com.paulvarry.intra42.utils.AppSettings;
 
 public class HomeActivity extends BasicTabActivity
         implements HomeFragment.OnFragmentInteractionListener, HomeEventsFragment.OnFragmentInteractionListener,
-        HomeSlotsFragment.OnFragmentInteractionListener, HomeCorrectionsFragment.OnFragmentInteractionListener {
+        HomeSlotsFragment.OnFragmentInteractionListener, HomeCorrectionsFragment.OnFragmentInteractionListener,
+        HomePastEventsFragment.OnFragmentInteractionListener {
 
     public static Intent getIntent(Context context) {
         return new Intent(context, HomeActivity.class);
@@ -39,6 +41,8 @@ public class HomeActivity extends BasicTabActivity
         adapter.addFragment(HomeEventsFragment.newInstance(), getString(R.string.tab_home_agenda));
         adapter.addFragment(HomeSlotsFragment.newInstance(), getString(R.string.tab_home_slots));
         adapter.addFragment(HomeCorrectionsFragment.newInstance(), getString(R.string.tab_home_corrections));
+        if (AppSettings.Advanced.getAllowPastEvents(this))
+            adapter.addFragment(HomePastEventsFragment.newInstance(), getString(R.string.tab_home_past_events));
         viewPager.setAdapter(adapter);
     }
 

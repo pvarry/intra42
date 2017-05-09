@@ -35,7 +35,6 @@ import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.cache.CacheCampus;
-import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Friends;
 import com.paulvarry.intra42.utils.Share;
@@ -202,16 +201,13 @@ public class UserOverviewFragment
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        if (AppSettings.Advanced.getAllowFriends(getContext())) {
-            imageButtonFriends.setOnClickListener(this);
-            setButtonFriends(null);
+        imageButtonFriends.setOnClickListener(this);
+        setButtonFriends(null);
 
-            if (app.firebaseRefFriends != null) {
-                app.firebaseRefFriends.removeEventListener(friendsEventListener);
-                app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-            }
-        } else
-            imageButtonFriends.setVisibility(View.GONE);
+        if (app.firebaseRefFriends != null) {
+            app.firebaseRefFriends.removeEventListener(friendsEventListener);
+            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
+        }
 
         String name = user.displayName + " - " + user.login;
         textViewName.setText(name);
@@ -310,14 +306,14 @@ public class UserOverviewFragment
     @Override
     public void onResume() {
         super.onResume();
-        if (AppSettings.Advanced.getAllowFriends(getContext()) && app.firebaseRefFriends != null)
+        if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.addValueEventListener(friendsEventListener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (AppSettings.Advanced.getAllowFriends(getContext()) && app.firebaseRefFriends != null)
+        if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.removeEventListener(friendsEventListener);
     }
 
