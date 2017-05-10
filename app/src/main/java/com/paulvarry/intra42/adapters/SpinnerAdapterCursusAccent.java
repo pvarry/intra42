@@ -62,6 +62,9 @@ public class SpinnerAdapterCursusAccent extends BaseAdapter {
 
         final ViewHolder holder;
 
+        if (context == null)
+            return null;
+
         if (convertView == null) {
             holder = new ViewHolder();
 
