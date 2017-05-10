@@ -55,6 +55,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             HashMap<String, String> messages = snapshot.getValue(t);
             if (messages == null) {
                 Log.e("Firebase", "Message null");
+                firebaseFinished = true;
                 setViewError();
             } else {
                 list = new ArrayList<>();
@@ -192,6 +193,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             app.firebaseRefFriends.addValueEventListener(friendsEventListener);
         else {
             setViewError();
+            firebaseFinished = true;
         }
     }
 
