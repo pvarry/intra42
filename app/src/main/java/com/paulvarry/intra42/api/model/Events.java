@@ -54,7 +54,8 @@ public class Events {
         @SerializedName("event")EVENT,
         @SerializedName("atelier")ATELIER,
         @SerializedName("other")OTHER,
-        @SerializedName("association")ASSOCIATION
+        @SerializedName("association")ASSOCIATION,
+        @SerializedName("partnership")PARTNERSHIP
     }
 
 }

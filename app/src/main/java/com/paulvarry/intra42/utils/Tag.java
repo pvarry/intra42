@@ -58,6 +58,10 @@ public class Tag {
                     str = "association";
                     color = Color.parseColor("#a2b3e5");
                     break;
+                case PARTNERSHIP:
+                    str = "partnership";
+                    color = Color.parseColor("#39D88F");
+                    break;
                 default:
                     str = String.valueOf(event.kind);
                     color = -16729412;
@@ -88,6 +92,8 @@ public class Tag {
             case HACKATHON:
                 return Color.parseColor("#39D88F");
             case WORKSHOP:
+                return Color.parseColor("#39D88F");
+            case PARTNERSHIP:
                 return Color.parseColor("#39D88F");
             default:
                 return -16729412;

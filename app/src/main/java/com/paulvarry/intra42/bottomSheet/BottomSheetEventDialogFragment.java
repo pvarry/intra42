@@ -158,6 +158,7 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
         TagView tagViewKind = (TagView) contentView.findViewById(R.id.tagViewKind);
         TextView textViewDate = (TextView) contentView.findViewById(R.id.textViewDate);
         TextView textViewTime = (TextView) contentView.findViewById(R.id.textViewTime);
+        LinearLayout linearLayoutPlace = (LinearLayout) contentView.findViewById(R.id.linearLayoutPlace);
         TextView textViewPlace = (TextView) contentView.findViewById(R.id.textViewPlace);
         TextView textViewPeople = (TextView) contentView.findViewById(R.id.textViewPeople);
         TextView textViewDescription = (TextView) contentView.findViewById(R.id.textViewDescription);
@@ -183,7 +184,13 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
             textViewTime.setText(time);
         }
 
-        textViewPlace.setText(event.location);
+        if (event.location == null || event.location.isEmpty())
+            linearLayoutPlace.setVisibility(View.GONE);
+        else {
+            linearLayoutPlace.setVisibility(View.VISIBLE);
+            textViewPlace.setText(event.location);
+        }
+
         String people;
         if (event.maxPeople == 0)
             people = getString(R.string.subscription_unavailable);
