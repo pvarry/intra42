@@ -104,8 +104,15 @@ public class ListAdapterScaleTeams extends BaseAdapter {
 
         holder.textViewScale.setText(String.valueOf(item.finalMark));
         holder.textViewComment.setText(item.comment);
-        holder.textViewFeedback.setText(item.feedback);
-        holder.textViewFeedbackStars.setText(item.feedback_rating);
+
+        if (item.feedback == null) {
+            holder.linearLayoutFeedback.setVisibility(View.GONE);
+        } else {
+            holder.linearLayoutFeedback.setVisibility(View.VISIBLE);
+            holder.textViewFeedback.setText(item.feedback);
+            holder.textViewFeedbackStars.setText(item.feedback_rating);
+        }
+
         if (item.flag.positive) {
             holder.imageViewIconStatus.setImageResource(R.drawable.ic_check_black_24dp);
             holder.imageViewIconStatus.setColorFilter(ContextCompat.getColor(context, R.color.colorTintCheck));

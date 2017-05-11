@@ -77,7 +77,6 @@
             android:textColor="@color/textColorBlackPrimary" />
 
         <LinearLayout
-
             android:id="@+id/linearLayoutFeedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
