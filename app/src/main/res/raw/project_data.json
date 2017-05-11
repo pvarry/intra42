@@ -1,6 +1,36 @@
 [
   {
     "state": "done",
+    "final_mark": 95,
+    "id": 183,
+    "kind": "project",
+    "name": "Libft",
+    "x": 2550.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 756,
+        "points": [
+          [
+            2300,
+            3000
+          ],
+          [
+            2550,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 1,
+    "difficulty": "Tier 1",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated piscine-reloaded",
+    "description": "As a WeThinkCode_ student you'll be able, through this first project, to strengthen your skills learned during the bootcamp. You'll recode functions from the standard C library, and some other very useful functions that you'll be able to use all along the program.",
+    "slug": "libft"
+  },
+  {
+    "state": "done",
     "final_mark": 97,
     "id": 185,
     "kind": "project",
@@ -30,34 +60,34 @@
     "slug": "get_next_line"
   },
   {
-    "state": "done",
-    "final_mark": 95,
-    "id": 183,
+    "state": "unavailable",
+    "final_mark": null,
+    "id": 182,
     "kind": "project",
-    "name": "Libft",
-    "x": 2550.0,
+    "name": "Piscine Reloaded",
+    "x": 2350.0,
     "y": 3000.0,
     "by": [
       {
-        "parent_id": 756,
+        "parent_id": 817,
         "points": [
           [
-            2300,
+            2150,
             3000
           ],
           [
-            2550,
+            2350,
             3000
           ]
         ]
       }
     ],
-    "project_id": 1,
-    "difficulty": "Tier 1",
-    "duration": "about 1 week",
-    "rules": "You must have validated piscine-reloaded",
-    "description": "As a WeThinkCode_ student you'll be able, through this first project, to strengthen your skills learned during the bootcamp. You'll recode functions from the standard C library, and some other very useful functions that you'll be able to use all along the program.",
-    "slug": "libft"
+    "project_id": 756,
+    "difficulty": "Tier 0",
+    "duration": "about 2 days",
+    "rules": "You must have validated 42-commandements",
+    "description": "Revoyez les bases de la piscine avec une suite d'exercices tirée des sujets de celle-ci.",
+    "slug": "piscine-reloaded"
   },
   {
     "state": "available",
@@ -118,6 +148,92 @@
     "rules": "You must have validated libft",
     "description": "Fillit est un projet vous permettant de découvrir et/ou de vous familiariser avec une problématique récurrente en programmation : la recherche d'un solution optimale parmi un très grand nombre de possibilités, dans un délai raisonnable. Dans le cas de ce projet, il s'agira d'agencer des Tetriminos entre eux et de déterminer le plus petit carré possible pouvant les accueillir.",
     "slug": "fillit"
+  },
+  {
+    "state": "unavailable",
+    "final_mark": null,
+    "id": 69,
+    "kind": "project",
+    "name": "Snow Crash",
+    "x": 2550.0,
+    "y": 1350.0,
+    "by": [
+      {
+        "parent_id": 79,
+        "points": [
+          [
+            2800,
+            1500
+          ],
+          [
+            2700,
+            1400
+          ]
+        ]
+      },
+      {
+        "parent_id": 79,
+        "points": [
+          [
+            2700,
+            1400
+          ],
+          [
+            2597,
+            1400
+          ]
+        ]
+      },
+      {
+        "parent_id": 79,
+        "points": [
+          [
+            2600,
+            1400
+          ],
+          [
+            2550,
+            1350
+          ]
+        ]
+      }
+    ],
+    "project_id": 603,
+    "difficulty": "Tier 3",
+    "duration": "about 3 weeks",
+    "rules": "You must have validated libftasm",
+    "description": "Projet introductif à la sécurité en informatique, Snow Crash a pour but de faire découvrir la sécurité dans différents sous-domaines, avec une approche orientée développeur. Vous allez vous familiariser avec plusieurs langages (ASM/perl/php..), développer une certaine logique pour comprendre des programmes inconnus, et ainsi prendre conscience des problèmes liés à de simples \"erreurs\" de programmation .",
+    "slug": "snow-crash"
+  },
+  {
+    "state": "available",
+    "final_mark": null,
+    "id": 196,
+    "kind": "project",
+    "name": "docker-1",
+    "x": 3700.0,
+    "y": 2080.0,
+    "by": [
+      {
+        "parent_id": 2,
+        "points": [
+          [
+            3600,
+            2200
+          ],
+          [
+            3700,
+            2080
+          ]
+        ]
+      }
+    ],
+    "project_id": 847,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated first-internship",
+    "description": "Premier projet sur l'écosystème Docker. Apprenez à réfléchir en containers à travers ce sujet, qui vous fera manipuler le binaire docker et créer vos premiers containers avec des Dockerfiles",
+    "slug": "docker-1"
   },
   {
     "state": "available",
@@ -237,36 +353,6 @@
     "rules": "You must have validated piscine-cpp",
     "description": "First projet of the Java projects arc. Implementation of a simple Java program according to a given class diagram written in UML.",
     "slug": "avaj-launcher"
-  },
-  {
-    "state": "unavailable",
-    "final_mark": null,
-    "id": 182,
-    "kind": "project",
-    "name": "Piscine Reloaded",
-    "x": 2350.0,
-    "y": 3000.0,
-    "by": [
-      {
-        "parent_id": 817,
-        "points": [
-          [
-            2150,
-            3000
-          ],
-          [
-            2350,
-            3000
-          ]
-        ]
-      }
-    ],
-    "project_id": 756,
-    "difficulty": "Tier 0",
-    "duration": "about 2 days",
-    "rules": "You must have validated 42-commandements",
-    "description": "Revoyez les bases de la piscine avec une suite d'exercices tirée des sujets de celle-ci.",
-    "slug": "piscine-reloaded"
   },
   {
     "state": "unavailable",
@@ -414,7 +500,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "You must have validated ft_printf",
-    "description": "Créez votre joueur pour affronter d’autres étudiants sur le célèbre (ou pas) plateau du Filler. Le principe est simple : deux joueurs s’affrontent sur un plateau, et doivent placer, tour à tour, la pièce que le maître du jeu (fourni sous la forme d’un exécutable Ruby) leur donne, gagnant ainsi des points. La partie s’arrête dès qu’une pièce ne peut plus être placée. Petit projet ludique !",
+    "description": "Create your player to fight other students on the world famous (or infamous) Filler board. The concept is simple: two players gain points by placing on a board, one after the other, the game piece obtained by the game master (in the form of an executable Ruby program). The game ends when the game piece cannot be placed anymore. Have fun!",
     "slug": "filler"
   },
   {
@@ -446,36 +532,6 @@
     "rules": "You must have validated first-internship",
     "description": "Que se cache derriere malloc ? Vous l'utilisez depuis la piscine C, mais ce n'est pas un appel système. Découvrez les rouages d'une gestion optimum de la mémoire, et recodez-le, ainsi que free et realloc.",
     "slug": "malloc"
-  },
-  {
-    "state": "available",
-    "final_mark": null,
-    "id": 196,
-    "kind": "project",
-    "name": "docker-1",
-    "x": 3700.0,
-    "y": 2080.0,
-    "by": [
-      {
-        "parent_id": 2,
-        "points": [
-          [
-            3600,
-            2200
-          ],
-          [
-            3700,
-            2080
-          ]
-        ]
-      }
-    ],
-    "project_id": 847,
-    "difficulty": "Tier 1",
-    "duration": "about 1 week",
-    "rules": "You must have validated first-internship",
-    "description": "Premier projet sur l'écosystème Docker. Apprenez à réfléchir en containers à travers ce sujet, qui vous fera manipuler le binaire docker et créer vos premiers containers avec des Dockerfiles",
-    "slug": "docker-1"
   },
   {
     "state": "unavailable",
@@ -759,7 +815,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "You must have validated ft_ls",
-    "description": "Premier palier de réalisation d'un shell, vous devrez pour ce projet réaliser un mini-shell capable de prompter l'utilisateur pour une commande, rechercher le binaire sur la machine, et l'exécuter. Vous devrez également implémenter quelques builtins basiques.",
+    "description": "This project is the first step toward creating a shell. You will be tasked to create a mini-shell, capable of displaying a prompt to allow the user to use commands, search for a binary file and execute it. You'll also have to implement basic builtins.",
     "slug": "minishell"
   },
   {
@@ -1097,7 +1153,7 @@
     "difficulty": "Tier 3",
     "duration": "about 6 weeks",
     "rules": "You must have validated 1 of rtv1 and wolf3d",
-    "description": "Passez à la vitesse supérieure ! Suite du Rtv1, le RT pousse beaucoup plus loin les possibilités du Raytracing : effet miroir, transparence, découpe des objets, applications de textures... Capitalisez sur le projet précédent pour réaliser une infrastructure capable de supporter toutes ces ramifications et obtenir de sublimes images de synthèse.",
+    "description": "Let's gear up! Following the RTV1 project, RT takes raytracing to a new level: mirror effect, transparency, object cutting, textures... Capitalize on the previous project to create an infrastructure capable of managing all those ramifications and render outstanding computer-generated imagery.",
     "slug": "rt"
   },
   {
@@ -1213,7 +1269,7 @@
     "difficulty": "Tier 2",
     "duration": "about 2 weeks",
     "rules": "You must have validated 1 of push_swap and filler",
-    "description": "Votre colonie de foumis doit se déplacer d'un point à un autre. Mais comment faire pour que cela prenne le moins de temps possible ? Ce projet vous fait découvrir les algorithmes de parcours de graphe : votre programme devra sélectionner intelligemment les chemins et les mouvements précis qui doivent être empruntés par ces fourmis.",
+    "description": "You must move your ant colony from one point to another in the least amount of time. Through this project, you will explore graph traversal algorithms: your program will have to choose the paths and moves to be taken by the ants.",
     "slug": "lem_in"
   },
   {
@@ -1243,7 +1299,7 @@
     "difficulty": "Tier 2",
     "duration": "about 2 weeks",
     "rules": "You must have validated fract-ol",
-    "description": "Découvrez les principes fondamentaux du Raytracing : la création d'images de synthèses par ordinateur. Ce premier projet vous fera réaliser des scènes simples impliquant des objets et des lumières non complexes.",
+    "description": "Discover Raytracing fundamental principles: computer-generated imagery. Through this first project, you will create simple scenes involving objects and non complex lights.",
     "slug": "rtv1"
   },
   {
@@ -1539,7 +1595,7 @@
     "difficulty": "Tier 3",
     "duration": "about 6 weeks",
     "rules": "You must have validated 1 of 21sh and ft_sh3",
-    "description": "Ce projet consiste à créer de toutes pièces un shell complet, en reprenant le travail effectué sur votre 21sh. Un jeu minimum de fonctionnalités vous sont demandées, à partir duquel vous allez constuire votre propre shell abouti - en allant potentiellement jusqu'au job control et au shell script. Ce projet vous permet donc de voir ou revoir une très large palette des fonctionnalités UNIX (et POSIX) standard.",
+    "description": "Building upon your previous work on 21sh, you will create a complete shell. Through this project, you will build your own complete shell based on a minimum set of features - up to job control and shell script. This project will consequently enable you to explore a large spectrum of standard UNIX (and POSIX) features.",
     "slug": "42sh"
   },
   {
@@ -1569,7 +1625,7 @@
     "difficulty": "Tier 2",
     "duration": "about 2 weeks",
     "rules": "You must not have validated ft_sh2 and ft_sh3. You must have validated minishell",
-    "description": "Vous allez repartir de votre minishell et le rendre plus robuste pour vous approcher petit à petit d'un vrai shell fonctionnel. Vous allez ici ajouter divers features, telles que la gestion du multi-commande, des différentes redirections, ainsi que l'édition de ligne pour pouvoir éditer la ligne de commande à la volée.",
+    "description": "You'll continue working with your minishell, making it stronger to get closer to a viable shell. You'll add new features, such as multi-command management, redirections, as well as line editing to be able to modify a command on the fly.\r\n",
     "slug": "21sh"
   },
   {
@@ -1659,7 +1715,7 @@
     "difficulty": "Tier 3",
     "duration": "about 4 weeks",
     "rules": "You must have validated lem_in",
-    "description": "Ce projet vous invite à créer une arène virtuelle et à y faire s’affronter des programmes codés dans un langage simpliste. Vous allez ainsi aborder la conception d’une VM (avec les instructions qu’elle reconnait, les registres, etc), et les problématiques de compilation d’un langage assembleur en bytecode. Avec, en bonus, le plaisir de faire s’affronter vos champions sur votre arène !",
+    "description": "This project invites you to create a virtual arena, where programs written in a simple language will fight each other. You will explore the design of a VM (with the relevant instructions, records, etc.) and challenges related to compiling an assembly language in bytecode. As a bonus, you'll be able to enjoy programming your heroes to win the arena battles. ",
     "slug": "corewar"
   },
   {
@@ -2023,7 +2079,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "You must have validated ft_printf",
-    "description": "Ce projet vous demande de trier des données sur une pile, avec un set d’instructions limité, en moins de coups possibles. Pour le réussir, vous devrez manipuler différents algorithmes de tri et choisir la (ou les ?) solution la plus appropriée pour un classement optimisé des données.",
+    "description": "Through this project, you will have to sort a stack with a limit number of instructions, in as few moves as possible. To succeed, you'll need to use various sorting algorithms and choose the solution(s) most appropriate for a highly optimised data sorting.",
     "slug": "push_swap"
   },
   {
@@ -2053,7 +2109,7 @@
     "difficulty": "Tier 2",
     "duration": "about 2 weeks",
     "rules": "You must have validated fract-ol",
-    "description": "Inspiré du célèbre jeu éponyme des années 90 qui fut le premier First Person Shooter, ce projet vous permet d'aborder la technique du ray-casting. Votre but sera de représenter une vue dynamique à l'intérieur d'un labyrinthe dans lequel on peut se déplacer.",
+    "description": "This project is inspired by the world-famous eponymous 90's game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you'll have to find your way.",
     "slug": "wolf3d"
   },
   {
@@ -2083,7 +2139,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "You must have validated get_next_line",
-    "description": "Pour tout connaitre du filesystem, de la façon dont sont rangés les fichiers et répertoires, codez par vous-même une des commandes les plus utilisées : ls .",
+    "description": "To know everything about the filesystem, about how files and repertories are stored, code by yourself one of the most used commands: ls. ",
     "slug": "ft_ls"
   },
   {
@@ -2416,7 +2472,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "You must have validated get_next_line",
-    "description": "Initiation aux applications graphiques : ouvrez une fenêtre, et dessinez ! Ce projet vous fait découvrir les grands principes de la programmation d'une interface utilisateur au travers de la représentation d'une surface \"fil de fer\" en 3 dimensions.",
+    "description": "Introduction to graphic applications: open a window and draw! With this project, you'll explore the principles of user interface programmation through a 3D \"wireframe\" representation of a surface.",
     "slug": "fdf"
   },
   {
@@ -2658,62 +2714,6 @@
     "rules": "You must have validated root-me-app-systeme",
     "description": "root-me.org, vous connaissez ? Ce site propose des challenges de sécurité de difficulté croissante, idéaux pour apprendre et se dépasser ! Nous vous proposons de valider vos connaissances et heures passées sur Root-Me via ce projet. \r\n\r\nCette série de challenges Root-Me a pour but de vous faire découvrir comment détecter et exploiter des vulnérabilités applicatives. Vous aurez des fichiers binaires à décortiquer pour aller chercher les instructions bas niveau permettant de répondre au problème posé. Pour l'aborder, il vous faudra bien entendu des connaissances en C, en assembleur et une familiarité certaine avec gdb. Bonne chance !",
     "slug": "root-me-cracking"
-  },
-  {
-    "state": "unavailable",
-    "final_mark": null,
-    "id": 69,
-    "kind": "project",
-    "name": "Snow Crash",
-    "x": 2550.0,
-    "y": 1350.0,
-    "by": [
-      {
-        "parent_id": 79,
-        "points": [
-          [
-            2800,
-            1500
-          ],
-          [
-            2700,
-            1400
-          ]
-        ]
-      },
-      {
-        "parent_id": 79,
-        "points": [
-          [
-            2700,
-            1400
-          ],
-          [
-            2597,
-            1400
-          ]
-        ]
-      },
-      {
-        "parent_id": 79,
-        "points": [
-          [
-            2600,
-            1400
-          ],
-          [
-            2550,
-            1350
-          ]
-        ]
-      }
-    ],
-    "project_id": 603,
-    "difficulty": "Tier 3",
-    "duration": "about 3 weeks",
-    "rules": "You must have validated libftasm",
-    "description": "Projet introductif à la sécurité en informatique, Snow Crash a pour but de faire découvrir la sécurité dans différents sous-domaines, avec une approche orientée développeur. Vous allez vous familiariser avec plusieurs langages (ASM/perl/php..), développer une certaine logique pour comprendre des programmes inconnus, et ainsi prendre conscience des problèmes liés à de simples \"erreurs\" de programmation .",
-    "slug": "snow-crash"
   },
   {
     "state": "unavailable",
