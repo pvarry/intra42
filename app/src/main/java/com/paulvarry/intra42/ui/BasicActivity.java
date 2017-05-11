@@ -78,7 +78,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity__basic);
 
-        app = (AppClass) this.getApplication();
+        app = (AppClass) getApplication();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

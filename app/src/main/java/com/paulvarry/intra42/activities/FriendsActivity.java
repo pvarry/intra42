@@ -56,7 +56,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             if (messages == null) {
                 Log.e("Firebase", "Message null");
                 firebaseFinished = true;
-                setViewError();
+                setViewEmpty();
             } else {
                 list = new ArrayList<>();
                 Set<String> s = messages.keySet();
@@ -199,7 +199,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        UserActivity.openIt(app, adapter.getItem(position));
+        UserActivity.openIt(this, adapter.getItem(position));
     }
 
     @Override
