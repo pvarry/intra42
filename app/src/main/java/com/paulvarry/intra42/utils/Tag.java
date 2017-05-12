@@ -23,56 +23,44 @@ public class Tag {
     public static void setTagEvent(Events event, TagView tagView) {
 
         String str;
-        int color;
         if (event.kind != null)
             switch (event.kind) {
                 case CONFERENCE:
                     str = "conf";
-                    color = -16729412;
                     break;
                 case OTHER:
                     str = "other";
-                    color = -4144960;
                     break;
                 case EXTERN:
                     str = "extern";
-                    color = -4144960;
                     break;
                 case ATELIER:
                     str = "atelier";
-                    color = -6432158;
                     break;
                 case MEET_UP:
                     str = "meet up";
-                    color = -6114331;
                     break;
                 case HACKATHON:
                     str = "hackathon";
-                    color = Color.parseColor("#39D88F");
                     break;
                 case WORKSHOP:
                     str = "workshop";
-                    color = Color.parseColor("#39D88F");
                     break;
                 case ASSOCIATION:
                     str = "association";
-                    color = Color.parseColor("#a2b3e5");
                     break;
                 case PARTNERSHIP:
                     str = "partnership";
-                    color = Color.parseColor("#39D88F");
                     break;
                 default:
                     str = String.valueOf(event.kind);
-                    color = -16729412;
             }
         else {
             str = "unknown";
-            color = -16729412;
         }
 
         tagView.setText(str);
-        tagView.setTagColor(color);
+        tagView.setTagColor(getTagColor(event));
     }
 
     public static int getTagColor(Events event) {
@@ -80,23 +68,29 @@ public class Tag {
             return -16729412;
         switch (event.kind) {
             case CONFERENCE:
-                return -16729412;
+                return Color.parseColor("#00babc");
             case OTHER:
-                return -4144960;
+                return Color.parseColor("#c0c0c0");
             case EXTERN:
-                return -4144960;
+                return Color.parseColor("#c0c0c0");
             case ATELIER:
                 return -6432158;
             case MEET_UP:
-                return -6114331;
+                return Color.parseColor("#00babc");
             case HACKATHON:
                 return Color.parseColor("#39D88F");
             case WORKSHOP:
                 return Color.parseColor("#39D88F");
+            case ASSOCIATION:
+                return Color.parseColor("#a2b3e5");
             case PARTNERSHIP:
                 return Color.parseColor("#39D88F");
+            case CHALLENGE:
+                return Color.parseColor("#39D88F");
+            case EVENT:
+                return Color.parseColor("#00babc");
             default:
-                return -16729412;
+                return Color.parseColor("#00babc");
         }
     }
 
