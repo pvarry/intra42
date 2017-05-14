@@ -73,4 +73,14 @@
 
     <color name="colorClusterMapWall">#bebebe</color>
 
+    <color name="toggle_hover">@color/gray</color>
+    <color name="toggle_normal">@color/gainsboro</color>
+    <color name="toggle_active">@color/silver</color>
+    <color name="toggle_normal_off">@color/darkgray</color>
+
+    <color name="gainsboro">#DCdCdC</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="darkgray">#a9a9a9</color>
+    <color name="gray">#808080</color>
+
 </resources>
