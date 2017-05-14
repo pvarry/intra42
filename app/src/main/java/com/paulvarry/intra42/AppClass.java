@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
 
@@ -91,6 +92,8 @@ public class AppClass extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         accessToken = Token.getTokenFromShared(this);
         cacheSQLiteHelper = new CacheSQLiteHelper(this);
@@ -224,6 +227,7 @@ public class AppClass extends Application {
         logout();
 
         Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             startActivity(i);
         } catch (AndroidRuntimeException e) {

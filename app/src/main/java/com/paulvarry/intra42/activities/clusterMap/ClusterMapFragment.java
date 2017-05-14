@@ -126,10 +126,7 @@ public class ClusterMapFragment extends Fragment {
 
                     if (cluster[r][p].locationName.contains("null") || cluster[r][p].locationName.contains("TBD"))
                         imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
-                    else
-                        imageViewContent.setImageResource(R.drawable.ic_desktop_mac_black_24dp);
-
-                    if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
+                    else if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
                         final UsersLTE user = locations.get(cluster[r][p].locationName);
                         UserImage.setImageSmall(getContext(), user, imageViewContent);
                         imageViewContent.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +136,7 @@ public class ClusterMapFragment extends Fragment {
                             }
                         });
                     } else {
+                        imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_24dp));
                         final int finalR = r;
                         final int finalP = p;
                         imageViewContent.setOnClickListener(new View.OnClickListener() {
