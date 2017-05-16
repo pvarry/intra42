@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="?colorPrimary"
         android:orientation="vertical">
 
         <TextView
@@ -114,11 +114,10 @@
 
             <Button
                 android:id="@+id/buttonDelete"
-                style="?attr/borderlessButtonStyle"
+                style="@style/AppTheme.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:textColor="@color/colorAccent" />
+                android:text="@string/delete" />
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -135,12 +134,11 @@
 
                 <Button
                     android:id="@+id/buttonSave"
-                    style="?attr/borderlessButtonStyle"
+                    style="@style/AppTheme.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:text="@string/save"
-                    android:textColor="@color/colorAccent" />
+                    android:text="@string/save" />
             </FrameLayout>
 
         </FrameLayout>

@@ -14,8 +14,6 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -108,11 +106,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         super.setupDialog(dialog, style);
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_slots, null);
         dialog.setContentView(contentView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = dialog.getWindow();
-            if (w != null)
-                w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
 
         textViewTitle = (TextView) contentView.findViewById(R.id.textViewTitle);
         textViewStartDate = (TextView) contentView.findViewById(R.id.textViewStartDate);

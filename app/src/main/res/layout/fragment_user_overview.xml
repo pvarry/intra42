@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin_tablet_only"
+    android:paddingRight="@dimen/activity_horizontal_margin_tablet_only"
     tools:context=".activities.home.HomeFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout

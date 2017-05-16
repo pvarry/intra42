@@ -3,16 +3,13 @@ package com.paulvarry.intra42.bottomSheet;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -25,6 +22,7 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
+import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
@@ -37,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 
     private static final String ARG_EVENT = "event";
 
@@ -148,9 +146,7 @@ public class BottomSheetEventDialogFragment extends BottomSheetDialogFragment im
         super.setupDialog(dialog, style);
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_event, null);
         dialog.setContentView(contentView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
 

@@ -113,7 +113,7 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.Settings" />
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activities.TopicActivity"
             android:label="Topic"
@@ -168,7 +168,7 @@
         <activity
             android:name=".activities.LibraryListActivity"
             android:label="library list"
-            android:theme="@style/AppTheme.Settings" />
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activities.MarvinMealsActivity"
             android:label="@string/title_activity_cantina_menu" />

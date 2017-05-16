@@ -18,7 +18,7 @@
         android:layout_gravity="left|center_vertical"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorAccent" />
+        android:textColor="?colorAccent" />
 
     <TextView
         android:id="@+id/textViewLvl"

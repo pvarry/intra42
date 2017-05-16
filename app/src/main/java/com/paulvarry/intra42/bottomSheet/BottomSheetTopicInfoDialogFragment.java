@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
@@ -31,6 +30,7 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Votes;
+import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
 
 import java.text.DateFormat;
 import java.util.Locale;
@@ -38,7 +38,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class BottomSheetTopicInfoDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 
     private static String INTENT_JSON = "json";
     private static String INTENT_UP = "up_vote";
@@ -107,9 +107,6 @@ public class BottomSheetTopicInfoDialogFragment extends BottomSheetDialogFragmen
         super.setupDialog(dialog, style);
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_topic_info, null);
         dialog.setContentView(contentView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
 
         TextView textViewMessage = (TextView) contentView.findViewById(R.id.textViewMessage);
 

@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="?colorPrimary"
         android:orientation="vertical">
 
         <TextView
@@ -27,7 +27,7 @@
 
         <ImageButton
             android:id="@+id/buttonOpen"
-            style="@style/AppTheme.Button.Borderless"
+            style="@style/AppTheme.Button.BorderlessDrawable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|top"

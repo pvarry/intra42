@@ -1,13 +1,10 @@
 package com.paulvarry.intra42.bottomSheet;
 
 import android.app.Dialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,8 +15,9 @@ import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
+import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
 
-public class BottomSheetProjectsGalaxyFragment extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 
     private static final String ARG_PROJECT = "project_galaxy";
 
@@ -57,9 +55,7 @@ public class BottomSheetProjectsGalaxyFragment extends BottomSheetDialogFragment
         super.setupDialog(dialog, style);
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_project_galaxy, null);
         dialog.setContentView(contentView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
 

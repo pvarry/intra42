@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              app:theme="@style/AppTheme.NoActionBar"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:theme="@style/AppTheme.NoActionBar"
     tools:context=".bottomSheet.BottomSheetEventDialogFragment">
 
     <FrameLayout
@@ -23,7 +23,7 @@
             android:paddingTop="85dp"
             android:text="New Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorGrayLight"/>
+            android:textColor="@color/colorGrayLight" />
 
         <com.veinhorn.tagview.TagView
             android:id="@+id/tagViewKind"
@@ -38,14 +38,14 @@
             app:tagBorderRadius="5"
             app:tagColor="#ffaa66cc"
             app:tagType="classic"
-            app:tagUpperCase="true"/>
+            app:tagUpperCase="true" />
     </FrameLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/include_event"/>
+        <include layout="@layout/include_event" />
 
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

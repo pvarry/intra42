@@ -1,13 +1,39 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <style name="AppTheme.Colored.Original" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
     </style>
+
+    <style name="AppTheme.Colored.Intra" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#00babc</item>
+        <item name="colorPrimaryDark">#00a4a6</item>
+        <item name="colorAccent">#2dd57a</item>
+    </style>
+
+    <style name="AppTheme.Colored.Studios_42" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#990000</item>
+        <item name="colorPrimaryDark">#660000</item>
+        <item name="colorAccent">#03A9F4</item>
+    </style>
+
+    <style name="AppTheme.Colored.Studios_42.Dark" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">#cc0000</item>
+    </style>
+
+    <style name="AppTheme.Colored.Default" parent="AppTheme.Base" />
+
+
+    <style name="AppTheme" parent="AppTheme.Colored.Original" />
+
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
@@ -20,14 +46,17 @@
 
     <style name="AppTheme.Login" parent="AppTheme.NoActionBar" />
 
-    <style name="AppTheme.Settings" parent="AppTheme" />
+    <style name="AppTheme.ActionBar" parent="AppTheme" />
 
     <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
     <style name="AppTheme.Button.Borderless" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Button.BorderlessDrawable" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">0dp</item>
