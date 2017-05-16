@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
@@ -243,12 +244,14 @@ public class ProjectActivity extends BasicTabActivity
 
     @Override
     public String getToolbarName() {
-        if (projectUser != null && projectUser.project != null)
-            if (projectUser.project.isMaster())
-                return projectUser.project.name;
-            else
-                return projectUser.project.parent.name + " / " + projectUser.project.name;
-        else if (slugProject != null)
+        if (projectUser != null && projectUser.project != null) {
+            if (!projectUser.project.isMaster()) {
+                ActionBar actionBar = super.getSupportActionBar();
+                if (actionBar != null)
+                    actionBar.setSubtitle(projectUser.project.parent.name);
+            }
+            return projectUser.project.name;
+        } else if (slugProject != null)
             return slugProject;
         return null;
     }
