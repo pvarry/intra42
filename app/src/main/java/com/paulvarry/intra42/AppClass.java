@@ -93,6 +93,8 @@ public class AppClass extends Application {
     public void onCreate() {
         super.onCreate();
 
+        setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         accessToken = Token.getTokenFromShared(this);

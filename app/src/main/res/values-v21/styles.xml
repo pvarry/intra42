@@ -2,6 +2,8 @@
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
 
+        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
+
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
@@ -12,10 +14,15 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
 
         <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme">
         <item name="android:statusBarColor">?colorPrimaryDark</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="AppTheme.Login" parent="AppTheme.NoActionBar">

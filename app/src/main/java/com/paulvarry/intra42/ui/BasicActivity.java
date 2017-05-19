@@ -76,6 +76,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
         super.setContentView(R.layout.activity__basic);
 
         app = (AppClass) getApplication();
@@ -123,6 +124,13 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         }
 
         refresh();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
     }
 
     /**

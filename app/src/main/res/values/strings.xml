@@ -135,6 +135,27 @@
     <string name="notifications_event_sub_text">event</string>
 
 
+    <!-- - - - - - - - - - - Strings related to Theme - - - - - - - - - - -->
+
+    <string name="pref_theme_title_change_theme" translatable="true">Set theme</string>
+
+    <string-array name="pref_theme_list_titles">
+        <item>Original (Default)</item>
+        <item>Intra</item>
+        <item>Studios 42</item>
+        <item>Studios 42 (Dark)</item>
+        <item>Android Dark</item>
+    </string-array>
+
+    <string-array name="pref_theme_list_values">
+        <item>-1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+
     <!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->
 
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
@@ -427,5 +448,6 @@
     <string name="unknown">Unknown</string>
     <string name="unknown_state">Unknown state</string>
     <string name="tab_home_past_events">Past events</string>
+    <string name="pref_header_theme">Theme</string>
 
 </resources>

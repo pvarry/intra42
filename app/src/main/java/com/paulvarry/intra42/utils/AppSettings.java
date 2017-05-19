@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Users;
 
 /**
@@ -230,6 +231,68 @@ public class AppSettings {
 
         public static boolean getNotificationsAnnouncements(SharedPreferences settings) {
             return settings.getBoolean(CHECKBOX_SCALES, false);
+        }
+
+    }
+
+    static public class Theme {
+
+        public static final String THEME = "list_preference_theme";
+
+        public static EnumTheme getTheme(Context context) {
+            if (context == null)
+                return null;
+            return getTheme(getSharedPreferences(context));
+        }
+
+        public static EnumTheme getTheme(SharedPreferences settings) {
+            int i = Integer.parseInt(settings.getString(THEME, "-1"));
+            return getTheme(i);
+        }
+
+        public static EnumTheme getTheme(int theme) {
+            switch (theme) {
+                case 1:
+                    return EnumTheme.INTRA;
+                case 2:
+                    return EnumTheme.STUDIOS_42;
+                case 3:
+                    return EnumTheme.STUDIOS_42_DARK;
+                case 4:
+                    return EnumTheme.ANDROID;
+                default:
+                    return EnumTheme.DEFAULT;
+            }
+        }
+
+        public static int theme(EnumTheme theme) {
+            int themeRes;
+
+            switch (theme) {
+                case DEFAULT:
+                    themeRes = R.style.AppTheme_Colored_Original;
+                    break;
+                case INTRA:
+                    themeRes = R.style.AppTheme_Colored_Intra;
+                    break;
+                case STUDIOS_42:
+                    themeRes = R.style.AppTheme_Colored_Studios_42;
+                    break;
+                case STUDIOS_42_DARK:
+                    themeRes = R.style.AppTheme_Colored_Studios_42_Dark;
+                    break;
+                case ANDROID:
+                    themeRes = R.style.AppTheme_Colored_Default;
+                    break;
+                default:
+                    themeRes = R.style.AppTheme_Colored_Original;
+                    break;
+            }
+            return themeRes;
+        }
+
+        public enum EnumTheme {
+            DEFAULT, INTRA, STUDIOS_42, STUDIOS_42_DARK, ANDROID
         }
 
     }

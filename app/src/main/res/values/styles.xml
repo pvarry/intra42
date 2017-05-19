@@ -1,7 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar" />
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
     <style name="AppTheme.Colored.Original" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
@@ -21,7 +24,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#990000</item>
         <item name="colorPrimaryDark">#660000</item>
-        <item name="colorAccent">#03A9F4</item>
+        <item name="colorAccent">#000000</item>
     </style>
 
     <style name="AppTheme.Colored.Studios_42.Dark" parent="AppTheme.Base">
@@ -46,7 +49,10 @@
 
     <style name="AppTheme.Login" parent="AppTheme.NoActionBar" />
 
-    <style name="AppTheme.ActionBar" parent="AppTheme" />
+    <style name="AppTheme.ActionBar" parent="AppTheme">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+    </style>
 
     <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

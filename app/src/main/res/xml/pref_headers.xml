@@ -8,6 +8,11 @@
     <!--android:title="@string/pref_header_general" />-->
 
     <header
+        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$ThemePreferenceFragment"
+        android:icon="@drawable/ic_format_paint_black_24dp"
+        android:title="@string/pref_header_theme" />
+
+    <header
         android:fragment="com.paulvarry.intra42.activities.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/pref_header_notifications" />
