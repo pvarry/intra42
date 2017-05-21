@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
@@ -32,19 +31,19 @@ import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
+import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Friends;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
@@ -258,6 +257,11 @@ public class UserActivity extends BasicTabActivity
         adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achivements));
         adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.tab_user_skills));
         adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.tab_user_partnerships));
+
+        if (AppSettings.Advanced.getAllowAdvancedData(this)) {
+            adapter.addFragment(UserAppsFragment.newInstance(), "Apps");
+        }
+
         viewPager.setAdapter(adapter);
 
         if (user != null && user.local_cachedAt != null) {

@@ -427,5 +427,6 @@
     <string name="unknown">Unknown</string>
     <string name="unknown_state">Unknown state</string>
     <string name="tab_home_past_events">Past events</string>
+    <string name="official_app">Official App</string>
 
 </resources>

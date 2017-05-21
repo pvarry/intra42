@@ -17,7 +17,7 @@ android {
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
-        project.ext.set("archivesBaseName", "com.paulvarry.intra42-" + defaultConfig.versionName);
+        project.ext.set("archivesBaseName", "com.paulvarry.intra42-" + defaultConfig.versionName)
     }
     buildTypes {
         release {
@@ -79,7 +79,7 @@ dependencies {
     //    compile 'com.splitwise:tokenautocomplete:+'
     //    compile 'com.wdullaer:materialdatetimepicker:+'
     compile 'org.parceler:parceler-api:1.1.6'
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
@@ -93,7 +93,7 @@ dependencies {
     compile 'com.caverock:androidsvg:1.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.google.firebase:firebase-crash:10.2.1'
+    compile 'com.google.firebase:firebase-crash:10.2.6'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
@@ -101,7 +101,7 @@ dependencies {
     compile 'com.github.Plumillon:ChipView:1.2.0'
     compile 'de.halfbit:pinned-section-listview:1.0.0'
     compile 'com.pnikosis:materialish-progress:1.7'
-    compile 'com.google.firebase:firebase-database:10.2.1'
+    compile 'com.google.firebase:firebase-database:10.2.6'
     compile 'jp.wasabeef:picasso-transformations:2.1.2'
     compile 'com.splitwise:tokenautocomplete:2.0.8'
     compile 'com.wdullaer:materialdatetimepicker:3.1.3'

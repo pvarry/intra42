@@ -269,9 +269,9 @@
             android:padding="8dp">
 
             <LinearLayout
+                android:background="#f6f6f6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f6f6f6"
                 android:orientation="vertical">
 
                 <TextView
@@ -292,6 +292,7 @@
                     android:background="@color/colorGrayLight" />
 
                 <LinearLayout
+                    android:background="#fcfcfc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

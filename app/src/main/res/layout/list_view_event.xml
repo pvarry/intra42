@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,13 +22,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="New Text"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/textViewDateMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"/>
+                android:text="New Text" />
         </LinearLayout>
 
         <RelativeLayout
@@ -58,7 +57,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_toLeftOf="@+id/tagViewKind"
                         android:text="New Text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <com.veinhorn.tagview.TagView
                         android:id="@+id/tagViewKind"
@@ -72,7 +71,7 @@
                         app:tagBorderRadius="5"
                         app:tagColor="#ffaa66cc"
                         app:tagType="classic"
-                        app:tagUpperCase="true"/>
+                        app:tagUpperCase="true" />
 
                 </RelativeLayout>
 
@@ -86,7 +85,7 @@
                     android:maxLines="2"
                     android:text="New Text"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/textColorBlackSecondary"/>
+                    android:textColor="@color/textColorBlackSecondary" />
             </LinearLayout>
 
             <RelativeLayout
@@ -105,7 +104,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:text="New Text"
-                    android:textColor="@color/textColorBlackDisabled"/>
+                    android:textColor="@color/textColorBlackDisabled" />
 
                 <TextView
                     android:id="@+id/textViewPlace"
@@ -117,7 +116,7 @@
                     android:layout_toRightOf="@+id/textViewTime"
                     android:gravity="right"
                     android:text="New Text"
-                    android:textColor="@color/textColorBlackDisabled"/>
+                    android:textColor="@color/textColorBlackDisabled" />
 
             </RelativeLayout>
         </RelativeLayout>
@@ -127,11 +126,6 @@
 
     <TextView
         android:id="@+id/textViewFull"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/full"
-        android:textAllCaps="true"
-        android:textColor="#28ff0000"
-        android:textSize="80sp"/>
+        style="@style/AppTheme.BigTextBackground"
+        android:text="@string/full" />
 </FrameLayout>
