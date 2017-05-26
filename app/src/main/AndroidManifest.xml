@@ -178,6 +178,7 @@
         <activity
             android:name=".activities.FriendsActivity"
             android:label="@string/friends" />
+        <activity android:name=".activities.LocationHistoryActivity"></activity>
     </application>
 
 </manifest>

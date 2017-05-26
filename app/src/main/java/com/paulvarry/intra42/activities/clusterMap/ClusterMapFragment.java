@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.LocationHistoryActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.UserImage;
@@ -126,25 +127,34 @@ public class ClusterMapFragment extends Fragment {
 
                     if (cluster[r][p].locationName.contains("null") || cluster[r][p].locationName.contains("TBD"))
                         imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
-                    else if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
-                        final UsersLTE user = locations.get(cluster[r][p].locationName);
-                        UserImage.setImageSmall(getContext(), user, imageViewContent);
-                        imageViewContent.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                UserActivity.openIt(activity, user);
-                            }
-                        });
-                    } else {
-                        imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_24dp));
+                    else {
                         final int finalR = r;
                         final int finalP = p;
-                        imageViewContent.setOnClickListener(new View.OnClickListener() {
+                        imageViewContent.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
-                            public void onClick(View view) {
-                                Toast.makeText(activity, cluster[finalR][finalP].locationName, Toast.LENGTH_SHORT).show();
+                            public boolean onLongClick(View v) {
+                                LocationHistoryActivity.openIt(activity, cluster[finalR][finalP].locationName);
+                                return true;
                             }
                         });
+                        if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
+                            final UsersLTE user = locations.get(cluster[r][p].locationName);
+                            UserImage.setImageSmall(getContext(), user, imageViewContent);
+                            imageViewContent.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    UserActivity.openIt(activity, user);
+                                }
+                            });
+                        } else {
+                            imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_24dp));
+                            imageViewContent.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Toast.makeText(activity, cluster[finalR][finalP].locationName, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
 
                 } else if (cluster[r][p].kind == LocationItem.KIND_WALL)

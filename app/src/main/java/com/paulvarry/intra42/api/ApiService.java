@@ -1,11 +1,42 @@
 package com.paulvarry.intra42.api;
 
-import com.paulvarry.intra42.api.model.*;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.http.*;
+import com.paulvarry.intra42.api.model.AccessToken;
+import com.paulvarry.intra42.api.model.Announcements;
+import com.paulvarry.intra42.api.model.Apps;
+import com.paulvarry.intra42.api.model.Campus;
+import com.paulvarry.intra42.api.model.Cursus;
+import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.EventsUsers;
+import com.paulvarry.intra42.api.model.Expertises;
+import com.paulvarry.intra42.api.model.ExpertisesUsers;
+import com.paulvarry.intra42.api.model.Locations;
+import com.paulvarry.intra42.api.model.Messages;
+import com.paulvarry.intra42.api.model.Notions;
+import com.paulvarry.intra42.api.model.Projects;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.api.model.Slots;
+import com.paulvarry.intra42.api.model.Subnotions;
+import com.paulvarry.intra42.api.model.Tags;
+import com.paulvarry.intra42.api.model.Teams;
+import com.paulvarry.intra42.api.model.Topics;
+import com.paulvarry.intra42.api.model.Users;
+import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.model.Votes;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface ApiService {
 
@@ -298,7 +329,7 @@ public interface ApiService {
     @GET("/v2/users/{id_user}/locations?sort=-begin_at")
     Call<List<Locations>> getLastLocations(@Path("id_user") String user);
 
-    @GET("/v2/locations?sort=-begin_at&page[size]=5")
+    @GET("/v2/locations?sort=-begin_at&page[size]=100")
     Call<List<Locations>> getLocationsHost(@Query("filter[host]") String host);
 
     @GET("/v2/campus/{campus_id}/locations?filter[active]=true")

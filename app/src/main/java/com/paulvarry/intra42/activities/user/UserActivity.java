@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
@@ -35,15 +36,16 @@ import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Friends;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
@@ -226,6 +228,8 @@ public class UserActivity extends BasicTabActivity
         }
 
         user = (Users) getLastCustomNonConfigurationInstance();
+        if (user != null)
+            login = user.login;
 
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
