@@ -51,7 +51,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.user.UserActivity"
-            android:configChanges="screenSize"
             android:label="@string/user"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter android:label="Intra42 user login">

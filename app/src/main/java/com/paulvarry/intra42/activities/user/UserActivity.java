@@ -234,12 +234,11 @@ public class UserActivity extends BasicTabActivity
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
 
+        super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
+
         super.onCreate(savedInstanceState);
         if (user == null && login == null)
             finish();
-        else {
-            super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
-        }
     }
 
     private String handleSendText(Intent intent) {
@@ -251,22 +250,8 @@ public class UserActivity extends BasicTabActivity
     }
 
     @Override
-    public void setupViewPager(final ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
-        adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));
-        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
-        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
-        adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.tab_user_expertises));
-        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achivements));
-        adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.tab_user_skills));
-        adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.tab_user_partnerships));
-
-        if (AppSettings.Advanced.getAllowAdvancedData(this)) {
-            adapter.addFragment(UserAppsFragment.newInstance(), "Apps");
-        }
-
-        viewPager.setAdapter(adapter);
+    protected void setViewContent() {
+        super.setViewContent();
 
         if (user != null && user.local_cachedAt != null) {
             Calendar calendar = Calendar.getInstance();
@@ -295,6 +280,25 @@ public class UserActivity extends BasicTabActivity
                 s.show();
             }
         }
+    }
+
+    @Override
+    public void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
+        adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));
+        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
+        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
+        adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.tab_user_expertises));
+        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achivements));
+        adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.tab_user_skills));
+        adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.tab_user_partnerships));
+
+        if (AppSettings.Advanced.getAllowAdvancedData(this)) {
+            adapter.addFragment(UserAppsFragment.newInstance(), "Apps");
+        }
+
+        viewPager.setAdapter(adapter);
     }
 
     public void refresh(final Runnable runnable) {
@@ -435,7 +439,7 @@ public class UserActivity extends BasicTabActivity
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

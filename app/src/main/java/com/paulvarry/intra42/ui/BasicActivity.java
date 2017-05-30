@@ -544,8 +544,13 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                     p.into(imageView);
             }
 
-            if (drawerSelectedItemPosition != -1)
+            if (drawerSelectedItemPosition != -1) {
+                int size = navigationView.getMenu().size();
+                for (int i = 0; i < size; i++) {
+                    navigationView.getMenu().getItem(i).setChecked(false);
+                }
                 navigationView.getMenu().getItem(drawerSelectedItemPosition).setChecked(true);
+            }
 
             if (app.me != null && AppSettings.getAppCampus(app) != 7)
                 navigationView.getMenu().getItem(5).getSubMenu().getItem(3).setVisible(false);
@@ -569,7 +574,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     /**
      * Run when activity build view, just after getting data.
      */
-    abstract public void setViewContent();
+    abstract protected void setViewContent();
 
     /**
      * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
