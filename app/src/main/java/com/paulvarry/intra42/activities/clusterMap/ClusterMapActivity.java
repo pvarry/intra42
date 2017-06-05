@@ -26,17 +26,30 @@ import retrofit2.Response;
 
 public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
 
+    static private String ARG_LOCATION_HIGHLIGHT;
     HashMap<String, UsersLTE> locations;
     List<Campus> campus = new ArrayList<>();
     int campusId;
+    private String locationHighlight;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapActivity.class);
         context.startActivity(intent);
     }
 
+    public static void openIt(Context context, String location) {
+        Intent intent = new Intent(context, ClusterMapActivity.class);
+        intent.putExtra(ARG_LOCATION_HIGHLIGHT, location);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent i = getIntent();
+        if (i != null)
+            locationHighlight = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
+
         super.activeHamburger();
 
         registerGetDataOnOtherThread(this);

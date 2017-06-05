@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -112,6 +114,7 @@ public class ClusterMapFragment extends Fragment {
             return;
 
         gridLayout.removeAllViews();
+        gridLayout.removeAllViewsInLayout();
         gridLayout.setRowCount(cluster.length);
 
         for (int r = 0; r < cluster.length; r++) {
@@ -122,61 +125,84 @@ public class ClusterMapFragment extends Fragment {
                 if (cluster[r][p] == null)
                     break;
 
-                ImageView imageViewContent = new ImageView(getContext());
-                if (cluster[r][p].kind == LocationItem.KIND_USER) {
-
-                    if (cluster[r][p].locationName.contains("null") || cluster[r][p].locationName.contains("TBD"))
-                        imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
-                    else {
-                        final int finalR = r;
-                        final int finalP = p;
-                        imageViewContent.setOnLongClickListener(new View.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View v) {
-                                LocationHistoryActivity.openIt(activity, cluster[finalR][finalP].locationName);
-                                return true;
-                            }
-                        });
-                        if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
-                            final UsersLTE user = locations.get(cluster[r][p].locationName);
-                            UserImage.setImageSmall(getContext(), user, imageViewContent);
-                            imageViewContent.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    UserActivity.openIt(activity, user);
-                                }
-                            });
-                        } else {
-                            imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_24dp));
-                            imageViewContent.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Toast.makeText(activity, cluster[finalR][finalP].locationName, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-
-                } else if (cluster[r][p].kind == LocationItem.KIND_WALL)
-                    imageViewContent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorClusterMapWall));
-                else {
-                    imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
-                    imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
-                }
-
-                GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-                param.height = (int) (100 * cluster[r][p].sizeY);
-                param.width = (int) (100 * cluster[r][p].sizeX);
-                param.rightMargin = 5;
-                param.topMargin = 5;
-                param.setGravity(Gravity.FILL);
-                param.columnSpec = GridLayout.spec(p);
-                param.rowSpec = GridLayout.spec(r);
-                imageViewContent.setLayoutParams(param);
-//                imageViewContent.setRotation(10);
-                gridLayout.addView(imageViewContent);
+                Log.d("pos", String.valueOf(r) + " " + String.valueOf(p));
+                View v = makeMapItem(cluster, r, p);
+                gridLayout.addView(v);
             }
         }
+    }
+
+    View makeMapItem(final LocationItem[][] cluster, int r, int p) {
+
+        LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
+
+        ImageView imageViewContent = (ImageView) view.findViewById(R.id.imageView);
+        if (cluster[r][p].kind == LocationItem.KIND_USER) {
+
+            if (cluster[r][p].locationName.contains("null") || cluster[r][p].locationName.contains("TBD"))
+                imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
+            else {
+                final int finalR = r;
+                final int finalP = p;
+                imageViewContent.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        LocationHistoryActivity.openIt(activity, cluster[finalR][finalP].locationName);
+                        return true;
+                    }
+                });
+                if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
+                    final UsersLTE user = locations.get(cluster[r][p].locationName);
+                    UserImage.setImageSmall(getContext(), user, imageViewContent);
+                    imageViewContent.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            UserActivity.openIt(activity, user);
+                        }
+                    });
+                } else {
+                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_24dp));
+                    imageViewContent.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(activity, cluster[finalR][finalP].locationName, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+        } else if (cluster[r][p].kind == LocationItem.KIND_WALL)
+            imageViewContent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorClusterMapWall));
+        else {
+            imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
+            imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
+        }
+
+        FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
+        paramsFrameLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        paramsFrameLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
+        imageViewContent.setLayoutParams(paramsFrameLayout);
+//        imageViewContent.setMaxHeight((int) (100 * cluster[r][p].sizeY));
+//        imageViewContent.setMaxWidth((int) (100 * cluster[r][p].sizeX));
+
+        GridLayout.LayoutParams paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
+        paramsGridLayout.height = (int) (100 * cluster[r][p].sizeY);
+        paramsGridLayout.width = (int) (100 * cluster[r][p].sizeX);
+        paramsGridLayout.rightMargin = 5;
+        paramsGridLayout.topMargin = 5;
+        paramsGridLayout.setGravity(Gravity.FILL);
+        paramsGridLayout.columnSpec = GridLayout.spec(p);
+        paramsGridLayout.rowSpec = GridLayout.spec(r);
+
+        view.setLayoutParams(paramsGridLayout);
+//                imageViewContent.setRotation(10);
+
+        view.setPadding(1, 1, 1, 1);
+        view.setBackgroundResource(R.color.colorAccent);
+
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {
