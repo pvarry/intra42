@@ -2,9 +2,11 @@ package com.paulvarry.intra42.utils;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.api.model.Attachments;
@@ -90,5 +92,15 @@ public class Tools {
                     Toast.makeText(activity, "There are no applications installed to open this", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public static int dpToPx(Context context, int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static int pxToDp(Context context, int px) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

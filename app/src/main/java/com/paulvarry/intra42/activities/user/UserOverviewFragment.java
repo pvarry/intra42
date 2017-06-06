@@ -29,6 +29,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.adapters.SpinnerAdapterCursusAccent;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.CursusUsers;
@@ -341,6 +342,8 @@ public class UserOverviewFragment
         } else if (v == linearLayoutLocation) {
             if (user.location == null)
                 seeLastLocation();
+            else
+                ClusterMapActivity.openIt(getContext(), user.location);
         } else if (v == imageButtonFriends) {
             Friends.actionAddRemove(app.firebaseRefFriends, user);
             setButtonFriends(null);

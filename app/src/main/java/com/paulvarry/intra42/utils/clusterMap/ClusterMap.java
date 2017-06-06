@@ -27,7 +27,7 @@ public class ClusterMap {
     public static void addEmptyRow(LocationItem[] map, int KIND_OF_ROW) {
         for (int p = 0; p < ClusterMapFremontE1Z1.CLUSTER_FREMONT_E1_Z1_WIDTH; p++) {
             map[p] = new LocationItem(null, KIND_OF_ROW);
-            map[p].sizeY = (float) 0.5;
+            map[p].sizeY = 0.5f;
         }
     }
 

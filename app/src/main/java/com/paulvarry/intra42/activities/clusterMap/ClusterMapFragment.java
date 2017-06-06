@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.LocationHistoryActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.paulvarry.intra42.utils.clusterMap.ClusterMap;
 import com.paulvarry.intra42.utils.clusterMap.ClusterMapFremontE1Z1;
@@ -42,6 +42,8 @@ import java.util.HashMap;
  */
 public class ClusterMapFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
+    float baseItemWidth;
+    float baseItemHeight;
 
     private String clusterName;
     private ClusterMapActivity activity;
@@ -97,36 +99,39 @@ public class ClusterMapFragment extends Fragment {
 
     void makeMap() {
 
-        final LocationItem[][] cluster;
+        // set base item size
+        baseItemHeight = Tools.dpToPx(getContext(), 36);
+        baseItemWidth = Tools.dpToPx(getContext(), 30);
+
+        final LocationItem[][] clusterMap;
 
         if (activity.campusId == 1)
-            cluster = ClusterMapParis.getParisCluster(clusterName);
+            clusterMap = ClusterMapParis.getParisCluster(clusterName);
         else if (activity.campusId == 7) {
             if (clusterName.contentEquals("e1z1"))
-                cluster = ClusterMapFremontE1Z1.getFremontCluster1Zone1();
+                clusterMap = ClusterMapFremontE1Z1.getFremontCluster1Zone1();
             else if (clusterName.contentEquals("e1z2"))
-                cluster = ClusterMapFremontE1Z2.getFremontCluster1Zone2();
+                clusterMap = ClusterMapFremontE1Z2.getFremontCluster1Zone2();
             else if (clusterName.contentEquals("e1z3"))
-                cluster = ClusterMapFremontE1Z3.getFremontCluster1Zone3();
+                clusterMap = ClusterMapFremontE1Z3.getFremontCluster1Zone3();
             else
-                cluster = ClusterMap.getFremontCluster(clusterName);
+                clusterMap = ClusterMap.getFremontCluster(clusterName);
         } else
             return;
 
         gridLayout.removeAllViews();
         gridLayout.removeAllViewsInLayout();
-        gridLayout.setRowCount(cluster.length);
+        gridLayout.setRowCount(clusterMap.length);
 
-        for (int r = 0; r < cluster.length; r++) {
+        for (int r = 0; r < clusterMap.length; r++) {
 
-            gridLayout.setColumnCount(cluster[r].length);
-            for (int p = 0; p < cluster[r].length; p++) {
+            gridLayout.setColumnCount(clusterMap[r].length);
+            for (int p = 0; p < clusterMap[r].length; p++) {
 
-                if (cluster[r][p] == null)
+                if (clusterMap[r][p] == null)
                     break;
 
-                Log.d("pos", String.valueOf(r) + " " + String.valueOf(p));
-                View v = makeMapItem(cluster, r, p);
+                View v = makeMapItem(clusterMap, r, p);
                 gridLayout.addView(v);
             }
         }
@@ -163,7 +168,7 @@ public class ClusterMapFragment extends Fragment {
                         }
                     });
                 } else {
-                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_24dp));
+                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_custom));
                     imageViewContent.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -181,17 +186,15 @@ public class ClusterMapFragment extends Fragment {
         }
 
         FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
-        paramsFrameLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
-        paramsFrameLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
+        paramsFrameLayout.height = (int) (baseItemHeight * cluster[r][p].sizeY);
+        paramsFrameLayout.width = (int) (baseItemWidth * cluster[r][p].sizeX);
         imageViewContent.setLayoutParams(paramsFrameLayout);
-//        imageViewContent.setMaxHeight((int) (100 * cluster[r][p].sizeY));
-//        imageViewContent.setMaxWidth((int) (100 * cluster[r][p].sizeX));
 
         GridLayout.LayoutParams paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
-        paramsGridLayout.height = (int) (100 * cluster[r][p].sizeY);
-        paramsGridLayout.width = (int) (100 * cluster[r][p].sizeX);
-        paramsGridLayout.rightMargin = 5;
-        paramsGridLayout.topMargin = 5;
+//        paramsGridLayout.height = (int) (100 * cluster[r][p].sizeY);
+//        paramsGridLayout.width = (int) (100 * cluster[r][p].sizeX);
+        paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
         paramsGridLayout.setGravity(Gravity.FILL);
         paramsGridLayout.columnSpec = GridLayout.spec(p);
         paramsGridLayout.rowSpec = GridLayout.spec(r);
@@ -199,8 +202,14 @@ public class ClusterMapFragment extends Fragment {
         view.setLayoutParams(paramsGridLayout);
 //                imageViewContent.setRotation(10);
 
-        view.setPadding(1, 1, 1, 1);
-        view.setBackgroundResource(R.color.colorAccent);
+        view.setPadding(5, 5, 5, 5);
+        if (activity != null &&
+                activity.locationHighlight != null &&
+                cluster[r][p].locationName != null &&
+                activity.locationHighlight.contentEquals(cluster[r][p].locationName)) {
+            imageViewContent.setBackgroundResource(R.color.windowBackground);
+            view.setBackgroundResource(R.color.colorAccent);
+        }
 
         return view;
     }

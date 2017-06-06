@@ -26,11 +26,11 @@ import retrofit2.Response;
 
 public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
 
-    static private String ARG_LOCATION_HIGHLIGHT;
+    final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
     HashMap<String, UsersLTE> locations;
     List<Campus> campus = new ArrayList<>();
     int campusId;
-    private String locationHighlight;
+    String locationHighlight;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapActivity.class);
@@ -47,7 +47,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent i = getIntent();
-        if (i != null)
+        if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT))
             locationHighlight = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
 
         super.activeHamburger();
@@ -79,6 +79,17 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
 
         viewPager.setPageMargin(20);
         viewPager.setPageMarginDrawable(R.color.textColorBlackPrimary);
+
+        if (locationHighlight != null) {
+            if (campusId == 1) {
+                if (locationHighlight.contains("e1"))
+                    viewPager.setCurrentItem(0);
+                else if (locationHighlight.contains("e2"))
+                    viewPager.setCurrentItem(1);
+                else if (locationHighlight.contains("e3"))
+                    viewPager.setCurrentItem(2);
+            }
+        }
     }
 
     @Nullable
@@ -148,7 +159,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */
