@@ -332,6 +332,9 @@ public interface ApiService {
     @GET("/v2/locations?sort=-begin_at&page[size]=100")
     Call<List<Locations>> getLocationsHost(@Query("filter[host]") String host);
 
+    @GET("/v2/campus/{campus_id}/locations?sort=-begin_at&page[size]=100")
+    Call<List<Locations>> getLocationsHost(@Path("campus_id") int campus, @Query("filter[host]") String host);
+
     @GET("/v2/campus/{campus_id}/locations?filter[active]=true")
     Call<List<Locations>> getLocationsUsers(@Path("campus_id") int campus, @Query("filter[user_id]") String filter_users, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
 
