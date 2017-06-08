@@ -15,8 +15,8 @@ public class Connectivity {
     /**
      * Get the network info
      *
-     * @param context
-     * @return
+     * @param context The context
+     * @return Get the network info
      */
     public static NetworkInfo getNetworkInfo(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -26,8 +26,8 @@ public class Connectivity {
     /**
      * Check if there is any connectivity
      *
-     * @param context
-     * @return
+     * @param context THe context
+     * @return If there is any connectivity
      */
     public static boolean isConnected(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
@@ -37,8 +37,8 @@ public class Connectivity {
     /**
      * Check if there is any connectivity to a Wifi network
      *
-     * @param context
-     * @return
+     * @param context The context
+     * @return If the phone have a Wifi connection.
      */
     public static boolean isConnectedWifi(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
@@ -48,8 +48,8 @@ public class Connectivity {
     /**
      * Check if there is any connectivity to a mobile network
      *
-     * @param context
-     * @return
+     * @param context The context
+     * @return If the phone have a mobile network connection
      */
     public static boolean isConnectedMobile(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
@@ -59,8 +59,8 @@ public class Connectivity {
     /**
      * Check if there is fast connectivity
      *
-     * @param context
-     * @return
+     * @param context The context
+     * @return If the phone have a fast connection
      */
     public static boolean isConnectedFast(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
@@ -70,9 +70,9 @@ public class Connectivity {
     /**
      * Check if the connection is fast
      *
-     * @param type
-     * @param subType
-     * @return
+     * @param type Type: Connected Interface (Wifi, Mobile)
+     * @param subType SubType: TYpe of network.
+     * @return Check if the connection is fast
      */
     public static boolean isConnectionFast(int type, int subType) {
         if (type == ConnectivityManager.TYPE_WIFI) {

@@ -73,7 +73,7 @@
         </menu>
     </item>
 
-    <item android:title="@string/action">
+    <item android:title="@string/nav_header_action">
         <menu>
 
             <group android:id="@+id/group_log">

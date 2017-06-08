@@ -248,7 +248,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
             if (event.maxPeople == 0)
                 buttonSubscribe.setText(R.string.subscription_unavailable);
             else
-                buttonSubscribe.setText(R.string.full);
+                buttonSubscribe.setText(R.string.event_full);
             buttonSubscribe.setEnabled(false);
         }
     }

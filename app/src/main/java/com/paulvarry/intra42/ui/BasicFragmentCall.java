@@ -1,5 +1,6 @@
 package com.paulvarry.intra42.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -142,6 +143,7 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     @Nullable
     public abstract Call<List<T>> getCall(ApiService apiService, @Nullable List<T> list);
 
+    @SuppressLint("SetTextI18n")
     public void setView() {
         if (!isAdded())
             return;

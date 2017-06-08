@@ -211,7 +211,7 @@
     <string name="tab_projects_all">All</string>
     <string name="tab_projects_graphic">Galaxy</string>
     <string name="tab_user_overview">Overview</string>
-    <string name="tab_user_achivements">Achievements</string>
+    <string name="tab_user_achievements">Achievements</string>
     <string name="tab_user_marks">Marks</string>
     <string name="tab_user_projects">Projects</string>
     <string name="tab_user_skills">Skills</string>
@@ -271,7 +271,7 @@
     </string-array>
 
     <string name="tab_user_forum">Forum</string>
-    <string name="format_dont_have_any_expertises_yet">%s don\'t have any expertises yet</string>
+    <string name="format_dont_have_any_expertise_yet">%s don\'t have any expertise yet</string>
     <string name="you">you</string>
     <string name="new_topic">New topic</string>
     <string name="session">Session</string>
@@ -306,12 +306,12 @@
     <string name="tab_elearning_all">All</string>
     <string name="elearning">Elearning</string>
     <string name="someone">someone</string>
-    <string name="correct">Correct</string>
+    <string name="correct__someone">Corrects</string>
     <string name="corrected_by">Corrected by</string>
     <string name="error">error</string>
     <string name="forbidden">forbidden</string>
     <string name="tab_elearning_tags">Tags</string>
-    <string name="title_activity_elearning">Elearning</string>
+    <string name="title_activity_elearning" translatable="false">Elearning</string>
     <string name="title_activity_event">Event</string>
     <string name="select_file_to_open">Select file to open</string>
     <string name="loading_please_wait">Loading. Please wait…</string>
@@ -330,10 +330,10 @@
     <string name="nothing_found">Nothing found</string>
     <string name="bookings_title_new">You have a new booking</string>
     <string name="bookings_title_imminent">Correction imminent</string>
-    <string name="bookings_corrected_by">Your _project_\'s code will be reviewed at _date_.</string>
-    <string name="bookings_corrected_by_login">Your _project_\'s code will be reviewed by _login_ at _date_.</string>
+    <string name="bookings_corrected_by">Your _project_\'s will be reviewed at _date_.</string>
+    <string name="bookings_corrected_by_login">Your _project_\'s will be reviewed by _login_ at _date_.</string>
     <string name="bookings_correct_somebody">You will review somebody\'s code at _date_.</string>
-    <string name="bookings_correct_login">You will review _login_\'s code at _date_.</string>
+    <string name="bookings_correct_login">You will review _login_\'s project at _date_.</string>
     <string name="project">Project</string>
     <string name="notification_see_project">see project</string>
     <string name="notification_see_user">see user</string>
@@ -369,20 +369,20 @@
     <string name="romanian">Romanian</string>
     <string name="ukrainian">Ukrainian</string>
     <string name="network_error">Network error</string>
-    <string name="icon_copy">Copy icon</string>
-    <string name="icon_menu">Menu icon</string>
-    <string name="icon_project">Project icon</string>
-    <string name="icon_friends">Friends icon</string>
+    <string name="icon_copy" translatable="false">Copy icon</string>
+    <string name="icon_menu" translatable="false">Menu icon</string>
+    <string name="icon_project" translatable="false">Project icon</string>
+    <string name="icon_friends" translatable="false">Friends icon</string>
     <string name="calling_users_1_1">calling users 1/1</string>
-    <string name="moulinette">Moulinette</string>
+    <string name="moulinette" translatable="false">Moulinette</string>
     <string name="no_session_found_for_this_cursus_campus">No session found for selected cursus/campus</string>
     <string name="you_cant_have_mark_for_this_project">You can\'t have mark for this project</string>
-    <string name="calling">calling ...</string>
+    <string name="calling">calling …</string>
     <string name="no_achievements">No achievement</string>
     <string name="auth_error">Authentication error</string>
     <string name="filter">filter</string>
     <string name="time">Time</string>
-    <string name="action">Action</string>
+    <string name="nav_header_action">Actions</string>
     <string name="tools">Tools</string>
     <string name="cluster_map">Cluster Map</string>
     <string name="title_activity_cluster_map">Cluster Map</string>
@@ -392,19 +392,19 @@
     <string name="pref_title_notifications_announcements">Notify announcements</string>
     <string name="notifications_announcements_sub_text">announcements</string>
     <string name="no_cursus_available">No cursus available</string>
-    <string name="no_event_found_for_your_campus_cursus">No event found for you campus/cursus</string>
+    <string name="no_event_found_for_your_campus_cursus">No event found for your campus/cursus</string>
     <string name="check_your_registration">Checking your registration</string>
     <string name="unsubscribe">Unsubscribe</string>
     <string name="cantina_menu">Cantina Menu</string>
     <string name="title_activity_cantina_menu">Cantina Menu (Fremont)</string>
     <string name="unsubscribed">Unsubscribed</string>
-    <string name="full">Full</string>
-    <string name="icon_edit">Edit Icon</string>
-    <string name="icon_delete">Delete Icon</string>
+    <string name="event_full">Full</string>
+    <string name="icon_edit" translatable="false">Edit Icon</string>
+    <string name="icon_delete" translatable="false">Delete Icon</string>
     <string name="edit_expertises">Edit Expertises</string>
     <string name="subscription_unavailable">Subscription unavailable</string>
     <string name="interested">Interested:</string>
-    <string name="discard">discard</string>
+    <string name="discard_edition">Discard</string>
     <string name="created">Created</string>
     <string name="edit_expertise">Edit Expertise</string>
     <string name="new_expertise">Add new expertise</string>
@@ -419,7 +419,7 @@
     <string name="correction">correction</string>
     <string name="corrections">corrections</string>
     <string name="automatic_correction">Automatic correction</string>
-    <string name="icon_info">Info icon</string>
+    <string name="icon_info" translatable="false">Info icon</string>
     <string name="available">Available</string>
     <string name="failed">Failed</string>
     <string name="succeeded">Succeeded</string>
@@ -429,5 +429,11 @@
     <string name="tab_home_past_events">Past events</string>
     <string name="official_app">Official App</string>
     <string name="format__host_s_history">%s\'s history</string>
+    <string name="icon_open" translatable="false">Open icon</string>
+    <string name="open_this">Open this</string>
+    <string name="slots_begin_at">Begin at</string>
+    <string name="slots_end_at">End at</string>
+    <string name="apps_private">private</string>
+    <string name="you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
 
 </resources>

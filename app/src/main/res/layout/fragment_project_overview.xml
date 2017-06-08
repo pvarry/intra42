@@ -23,6 +23,7 @@
                 android:layout_gravity="center"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 android:padding="16dp"
                 android:visibility="visible">
@@ -33,7 +34,8 @@
                     android:layout_height="wrap_content"
                     android:text="100"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="40sp" />
+                    android:textSize="40sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@id/textView"
@@ -93,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
@@ -126,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
@@ -159,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
@@ -192,6 +197,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
@@ -226,6 +232,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"

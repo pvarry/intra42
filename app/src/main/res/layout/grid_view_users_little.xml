@@ -16,7 +16,7 @@
         android:id="@+id/imageViewStar"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_gravity="right|top"
+        android:layout_gravity="end|top"
         android:contentDescription="@string/icon_star"
         android:tint="#ffc400"
         android:visibility="gone"

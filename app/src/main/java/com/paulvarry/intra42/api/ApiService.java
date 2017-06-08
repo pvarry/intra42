@@ -7,8 +7,8 @@ import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
+import com.paulvarry.intra42.api.model.ExpertiseUsers;
 import com.paulvarry.intra42.api.model.Expertises;
-import com.paulvarry.intra42.api.model.ExpertisesUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Notions;
@@ -153,10 +153,10 @@ public interface ApiService {
     Call<List<Topics>> getUserTopics(@Path("slug") String slug, @Query("page") int page);
 
     @GET("/v2/users/{id}/expertises_users?sort=-value")
-    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") int userId, @Query("page") int page);
+    Call<List<ExpertiseUsers>> getUserExpertises(@Path("id") int userId, @Query("page") int page);
 
     @GET("/v2/users/{id}/expertises_users?sort=-value")
-    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") String userSlug, @Query("page") int page);
+    Call<List<ExpertiseUsers>> getUserExpertises(@Path("id") String userSlug, @Query("page") int page);
 
     /* Events */
     @GET("/v2/campus/{campus_id}/cursus/{cursus_id}/events?sort=begin_at")

@@ -15,12 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ListAdapterExpertisesEdit;
+import com.paulvarry.intra42.adapters.ListAdapterExpertiseEdit;
 import com.paulvarry.intra42.adapters.SpinnerAdapterExpertises;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.ExpertiseUsers;
 import com.paulvarry.intra42.api.model.Expertises;
-import com.paulvarry.intra42.api.model.ExpertisesUsers;
-import com.paulvarry.intra42.cache.CacheExpertises;
+import com.paulvarry.intra42.cache.CacheExpertise;
 import com.paulvarry.intra42.ui.BasicActivity;
 
 import java.util.List;
@@ -29,13 +29,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ExpertisesEditActivity extends BasicActivity implements View.OnClickListener, BasicActivity.GetDataOnThread {
+public class ExpertiseEditActivity extends BasicActivity implements View.OnClickListener, BasicActivity.GetDataOnThread {
 
-    List<ExpertisesUsers> expertisesList;
+    List<ExpertiseUsers> expertiseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.setContentView(R.layout.activity_expertises_edit);
+        super.setContentView(R.layout.activity_expertise_edit);
 
         registerGetDataOnOtherThread(this);
 
@@ -51,9 +51,9 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
     @Override
     public StatusCode getDataOnOtherThread() {
 
-        expertisesList = ExpertisesUsers.getExpertisesUsers(app.getApiService(), app.me);
+        expertiseList = ExpertiseUsers.getExpertiseUsers(app.getApiService(), app.me);
 
-        if (expertisesList != null && expertisesList.size() != 0)
+        if (expertiseList != null && expertiseList.size() != 0)
             return StatusCode.FINISH;
         else
             return StatusCode.EMPTY;
@@ -67,9 +67,9 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
     @Override
     public void setViewContent() {
         ListView listView = (ListView) findViewById(R.id.listView);
-        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_expertises_edit);
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_expertise_edit);
 
-        ListAdapterExpertisesEdit adapterExpertisesEdit = new ListAdapterExpertisesEdit(this, expertisesList);
+        ListAdapterExpertiseEdit adapterExpertisesEdit = new ListAdapterExpertiseEdit(this, expertiseList);
         listView.setAdapter(adapterExpertisesEdit);
 
         fabBaseActivity.setVisibility(View.VISIBLE);
@@ -98,14 +98,14 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
         }
     }
 
-    public void prepareDialog(final ExpertisesUsers expertisesUsers) {
+    public void prepareDialog(final ExpertiseUsers expertisesUsers) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<Expertises> expertisesList = CacheExpertises.getAllowInternet(app.cacheSQLiteHelper, app);
+                final List<Expertises> expertisesList = CacheExpertise.getAllowInternet(app.cacheSQLiteHelper, app);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -117,7 +117,7 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
         }).start();
     }
 
-    void openDialog(final List<Expertises> expertisesList, final ExpertisesUsers expertisesUsers) {
+    void openDialog(final List<Expertises> expertisesList, final ExpertiseUsers expertisesUsers) {
         TextView textViewTitle;
         final Spinner spinnerExpertises;
         final CheckBox checkboxInterested;
@@ -177,16 +177,16 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
                     @Override
                     public void onResponse(Call<Expertises> call, Response<Expertises> response) {
                         if (response.isSuccessful())
-                            Toast.makeText(ExpertisesEditActivity.this, R.string.done, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ExpertiseEditActivity.this, R.string.done, Toast.LENGTH_SHORT).show();
                         else
-                            Toast.makeText(ExpertisesEditActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                        ExpertisesEditActivity.this.refresh();
+                            Toast.makeText(ExpertiseEditActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                        ExpertiseEditActivity.this.refresh();
                         dialog.cancel();
                     }
 
                     @Override
                     public void onFailure(Call<Expertises> call, Throwable t) {
-                        Toast.makeText(ExpertisesEditActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ExpertiseEditActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
@@ -196,7 +196,7 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
         dialog.show();
     }
 
-    public void deleteExpertiseUser(ExpertisesUsers expertisesUsers) {
+    public void deleteExpertiseUser(ExpertiseUsers expertisesUsers) {
         Call<Expertises> call;
         ApiService api = app.getApiService();
 
@@ -206,16 +206,16 @@ public class ExpertisesEditActivity extends BasicActivity implements View.OnClic
             @Override
             public void onResponse(Call<Expertises> call, Response<Expertises> response) {
                 if (response.isSuccessful())
-                    Toast.makeText(ExpertisesEditActivity.this, R.string.deleted, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ExpertiseEditActivity.this, R.string.deleted, Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(ExpertisesEditActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                ExpertisesEditActivity.this.refresh();
+                    Toast.makeText(ExpertiseEditActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                ExpertiseEditActivity.this.refresh();
 
             }
 
             @Override
             public void onFailure(Call<Expertises> call, Throwable t) {
-                Toast.makeText(ExpertisesEditActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExpertiseEditActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

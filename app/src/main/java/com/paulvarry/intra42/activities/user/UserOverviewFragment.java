@@ -64,10 +64,10 @@ public class UserOverviewFragment
         extends Fragment
         implements View.OnClickListener, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, View.OnLongClickListener {
 
+    final static private String STATE_SELECTED_CURSUS = "selected_cursus";
     @Nullable
     UserActivity activity;
     Users user;
-
     SwipeRefreshLayout swipeRefreshLayout;
     LinearLayout linearLayoutMobile;
     LinearLayout linearLayoutPhone;
@@ -95,9 +95,7 @@ public class UserOverviewFragment
     TextView textViewNoCursusAvailable;
     LinearLayout linearLayoutCursus;
     TextView textViewCursusDate;
-
     AppClass app;
-
     ValueEventListener friendsEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot snapshot) {
@@ -190,6 +188,9 @@ public class UserOverviewFragment
 
         setView();
 
+        if (savedInstanceState != null && spinnerCursus != null)
+            spinnerCursus.setSelection(savedInstanceState.getInt(STATE_SELECTED_CURSUS), false);
+
         return view;
     }
 
@@ -217,16 +218,16 @@ public class UserOverviewFragment
             textViewMobile.setText(user.phone);
         textViewMail.setText(user.email);
 
-        String strLocation;
+        StringBuilder strLocation = new StringBuilder();
         if (user.location != null) {
-            strLocation = user.location;
+            strLocation.append(user.location);
         } else
-            strLocation = getResources().getString(R.string.unavailable);
+            strLocation.append(getResources().getString(R.string.unavailable));
         if (user.campus != null && !user.campus.isEmpty()) {
-            strLocation += " - ";
+            strLocation.append(" - ");
             String sep = "";
             for (Campus c : user.campus) {
-                strLocation += sep + c.name;
+                strLocation.append(sep).append(c.name);
                 sep = " | ";
             }
         }
@@ -324,6 +325,14 @@ public class UserOverviewFragment
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (spinnerCursus != null)
+            outState.putInt(STATE_SELECTED_CURSUS, spinnerCursus.getSelectedItemPosition());
+    }
+
+    @Override
     public void onClick(View v) {
         if (v == linearLayoutPhone) {
             Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -379,6 +388,8 @@ public class UserOverviewFragment
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
+        if (activity == null)
+            return;
         activity.app.getApiService().getLastLocations(user.login).enqueue(new Callback<List<Locations>>() {
             @Override
             public void onResponse(Call<List<Locations>> call, Response<List<Locations>> response) {
@@ -441,6 +452,8 @@ public class UserOverviewFragment
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (user.cursusUsers == null)
+            return;
         CursusUsers userCursus = user.cursusUsers.get(position);
         if (activity != null) {
             activity.userCursus = userCursus;

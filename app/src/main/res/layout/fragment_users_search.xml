@@ -16,8 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@+id/frameLayoutSearch"
+            android:layout_toStartOf="@+id/frameLayoutSearch"
             android:hint="@string/login"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textNoSuggestions|textVisiblePassword" />
@@ -29,7 +31,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_gravity="right|top">
+            android:layout_gravity="end|top">
 
             <Button
                 android:id="@+id/buttonSearch"

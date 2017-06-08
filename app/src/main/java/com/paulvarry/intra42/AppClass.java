@@ -71,7 +71,7 @@ public class AppClass extends Application {
 
         int epoch = 1451607360; // Human time (GMT): Fri, 01 Jan 2016 00:16:00 GMT
         if (AppSettings.Notifications.getNotificationsAllow(settings) && notificationsFrequency != -1)
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, epoch * 1000, 60000 * notificationsFrequency, pIntent);
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP, epoch, 60000 * notificationsFrequency, pIntent);
 
         Log.d("Notification", "schedule");
     }

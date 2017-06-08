@@ -49,10 +49,13 @@
                         android:layout_toStartOf="@+id/imageButtonSMS"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
+                        android:focusable="true"
                         android:orientation="vertical"
                         android:paddingBottom="16dp"
+                        android:paddingEnd="0dp"
                         android:paddingLeft="72dp"
                         android:paddingRight="0dp"
+                        android:paddingStart="72dp"
                         android:paddingTop="16dp"
                         tools:ignore="RelativeOverlap">
 
@@ -76,11 +79,12 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:layout_margin="0dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:contentDescription="@string/icon_sms"
+                        android:focusable="true"
                         android:padding="16dp"
                         android:tint="@color/colorGrayTint"
                         app:srcCompat="@drawable/ic_chat_black_24dp" />
@@ -91,6 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="72dp"
+                    android:layout_marginStart="72dp"
                     android:background="@color/colorGrayLight" />
 
             </LinearLayout>
@@ -101,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -116,6 +122,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginRight="0dp"
                     android:orientation="vertical">
 
@@ -138,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="72dp"
+                android:layout_marginStart="72dp"
                 android:background="@color/colorGrayLight" />
 
             <LinearLayout
@@ -146,6 +154,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -161,6 +170,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginRight="0dp"
                     android:orientation="vertical">
 
@@ -196,14 +206,17 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="@string/wallet"
                     android:textColor="#333" />
 
@@ -211,8 +224,10 @@
                     android:id="@+id/textViewWallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="New Text" />
             </LinearLayout>
 
@@ -226,14 +241,17 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="@string/correction_points"
                     android:textColor="#333" />
 
@@ -241,8 +259,10 @@
                     android:id="@+id/textViewCorrectionPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="New Text" />
             </LinearLayout>
 
@@ -258,14 +278,17 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="@string/pool"
                     android:textColor="#333" />
 
@@ -273,8 +296,10 @@
                     android:id="@+id/textViewPiscine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="New Text" />
             </LinearLayout>
 
@@ -327,6 +352,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -353,6 +379,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -370,7 +397,7 @@
                         android:id="@+id/textViewLvl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:text="New Text" />
 
                 </FrameLayout>
@@ -396,6 +423,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 

@@ -10,10 +10,10 @@ import android.view.View;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.ExpertisesEditActivity;
+import com.paulvarry.intra42.activities.ExpertiseEditActivity;
 import com.paulvarry.intra42.adapters.ListAdapterExpertises;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.model.ExpertisesUsers;
+import com.paulvarry.intra42.api.model.ExpertiseUsers;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
 import com.paulvarry.intra42.utils.Pagination;
 
@@ -29,7 +29,7 @@ import retrofit2.Call;
  * Use the {@link UserExpertisesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, ListAdapterExpertises> implements View.OnClickListener {
+public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, ListAdapterExpertises> implements View.OnClickListener {
 
     @Nullable
     private
@@ -75,7 +75,7 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, L
 
     @Nullable
     @Override
-    public Call<List<ExpertisesUsers>> getCall(ApiService apiService, @Nullable List<ExpertisesUsers> list) {
+    public Call<List<ExpertiseUsers>> getCall(ApiService apiService, @Nullable List<ExpertiseUsers> list) {
         if (activity != null && activity.user != null) {
             return apiService.getUserExpertises(activity.user.id, Pagination.getPage(list));
         }
@@ -83,12 +83,12 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, L
     }
 
     @Override
-    public void onItemClick(ExpertisesUsers item) {
+    public void onItemClick(ExpertiseUsers item) {
 
     }
 
     @Override
-    public ListAdapterExpertises generateAdapter(List<ExpertisesUsers> list) {
+    public ListAdapterExpertises generateAdapter(List<ExpertiseUsers> list) {
         return new ListAdapterExpertises(getContext(), list);
     }
 
@@ -101,8 +101,8 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, L
 
         String login = activity.login;
         if (app.me != null && app.me.id == activity.user.id)
-            login = getString(R.string.you);
-        return String.format(getString(R.string.format_dont_have_any_expertises_yet), login);
+            return getString(R.string.you_dont_have_any_expertise_yet);
+        return String.format(getString(R.string.format_dont_have_any_expertise_yet), login);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -131,7 +131,7 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertisesUsers, L
     @Override
     public void onClick(View v) {
         if (v == fabBasicFragmentCall) {
-            Intent intent = new Intent(getContext(), ExpertisesEditActivity.class);
+            Intent intent = new Intent(getContext(), ExpertiseEditActivity.class);
             startActivity(intent);
         }
     }

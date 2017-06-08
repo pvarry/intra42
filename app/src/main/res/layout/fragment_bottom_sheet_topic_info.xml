@@ -216,6 +216,7 @@
             android:id="@+id/buttonShare"
             style="@style/AppTheme.Button.BorderlessDrawable"
             android:drawableLeft="@drawable/ic_share_black_24dp"
+            android:drawableStart="@drawable/ic_share_black_24dp"
             android:drawableTint="#838383"
             android:text="@string/share" />
 
@@ -228,6 +229,7 @@
             android:id="@+id/buttonReply"
             style="@style/AppTheme.Button.BorderlessDrawable"
             android:drawableLeft="@drawable/ic_reply_black_24dp"
+            android:drawableStart="@drawable/ic_reply_black_24dp"
             android:drawableTint="#838383"
             android:text="@string/reply" />
 
@@ -240,6 +242,7 @@
             android:id="@+id/buttonEdit"
             style="@style/AppTheme.Button.BorderlessDrawable"
             android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
+            android:drawableStart="@drawable/ic_mode_edit_black_24dp"
             android:drawableTint="#838383"
             android:text="@string/edit_message" />
 
@@ -253,6 +256,7 @@
             android:id="@+id/buttonDelete"
             style="@style/AppTheme.Button.BorderlessDrawable"
             android:drawableLeft="@drawable/ic_delete_black_24dp"
+            android:drawableStart="@drawable/ic_delete_black_24dp"
             android:drawableTint="#e53935"
             android:text="@string/delete_message" />
 
@@ -269,9 +273,9 @@
             android:padding="8dp">
 
             <LinearLayout
-                android:background="#f6f6f6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#f6f6f6"
                 android:orientation="vertical">
 
                 <TextView
@@ -292,9 +296,9 @@
                     android:background="@color/colorGrayLight" />
 
                 <LinearLayout
-                    android:background="#fcfcfc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#fcfcfc"
                     android:orientation="vertical"
                     android:paddingEnd="16dp"
                     android:paddingLeft="16dp"
