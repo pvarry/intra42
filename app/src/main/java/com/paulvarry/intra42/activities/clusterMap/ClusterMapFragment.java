@@ -100,8 +100,8 @@ public class ClusterMapFragment extends Fragment {
     void makeMap() {
 
         // set base item size
-        baseItemHeight = Tools.dpToPx(getContext(), 36);
-        baseItemWidth = Tools.dpToPx(getContext(), 30);
+        baseItemHeight = Tools.dpToPx(getContext(), 42);
+        baseItemWidth = Tools.dpToPx(getContext(), 35);
 
         final LocationItem[][] clusterMap;
 
@@ -138,28 +138,40 @@ public class ClusterMapFragment extends Fragment {
     }
 
     View makeMapItem(final LocationItem[][] cluster, int r, int p) {
-
+        boolean highlight = false;
+        final LocationItem locationItem = cluster[r][p];
+        View view;
         LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ImageView imageViewContent;
+        int padding = Tools.dpToPx(getContext(), 2);
+        GridLayout.LayoutParams paramsGridLayout;
 
-        View view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
+        if (activity != null &&
+                activity.locationHighlight != null &&
+                locationItem.locationName != null &&
+                activity.locationHighlight.contentEquals(locationItem.locationName))
+            highlight = true;
 
-        ImageView imageViewContent = (ImageView) view.findViewById(R.id.imageView);
-        if (cluster[r][p].kind == LocationItem.KIND_USER) {
+        if (highlight)
+            view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
+        else
+            view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
 
-            if (cluster[r][p].locationName.contains("null") || cluster[r][p].locationName.contains("TBD"))
+        imageViewContent = (ImageView) view.findViewById(R.id.imageView);
+        if (locationItem.kind == LocationItem.KIND_USER) {
+
+            if (locationItem.locationName.contains("null") || locationItem.locationName.contains("TBD"))
                 imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
             else {
-                final int finalR = r;
-                final int finalP = p;
                 imageViewContent.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        LocationHistoryActivity.openIt(activity, cluster[finalR][finalP].locationName);
+                        LocationHistoryActivity.openIt(activity, locationItem.locationName);
                         return true;
                     }
                 });
-                if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
-                    final UsersLTE user = locations.get(cluster[r][p].locationName);
+                if (locations != null && locations.containsKey(locationItem.locationName)) {
+                    final UsersLTE user = locations.get(locationItem.locationName);
                     UserImage.setImageSmall(getContext(), user, imageViewContent);
                     imageViewContent.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -172,41 +184,40 @@ public class ClusterMapFragment extends Fragment {
                     imageViewContent.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(activity, cluster[finalR][finalP].locationName, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, locationItem.locationName, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
 
-        } else if (cluster[r][p].kind == LocationItem.KIND_WALL)
-            imageViewContent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorClusterMapWall));
+        } else if (locationItem.kind == LocationItem.KIND_WALL)
+            imageViewContent.setImageResource(R.color.colorClusterMapWall);
         else {
             imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
             imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
         }
 
-        FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
-        paramsFrameLayout.height = (int) (baseItemHeight * cluster[r][p].sizeY);
-        paramsFrameLayout.width = (int) (baseItemWidth * cluster[r][p].sizeX);
-        imageViewContent.setLayoutParams(paramsFrameLayout);
-
-        GridLayout.LayoutParams paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
-//        paramsGridLayout.height = (int) (100 * cluster[r][p].sizeY);
-//        paramsGridLayout.width = (int) (100 * cluster[r][p].sizeX);
-        paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
-        paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
-        paramsGridLayout.setGravity(Gravity.FILL);
+        paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
         paramsGridLayout.columnSpec = GridLayout.spec(p);
         paramsGridLayout.rowSpec = GridLayout.spec(r);
-
+        paramsGridLayout.setGravity(Gravity.FILL);
+        paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
+        paramsGridLayout.height = (int) (baseItemHeight * locationItem.sizeY);
+        paramsGridLayout.width = (int) (baseItemWidth * locationItem.sizeX);
+        imageViewContent.setPadding(padding, padding, padding, padding);
         view.setLayoutParams(paramsGridLayout);
-//                imageViewContent.setRotation(10);
 
-        view.setPadding(5, 5, 5, 5);
-        if (activity != null &&
-                activity.locationHighlight != null &&
-                cluster[r][p].locationName != null &&
-                activity.locationHighlight.contentEquals(cluster[r][p].locationName)) {
+        if (highlight) {
+            padding = Tools.dpToPx(getContext(), 3);
+            FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
+            paramsFrameLayout.height = (int) (baseItemHeight * locationItem.sizeY);
+            paramsFrameLayout.width = (int) (baseItemWidth * locationItem.sizeX);
+            imageViewContent.setLayoutParams(paramsFrameLayout);
+
+            imageViewContent.setPadding(0, 0, 0, 0);
+            view.setPadding(padding, padding, padding, padding);
+
             imageViewContent.setBackgroundResource(R.color.windowBackground);
             view.setBackgroundResource(R.color.colorAccent);
         }
