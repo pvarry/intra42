@@ -172,12 +172,14 @@
             android:name=".activities.MarvinMealsActivity"
             android:label="@string/title_activity_cantina_menu" />
         <activity
-            android:name=".activities.ExpertisesEditActivity"
+            android:name=".activities.ExpertiseEditActivity"
             android:label="@string/edit_expertises" />
         <activity
             android:name=".activities.FriendsActivity"
             android:label="@string/friends" />
-        <activity android:name=".activities.LocationHistoryActivity"></activity>
+        <activity
+            android:name=".activities.LocationHistoryActivity"
+            android:label="Location History" />
     </application>
 
 </manifest>

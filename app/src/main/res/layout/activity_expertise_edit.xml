@@ -2,10 +2,10 @@
 <android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_expertises_edit"
+    android:id="@+id/activity_expertise_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paulvarry.intra42.activities.ExpertisesEditActivity">
+    tools:context="com.paulvarry.intra42.activities.ExpertiseEditActivity">
 
     <ListView
         android:id="@+id/listView"

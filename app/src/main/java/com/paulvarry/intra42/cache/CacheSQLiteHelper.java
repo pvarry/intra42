@@ -18,7 +18,7 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CacheTags.SQL_CREATE_TABLE);
         db.execSQL(CacheCampus.SQL_CREATE_TABLE);
         db.execSQL(CacheCursus.SQL_CREATE_TABLE);
-        db.execSQL(CacheExpertises.SQL_CREATE_TABLE);
+        db.execSQL(CacheExpertise.SQL_CREATE_TABLE);
     }
 
 
@@ -29,7 +29,7 @@ public class CacheSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CacheTags.SQL_DROP_TABLE);
         db.execSQL(CacheCampus.SQL_DROP_TABLE);
         db.execSQL(CacheCursus.SQL_DROP_TABLE);
-        db.execSQL(CacheExpertises.SQL_DROP_TABLE);
+        db.execSQL(CacheExpertise.SQL_DROP_TABLE);
         onCreate(db);
     }
 

@@ -101,7 +101,7 @@ public class CacheCursus {
         return put(base, cursus, ServiceGenerator.getGson().toJson(cursus));
     }
 
-    public static long put(CacheSQLiteHelper base, Cursus cursus, String gson) {
+    public static long put(CacheSQLiteHelper base, Cursus cursus, String json) {
         // Gets the data repository in write mode
         SQLiteDatabase db = base.getWritableDatabase();
 
@@ -112,7 +112,7 @@ public class CacheCursus {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, cursus.id);
         values.put(COLUMN_NAME, cursus.name);
-        values.put(COLUMN_DATA, gson);
+        values.put(COLUMN_DATA, json);
 
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 

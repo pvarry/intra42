@@ -22,7 +22,7 @@ import java.util.List;
 public class GridAdapterAchievements extends BaseAdapter {
 
     private final UserActivity activity;
-    List<Achievements> achievements;
+    private List<Achievements> achievements;
 
     public GridAdapterAchievements(UserActivity activity, List<Achievements> achievements) {
 

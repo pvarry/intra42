@@ -17,6 +17,7 @@
             android:id="@+id/imageViewProfile"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/icon_people"

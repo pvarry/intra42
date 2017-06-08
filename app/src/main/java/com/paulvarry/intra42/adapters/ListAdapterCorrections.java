@@ -101,7 +101,7 @@ public class ListAdapterCorrections extends BaseAdapter {
         }
 
         if (item.corrector != null && item.corrector.isMe(activity.app))
-            holder.textViewWith.setText(R.string.correct);
+            holder.textViewWith.setText(R.string.correct__someone);
         else
             holder.textViewWith.setText(R.string.corrected_by);
 

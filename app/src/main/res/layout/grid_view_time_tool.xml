@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="16dp"
-                android:text="Title"
+                android:text="@string/title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <View
@@ -60,7 +61,8 @@
                 android:paddingTop="2dp"
                 android:text="New Text"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

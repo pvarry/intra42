@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CacheExpertises {
+public class CacheExpertise {
 
     private static final String TAG = "Cache expertises";
 
@@ -49,7 +49,7 @@ public class CacheExpertises {
 
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
-    private CacheExpertises() {
+    private CacheExpertise() {
     }
 
     private static boolean isCached(CacheSQLiteHelper base, Expertises expertises) {
@@ -101,7 +101,7 @@ public class CacheExpertises {
         return put(base, expertises, ServiceGenerator.getGson().toJson(expertises));
     }
 
-    public static long put(CacheSQLiteHelper base, Expertises expertises, String gson) {
+    public static long put(CacheSQLiteHelper base, Expertises expertises, String json) {
         // Gets the data repository in write mode
         SQLiteDatabase db = base.getWritableDatabase();
 
@@ -112,7 +112,7 @@ public class CacheExpertises {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, expertises.id);
         values.put(COLUMN_NAME, expertises.name);
-        values.put(COLUMN_DATA, gson);
+        values.put(COLUMN_DATA, json);
 
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 

@@ -12,6 +12,7 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.SectionListViewSearch;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 
 import java.io.IOException;
@@ -95,7 +96,7 @@ public class LocationHistoryActivity extends BasicActivity implements BasicActiv
     public StatusCode getDataOnOtherThread() {
 
         try {
-            Response<List<Locations>> response = app.getApiService().getLocationsHost(host).execute();
+            Response<List<Locations>> response = app.getApiService().getLocationsHost(AppSettings.getAppCampus(app), host).execute();
             if (locations == null)
                 locations = new ArrayList<>();
             if (response.isSuccessful()) {

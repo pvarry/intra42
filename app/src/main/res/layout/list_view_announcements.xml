@@ -44,6 +44,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/textViewTime"
+            android:layout_toStartOf="@+id/textViewTime"
             android:text="New Text"
             android:textColor="@color/textColorBlackDisabled" />
 

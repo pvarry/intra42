@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 
 public class CustomViewPager extends ViewPager {
 
-    private boolean enabled;
+    private boolean enabled = true;
 
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -56,9 +56,9 @@
 
         <TextView
             android:id="@+id/textViewBack"
-            android:text="private"
-            android:textSize="60sp"
-            style="@style/AppTheme.BigTextBackground" />
+            style="@style/AppTheme.BigTextBackground"
+            android:text="@string/apps_private"
+            android:textSize="60sp" />
     </FrameLayout>
 
 </LinearLayout>

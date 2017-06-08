@@ -290,7 +290,7 @@ public class UserActivity extends BasicTabActivity
         adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
         adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
         adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.tab_user_expertises));
-        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achivements));
+        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achievements));
         adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.tab_user_skills));
         adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.tab_user_partnerships));
 

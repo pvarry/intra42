@@ -15,6 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/user_profile_image"
@@ -45,7 +46,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 tools:ignore="UseCompoundDrawables">
 
                 <TextView
@@ -194,8 +195,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_toLeftOf="@+id/textViewFeedbackStars"
+                    android:layout_toStartOf="@+id/textViewFeedbackStars"
                     android:text="New Text"
                     android:textColor="@color/textColorBlackDisabled" />
 
@@ -205,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
                     android:text="New Text"
                     android:textColor="@color/textColorBlackDisabled" />
             </RelativeLayout>

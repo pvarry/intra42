@@ -98,6 +98,7 @@ public class Tag {
 
         String str = null;
         int color = 0;
+        tagView.setVisibility(View.VISIBLE);
         switch (achievement.tier) {
             case "easy":
                 str = "bronze";

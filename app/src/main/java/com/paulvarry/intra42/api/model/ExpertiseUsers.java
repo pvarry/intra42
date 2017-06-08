@@ -13,7 +13,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class ExpertisesUsers {
+public class ExpertiseUsers {
 
     private static final String API_ID = "id";
     private static final String API_EXPERTISE_ID = "expertise_id";
@@ -45,15 +45,15 @@ public class ExpertisesUsers {
     public UsersLTE user;
 
     @Nullable
-    public static List<ExpertisesUsers> getExpertisesUsers(ApiService api, Users user) {
-        List<ExpertisesUsers> list = new ArrayList<>();
+    public static List<ExpertiseUsers> getExpertiseUsers(ApiService api, Users user) {
+        List<ExpertiseUsers> list = new ArrayList<>();
         int i = 0;
         int pageSize = 100;
 
         try {
             while (i < 10 && Pagination.canAdd(list, pageSize)) {
-                Response<List<ExpertisesUsers>> response = api.getUserExpertises(user.login, Pagination.getPage(list, pageSize)).execute();
-                List<ExpertisesUsers> tmp = response.body();
+                Response<List<ExpertiseUsers>> response = api.getUserExpertises(user.login, Pagination.getPage(list, pageSize)).execute();
+                List<ExpertiseUsers> tmp = response.body();
                 if (!response.isSuccessful())
                     break;
                 list.addAll(tmp);

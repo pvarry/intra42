@@ -11,19 +11,19 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.ExpertisesEditActivity;
-import com.paulvarry.intra42.api.model.ExpertisesUsers;
+import com.paulvarry.intra42.activities.ExpertiseEditActivity;
+import com.paulvarry.intra42.api.model.ExpertiseUsers;
 
 import java.util.List;
 
-public class ListAdapterExpertisesEdit extends BaseAdapter {
+public class ListAdapterExpertiseEdit extends BaseAdapter {
 
-    ExpertisesEditActivity activity;
-    private List<ExpertisesUsers> expertisesUsersList;
+    ExpertiseEditActivity activity;
+    private List<ExpertiseUsers> expertiseUsersList;
 
-    public ListAdapterExpertisesEdit(ExpertisesEditActivity expertisesEditActivity, List<ExpertisesUsers> expertisesUsersList) {
-        this.expertisesUsersList = expertisesUsersList;
-        this.activity = expertisesEditActivity;
+    public ListAdapterExpertiseEdit(ExpertiseEditActivity expertiseEditActivity, List<ExpertiseUsers> expertiseUsersList) {
+        this.expertiseUsersList = expertiseUsersList;
+        this.activity = expertiseEditActivity;
     }
 
     /**
@@ -33,7 +33,7 @@ public class ListAdapterExpertisesEdit extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return expertisesUsersList.size();
+        return expertiseUsersList.size();
     }
 
     /**
@@ -44,8 +44,8 @@ public class ListAdapterExpertisesEdit extends BaseAdapter {
      * @return The data at the specified position.
      */
     @Override
-    public ExpertisesUsers getItem(int position) {
-        return expertisesUsersList.get(position);
+    public ExpertiseUsers getItem(int position) {
+        return expertiseUsersList.get(position);
     }
 
     /**
@@ -56,7 +56,7 @@ public class ListAdapterExpertisesEdit extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return expertisesUsersList.get(position).id;
+        return expertiseUsersList.get(position).id;
     }
 
     /**
@@ -98,7 +98,7 @@ public class ListAdapterExpertisesEdit extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final ExpertisesUsers item = getItem(position);
+        final ExpertiseUsers item = getItem(position);
 
         if (item.expertise != null)
             holder.textView.setText(item.expertise.name);

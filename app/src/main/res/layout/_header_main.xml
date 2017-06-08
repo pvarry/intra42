@@ -17,7 +17,7 @@
             android:id="@+id/imageViewNav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:adjustViewBounds="true"
             android:contentDescription="@string/user_profile_image"
             android:paddingTop="@dimen/nav_header_vertical_spacing"

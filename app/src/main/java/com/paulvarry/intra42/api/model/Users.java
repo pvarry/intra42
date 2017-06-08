@@ -87,7 +87,7 @@ public class Users extends UsersLTE {
     public transient List<Object> patroning;
 
     @SerializedName(API_EXPERTISES_USERS)
-    public List<ExpertisesUsers> expertisesUsers;
+    public List<ExpertiseUsers> expertisesUsers;
     @SerializedName(API_CAMPUS)
     public List<Campus> campus;
     @SerializedName(API_CAMPUS_USER)
