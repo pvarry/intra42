@@ -435,5 +435,6 @@
     <string name="slots_end_at">End at</string>
     <string name="apps_private">private</string>
     <string name="you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
+    <string name="view_sources">View sources</string>
 
 </resources>

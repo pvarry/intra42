@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public AppClass app;
     private LinearLayout linearLayoutNeedLogin;
+    private Button buttonViewSources;
     private TextView textViewLoadingInfo;
     private ProgressBar progressBarLoading;
     private TextView textViewStatus;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         AppClass.scheduleAlarm(this);
 
         linearLayoutNeedLogin = (LinearLayout) findViewById(R.id.linearLayoutNeedLogin);
+        buttonViewSources = (Button) findViewById(R.id.buttonViewSources);
         textViewLoadingInfo = (TextView) findViewById(R.id.textViewLoadingInfo);
         progressBarLoading = (ProgressBar) findViewById(R.id.progressBarLoading);
         textViewStatus = (TextView) findViewById(R.id.textViewStatus);
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         textViewStatus.setVisibility(View.GONE);
         progressBarLoading.setVisibility(View.GONE);
         linearLayoutNeedLogin.setVisibility(View.GONE);
+        buttonViewSources.setVisibility(View.GONE);
     }
 
     private void setViewLoading() {
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
     private void setViewLogin() {
         setViewHide();
         linearLayoutNeedLogin.setVisibility(View.VISIBLE);
+        buttonViewSources.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -201,4 +206,11 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void openSources(View view) {
+        Uri u = Uri.parse("https://github.com/pvarry/intra42");
+        Intent intent = new Intent(Intent.ACTION_VIEW, u);
+
+        startActivity(intent);
+        finish();
+    }
 }
