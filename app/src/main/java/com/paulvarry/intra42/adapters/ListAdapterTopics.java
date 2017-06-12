@@ -16,6 +16,7 @@ import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.utils.UserImage;
 
+import org.ocpsoft.prettytime.Duration;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.List;
@@ -76,10 +77,10 @@ public class ListAdapterTopics extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_topics, parent, false);
-            holder.imageViewUser = (ImageView) convertView.findViewById(R.id.imageViewUser);
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.textViewSummary = (TextView) convertView.findViewById(R.id.textViewSummary);
-            holder.completionViewTags = (CompletionViewTags) convertView.findViewById(R.id.completion_view_tags);
+            holder.imageViewUser = convertView.findViewById(R.id.imageViewUser);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
+            holder.completionViewTags = convertView.findViewById(R.id.completion_view_tags);
 
             convertView.setTag(holder);
         } else {
@@ -119,13 +120,22 @@ public class ListAdapterTopics extends BaseAdapter {
             });
         }
 
-        String summary = topic.author.login;
-        PrettyTime p = new PrettyTime(Locale.getDefault());
-        if (topic.updatedAt != null)
-            summary += " • " + p.format(topic.updatedAt);
+        StringBuilder summary = new StringBuilder(topic.author.login);
+        PrettyTime formatter = new PrettyTime(Locale.getDefault());
+
+        summary.append(" • ").append(formatter.format(topic.createdAt));
+
+        if (topic.updatedAt != null) {
+            Duration createdAt = formatter.approximateDuration(topic.createdAt);
+            Duration updatedAt = formatter.approximateDuration(topic.updatedAt);
+            if (createdAt.getQuantity() != updatedAt.getQuantity() || !createdAt.getUnit().equals(updatedAt.getUnit())) {
+                summary.append(" • ").append(formatter.format(topic.updatedAt));
+            }
+        }
+
         String flag = topic.language.getFlag();
         if (flag != null)
-            summary += " " + flag;
+            summary.append(" ").append(flag);
         holder.textViewSummary.setText(summary);
 
         return convertView;
