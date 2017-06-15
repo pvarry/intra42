@@ -116,6 +116,8 @@ public class CacheUsers {
 
     public static Users get(CacheSQLiteHelper base, String login) {
         SQLiteDatabase db = base.getReadableDatabase();
+        if (login == null)
+            return null;
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
