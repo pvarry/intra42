@@ -29,7 +29,7 @@ public class ProjectsActivity extends BasicTabActivity
         adapter.addFragment(ProjectsDoingFragment.newInstance(), getString(R.string.tab_projects_doing));
         adapter.addFragment(ProjectsAllFragment.newInstance(), getString(R.string.tab_projects_all));
         viewPager.setAdapter(adapter);
-        ((CustomViewPager) viewPager).setPagingEnabled(false);
+        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.tab_projects_graphic));
     }
 
     @Nullable
@@ -44,7 +44,7 @@ public class ProjectsActivity extends BasicTabActivity
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

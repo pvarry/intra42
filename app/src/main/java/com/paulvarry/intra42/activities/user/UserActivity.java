@@ -31,6 +31,7 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Friends;
@@ -51,7 +52,8 @@ public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
         UserProjectsDoingFragment.OnFragmentInteractionListener, UserSkillsFragment.OnFragmentInteractionListener,
         UserAchievementsFragment.OnFragmentInteractionListener, UserForumFragment.OnFragmentInteractionListener,
-        UserExpertisesFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
+        UserExpertisesFragment.OnFragmentInteractionListener, UserProjectsFragment.OnFragmentInteractionListener,
+        BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
 
     private static final String INTENT_USER_LTE = "user_lte";
     private static final String INTENT_USER_FULL = "user_full";
@@ -287,8 +289,9 @@ public class UserActivity extends BasicTabActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
         adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));
-        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
-        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
+        adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.tab_user_projects));
+//        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
+//        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
         adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.tab_user_expertises));
         adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achievements));
         adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.tab_user_skills));
@@ -299,6 +302,8 @@ public class UserActivity extends BasicTabActivity
         }
 
         viewPager.setAdapter(adapter);
+
+        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.tab_user_projects));
     }
 
     public void refresh(final Runnable runnable) {

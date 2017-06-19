@@ -59,13 +59,13 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
 
-        TextView textViewTitle = (TextView) contentView.findViewById(R.id.textViewTitle);
-        TextView textViewInfo = (TextView) contentView.findViewById(R.id.textViewInfo);
-        TextView textViewRules = (TextView) contentView.findViewById(R.id.textViewRules);
-        LinearLayout linearLayoutRules = (LinearLayout) contentView.findViewById(R.id.linearLayoutRules);
-        TextView textViewState = (TextView) contentView.findViewById(R.id.textViewState);
-        TextView textViewDescription = (TextView) contentView.findViewById(R.id.textViewDescription);
-        buttonOpen = (ImageButton) contentView.findViewById(R.id.buttonOpen);
+        TextView textViewTitle = contentView.findViewById(R.id.textViewTitle);
+        TextView textViewInfo = contentView.findViewById(R.id.textViewInfo);
+        TextView textViewRules = contentView.findViewById(R.id.textViewRules);
+        LinearLayout linearLayoutRules = contentView.findViewById(R.id.linearLayoutRules);
+        TextView textViewState = contentView.findViewById(R.id.textViewState);
+        TextView textViewDescription = contentView.findViewById(R.id.textViewDescription);
+        buttonOpen = contentView.findViewById(R.id.buttonOpen);
 
         buttonOpen.setOnClickListener(this);
         textViewTitle.setText(projectData.name);

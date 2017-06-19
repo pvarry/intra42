@@ -1,17 +1,22 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+
+task update_galaxy_data(type: Exec) {
+    workingDir "${buildDir}/../scripts"
+    commandLine 'ruby', 'update_galaxy_data.rb'
+}
 
 android {
     signingConfigs {
         config {
         }
     }
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
+
     defaultConfig {
         applicationId "com.paulvarry.intra42"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode getVersionCodeTimestamp()
         versionName "0.6.2"
         signingConfig signingConfigs.config
@@ -64,8 +69,9 @@ dependencies {
     compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
     compile 'com.github.Plumillon:ChipView:1.2.0'
     compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.google.firebase:firebase-crash:11.0.0'
-    compile 'com.google.firebase:firebase-database:11.0.0'
+    compile 'com.google.firebase:firebase-crash:11.0.1'
+    compile 'com.google.firebase:firebase-config:11.0.1'
+    compile 'com.google.firebase:firebase-database:11.0.1'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.splitwise:tokenautocomplete:2.0.8'
@@ -91,3 +97,5 @@ static def getVersionCodeTimestamp() {
     def code = formattedDate.toInteger()
     return code
 }
+
+apply plugin: 'com.google.gms.google-services'

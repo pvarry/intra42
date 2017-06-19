@@ -5,9 +5,15 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomViewPager extends ViewPager {
 
     private boolean enabled = true;
+    private List<String> disableSwiping;
 
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -16,23 +22,36 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (this.enabled) {
-            return super.onInterceptTouchEvent(event);
-        }
+        return isSwipe() && super.onInterceptTouchEvent(event);
 
-        return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (this.enabled) {
-            return super.onTouchEvent(event);
-        }
+        return isSwipe() && super.onTouchEvent(event);
 
-        return false;
     }
 
     public void setPagingEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void disableSwiping(String tabName) {
+        if (disableSwiping == null)
+            disableSwiping = new ArrayList<>();
+        disableSwiping.add(tabName);
+    }
+
+    boolean isSwipe() {
+        ViewPagerAdapter adapter = (ViewPagerAdapter) getAdapter();
+
+        List<String> title = adapter.getPageTitle();
+        String item = title.get(getCurrentItem());
+        if (disableSwiping != null)
+            for (String d : disableSwiping) {
+                if (d.contains(item))
+                    return false;
+            }
+        return enabled;
     }
 }

@@ -215,21 +215,23 @@ public class Galaxy extends View {
     public void setData(List<ProjectDataIntra> data) {
         this.data = data;
 
-        for (ProjectDataIntra projectData : data) {
+        if (data != null) {
+            for (ProjectDataIntra projectData : data) {
 
-            if (projectData.kind == ProjectDataIntra.Kind.FIRST_INTERNSHIP)
-                projectDataFirstInternship = projectData;
-            else if (projectData.kind == ProjectDataIntra.Kind.SECOND_INTERNSHIP)
-                projectDataFinalInternship = projectData;
-        }
+                if (projectData.kind == ProjectDataIntra.Kind.FIRST_INTERNSHIP)
+                    projectDataFirstInternship = projectData;
+                else if (projectData.kind == ProjectDataIntra.Kind.SECOND_INTERNSHIP)
+                    projectDataFinalInternship = projectData;
+            }
 
-        if (projectDataFirstInternship != null) {
-            projectDataFirstInternship.x = 3680;
-            projectDataFirstInternship.y = 3750;
-        }
-        if (projectDataFinalInternship != null) {
-            projectDataFinalInternship.x = 4600;
-            projectDataFinalInternship.y = 4600;
+            if (projectDataFirstInternship != null) {
+                projectDataFirstInternship.x = 3680;
+                projectDataFirstInternship.y = 3750;
+            }
+            if (projectDataFinalInternship != null) {
+                projectDataFinalInternship.x = 4600;
+                projectDataFinalInternship.y = 4600;
+            }
         }
 
         onUpdateData();
@@ -321,16 +323,18 @@ public class Galaxy extends View {
                 }
         }
 
-        canvas.drawCircle(
-                getDrawPosX(3000),
-                getDrawPosY(3000),
-                1000 * mScaleFactor,
-                getColorPath(projectDataFirstInternship));
-        canvas.drawCircle(
-                getDrawPosX(3000),
-                getDrawPosY(3000),
-                2250 * mScaleFactor,
-                getColorPath(projectDataFinalInternship));
+        if (projectDataFirstInternship != null)
+            canvas.drawCircle(
+                    getDrawPosX(3000),
+                    getDrawPosY(3000),
+                    1000 * mScaleFactor,
+                    getColorPath(projectDataFirstInternship));
+        if (projectDataFinalInternship != null)
+            canvas.drawCircle(
+                    getDrawPosX(3000),
+                    getDrawPosY(3000),
+                    2250 * mScaleFactor,
+                    getColorPath(projectDataFinalInternship));
 
         // draw projects
         for (ProjectDataIntra projectData : data) {
