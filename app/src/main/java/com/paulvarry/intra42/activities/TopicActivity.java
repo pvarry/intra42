@@ -189,12 +189,7 @@ public class TopicActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getDataOnOtherThread();
-                    }
-                }).start();
+                getDataOnOtherThread();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

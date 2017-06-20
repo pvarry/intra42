@@ -80,6 +80,8 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         textViewJson = (TextView) findViewById(R.id.textViewJson);
         buttonApiOpen = (Button) findViewById(R.id.buttonApiOpen);
 
+        app = (AppClass) getApplication();
+
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -208,7 +210,6 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             return;
         }
         this.query = query;
-        app = (AppClass) getApplication();
         apiService = app.getApiService();
 
         // Api call

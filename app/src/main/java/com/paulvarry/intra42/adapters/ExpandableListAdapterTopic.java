@@ -157,7 +157,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
      * @return the View corresponding to the group at the specified position
      */
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final Messages message = getGroup(groupPosition);
         ViewHolderParent holder;
 
@@ -167,20 +167,19 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_group, null);
 
-
-            holder.imageViewProfile = (ImageView) convertView.findViewById(R.id.imageViewProfile);
-            holder.textViewLogin = (TextView) convertView.findViewById(R.id.textViewLogin);
-            holder.textViewMessage = (TextView) convertView.findViewById(R.id.textViewMessage);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
-            holder.tagView1 = (TagView) convertView.findViewById(R.id.tagView1);
-            holder.tagView2 = (TagView) convertView.findViewById(R.id.tagView2);
+            holder.imageViewProfile = convertView.findViewById(R.id.imageViewProfile);
+            holder.textViewLogin = convertView.findViewById(R.id.textViewLogin);
+            holder.textViewMessage = convertView.findViewById(R.id.textViewMessage);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
+            holder.tagView1 = convertView.findViewById(R.id.tagView1);
+            holder.tagView2 = convertView.findViewById(R.id.tagView2);
             holder.viewUp = convertView.findViewById(R.id.viewUp);
             holder.viewDown = convertView.findViewById(R.id.viewDown);
-            holder.imageButtonOption = (ImageButton) convertView.findViewById(R.id.imageButtonOption);
+            holder.imageButtonOption = convertView.findViewById(R.id.imageButtonOption);
 
-            holder.linearLayoutInfoTopic = (LinearLayout) convertView.findViewById(R.id.linearLayoutInfoTopic);
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.chipViewTags = (ChipView) convertView.findViewById(R.id.chipViewTags);
+            holder.linearLayoutInfoTopic = convertView.findViewById(R.id.linearLayoutInfoTopic);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.chipViewTags = convertView.findViewById(R.id.chipViewTags);
 
             convertView.setTag(holder);
         } else
@@ -216,7 +215,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
                 AppClass app = context.app;
 
-                if (app != null && app.me != null && app.me.equals(message.author)) {
+                if (groupPosition == 0 && app != null && app.me != null && app.me.equals(message.author)) {
                     PopupMenu popup = new PopupMenu(context, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.menu_forum_message_item, popup.getMenu());
@@ -284,15 +283,15 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_item, null);
 
-            holder.imageViewProfile = (ImageView) convertView.findViewById(R.id.imageViewProfile);
-            holder.textViewLogin = (TextView) convertView.findViewById(R.id.textViewLogin);
-            holder.textViewMessage = (TextView) convertView.findViewById(R.id.textViewMessage);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
-            holder.tagView1 = (TagView) convertView.findViewById(R.id.tagView1);
-            holder.tagView2 = (TagView) convertView.findViewById(R.id.tagView2);
+            holder.imageViewProfile = convertView.findViewById(R.id.imageViewProfile);
+            holder.textViewLogin = convertView.findViewById(R.id.textViewLogin);
+            holder.textViewMessage = convertView.findViewById(R.id.textViewMessage);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
+            holder.tagView1 = convertView.findViewById(R.id.tagView1);
+            holder.tagView2 = convertView.findViewById(R.id.tagView2);
             holder.viewUp = convertView.findViewById(R.id.viewUp);
             holder.viewDown = convertView.findViewById(R.id.viewDown);
-            holder.imageButtonOption = (ImageButton) convertView.findViewById(R.id.imageButtonOption);
+            holder.imageButtonOption = convertView.findViewById(R.id.imageButtonOption);
 
             convertView.setTag(holder);
         } else {
