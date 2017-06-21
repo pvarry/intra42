@@ -22,4 +22,17 @@
         app:colorProjectValidated="@color/colorSuccess"
         app:weightPath="4.5dp" />
 
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/textViewNoItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/nothing_to_show"
+        android:visibility="gone" />
+
 </FrameLayout>

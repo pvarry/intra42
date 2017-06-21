@@ -5,13 +5,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.project.ProjectActivity;
+import com.paulvarry.intra42.adapters.ListAdapterMarks;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
 import com.paulvarry.intra42.ui.Galaxy;
 import com.paulvarry.intra42.utils.AppSettings;
@@ -27,7 +36,20 @@ import java.util.List;
  * Use the {@link UserProjectsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserProjectsFragment extends Fragment implements Galaxy.OnProjectClickListener {
+public class UserProjectsFragment
+        extends Fragment
+        implements Galaxy.OnProjectClickListener, AdapterView.OnItemSelectedListener,
+        AdapterView.OnItemClickListener {
+
+    UserActivity activity;
+
+    ListView listView;
+    TextView textViewNoItem;
+    Galaxy galaxy;
+
+    MenuItem menuItemSpinner;
+
+    ListAdapterMarks adapterList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -48,6 +70,7 @@ public class UserProjectsFragment extends Fragment implements Galaxy.OnProjectCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = (UserActivity) getActivity();
     }
 
     @Override
@@ -61,13 +84,41 @@ public class UserProjectsFragment extends Fragment implements Galaxy.OnProjectCl
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        UserActivity activity = (UserActivity) getActivity();
-        AppClass app = activity.app;
-        List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), activity.user);
+        listView = view.findViewById(R.id.listView);
+        textViewNoItem = view.findViewById(R.id.textViewNoItem);
+        galaxy = view.findViewById(R.id.galaxy);
 
-        Galaxy galaxy = view.findViewById(R.id.galaxy);
+        setViewHide();
+        galaxy.setVisibility(View.VISIBLE);
+
+        List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.userCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
         galaxy.setData(list);
         galaxy.setOnProjectClickListener(this);
+        listView.setOnItemClickListener(this);
+
+        Spinner spinner = (Spinner) MenuItemCompat.getActionView(activity.menuItemSpinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.spinner_user_projects, R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        menuItemSpinner = activity.menuItemSpinner;
+    }
+
+    void setViewHide() {
+        galaxy.setVisibility(View.GONE);
+        listView.setVisibility(View.GONE);
+        textViewNoItem.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (menuItemSpinner != null)
+            menuItemSpinner.setVisible(isVisibleToUser);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -96,6 +147,45 @@ public class UserProjectsFragment extends Fragment implements Galaxy.OnProjectCl
     @Override
     public void onClick(ProjectDataIntra projectData) {
         BottomSheetProjectsGalaxyFragment.openIt(getActivity(), projectData);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        if (activity == null)
+            return;
+        setViewHide();
+        if (position == 0) {
+            galaxy.setVisibility(View.VISIBLE);
+            List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.userCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+            galaxy.setData(list);
+        } else {
+            List<ProjectsUsers> list = null;
+
+            if (position == 1) {
+                list = activity.user.projectsUsers;
+                list = ProjectsUsers.getListOnlyRoot(list);
+                if (activity.userCursus != null)
+                    list = ProjectsUsers.getListCursus(list, activity.userCursus.cursusId);
+            } else if (position == 2)
+                list = ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.userCursus);
+
+            if (list != null && list.size() != 0) {
+                adapterList = new ListAdapterMarks(activity, list);
+                listView.setAdapter(adapterList);
+                listView.setVisibility(View.VISIBLE);
+            } else
+                textViewNoItem.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        ProjectActivity.openIt(getContext(), adapterList.getItem(position));
     }
 
     /**

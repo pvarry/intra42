@@ -269,6 +269,11 @@
         <item>Kind</item>
         <item>Status</item>
     </string-array>
+    <string-array name="spinner_user_projects">
+        <item>Galaxy</item>
+        <item>All</item>
+        <item>In-progress</item>
+    </string-array>
 
     <string name="tab_user_forum">Forum</string>
     <string name="format_dont_have_any_expertise_yet">%s don\'t have any expertise yet</string>

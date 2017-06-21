@@ -22,17 +22,25 @@
     </group>
 
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search_white_24px"
-        android:title="@string/search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        android:id="@+id/spinner"
+        android:background="#ff00"
+        android:title="New Text"
+        android:visible="false"
+        app:actionViewClass="android.widget.Spinner"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/filter"
         android:icon="@drawable/ic_filter_list_white_24dp"
         android:title="@string/filter"
         android:visible="false"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_white_24px"
+        android:title="@string/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

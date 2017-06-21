@@ -51,6 +51,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     public AppClass app;
     public Toolbar toolbar;
     public MenuItem menuItemFilter;
+    public MenuItem menuItemSpinner;
     public ProgressBar progressBarLoading;
     protected CoordinatorLayout coordinatorLayout;
     protected View viewContent;
@@ -204,6 +205,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             menu.removeItem(R.id.action_share);
         }
 
+        menuItemSpinner = menu.findItem(R.id.spinner);
         menuItemFilter = menu.findItem(R.id.filter);
 
         menuItemSearch = menu.findItem(R.id.search);
@@ -532,9 +534,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             navigationView.setNavigationItemSelectedListener(this);
 
             View headerLayout = navigationView.getHeaderView(0);
-            ImageView imageView = (ImageView) headerLayout.findViewById(R.id.imageViewNav);
-            TextView name = (TextView) headerLayout.findViewById(R.id.textViewNavName);
-            TextView email = (TextView) headerLayout.findViewById(R.id.textViewNavEmail);
+            ImageView imageView = headerLayout.findViewById(R.id.imageViewNav);
+            TextView name = headerLayout.findViewById(R.id.textViewNavName);
+            TextView email = headerLayout.findViewById(R.id.textViewNavEmail);
 
             if (app.me != null) {
                 name.setText(app.me.login);

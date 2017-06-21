@@ -39,7 +39,7 @@ public class GalaxyUtils {
         Type listType = new TypeToken<ArrayList<ProjectDataIntra>>() {
         }.getType();
 
-        int resId = getResId(context, getResName(campus, cursus));
+        int resId = getResId(context, getResName(cursus, campus));
 
         if (resId == 0)
             return null;
