@@ -17,7 +17,9 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
+import com.paulvarry.intra42.activities.projects.ProjectsActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
@@ -62,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
         AppClass.scheduleAlarm(this);
 
-        linearLayoutNeedLogin = (LinearLayout) findViewById(R.id.linearLayoutNeedLogin);
-        buttonViewSources = (Button) findViewById(R.id.buttonViewSources);
-        textViewLoadingInfo = (TextView) findViewById(R.id.textViewLoadingInfo);
-        progressBarLoading = (ProgressBar) findViewById(R.id.progressBarLoading);
-        textViewStatus = (TextView) findViewById(R.id.textViewStatus);
+        linearLayoutNeedLogin = findViewById(R.id.linearLayoutNeedLogin);
+        buttonViewSources = findViewById(R.id.buttonViewSources);
+        textViewLoadingInfo = findViewById(R.id.textViewLoadingInfo);
+        progressBarLoading = findViewById(R.id.progressBarLoading);
+        textViewStatus = findViewById(R.id.textViewStatus);
 
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT))// oauth callback
@@ -83,10 +85,7 @@ public class MainActivity extends AppCompatActivity {
                                       @Override
                                       public void run() {
                                           if (ret) {
-                                              Intent intent = new Intent(getApplication(), HomeActivity.class);
-                                              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                              startActivity(intent);
-                                              finish();
+                                              finishCache();
                                           } else
                                               setViewLogin();
                                       }
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            startActivity(intent);
+                                            //          startActivity(intent);
                                         }
                                     });
                                 }
@@ -194,6 +193,27 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "code is missing", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void finishCache() {
+        Intent intent = null;
+        if (getIntent() != null) {
+            String shortcut = getIntent().getStringExtra("shortcut");
+            if (shortcut != null) {
+                if (shortcut.contentEquals("friends")) {
+                    intent = new Intent(MainActivity.this, FriendsActivity.class);
+                } else if (shortcut.contentEquals("clusterMap"))
+                    intent = new Intent(MainActivity.this, ClusterMapActivity.class);
+                else if (shortcut.contentEquals("galaxy"))
+                    intent = new Intent(MainActivity.this, ProjectsActivity.class);
+            }
+        }
+
+        if (intent == null)
+            intent = new Intent(getApplication(), HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     public void open(View view) {

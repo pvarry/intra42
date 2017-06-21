@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
-        <item
-            android:id="@+id/action_settings"
-            android:orderInCategory="100"
-            android:title="@string/action_settings"
-            app:showAsAction="never" />
 
         <item
             android:id="@+id/action_share"
@@ -18,6 +13,12 @@
             android:id="@+id/action_open_intra"
             android:orderInCategory="200"
             android:title="@string/action_open_intra"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_settings"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
             app:showAsAction="never" />
     </group>
 

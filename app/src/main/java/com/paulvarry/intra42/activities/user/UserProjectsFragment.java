@@ -104,6 +104,7 @@ public class UserProjectsFragment
         galaxy.setData(list);
         galaxy.setOnProjectClickListener(this);
         listView.setOnItemClickListener(this);
+        listViewAll.setOnItemClickListener(this);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.spinner_user_projects, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);

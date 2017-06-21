@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Apps;
 import com.paulvarry.intra42.utils.mImage;
@@ -70,12 +71,12 @@ public class ListAdapterApps extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_apps, parent, false);
-            holder.imageViewIcon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.textViewSub = (TextView) convertView.findViewById(R.id.textViewSub);
-            holder.textVieWebSite = (TextView) convertView.findViewById(R.id.textViewWebSite);
-            holder.tagViewOfficialApp = (TagView) convertView.findViewById(R.id.tagViewOfficialApp);
-            holder.textViewBack = (TextView) convertView.findViewById(R.id.textViewBack);
+            holder.imageViewIcon = convertView.findViewById(R.id.imageViewIcon);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewSub = convertView.findViewById(R.id.textViewSub);
+            holder.textVieWebSite = convertView.findViewById(R.id.textViewWebSite);
+            holder.tagViewOfficialApp = convertView.findViewById(R.id.tagViewOfficialApp);
+            holder.textViewBack = convertView.findViewById(R.id.textViewBack);
 
             convertView.setTag(holder);
         } else {
@@ -127,7 +128,7 @@ public class ListAdapterApps extends BaseAdapter {
 
             uri = Uri.parse(url.replace("/uploads", ""));
         }
-        mImage.setPicasso(context, uri, holder.imageViewIcon, R.drawable.no_image_app);
+        mImage.setPicasso(context, uri, holder.imageViewIcon, R.drawable.ic_app_no_image);
 
         return convertView;
     }

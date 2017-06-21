@@ -58,14 +58,15 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:support-v13:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.0-beta2'
+    compile 'com.android.support:cardview-v7:26.0.0-beta2'
+    compile 'com.android.support:design:26.0.0-beta2'
+    compile 'com.android.support:recyclerview-v7:26.0.0-beta2'
+    compile 'com.android.support:support-v4:26.0.0-beta2'
+    compile 'com.android.support:support-v13:26.0.0-beta2'
     compile 'com.caverock:androidsvg:1.2.1'
     compile 'com.github.Commit451:bypasses:1.1.0'
+    compile 'com.github.deano2390:MaterialShowcaseView:1.1.0'
     compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
     compile 'com.github.Plumillon:ChipView:1.2.0'
     compile 'com.google.code.gson:gson:2.8.0'
@@ -89,6 +90,15 @@ dependencies {
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     testCompile 'junit:junit:4.12'
+}
+
+// REQUIRED: Google's new Maven repo is required for the latest
+// support library that is compatible with Android O
+repositories {
+    maven {
+        url 'https://maven.google.com'
+        // Alternative URL is 'https://dl.google.com/dl/android/maven2/'
+    }
 }
 
 static def getVersionCodeTimestamp() {

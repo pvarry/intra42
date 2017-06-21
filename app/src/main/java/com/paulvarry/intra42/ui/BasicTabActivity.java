@@ -25,8 +25,8 @@ public abstract class BasicTabActivity extends BasicActivity implements Navigati
     }
 
     protected void setViewContent() {
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tabs);
 
         viewPager.setVisibility(View.VISIBLE);
         tabLayout.setVisibility(View.VISIBLE);
@@ -42,7 +42,8 @@ public abstract class BasicTabActivity extends BasicActivity implements Navigati
         // Save UI state changes to the savedInstanceState.
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
-        savedInstanceState.putInt("selected", tabLayout.getSelectedTabPosition());
+        if (tabLayout != null)
+            savedInstanceState.putInt("selected", tabLayout.getSelectedTabPosition());
 
     }
 
