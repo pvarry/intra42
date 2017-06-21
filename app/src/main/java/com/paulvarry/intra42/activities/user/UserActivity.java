@@ -304,6 +304,16 @@ public class UserActivity extends BasicTabActivity
         viewPager.setAdapter(adapter);
 
         ((CustomViewPager) viewPager).disableSwiping(getString(R.string.tab_user_projects));
+
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 2)
+                    menuItemSpinner.setVisible(true);
+                else
+                    menuItemSpinner.setVisible(false);
+            }
+        });
     }
 
     public void refresh(final Runnable runnable) {

@@ -23,14 +23,22 @@
         app:weightPath="4.5dp" />
 
     <ListView
+        android:id="@+id/listViewAll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff" />
+
+    <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#fff" />
 
     <TextView
         android:id="@+id/textViewNoItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#fff"
         android:gravity="center"
         android:text="@string/nothing_to_show"
         android:visibility="gone" />

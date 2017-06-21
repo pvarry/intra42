@@ -247,4 +247,10 @@
     <string name="tab_project_overview">Aperçu</string>
     <string name="interested">Intéressé:</string>
     <string name="view_sources">Voir les sources</string>
+
+    <string-array name="spinner_user_projects">
+        <item>Galaxy</item>
+        <item>Tout</item>
+        <item>En cours</item>
+    </string-array>
 </resources>

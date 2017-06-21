@@ -1,10 +1,12 @@
 package com.paulvarry.intra42.ui;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.paulvarry.intra42.activities.user.UserProjectsFragment;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 
 import java.util.ArrayList;
@@ -22,13 +24,13 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        return isSwipe() && super.onInterceptTouchEvent(event);
+        return canSwipe() && super.onInterceptTouchEvent(event);
 
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return isSwipe() && super.onTouchEvent(event);
+        return canSwipe() && super.onTouchEvent(event);
 
     }
 
@@ -42,11 +44,17 @@ public class CustomViewPager extends ViewPager {
         disableSwiping.add(tabName);
     }
 
-    boolean isSwipe() {
+    boolean canSwipe() {
         ViewPagerAdapter adapter = (ViewPagerAdapter) getAdapter();
 
         List<String> title = adapter.getPageTitle();
         String item = title.get(getCurrentItem());
+
+        Fragment fragment = adapter.getItem(getCurrentItem());
+        if (fragment instanceof UserProjectsFragment) {
+            return ((UserProjectsFragment) fragment).canSwipe();
+        }
+
         if (disableSwiping != null)
             for (String d : disableSwiping) {
                 if (d.contains(item))
