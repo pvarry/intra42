@@ -32,6 +32,7 @@ public class ProjectUser {
         return getWithProject(callProject, callProjectUsers, callTeams);
     }
 
+    @Deprecated
     public static ProjectUser getWithProject(ApiService api, String projectSlug, String userLogin) {
         Call<Projects> callProject = api.getProject(projectSlug);
         Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectSlug, userLogin);

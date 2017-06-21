@@ -275,6 +275,16 @@
         <item>In-progress</item>
     </string-array>
 
+    <string-array name="alert_friends_open_long_click">
+        <item>@string/remove_from_friends</item>
+        <item>@string/view_profile</item>
+    </string-array>
+    <string-array name="alert_friends_open_long_click_location">
+        <item>@string/remove_from_friends</item>
+        <item>@string/view_profile</item>
+        <item>@string/view_on_cluster_map</item>
+    </string-array>
+
     <string name="tab_user_forum">Forum</string>
     <string name="format_dont_have_any_expertise_yet">%s don\'t have any expertise yet</string>
     <string name="you">you</string>
@@ -441,5 +451,8 @@
     <string name="apps_private">private</string>
     <string name="you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
     <string name="view_sources">View sources</string>
+    <string name="showcaseview_user_project_galaxy">You can change the content of this view.</string>
+    <string name="showcaseview_user_project_galaxy_title">GOT IT</string>
+    <string name="view_on_cluster_map">View on ClusterMap</string>
 
 </resources>

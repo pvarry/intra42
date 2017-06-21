@@ -403,6 +403,8 @@ public class Galaxy extends View {
                     return colorProjectInProgress;
                 case UNAVAILABLE:
                     return colorProjectUnavailable;
+                case FAIL:
+                    return colorProjectFailed;
             }
         return colorProjectUnavailable;
     }
@@ -419,6 +421,8 @@ public class Galaxy extends View {
                     return colorProjectTextInProgress;
                 case UNAVAILABLE:
                     return colorProjectTextUnavailable;
+                case FAIL:
+                    return colorProjectTextFailed;
             }
         return colorProjectTextUnavailable;
     }

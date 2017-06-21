@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -47,6 +48,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 
 public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
@@ -308,9 +310,19 @@ public class UserActivity extends BasicTabActivity
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                if (position == 2)
+                if (position == 2) {
                     menuItemSpinner.setVisible(true);
-                else
+
+                    new MaterialShowcaseView.Builder(UserActivity.this)
+                            .setTarget(menuItemSpinner.getActionView())
+                            .setDismissText(getString(R.string.showcaseview_user_project_galaxy_title))
+                            .setDelay(200) // optional but starting animations immediately in onCreate can make them choppy
+                            .singleUse("showcase_view_user_project_galaxy") // provide a unique ID used to ensure it is only shown once
+                            .setMaskColour(Color.argb(220, 230, 81, 0))
+                            .setContentText(getString(R.string.showcaseview_user_project_galaxy))
+                            .setDismissOnTouch(true)
+                            .show();
+                } else
                     menuItemSpinner.setVisible(false);
             }
         });

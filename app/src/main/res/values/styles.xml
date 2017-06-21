@@ -94,4 +94,20 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
+    <style name="AppTheme.Galaxy">
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="backgroundColor">#000000</item>
+        <item name="colorProjectAvailable">#ffffff</item>
+        <item name="colorProjectFailed">@color/colorFail</item>
+        <item name="colorProjectInProgress">#afafaf</item>
+        <item name="colorProjectTextAvailable">@color/colorPrimary</item>
+        <item name="colorProjectTextFailed">#ffffff</item>
+        <item name="colorProjectTextUnavailable">#ffffff</item>
+        <item name="colorProjectTextValidated">#ffffff</item>
+        <item name="colorProjectUnavailable">#46484C</item>
+        <item name="colorProjectValidated">@color/colorSuccess</item>
+        <item name="weightPath">4.5dp</item>
+    </style>
+
 </resources>

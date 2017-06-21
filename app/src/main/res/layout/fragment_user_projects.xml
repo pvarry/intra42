@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,18 +8,7 @@
         android:id="@+id/galaxy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        app:backgroundColor="#000"
-        app:colorProjectAvailable="#ffffff"
-        app:colorProjectFailed="@color/colorFail"
-        app:colorProjectInProgress="#afafaf"
-        app:colorProjectTextAvailable="@color/colorPrimary"
-        app:colorProjectTextUnavailable="#ffffff"
-        app:colorProjectTextValidated="#ffffff"
-        app:colorProjectUnavailable="#46484C"
-        app:colorProjectValidated="@color/colorSuccess"
-        app:weightPath="4.5dp" />
+        android:theme="@style/AppTheme.Galaxy" />
 
     <ListView
         android:id="@+id/listViewAll"

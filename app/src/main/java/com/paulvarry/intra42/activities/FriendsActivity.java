@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.GridAdapterUsers;
 import com.paulvarry.intra42.api.model.Locations;
@@ -205,10 +206,16 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         final UsersLTE user = adapter.getItem(position);
-        String[] items = {getString(R.string.remove_from_friends), getString(R.string.view_profile)};
+        int res;
+
+        if (locations != null && locations.get(user.login) != null)
+            res = R.array.alert_friends_open_long_click_location;
+        else
+            res = R.array.alert_friends_open_long_click;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.choose_action_colon) + user.login);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+        builder.setItems(res, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
@@ -219,6 +226,8 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
                         Toast.makeText(app, "Can't perform this action", Toast.LENGTH_SHORT).show();
                 } else if (which == 1)
                     UserActivity.openIt(app, user);
+                else if (which == 2)
+                    ClusterMapActivity.openIt(FriendsActivity.this, locations.get(user.login).host);
 
             }
         });

@@ -20,6 +20,7 @@ import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
 public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 
     private static final String ARG_PROJECT = "project_galaxy";
+    private static final String ARG_USER = "id_user";
 
     ImageButton buttonOpen;
 
@@ -27,16 +28,23 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
     ApiService api;
 
     ProjectDataIntra projectData;
+    int idUser;
 
-    public static void openIt(FragmentActivity activity, ProjectDataIntra item) {
-        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item);
+    public static void openIt(FragmentActivity activity, ProjectDataIntra item, int idUser) {
+        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item, idUser);
         bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
-    public static BottomSheetProjectsGalaxyFragment newInstance(ProjectDataIntra projectData) {
+    public static void openIt(FragmentActivity activity, ProjectDataIntra item) {
+        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item, 0);
+        bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+    }
+
+    public static BottomSheetProjectsGalaxyFragment newInstance(ProjectDataIntra projectData, int idUser) {
         BottomSheetProjectsGalaxyFragment fragment = new BottomSheetProjectsGalaxyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PROJECT, ServiceGenerator.getGson().toJson(projectData));
+        args.putInt(ARG_USER, idUser);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,8 +53,10 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            projectData = ServiceGenerator.getGson().fromJson(getArguments().getString(ARG_PROJECT), ProjectDataIntra.class);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            projectData = ServiceGenerator.getGson().fromJson(bundle.getString(ARG_PROJECT), ProjectDataIntra.class);
+            idUser = bundle.getInt(ARG_USER);
         }
     }
 
@@ -114,7 +124,7 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
     @Override
     public void onClick(View v) {
         if (v == buttonOpen)
-            ProjectActivity.openIt(getContext(), projectData.slug);
+            ProjectActivity.openIt(getContext(), projectData.slug, idUser);
     }
 
 }

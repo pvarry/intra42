@@ -77,7 +77,8 @@ public class UserProjectsFragment
         super.onCreate(savedInstanceState);
         activity = (UserActivity) getActivity();
         menuItemSpinner = activity.menuItemSpinner;
-        menuSpinner = (Spinner) activity.menuItemSpinner.getActionView();
+        if (activity.menuItemSpinner != null)
+            menuSpinner = (Spinner) activity.menuItemSpinner.getActionView();
     }
 
     @Override
@@ -183,7 +184,7 @@ public class UserProjectsFragment
 
     @Override
     public void onClick(ProjectDataIntra projectData) {
-        BottomSheetProjectsGalaxyFragment.openIt(getActivity(), projectData);
+        BottomSheetProjectsGalaxyFragment.openIt(getActivity(), projectData, activity.user.id);
     }
 
     @Override

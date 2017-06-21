@@ -89,12 +89,20 @@ public class ProjectActivity extends BasicTabActivity
         context.startActivity(intent);
     }
 
+    public static void openIt(Context context, String projectSlug, int idUser) {
+        Intent intent = new Intent(context, ProjectActivity.class);
+        intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, projectSlug);
+        intent.putExtra(ProjectActivity.INTENT_ID_USER, idUser);
+        context.startActivity(intent);
+    }
+
     public static void openIt(Context context, String projectSlug) {
         Intent intent = new Intent(context, ProjectActivity.class);
         intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, projectSlug);
         context.startActivity(intent);
     }
 
+    @Deprecated
     public static void openIt(Context context, String projectSlug, String login) {
         Intent intent = new Intent(context, ProjectActivity.class);
         intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, projectSlug);
@@ -111,6 +119,7 @@ public class ProjectActivity extends BasicTabActivity
         return null;
     }
 
+    @Deprecated
     public static Intent getIntent(Context context, int idProject, UsersLTE user) {
         if (idProject != 0 && user != null) {
             Intent intent = new Intent(context, ProjectActivity.class);
