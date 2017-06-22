@@ -2,6 +2,7 @@ package com.paulvarry.intra42.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.MatrixCursor;
 import android.provider.BaseColumns;
@@ -10,8 +11,10 @@ import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.SubnotionListActivity;
+import com.paulvarry.intra42.activities.TestingActivity;
 import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.activities.tags.TagsActivity;
@@ -119,6 +122,10 @@ public class SuperSearch {
             return true;
         } else if (searchOnArray(R.array.search_location, split[0], activity)) {
             UserActivity.openLocation(activity, split[1], (AppClass) activity.getApplication());
+            return true;
+        } else if (searchOnArray(R.array.search_test, split[0], activity) && BuildConfig.DEBUG) {
+            Intent i = new Intent(activity, TestingActivity.class);
+            activity.startActivity(i);
             return true;
         } else if (query.contains("@student.42")) {
             UserActivity.openIt(activity, query.split("@")[0]);

@@ -201,7 +201,7 @@
     <string name="date">Date</string>
     <string name="deleted">Supprimé</string>
     <string name="discard_edition">Annuler</string>
-    <string name="notifications_event_sub_text">event</string>
+    <string name="notifications_events_sub_text">event</string>
     <string name="force_content_location">Forcer la localisation du contenu</string>
     <string name="friends">Amis</string>
     <string name="no_cursus_available">Aucun cursus disponible</string>
@@ -225,7 +225,7 @@
     <string name="bookings_correct_login">Vous allez corriger le projet de _login_ à _date_.</string>
     <string name="title_activity_cluster_map">Carte des clusters</string>
     <string name="cluster_map">Carte des clusters</string>
-    <string name="notifications_scales_sub_text">corrections</string>
+    <string name="notifications_bookings_sub_text">corrections</string>
     <string name="booked_slot">Créneau de correction</string>
     <string name="bookings">corrections</string>
     <string name="nav_header_action">Actions</string>

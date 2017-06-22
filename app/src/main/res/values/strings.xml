@@ -125,14 +125,28 @@
         <item>location</item>
     </string-array>
 
+    <string-array name="search_test">
+        <item>test</item>
+    </string-array>
+
     <!-- - - - - - - - - - - Strings related to Notifications - - - - - - - - - - -->
 
     <string name="notifications_scales_tag" translatable="false">scaleTeams</string>
-    <string name="notifications_scales_group" translatable="false">booking</string>
-    <string name="notifications_scales_sub_text">bookings</string>
-    <string name="notifications_event_tag" translatable="false">events</string>
-    <string name="notifications_event_group" translatable="false">events</string>
-    <string name="notifications_event_sub_text">event</string>
+
+
+    <string name="notifications_events_unique_id" translatable="false">events</string>
+    <string name="notifications_events_sub_text">event</string>
+    <string name="notifications_events_channel_name">Events</string>
+    <string name="notifications_events_channel_description">Notifications for events</string>
+
+    <string name="notifications_bookings_unique_id" translatable="false">booking</string>
+    <string name="notifications_bookings_sub_text">booking</string>
+    <string name="notifications_bookings_channel_name">Bookings</string>
+    <string name="notifications_bookings_channel_description">Notifications for correction bookings</string>
+
+    <string name="notifications_announcements_unique_id" translatable="false">announcements</string>
+    <string name="notifications_announcements_channel_name">Announcements</string>
+    <string name="notifications_announcements_channel_description">Notifications announcements</string>
 
 
     <!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->

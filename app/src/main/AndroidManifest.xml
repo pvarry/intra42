@@ -188,6 +188,10 @@
         <activity
             android:name=".activities.LocationHistoryActivity"
             android:label="Location History" />
+        <activity
+            android:name=".activities.TestingActivity"
+            android:label="Testing"
+            android:theme="@style/AppTheme.ActionBar" />
     </application>
 
 </manifest>

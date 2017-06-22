@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
@@ -29,6 +30,7 @@ import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
+import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
 
@@ -104,6 +106,10 @@ public class AppClass extends Application {
 
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
             me = CacheUsers.get(cacheSQLiteHelper, login);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationsUtils.generateNotificationChannel(this);
+        }
 
         initFirebase();
 

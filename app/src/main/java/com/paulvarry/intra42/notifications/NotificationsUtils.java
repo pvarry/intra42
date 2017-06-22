@@ -1,12 +1,15 @@
 package com.paulvarry.intra42.notifications;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
@@ -25,15 +28,15 @@ import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.Date;
 
-class NotificationsTools {
+public class NotificationsUtils {
 
     static private NotificationCompat.Builder getBaseNotification(Context context) {
-        return new NotificationCompat.Builder(context)
+        return new NotificationCompat.Builder(context, "intra42")
                 .setSmallIcon(R.drawable.logo_42)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
     }
 
-    static void send(Context context, Events events) {
+    public static void send(Context context, Events events) {
 
         Intent notificationIntent = EventActivity.getIntent(context, events);
 
@@ -45,12 +48,13 @@ class NotificationsTools {
         NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
                 .setContentTitle(events.name)
                 .setContentText(events.description.replace('\n', ' '))
-                .setSubText(context.getString(R.string.notifications_event_sub_text))
+                .setSubText(context.getString(R.string.notifications_events_sub_text))
                 .setWhen(events.beginAt.getTime())
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(events.description))
                 .addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.subscribe) + " (soon)", null)
-                .setGroup(context.getString(R.string.notifications_event_group))
+                .setGroup(context.getString(R.string.notifications_events_unique_id))
                 .setGroupSummary(true)
+                .setChannelId(context.getString(R.string.notifications_events_unique_id))
                 .setContentIntent(intent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -61,7 +65,7 @@ class NotificationsTools {
 
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_event_tag), events.id, notification);
+        NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_events_unique_id), events.id, notification);
     }
 
     static void send(AppClass app, ScaleTeams scaleTeams, boolean imminentCorrection) {
@@ -117,11 +121,12 @@ class NotificationsTools {
         }
 
         NotificationCompat.Builder builder = getBaseNotification(app)
+                .setChannelId(app.getString(R.string.notifications_bookings_unique_id))
                 .setContentTitle(title)
                 .setContentText(text)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setContentIntent(pendingIntentOpen)
-                .setSubText(app.getString(R.string.notifications_scales_sub_text))
+                .setSubText(app.getString(R.string.notifications_bookings_sub_text))
                 .setWhen(scaleTeams.beginAt.getTime());
 
         if (userAction != null) {
@@ -151,7 +156,7 @@ class NotificationsTools {
         Notification notification = builder.build();
 
         NotificationManager notificationManager = (NotificationManager) app.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(app.getString(R.string.notifications_scales_tag), scaleTeams.id, notification);
+        notificationManager.notify(app.getString(R.string.notifications_bookings_unique_id), scaleTeams.id, notification);
     }
 
     static void send(Context context, Announcements announcements) {
@@ -164,11 +169,12 @@ class NotificationsTools {
         PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
+                .setChannelId(context.getString(R.string.notifications_events_unique_id))
                 .setContentTitle(announcements.title)
                 .setContentText(announcements.text.replace('\n', ' '))
                 .setSubText(context.getString(R.string.notifications_announcements_sub_text) + " • " + announcements.author)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(announcements.text))
-                .setGroup(context.getString(R.string.notifications_event_group))
+                .setGroup(context.getString(R.string.notifications_events_unique_id))
                 .setGroupSummary(true)
                 .setContentIntent(intent);
 
@@ -180,7 +186,7 @@ class NotificationsTools {
 
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_event_tag), announcements.id, notification);
+        NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_announcements_unique_id), announcements.id, notification);
     }
 
     static String getDateSince(SharedPreferences settings) {
@@ -193,5 +199,49 @@ class NotificationsTools {
             return null;
         Date date_ago = new Date(new Date().getTime() - (60000 * since));
         return DateTool.getUTC(date_ago) + "," + DateTool.getNowUTC();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void generateNotificationChannel(Context context) {
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationChannel channelEvent = new NotificationChannel(
+                context.getString(R.string.notifications_events_unique_id),
+                context.getString(R.string.notifications_events_channel_name),
+                NotificationManager.IMPORTANCE_DEFAULT);
+        // Configure the notification channel.
+        channelEvent.setDescription(context.getString(R.string.notifications_events_channel_description));
+        channelEvent.enableLights(true);
+        // Sets the notification light color for notifications posted to this
+        // channel, if the device supports this feature.
+        channelEvent.setLightColor(Color.RED);
+        channelEvent.enableVibration(false);
+        mNotificationManager.createNotificationChannel(channelEvent);
+
+        NotificationChannel channelBookings = new NotificationChannel(
+                context.getString(R.string.notifications_bookings_unique_id),
+                context.getString(R.string.notifications_bookings_channel_name),
+                NotificationManager.IMPORTANCE_HIGH);
+        // Configure the notification channel.
+        channelBookings.setDescription(context.getString(R.string.notifications_bookings_channel_description));
+        channelBookings.enableLights(true);
+        // Sets the notification light color for notifications posted to this
+        // channel, if the device supports this feature.
+        channelBookings.setLightColor(Color.RED);
+        channelBookings.enableVibration(true);
+        mNotificationManager.createNotificationChannel(channelBookings);
+
+        NotificationChannel channelAnnouncements = new NotificationChannel(
+                context.getString(R.string.notifications_announcements_unique_id),
+                context.getString(R.string.notifications_announcements_channel_name),
+                NotificationManager.IMPORTANCE_DEFAULT);
+        // Configure the notification channel.
+        channelAnnouncements.setDescription(context.getString(R.string.notifications_announcements_channel_description));
+        channelAnnouncements.enableLights(true);
+        // Sets the notification light color for notifications posted to this
+        // channel, if the device supports this feature.
+        channelAnnouncements.setLightColor(Color.RED);
+        channelAnnouncements.enableVibration(true);
+        mNotificationManager.createNotificationChannel(channelAnnouncements);
     }
 }
