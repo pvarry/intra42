@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,7 +48,6 @@ public class UserProjectsFragment
     TextView textViewNoItem;
     Galaxy galaxy;
 
-    MenuItem menuItemSpinner;
     Spinner menuSpinner;
 
     int spinnerSelected = 0;
@@ -76,7 +73,6 @@ public class UserProjectsFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (UserActivity) getActivity();
-        menuItemSpinner = activity.menuItemSpinner;
         if (activity.menuItemSpinner != null)
             menuSpinner = (Spinner) activity.menuItemSpinner.getActionView();
     }
@@ -105,15 +101,6 @@ public class UserProjectsFragment
         galaxy.setOnProjectClickListener(this);
         listView.setOnItemClickListener(this);
         listViewAll.setOnItemClickListener(this);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.spinner_user_projects, R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-
-        menuSpinner.setAdapter(adapter);
-        menuSpinner.setOnItemSelectedListener(this);
-
-        if (isVisible())
-            menuSpinner.setVisibility(View.VISIBLE);
     }
 
     void setViewHide() {
@@ -123,13 +110,6 @@ public class UserProjectsFragment
         textViewNoItem.setVisibility(View.GONE);
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (menuItemSpinner != null)
-            menuItemSpinner.setVisible(isVisibleToUser);
-    }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -158,6 +138,9 @@ public class UserProjectsFragment
 
         view.bringToFront();
         view.setVisibility(View.VISIBLE);
+
+        if (action == null)
+            return;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
 
@@ -190,6 +173,9 @@ public class UserProjectsFragment
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        if (activity != null && activity.menuItemSpinner != null)
+            menuSpinner = (Spinner) activity.menuItemSpinner.getActionView();
+
         if (activity == null)
             return;
         if (spinnerSelected == position)

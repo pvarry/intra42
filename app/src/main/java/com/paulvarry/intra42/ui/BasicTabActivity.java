@@ -11,7 +11,7 @@ import com.paulvarry.intra42.R;
 public abstract class BasicTabActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public TabLayout tabLayout;
-    public ViewPager viewPager;
+    public CustomViewPager viewPager;
 
     private int onRestartPosition;
 

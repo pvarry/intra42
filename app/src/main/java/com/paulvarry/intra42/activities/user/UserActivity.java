@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
@@ -65,6 +66,7 @@ public class UserActivity extends BasicTabActivity
     public HashMap<String, Bitmap> picAchievements;
     public CursusUsers userCursus;
     String login;
+    int selectedTab;
 
     public static void openIt(Context context, UsersLTE user) {
         if (user != null) {
@@ -310,6 +312,9 @@ public class UserActivity extends BasicTabActivity
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                selectedTab = position;
+                if (menuItemSpinner == null)
+                    return;
                 if (position == 2) {
                     menuItemSpinner.setVisible(true);
 
@@ -378,6 +383,18 @@ public class UserActivity extends BasicTabActivity
                 return true;
             }
         });
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_user_projects, R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        Spinner menuSpinner = (Spinner) menuItemSpinner.getActionView();
+        //menuSpinner.setGravity(Gravity.END);
+        menuSpinner.setAdapter(adapter);
+
+        ViewPagerAdapter pagerAdapter = (ViewPagerAdapter) viewPager.getAdapter();
+
+        menuSpinner.setOnItemSelectedListener(((UserProjectsFragment) pagerAdapter.getItem(2)));
+        if (selectedTab == 2)
+            menuItemSpinner.setVisible(true);
 
 //        menu.add("Add to contacts").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 //            @Override
