@@ -49,9 +49,9 @@ public class ListAdapterPartnerships extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_partnerships, parent, false);
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.textViewTier = (TextView) convertView.findViewById(R.id.textViewTier);
-            holder.textViewDescription = (TextView) convertView.findViewById(R.id.textViewDescription);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewTier = convertView.findViewById(R.id.textViewTier);
+            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
 
             convertView.setTag(holder);
         } else {

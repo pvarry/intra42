@@ -118,7 +118,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
-        gridView = (GridView) findViewById(R.id.gridView);
+        gridView = findViewById(R.id.gridView);
     }
 
     @Nullable
@@ -132,15 +132,15 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         if (list == null)
             return;
 
-        String searchOn = "";
+        StringBuilder searchOn = new StringBuilder();
         String separator = "";
 
         for (UsersLTE u : list) {
-            searchOn += separator + u.id;
+            searchOn.append(separator).append(u.id);
             separator = ",";
         }
 
-        Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOn, 100, 1);
+        Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOn.toString(), 100, 1);
         try {
             Response<List<Locations>> response = c.execute();
             if (response != null && response.isSuccessful()) {

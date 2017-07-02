@@ -94,7 +94,7 @@ public class TimeActivity extends BasicActivity implements BasicActivity.GetData
         if (campusList == null)
             return;
 
-        GridView gridView = (GridView) coordinatorLayout.findViewById(R.id.gridViewTime);
+        GridView gridView = coordinatorLayout.findViewById(R.id.gridViewTime);
         adapterTimeTool = new GridAdapterTimeTool(this, campusList);
         gridView.setAdapter(adapterTimeTool);
 

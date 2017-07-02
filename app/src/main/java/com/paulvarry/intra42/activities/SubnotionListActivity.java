@@ -110,9 +110,9 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
             actionBar.setDisplayShowHomeEnabled(true);
         }
 
-        listView = (ListView) findViewById(R.id.listView);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        textView = (TextView) findViewById(R.id.textView);
+        listView = findViewById(R.id.listView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        textView = findViewById(R.id.textView);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         textView.setVisibility(View.GONE);

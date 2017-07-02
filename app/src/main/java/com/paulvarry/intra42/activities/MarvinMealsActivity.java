@@ -52,11 +52,11 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
     }
 
     /**
-     * Triggered when the activity start, after {@link BasicActivity#getDataOnMainThread()}.
+     * Triggered when the activity start.
      * <p>
-     * This method is run on a Thread, so you can make API calls and other long stuff.
+     * This method is run on main Thread, so you can make api call.
      *
-     * @return Return true if something append on this method.
+     * @return Return StatusCode of what appending {@link BasicActivity.GetDataOnMain#getDataOnMainThread()}.
      */
     @Override
     public StatusCode getDataOnOtherThread() {
@@ -78,7 +78,7 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
     }
 
     /**
-     * Use to get the text on the toolbar, triggered when the activity start and after {@link BasicActivity#getDataOnOtherThread()} (only if it return true).
+     * Use to get the text on the toolbar, triggered when the activity start and after {@link GetDataOnThread#getDataOnOtherThread()} (only if it return true).
      *
      * @return Return the text on the toolbar.
      */
@@ -92,13 +92,13 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
      */
     @Override
     public void setViewContent() {
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.listView);
         ListAdapterMarvinMeal adapterMarvinMeal = new ListAdapterMarvinMeal(this, marvinMealList);
         listView.setAdapter(adapterMarvinMeal);
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -71,14 +70,14 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
 
-        constraintLayoutLoading = (ConstraintLayout) findViewById(R.id.constraintLayoutLoading);
-        layoutResult = (SwipeRefreshLayout) findViewById(R.id.layoutResult);
-        layoutApi = (FrameLayout) findViewById(R.id.layoutApi);
+        constraintLayoutLoading = findViewById(R.id.constraintLayoutLoading);
+        layoutResult = findViewById(R.id.layoutResult);
+        layoutApi = findViewById(R.id.layoutApi);
 
-        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
-        listView = (ListView) findViewById(R.id.listView);
-        textViewJson = (TextView) findViewById(R.id.textViewJson);
-        buttonApiOpen = (Button) findViewById(R.id.buttonApiOpen);
+        textViewLoading = findViewById(R.id.textViewLoading);
+        listView = findViewById(R.id.listView);
+        textViewJson = findViewById(R.id.textViewJson);
+        buttonApiOpen = findViewById(R.id.buttonApiOpen);
 
         app = (AppClass) getApplication();
 
@@ -97,7 +96,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
         listView.setOnItemClickListener(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -108,7 +107,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
         MenuItem searchItem = menu.findItem(R.id.search);
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchAdapter = SuperSearch.setSearchSuggestionAdapter(this);
 
         searchItem.expandActionView();
@@ -153,7 +152,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             }
         });
 
-
+    /*
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
 
             @Override
@@ -167,7 +166,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 onBackPressed();
                 return false; // OR FALSE IF YOU DIDN'T WANT IT TO CLOSE!
             }
-        });
+        });*/
 
         return true;
     }

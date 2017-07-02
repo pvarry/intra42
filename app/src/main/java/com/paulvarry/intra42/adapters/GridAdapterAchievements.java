@@ -55,12 +55,12 @@ public class GridAdapterAchievements extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.grid_view_achievements, parent, false);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.tagView = (TagView) convertView.findViewById(R.id.tagView);
-            holder.textViewDescription = (TextView) convertView.findViewById(R.id.textViewDescription);
-            holder.textViewTier = (TextView) convertView.findViewById(R.id.textViewTier);
-            holder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
+            holder.imageView = convertView.findViewById(R.id.imageView);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.tagView = convertView.findViewById(R.id.tagView);
+            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewTier = convertView.findViewById(R.id.textViewTier);
+            holder.progressBar = convertView.findViewById(R.id.progressBar);
 
             convertView.setTag(holder);
         } else {

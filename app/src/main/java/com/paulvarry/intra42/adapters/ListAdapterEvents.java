@@ -74,14 +74,14 @@ public class ListAdapterEvents extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_view_event, parent, false);
 
-            holder.textViewDateDay = (TextView) convertView.findViewById(R.id.textViewDateDay);
-            holder.textViewDateMonth = (TextView) convertView.findViewById(R.id.textViewDateMonth);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.tagViewKind = (TagView) convertView.findViewById(R.id.tagViewKind);
-            holder.textViewDescription = (TextView) convertView.findViewById(R.id.textViewDescription);
-            holder.textViewTime = (TextView) convertView.findViewById(R.id.textViewTime);
-            holder.textViewPlace = (TextView) convertView.findViewById(R.id.textViewPlace);
-            holder.textViewFull = (TextView) convertView.findViewById(R.id.textViewFull);
+            holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
+            holder.textViewDateMonth = convertView.findViewById(R.id.textViewDateMonth);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.tagViewKind = convertView.findViewById(R.id.tagViewKind);
+            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
+            holder.textViewPlace = convertView.findViewById(R.id.textViewPlace);
+            holder.textViewFull = convertView.findViewById(R.id.textViewFull);
 
             convertView.setTag(holder);
 

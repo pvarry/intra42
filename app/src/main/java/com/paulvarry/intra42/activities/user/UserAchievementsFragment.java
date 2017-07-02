@@ -66,8 +66,8 @@ public class UserAchievementsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        gridView = (GridView) view.findViewById(R.id.gridView);
-        textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
+        gridView = view.findViewById(R.id.gridView);
+        textViewStatus = view.findViewById(R.id.textViewStatus);
 
         if (activity.user == null || activity.user.achievements == null || activity.user.achievements.size() == 0) {
             textViewStatus.setVisibility(View.VISIBLE);

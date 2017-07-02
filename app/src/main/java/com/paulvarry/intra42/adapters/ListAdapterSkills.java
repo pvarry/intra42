@@ -17,7 +17,7 @@ import java.util.List;
 public class ListAdapterSkills extends BaseAdapter {
 
     private final Activity context;
-    List<CursusUsers.Skills> skillsList;
+    private List<CursusUsers.Skills> skillsList;
 
     public ListAdapterSkills(Activity context, List<CursusUsers.Skills> skillsList) {
 
@@ -69,9 +69,9 @@ public class ListAdapterSkills extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.list_view_skills, parent, false);
 
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.textViewLevel = (TextView) convertView.findViewById(R.id.textViewLevel);
-            holder.progressBarSkills = (ProgressBar) convertView.findViewById(R.id.progressBarSkills);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewLevel = convertView.findViewById(R.id.textViewLevel);
+            holder.progressBarSkills = convertView.findViewById(R.id.progressBarSkills);
 
             convertView.setTag(holder);
         } else {

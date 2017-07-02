@@ -68,9 +68,9 @@ public class ListAdapterMarks extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.list_view_marks, parent, false);
 
-            holder.textViewProjectName = (TextView) convertView.findViewById(R.id.textViewProjectName);
-            holder.textViewProjectSlug = (TextView) convertView.findViewById(R.id.textViewProjectSlug);
-            holder.textViewProjectMark = (TextView) convertView.findViewById(R.id.textViewProjectMark);
+            holder.textViewProjectName = convertView.findViewById(R.id.textViewProjectName);
+            holder.textViewProjectSlug = convertView.findViewById(R.id.textViewProjectSlug);
+            holder.textViewProjectMark = convertView.findViewById(R.id.textViewProjectMark);
 
             convertView.setTag(holder);
         } else {

@@ -84,13 +84,13 @@ public abstract class BasicFragmentCallGrid<T, ADAPTER extends BaseAdapter> exte
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        constraintLayoutLoading = (ConstraintLayout) view.findViewById(R.id.constraintLayoutLoading);
-        constraintOnError = (ConstraintLayout) view.findViewById(R.id.constraintOnError);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        constraintLayoutLoading = view.findViewById(R.id.constraintLayoutLoading);
+        constraintOnError = view.findViewById(R.id.constraintOnError);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
-        textViewError = (TextView) view.findViewById(R.id.textViewError);
-        textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
-        gridView = (GridView) view.findViewById(R.id.gridView);
+        textViewError = view.findViewById(R.id.textViewError);
+        textViewStatus = view.findViewById(R.id.textViewStatus);
+        gridView = view.findViewById(R.id.gridView);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         gridView.setOnItemClickListener(this);

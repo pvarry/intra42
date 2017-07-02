@@ -118,12 +118,12 @@ public class TopicActivity
     @Override
     public void setViewContent() {
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        scrollViewReply = (ScrollView) findViewById(R.id.scrollViewReply);
-        editTextReply = (EditText) findViewById(R.id.editTextReply);
-        listView = (ExpandableListView) findViewById(R.id.expandableListView);
-        buttonReply = (ImageButton) findViewById(R.id.buttonReply);
-        textViewPreviewMessage = (TextView) findViewById(R.id.textViewPreviewMessage);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        scrollViewReply = findViewById(R.id.scrollViewReply);
+        editTextReply = findViewById(R.id.editTextReply);
+        listView = findViewById(R.id.expandableListView);
+        buttonReply = findViewById(R.id.buttonReply);
+        textViewPreviewMessage = findViewById(R.id.textViewPreviewMessage);
 
         scrollViewReply.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);

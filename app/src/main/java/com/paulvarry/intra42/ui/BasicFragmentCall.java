@@ -77,10 +77,10 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ListView) view.findViewById(R.id.listView);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        textView = (TextView) view.findViewById(R.id.textView);
-        fabBasicFragmentCall = (FloatingActionButton) view.findViewById(R.id.fabBasicFragmentCall);
+        listView = view.findViewById(R.id.listView);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        textView = view.findViewById(R.id.textView);
+        fabBasicFragmentCall = view.findViewById(R.id.fabBasicFragmentCall);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);

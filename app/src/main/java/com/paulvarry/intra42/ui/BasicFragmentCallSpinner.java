@@ -94,11 +94,11 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        linearLayoutHeader = (LinearLayout) view.findViewById(R.id.linearLayoutHeader);
-        listView = (ListView) view.findViewById(R.id.listView);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        textView = (TextView) view.findViewById(R.id.textView);
-        spinner = (Spinner) view.findViewById(R.id.spinner);
+        linearLayoutHeader = view.findViewById(R.id.linearLayoutHeader);
+        listView = view.findViewById(R.id.listView);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        textView = view.findViewById(R.id.textView);
+        spinner = view.findViewById(R.id.spinner);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);

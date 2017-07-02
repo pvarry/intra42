@@ -157,35 +157,35 @@ public class UserOverviewFragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_overview, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        linearLayoutMobile = (LinearLayout) view.findViewById(R.id.linearLayoutMobile);
-        linearLayoutPhone = (LinearLayout) view.findViewById(R.id.linearLayoutPhone);
-        imageButtonSMS = (ImageButton) view.findViewById(R.id.imageButtonSMS);
-        relativeLayoutMail = (LinearLayout) view.findViewById(R.id.linearLayoutMail);
-        linearLayoutLocation = (LinearLayout) view.findViewById(R.id.linearLayoutLocation);
-        imageViewProfile = (ImageView) view.findViewById(R.id.imageViewProfile);
-        imageButtonFriends = (ImageButton) view.findViewById(R.id.imageButtonFriends);
-        chipViewTags = (ChipView) view.findViewById(R.id.chipViewTags);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        linearLayoutMobile = view.findViewById(R.id.linearLayoutMobile);
+        linearLayoutPhone = view.findViewById(R.id.linearLayoutPhone);
+        imageButtonSMS = view.findViewById(R.id.imageButtonSMS);
+        relativeLayoutMail = view.findViewById(R.id.linearLayoutMail);
+        linearLayoutLocation = view.findViewById(R.id.linearLayoutLocation);
+        imageViewProfile = view.findViewById(R.id.imageViewProfile);
+        imageButtonFriends = view.findViewById(R.id.imageButtonFriends);
+        chipViewTags = view.findViewById(R.id.chipViewTags);
 
-        textViewName = (TextView) view.findViewById(R.id.textViewName);
-        textViewMobile = (TextView) view.findViewById(R.id.textViewMobile);
-        textViewMail = (TextView) view.findViewById(R.id.textViewMail);
-        textViewPosition = (TextView) view.findViewById(R.id.textViewPosition);
-        textViewWallet = (TextView) view.findViewById(R.id.textViewWallet);
-        textViewCorrectionPoints = (TextView) view.findViewById(R.id.textViewCorrectionPoints);
+        textViewName = view.findViewById(R.id.textViewName);
+        textViewMobile = view.findViewById(R.id.textViewMobile);
+        textViewMail = view.findViewById(R.id.textViewMail);
+        textViewPosition = view.findViewById(R.id.textViewPosition);
+        textViewWallet = view.findViewById(R.id.textViewWallet);
+        textViewCorrectionPoints = view.findViewById(R.id.textViewCorrectionPoints);
         linePool = view.findViewById(R.id.viewPool);
-        linearLayoutPool = (LinearLayout) view.findViewById(R.id.linearLayoutPool);
-        textViewPiscine = (TextView) view.findViewById(R.id.textViewPiscine);
+        linearLayoutPool = view.findViewById(R.id.linearLayoutPool);
+        textViewPiscine = view.findViewById(R.id.textViewPiscine);
 
-        linearLayoutCursus = (LinearLayout) view.findViewById(R.id.linearLayoutCursus);
-        textViewNoCursusAvailable = (TextView) view.findViewById(R.id.textViewNoCursusAvailable);
-        spinnerCursus = (Spinner) view.findViewById(R.id.spinnerCursus);
-        linearLayoutGrade = (LinearLayout) view.findViewById(R.id.linearLayoutGrade);
+        linearLayoutCursus = view.findViewById(R.id.linearLayoutCursus);
+        textViewNoCursusAvailable = view.findViewById(R.id.textViewNoCursusAvailable);
+        spinnerCursus = view.findViewById(R.id.spinnerCursus);
+        linearLayoutGrade = view.findViewById(R.id.linearLayoutGrade);
         viewSeparatorGrade = view.findViewById(R.id.viewSeparatorGrade);
-        textViewGrade = (TextView) view.findViewById(R.id.textViewGrade);
-        textViewLvl = (TextView) view.findViewById(R.id.textViewLvl);
-        progressBarLevel = (ProgressBar) view.findViewById(R.id.progressBarLevel);
-        textViewCursusDate = (TextView) view.findViewById(R.id.textViewCursusDate);
+        textViewGrade = view.findViewById(R.id.textViewGrade);
+        textViewLvl = view.findViewById(R.id.textViewLvl);
+        progressBarLevel = view.findViewById(R.id.progressBarLevel);
+        textViewCursusDate = view.findViewById(R.id.textViewCursusDate);
 
         setView();
 
@@ -223,7 +223,7 @@ public class UserOverviewFragment
         if (user.location != null) {
             strLocation.append(user.location);
         } else
-            strLocation.append(getResources().getString(R.string.unavailable));
+            strLocation.append(getString(R.string.unavailable));
         if (user.campus != null && !user.campus.isEmpty()) {
             strLocation.append(" - ");
             String sep = "";
@@ -377,10 +377,10 @@ public class UserOverviewFragment
         View dialogView = inflater.inflate(R.layout.alert_last_location, null);
         dialogBuilder.setView(dialogView);
 
-        final LinearLayout linearLayoutLoadingData = (LinearLayout) dialogView.findViewById(R.id.layoutGetData);
-        final LinearLayout linearLayoutLocation = (LinearLayout) dialogView.findViewById(R.id.layoutLocation);
-        final TextView textViewLocation = (TextView) dialogView.findViewById(R.id.textViewLocation);
-        final TextView textViewDate = (TextView) dialogView.findViewById(R.id.textViewDate);
+        final LinearLayout linearLayoutLoadingData = dialogView.findViewById(R.id.layoutGetData);
+        final LinearLayout linearLayoutLocation = dialogView.findViewById(R.id.layoutLocation);
+        final TextView textViewLocation = dialogView.findViewById(R.id.textViewLocation);
+        final TextView textViewDate = dialogView.findViewById(R.id.textViewDate);
 
         linearLayoutLoadingData.setVisibility(View.VISIBLE);
         linearLayoutLocation.setVisibility(View.GONE);

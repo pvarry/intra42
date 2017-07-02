@@ -18,7 +18,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -81,21 +80,21 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
         app = (AppClass) getApplication();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-        constraintLayoutLoading = (ConstraintLayout) findViewById(R.id.constraintLayoutLoading);
-        constraintOnError = (ConstraintLayout) findViewById(R.id.constraintOnError);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        constraintLayoutLoading = findViewById(R.id.constraintLayoutLoading);
+        constraintOnError = findViewById(R.id.constraintOnError);
 
-        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
-        textViewLoadingStatus = (TextView) findViewById(R.id.textViewStatus);
-        progressBarLoading = (ProgressBar) findViewById(R.id.progressBarLoading);
-        textViewError = (TextView) findViewById(R.id.textViewError);
-        buttonForceRefresh = (Button) findViewById(R.id.buttonRefresh);
+        textViewLoading = findViewById(R.id.textViewLoading);
+        textViewLoadingStatus = findViewById(R.id.textViewStatus);
+        progressBarLoading = findViewById(R.id.progressBarLoading);
+        textViewError = findViewById(R.id.textViewError);
+        buttonForceRefresh = findViewById(R.id.buttonRefresh);
 
-        fabBaseActivity = (FloatingActionButton) findViewById(R.id.fabBaseActivity);
+        fabBaseActivity = findViewById(R.id.fabBaseActivity);
         fabBaseActivity.setVisibility(View.GONE);
 
         setViewNavigation(); // set drawer menu
@@ -210,7 +209,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
         menuItemSearch = menu.findItem(R.id.search);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItemSearch);
+        final SearchView searchView = (SearchView) menuItemSearch.getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
 
         final String[] from = new String[]{"cityName"};

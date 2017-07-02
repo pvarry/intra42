@@ -59,8 +59,8 @@ public class UserPartnershipsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ListView) view.findViewById(R.id.listView);
-        textViewNothingToShow = (TextView) view.findViewById(R.id.textViewNothingToShow);
+        listView = view.findViewById(R.id.listView);
+        textViewNothingToShow = view.findViewById(R.id.textViewNothingToShow);
 
         if (activity != null &&
                 activity.user != null &&

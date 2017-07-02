@@ -38,9 +38,9 @@ public abstract class BasicFragmentGrid<T, ADAPTER extends BaseAdapter>
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (GridView) view.findViewById(R.id.gridView);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        textView = (TextView) view.findViewById(R.id.textView);
+        listView = view.findViewById(R.id.gridView);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        textView = view.findViewById(R.id.textView);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);

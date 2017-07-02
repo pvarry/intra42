@@ -71,9 +71,9 @@ public class UserMarksFragment extends Fragment implements AdapterView.OnItemCli
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        spinnerCursus = (Spinner) view.findViewById(R.id.spinnerCursus);
-        listView = (ListView) view.findViewById(R.id.listViewMarks);
-        textViewNoItem = (TextView) view.findViewById(R.id.textViewNoItem);
+        spinnerCursus = view.findViewById(R.id.spinnerCursus);
+        listView = view.findViewById(R.id.listViewMarks);
+        textViewNoItem = view.findViewById(R.id.textViewNoItem);
 
         listView.setOnItemClickListener(this);
 

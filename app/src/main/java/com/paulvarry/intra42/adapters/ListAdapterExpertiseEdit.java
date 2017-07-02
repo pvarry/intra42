@@ -87,11 +87,11 @@ public class ListAdapterExpertiseEdit extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_expertises_edit, parent, false);
-            holder.textView = (TextView) convertView.findViewById(R.id.textView);
-            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
-            holder.checkboxInterested = (CheckBox) convertView.findViewById(R.id.checkboxInterested);
-            holder.imageButtonEdit = (ImageButton) convertView.findViewById(R.id.imageButtonEdit);
-            holder.imageButtonRemove = (ImageButton) convertView.findViewById(R.id.imageButtonRemove);
+            holder.textView = convertView.findViewById(R.id.textView);
+            holder.ratingBar = convertView.findViewById(R.id.ratingBar);
+            holder.checkboxInterested = convertView.findViewById(R.id.checkboxInterested);
+            holder.imageButtonEdit = convertView.findViewById(R.id.imageButtonEdit);
+            holder.imageButtonRemove = convertView.findViewById(R.id.imageButtonRemove);
 
             convertView.setTag(holder);
         } else {

@@ -108,33 +108,33 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_topic_info, null);
         dialog.setContentView(contentView);
 
-        TextView textViewMessage = (TextView) contentView.findViewById(R.id.textViewMessage);
+        TextView textViewMessage = contentView.findViewById(R.id.textViewMessage);
 
-        textViewUp = (TextView) contentView.findViewById(R.id.textViewUp);
-        textViewDown = (TextView) contentView.findViewById(R.id.textViewDown);
-        textViewReport = (TextView) contentView.findViewById(R.id.textViewReport);
-        textViewTroll = (TextView) contentView.findViewById(R.id.textViewTroll);
-        imageButtonUp = (ImageButton) contentView.findViewById(R.id.imageButtonUp);
-        imageButtonDown = (ImageButton) contentView.findViewById(R.id.imageButtonDown);
-        imageButtonReport = (ImageButton) contentView.findViewById(R.id.imageButtonReport);
-        imageButtonTroll = (ImageButton) contentView.findViewById(R.id.imageButtonTroll);
-        progressBarUp = (ProgressBar) contentView.findViewById(R.id.progressBarUp);
-        progressBarDown = (ProgressBar) contentView.findViewById(R.id.progressBarDown);
-        progressBarReport = (ProgressBar) contentView.findViewById(R.id.progressBarReport);
-        progressBarTroll = (ProgressBar) contentView.findViewById(R.id.progressBarTroll);
+        textViewUp = contentView.findViewById(R.id.textViewUp);
+        textViewDown = contentView.findViewById(R.id.textViewDown);
+        textViewReport = contentView.findViewById(R.id.textViewReport);
+        textViewTroll = contentView.findViewById(R.id.textViewTroll);
+        imageButtonUp = contentView.findViewById(R.id.imageButtonUp);
+        imageButtonDown = contentView.findViewById(R.id.imageButtonDown);
+        imageButtonReport = contentView.findViewById(R.id.imageButtonReport);
+        imageButtonTroll = contentView.findViewById(R.id.imageButtonTroll);
+        progressBarUp = contentView.findViewById(R.id.progressBarUp);
+        progressBarDown = contentView.findViewById(R.id.progressBarDown);
+        progressBarReport = contentView.findViewById(R.id.progressBarReport);
+        progressBarTroll = contentView.findViewById(R.id.progressBarTroll);
 
-        buttonReply = (Button) contentView.findViewById(R.id.buttonReply);
-        buttonShare = (Button) contentView.findViewById(R.id.buttonShare);
-        buttonEdit = (Button) contentView.findViewById(R.id.buttonEdit);
-        buttonDelete = (Button) contentView.findViewById(R.id.buttonDelete);
+        buttonReply = contentView.findViewById(R.id.buttonReply);
+        buttonShare = contentView.findViewById(R.id.buttonShare);
+        buttonEdit = contentView.findViewById(R.id.buttonEdit);
+        buttonDelete = contentView.findViewById(R.id.buttonDelete);
         View viewEdit = contentView.findViewById(R.id.viewEdit);
         View viewDelete = contentView.findViewById(R.id.viewDelete);
 
-        TextView textViewCreated = (TextView) contentView.findViewById(R.id.textViewCreated);
-        TextView textViewUpdated = (TextView) contentView.findViewById(R.id.textViewUpdated);
-        TextView textViewView = (TextView) contentView.findViewById(R.id.textViewView);
+        TextView textViewCreated = contentView.findViewById(R.id.textViewCreated);
+        TextView textViewUpdated = contentView.findViewById(R.id.textViewUpdated);
+        TextView textViewView = contentView.findViewById(R.id.textViewView);
 
-        massageWithoutRendering = (TextView) contentView.findViewById(R.id.massageWithoutRendering);
+        massageWithoutRendering = contentView.findViewById(R.id.massageWithoutRendering);
 
         textViewMessage.setText(message.content.replace('\n', ' '));
         textViewUp.setText(String.valueOf(message.votesCount.upvote));

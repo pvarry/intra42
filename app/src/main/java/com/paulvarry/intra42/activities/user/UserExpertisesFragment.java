@@ -64,7 +64,7 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, Li
 
         if (activity != null) {
             AppClass app = (AppClass) activity.getApplication();
-            if (app.me.equals(activity.user)) {
+            if (app.me != null && app.me.equals(activity.user)) {
                 fabBasicFragmentCall.setVisibility(View.VISIBLE);
                 fabBasicFragmentCall.setOnClickListener(this);
                 fabBasicFragmentCall.setImageResource(R.drawable.ic_mode_edit_black_24dp);

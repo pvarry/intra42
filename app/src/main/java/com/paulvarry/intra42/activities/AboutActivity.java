@@ -42,7 +42,7 @@ public class AboutActivity extends BasicActivity {
 
     @Override
     public void setViewContent() {
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.listView);
 
         List<Item> list = new ArrayList<>();
         Item item;
@@ -119,8 +119,8 @@ public class AboutActivity extends BasicActivity {
                 LayoutInflater vi = (LayoutInflater) AboutActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 view = vi.inflate(R.layout.list_view_about, viewGroup, false);
-                holder.textViewName = (TextView) view.findViewById(R.id.textViewName);
-                holder.textViewSub = (TextView) view.findViewById(R.id.textViewSub);
+                holder.textViewName = view.findViewById(R.id.textViewName);
+                holder.textViewSub = view.findViewById(R.id.textViewSub);
 
                 view.setTag(holder);
             } else {

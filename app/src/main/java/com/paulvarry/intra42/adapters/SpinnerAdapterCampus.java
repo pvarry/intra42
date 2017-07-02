@@ -67,7 +67,7 @@ public class SpinnerAdapterCampus extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
 
-            holder.textViewName = (TextView) convertView.findViewById(android.R.id.text1);
+            holder.textViewName = convertView.findViewById(android.R.id.text1);
 
             convertView.setTag(holder);
         } else {

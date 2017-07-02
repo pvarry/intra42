@@ -55,7 +55,7 @@ public class LocationHistoryActivity extends BasicActivity implements BasicActiv
         if (host == null)
             finish();
 
-        listView = (PinnedSectionListView) findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
     }
 

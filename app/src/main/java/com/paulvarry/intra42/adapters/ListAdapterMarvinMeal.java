@@ -69,17 +69,17 @@ public class ListAdapterMarvinMeal extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.list_view_marvin_meal, parent, false);
 
-            holder.textViewDateDay = (TextView) convertView.findViewById(R.id.textViewDateDay);
-            holder.textViewDateMonth = (TextView) convertView.findViewById(R.id.textViewDateMonth);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.textViewDescription = (TextView) convertView.findViewById(R.id.textViewDescription);
-            holder.textViewTime = (TextView) convertView.findViewById(R.id.textViewTime);
+            holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
+            holder.textViewDateMonth = convertView.findViewById(R.id.textViewDateMonth);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
 
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
         }
 
         MarvinMeals item = getItem(position);

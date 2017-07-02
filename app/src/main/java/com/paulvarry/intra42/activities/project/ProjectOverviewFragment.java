@@ -118,33 +118,33 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FrameLayout frameLayoutStatus = (FrameLayout) view.findViewById(R.id.frameLayoutStatus);
-        RelativeLayout linearLayoutMark = (RelativeLayout) view.findViewById(R.id.linearLayoutMark);
-        LinearLayout linearLayoutStatus = (LinearLayout) view.findViewById(R.id.linearLayoutStatus);
-        FrameLayout frameLayoutRegister = (FrameLayout) view.findViewById(R.id.frameLayoutRegister);
-        TextView textViewFinalMark = (TextView) view.findViewById(R.id.textViewFinalMark);
-        TextView textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
-        buttonRegister = (Button) view.findViewById(R.id.buttonRegister);
+        FrameLayout frameLayoutStatus = view.findViewById(R.id.frameLayoutStatus);
+        RelativeLayout linearLayoutMark = view.findViewById(R.id.linearLayoutMark);
+        LinearLayout linearLayoutStatus = view.findViewById(R.id.linearLayoutStatus);
+        FrameLayout frameLayoutRegister = view.findViewById(R.id.frameLayoutRegister);
+        TextView textViewFinalMark = view.findViewById(R.id.textViewFinalMark);
+        TextView textViewStatus = view.findViewById(R.id.textViewStatus);
+        buttonRegister = view.findViewById(R.id.buttonRegister);
 
-        LinearLayout linearLayoutDescription = (LinearLayout) view.findViewById(R.id.linearLayoutDescription);
-        TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+        LinearLayout linearLayoutDescription = view.findViewById(R.id.linearLayoutDescription);
+        TextView tvDescription = view.findViewById(R.id.tvDescription);
         View viewDescriptionLine = view.findViewById(R.id.viewDescriptionLine);
-        LinearLayout linearLayoutSkills = (LinearLayout) view.findViewById(R.id.linearLayoutSkills);
-        TextView tvSkills = (TextView) view.findViewById(R.id.tvSkills);
+        LinearLayout linearLayoutSkills = view.findViewById(R.id.linearLayoutSkills);
+        TextView tvSkills = view.findViewById(R.id.tvSkills);
         View viewSkillsLine = view.findViewById(R.id.viewSkillsLine);
-        LinearLayout linearLayoutInfo = (LinearLayout) view.findViewById(R.id.linearLayoutInfo);
-        TextView tvInfo = (TextView) view.findViewById(R.id.tvInfo);
+        LinearLayout linearLayoutInfo = view.findViewById(R.id.linearLayoutInfo);
+        TextView tvInfo = view.findViewById(R.id.tvInfo);
         View viewInfoLine = view.findViewById(R.id.viewInfoLine);
-        LinearLayout linearLayoutSession = (LinearLayout) view.findViewById(R.id.linearLayoutSession);
-        TextView tvSessionTitle = (TextView) view.findViewById(R.id.tvSessionTitle);
-        TextView tvSession = (TextView) view.findViewById(R.id.tvSession);
+        LinearLayout linearLayoutSession = view.findViewById(R.id.linearLayoutSession);
+        TextView tvSessionTitle = view.findViewById(R.id.tvSessionTitle);
+        TextView tvSession = view.findViewById(R.id.tvSession);
         View viewSessionLine = view.findViewById(R.id.viewSessionLine);
-        LinearLayout linearLayoutObjectives = (LinearLayout) view.findViewById(R.id.linearLayoutObjectives);
-        TextView tvObjectives = (TextView) view.findViewById(R.id.tvObjectives);
+        LinearLayout linearLayoutObjectives = view.findViewById(R.id.linearLayoutObjectives);
+        TextView tvObjectives = view.findViewById(R.id.tvObjectives);
         View viewObjectivesLine = view.findViewById(R.id.viewObjectivesLine);
 
-        buttonParent = (Button) view.findViewById(R.id.buttonParent);
-        buttonMine = (Button) view.findViewById(R.id.buttonMine);
+        buttonParent = view.findViewById(R.id.buttonParent);
+        buttonMine = view.findViewById(R.id.buttonMine);
 
         frameLayoutStatus.setVisibility(View.VISIBLE);
         linearLayoutStatus.setVisibility(View.GONE);
@@ -266,11 +266,13 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                     info += getContext().getString(R.string.automatic_correction);
 
                 info += ": ";
+                StringBuilder tmp = new StringBuilder();
                 String localSeparator = "";
                 for (ProjectsSessions.Uploads u : uploads) {
-                    info += localSeparator + u.name;
+                    tmp.append(localSeparator).append(u.name);
                     localSeparator = ", ";
                 }
+                info += tmp.toString();
             }
         }
         tvInfo.setText(info);
@@ -282,14 +284,13 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             linearLayoutObjectives.setVisibility(View.VISIBLE);
             viewObjectivesLine.setVisibility(View.VISIBLE);
 
-            String objectives = "";
+            StringBuilder objectives = new StringBuilder();
             String sep = "";
             for (String s : project.objectives) {
-                objectives += sep + s;
+                objectives.append(sep).append(s);
                 sep = " • ";
             }
-
-            tvObjectives.setText(objectives);
+            tvObjectives.setText(objectives.toString());
         }
 
         if (project != null && project.parent != null) {

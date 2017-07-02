@@ -16,9 +16,9 @@ import java.util.List;
 public class GridAdapterUsersLittle extends BaseAdapter {
 
     Context activity;
-    List<TeamsUsers> users;
+    private List<TeamsUsers> users;
 
-    public GridAdapterUsersLittle(Context context, List<TeamsUsers> users) {
+    GridAdapterUsersLittle(Context context, List<TeamsUsers> users) {
 
         this.activity = context;
         this.users = users;
@@ -49,8 +49,8 @@ public class GridAdapterUsersLittle extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.grid_view_users_little, parent, false);
-            holder.imageViewUsers = (ImageView) convertView.findViewById(R.id.imageViewUsers);
-            holder.imageViewStar = (ImageView) convertView.findViewById(R.id.imageViewStar);
+            holder.imageViewUsers = convertView.findViewById(R.id.imageViewUsers);
+            holder.imageViewStar = convertView.findViewById(R.id.imageViewStar);
 
             convertView.setTag(holder);
         } else {

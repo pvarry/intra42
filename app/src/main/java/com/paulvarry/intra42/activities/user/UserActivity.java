@@ -390,11 +390,13 @@ public class UserActivity extends BasicTabActivity
         //menuSpinner.setGravity(Gravity.END);
         menuSpinner.setAdapter(adapter);
 
-        ViewPagerAdapter pagerAdapter = (ViewPagerAdapter) viewPager.getAdapter();
+        if (viewPager != null) {
+            ViewPagerAdapter pagerAdapter = (ViewPagerAdapter) viewPager.getAdapter();
 
-        menuSpinner.setOnItemSelectedListener(((UserProjectsFragment) pagerAdapter.getItem(2)));
-        if (selectedTab == 2)
-            menuItemSpinner.setVisible(true);
+            menuSpinner.setOnItemSelectedListener(((UserProjectsFragment) pagerAdapter.getItem(2)));
+            if (selectedTab == 2)
+                menuItemSpinner.setVisible(true);
+        }
 
 //        menu.add("Add to contacts").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 //            @Override
@@ -493,6 +495,9 @@ public class UserActivity extends BasicTabActivity
     }
 
     private void addShortCut() {
+        if (user == null)
+            return;
+
         final Intent addIntent = new Intent();
         final RequestCreator p = UserImage.getPicassoCorned(UserActivity.this, user);
         if (p == null)

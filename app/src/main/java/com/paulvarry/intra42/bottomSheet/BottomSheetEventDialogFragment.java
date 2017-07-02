@@ -150,17 +150,17 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
 
-        TextView textViewTitle = (TextView) contentView.findViewById(R.id.textViewTitle);
-        TagView tagViewKind = (TagView) contentView.findViewById(R.id.tagViewKind);
-        TextView textViewDate = (TextView) contentView.findViewById(R.id.textViewDate);
-        TextView textViewTime = (TextView) contentView.findViewById(R.id.textViewTime);
-        LinearLayout linearLayoutPlace = (LinearLayout) contentView.findViewById(R.id.linearLayoutPlace);
-        TextView textViewPlace = (TextView) contentView.findViewById(R.id.textViewPlace);
-        TextView textViewPeople = (TextView) contentView.findViewById(R.id.textViewPeople);
-        TextView textViewDescription = (TextView) contentView.findViewById(R.id.textViewDescription);
-        buttonSubscribe = (Button) contentView.findViewById(R.id.buttonSubscribe);
-        linearLayoutProgress = (LinearLayout) contentView.findViewById(R.id.linearLayoutProgress);
-        progressBarButton = (ProgressBar) contentView.findViewById(R.id.progressBarButton);
+        TextView textViewTitle = contentView.findViewById(R.id.textViewTitle);
+        TagView tagViewKind = contentView.findViewById(R.id.tagViewKind);
+        TextView textViewDate = contentView.findViewById(R.id.textViewDate);
+        TextView textViewTime = contentView.findViewById(R.id.textViewTime);
+        LinearLayout linearLayoutPlace = contentView.findViewById(R.id.linearLayoutPlace);
+        TextView textViewPlace = contentView.findViewById(R.id.textViewPlace);
+        TextView textViewPeople = contentView.findViewById(R.id.textViewPeople);
+        TextView textViewDescription = contentView.findViewById(R.id.textViewDescription);
+        buttonSubscribe = contentView.findViewById(R.id.buttonSubscribe);
+        linearLayoutProgress = contentView.findViewById(R.id.linearLayoutProgress);
+        progressBarButton = contentView.findViewById(R.id.progressBarButton);
 
         Tag.setTagEvent(event, tagViewKind);
         textViewTitle.setText(event.name);

@@ -189,6 +189,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
                             android:contentDescription="@string/icon_friends"
+                            android:tint="@color/colorGrayTint"
                             app:srcCompat="@drawable/ic_people_black_24dp" />
 
                         <TextView
@@ -213,6 +214,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
                             android:contentDescription="@string/icon_time"
+                            android:tint="@color/colorGrayTint"
                             app:srcCompat="@drawable/ic_access_time_black_24dp" />
 
                         <TextView
@@ -237,6 +239,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
                             android:contentDescription="@string/icon_location"
+                            android:tint="@color/colorGrayTint"
                             app:srcCompat="@drawable/ic_place_black_24dp" />
 
                         <TextView
@@ -261,6 +264,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
                             android:contentDescription="@string/icon_menu"
+                            android:tint="@color/colorGrayTint"
                             app:srcCompat="@drawable/ic_restaurant_menu_black_24dp" />
 
                         <TextView

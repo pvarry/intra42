@@ -35,7 +35,7 @@ public class LibraryListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.listView);
 
         final HashMap<String, Item> list = new HashMap<>();
         Item item;
@@ -155,8 +155,8 @@ public class LibraryListActivity extends AppCompatActivity {
                 LayoutInflater vi = (LayoutInflater) LibraryListActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 view = vi.inflate(R.layout.list_view_library, viewGroup, false);
-                holder.textViewName = (TextView) view.findViewById(R.id.textViewName);
-                holder.textViewLicense = (TextView) view.findViewById(R.id.textViewLicense);
+                holder.textViewName = view.findViewById(R.id.textViewName);
+                holder.textViewLicense = view.findViewById(R.id.textViewLicense);
 
                 view.setTag(holder);
             } else {

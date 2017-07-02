@@ -46,7 +46,7 @@ public class EventActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_event);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -56,8 +56,8 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        AppBarLayout app_bar = (AppBarLayout) findViewById(R.id.app_bar);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
+        AppBarLayout app_bar = findViewById(R.id.app_bar);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +71,12 @@ public class EventActivity extends AppCompatActivity {
 
 //        TextView textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 //        TagView tagViewKind = (TagView) findViewById(R.id.tagViewKind);
-        TextView textViewDate = (TextView) findViewById(R.id.textViewDate);
-        TextView textViewTime = (TextView) findViewById(R.id.textViewTime);
-        TextView textViewPlace = (TextView) findViewById(R.id.textViewPlace);
-        TextView textViewPeople = (TextView) findViewById(R.id.textViewPeople);
-        TextView textViewDescription = (TextView) findViewById(R.id.textViewDescription);
-        Button buttonSubscribe = (Button) findViewById(R.id.buttonSubscribe);
+        TextView textViewDate = findViewById(R.id.textViewDate);
+        TextView textViewTime = findViewById(R.id.textViewTime);
+        TextView textViewPlace = findViewById(R.id.textViewPlace);
+        TextView textViewPeople = findViewById(R.id.textViewPeople);
+        TextView textViewDescription = findViewById(R.id.textViewDescription);
+        Button buttonSubscribe = findViewById(R.id.buttonSubscribe);
 
 //        Tag.setTagEvent(event, tagViewKind);
         collapsingToolbarLayout.setTitle(event.name);

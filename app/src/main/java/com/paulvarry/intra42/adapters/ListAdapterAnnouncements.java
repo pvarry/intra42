@@ -67,10 +67,10 @@ public class ListAdapterAnnouncements extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.list_view_announcements, parent, false);
 
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.textViewText = (TextView) convertView.findViewById(R.id.textViewText);
-            holder.textViewAuthor = (TextView) convertView.findViewById(R.id.textViewAuthor);
-            holder.textViewTime = (TextView) convertView.findViewById(R.id.textViewTime);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewText = convertView.findViewById(R.id.textViewText);
+            holder.textViewAuthor = convertView.findViewById(R.id.textViewAuthor);
+            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
 
             convertView.setTag(holder);
         } else {

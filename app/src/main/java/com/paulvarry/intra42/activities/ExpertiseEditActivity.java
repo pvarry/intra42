@@ -66,8 +66,8 @@ public class ExpertiseEditActivity extends BasicActivity implements View.OnClick
 
     @Override
     public void setViewContent() {
-        ListView listView = (ListView) findViewById(R.id.listView);
-        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_expertise_edit);
+        ListView listView = findViewById(R.id.listView);
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.activity_expertise_edit);
 
         ListAdapterExpertiseEdit adapterExpertisesEdit = new ListAdapterExpertiseEdit(this, expertiseList);
         listView.setAdapter(adapterExpertisesEdit);
@@ -129,12 +129,12 @@ public class ExpertiseEditActivity extends BasicActivity implements View.OnClick
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.dialog_edit_expertises);
 
-        textViewTitle = (TextView) dialog.findViewById(R.id.textViewTitle);
-        spinnerExpertises = (Spinner) dialog.findViewById(R.id.spinnerExpertises);
-        checkboxInterested = (CheckBox) dialog.findViewById(R.id.checkboxInterested);
-        ratingBar = (RatingBar) dialog.findViewById(R.id.ratingBar);
-        buttonDiscard = (Button) dialog.findViewById(R.id.buttonDiscard);
-        buttonCreate = (Button) dialog.findViewById(R.id.buttonCreate);
+        textViewTitle = dialog.findViewById(R.id.textViewTitle);
+        spinnerExpertises = dialog.findViewById(R.id.spinnerExpertises);
+        checkboxInterested = dialog.findViewById(R.id.checkboxInterested);
+        ratingBar = dialog.findViewById(R.id.ratingBar);
+        buttonDiscard = dialog.findViewById(R.id.buttonDiscard);
+        buttonCreate = dialog.findViewById(R.id.buttonCreate);
 
         if (expertisesUsers == null)
             textViewTitle.setText(R.string.new_expertise);

@@ -53,12 +53,12 @@ public class SectionListViewSearch extends BaseAdapter
 
             convertView = vi.inflate(R.layout.list_view__, parent, false);
 
-            holder.linearLayoutTitle = (LinearLayout) convertView.findViewById(R.id.linearLayoutTitle);
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
+            holder.linearLayoutTitle = convertView.findViewById(R.id.linearLayoutTitle);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
 
-            holder.linearLayoutContent = (LinearLayout) convertView.findViewById(R.id.linearLayoutContent);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.textViewSub = (TextView) convertView.findViewById(R.id.textViewSub);
+            holder.linearLayoutContent = convertView.findViewById(R.id.linearLayoutContent);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewSub = convertView.findViewById(R.id.textViewSub);
 
             convertView.setTag(holder);
         } else {

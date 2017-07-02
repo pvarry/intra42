@@ -61,8 +61,8 @@ public class ProjectUserFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ExpandableListView) view.findViewById(R.id.listView);
-        textView = (TextView) view.findViewById(R.id.textView);
+        listView = view.findViewById(R.id.listView);
+        textView = view.findViewById(R.id.textView);
 
         if (activity.projectUser != null && activity.projectUser.user.teams != null && activity.projectUser.user.teams.size() != 0) {
             ExpandableListAdapterTeams adapter = new ExpandableListAdapterTeams(getActivity(), activity.projectUser.user.teams);

@@ -85,9 +85,9 @@ public class ListAdapterExpertises extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_expertises, parent, false);
-            holder.textView = (TextView) convertView.findViewById(R.id.textView);
-            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
-            holder.checkboxInterested = (CheckBox) convertView.findViewById(R.id.checkboxInterested);
+            holder.textView = convertView.findViewById(R.id.textView);
+            holder.ratingBar = convertView.findViewById(R.id.ratingBar);
+            holder.checkboxInterested = convertView.findViewById(R.id.checkboxInterested);
 
             convertView.setTag(holder);
         } else {

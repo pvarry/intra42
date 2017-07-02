@@ -92,7 +92,7 @@ public class ClusterMapFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         locations = activity.locations;
-        gridLayout = (GridLayout) view.findViewById(R.id.gridLayout);
+        gridLayout = view.findViewById(R.id.gridLayout);
         makeMap();
 
     }
@@ -157,7 +157,7 @@ public class ClusterMapFragment extends Fragment {
         else
             view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
 
-        imageViewContent = (ImageView) view.findViewById(R.id.imageView);
+        imageViewContent = view.findViewById(R.id.imageView);
         if (locationItem.kind == LocationItem.KIND_USER) {
 
             if (locationItem.locationName.contains("null") || locationItem.locationName.contains("TBD"))

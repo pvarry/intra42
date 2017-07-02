@@ -94,10 +94,10 @@ public class GridAdapterUsers extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.grid_view_users, parent, false);
-            holder.imageViewUsers = (ImageView) convertView.findViewById(R.id.imageViewUsers);
-            holder.textViewUserLogin = (TextView) convertView.findViewById(R.id.textViewUserLogin);
-            holder.linearLayoutLocation = (LinearLayout) convertView.findViewById(R.id.linearLayoutLocation);
-            holder.textViewLocation = (TextView) convertView.findViewById(R.id.textViewLocation);
+            holder.imageViewUsers = convertView.findViewById(R.id.imageViewUsers);
+            holder.textViewUserLogin = convertView.findViewById(R.id.textViewUserLogin);
+            holder.linearLayoutLocation = convertView.findViewById(R.id.linearLayoutLocation);
+            holder.textViewLocation = convertView.findViewById(R.id.textViewLocation);
 
             convertView.setTag(holder);
         } else {

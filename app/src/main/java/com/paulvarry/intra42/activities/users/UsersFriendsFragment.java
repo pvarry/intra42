@@ -122,12 +122,12 @@ public class UsersFriendsFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (GridView) view.findViewById(R.id.gridView);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        constraintLayoutLoading = (ConstraintLayout) view.findViewById(R.id.constraintLayoutLoading);
-        constraintLayoutError = (ConstraintLayout) view.findViewById(R.id.constraintOnError);
+        listView = view.findViewById(R.id.gridView);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        constraintLayoutLoading = view.findViewById(R.id.constraintLayoutLoading);
+        constraintLayoutError = view.findViewById(R.id.constraintOnError);
 
-        textViewError = (TextView) view.findViewById(R.id.textViewError);
+        textViewError = view.findViewById(R.id.textViewError);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);

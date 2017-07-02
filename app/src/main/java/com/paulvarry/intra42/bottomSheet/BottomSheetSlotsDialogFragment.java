@@ -107,14 +107,14 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_slots, null);
         dialog.setContentView(contentView);
 
-        textViewTitle = (TextView) contentView.findViewById(R.id.textViewTitle);
-        textViewStartDate = (TextView) contentView.findViewById(R.id.textViewStartDate);
-        textViewStartTime = (TextView) contentView.findViewById(R.id.textViewStartTime);
-        textViewEndDate = (TextView) contentView.findViewById(R.id.textViewEndDate);
-        textViewEndTime = (TextView) contentView.findViewById(R.id.textViewEndTime);
-        textViewError = (TextView) contentView.findViewById(R.id.textViewError);
-        buttonSave = (Button) contentView.findViewById(R.id.buttonSave);
-        buttonDelete = (Button) contentView.findViewById(R.id.buttonDelete);
+        textViewTitle = contentView.findViewById(R.id.textViewTitle);
+        textViewStartDate = contentView.findViewById(R.id.textViewStartDate);
+        textViewStartTime = contentView.findViewById(R.id.textViewStartTime);
+        textViewEndDate = contentView.findViewById(R.id.textViewEndDate);
+        textViewEndTime = contentView.findViewById(R.id.textViewEndTime);
+        textViewError = contentView.findViewById(R.id.textViewError);
+        buttonSave = contentView.findViewById(R.id.buttonSave);
+        buttonDelete = contentView.findViewById(R.id.buttonDelete);
 
         if (isNew) {
             textViewTitle.setText(R.string.new_slot);
@@ -410,7 +410,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                         @Override
                         public void run() {
                             Toast.makeText(getContext(), R.string.Deleted, Toast.LENGTH_SHORT).show();
-                            dialogFragment.dismiss();
                         }
                     });
                 }

@@ -95,17 +95,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        linearLayoutContent = (LinearLayout) view.findViewById(R.id.linearLayoutContent);
-        textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        linearLayoutContent = view.findViewById(R.id.linearLayoutContent);
+        textViewStatus = view.findViewById(R.id.textViewStatus);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
-        textViewWallet = (TextView) view.findViewById(R.id.textViewWallet);
-        textViewCP = (TextView) view.findViewById(R.id.textViewCP);
-        textViewName = (TextView) view.findViewById(R.id.textViewName);
-        imageViewProfile = (ImageView) view.findViewById(R.id.imageViewProfile);
-        progressBarLevel = (ProgressBar) view.findViewById(R.id.progressBarLevel);
-        textViewLevel = (TextView) view.findViewById(R.id.textViewLevel);
-        imageButtonOpenProfile = (ImageButton) view.findViewById(R.id.imageButtonOpenProfile);
+        textViewWallet = view.findViewById(R.id.textViewWallet);
+        textViewCP = view.findViewById(R.id.textViewCP);
+        textViewName = view.findViewById(R.id.textViewName);
+        imageViewProfile = view.findViewById(R.id.imageViewProfile);
+        progressBarLevel = view.findViewById(R.id.progressBarLevel);
+        textViewLevel = view.findViewById(R.id.textViewLevel);
+        imageButtonOpenProfile = view.findViewById(R.id.imageButtonOpenProfile);
 
         linearLayoutContent.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
