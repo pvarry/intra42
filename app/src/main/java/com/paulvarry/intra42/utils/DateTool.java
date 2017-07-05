@@ -118,6 +118,9 @@ public class DateTool extends java.util.Date {
     // is
 
     static public boolean isToday(java.util.Date date) {
+        if (date == null)
+            return false;
+
         Calendar smsTime = Calendar.getInstance();
         smsTime.setTimeInMillis(date.getTime());
 

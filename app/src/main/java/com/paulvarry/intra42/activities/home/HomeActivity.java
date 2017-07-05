@@ -32,6 +32,35 @@ public class HomeActivity extends BasicTabActivity
         if (app.me == null) {
             app.logoutAndRedirect();
         }
+
+        /* final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        remoteConfig.fetch(0).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // task successful. Activate the fetched data
+                    remoteConfig.activateFetched();
+
+                    //update views?
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+                    alertDialog.setMessage("This application must be updated.");
+                    alertDialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            String appPackageName = "com.paulvarry.intra42";
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
+
+                            // This flag is set to prevent the browser with the login form from showing in the history stack
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.create().show();
+                }
+            }
+        });*/
     }
 
     @Override
