@@ -16,4 +16,6 @@
 #   public *;
 #}
 
+# -keep class !com.paulvarry.intra42.*
+
 -printmapping build/outputs/mapping/release/mapping.txt

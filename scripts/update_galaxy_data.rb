@@ -26,6 +26,12 @@ conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     res = conn.request(req)
 
+    if res.code != "200"
+      print "\n"
+      puts res.body
+      puts "You need to sign in"
+      exit
+    end
     json = JSON(res.body)
 
     json.each do  |x|

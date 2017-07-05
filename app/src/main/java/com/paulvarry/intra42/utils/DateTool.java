@@ -132,6 +132,8 @@ public class DateTool extends java.util.Date {
     }
 
     public static boolean isTomorrow(java.util.Date date) {
+        if (date == null)
+            return false;
         Calendar smsTime = Calendar.getInstance();
         smsTime.setTimeInMillis(date.getTime());
 

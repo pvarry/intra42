@@ -111,8 +111,13 @@ public class ListAdapterCorrections extends BaseAdapter {
             holder.linearLayoutOn.setVisibility(View.GONE);
         }
 
-        String str = DateTool.getTodayTomorrow(activity, item.beginAt, true) + DateTool.getDateTimeLong(item.beginAt);
-        holder.textViewDate.setText(str);
+        if (item.beginAt == null)
+            holder.textViewDate.setVisibility(View.GONE);
+        else {
+            String str = DateTool.getTodayTomorrow(activity, item.beginAt, true) + DateTool.getDateTimeLong(item.beginAt);
+            holder.textViewDate.setVisibility(View.VISIBLE);
+            holder.textViewDate.setText(str);
+        }
 
         return convertView;
     }
