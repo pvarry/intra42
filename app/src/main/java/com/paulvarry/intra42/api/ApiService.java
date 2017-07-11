@@ -201,11 +201,14 @@ public interface ApiService {
     @GET("/v2/events_users")
     Call<List<EventsUsers>> getEventsUsers(@Query("filter[user_id]") int user, @Query("filter[event_id]") int event);
 
+    @GET("/v2/events_users")
+    Call<List<EventsUsers>> getEventsUsers(@Query("filter[user_id]") int user, @Query("filter[event_id]") String events);
+
     @POST("/v2/events_users")
     Call<EventsUsers> createEventsUsers(@Query("events_user[event_id]") int eventId, @Query("events_user[user_id]") int userId);
 
     @DELETE("/v2/events_users/{id}")
-    Call<List<EventsUsers>> deleteEventsUsers(@Path("id") int eventUser);
+    Call<Void> deleteEventsUsers(@Path("id") int eventUser);
 
     /* Scale Teams */
     @GET("/v2/me/scale_teams?sort=begin_at")

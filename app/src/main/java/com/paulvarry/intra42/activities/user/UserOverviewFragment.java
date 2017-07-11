@@ -373,7 +373,7 @@ public class UserOverviewFragment
     void seeLastLocation() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         // ...Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = this.getLayoutInflater(null);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.alert_last_location, null);
         dialogBuilder.setView(dialogView);
 
@@ -459,7 +459,7 @@ public class UserOverviewFragment
             return;
         CursusUsers userCursus = user.cursusUsers.get(position);
         if (activity != null) {
-            activity.userCursus = userCursus;
+            activity.selectedCursus = userCursus;
         }
 
         if (userCursus.grade == null) {

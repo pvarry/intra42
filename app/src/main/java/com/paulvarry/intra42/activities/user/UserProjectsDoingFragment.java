@@ -64,7 +64,7 @@ public class UserProjectsDoingFragment extends BasicFragment<ProjectsUsers, List
     public List<ProjectsUsers> getData() {
         UserActivity activity = (UserActivity) getActivity();
         if (activity != null && activity.user != null)
-            return ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.userCursus);
+            return ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.selectedCursus);
         return null;
     }
 

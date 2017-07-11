@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -21,6 +22,7 @@ import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.AppSettings;
@@ -36,7 +38,19 @@ public class NotificationsUtils {
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
     }
 
-    public static void send(Context context, Events events) {
+    public static void notify(Context context, Events events) {
+        notify(context, events, null, false, false);
+    }
+
+    public static void notify(Context context, Events events, EventsUsers eventsUsers) {
+        notify(context, events, eventsUsers, true, false);
+    }
+
+    public static void notify(Context context, Events events, EventsUsers eventsUsers, boolean autoCancel) {
+        notify(context, events, eventsUsers, true, autoCancel);
+    }
+
+    public static void notify(final Context context, final Events events, EventsUsers eventsUsers, boolean activeAction, boolean autoCancel) {
 
         Intent notificationIntent = EventActivity.getIntent(context, events);
 
@@ -45,17 +59,49 @@ public class NotificationsUtils {
 
         PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-        NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
+        final NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
                 .setContentTitle(events.name)
                 .setContentText(events.description.replace('\n', ' '))
                 .setSubText(context.getString(R.string.notifications_events_sub_text))
                 .setWhen(events.beginAt.getTime())
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(events.description))
-                .addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.subscribe) + " (soon)", null)
                 .setGroup(context.getString(R.string.notifications_events_unique_id))
                 .setGroupSummary(true)
                 .setChannelId(context.getString(R.string.notifications_events_unique_id))
                 .setContentIntent(intent);
+
+        if (autoCancel) {
+            notificationBuilder.addAction(R.drawable.ic_event_black_24dp, "auto canceling in 5s", null);
+
+            Handler h = new Handler();
+            long delayInMilliseconds = 5000;
+            h.postDelayed(new Runnable() {
+                public void run() {
+                    NotificationManagerCompat.from(context).cancel(context.getString(R.string.notifications_events_unique_id), events.id);
+                }
+            }, delayInMilliseconds);
+
+        } else if (activeAction) {
+            Intent notificationIntentAction = new Intent(context, IntentEvent.class);
+            if (eventsUsers != null) {
+                notificationIntentAction.putExtra(IntentEvent.ACTION, IntentEvent.ACTION_DELETE);
+                notificationIntentAction.putExtra(IntentEvent.CONTENT_EVENT_USER_ID, eventsUsers.id);
+                notificationIntentAction.putExtra(IntentEvent.CONTENT_EVENT_ID, eventsUsers.eventId);
+            } else {
+                notificationIntentAction.putExtra(IntentEvent.ACTION, IntentEvent.ACTION_CREATE);
+                notificationIntentAction.putExtra(IntentEvent.CONTENT_EVENT_ID, events.id);
+            }
+            // intentEvent.putExtra(EventActivity.ARG_EVENT, ServiceGenerator.getGson().toJson(event));
+
+            PendingIntent intentAction = PendingIntent.getService(context, 1000000 + events.id, notificationIntentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            if (eventsUsers == null) {
+                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.subscribe), intentAction);
+            } else if (!events.beginAt.after(new Date()))
+                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.unsubscribe), null);
+            else
+                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.unsubscribe), intentAction);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             notificationBuilder.setCategory(Notification.CATEGORY_EVENT);
@@ -68,7 +114,7 @@ public class NotificationsUtils {
         NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_events_unique_id), events.id, notification);
     }
 
-    static void send(AppClass app, ScaleTeams scaleTeams, boolean imminentCorrection) {
+    static void notify(AppClass app, ScaleTeams scaleTeams, boolean imminentCorrection) {
         String title;
         Intent notificationIntent = null;
         PendingIntent pendingIntentOpen = null;
@@ -159,7 +205,7 @@ public class NotificationsUtils {
         notificationManager.notify(app.getString(R.string.notifications_bookings_unique_id), scaleTeams.id, notification);
     }
 
-    static void send(Context context, Announcements announcements) {
+    static void notify(Context context, Announcements announcements) {
 
         Intent notificationIntent = new Intent(context, EventActivity.class);
 

@@ -96,8 +96,11 @@ public class UserProjectsFragment
         setViewHide();
         galaxy.setVisibility(View.VISIBLE);
 
-        List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.userCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
-        galaxy.setData(list);
+        if (activity.selectedCursus != null) {
+            List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+            galaxy.setData(list);
+        }
+
         galaxy.setOnProjectClickListener(this);
         listView.setOnItemClickListener(this);
         listViewAll.setOnItemClickListener(this);
@@ -182,7 +185,7 @@ public class UserProjectsFragment
             return;
         spinnerSelected = position;
         if (position == 0) {
-            List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.userCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+            List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
             galaxy.setData(list);
             animate(menuSpinner, galaxy);
         } else {
@@ -191,13 +194,13 @@ public class UserProjectsFragment
             if (position == 1) {
                 list = activity.user.projectsUsers;
                 list = ProjectsUsers.getListOnlyRoot(list);
-                if (activity.userCursus != null)
-                    list = ProjectsUsers.getListCursus(list, activity.userCursus.cursusId);
+                if (activity.selectedCursus != null)
+                    list = ProjectsUsers.getListCursus(list, activity.selectedCursus.cursusId);
                 adapterList = new ListAdapterMarks(activity, list);
                 listViewAll.setAdapter(adapterList);
                 animate(menuSpinner, listViewAll);
             } else if (position == 2) {
-                list = ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.userCursus);
+                list = ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.selectedCursus);
                 adapterList = new ListAdapterMarks(activity, list);
                 listView.setAdapter(adapterList);
                 animate(menuSpinner, listView);

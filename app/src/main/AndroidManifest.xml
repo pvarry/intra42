@@ -151,6 +151,10 @@
             android:name=".notifications.IntentServiceNotifications"
             android:exported="false" />
 
+        <service
+            android:name=".notifications.IntentEvent"
+            android:exported="false" />
+
         <activity
             android:name=".activities.EventActivity"
             android:label="@string/title_activity_event"

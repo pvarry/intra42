@@ -56,8 +56,8 @@ public class UserSkillsFragment extends Fragment {
         ListView listViewSkills = rootView.findViewById(R.id.listViewSkills);
         TextView textViewNothingToShow = rootView.findViewById(R.id.textViewNothingToShow);
 
-        if (activity != null && activity.userCursus != null && !activity.userCursus.skills.isEmpty()) {
-            ListAdapterSkills adapterSkills = new ListAdapterSkills(getActivity(), activity.userCursus.skills);
+        if (activity != null && activity.selectedCursus != null && !activity.selectedCursus.skills.isEmpty()) {
+            ListAdapterSkills adapterSkills = new ListAdapterSkills(getActivity(), activity.selectedCursus.skills);
             listViewSkills.setAdapter(adapterSkills);
             textViewNothingToShow.setVisibility(View.GONE);
             listViewSkills.setVisibility(View.VISIBLE);

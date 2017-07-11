@@ -86,8 +86,8 @@ public class UserMarksFragment extends Fragment implements AdapterView.OnItemCli
 
             list = activity.user.projectsUsers;
             list = ProjectsUsers.getListOnlyRoot(list);
-            if (activity.userCursus != null)
-                list = ProjectsUsers.getListCursus(list, activity.userCursus.cursusId);
+            if (activity.selectedCursus != null)
+                list = ProjectsUsers.getListCursus(list, activity.selectedCursus.cursusId);
 
             adapterListMarks = new ListAdapterMarks(activity, list);
             listView.setAdapter(adapterListMarks);

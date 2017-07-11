@@ -92,6 +92,33 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         }
     };
 
+    private Callback<Void> callbackDelete = new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+
+            linearLayoutProgress.setVisibility(View.INVISIBLE);
+            progressBarButton.setVisibility(View.GONE);
+            buttonSubscribe.setEnabled(true);
+            eventsUsers = null;
+            if (response.isSuccessful()) {
+
+                setButtonSubscribe();
+                if (call.request().method().equals("DELETE"))
+                    Toast.makeText(getContext(), R.string.unsubscribed, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable t) {
+            Context context = getContext();
+            if (context != null)
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            linearLayoutProgress.setVisibility(View.INVISIBLE);
+            progressBarButton.setVisibility(View.GONE);
+            buttonSubscribe.setEnabled(true);
+        }
+    };
+
     private Callback<EventsUsers> callbackSubscribe = new Callback<EventsUsers>() {
         @Override
         public void onResponse(Call<EventsUsers> call, Response<EventsUsers> response) {
@@ -230,7 +257,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         if (eventsUsers == null)
             api.createEventsUsers(event.id, appClass.me.id).enqueue(callbackSubscribe);
         else
-            api.deleteEventsUsers(eventsUsers.id).enqueue(callback);
+            api.deleteEventsUsers(eventsUsers.id).enqueue(callbackDelete);
     }
 
     void setButtonSubscribe() {

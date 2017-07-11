@@ -4,12 +4,14 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.SparseArray;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
@@ -54,26 +56,34 @@ public class IntentServiceNotifications extends IntentService {
     void notifyEvents(AppClass app, ApiService apiService) {
         final Call<List<Events>> events;
 
-        String date = NotificationsUtils.getDateSince(settings);
-        if (date == null)
+        String dateFilter = NotificationsUtils.getDateSince(settings);
+        if (dateFilter == null)
             return;
         int campus = AppSettings.getUserCampus(app);
         int cursus = AppSettings.getUserCursus(app);
 
         if (cursus != -1 && cursus != 0 && campus != -1 && campus != 0)
-            events = apiService.getEventCreatedAt(campus, cursus, date, Pagination.getPage(null));
+            events = apiService.getEventCreatedAt(campus, cursus, dateFilter, Pagination.getPage(null));
         else if (cursus != -1 && cursus != 0)
-            events = apiService.getEventCreatedAtCursus(cursus, date, Pagination.getPage(null));
+            events = apiService.getEventCreatedAtCursus(cursus, dateFilter, Pagination.getPage(null));
         else if (campus != -1 && campus != 0)
-            events = apiService.getEventCreatedAtCampus(campus, date, Pagination.getPage(null));
+            events = apiService.getEventCreatedAtCampus(campus, dateFilter, Pagination.getPage(null));
         else
-            events = apiService.getEventCreatedAt(date, Pagination.getPage(null));
+            events = apiService.getEventCreatedAt(dateFilter, Pagination.getPage(null));
 
         try {
-            Response<List<Events>> response = events.execute();
-            if (response.isSuccessful()) {
-                for (Events e : response.body()) {
-                    NotificationsUtils.send(getBaseContext(), e);
+            Response<List<Events>> responseEvents = events.execute();
+            if (!responseEvents.isSuccessful())
+                return;
+
+            SparseArray<EventsUsers> list = EventsUsers.get(app, apiService, responseEvents.body());
+            if (list != null) {
+                for (Events e : responseEvents.body()) {
+                    NotificationsUtils.notify(getBaseContext(), e, list.get(e.id));
+                }
+            } else {
+                for (Events e : responseEvents.body()) {
+                    NotificationsUtils.notify(getBaseContext(), e);
                 }
             }
         } catch (IOException e) {
@@ -94,7 +104,7 @@ public class IntentServiceNotifications extends IntentService {
             response = scaleTeams.execute();
             if (response.isSuccessful()) {
                 for (ScaleTeams s : response.body()) {
-                    NotificationsUtils.send(app, s, false);
+                    NotificationsUtils.notify(app, s, false);
                 }
             }
         } catch (IOException e) {
@@ -113,7 +123,7 @@ public class IntentServiceNotifications extends IntentService {
             Response<List<ScaleTeams>> response = scaleTeams.execute();
             if (response.isSuccessful()) {
                 for (ScaleTeams s : response.body()) {
-                    NotificationsUtils.send(app, s, true);
+                    NotificationsUtils.notify(app, s, true);
                 }
             }
         } catch (IOException e) {
@@ -136,7 +146,7 @@ public class IntentServiceNotifications extends IntentService {
             public void onResponse(Call<List<Announcements>> call, Response<List<Announcements>> response) {
                 if (response.isSuccessful()) {
                     for (Announcements announcements : response.body()) {
-                        NotificationsUtils.send(app, announcements);
+                        NotificationsUtils.notify(app, announcements);
                     }
                 }
             }

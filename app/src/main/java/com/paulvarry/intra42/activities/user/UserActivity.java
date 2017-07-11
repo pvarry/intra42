@@ -64,7 +64,7 @@ public class UserActivity extends BasicTabActivity
 
     public Users user;
     public HashMap<String, Bitmap> picAchievements;
-    public CursusUsers userCursus;
+    public CursusUsers selectedCursus;
     String login;
     int selectedTab;
 
@@ -343,7 +343,7 @@ public class UserActivity extends BasicTabActivity
                 if (app.me != null && login != null && login.contentEquals(app.me.login))
                     user = app.me;
                 if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
-                    userCursus = user.cursusUsers.get(0);
+                    selectedCursus = user.cursusUsers.get(0);
                 }
                 if (runnable != null)
                     runnable.run();
@@ -449,7 +449,7 @@ public class UserActivity extends BasicTabActivity
                 }
             }
             if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
-                userCursus = user.cursusUsers.get(0);
+                selectedCursus = user.cursusUsers.get(0);
             }
         }
         return StatusCode.FINISH;
