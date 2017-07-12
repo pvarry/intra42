@@ -324,7 +324,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                     } else if (slotsGroup.beginAt.compareTo(groupLast) < 0) { //delete slots at the end
                         int i = slotsGroup.group.size() - 1;
 
-                        while (slotsGroup.endAt.compareTo(slotsGroup.group.get(i).endAt) < 0 && i >= 0) {
+                        while (i >= 0 && slotsGroup.endAt.compareTo(slotsGroup.group.get(i).endAt) < 0) {
                             ApiService api = app.getApiService();
                             Call<Slots> call = api.destroySlot(slotsGroup.group.get(i).id);
 

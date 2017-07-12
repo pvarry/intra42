@@ -2,6 +2,7 @@ package com.paulvarry.intra42.bottomSheet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -306,15 +307,21 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                 call.enqueue(new Callback<Messages>() {
                     @Override
                     public void onResponse(Call<Messages> call, retrofit2.Response<Messages> response) {
+                        Context context = getContext();
+                        if (context == null)
+                            return;
+
                         if (response.isSuccessful())
-                            Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                         else
-                            Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Messages> call, Throwable t) {
-                        Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        Context context = getContext();
+                        if (context != null)
+                            Toast.makeText(context, "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

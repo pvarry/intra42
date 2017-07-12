@@ -96,7 +96,8 @@ public class UserProjectsFragment
         setViewHide();
         galaxy.setVisibility(View.VISIBLE);
 
-        if (activity.selectedCursus != null) {
+        activity = (UserActivity) getActivity();
+        if (activity != null && activity.selectedCursus != null) {
             List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
             galaxy.setData(list);
         }
