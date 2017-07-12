@@ -71,7 +71,7 @@ public class NotificationsUtils {
                 .setContentIntent(intent);
 
         if (autoCancel) {
-            notificationBuilder.addAction(R.drawable.ic_event_black_24dp, "auto canceling in 5s", null);
+            notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.notification_auto_clear), null);
 
             Handler h = new Handler();
             long delayInMilliseconds = 5000;

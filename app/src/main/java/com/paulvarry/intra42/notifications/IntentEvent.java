@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -36,14 +35,9 @@ public class IntentEvent extends IntentService {
         if (intent == null)
             return;
 
-        Log.d("event", "event Intent");
         Bundle bundle = intent.getExtras();
         if (bundle == null)
             return;
-        for (String key : bundle.keySet()) {
-            Object value = bundle.get(key);
-            Log.d("event", String.format("%s %s (%s)", key, value.toString(), value.getClass().getName()));
-        }
 
         String action = bundle.getString(ACTION);
         final int eventId = bundle.getInt(CONTENT_EVENT_ID);

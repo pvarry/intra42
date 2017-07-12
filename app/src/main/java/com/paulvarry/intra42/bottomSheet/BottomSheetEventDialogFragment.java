@@ -265,10 +265,21 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         progressBarButton.setVisibility(View.GONE);
         buttonSubscribe.setEnabled(true);
 
-        if (eventsUsers == null)
-            buttonSubscribe.setText(R.string.subscribe);
-        else
+        if (eventsUsers == null) {
+            if (DateTool.isInFuture(event.beginAt)) {
+                buttonSubscribe.setEnabled(true);
+                buttonSubscribe.setText(R.string.subscribe);
+            } else {
+                buttonSubscribe.setEnabled(false);
+                buttonSubscribe.setText(R.string.subscription_unavailable);
+            }
+        } else {
             buttonSubscribe.setText(R.string.unsubscribe);
+            if (DateTool.isInFuture(event.beginAt))
+                buttonSubscribe.setEnabled(true);
+            else
+                buttonSubscribe.setEnabled(false);
+        }
 
         if (eventsUsers == null && event.nbrSubscribers >= event.maxPeople) {
 
