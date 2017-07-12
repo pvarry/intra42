@@ -3,7 +3,6 @@ package com.paulvarry.intra42.adapters;
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,18 +23,14 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.pack.Topic;
 import com.paulvarry.intra42.bottomSheet.BottomSheetTopicInfoDialogFragment;
-import com.paulvarry.intra42.utils.AppSettings;
-import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.plumillonforge.android.chipview.ChipView;
-import com.squareup.picasso.Picasso;
 import com.veinhorn.tagview.TagView;
 
 import java.util.List;
-
-import in.uncod.android.bypass.Bypass;
 
 public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
@@ -187,13 +182,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
         setHeader(holder, message);
 
-        if (AppSettings.Advanced.getAllowMarkdownRenderer(context)) {
-            Bypass bypass = new Bypass(context);
-            CharSequence messageContent = bypass.markdownToSpannable(message.content, new BypassPicassoImageGetter(holder.textViewMessage, Picasso.with(context)));
-            holder.textViewMessage.setText(messageContent);
-            holder.textViewMessage.setMovementMethod(LinkMovementMethod.getInstance());
-        } else
-            holder.textViewMessage.setText(message.content);
+        Tools.setMarkdown(context, holder.textViewMessage, message.content);
 
         holder.textViewMessage.setTextIsSelectable(true);
         holder.textViewMessage.setFocusable(true);
@@ -300,13 +289,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
         setHeader(holder, message);
 
-        if (AppSettings.Advanced.getAllowMarkdownRenderer(context)) {
-            Bypass bypass = new Bypass(context);
-            CharSequence messageContent = bypass.markdownToSpannable(message.content);
-            holder.textViewMessage.setText(messageContent);
-            holder.textViewMessage.setMovementMethod(LinkMovementMethod.getInstance());
-        } else
-            holder.textViewMessage.setText(message.content);
+        Tools.setMarkdown(context, holder.textViewMessage, message.content);
 
         holder.textViewMessage.setTextIsSelectable(true);
         holder.textViewMessage.setFocusable(true);

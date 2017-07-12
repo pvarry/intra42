@@ -94,7 +94,13 @@ public class ListAdapterEvents extends BaseAdapter {
         holder.textViewDateDay.setText(DateTool.getDay(item.beginAt));
         holder.textViewDateMonth.setText(DateTool.getMonthMedium(item.beginAt));
         holder.textViewName.setText(item.name);
-        holder.textViewDescription.setText(item.description.replace('\n', ' '));
+
+        String content = item.description;
+        content = content.replace("\r\n\r\n", " ");
+        content = content.replace("\n\n", " ");
+        content = content.replace("\r\n", " ");
+        content = content.replace('\n', ' ');
+        holder.textViewDescription.setText(content);
 
         Bypass b = new Bypass(context);
         String content_tmp = b.markdownToSpannable(item.description).toString().replace('\n', ' ');

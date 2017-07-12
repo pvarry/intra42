@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -16,13 +15,11 @@ import android.widget.Toast;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
-import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
-
-import in.uncod.android.bypass.Bypass;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -100,13 +97,7 @@ public class EventActivity extends AppCompatActivity {
         String people = event.nbrSubscribers + " / " + event.maxPeople;
         textViewPeople.setText(people);
 
-        if (AppSettings.Advanced.getAllowMarkdownRenderer(this)) {
-            Bypass bypass = new Bypass(this);
-            CharSequence string = bypass.markdownToSpannable(event.description);
-            textViewDescription.setText(string);
-            textViewDescription.setMovementMethod(LinkMovementMethod.getInstance());
-        } else
-            textViewDescription.setText(event.description);
+        Tools.setMarkdown(this, textViewDescription, event.description);
 
         buttonSubscribe.setOnClickListener(new View.OnClickListener() {
             @Override

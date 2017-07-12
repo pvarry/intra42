@@ -6,10 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.api.model.Attachments;
+import com.squareup.picasso.Picasso;
+
+import in.uncod.android.bypass.Bypass;
 
 public class Tools {
 
@@ -102,5 +107,19 @@ public class Tools {
     public static int pxToDp(Context context, int px) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static void setMarkdown(Context context, TextView textView, String content) {
+        if (AppSettings.Advanced.getAllowMarkdownRenderer(context)) {
+            Bypass bypass = new Bypass(context);
+
+            content = content.replace(":\r\n-", ":\r\n\r\n-");
+
+            CharSequence string = bypass.markdownToSpannable(content, new BypassPicassoImageGetter(textView, Picasso.with(context)));
+
+            textView.setText(string);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+        } else
+            textView.setText(content);
     }
 }

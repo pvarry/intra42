@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,14 +22,13 @@ import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
-import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
 import com.veinhorn.tagview.TagView;
 
 import java.util.List;
 
-import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -221,13 +219,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
             people = String.valueOf(event.nbrSubscribers) + " / " + String.valueOf(event.maxPeople);
         textViewPeople.setText(people);
 
-        if (AppSettings.Advanced.getAllowMarkdownRenderer(getContext())) {
-            Bypass bypass = new Bypass(getContext());
-            CharSequence string = bypass.markdownToSpannable(event.description);
-            textViewDescription.setText(string);
-            textViewDescription.setMovementMethod(LinkMovementMethod.getInstance());
-        } else
-            textViewDescription.setText(event.description);
+        Tools.setMarkdown(getContext(), textViewDescription, event.description);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         CoordinatorLayout.Behavior behavior = params.getBehavior();
