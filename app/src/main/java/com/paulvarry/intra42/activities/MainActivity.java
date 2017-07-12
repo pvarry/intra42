@@ -21,6 +21,7 @@ import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.activities.projects.ProjectsActivity;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
@@ -128,10 +129,22 @@ public class MainActivity extends AppCompatActivity {
             String code = uri.getQueryParameter("code");
             if (code != null) {
 
-                ApiService client = ServiceGenerator.createService(ApiService.class);
-                Call<AccessToken> call = client.getNewAccessToken(code, Credential.UID,
-                        Credential.SECRET, Credential.API_OAUTH_REDIRECT,
-                        "authorization_code");
+                Call<AccessToken> call;
+                if (Credential.UID != null &&
+                        !Credential.UID.isEmpty() &&
+                        Credential.SECRET != null &&
+                        !Credential.SECRET.isEmpty()) {
+
+                    ApiService client = ServiceGenerator.createService(ApiService.class);
+                    call = client.getNewAccessToken(code, Credential.UID,
+                            Credential.SECRET, Credential.API_OAUTH_REDIRECT,
+                            "authorization_code");
+
+                } else {
+                    ApiServiceAuthServer client = app.getApiServiceAuthServer();
+                    call = client.getNewAccessToken(code, Credential.API_OAUTH_REDIRECT);
+                }
+
                 call.enqueue(new Callback<AccessToken>() {
                     @Override
                     public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {

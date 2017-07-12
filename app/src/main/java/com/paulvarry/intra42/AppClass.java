@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.activities.MainActivity;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ApiServiceCantina;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
@@ -152,6 +153,10 @@ public class AppClass extends Application {
 
     public ApiServiceCantina getApiServiceCantina() {
         return ServiceGenerator.createService(ApiServiceCantina.class, null, this, this, false);
+    }
+
+    public ApiServiceAuthServer getApiServiceAuthServer() {
+        return ServiceGenerator.createService(ApiServiceAuthServer.class, null, this, this, false);
     }
 
     /**

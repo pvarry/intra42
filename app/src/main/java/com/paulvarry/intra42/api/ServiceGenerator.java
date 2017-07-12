@@ -62,7 +62,7 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-    public static <S> S createService(Class<S> serviceClass, AccessToken accessToken, Context c, AppClass app, boolean allowRedirectWrongAuth) {
+    public static <S> S createService(Class<S> serviceClass, AccessToken accessToken, Context context, AppClass app, boolean allowRedirectWrongAuth) {
 
         httpClient = getBaseClient(allowRedirectWrongAuth);
 
@@ -71,7 +71,7 @@ public class ServiceGenerator {
             ServiceGenerator.app = app;
             httpClient.addInterceptor(getHeaderInterceptor(accessToken));
 
-            httpClient.authenticator(getAuthenticator(c));
+            httpClient.authenticator(getAuthenticator(context));
 
         }
 
