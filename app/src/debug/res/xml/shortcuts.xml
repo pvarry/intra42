@@ -11,7 +11,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="com.paulvarry.intra42.activities.MainActivity"
-            android:targetPackage="com.paulvarry.intra42">
+            android:targetPackage="com.paulvarry.intra42.debug">
             <extra
                 android:name="shortcut"
                 android:value="galaxy" />
@@ -27,7 +27,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="com.paulvarry.intra42.activities.MainActivity"
-            android:targetPackage="com.paulvarry.intra42">
+            android:targetPackage="com.paulvarry.intra42.debug">
             <extra
                 android:name="shortcut"
                 android:value="friends" />
@@ -43,7 +43,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="com.paulvarry.intra42.activities.MainActivity"
-            android:targetPackage="com.paulvarry.intra42">
+            android:targetPackage="com.paulvarry.intra42.debug">
             <extra
                 android:name="shortcut"
                 android:value="clusterMap" />

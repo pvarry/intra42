@@ -85,7 +85,7 @@
     <string name="edit_message">Modifier le message</string>
     <string name="edit">Modifier</string>
     <string name="are_you_sure_to_delete_message">Êtes-vous sûr de vouloir supprimer ce message ?</string>
-    <string name="format__dont_have_write_topic">%s n\'as pas encore écrire de topic</string>
+    <string name="format__dont_have_write_topic">%s  n\'a pas encore ecrit de topic</string>
     <string name="project_user_status_in_progress">en cours</string>
     <string name="project_user_status_finished">fini</string>
     <string name="project_user_status_creating_group">création de groupe</string>
