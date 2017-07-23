@@ -6,7 +6,7 @@ import route_auth from './routes/auth'
 import route_galaxy from './routes/galaxy'
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
-  console.log('Please specify env : \'CLIENT_ID\' and \'CLIENT_SECRET\'')
+  console.log('Please specify env : \'CLIENT ID\' and \'CLIENT SECRET\'')
   process.exit(1)
 }
 
