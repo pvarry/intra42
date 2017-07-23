@@ -8,8 +8,8 @@ function _oauth_token(code, redirect_uri) {
     },
     body: JSON.stringify({
       'code': code,
-      'client_id': '8f94cb43964a3aeab260153ccd0766ac7c4e297d6e57d70b0020e08bf7e319c1',
-      'client_secret': 'e1a121463b351cd1f8cf2cacc1e78176a7354b7b650a27e95fc217e73868603e',
+      'client_id': 'CLIENT_ID',
+      'client_secret': 'CLIENT_SECRET',
       'redirect_uri': redirect_uri,
       'grant_type': 'authorization_code'
     })
