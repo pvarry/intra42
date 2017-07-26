@@ -112,7 +112,7 @@
         </activity>
         <activity
             android:name=".activities.AboutActivity"
-            android:label="@string/about"
+            android:label="@string/menu_drawer_about"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.forum.ForumActivity"

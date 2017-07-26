@@ -286,7 +286,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:paddingTop="8dp"
-                    android:text="@string/about_message"
+                    android:text="@string/forum_about_this_message"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="?colorAccent" />
 

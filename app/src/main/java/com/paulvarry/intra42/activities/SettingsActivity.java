@@ -192,7 +192,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         for (Header h : target) {
             if (NotificationPreferenceFragment.class.getName().equals(h.fragment)) {
                 if (AppSettings.Notifications.getNotificationsAllow(preferences))
-                    h.summaryRes = R.string.activated;
+                    h.summaryRes = R.string.settings_activated;
                 else
                     h.summaryRes = R.string.unactivated;
             }
@@ -326,7 +326,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                 entries[0] = app.getString(R.string.disable_dont_force);
                 entryValues[0] = "-1";
-                entries[1] = app.getString(R.string.all);
+                entries[1] = app.getString(R.string.settings_value_all);
                 entryValues[1] = "0";
                 int i = 2;
                 for (Cursus cursus : cursusCache) {
@@ -346,7 +346,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                 entries[0] = app.getString(R.string.disable_dont_force);
                 entryValues[0] = "-1";
-                entries[1] = app.getString(R.string.all);
+                entries[1] = app.getString(R.string.settings_value_all);
                 entryValues[1] = "0";
                 int i = 2;
                 for (Campus campus : campusCache) {

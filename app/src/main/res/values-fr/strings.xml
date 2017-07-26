@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="about">A propos</string>
-    <string name="action_settings">Paramètres</string>
+    <string name="menu_drawer_about">A propos</string>
+    <string name="menu_action_settings">Paramètres</string>
     <string name="announcements">Annonces</string>
     <string name="copied">Copié</string>
     <string name="create">Créer</string>
@@ -79,7 +79,7 @@
     <string name="session">" Session"</string>
     <string name="content">Contenu</string>
     <string name="cancel">Annuler</string>
-    <string name="about_message">A propos du message</string>
+    <string name="forum_about_this_message">A propos du message</string>
     <string name="message">Message</string>
     <string name="success">réussi</string>
     <string name="edit_message">Modifier le message</string>
@@ -139,8 +139,8 @@
     <string name="pref_title_notifications_frequency">Fréquence de synchronisation</string>
     <string name="tab_users_friends">Amis</string>
     <string name="tab_tags_forum">Forum</string>
-    <string name="action_user_add_friends">Ajouter / Supprimer des amis</string>
-    <string name="action_user_add_to_home">Ajouter à l\'écran d\'accueil</string>
+    <string name="menu_action_user_add_friends">Ajouter / Supprimer des amis</string>
+    <string name="menu_action_user_add_to_home">Ajouter à l\'écran d\'accueil</string>
     <string name="topics_kind_survey">" Enquête"</string>
     <string name="topics_kind_question">Question</string>
     <string name="topics_kind_announce">" Annonce"</string>
@@ -168,7 +168,7 @@
     <string name="search_section_topics">topics</string>
     <string name="search_section_projects">projets</string>
     <string name="network_error">" Erreur de réseau"</string>
-    <string name="action_open_intra">Afficher la version Web</string>
+    <string name="menu_action_open_intra">Afficher la version Web</string>
     <string name="succeeded">Réussi</string>
     <string name="tools">Outils</string>
     <string name="unsubscribe">Se désinscrire</string>
@@ -176,7 +176,7 @@
     <string name="unactivated">Désactivé</string>
     <string name="time">Heure</string>
     <string name="time_on_campus">Heure sur les campus</string>
-    <string name="activated">Activé</string>
+    <string name="settings_activated">Activé</string>
     <string name="apps_private">privé</string>
     <string name="slots_end_at">Finit à</string>
     <string name="slots_begin_at">Débute à</string>
@@ -188,7 +188,7 @@
     <string name="available">Disponible</string>
     <string name="title_activity_cantina_menu">Menu de la Cantina (Fremont)</string>
     <string name="cantina_menu">Menu de la Cantina</string>
-    <string name="all">Tout</string>
+    <string name="settings_value_all">Tout</string>
     <string name="new_expertise">Ajouter une nouvelle compétence</string>
     <string name="pref_title_beta_allow">Activer les préférences avancées</string>
     <string name="tab_project_attachments">Documents joints</string>

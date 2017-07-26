@@ -12,13 +12,13 @@
         <item
             android:id="@+id/action_open_intra"
             android:orderInCategory="200"
-            android:title="@string/action_open_intra"
+            android:title="@string/menu_action_open_intra"
             app:showAsAction="never" />
 
         <item
             android:id="@+id/action_settings"
             android:orderInCategory="100"
-            android:title="@string/action_settings"
+            android:title="@string/menu_action_settings"
             app:showAsAction="never" />
     </group>
 

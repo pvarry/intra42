@@ -376,7 +376,7 @@ public class UserActivity extends BasicTabActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(R.string.action_user_add_to_home).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        menu.add(R.string.menu_action_user_add_to_home).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 addShortCut();
@@ -413,7 +413,7 @@ public class UserActivity extends BasicTabActivity
 //            }
 //        });
 
-        menu.add(R.string.action_user_add_friends).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        menu.add(R.string.menu_action_user_add_friends).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Friends.actionAddRemove(app.firebaseRefFriends, user);
