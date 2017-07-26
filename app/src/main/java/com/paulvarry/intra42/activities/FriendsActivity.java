@@ -54,12 +54,12 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
             };
             HashMap<String, String> messages = snapshot.getValue(t);
+            list = new ArrayList<>();
+
             if (messages == null) {
-                Log.e("Firebase", "Message null");
-                firebaseFinished = true;
-                setViewEmpty();
+                setViewEmpty(false);
+                return;
             } else {
-                list = new ArrayList<>();
                 Set<String> s = messages.keySet();
                 for (String k : s) {
                     UsersLTE tmp = new UsersLTE();
@@ -92,7 +92,6 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         context.startActivity(intent);
     }
 
-    @Override
     protected void refresh() {
         new Thread(new Runnable() {
             @Override
@@ -171,7 +170,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             gridView.setOnItemClickListener(this);
             gridView.setOnItemLongClickListener(this);
         } else
-            setViewEmpty();
+            setViewEmpty(false);
     }
 
     @Override

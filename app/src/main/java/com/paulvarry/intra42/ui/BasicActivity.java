@@ -337,11 +337,19 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      */
     protected void setViewEmpty() {
 
+        setViewEmpty(true);
+    }
+
+    /**
+     * Set view error if something wrong append on loading data or view.
+     */
+    protected void setViewEmpty(boolean allowRefresh) {
+
         String empty = getEmptyText();
         if (empty == null || empty.isEmpty())
             empty = getString(R.string.nothing_to_show);
 
-        setViewError(true, empty);
+        setViewError(allowRefresh, empty);
     }
 
     /**

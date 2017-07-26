@@ -190,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
 
                         } else {
                             try {
-                                Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                setViewLogin();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
