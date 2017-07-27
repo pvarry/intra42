@@ -2,6 +2,7 @@ package com.paulvarry.intra42.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -54,6 +55,12 @@ public class AboutActivity extends BasicActivity {
         item = new Item(str, getString(R.string.version));
         list.add(item);
 
+        item = new Item("View source", "on Github");
+        list.add(item);
+
+        item = new Item("Report bug", "on Github");
+        list.add(item);
+
         item = new Item("Library list", null);
         list.add(item);
 
@@ -63,6 +70,14 @@ public class AboutActivity extends BasicActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 2) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/pvarry/intra42/"));
+                    startActivity(browserIntent);
+                } else if (i == 3) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/pvarry/intra42/issues/"));
+                    startActivity(browserIntent);
+                } else if (i == 4) {
                     Intent intent = new Intent(AboutActivity.this, LibraryListActivity.class);
                     startActivity(intent);
                 }
