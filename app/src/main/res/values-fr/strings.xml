@@ -3,7 +3,6 @@
 
     <string name="menu_drawer_about">A propos</string>
     <string name="menu_action_settings">Paramètres</string>
-    <string name="announcements">Annonces</string>
     <string name="copied">Copié</string>
     <string name="create">Créer</string>
     <string name="delete">Effacer</string>
@@ -55,7 +54,6 @@
     <string name="tab_home_home">Accueil</string>
     <string name="subscribed">Inscrit</string>
     <string name="tab_home_corrections">Corrections</string>
-    <string name="allowed">possible</string>
     <string name="cursus">Cursus</string>
     <string name="pref_title_ringtone">Sonnerie</string>
     <string name="open_chrome">Ouvrir le navigateur</string>

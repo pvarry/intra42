@@ -11,14 +11,14 @@ android {
         }
     }
     compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "com.paulvarry.intra42"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode getVersionCodeTimestamp()
-        versionName "0.7.0-beta3"
+        versionName "0.7.0-pre1"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'

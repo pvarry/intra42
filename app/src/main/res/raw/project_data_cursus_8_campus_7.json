@@ -1,1 +1,1476 @@
-[{"state":null,"final_mark":null,"id":2,"kind":"project","name":"mod1","x":3750.0,"y":3250.0,"by":[{"parent_id":103,"points":[[3600,3000],[3750,3000]]},{"parent_id":29,"points":[[3750,3000],[3750,3250]]}],"project_id":78,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated lem_in","description":"Ce projet graphique de simulation vous fera représenter une surface en 3D, sur laquelle s'écoule de l'eau. Empirique, ou scientifique (avec nombre équations), recréez une vague, un tsunami, ou simplement de la pluie sur votre surface.","slug":"mod1"},{"state":null,"final_mark":null,"id":6,"kind":"exam","name":"C Exam - Beginner","x":2350.0,"y":3450.0,"by":[],"project_id":11,"difficulty":"Tier 1","duration":"about 1 week","rules":"","description":"The exam will verify what you have learned when you are alone in front of your task, without your peers and without the internet. To validate this project (which is a prerequisite for your departure in the first internship), you must validate 5 exams with a minimum score of 75. Good Luck.","slug":"c-exam-beginner"},{"state":null,"final_mark":null,"id":7,"kind":"project","name":"Malloc","x":3000.0,"y":1900.0,"by":[{"parent_id":35,"points":[[3000,2000],[3000,1900]]}],"project_id":36,"difficulty":"Tier 2","duration":"about 1 week","rules":"You must have validated first-internship","description":"Que se cache derriere malloc ? Vous l'utilisez depuis la piscine C, mais ce n'est pas un appel système. Découvrez les rouages d'une gestion optimum de la mémoire, et recodez-le, ainsi que free et realloc.","slug":"malloc"},{"state":null,"final_mark":null,"id":8,"kind":"piscine","name":"Piscine PHP","x":2600.0,"y":2745.0,"by":[],"project_id":48,"difficulty":"Tier 1","duration":null,"rules":"You must be at least level 5 in cursus 42","description":"The PHP Piscine is the gateway to all of the 42 curriculum web projects. It addresses the fundamentals related to this technology in two weeks of challenges including daily projects and weekend rushes. Oh what webs we weave.","slug":"piscine-php"},{"state":null,"final_mark":null,"id":9,"kind":"project","name":"Nm-otool","x":3000.0,"y":1600.0,"by":[{"parent_id":7,"points":[[3000,1900],[3000,1600]]}],"project_id":37,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated malloc","description":"Décortiquez le format des exécutables MacOS et comprenez comment le kernel lance les binaires, en ré-écrivant ces deux outils du système. Indispensable pour tous ceux qui voudront faire de la sécurité, ce projet est plus généralement une ouverture sur la culture UNIX système.","slug":"nm-otool"},{"state":null,"final_mark":null,"id":15,"kind":"project","name":"42run","x":2900.0,"y":4250.0,"by":[{"parent_id":135,"points":[[3000,4250],[2900,4250]]}],"project_id":178,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated scop. You must have validated first-internship","description":"Vous connaissez Temple Run ? Il est temps de le refaire ! Ce projet intermédiaire d'OpenGL vous invite à recréer ce jeu mobile. Amusez-vous : tous les bonus sont possible pour dépasser la célèbre franchise.","slug":"42run"},{"state":null,"final_mark":null,"id":18,"kind":"project","name":"ft_p","x":3400.0,"y":1500.0,"by":[{"parent_id":37,"points":[[3000,1600],[3075,1525]]},{"parent_id":37,"points":[[3075,1525],[3150,1600]]},{"parent_id":37,"points":[[3147,1600],[3275,1600]]},{"parent_id":37,"points":[[3275,1600],[3400,1500]]}],"project_id":40,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated nm-otool","description":"Ce projet introductif sur la programmation UNIX réseau vous invite à réaliser un client-serveur offrant des services identiques à ftp. Bonus : respectez le standard pour être interopérable avec les outils existants !","slug":"ft_p"},{"state":null,"final_mark":null,"id":19,"kind":"project","name":"IRC","x":3400.0,"y":1700.0,"by":[{"parent_id":37,"points":[[3000,1600],[3075,1525]]},{"parent_id":37,"points":[[3075,1525],[3150,1600]]},{"parent_id":37,"points":[[3147,1600],[3275,1600]]},{"parent_id":37,"points":[[3275,1600],[3400,1700]]}],"project_id":41,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated nm-otool","description":"Ce projet sur la programmation UNIX réseau vous invite à réaliser un client-serveur offrant des services identiques à IRC. Votre implémentation devra utiliser correctement select(2) pour gérer la connexion simultanée des clients, ainsi que des buffers tournants pour gérer les messages des clients.","slug":"irc"},{"state":null,"final_mark":null,"id":21,"kind":"big_project","name":"Zappy","x":4300.0,"y":1600.0,"by":[{"parent_id":18,"points":[[3400,1500],[3525,1600]]},{"parent_id":41,"points":[[3525,1600],[4300,1600]]},{"parent_id":19,"points":[[3400,1700],[3525,1600]]}],"project_id":43,"difficulty":"Tier 3","duration":"about 6 weeks","rules":"You must have validated 1 of irc and ft_p. You must have validated first-internship","description":"Ce projet est l’aboutissement de vos précédents efforts en UNIX avancé : vous allez ici réaliser un jeu multi-joueurs en réseau TCP/IP. Ce jeu sera constitué d’un serveur gérant le terrain de jeu, d’un client graphique qui affiche l'état du plateau, et de clients IA qui se connectent sur le serveur pour piloter un joueur sur le terrain. C'est un projet très complet qui vous donne l'occasion d'exprimer votre créativité en plus de vos connaissances techniques !","slug":"zappy"},{"state":null,"final_mark":null,"id":22,"kind":"project","name":"N-puzzle","x":4300.0,"y":3150.0,"by":[{"parent_id":104,"points":[[3900,3000],[4150,3000]]},{"parent_id":22,"points":[[4150,3000],[4300,3150]]}],"project_id":97,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated first-internship","description":"Il s'agit ici de réaliser, dans le langage de votre choix, un programme capable de résoudre des Taquins de tailles variées, de façon aussi optimale que possible.","slug":"n-puzzle"},{"state":null,"final_mark":null,"id":23,"kind":"project","name":"Expert System","x":4300.0,"y":2850.0,"by":[{"parent_id":104,"points":[[3900,3000],[4150,3000]]},{"parent_id":22,"points":[[4150,3000],[4300,2850]]}],"project_id":98,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated first-internship","description":"Ce projet vous demande de créer, dans le langage de votre choix, un système expert en calcul des propositions, autrement dit un programme capable de raisonner sur un ensemble de règles et de faits initiaux afin de déduire certains autres faits.","slug":"expert-system"},{"state":null,"final_mark":null,"id":24,"kind":"big_project","name":"Gomoku","x":4800.0,"y":3000.0,"by":[{"parent_id":23,"points":[[4300,2850],[4450,3000]]},{"parent_id":98,"points":[[4450,3000],[4800,3000]]},{"parent_id":22,"points":[[4300,3150],[4450,3000]]}],"project_id":107,"difficulty":"Tier 4","duration":"about 4 weeks","rules":"You must have validated 1 of expert-system and n-puzzle. You must have validated first-internship","description":"Ce projet vous demande de créer, dans le langage de votre choix, un jeu de Gomoku intégrant un joueur IA capable de battre un joueur humain le plus rapidement possible. Pour ce faire, vous allez implémenter un algorithme min-max mais aussi (et surtout), faire des recherches et essais pour trouver les heuristiques les plus adaptées. Ce ne sera pas aussi facile qu'un jeu de dames.","slug":"gomoku"},{"state":null,"final_mark":null,"id":25,"kind":"project","name":"FdF","x":3000.0,"y":3300.0,"by":[{"parent_id":53,"points":[[3000,3000],[3000,3300]]}],"project_id":4,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated get_next_line","description":"As an introduction to graphic applications: open a window and draw! With this project, you'll explore the principles of user interface programming through a 3D \"wireframe\" representation of a surface. Rasterize!","slug":"fdf"},{"state":null,"final_mark":null,"id":26,"kind":"project","name":"Fract'ol","x":3000.0,"y":3475.0,"by":[{"parent_id":25,"points":[[3000,3300],[3000,3475]]}],"project_id":15,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated fdf","description":"Discover 2D programming and the psychedelic universe of fractals with minilibX in a project sure to make you 'oouuuahhh'.","slug":"fract-ol"},{"state":null,"final_mark":null,"id":27,"kind":"project","name":"Wolf3d","x":2850.0,"y":3680.0,"by":[{"parent_id":26,"points":[[3000,3475],[2850,3680]]}],"project_id":8,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated fract-ol","description":"Inspiré du célèbre jeu éponyme des années 90 qui fut le premier First Person Shooter, ce projet vous permet d'aborder la technique du ray-casting. Votre but sera de représenter une vue dynamique à l'intérieur d'un labyrinthe dans lequel on peut se déplacer.","slug":"wolf3d"},{"state":null,"final_mark":null,"id":28,"kind":"project","name":"RTv1","x":3150.0,"y":3680.0,"by":[{"parent_id":26,"points":[[3000,3475],[3150,3680]]}],"project_id":23,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated fract-ol","description":"Découvrez les principes fondamentaux du Raytracing : la création d'images de synthèses par ordinateur. Ce premier projet vous fera réaliser des scènes simples impliquant des objets et des lumières non complexes.","slug":"rtv1"},{"state":null,"final_mark":null,"id":29,"kind":"big_project","name":"RT","x":3000.0,"y":3900.0,"by":[{"parent_id":28,"points":[[3150,3680],[3000,3900]]},{"parent_id":27,"points":[[2850,3680],[3000,3900]]}],"project_id":24,"difficulty":"Tier 3","duration":"about 6 weeks","rules":"You must have validated 1 of rtv1 and wolf3d","description":"Passez à la vitesse supérieure ! Suite du Rtv1, le RT pousse beaucoup plus loin les possibilités du Raytracing : effet miroir, transparence, découpe des objets, applications de textures... Capitalisez sur le projet précédent pour réaliser une infrastructure capable de supporter toutes ces ramifications et obtenir de sublimes images de synthèse.","slug":"rt"},{"state":null,"final_mark":null,"id":30,"kind":"rush","name":"Rushes","x":2650.0,"y":3500.0,"by":[],"project_id":61,"difficulty":"Tier 0","duration":null,"rules":"","description":"Les rushes sont la formule idéale pour explorer des problématiques complémentaires aux projets réguliers de votre cursus, en immersion avec vos collègues. Le temps d'un week-end par exemple, vous allez vous concentrer sur un sujet précis, croiser de nouvelles têtes pour vos futurs projets, et adopter un rythme intensif ! Les thématiques vous seront communiquées à l'avance, vous n'aurez qu'à vous présenter le jour J avec énergie et bonne humeur pour relever les challenges que l'on vous propose.","slug":"rushes"},{"state":null,"final_mark":null,"id":32,"kind":"first_internship","name":"First Internship","x":3000.0,"y":3000.0,"by":[{"parent_id":107,"points":[[3000,2100],[3000,2000]]},{"parent_id":104,"points":[[3900,3000],[4000,3000]]},{"parent_id":29,"points":[[3000,3900],[3000,4000]]},{"parent_id":597,"points":[[2292,2292],[2370,2370]]}],"project_id":118,"difficulty":"Tier 5","duration":"about 17 weeks","rules":"You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-beginner and savoir-relier","description":"Ce premier pas en entreprise est un passage important de votre cursus 42. Ce stage est le moment où vous allez découvrir le monde de l'entreprise et mettre en oeuvre vos capacités de travail, d'adaptation, au service du marché. C'est un premier élément pour votre CV, et l'occasion de voir émerger votre futur domaine de prédilection.","slug":"first-internship"},{"state":null,"final_mark":null,"id":33,"kind":"big_project","name":"42sh","x":3000.0,"y":2100.0,"by":[{"parent_id":39,"points":[[3000,2350],[3000,2100]]}],"project_id":35,"difficulty":"Tier 3","duration":"about 6 weeks","rules":"You must have validated 1 of 21sh and ft_sh3","description":"Building upon your previous work on 21sh, you will create a complete shell. Through this project, you will build your own complete shell based on a minimum set of features - up to job control and shell script. This project will consequently enable you to explore a large spectrum of standard UNIX (and POSIX) features.","slug":"42sh"},{"state":null,"final_mark":null,"id":34,"kind":"project","name":"Scop","x":3000.0,"y":4100.0,"by":[{"parent_id":24,"points":[[3000,4000],[3000,4100]]}],"project_id":135,"difficulty":"Tier 2","duration":"about 1 week","rules":"You must have validated first-internship","description":"Faites vos premiers pas dans le monde de la 3D sur GPU avec de l'OpenGL. Les principaux concepts sont abordés lors d'un petit projet ludique.","slug":"scop"},{"state":null,"final_mark":null,"id":35,"kind":"project","name":"ft_ls","x":3000.0,"y":2800.0,"by":[{"parent_id":53,"points":[[3000,3000],[3000,2700]]}],"project_id":3,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated get_next_line","description":"Pour tout connaitre du filesystem, de la façon dont sont rangés les fichiers et répertoires, codez par vous-même une des commandes les plus utilisées : ls .","slug":"ft_ls"},{"state":null,"final_mark":null,"id":37,"kind":"project","name":"minishell","x":3000.0,"y":2600.0,"by":[{"parent_id":35,"points":[[3000,2700],[3000,2550]]}],"project_id":7,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated ft_ls","description":"Premier palier de réalisation d'un shell, vous devrez pour ce projet réaliser un mini-shell capable de prompter l'utilisateur pour une commande, rechercher le binaire sur la machine, et l'exécuter. Vous devrez également implémenter quelques builtins basiques.","slug":"minishell"},{"state":null,"final_mark":null,"id":38,"kind":"project","name":"ft_select","x":2800.0,"y":2450.0,"by":[{"parent_id":37,"points":[[3000,2550],[3000,2450]]},{"parent_id":7,"points":[[3000,2450],[2800,2450]]}],"project_id":33,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated minishell","description":"Ce projet a pour but de vous initier à la manipulation du terminal avec les termcaps. Vous allez ici apprendre à créer une interface utilisateur pour un programme lancé dans le terminal.","slug":"ft_select"},{"state":null,"final_mark":null,"id":40,"kind":"project","name":"Taskmaster","x":3200.0,"y":2200.0,"by":[{"parent_id":39,"points":[[3000,2350],[3000,2200]]},{"parent_id":523,"points":[[3000,2200],[3200,2200]]}],"project_id":122,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated 1 of 21sh, ft_sh3, and ft_sh2","description":"Il s'agit de réaliser un programme de job control, dans le langage de votre choix. Ce qu'on vous demandera d'accomplir est très proche du programme supervisor","slug":"taskmaster"},{"state":null,"final_mark":null,"id":48,"kind":"piscine","name":"Piscine CPP","x":2400.0,"y":4039.0,"by":[{"parent_id":118,"points":[[2500,3866],[2400,4039]]}],"project_id":62,"difficulty":"Tier 2","duration":null,"rules":"You must have validated First Internship","description":"The C++ Piscine is the next step in the 42 Curriculum. During these two weeks you will discover more about OOP by learning specifics of the C++ language. Successfully completing this challenge will unlock the object-oriented projects and prepare you for future objectives and jobs.","slug":"piscine-cpp"},{"state":null,"final_mark":null,"id":49,"kind":"project","name":"Abstract VM","x":2400.0,"y":4350.0,"by":[{"parent_id":48,"points":[[2400,4039],[2400,4350]]}],"project_id":80,"difficulty":"Tier 2","duration":"about 3 weeks","rules":"You must have validated piscine-cpp","description":"Ce projet vous remet dans le bain après la piscine C++ et vous invite à réaliser une machine virtuelle capable d'exécuter un code en pseudo-ASM basique. Vous allez ainsi utiliser une stack pour faire des opérations arithmétiques basiques, à l'instar de la commande dc.","slug":"abstract-vm"},{"state":null,"final_mark":null,"id":50,"kind":"project","name":"Bomberman","x":2300.0,"y":4600.0,"by":[{"parent_id":80,"points":[[2300,4450],[2300,4600]]}],"project_id":410,"difficulty":"Tier 3","duration":"about 4 weeks","rules":"You must have validated abstract-vm. You must have validated first-internship","description":"Bomberman, c'est un classique du jeu video : aussi simple dans son gameplay que fun à jouer ! Vous allez ici profiter de sa simplicité pour faire votre premier gros projet de C++ de facture professionnelle. Vous allez recoder une version de Bomberman, en C++ et avec OpenGL, avec pour objectif de réaliser un jeu le plus abouti possible.","slug":"bomberman"},{"state":null,"final_mark":null,"id":56,"kind":"project","name":"Nibbler","x":2200.0,"y":4450.0,"by":[{"parent_id":49,"points":[[2400,4350],[2300,4455]]},{"parent_id":80,"points":[[2300,4450],[2200,4450]]}],"project_id":95,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated abstract-vm","description":"Ce projet de C++ vous fait recoder le jeu Snake avec plusieurs interfaces graphiques différentes; le joueur devant pouvoir switcher entre les interfaces pendant le jeu. C'est l'occasion de voir comment charger et utiliser des bibliothèques dynamiques au runtime.","slug":"nibbler"},{"state":null,"final_mark":null,"id":58,"kind":"project","name":"Camagru","x":2600.0,"y":2600.0,"by":[{"parent_id":8,"points":[[2600,2745],[2600,2600]]}],"project_id":537,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated piscine-php","description":"Ce premier projet vous remet dans le bain après la piscine PHP : vous allez devoir réaliser, en PHP, un petit site Instagram-like permettant à des utilisateurs de réaliser et partager des photo-montages. Vous allez ainsi implémenter, à mains nues (les frameworks sont interdits), les fonctionnalités de base rencontrées sur la majorité des sites possédant une base utilisateur.","slug":"camagru"},{"state":null,"final_mark":null,"id":59,"kind":"project","name":"Matcha","x":2500.0,"y":2500.0,"by":[{"parent_id":537,"points":[[2570,2570],[2500,2500]]}],"project_id":596,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated camagru","description":"Ce second projet vous introduit à un outil plus évolué pour réaliser vos applications web : le micro-framework. Nous vous invitons à réaliser, dans le langage de votre choix, un site de rencontres. Les interactions entre utilisateurs seront au coeur du projet !","slug":"matcha"},{"state":null,"final_mark":null,"id":60,"kind":"big_project","name":"Hypertube","x":2370.0,"y":2370.0,"by":[{"parent_id":59,"points":[[2500,2500],[2370,2370]]}],"project_id":597,"difficulty":"Tier 3","duration":"about 4 weeks","rules":"You must have validated matcha","description":"Dernier projet de sa série, le projet Hypertube vous invite à découvrir une catégorie d'outil extrêmement puissante : les frameworks MVC. Vous apprendrez à manipuler un MVC, dans le langage de votre choix, pour réaliser un site de streaming de video téléchargées via le protocole BitTorrent.","slug":"hypertube"},{"state":null,"final_mark":null,"id":99,"kind":"project","name":"ft_printf","x":3200.0,"y":3000.0,"by":[{"parent_id":53,"points":[[3000,3000],[3200,3000]]}],"project_id":5,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated get_next_line","description":"Vous en avez assez de faire vos affichages en alternant ft_putstr et ft_putnbr ? Vous n'avez pas le droit d'utiliser printf ? Recodez le votre ! Ce sera l'occasion de découvrir une feature du C - les fonctions variadiques - et de vous entrainer à la gestion fine des options d'affichage. Vous aurez ensuite le droit d'utiliser votre printf dans tous vos projets ultérieurs.","slug":"ft_printf"},{"state":null,"final_mark":null,"id":101,"kind":"project","name":"Filler","x":3400.0,"y":2850.0,"by":[{"parent_id":53,"points":[[3200,3000],[3400,2850]]}],"project_id":26,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated ft_printf","description":"Créez votre joueur pour affronter d’autres étudiants sur le célèbre (ou pas) plateau du Filler. Le principe est simple : deux joueurs s’affrontent sur un plateau, et doivent placer, tour à tour, la pièce que le maître du jeu (fourni sous la forme d’un exécutable Ruby) leur donne, gagnant ainsi des points. La partie s’arrête dès qu’une pièce ne peut plus être placée. Petit projet ludique !","slug":"filler"},{"state":null,"final_mark":null,"id":102,"kind":"project","name":"Push_swap","x":3400.0,"y":3150.0,"by":[{"parent_id":53,"points":[[3200,3000],[3400,3150]]}],"project_id":27,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated ft_printf","description":"Ce projet vous demande de trier des données sur une pile, avec un set d’instructions limité, en moins de coups possibles. Pour le réussir, vous devrez manipuler différents algorithmes de tri et choisir la (ou les ?) solution la plus appropriée pour un classement optimisé des données.","slug":"push_swap"},{"state":null,"final_mark":null,"id":103,"kind":"project","name":"Lem_in","x":3600.0,"y":3000.0,"by":[{"parent_id":101,"points":[[3400,2850],[3600,3000]]},{"parent_id":102,"points":[[3400,3150],[3600,3000]]}],"project_id":29,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must have validated 1 of push_swap and filler","description":"Votre colonie de foumis doit se déplacer d'un point à un autre. Mais comment faire pour que cela prenne le moins de temps possible ? Ce projet vous fait découvrir les algorithmes de parcours de graphe : votre programme devra sélectionner intelligemment les chemins et les mouvements précis qui doivent être empruntés par ces fourmis.","slug":"lem_in"},{"state":null,"final_mark":null,"id":104,"kind":"big_project","name":"Corewar","x":3900.0,"y":3000.0,"by":[{"parent_id":103,"points":[[3600,3000],[3900,3000]]}],"project_id":22,"difficulty":"Tier 3","duration":"about 4 weeks","rules":"You must have validated lem_in","description":"Create a virtual arena where programs written in a simple language fight one another. Explore the design of a VM (with the relevant instructions, records, etc.) and challenges related to compiling an assembly language in byte-code. As a bonus, you'll be able to enjoy programming your heroes to win the arena battles. Let the building begin and let the best hero win!","slug":"corewar"},{"state":null,"final_mark":null,"id":106,"kind":"project","name":"21sh","x":3000.0,"y":2300.0,"by":[{"parent_id":105,"points":[[3000,2500],[3000,2300]]}],"project_id":523,"difficulty":"Tier 2","duration":"about 2 weeks","rules":"You must not have validated ft_sh2 and ft_sh3. You must have validated minishell","description":"You'll continue working with your minishell, making it stronger to get closer to a viable shell. You'll add new features, such as multi-command management, redirections, as well as line editing to be able to modify a command on the fly.\r\n","slug":"21sh"},{"state":null,"final_mark":null,"id":183,"kind":"project","name":"Libft","x":2550.0,"y":3000.0,"by":[{"parent_id":756,"points":[[2300,3000],[2550,3000]]}],"project_id":1,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated piscine-reloaded","description":"Ce premier projet en tant qu'étudiant de 42 va vous faire consolider vos acquis de piscine. Vous allez recoder un certain nombre de fonctions de la librairie C standard, ainsi que d'autres fonctions utilitaires que vous réutiliserez tout au long de votre cursus.","slug":"libft"},{"state":null,"final_mark":null,"id":185,"kind":"project","name":"Get_Next_Line","x":3000.0,"y":3000.0,"by":[{"parent_id":540,"points":[[2725,3000],[3000,3000]]}],"project_id":2,"difficulty":"Tier 1","duration":"about 1 week","rules":"You must have validated fillit","description":"Qu'il s'agisse d'un fichier, de l'entrée standard, ou même plus tard d'une connexion réseau, vous aurez toujours besoin de lire du contenu ligne par ligne. Il est donc temps de vous attaquer à cette fonction, indispensable pour un certain nombre de vos prochains projets.","slug":"get_next_line"}]
+[
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 2,
+    "kind": "project",
+    "name": "mod1",
+    "x": 3750.0,
+    "y": 3250.0,
+    "by": [
+      {
+        "parent_id": 103,
+        "points": [
+          [
+            3600,
+            3000
+          ],
+          [
+            3750,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 29,
+        "points": [
+          [
+            3750,
+            3000
+          ],
+          [
+            3750,
+            3250
+          ]
+        ]
+      }
+    ],
+    "project_id": 78,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated lem_in",
+    "description": "Ce projet graphique de simulation vous fera représenter une surface en 3D, sur laquelle s'écoule de l'eau. Empirique, ou scientifique (avec nombre équations), recréez une vague, un tsunami, ou simplement de la pluie sur votre surface.",
+    "slug": "mod1"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 6,
+    "kind": "exam",
+    "name": "C Exam - Beginner",
+    "x": 2350.0,
+    "y": 3450.0,
+    "by": [],
+    "project_id": 11,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "",
+    "description": "Les examens machine permettent de vérifier vos acquis lorsque vous êtes seuls face à votre travail, sans vos peers et sans internet.\r\nPour valider ce projet (qui est un pré-requis à votre départ en 1er stage), il vous faut valider 5 examens avec une note minimum de 75.",
+    "slug": "c-exam-beginner"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 7,
+    "kind": "project",
+    "name": "Malloc",
+    "x": 3000.0,
+    "y": 1900.0,
+    "by": [
+      {
+        "parent_id": 35,
+        "points": [
+          [
+            3000,
+            2000
+          ],
+          [
+            3000,
+            1900
+          ]
+        ]
+      }
+    ],
+    "project_id": 36,
+    "difficulty": "Tier 2",
+    "duration": "about 1 week",
+    "rules": "You must have validated first-internship",
+    "description": "Que se cache derriere malloc ? Vous l'utilisez depuis la piscine C, mais ce n'est pas un appel système. Découvrez les rouages d'une gestion optimum de la mémoire, et recodez-le, ainsi que free et realloc.",
+    "slug": "malloc"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 8,
+    "kind": "piscine",
+    "name": "Piscine PHP",
+    "x": 2600.0,
+    "y": 2745.0,
+    "by": [],
+    "project_id": 48,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must be at least level 5 in cursus 42",
+    "description": "La piscine PHP va vous permettre d'accéder aux technologies de base du web.",
+    "slug": "piscine-php"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 9,
+    "kind": "project",
+    "name": "Nm-otool",
+    "x": 3000.0,
+    "y": 1600.0,
+    "by": [
+      {
+        "parent_id": 7,
+        "points": [
+          [
+            3000,
+            1900
+          ],
+          [
+            3000,
+            1600
+          ]
+        ]
+      }
+    ],
+    "project_id": 37,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated malloc",
+    "description": "Décortiquez le format des exécutables MacOS et comprenez comment le kernel lance les binaires, en ré-écrivant ces deux outils du système. Indispensable pour tous ceux qui voudront faire de la sécurité, ce projet est plus généralement une ouverture sur la culture UNIX système.",
+    "slug": "nm-otool"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 15,
+    "kind": "project",
+    "name": "42run",
+    "x": 2900.0,
+    "y": 4250.0,
+    "by": [
+      {
+        "parent_id": 135,
+        "points": [
+          [
+            3000,
+            4250
+          ],
+          [
+            2900,
+            4250
+          ]
+        ]
+      }
+    ],
+    "project_id": 178,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated scop. You must have validated first-internship",
+    "description": "Vous connaissez Temple Run ? Il est temps de le refaire ! Ce projet intermédiaire d'OpenGL vous invite à recréer ce jeu mobile. Amusez-vous : tous les bonus sont possible pour dépasser la célèbre franchise.",
+    "slug": "42run"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 16,
+    "kind": "project",
+    "name": "LibftASM",
+    "x": 2800.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3000,
+            1600
+          ],
+          [
+            2900,
+            1500
+          ]
+        ]
+      },
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            2903,
+            1500
+          ],
+          [
+            2800,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 79,
+    "difficulty": "Tier 2",
+    "duration": "about 1 week",
+    "rules": "You must have validated nm-otool",
+    "description": "Ce projet a pour but de vous faire coder une minilib en ASM, en recodant quelques fonctions basiques de la libc. A la fin de ce projet vous serez familiarisés avec la syntaxe du langage, le fonctionnement de la stack, mais aussi le comportement du compilateur. Absolument indispensable pour continuer sur les projets de sécurité.",
+    "slug": "libftasm"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 18,
+    "kind": "project",
+    "name": "ft_p",
+    "x": 3400.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3000,
+            1600
+          ],
+          [
+            3075,
+            1525
+          ]
+        ]
+      },
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3075,
+            1525
+          ],
+          [
+            3150,
+            1600
+          ]
+        ]
+      },
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3147,
+            1600
+          ],
+          [
+            3275,
+            1600
+          ]
+        ]
+      },
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3275,
+            1600
+          ],
+          [
+            3400,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 40,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated nm-otool",
+    "description": "Ce projet introductif sur la programmation UNIX réseau vous invite à réaliser un client-serveur offrant des services identiques à ftp. Bonus : respectez le standard pour être interopérable avec les outils existants !",
+    "slug": "ft_p"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 19,
+    "kind": "project",
+    "name": "IRC",
+    "x": 3400.0,
+    "y": 1700.0,
+    "by": [
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3000,
+            1600
+          ],
+          [
+            3075,
+            1525
+          ]
+        ]
+      },
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3075,
+            1525
+          ],
+          [
+            3150,
+            1600
+          ]
+        ]
+      },
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3147,
+            1600
+          ],
+          [
+            3275,
+            1600
+          ]
+        ]
+      },
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3275,
+            1600
+          ],
+          [
+            3400,
+            1700
+          ]
+        ]
+      }
+    ],
+    "project_id": 41,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated nm-otool",
+    "description": "Ce projet sur la programmation UNIX réseau vous invite à réaliser un client-serveur offrant des services identiques à IRC. Votre implémentation devra utiliser correctement select(2) pour gérer la connexion simultanée des clients, ainsi que des buffers tournants pour gérer les messages des clients.",
+    "slug": "irc"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 21,
+    "kind": "big_project",
+    "name": "Zappy",
+    "x": 4300.0,
+    "y": 1600.0,
+    "by": [
+      {
+        "parent_id": 18,
+        "points": [
+          [
+            3400,
+            1500
+          ],
+          [
+            3525,
+            1600
+          ]
+        ]
+      },
+      {
+        "parent_id": 41,
+        "points": [
+          [
+            3525,
+            1600
+          ],
+          [
+            4300,
+            1600
+          ]
+        ]
+      },
+      {
+        "parent_id": 19,
+        "points": [
+          [
+            3400,
+            1700
+          ],
+          [
+            3525,
+            1600
+          ]
+        ]
+      }
+    ],
+    "project_id": 43,
+    "difficulty": "Tier 3",
+    "duration": "about 6 weeks",
+    "rules": "You must have validated 1 of irc and ft_p. You must have validated first-internship",
+    "description": "Ce projet est l’aboutissement de vos précédents efforts en UNIX avancé : vous allez ici réaliser un jeu multi-joueurs en réseau TCP/IP. Ce jeu sera constitué d’un serveur gérant le terrain de jeu, d’un client graphique qui affiche l'état du plateau, et de clients IA qui se connectent sur le serveur pour piloter un joueur sur le terrain. C'est un projet très complet qui vous donne l'occasion d'exprimer votre créativité en plus de vos connaissances techniques !",
+    "slug": "zappy"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 22,
+    "kind": "project",
+    "name": "N-puzzle",
+    "x": 4300.0,
+    "y": 3150.0,
+    "by": [
+      {
+        "parent_id": 104,
+        "points": [
+          [
+            3900,
+            3000
+          ],
+          [
+            4150,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 22,
+        "points": [
+          [
+            4150,
+            3000
+          ],
+          [
+            4300,
+            3150
+          ]
+        ]
+      }
+    ],
+    "project_id": 97,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated first-internship",
+    "description": "Il s'agit ici de réaliser, dans le langage de votre choix, un programme capable de résoudre des Taquins de tailles variées, de façon aussi optimale que possible.",
+    "slug": "n-puzzle"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 23,
+    "kind": "project",
+    "name": "Expert System",
+    "x": 4300.0,
+    "y": 2850.0,
+    "by": [
+      {
+        "parent_id": 104,
+        "points": [
+          [
+            3900,
+            3000
+          ],
+          [
+            4150,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 22,
+        "points": [
+          [
+            4150,
+            3000
+          ],
+          [
+            4300,
+            2850
+          ]
+        ]
+      }
+    ],
+    "project_id": 98,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated first-internship",
+    "description": "Ce projet vous demande de créer, dans le langage de votre choix, un système expert en calcul des propositions, autrement dit un programme capable de raisonner sur un ensemble de règles et de faits initiaux afin de déduire certains autres faits.",
+    "slug": "expert-system"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 24,
+    "kind": "big_project",
+    "name": "Gomoku",
+    "x": 4800.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 23,
+        "points": [
+          [
+            4300,
+            2850
+          ],
+          [
+            4450,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 98,
+        "points": [
+          [
+            4450,
+            3000
+          ],
+          [
+            4800,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 22,
+        "points": [
+          [
+            4300,
+            3150
+          ],
+          [
+            4450,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 107,
+    "difficulty": "Tier 4",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated 1 of expert-system and n-puzzle. You must have validated first-internship",
+    "description": "Ce projet vous demande de créer, dans le langage de votre choix, un jeu de Gomoku intégrant un joueur IA capable de battre un joueur humain le plus rapidement possible. Pour ce faire, vous allez implémenter un algorithme min-max mais aussi (et surtout), faire des recherches et essais pour trouver les heuristiques les plus adaptées. Ce ne sera pas aussi facile qu'un jeu de dames.",
+    "slug": "gomoku"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 25,
+    "kind": "project",
+    "name": "FdF",
+    "x": 3000.0,
+    "y": 3300.0,
+    "by": [
+      {
+        "parent_id": 53,
+        "points": [
+          [
+            3000,
+            3000
+          ],
+          [
+            3000,
+            3300
+          ]
+        ]
+      }
+    ],
+    "project_id": 4,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated get_next_line",
+    "description": "Initiation aux applications graphiques : ouvrez une fenêtre, et dessinez ! Ce projet vous fait découvrir les grands principes de la programmation d'une interface utilisateur au travers de la représentation d'une surface \"fil de fer\" en 3 dimensions.",
+    "slug": "fdf"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 26,
+    "kind": "project",
+    "name": "Fract'ol",
+    "x": 3000.0,
+    "y": 3475.0,
+    "by": [
+      {
+        "parent_id": 25,
+        "points": [
+          [
+            3000,
+            3300
+          ],
+          [
+            3000,
+            3475
+          ]
+        ]
+      }
+    ],
+    "project_id": 15,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated fdf",
+    "description": "Découvrez la programmation 2D et l'univers psychédelique des fractales grâce à ce projet à réaliser avec la minilibX.",
+    "slug": "fract-ol"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 27,
+    "kind": "project",
+    "name": "Wolf3d",
+    "x": 2850.0,
+    "y": 3680.0,
+    "by": [
+      {
+        "parent_id": 26,
+        "points": [
+          [
+            3000,
+            3475
+          ],
+          [
+            2850,
+            3680
+          ]
+        ]
+      }
+    ],
+    "project_id": 8,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated fract-ol",
+    "description": "Inspiré du célèbre jeu éponyme des années 90 qui fut le premier First Person Shooter, ce projet vous permet d'aborder la technique du ray-casting. Votre but sera de représenter une vue dynamique à l'intérieur d'un labyrinthe dans lequel on peut se déplacer.",
+    "slug": "wolf3d"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 28,
+    "kind": "project",
+    "name": "RTv1",
+    "x": 3150.0,
+    "y": 3680.0,
+    "by": [
+      {
+        "parent_id": 26,
+        "points": [
+          [
+            3000,
+            3475
+          ],
+          [
+            3150,
+            3680
+          ]
+        ]
+      }
+    ],
+    "project_id": 23,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated fract-ol",
+    "description": "Découvrez les principes fondamentaux du Raytracing : la création d'images de synthèses par ordinateur. Ce premier projet vous fera réaliser des scènes simples impliquant des objets et des lumières non complexes.",
+    "slug": "rtv1"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 29,
+    "kind": "big_project",
+    "name": "RT",
+    "x": 3000.0,
+    "y": 3900.0,
+    "by": [
+      {
+        "parent_id": 28,
+        "points": [
+          [
+            3150,
+            3680
+          ],
+          [
+            3000,
+            3900
+          ]
+        ]
+      },
+      {
+        "parent_id": 27,
+        "points": [
+          [
+            2850,
+            3680
+          ],
+          [
+            3000,
+            3900
+          ]
+        ]
+      }
+    ],
+    "project_id": 24,
+    "difficulty": "Tier 3",
+    "duration": "about 6 weeks",
+    "rules": "You must have validated 1 of rtv1 and wolf3d",
+    "description": "Passez à la vitesse supérieure ! Suite du Rtv1, le RT pousse beaucoup plus loin les possibilités du Raytracing : effet miroir, transparence, découpe des objets, applications de textures... Capitalisez sur le projet précédent pour réaliser une infrastructure capable de supporter toutes ces ramifications et obtenir de sublimes images de synthèse.",
+    "slug": "rt"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 30,
+    "kind": "rush",
+    "name": "Rushes",
+    "x": 2650.0,
+    "y": 3500.0,
+    "by": [],
+    "project_id": 61,
+    "difficulty": "Tier 0",
+    "duration": null,
+    "rules": "",
+    "description": "Les rushes sont la formule idéale pour explorer des problématiques complémentaires aux projets réguliers de votre cursus, en immersion avec vos collègues. Le temps d'un week-end par exemple, vous allez vous concentrer sur un sujet précis, croiser de nouvelles têtes pour vos futurs projets, et adopter un rythme intensif ! Les thématiques vous seront communiquées à l'avance, vous n'aurez qu'à vous présenter le jour J avec énergie et bonne humeur pour relever les challenges que l'on vous propose.",
+    "slug": "rushes"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 32,
+    "kind": "first_internship",
+    "name": "First Internship",
+    "x": 3000.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 107,
+        "points": [
+          [
+            3000,
+            2100
+          ],
+          [
+            3000,
+            2000
+          ]
+        ]
+      },
+      {
+        "parent_id": 104,
+        "points": [
+          [
+            3900,
+            3000
+          ],
+          [
+            4000,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 29,
+        "points": [
+          [
+            3000,
+            3900
+          ],
+          [
+            3000,
+            4000
+          ]
+        ]
+      },
+      {
+        "parent_id": 597,
+        "points": [
+          [
+            2292,
+            2292
+          ],
+          [
+            2370,
+            2370
+          ]
+        ]
+      }
+    ],
+    "project_id": 118,
+    "difficulty": "Tier 5",
+    "duration": "about 17 weeks",
+    "rules": "You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-beginner and savoir-relier",
+    "description": "Ce premier pas en entreprise est un passage important de votre cursus 42. Ce stage est le moment où vous allez découvrir le monde de l'entreprise et mettre en oeuvre vos capacités de travail, d'adaptation, au service du marché. C'est un premier élément pour votre CV, et l'occasion de voir émerger votre futur domaine de prédilection.",
+    "slug": "first-internship"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 33,
+    "kind": "big_project",
+    "name": "42sh",
+    "x": 3000.0,
+    "y": 2100.0,
+    "by": [
+      {
+        "parent_id": 39,
+        "points": [
+          [
+            3000,
+            2350
+          ],
+          [
+            3000,
+            2100
+          ]
+        ]
+      }
+    ],
+    "project_id": 35,
+    "difficulty": "Tier 3",
+    "duration": "about 6 weeks",
+    "rules": "You must have validated 1 of 21sh and ft_sh3",
+    "description": "Ce projet consiste à créer de toutes pièces un shell complet, en reprenant le travail effectué sur votre 21sh. Un jeu minimum de fonctionnalités vous sont demandées, à partir duquel vous allez constuire votre propre shell abouti - en allant potentiellement jusqu'au job control et au shell script. Ce projet vous permet donc de voir ou revoir une très large palette des fonctionnalités UNIX (et POSIX) standard.",
+    "slug": "42sh"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 34,
+    "kind": "project",
+    "name": "Scop",
+    "x": 3000.0,
+    "y": 4100.0,
+    "by": [
+      {
+        "parent_id": 24,
+        "points": [
+          [
+            3000,
+            4000
+          ],
+          [
+            3000,
+            4100
+          ]
+        ]
+      }
+    ],
+    "project_id": 135,
+    "difficulty": "Tier 2",
+    "duration": "about 1 week",
+    "rules": "You must have validated first-internship",
+    "description": "Faites vos premiers pas dans le monde de la 3D sur GPU avec de l'OpenGL. Les principaux concepts sont abordés lors d'un petit projet ludique.",
+    "slug": "scop"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 35,
+    "kind": "project",
+    "name": "ft_ls",
+    "x": 3000.0,
+    "y": 2800.0,
+    "by": [
+      {
+        "parent_id": 53,
+        "points": [
+          [
+            3000,
+            3000
+          ],
+          [
+            3000,
+            2700
+          ]
+        ]
+      }
+    ],
+    "project_id": 3,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated get_next_line",
+    "description": "Pour tout connaitre du filesystem, de la façon dont sont rangés les fichiers et répertoires, codez par vous-même une des commandes les plus utilisées : ls .",
+    "slug": "ft_ls"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 37,
+    "kind": "project",
+    "name": "minishell",
+    "x": 3000.0,
+    "y": 2600.0,
+    "by": [
+      {
+        "parent_id": 35,
+        "points": [
+          [
+            3000,
+            2700
+          ],
+          [
+            3000,
+            2550
+          ]
+        ]
+      }
+    ],
+    "project_id": 7,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated ft_ls",
+    "description": "Premier palier de réalisation d'un shell, vous devrez pour ce projet réaliser un mini-shell capable de prompter l'utilisateur pour une commande, rechercher le binaire sur la machine, et l'exécuter. Vous devrez également implémenter quelques builtins basiques.",
+    "slug": "minishell"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 38,
+    "kind": "project",
+    "name": "ft_select",
+    "x": 2800.0,
+    "y": 2450.0,
+    "by": [
+      {
+        "parent_id": 37,
+        "points": [
+          [
+            3000,
+            2550
+          ],
+          [
+            3000,
+            2450
+          ]
+        ]
+      },
+      {
+        "parent_id": 7,
+        "points": [
+          [
+            3000,
+            2450
+          ],
+          [
+            2800,
+            2450
+          ]
+        ]
+      }
+    ],
+    "project_id": 33,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated minishell",
+    "description": "Ce projet a pour but de vous initier à la manipulation du terminal avec les termcaps. Vous allez ici apprendre à créer une interface utilisateur pour un programme lancé dans le terminal.",
+    "slug": "ft_select"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 40,
+    "kind": "project",
+    "name": "Taskmaster",
+    "x": 3200.0,
+    "y": 2200.0,
+    "by": [
+      {
+        "parent_id": 39,
+        "points": [
+          [
+            3000,
+            2350
+          ],
+          [
+            3000,
+            2200
+          ]
+        ]
+      },
+      {
+        "parent_id": 523,
+        "points": [
+          [
+            3000,
+            2200
+          ],
+          [
+            3200,
+            2200
+          ]
+        ]
+      }
+    ],
+    "project_id": 122,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated 1 of 21sh, ft_sh3, and ft_sh2",
+    "description": "Il s'agit de réaliser un programme de job control, dans le langage de votre choix. Ce qu'on vous demandera d'accomplir est très proche du programme supervisor",
+    "slug": "taskmaster"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 48,
+    "kind": "piscine",
+    "name": "Piscine CPP",
+    "x": 2400.0,
+    "y": 4039.0,
+    "by": [
+      {
+        "parent_id": 118,
+        "points": [
+          [
+            2500,
+            3866
+          ],
+          [
+            2400,
+            4039
+          ]
+        ]
+      }
+    ],
+    "project_id": 62,
+    "difficulty": "Tier 2",
+    "duration": null,
+    "rules": "You must have validated First Internship",
+    "description": "Cette piscine C++ est le passage obligé pour le déblocage des projets de programmation orientée objet du cursus 42. Vous allez ici aborder les concepts de base de la POO à travers les spécifités du C++. ",
+    "slug": "piscine-cpp"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 49,
+    "kind": "project",
+    "name": "Abstract VM",
+    "x": 2400.0,
+    "y": 4350.0,
+    "by": [
+      {
+        "parent_id": 48,
+        "points": [
+          [
+            2400,
+            4039
+          ],
+          [
+            2400,
+            4350
+          ]
+        ]
+      }
+    ],
+    "project_id": 80,
+    "difficulty": "Tier 2",
+    "duration": "about 3 weeks",
+    "rules": "You must have validated piscine-cpp",
+    "description": "Ce projet vous remet dans le bain après la piscine C++ et vous invite à réaliser une machine virtuelle capable d'exécuter un code en pseudo-ASM basique. Vous allez ainsi utiliser une stack pour faire des opérations arithmétiques basiques, à l'instar de la commande dc.",
+    "slug": "abstract-vm"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 50,
+    "kind": "project",
+    "name": "Bomberman",
+    "x": 2300.0,
+    "y": 4600.0,
+    "by": [
+      {
+        "parent_id": 80,
+        "points": [
+          [
+            2300,
+            4450
+          ],
+          [
+            2300,
+            4600
+          ]
+        ]
+      }
+    ],
+    "project_id": 410,
+    "difficulty": "Tier 3",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated abstract-vm. You must have validated first-internship",
+    "description": "Bomberman, c'est un classique du jeu video : aussi simple dans son gameplay que fun à jouer ! Vous allez ici profiter de sa simplicité pour faire votre premier gros projet de C++ de facture professionnelle. Vous allez recoder une version de Bomberman, en C++ et avec OpenGL, avec pour objectif de réaliser un jeu le plus abouti possible.",
+    "slug": "bomberman"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 56,
+    "kind": "project",
+    "name": "Nibbler",
+    "x": 2200.0,
+    "y": 4450.0,
+    "by": [
+      {
+        "parent_id": 49,
+        "points": [
+          [
+            2400,
+            4350
+          ],
+          [
+            2300,
+            4455
+          ]
+        ]
+      },
+      {
+        "parent_id": 80,
+        "points": [
+          [
+            2300,
+            4450
+          ],
+          [
+            2200,
+            4450
+          ]
+        ]
+      }
+    ],
+    "project_id": 95,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated abstract-vm",
+    "description": "Ce projet de C++ vous fait recoder le jeu Snake avec plusieurs interfaces graphiques différentes; le joueur devant pouvoir switcher entre les interfaces pendant le jeu. C'est l'occasion de voir comment charger et utiliser des bibliothèques dynamiques au runtime.",
+    "slug": "nibbler"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 58,
+    "kind": "project",
+    "name": "Camagru",
+    "x": 2600.0,
+    "y": 2600.0,
+    "by": [
+      {
+        "parent_id": 8,
+        "points": [
+          [
+            2600,
+            2745
+          ],
+          [
+            2600,
+            2600
+          ]
+        ]
+      }
+    ],
+    "project_id": 537,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated piscine-php",
+    "description": "Ce premier projet vous remet dans le bain après la piscine PHP : vous allez devoir réaliser, en PHP, un petit site Instagram-like permettant à des utilisateurs de réaliser et partager des photo-montages. Vous allez ainsi implémenter, à mains nues (les frameworks sont interdits), les fonctionnalités de base rencontrées sur la majorité des sites possédant une base utilisateur.",
+    "slug": "camagru"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 59,
+    "kind": "project",
+    "name": "Matcha",
+    "x": 2500.0,
+    "y": 2500.0,
+    "by": [
+      {
+        "parent_id": 537,
+        "points": [
+          [
+            2570,
+            2570
+          ],
+          [
+            2500,
+            2500
+          ]
+        ]
+      }
+    ],
+    "project_id": 596,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated camagru",
+    "description": "Ce second projet vous introduit à un outil plus évolué pour réaliser vos applications web : le micro-framework. Nous vous invitons à réaliser, dans le langage de votre choix, un site de rencontres. Les interactions entre utilisateurs seront au coeur du projet !",
+    "slug": "matcha"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 60,
+    "kind": "big_project",
+    "name": "Hypertube",
+    "x": 2370.0,
+    "y": 2370.0,
+    "by": [
+      {
+        "parent_id": 59,
+        "points": [
+          [
+            2500,
+            2500
+          ],
+          [
+            2370,
+            2370
+          ]
+        ]
+      }
+    ],
+    "project_id": 597,
+    "difficulty": "Tier 3",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated matcha",
+    "description": "Dernier projet de sa série, le projet Hypertube vous invite à découvrir une catégorie d'outil extrêmement puissante : les frameworks MVC. Vous apprendrez à manipuler un MVC, dans le langage de votre choix, pour réaliser un site de streaming de video téléchargées via le protocole BitTorrent.",
+    "slug": "hypertube"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 99,
+    "kind": "project",
+    "name": "ft_printf",
+    "x": 3200.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 53,
+        "points": [
+          [
+            3000,
+            3000
+          ],
+          [
+            3200,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 5,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated get_next_line",
+    "description": "Vous en avez assez de faire vos affichages en alternant ft_putstr et ft_putnbr ? Vous n'avez pas le droit d'utiliser printf ? Recodez le votre ! Ce sera l'occasion de découvrir une feature du C - les fonctions variadiques - et de vous entrainer à la gestion fine des options d'affichage. Vous aurez ensuite le droit d'utiliser votre printf dans tous vos projets ultérieurs.",
+    "slug": "ft_printf"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 101,
+    "kind": "project",
+    "name": "Filler",
+    "x": 3400.0,
+    "y": 2850.0,
+    "by": [
+      {
+        "parent_id": 53,
+        "points": [
+          [
+            3200,
+            3000
+          ],
+          [
+            3400,
+            2850
+          ]
+        ]
+      }
+    ],
+    "project_id": 26,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated ft_printf",
+    "description": "Créez votre joueur pour affronter d’autres étudiants sur le célèbre (ou pas) plateau du Filler. Le principe est simple : deux joueurs s’affrontent sur un plateau, et doivent placer, tour à tour, la pièce que le maître du jeu (fourni sous la forme d’un exécutable Ruby) leur donne, gagnant ainsi des points. La partie s’arrête dès qu’une pièce ne peut plus être placée. Petit projet ludique !",
+    "slug": "filler"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 102,
+    "kind": "project",
+    "name": "Push_swap",
+    "x": 3400.0,
+    "y": 3150.0,
+    "by": [
+      {
+        "parent_id": 53,
+        "points": [
+          [
+            3200,
+            3000
+          ],
+          [
+            3400,
+            3150
+          ]
+        ]
+      }
+    ],
+    "project_id": 27,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated ft_printf",
+    "description": "Ce projet vous demande de trier des données sur une pile, avec un set d’instructions limité, en moins de coups possibles. Pour le réussir, vous devrez manipuler différents algorithmes de tri et choisir la (ou les ?) solution la plus appropriée pour un classement optimisé des données.",
+    "slug": "push_swap"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 103,
+    "kind": "project",
+    "name": "Lem_in",
+    "x": 3600.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 101,
+        "points": [
+          [
+            3400,
+            2850
+          ],
+          [
+            3600,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 102,
+        "points": [
+          [
+            3400,
+            3150
+          ],
+          [
+            3600,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 29,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated 1 of push_swap and filler",
+    "description": "Votre colonie de foumis doit se déplacer d'un point à un autre. Mais comment faire pour que cela prenne le moins de temps possible ? Ce projet vous fait découvrir les algorithmes de parcours de graphe : votre programme devra sélectionner intelligemment les chemins et les mouvements précis qui doivent être empruntés par ces fourmis.",
+    "slug": "lem_in"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 104,
+    "kind": "big_project",
+    "name": "Corewar",
+    "x": 3900.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 103,
+        "points": [
+          [
+            3600,
+            3000
+          ],
+          [
+            3900,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 22,
+    "difficulty": "Tier 3",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated lem_in",
+    "description": "Ce projet vous invite à créer une arène virtuelle et à y faire s’affronter des programmes codés dans un langage simpliste. Vous allez ainsi aborder la conception d’une VM (avec les instructions qu’elle reconnait, les registres, etc), et les problématiques de compilation d’un langage assembleur en bytecode. Avec, en bonus, le plaisir de faire s’affronter vos champions sur votre arène !",
+    "slug": "corewar"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 106,
+    "kind": "project",
+    "name": "21sh",
+    "x": 3000.0,
+    "y": 2300.0,
+    "by": [
+      {
+        "parent_id": 105,
+        "points": [
+          [
+            3000,
+            2500
+          ],
+          [
+            3000,
+            2300
+          ]
+        ]
+      }
+    ],
+    "project_id": 523,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must not have validated ft_sh2 and ft_sh3. You must have validated minishell",
+    "description": "Vous allez repartir de votre minishell et le rendre plus robuste pour vous approcher petit à petit d'un vrai shell fonctionnel. Vous allez ici ajouter divers features, telles que la gestion du multi-commande, des différentes redirections, ainsi que l'édition de ligne pour pouvoir éditer la ligne de commande à la volée.",
+    "slug": "21sh"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 183,
+    "kind": "project",
+    "name": "Libft",
+    "x": 2550.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 756,
+        "points": [
+          [
+            2300,
+            3000
+          ],
+          [
+            2550,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 1,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated piscine-reloaded",
+    "description": "Ce premier projet en tant qu'étudiant de 42 va vous faire consolider vos acquis de piscine. Vous allez recoder un certain nombre de fonctions de la librairie C standard, ainsi que d'autres fonctions utilitaires que vous réutiliserez tout au long de votre cursus.",
+    "slug": "libft"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 185,
+    "kind": "project",
+    "name": "Get_Next_Line",
+    "x": 3000.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 540,
+        "points": [
+          [
+            2725,
+            3000
+          ],
+          [
+            3000,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 2,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated fillit",
+    "description": "Qu'il s'agisse d'un fichier, de l'entrée standard, ou même plus tard d'une connexion réseau, vous aurez toujours besoin de lire du contenu ligne par ligne. Il est donc temps de vous attaquer à cette fonction, indispensable pour un certain nombre de vos prochains projets.",
+    "slug": "get_next_line"
+  }
+]
