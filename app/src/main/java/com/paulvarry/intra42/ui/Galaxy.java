@@ -50,6 +50,7 @@ public class Galaxy extends View {
     private Scroller mScroller;
     private ValueAnimator mScrollAnimator;
     private ScaleGestureDetector mScaleDetector;
+    private String state;
 
     /**
      * Current scale factor.
@@ -239,6 +240,14 @@ public class Galaxy extends View {
         invalidate();
     }
 
+    public void setState(String state) {
+        data = null;
+        this.state = state;
+
+        onScrollFinished();
+        invalidate();
+    }
+
     /**
      * Enable hardware acceleration (consumes memory)
      */
@@ -298,8 +307,20 @@ public class Galaxy extends View {
 
         canvas.drawPaint(mPaintBackground);
 
-        if (data == null)
+        if (data != null && data.isEmpty()) {
+            data = null;
+            state = "No Galaxy for this cursus";
+        }
+
+        if (data == null) {
+            mPaintText.setColor(colorProjectTextAvailable);
+            mPaintText.setTextSize(50 * mScaleFactor);
+
+            int width = canvas.getWidth();
+            int height = canvas.getHeight();
+            canvas.drawText(state, width / 2, height * 0.8f, mPaintText);
             return;
+        }
 
         mPaintProject.setStrokeWidth(weightPath * mScaleFactor);
         mPaintPath.setStrokeWidth(weightPath * mScaleFactor);

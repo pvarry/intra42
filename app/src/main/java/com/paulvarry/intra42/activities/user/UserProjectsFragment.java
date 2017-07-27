@@ -15,10 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.adapters.ListAdapterMarks;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
@@ -27,6 +29,10 @@ import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.GalaxyUtils;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,8 +104,29 @@ public class UserProjectsFragment
 
         activity = (UserActivity) getActivity();
         if (activity != null && activity.selectedCursus != null) {
-            List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
-            galaxy.setData(list);
+
+            ApiServiceAuthServer client = activity.app.getApiServiceAuthServer();
+            Call<List<ProjectDataIntra>> l = client.getGalaxy(activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user.login);
+            l.enqueue(new Callback<List<ProjectDataIntra>>() {
+                @Override
+                public void onResponse(Call<List<ProjectDataIntra>> call, Response<List<ProjectDataIntra>> response) {
+                    if (response.isSuccessful())
+                        galaxy.setData(response.body());
+                    else {
+                        Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                        List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+                        galaxy.setData(list);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ProjectDataIntra>> call, Throwable t) {
+                    Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                    List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+                    galaxy.setData(list);
+                }
+            });
+            galaxy.setState("loading");
         }
 
         galaxy.setOnProjectClickListener(this);
@@ -186,7 +213,7 @@ public class UserProjectsFragment
             return;
         spinnerSelected = position;
         if (position == 0) {
-            List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+            List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
             galaxy.setData(list);
             animate(menuSpinner, galaxy);
         } else {

@@ -33,7 +33,7 @@ public class GalaxyUtils {
         return r.getIdentifier(resName, "raw", context.getPackageName());
     }
 
-    public static List<ProjectDataIntra> getData(@NonNull Context context, int cursus, int campus, @Nullable Users user) {
+    public static List<ProjectDataIntra> getDataFromApp(@NonNull Context context, int cursus, int campus, @Nullable Users user) {
         Gson gson = ServiceGenerator.getGson();
         List<ProjectDataIntra> list;
         Type listType = new TypeToken<ArrayList<ProjectDataIntra>>() {

@@ -73,7 +73,8 @@ public class ServiceGenerator {
 
             httpClient.authenticator(getAuthenticator(context));
 
-        }
+        } else
+            httpClient.addInterceptor(getHeaderInterceptor());
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
@@ -174,7 +175,7 @@ public class ServiceGenerator {
     private static Interceptor getHeaderInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()

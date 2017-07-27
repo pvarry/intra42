@@ -58,12 +58,12 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:appcompat-v7:26.0.0-beta2'
-    compile 'com.android.support:cardview-v7:26.0.0-beta2'
-    compile 'com.android.support:design:26.0.0-beta2'
-    compile 'com.android.support:recyclerview-v7:26.0.0-beta2'
-    compile 'com.android.support:support-v4:26.0.0-beta2'
-    compile 'com.android.support:support-v13:26.0.0-beta2'
+    compile 'com.android.support:appcompat-v7:26.0.0'
+    compile 'com.android.support:cardview-v7:26.0.0'
+    compile 'com.android.support:design:26.0.0'
+    compile 'com.android.support:recyclerview-v7:26.0.0'
+    compile 'com.android.support:support-v4:26.0.0'
+    compile 'com.android.support:support-v13:26.0.0'
     compile 'com.caverock:androidsvg:1.2.1'
     compile 'com.github.Commit451:bypasses:1.1.0'
     compile 'com.github.deano2390:MaterialShowcaseView:1.1.0'

@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
 import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
 import com.paulvarry.intra42.ui.Galaxy;
@@ -17,6 +19,10 @@ import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.GalaxyUtils;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,12 +69,33 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        AppClass app = activity.app;
-        List<ProjectDataIntra> list = GalaxyUtils.getData(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
+        final AppClass app = activity.app;
 
-        Galaxy galaxy = view.findViewById(R.id.galaxy);
-        galaxy.setData(list);
+        final Galaxy galaxy = view.findViewById(R.id.galaxy);
         galaxy.setOnProjectClickListener(this);
+
+        ApiServiceAuthServer client = app.getApiServiceAuthServer();
+        Call<List<ProjectDataIntra>> l = client.getGalaxy(AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me.login);
+        l.enqueue(new Callback<List<ProjectDataIntra>>() {
+            @Override
+            public void onResponse(Call<List<ProjectDataIntra>> call, Response<List<ProjectDataIntra>> response) {
+                if (response.isSuccessful())
+                    galaxy.setData(response.body());
+                else {
+                    Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                    List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
+                    galaxy.setData(list);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProjectDataIntra>> call, Throwable t) {
+                Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
+                galaxy.setData(list);
+            }
+        });
+        galaxy.setState("loading");
     }
 
 
