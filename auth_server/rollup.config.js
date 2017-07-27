@@ -19,9 +19,12 @@ export default {
       PORT: Number(process.env.PORT || 3000),
       CLIENT_ID: JSON.stringify(process.env.CLIENT_ID),
       CLIENT_SECRET: JSON.stringify(process.env.CLIENT_SECRET),
+      INTRA_USERNAME: JSON.stringify(process.env.INTRA_USERNAME),
+      INTRA_PASSWORD: JSON.stringify(process.env.INTRA_PASSWORD),
+      INTRA_COOKIE: JSON.stringify(process.env.INTRA_COOKIE)
     })
   ],
   external: [
-    'connect-timeout', 'express', 'morgan', 'node-fetch'
+    'connect-timeout', 'express', 'form-data', 'morgan', 'node-fetch'
   ]
 }
