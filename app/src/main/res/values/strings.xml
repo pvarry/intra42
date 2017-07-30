@@ -475,5 +475,8 @@
     <string name="you">you</string>
     <string name="you_cant_have_mark_for_this_project">You can\'t have mark for this project</string>
     <string name="you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
+    <string name="user_overview_cursus_date_not_start_not_finised">Not begun and finish yet</string>
+    <string name="user_overview_cursus_date_not_start">Not begun yet</string>
+    <string name="user_overview_cursus_date_not_finished">Not finished yet</string>
 
 </resources>

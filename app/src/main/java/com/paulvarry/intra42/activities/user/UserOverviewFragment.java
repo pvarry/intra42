@@ -476,19 +476,19 @@ public class UserOverviewFragment
         String dateInfo;
 
         if (userCursus.begin_at == null && userCursus.end_at == null)
-            dateInfo = "Not begun and finish yet";
+            dateInfo = getString(R.string.user_overview_cursus_date_not_start_not_finised);
         else {
             if (userCursus.begin_at != null)
                 dateInfo = DateTool.getDateLong(userCursus.begin_at);
             else
-                dateInfo = "Not begun yet";
+                dateInfo = getString(R.string.user_overview_cursus_date_not_start);
 
             dateInfo += " • ";
 
             if (userCursus.end_at != null)
                 dateInfo += DateTool.getDateLong(userCursus.end_at);
             else
-                dateInfo += "Not finished yet";
+                dateInfo += getString(R.string.user_overview_cursus_date_not_finished);
         }
         textViewCursusDate.setText(dateInfo);
     }

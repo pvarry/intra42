@@ -251,4 +251,8 @@
         <item>Tout</item>
         <item>En cours</item>
     </string-array>
+    <string name="galaxy">Galaxy</string>
+    <string name="user_overview_cursus_date_not_start_not_finised">Pas encore commancé et pas encore fini</string>
+    <string name="user_overview_cursus_date_not_start">Pas encore commancée</string>
+    <string name="user_overview_cursus_date_not_finished">Pas encore fini</string>
 </resources>

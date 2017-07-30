@@ -51,10 +51,8 @@
                     <LinearLayout
                         android:id="@+id/linearLayoutInfo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginRight="0dp"
                         android:layout_marginStart="16dp"
                         android:orientation="vertical">
 
@@ -67,6 +65,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical|start"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="0dp"
+                                android:paddingRight="8dp"
+                                android:paddingStart="0dp"
                                 android:text="@string/name"
                                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -161,6 +163,7 @@
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="-2dp"
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="50" />
