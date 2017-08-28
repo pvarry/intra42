@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
@@ -37,7 +37,7 @@ public class NotionsActivity
     }
 
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(NotionsAllFragment.newInstance(), getString(R.string.tab_elearning_all));
         adapter.addFragment(NotionsTagFragment.newInstance(), getString(R.string.tab_elearning_tags));
         viewPager.setAdapter(adapter);

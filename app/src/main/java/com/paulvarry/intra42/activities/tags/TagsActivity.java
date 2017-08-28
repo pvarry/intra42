@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.ui.BasicActivity;
@@ -100,7 +100,7 @@ public class TagsActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(TagsProjectsFragment.newInstance(), getString(R.string.tab_tags_projects));
         adapter.addFragment(TagsForumFragment.newInstance(), getString(R.string.tab_tags_forum));
         adapter.addFragment(TagsNotionsFragment.newInstance(), getString(R.string.tab_tags_notions));

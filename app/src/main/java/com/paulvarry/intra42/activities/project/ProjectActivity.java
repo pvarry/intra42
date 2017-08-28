@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
@@ -182,7 +182,7 @@ public class ProjectActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
         if (projectUser != null && projectUser.project != null) {
             adapter.addFragment(ProjectOverviewFragment.newInstance(), getString(R.string.tab_project_overview));
             if (projectUser.user != null && projectUser.user.user != null) {

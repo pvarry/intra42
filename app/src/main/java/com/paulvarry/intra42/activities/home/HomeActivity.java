@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
@@ -65,7 +65,7 @@ public class HomeActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(HomeFragment.newInstance(), getString(R.string.tab_home_home));
         adapter.addFragment(HomeEventsFragment.newInstance(), getString(R.string.tab_home_agenda));
         adapter.addFragment(HomeSlotsFragment.newInstance(), getString(R.string.tab_home_slots));
