@@ -288,7 +288,9 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         // Set up the input
         final EditText input = new EditText(getContext());
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE |
+                InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE |
+                InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
         input.setSingleLine(false);
         input.setHint(R.string.message);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
