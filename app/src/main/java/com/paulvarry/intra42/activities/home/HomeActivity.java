@@ -65,7 +65,7 @@ public class HomeActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(HomeFragment.newInstance(), getString(R.string.tab_home_home));
         adapter.addFragment(HomeEventsFragment.newInstance(), getString(R.string.tab_home_agenda));
         adapter.addFragment(HomeSlotsFragment.newInstance(), getString(R.string.tab_home_slots));
@@ -73,6 +73,15 @@ public class HomeActivity extends BasicTabActivity
         if (AppSettings.Advanced.getAllowPastEvents(this))
             adapter.addFragment(HomePastEventsFragment.newInstance(), getString(R.string.tab_home_past_events));
         viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+
+                app.mFirebaseAnalytics.setCurrentScreen(HomeActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
+            }
+        });
+        app.mFirebaseAnalytics.setCurrentScreen(HomeActivity.this, "User Profile -> " + HomeFragment.class.getSimpleName(), null /* class override */);
     }
 
     @Override

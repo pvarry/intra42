@@ -290,7 +290,7 @@ public class UserActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
         adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));
         adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.tab_user_projects));
@@ -329,8 +329,11 @@ public class UserActivity extends BasicTabActivity
                             .show();
                 } else
                     menuItemSpinner.setVisible(false);
+
+                app.mFirebaseAnalytics.setCurrentScreen(UserActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
             }
         });
+        app.mFirebaseAnalytics.setCurrentScreen(UserActivity.this, "User Profile -> " + UserOverviewFragment.class.getSimpleName(), null /* class override */);
     }
 
     public void refresh(final Runnable runnable) {

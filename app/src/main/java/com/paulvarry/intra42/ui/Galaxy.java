@@ -307,12 +307,10 @@ public class Galaxy extends View {
 
         canvas.drawPaint(mPaintBackground);
 
-        if (data != null && data.isEmpty()) {
+        if ((data != null && data.isEmpty()) || data == null) {
             data = null;
-            state = "No Galaxy for this cursus";
-        }
+            state = getContext().getString(R.string.no_galaxy);
 
-        if (data == null) {
             mPaintText.setColor(colorProjectTextAvailable);
             mPaintText.setTextSize(50 * mScaleFactor);
 

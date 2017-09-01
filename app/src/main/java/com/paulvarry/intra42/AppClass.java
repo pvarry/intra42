@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.bind.util.ISO8601Utils;
@@ -55,6 +56,8 @@ public class AppClass extends Application {
     public CacheSQLiteHelper cacheSQLiteHelper;
     @Nullable
     public DatabaseReference firebaseRefFriends;
+    public FirebaseAnalytics mFirebaseAnalytics;
+
 
     public static AppClass instance() {
         return sInstance;
@@ -113,6 +116,7 @@ public class AppClass extends Application {
         }
 
         initFirebase();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         if (isExternalStorageWritable() && (AppSettings.Advanced.getAllowSaveLogs(this) | BuildConfig.DEBUG)) {
 

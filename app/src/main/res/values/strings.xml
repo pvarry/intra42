@@ -478,5 +478,6 @@
     <string name="user_overview_cursus_date_not_start_not_finised">Not begun and finish yet</string>
     <string name="user_overview_cursus_date_not_start">Not begun yet</string>
     <string name="user_overview_cursus_date_not_finished">Not finished yet</string>
+    <string name="no_galaxy">No Galaxy available</string>
 
 </resources>
