@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.GestureDetector;
@@ -45,6 +46,7 @@ public class Galaxy extends View {
     /**
      * Data for current Galaxy.
      */
+    @Nullable
     private List<ProjectDataIntra> data;
     private GestureDetector mGestureDetector;
     private Scroller mScroller;
@@ -802,6 +804,9 @@ public class Galaxy extends View {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
+
+            if (data == null)
+                return false;
 
             float x = e.getX();
             float y = e.getY();

@@ -46,9 +46,13 @@ public class CustomViewPager extends ViewPager {
 
     boolean canSwipe() {
         ViewPagerAdapter adapter = (ViewPagerAdapter) getAdapter();
-
+        int c = getCurrentItem();
         List<String> title = adapter.getPageTitle();
-        String item = title.get(getCurrentItem());
+
+        if (title.size() <= c)
+            return enabled;
+
+        String item = title.get(c);
 
         Fragment fragment = adapter.getItem(getCurrentItem());
         if (fragment instanceof UserProjectsFragment) {
