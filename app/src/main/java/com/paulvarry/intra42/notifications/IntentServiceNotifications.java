@@ -4,10 +4,10 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Events;
@@ -28,6 +28,7 @@ import retrofit2.Response;
 public class IntentServiceNotifications extends IntentService {
 
     SharedPreferences settings;
+    String dateFilter;
 
     public IntentServiceNotifications() {
         super("IntentServiceNotifications");
@@ -41,6 +42,10 @@ public class IntentServiceNotifications extends IntentService {
         if (app != null) {
 
             settings = PreferenceManager.getDefaultSharedPreferences(this);
+            dateFilter = NotificationsUtils.getDateSince(settings);
+            Log.d("notification date", dateFilter);
+            if (dateFilter == null)
+                return;
 
             if (AppSettings.Notifications.getNotificationsEvents(settings))
                 notifyEvents(app, app.getApiServiceDisableRedirectActivity());
@@ -56,9 +61,6 @@ public class IntentServiceNotifications extends IntentService {
     void notifyEvents(AppClass app, ApiService apiService) {
         final Call<List<Events>> events;
 
-        String dateFilter = NotificationsUtils.getDateSince(settings);
-        if (dateFilter == null)
-            return;
         int campus = AppSettings.getUserCampus(app);
         int cursus = AppSettings.getUserCursus(app);
 
@@ -94,10 +96,7 @@ public class IntentServiceNotifications extends IntentService {
     void notifyScales(final AppClass app, ApiService apiService) {
 
         Call<List<ScaleTeams>> scaleTeams;
-        if (BuildConfig.DEBUG && false)
-            scaleTeams = apiService.getScaleTeamsMe("2016-09-15T22:14:29.224Z,2016-09-16T22:29:29.232Z", 1);
-        else
-            scaleTeams = apiService.getScaleTeamsMe(NotificationsUtils.getDateSince(settings), 1);
+        scaleTeams = apiService.getScaleTeamsMe(dateFilter, 1);
 
         Response<List<ScaleTeams>> response;
         try {
@@ -134,11 +133,7 @@ public class IntentServiceNotifications extends IntentService {
     void notifyAnnouncements(final AppClass app, ApiService apiService) {
 
         Call<List<Announcements>> call;
-
-        if (BuildConfig.DEBUG)
-            call = apiService.getAnnouncements("2015-09-15T22:14:29.224Z,2017-09-16T22:29:29.232Z", 1);
-        else
-            call = apiService.getAnnouncements(NotificationsUtils.getDateSince(settings), 1);
+        call = apiService.getAnnouncements(dateFilter, 1);
 
 
         call.enqueue(new Callback<List<Announcements>>() {

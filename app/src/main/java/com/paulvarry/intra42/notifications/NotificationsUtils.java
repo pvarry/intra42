@@ -239,12 +239,24 @@ public class NotificationsUtils {
 
         if (settings == null)
             return null;
-        int since = Integer.parseInt(settings.getString(AppSettings.Notifications.FREQUENCY, "15"));
 
-        if (since == -1)
+        long lastNotification = settings.getLong("dynamic_last_notification", 0);
+        Date nowDate = new Date();
+        long now = nowDate.getTime();
+
+        settings.edit().putLong("dynamic_last_notification", now).apply();
+
+        if (lastNotification == 0) {
+            int since = Integer.parseInt(settings.getString(AppSettings.Notifications.FREQUENCY, "15"));
+
+            if (since == -1)
+                return null;
+            Date date_ago = new Date(now - (60000 * since));
+            return DateTool.getUTC(date_ago) + "," + DateTool.getNowUTC();
+        } else if (now - lastNotification <= 21600000) // 21600000 milliseconds is 6 hours (1000 * 60 * 60 * 6)
+            return DateTool.getUTC(new Date(lastNotification)) + "," + DateTool.getNowUTC();
+        else
             return null;
-        Date date_ago = new Date(new Date().getTime() - (60000 * since));
-        return DateTool.getUTC(date_ago) + "," + DateTool.getNowUTC();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

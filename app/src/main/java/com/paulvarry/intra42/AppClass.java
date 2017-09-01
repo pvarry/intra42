@@ -3,6 +3,7 @@ package com.paulvarry.intra42;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
+import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +33,7 @@ import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
+import com.paulvarry.intra42.notifications.NotificationsJobService;
 import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
@@ -64,33 +66,51 @@ public class AppClass extends Application {
     }
 
     public static void scheduleAlarm(Context context) {
-        // Construct an intent that will execute the AlarmReceiver
-        Intent intent = new Intent(context, AlarmReceiverNotifications.class);
-
-        // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         SharedPreferences settings = AppSettings.getSharedPreferences(context);
-        int notificationsFrequency = AppSettings.Notifications.getNotificationsFrequency(settings);
+        if (!AppSettings.Notifications.getNotificationsAllow(settings))
+            return;
 
-        int epoch = 1451607360; // Human time (GMT): Fri, 01 Jan 2016 00:16:00 GMT
-        if (AppSettings.Notifications.getNotificationsAllow(settings) && notificationsFrequency != -1)
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, epoch, 60000 * notificationsFrequency, pIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            NotificationsJobService.schedule(context);
+        } else {
 
+            // Construct an intent that will execute the AlarmReceiver
+            Intent intent = new Intent(context, AlarmReceiverNotifications.class);
+
+            // Create a PendingIntent to be triggered when the alarm goes off
+            final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+
+            int notificationsFrequency = AppSettings.Notifications.getNotificationsFrequency(settings);
+
+            int epoch = 1451607360; // Human time (GMT): Fri, 01 Jan 2016 00:16:00 GMT
+            if (notificationsFrequency != -1)
+                alarm.setRepeating(AlarmManager.RTC_WAKEUP, epoch, 60000 * notificationsFrequency, pIntent);
+        }
         Log.d("Notification", "schedule");
     }
 
     public static void unscheduleAlarm(Context context) {
-        // Construct an intent that will execute the AlarmReceiver
-        Intent intent = new Intent(context, AlarmReceiverNotifications.class);
 
-        // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            jobScheduler.cancel(1);
+        } else {
 
-        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarm.cancel(pIntent);
+
+            // Construct an intent that will execute the AlarmReceiver
+            Intent intent = new Intent(context, AlarmReceiverNotifications.class);
+
+            // Create a PendingIntent to be triggered when the alarm goes off
+            final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarm.cancel(pIntent);
+
+        }
 
         Log.d("Notification", "unschedule");
     }
