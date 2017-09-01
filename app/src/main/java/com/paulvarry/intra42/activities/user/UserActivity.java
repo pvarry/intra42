@@ -430,8 +430,8 @@ public class UserActivity extends BasicTabActivity
     @Nullable
     @Override
     public String getUrlIntra() {
-        if (user != null)
-            return getString(R.string.base_url_intra_profile) + "users/" + user.login;
+        if (login != null)
+            return getString(R.string.base_url_intra_profile) + "users/" + login;
         return null;
     }
 
