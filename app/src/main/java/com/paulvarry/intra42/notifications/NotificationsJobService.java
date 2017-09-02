@@ -6,12 +6,12 @@ import android.app.job.JobScheduler;
 import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.utils.AppSettings;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -48,7 +48,11 @@ public class NotificationsJobService extends JobService {
         // be sure to start up an AsyncTask, Thread, or IntentService!
 
         Log.d("JobService", "test");
-        Intent i = new Intent(context, IntentServiceNotifications.class);
-        context.startService(i);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NotificationsUtils.run(getBaseContext(), (AppClass) getApplication());
+            }
+        }).start();
     }
 }
