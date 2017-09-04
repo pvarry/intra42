@@ -1,5 +1,8 @@
 package com.paulvarry.intra42.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -25,7 +28,7 @@ import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
-import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.utils.Token;
 
 import java.io.IOException;
@@ -55,9 +58,18 @@ public class MainActivity extends AppCompatActivity {
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
             edit.apply();
 
-            if (appVersion < 20170411) {
-                AppSettings.Notifications.setNotificationsAllow(this, true);
-                Log.i("notifications", "Notifications activated due to upgrade");
+            if (appVersion < 20170904) {
+
+                // Construct an intent that will execute the AlarmReceiver
+                Intent intent = new Intent(this, AlarmReceiverNotifications.class);
+
+                // Create a PendingIntent to be triggered when the alarm goes off
+                final PendingIntent pIntent = PendingIntent.getBroadcast(this, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+                alarm.cancel(pIntent);
+
+                Log.i("notifications", "Notifications update");
             }
         }
 
