@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
+import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.CursusUsers;
@@ -290,7 +290,7 @@ public class UserActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
         adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));
         adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.tab_user_projects));
@@ -329,8 +329,11 @@ public class UserActivity extends BasicTabActivity
                             .show();
                 } else
                     menuItemSpinner.setVisible(false);
+
+                app.mFirebaseAnalytics.setCurrentScreen(UserActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
             }
         });
+        app.mFirebaseAnalytics.setCurrentScreen(UserActivity.this, "User Profile -> " + UserOverviewFragment.class.getSimpleName(), null /* class override */);
     }
 
     public void refresh(final Runnable runnable) {
@@ -391,7 +394,7 @@ public class UserActivity extends BasicTabActivity
         menuSpinner.setAdapter(adapter);
 
         if (viewPager != null) {
-            ViewStatePagerAdapter pagerAdapter = (ViewStatePagerAdapter) viewPager.getAdapter();
+            ViewPagerAdapter pagerAdapter = (ViewPagerAdapter) viewPager.getAdapter();
 
             menuSpinner.setOnItemSelectedListener(((UserProjectsFragment) pagerAdapter.getItem(2)));
             if (selectedTab == 2)
@@ -427,8 +430,8 @@ public class UserActivity extends BasicTabActivity
     @Nullable
     @Override
     public String getUrlIntra() {
-        if (user != null)
-            return getString(R.string.base_url_intra_profile) + "users/" + user.login;
+        if (login != null)
+            return getString(R.string.base_url_intra_profile) + "users/" + login;
         return null;
     }
 

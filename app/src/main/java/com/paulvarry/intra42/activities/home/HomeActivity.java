@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
+import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
@@ -65,7 +65,7 @@ public class HomeActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(HomeFragment.newInstance(), getString(R.string.tab_home_home));
         adapter.addFragment(HomeEventsFragment.newInstance(), getString(R.string.tab_home_agenda));
         adapter.addFragment(HomeSlotsFragment.newInstance(), getString(R.string.tab_home_slots));
@@ -73,6 +73,15 @@ public class HomeActivity extends BasicTabActivity
         if (AppSettings.Advanced.getAllowPastEvents(this))
             adapter.addFragment(HomePastEventsFragment.newInstance(), getString(R.string.tab_home_past_events));
         viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+
+                app.mFirebaseAnalytics.setCurrentScreen(HomeActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
+            }
+        });
+        app.mFirebaseAnalytics.setCurrentScreen(HomeActivity.this, "User Profile -> " + HomeFragment.class.getSimpleName(), null /* class override */);
     }
 
     @Override

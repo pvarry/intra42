@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.GestureDetector;
@@ -45,6 +46,7 @@ public class Galaxy extends View {
     /**
      * Data for current Galaxy.
      */
+    @Nullable
     private List<ProjectDataIntra> data;
     private GestureDetector mGestureDetector;
     private Scroller mScroller;
@@ -307,12 +309,10 @@ public class Galaxy extends View {
 
         canvas.drawPaint(mPaintBackground);
 
-        if (data != null && data.isEmpty()) {
+        if ((data != null && data.isEmpty()) || data == null) {
             data = null;
-            state = "No Galaxy for this cursus";
-        }
+            state = getContext().getString(R.string.no_galaxy);
 
-        if (data == null) {
             mPaintText.setColor(colorProjectTextAvailable);
             mPaintText.setTextSize(50 * mScaleFactor);
 
@@ -804,6 +804,9 @@ public class Galaxy extends View {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
+
+            if (data == null)
+                return false;
 
             float x = e.getX();
             float y = e.getY();

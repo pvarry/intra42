@@ -204,6 +204,10 @@ public class UserProjectsFragment
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+        if (AppSettings.Advanced.getAllowAdvancedData(getContext()))
+            Toast.makeText(getContext(), "onItemSelected", Toast.LENGTH_SHORT).show();
+
         if (activity != null && activity.menuItemSpinner != null)
             menuSpinner = (Spinner) activity.menuItemSpinner.getActionView();
 

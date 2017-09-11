@@ -116,6 +116,9 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
 
         super.onCreate(savedInstanceState);
 
+        if (!app.userIsLogged())
+            finish();
+
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
         gridView = findViewById(R.id.gridView);
     }

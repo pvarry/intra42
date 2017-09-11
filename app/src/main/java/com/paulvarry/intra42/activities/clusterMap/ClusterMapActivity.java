@@ -56,6 +56,10 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         registerGetDataOnMainTread(this);
 
         super.onCreate(savedInstanceState);
+
+        if (!app.userIsLogged())
+            finish();
+
         campusId = AppSettings.getAppCampus(app);
         navigationView.getMenu().getItem(5).getSubMenu().getItem(2).setChecked(true);
     }

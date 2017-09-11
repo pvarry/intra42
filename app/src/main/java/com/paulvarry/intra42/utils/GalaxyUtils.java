@@ -29,8 +29,12 @@ public class GalaxyUtils {
 
     private static int getResId(Context context, String resName) {
 
-        Resources r = context.getResources();
-        return r.getIdentifier(resName, "raw", context.getPackageName());
+        if (context == null)
+            return 0;
+        Resources resources = context.getResources();
+        if (resources == null)
+            return 0;
+        return resources.getIdentifier(resName, "raw", context.getPackageName());
     }
 
     public static List<ProjectDataIntra> getDataFromApp(@NonNull Context context, int cursus, int campus, @Nullable Users user) {

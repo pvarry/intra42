@@ -155,6 +155,10 @@
             android:name=".notifications.IntentEvent"
             android:exported="false" />
 
+        <service
+            android:name=".notifications.NotificationsJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <activity
             android:name=".activities.EventActivity"
             android:label="@string/title_activity_event"
