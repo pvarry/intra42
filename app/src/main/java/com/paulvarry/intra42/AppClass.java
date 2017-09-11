@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.AndroidRuntimeException;
 import android.util.Log;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -260,15 +259,15 @@ public class AppClass extends Application {
 
     public void logoutAndRedirect() {
         logout();
+        MainActivity.openActivity(this);
+    }
 
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        try {
-            startActivity(i);
-        } catch (AndroidRuntimeException e) {
-            e.printStackTrace();
+    public boolean userIsLogged() {
+        if (me == null && accessToken == null) {
+            MainActivity.openActivity(this);
+            return false;
         }
-
+        return true;
     }
 
     /* Checks if external storage is available for read and write */

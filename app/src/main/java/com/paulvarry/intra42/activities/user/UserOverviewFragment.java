@@ -197,7 +197,7 @@ public class UserOverviewFragment
 
     void setView() {
 
-        if (activity == null || activity.user == null || isDetached())
+        if (activity == null || activity.user == null || isDetached() || !isAdded())
             return;
         user = activity.user;
 

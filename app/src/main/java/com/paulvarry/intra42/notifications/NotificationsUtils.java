@@ -15,7 +15,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.AppClass;
@@ -321,7 +320,6 @@ public class NotificationsUtils {
             SharedPreferences settings;
             settings = PreferenceManager.getDefaultSharedPreferences(context);
             String dateFilter = NotificationsUtils.getDateSince(settings);
-            Log.d("notification date", dateFilter);
             if (dateFilter == null)
                 return;
 

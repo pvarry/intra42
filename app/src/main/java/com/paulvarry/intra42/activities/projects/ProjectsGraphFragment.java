@@ -75,6 +75,8 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
         galaxy.setOnProjectClickListener(this);
 
         ApiServiceAuthServer client = app.getApiServiceAuthServer();
+        if (!app.userIsLogged())
+            return;
         Call<List<ProjectDataIntra>> l = client.getGalaxy(AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me.login);
         l.enqueue(new Callback<List<ProjectDataIntra>>() {
             @Override

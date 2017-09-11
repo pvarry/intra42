@@ -20,6 +20,9 @@ public class ProjectsActivity extends BasicTabActivity
         activeHamburger();
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
         super.onCreate(savedInstanceState);
+
+        if (!app.userIsLogged())
+            finish();
     }
 
     @Override

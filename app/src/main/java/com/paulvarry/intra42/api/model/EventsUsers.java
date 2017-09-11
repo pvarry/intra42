@@ -34,6 +34,9 @@ public class EventsUsers {
 
     public static SparseArray<EventsUsers> get(AppClass app, ApiService apiService, List<Events> events) throws IOException {
 
+        if (app == null || app.me == null)
+            return null;
+
         String eventsId;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             StringJoiner join = new StringJoiner(",");
