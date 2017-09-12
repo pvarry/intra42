@@ -113,17 +113,13 @@ public class UserProjectsFragment
                     if (response.isSuccessful())
                         galaxy.setData(response.body());
                     else {
-                        Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
-                        List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
-                        galaxy.setData(list);
+                        setGalaxyNoData();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<ProjectDataIntra>> call, Throwable t) {
-                    Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
-                    List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
-                    galaxy.setData(list);
+                    setGalaxyNoData();
                 }
             });
             galaxy.setState("loading");
@@ -132,6 +128,13 @@ public class UserProjectsFragment
         galaxy.setOnProjectClickListener(this);
         listView.setOnItemClickListener(this);
         listViewAll.setOnItemClickListener(this);
+    }
+
+    void setGalaxyNoData() {
+        if (!isAdded() || isDetached()) return;
+        Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+        List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+        galaxy.setData(list);
     }
 
     void setViewHide() {

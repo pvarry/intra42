@@ -195,6 +195,13 @@ public class UserOverviewFragment
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setView();
+    }
+
     void setView() {
 
         if (activity == null || activity.user == null || isDetached() || !isAdded())

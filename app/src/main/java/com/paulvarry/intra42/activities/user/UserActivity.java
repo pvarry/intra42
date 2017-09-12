@@ -257,7 +257,11 @@ public class UserActivity extends BasicTabActivity
 
     @Override
     protected void setViewContent() {
-        super.setViewContent();
+
+        if (user == null)
+            setViewError();
+        else
+            super.setViewContent();
 
         if (user != null && user.local_cachedAt != null) {
             Calendar calendar = Calendar.getInstance();
@@ -290,6 +294,8 @@ public class UserActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
+
+
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
         adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));

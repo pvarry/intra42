@@ -129,10 +129,11 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
                     } else
                         break;
                 } else
-                    break;
+                    return StatusCode.ERROR;
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return StatusCode.ERROR;
         }
 
         locations = new HashMap<>();
