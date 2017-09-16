@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 
 import com.paulvarry.intra42.activities.user.UserProjectsFragment;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +46,26 @@ public class CustomViewPager extends ViewPager {
     }
 
     boolean canSwipe() {
-        ViewPagerAdapter adapter = (ViewPagerAdapter) getAdapter();
-        int c = getCurrentItem();
-        List<String> title = adapter.getPageTitle();
+        Fragment fragment;
+        String item;
+        int currentItem = getCurrentItem();
 
-        if (title.size() <= c)
-            return enabled;
+        if (getAdapter() instanceof ViewStatePagerAdapter) {
+            ViewStatePagerAdapter adapter = (ViewStatePagerAdapter) getAdapter();
 
-        String item = title.get(c);
+            List<String> title = adapter.getPageTitle();
+            item = title.get(currentItem);
 
-        Fragment fragment = adapter.getItem(getCurrentItem());
+            fragment = adapter.getItem(currentItem);
+        } else {
+            ViewPagerAdapter adapter = (ViewPagerAdapter) getAdapter();
+
+            List<String> title = adapter.getPageTitle();
+            item = title.get(currentItem);
+
+            fragment = adapter.getItem(currentItem);
+        }
+
         if (fragment instanceof UserProjectsFragment) {
             return ((UserProjectsFragment) fragment).canSwipe();
         }
