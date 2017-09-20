@@ -242,7 +242,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
     private void onDelete() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.delete);
-        builder.setMessage(R.string.are_you_sure_to_delete_message);
+        builder.setMessage(R.string.forum_confirmation_delete_message);
         builder.setCancelable(true);
 
         // Set up the buttons
@@ -283,7 +283,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
     private void onReply() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.reply);
+        builder.setTitle(R.string.forum_reply);
 
         // Set up the input
         final EditText input = new EditText(getContext());
@@ -292,7 +292,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                 InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE |
                 InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
         input.setSingleLine(false);
-        input.setHint(R.string.message);
+        input.setHint(R.string.forum_message_hint);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -344,7 +344,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
     private void onEdit(final String str) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.edit_message);
+        builder.setTitle(R.string.forum_message_edit);
 
         // Set up the input
         final EditText input = new EditText(getContext());

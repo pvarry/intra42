@@ -121,7 +121,7 @@ public class NewTopicActivity extends AppCompatActivity {
         spinnerLanguage.setAdapter(new LanguageAdapter());
 
         if (editExistingTopic) {
-            setTitle(R.string.edit_topic);
+            setTitle(R.string.forum_topic_edit_button);
             editTextTitle.setText(topic.name);
             editTextContent.setText(topic.message.content.markdown);
 
@@ -218,9 +218,9 @@ public class NewTopicActivity extends AppCompatActivity {
 
     public void buttonActionTopic(View view) {
         if (editTextTitle.getText().toString().isEmpty())
-            editTextTitle.setError(getString(R.string.empty));
+            editTextTitle.setError(getString(R.string.forum_topic_error_empty));
         if (editTextContent.getText().toString().isEmpty())
-            editTextContent.setError(getString(R.string.empty));
+            editTextContent.setError(getString(R.string.forum_topic_error_empty));
 
         if (!editTextTitle.getText().toString().isEmpty() &&
                 !editTextContent.getText().toString().isEmpty() &&

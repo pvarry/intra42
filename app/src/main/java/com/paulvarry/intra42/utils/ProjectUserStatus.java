@@ -68,9 +68,9 @@ public class ProjectUserStatus {
         if (finalMark != null)
             textView.setText(String.valueOf(finalMark));
         else
-            textView.setText(R.string.no_scale);
+            textView.setText(R.string.project_no_scale);
         if (validated == null) {
-            textView.setText(R.string.no_scale);
+            textView.setText(R.string.project_no_scale);
         } else if (validated) {
 //            Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_check_black_24dp, context.getTheme());
             Drawable drawable = AppCompatDrawableManager.get().getDrawable(context, R.drawable.ic_check_black_24dp);

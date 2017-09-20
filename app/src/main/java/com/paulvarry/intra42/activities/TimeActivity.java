@@ -85,7 +85,7 @@ public class TimeActivity extends BasicActivity implements BasicActivity.GetData
 
     @Override
     public String getToolbarName() {
-        return getString(R.string.time);
+        return getString(R.string.title_activity_time);
     }
 
     @Override

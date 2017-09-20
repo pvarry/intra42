@@ -69,7 +69,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/mobile" />
+                            android:text="@string/user_mobile_phone" />
                     </LinearLayout>
 
                     <ImageButton
@@ -136,7 +136,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/email" />
+                        android:text="@string/user_email" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -184,7 +184,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/location" />
+                        android:text="@string/user_location" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -217,7 +217,7 @@
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
                     android:paddingStart="@dimen/user_inline_stat"
-                    android:text="@string/wallet"
+                    android:text="@string/user_wallet"
                     android:textColor="#333" />
 
                 <TextView
@@ -252,7 +252,7 @@
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
                     android:paddingStart="@dimen/user_inline_stat"
-                    android:text="@string/correction_points"
+                    android:text="@string/user_correction_points"
                     android:textColor="#333" />
 
                 <TextView
@@ -289,7 +289,7 @@
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
                     android:paddingStart="@dimen/user_inline_stat"
-                    android:text="@string/pool"
+                    android:text="@string/user_pool"
                     android:textColor="#333" />
 
                 <TextView
@@ -359,7 +359,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/grade"
+                    android:text="@string/user_grade"
                     android:textColor="#333" />
 
                 <TextView
@@ -390,7 +390,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/level"
+                        android:text="@string/user_level"
                         android:textColor="#333" />
 
                     <TextView
@@ -430,7 +430,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date"
+                    android:text="@string/user_cursus_date"
                     android:textColor="#333" />
 
                 <TextView
@@ -449,7 +449,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="16dp"
-            android:text="@string/no_cursus_available"
+            android:text="@string/user_no_cursus_available"
             android:visibility="gone" />
     </android.support.v7.widget.CardView>
 

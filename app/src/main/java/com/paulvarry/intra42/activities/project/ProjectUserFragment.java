@@ -73,7 +73,7 @@ public class ProjectUserFragment extends Fragment {
             listView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
             if (activity.projectUser != null && activity.projectUser.user.status.equals(ProjectUserStatus.PARENT)) {
-                textView.setText(R.string.you_cant_have_mark_for_this_project);
+                textView.setText(R.string.project_you_cant_have_mark_for_this_project);
             }
         }
     }

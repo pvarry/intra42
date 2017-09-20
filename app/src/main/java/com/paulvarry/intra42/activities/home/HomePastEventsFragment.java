@@ -110,7 +110,7 @@ public class HomePastEventsFragment extends BasicFragmentCall<Events, ListAdapte
 
     @Override
     public String getEmptyMessage() {
-        return getString(R.string.no_event_found_for_your_campus_cursus);
+        return getString(R.string.event_nothing_found_for_your_campus_cursus);
     }
 
 

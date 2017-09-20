@@ -101,7 +101,7 @@ public class UserActivity extends BasicTabActivity
                 return true;
             }
 
-            final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.loading_please_wait), true);
+            final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.info_loading_please_wait), true);
             ApiService s = app.getApiService();
 
             Call<Users> call = s.getUser(login);
@@ -152,7 +152,7 @@ public class UserActivity extends BasicTabActivity
     }
 
     public static void openLocation(final Context context, String location, final AppClass app) {
-        final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.loading_please_wait), true);
+        final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.info_loading_please_wait), true);
         ApiService s = app.getApiService();
 
         Call<List<Locations>> call = s.getLocationsHost(location);
@@ -291,15 +291,15 @@ public class UserActivity extends BasicTabActivity
     @Override
     public void setupViewPager(ViewPager viewPager) {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
-        adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));
-        adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.tab_user_projects));
+        adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.title_tab_user_overview));
+        adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.title_tab_user_forum));
+        adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.title_tab_user_projects));
 //        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
 //        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
-        adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.tab_user_expertises));
-        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achievements));
-        adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.tab_user_skills));
-        adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.tab_user_partnerships));
+        adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.title_tab_user_expertises));
+        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.title_tab_user_achievements));
+        adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.title_tab_user_skills));
+        adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.title_tab_user_partnerships));
 
         if (AppSettings.Advanced.getAllowAdvancedData(this)) {
             adapter.addFragment(UserAppsFragment.newInstance(), "Apps");
@@ -307,7 +307,7 @@ public class UserActivity extends BasicTabActivity
 
         viewPager.setAdapter(adapter);
 
-        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.tab_user_projects));
+        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.title_tab_user_projects));
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override

@@ -102,8 +102,8 @@ public class TagsActivity
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(TagsProjectsFragment.newInstance(), getString(R.string.tab_tags_projects));
-        adapter.addFragment(TagsForumFragment.newInstance(), getString(R.string.tab_tags_forum));
-        adapter.addFragment(TagsNotionsFragment.newInstance(), getString(R.string.tab_tags_notions));
+        adapter.addFragment(TagsForumFragment.newInstance(), getString(R.string.title_tab_tags_forum));
+        adapter.addFragment(TagsNotionsFragment.newInstance(), getString(R.string.title_tab_tags_notions));
         viewPager.setAdapter(adapter);
     }
 

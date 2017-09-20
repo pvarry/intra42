@@ -48,11 +48,11 @@ public class AboutActivity extends BasicActivity {
         List<Item> list = new ArrayList<>();
         Item item;
 
-        item = new Item(getString(R.string.activity_about_content), null);
+        item = new Item(getString(R.string.about_content), null);
         list.add(item);
 
         String str = BuildConfig.VERSION_NAME + " (" + String.valueOf(BuildConfig.VERSION_CODE) + ")";
-        item = new Item(str, getString(R.string.version));
+        item = new Item(str, getString(R.string.about_version));
         list.add(item);
 
         item = new Item("View source", "on Github");

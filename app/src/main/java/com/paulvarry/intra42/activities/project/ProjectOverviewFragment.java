@@ -158,7 +158,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         if (projectUser == null) { // register
             if (session != null && !session.isSubscribable) {
                 linearLayoutStatus.setVisibility(View.VISIBLE);
-                textViewStatus.setText(getString(R.string.forbidden));
+                textViewStatus.setText(getString(R.string.project_forbidden_to_open));
                 textViewStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
             } else {
                 frameLayoutRegister.setVisibility(View.VISIBLE);
@@ -174,7 +174,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 textViewFinalMark.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
         } else if (projectUser.status.equals(ProjectUserStatus.FINISHED)) {
             linearLayoutStatus.setVisibility(View.VISIBLE);
-            textViewStatus.setText(R.string.no_scale);
+            textViewStatus.setText(R.string.project_no_scale);
         } else if (projectUser.status.equals(ProjectUserStatus.PARENT)) {
             frameLayoutStatus.setVisibility(View.GONE);
         } else {
@@ -185,7 +185,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         if (session == null && project.sessionsList != null && project.sessionsList.size() != 0) {
             linearLayoutSession.setVisibility(View.VISIBLE);
             viewSessionLine.setVisibility(View.VISIBLE);
-            tvSession.setText(R.string.no_session_found_for_this_cursus_campus);
+            tvSession.setText(R.string.project_no_session_found_for_this_cursus_campus);
         } else if (session == null || session.endAt == null) {
             linearLayoutSession.setVisibility(View.GONE);
             viewSessionLine.setVisibility(View.GONE);
@@ -193,7 +193,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             linearLayoutSession.setVisibility(View.VISIBLE);
             viewSessionLine.setVisibility(View.VISIBLE);
             if (DateTool.isInPast(session.endAt))
-                tvSessionTitle.setText(R.string.past_session);
+                tvSessionTitle.setText(R.string.project_past_session);
             String s = DateTool.getDateTimeLong(session.beginAt) + " - " + DateTool.getDateTimeLong(session.endAt);
             tvSession.setText(s);
         }
@@ -251,9 +251,9 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             if (scales != null) {
                 info += separator + scales.correctionNumber;
                 if (scales.correctionNumber > 1)
-                    info += " " + getContext().getString(R.string.corrections);
+                    info += " " + getContext().getString(R.string.project_evaluation_plural);
                 else
-                    info += " " + getContext().getString(R.string.correction);
+                    info += " " + getContext().getString(R.string.project_evaluation);
             }
 
             List<ProjectsSessions.Uploads> uploads = session.uploads;
@@ -261,9 +261,9 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 info += separator + " ";
 
                 if (uploads.size() > 1)
-                    info += getContext().getString(R.string.automatic_corrections);
+                    info += getContext().getString(R.string.project_automatic_corrections);
                 else
-                    info += getContext().getString(R.string.automatic_correction);
+                    info += getContext().getString(R.string.project_automatic_correction);
 
                 info += ": ";
                 StringBuilder tmp = new StringBuilder();

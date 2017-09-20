@@ -38,8 +38,8 @@ public class NotionsActivity
 
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(NotionsAllFragment.newInstance(), getString(R.string.tab_elearning_all));
-        adapter.addFragment(NotionsTagFragment.newInstance(), getString(R.string.tab_elearning_tags));
+        adapter.addFragment(NotionsAllFragment.newInstance(), getString(R.string.title_tab_elearning_all));
+        adapter.addFragment(NotionsTagFragment.newInstance(), getString(R.string.title_tab_elearning_tags));
         viewPager.setAdapter(adapter);
     }
 

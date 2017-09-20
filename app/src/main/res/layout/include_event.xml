@@ -165,7 +165,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/subscribe" />
+                android:text="@string/event_subscribe" />
         </LinearLayout>
 
         <LinearLayout
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/check_your_registration"
+                android:text="@string/event_check_registration"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 tools:textSize="12sp" />
         </LinearLayout>

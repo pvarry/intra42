@@ -28,11 +28,11 @@ public class ProjectsActivity extends BasicTabActivity
     @Override
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(ProjectsGraphFragment.newInstance(), getString(R.string.tab_projects_graphic));
-        adapter.addFragment(ProjectsDoingFragment.newInstance(), getString(R.string.tab_projects_doing));
-        adapter.addFragment(ProjectsAllFragment.newInstance(), getString(R.string.tab_projects_all));
+        adapter.addFragment(ProjectsGraphFragment.newInstance(), getString(R.string.title_tab_projects_graphic));
+        adapter.addFragment(ProjectsDoingFragment.newInstance(), getString(R.string.title_tab_projects_doing));
+        adapter.addFragment(ProjectsAllFragment.newInstance(), getString(R.string.title_tab_projects_all));
         viewPager.setAdapter(adapter);
-        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.tab_projects_graphic));
+        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.title_tab_projects_graphic));
     }
 
     @Nullable
@@ -43,7 +43,7 @@ public class ProjectsActivity extends BasicTabActivity
 
     @Override
     public String getToolbarName() {
-        return getString(R.string.projects);
+        return getString(R.string.title_activity_projects);
     }
 
     /**

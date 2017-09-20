@@ -92,7 +92,7 @@ public class ListAdapterScaleTeamsAutomatic extends BaseAdapter {
 
         TeamsUploads item = getItem(position);
 
-        holder.textViewCorrector.setText(R.string.moulinette);
+        holder.textViewCorrector.setText(R.string.project_moulinette);
         holder.textViewScale.setText(String.valueOf(item.finalMark));
         holder.textViewComment.setText(item.comment);
         holder.linearLayoutFeedback.setVisibility(View.GONE);

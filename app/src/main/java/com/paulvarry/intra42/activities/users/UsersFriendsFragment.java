@@ -56,7 +56,7 @@ public class UsersFriendsFragment
             if (messages == null) {
                 setViewHide();
                 constraintLayoutError.setVisibility(View.VISIBLE);
-                textViewError.setText(R.string.nothing_to_show);
+                textViewError.setText(R.string.info_nothing_to_show);
             } else {
                 list = new ArrayList<>();
                 Set<String> s = messages.keySet();
@@ -86,7 +86,7 @@ public class UsersFriendsFragment
 
             setViewHide();
             constraintLayoutError.setVisibility(View.VISIBLE);
-            textViewError.setText(R.string.network_error);
+            textViewError.setText(R.string.info_network_error);
         }
     };
 
@@ -144,7 +144,7 @@ public class UsersFriendsFragment
         if (list == null || list.isEmpty()) {
             constraintLayoutError.setVisibility(View.VISIBLE);
             listView.setAdapter(null);
-            textViewError.setText(R.string.nothing_to_show);
+            textViewError.setText(R.string.info_nothing_to_show);
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             GridAdapterUsers adapter = new GridAdapterUsers(getContext(), list);
@@ -201,7 +201,7 @@ public class UsersFriendsFragment
         else {
             setViewHide();
             constraintLayoutError.setVisibility(View.VISIBLE);
-            textViewError.setText(R.string.auth_error);
+            textViewError.setText(R.string.oauth_error);
         }
     }
 
@@ -215,9 +215,9 @@ public class UsersFriendsFragment
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         final UsersLTE user = list.get(position);
-        String[] items = {getString(R.string.remove_from_friends), getString(R.string.view_profile)};
+        String[] items = {getString(R.string.friend_remove_user), getString(R.string.friend_view_profile)};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getString(R.string.choose_action_colon) + user.login);
+        builder.setTitle(getString(R.string.dialog_choose_action_colon) + user.login);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

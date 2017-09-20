@@ -50,7 +50,7 @@ public class UsersActivity
 //        adapter.addFragment(UsersSearchFragment.newInstance(), getString(R.string.tab_users_search));
 //        if (AppSettings.Advanced.getAllowFriends(this))
 //            adapter.addFragment(UsersFriendsFragment.newInstance(), getString(R.string.tab_users_friends));
-        adapter.addFragment(UsersAllFragment.newInstance(), getString(R.string.tab_users_all));
+        adapter.addFragment(UsersAllFragment.newInstance(), getString(R.string.title_tab_users_all));
 //        adapter.addFragment(UsersAdvancedFragment.newInstance(), getString(R.string.tab_users_advanced_search));
         viewPager.setAdapter(adapter);
     }

@@ -203,7 +203,7 @@ public class AppClass extends Application {
 
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
         if (refreshStatus != null)
-            refreshStatus.update("Get cache …", "current user", 1, 6);
+            refreshStatus.update(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
 
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = Users.me(api);
@@ -221,13 +221,13 @@ public class AppClass extends Application {
             initFirebase();
 
             if (refreshStatus != null)
-                refreshStatus.update(null, "cursus", 1, 6);
+                refreshStatus.update(null, getString(R.string.cursus), 1, 6);
             CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
             if (refreshStatus != null)
-                refreshStatus.update(null, "campus", 2, 6);
+                refreshStatus.update(null, getString(R.string.campus), 2, 6);
             CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
             if (refreshStatus != null)
-                refreshStatus.update(null, "tags", 3, 6);
+                refreshStatus.update(null, getString(R.string.tags), 3, 6);
             CacheTags.getAllowInternet(cacheSQLiteHelper, this);
             if (refreshStatus != null)
                 refreshStatus.update(null, "finishing", 6, 6);

@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/official_app"
+                android:text="@string/user_app_official"
                 app:tagColor="@color/colorSuccess" />
 
         </LinearLayout>
@@ -57,7 +57,7 @@
         <TextView
             android:id="@+id/textViewBack"
             style="@style/AppTheme.BigTextBackground"
-            android:text="@string/apps_private"
+            android:text="@string/profile_apps_private"
             android:textSize="60sp" />
     </FrameLayout>
 

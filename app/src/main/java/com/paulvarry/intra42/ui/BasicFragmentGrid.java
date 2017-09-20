@@ -52,7 +52,7 @@ public abstract class BasicFragmentGrid<T, ADAPTER extends BaseAdapter>
         if (list == null || list.isEmpty()) {
             listView.setAdapter(null);
             textView.setVisibility(View.VISIBLE);
-            textView.setText(R.string.nothing_to_show);
+            textView.setText(R.string.info_nothing_to_show);
         } else {
             if (adapter == null) {
                 adapter = generateAdapter(list);

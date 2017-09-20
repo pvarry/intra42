@@ -115,9 +115,9 @@ public class Topics implements BaseItem {
 
             List<Kind> list = new ArrayList<>();
 
-            list.add(new Kind("annonce", context.getString(R.string.topics_kind_announce)));
+            list.add(new Kind("annonce", context.getString(R.string.forum_topics_kind_announce)));
             list.add(new Kind("survey", context.getString(R.string.topics_kind_survey)));
-            list.add(new Kind("question", context.getString(R.string.topics_kind_question)));
+            list.add(new Kind("question", context.getString(R.string.forum_topics_kind_question)));
 
             return list;
 

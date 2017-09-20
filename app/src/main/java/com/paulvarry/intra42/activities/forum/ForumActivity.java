@@ -33,7 +33,7 @@ public class ForumActivity extends BasicTabActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(ForumUnreadFragment.newInstance(), "Unread");
         adapter.addFragment(ForumLastTopicsFragment.newInstance(), "Last topics");
-        adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.tag));
+        adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.title_activity_tag));
         viewPager.setAdapter(adapter);
 
         fabBaseActivity.setVisibility(View.VISIBLE);
@@ -43,7 +43,7 @@ public class ForumActivity extends BasicTabActivity
 
     @Override
     public String getToolbarName() {
-        return getString(R.string.forum);
+        return getString(R.string.navigation_forum);
     }
 
     /**

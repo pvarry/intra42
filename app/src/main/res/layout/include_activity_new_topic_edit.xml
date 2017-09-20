@@ -34,7 +34,7 @@
         android:id="@+id/completion_view_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/tags" />
+        android:hint="@string/forum_tags" />
 
     <com.paulvarry.intra42.adapters.CompletionViewCursus
         android:id="@+id/completion_view_cursus"
@@ -52,7 +52,7 @@
             android:id="@+id/editTextContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/content"
+            android:hint="@string/forum_topic_content"
             android:inputType="textMultiLine" />
     </android.support.design.widget.TextInputLayout>
 

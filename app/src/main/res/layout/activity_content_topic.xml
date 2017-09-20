@@ -55,7 +55,7 @@
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/buttonReply"
                     android:layout_toStartOf="@+id/buttonReply"
-                    android:hint="@string/reply"
+                    android:hint="@string/forum_reply"
                     android:inputType="textMultiLine|textCapSentences|textAutoComplete|textAutoCorrect" />
 
                 <ImageButton

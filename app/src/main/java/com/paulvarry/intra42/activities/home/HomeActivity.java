@@ -66,12 +66,12 @@ public class HomeActivity extends BasicTabActivity
     @Override
     public void setupViewPager(ViewPager viewPager) {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(HomeFragment.newInstance(), getString(R.string.tab_home_home));
-        adapter.addFragment(HomeEventsFragment.newInstance(), getString(R.string.tab_home_agenda));
-        adapter.addFragment(HomeSlotsFragment.newInstance(), getString(R.string.tab_home_slots));
-        adapter.addFragment(HomeCorrectionsFragment.newInstance(), getString(R.string.tab_home_corrections));
+        adapter.addFragment(HomeFragment.newInstance(), getString(R.string.title_tab_home_home));
+        adapter.addFragment(HomeEventsFragment.newInstance(), getString(R.string.title_tab_home_agenda));
+        adapter.addFragment(HomeSlotsFragment.newInstance(), getString(R.string.title_tab_home_slots));
+        adapter.addFragment(HomeCorrectionsFragment.newInstance(), getString(R.string.title_tab_home_evaluation));
         if (AppSettings.Advanced.getAllowPastEvents(this))
-            adapter.addFragment(HomePastEventsFragment.newInstance(), getString(R.string.tab_home_past_events));
+            adapter.addFragment(HomePastEventsFragment.newInstance(), getString(R.string.title_tab_home_past_events));
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {

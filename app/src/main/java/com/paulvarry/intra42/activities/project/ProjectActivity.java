@@ -184,20 +184,20 @@ public class ProjectActivity extends BasicTabActivity
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         if (projectUser != null && projectUser.project != null) {
-            adapter.addFragment(ProjectOverviewFragment.newInstance(), getString(R.string.tab_project_overview));
+            adapter.addFragment(ProjectOverviewFragment.newInstance(), getString(R.string.title_tab_project_overview));
             if (projectUser.user != null && projectUser.user.user != null) {
                 String user;
                 if (projectUser.user.user.equals(app.me))
-                    user = getString(R.string.tab_project_me);
+                    user = getString(R.string.title_tab_project_me);
                 else
                     user = projectUser.user.user.login;
                 adapter.addFragment(ProjectUserFragment.newInstance(), user);
             }
             if (projectUser.project.children != null && !projectUser.project.children.isEmpty())
-                adapter.addFragment(ProjectSubFragment.newInstance(), getString(R.string.sub_projects));
+                adapter.addFragment(ProjectSubFragment.newInstance(), getString(R.string.project_sub_projects));
             if (projectUser.project != null && projectUser.project.attachments != null && !projectUser.project.attachments.isEmpty())
-                adapter.addFragment(ProjectAttachmentsFragment.newInstance(), getString(R.string.tab_project_attachments));
-            adapter.addFragment(ProjectUsersListFragment.newInstance(), getString(R.string.tab_project_users));
+                adapter.addFragment(ProjectAttachmentsFragment.newInstance(), getString(R.string.title_tab_project_attachments));
+            adapter.addFragment(ProjectUsersListFragment.newInstance(), getString(R.string.title_tab_project_users));
         } else
             Toast.makeText(ProjectActivity.this, "You not allowed", Toast.LENGTH_SHORT).show();
         viewPager.setAdapter(adapter);

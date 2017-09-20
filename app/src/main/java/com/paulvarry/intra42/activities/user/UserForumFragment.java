@@ -99,7 +99,7 @@ public class UserForumFragment extends BasicFragmentCall<Topics, ListAdapterTopi
         if (!isAdded())
             return null;
         AppClass app = (AppClass) activity.getApplication();
-        String user = getString(R.string.you);
+        String user = getString(R.string.forum_you);
         if (activity != null && activity.user != null && (app == null || app.me == null || !app.me.equals(activity.user)))
             user = activity.user.login;
         return String.format(getString(R.string.format__dont_have_write_topic), user);

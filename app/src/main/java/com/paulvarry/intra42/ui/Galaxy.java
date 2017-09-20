@@ -311,7 +311,7 @@ public class Galaxy extends View {
 
         if ((data != null && data.isEmpty()) || data == null) {
             data = null;
-            state = getContext().getString(R.string.no_galaxy);
+            state = getContext().getString(R.string.galaxy_not_found);
 
             mPaintText.setColor(colorProjectTextAvailable);
             mPaintText.setTextSize(50 * mScaleFactor);

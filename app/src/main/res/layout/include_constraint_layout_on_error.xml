@@ -32,7 +32,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="@string/nothing_to_show"
+        android:text="@string/info_nothing_to_show"
         wheel:layout_constraintLeft_toLeftOf="parent"
         wheel:layout_constraintRight_toRightOf="parent"
         wheel:layout_constraintTop_toBottomOf="@+id/buttonRefresh" />

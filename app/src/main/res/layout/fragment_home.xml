@@ -69,7 +69,7 @@
                                 android:paddingLeft="0dp"
                                 android:paddingRight="8dp"
                                 android:paddingStart="0dp"
-                                android:text="@string/name"
+                                android:text="@string/user_name"
                                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
                             <ImageButton
@@ -111,7 +111,7 @@
                                     android:paddingLeft="@dimen/user_inline_stat"
                                     android:paddingRight="0dp"
                                     android:paddingStart="@dimen/user_inline_stat"
-                                    android:text="@string/wallet"
+                                    android:text="@string/user_wallet"
                                     android:textColor="@color/textColorBlackDisabled" />
 
                                 <TextView
@@ -134,7 +134,7 @@
                                     android:paddingLeft="@dimen/user_inline_stat"
                                     android:paddingRight="0dp"
                                     android:paddingStart="@dimen/user_inline_stat"
-                                    android:text="@string/correction_points"
+                                    android:text="@string/user_correction_points"
                                     android:textColor="@color/textColorBlackDisabled" />
 
                                 <TextView
@@ -198,7 +198,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/friends" />
+                            android:text="@string/title_activity_friends" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -223,7 +223,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/time_on_campus" />
+                            android:text="@string/navigation_time_on_campus" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -248,7 +248,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cluster_map" />
+                            android:text="@string/navigation_cluster_map" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -273,7 +273,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cantina_menu" />
+                            android:text="@string/cantina_menu_fremont_only" />
                     </LinearLayout>
                 </LinearLayout>
 

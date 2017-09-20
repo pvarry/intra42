@@ -72,7 +72,7 @@ public class UserAchievementsFragment extends Fragment {
         if (activity.user == null || activity.user.achievements == null || activity.user.achievements.size() == 0) {
             textViewStatus.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            textViewStatus.setText(R.string.no_achievements);
+            textViewStatus.setText(R.string.user_no_achievements);
         } else {
             textViewStatus.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);

@@ -1,8 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name" translatable="false">Intra 42</string>
+    <string name="app_name">Intra 42</string>
 
 
     <!-- - - - - - - - - - - Strings related to Settings - - - - - - - - - - -->
+
+    <string name="pref_advanced_dont_force">Disable (don\'t force)</string>
+    <string name="pref_force_content_location">Force content location</string>
+    <string name="pref_title_beta_allow">Allow advanced preferences</string>
+    <string name="pref_title_notifications_announcements">Notify announcements</string>
+    <string name="pref_unactivated">Unactivated</string>
+    <string name="pref_activated">Activated</string>
+    <string name="pref_value_all">All</string>
 
     <!-- Example General settings -->
 
@@ -179,110 +187,123 @@
     </string-array>
 
     <string-array name="alert_friends_open_long_click">
-        <item>@string/remove_from_friends</item>
-        <item>@string/view_profile</item>
+        <item>@string/friend_remove_user</item>
+        <item>@string/friend_view_profile</item>
     </string-array>
     <string-array name="alert_friends_open_long_click_location">
-        <item>@string/remove_from_friends</item>
-        <item>@string/view_profile</item>
-        <item>@string/view_on_cluster_map</item>
+        <item>@string/friend_remove_user</item>
+        <item>@string/friend_view_profile</item>
+        <item>@string/user_view_on_cluster_map</item>
     </string-array>
 
 
-    <!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->
-
-    <string name="menu_drawer_about">About</string>
-    <string name="forum_about_this_message">About message</string>
-    <string name="icon_achievement_example" translatable="false">achievement icon example</string>
-    <string name="menu_action_open_intra">Show web version</string>
-    <string name="menu_action_settings">Settings</string>
-    <string name="menu_action_user_add_friends">Add/Remove to friends</string>
-    <string name="menu_action_user_add_to_home">Add to home screen</string>
-    <string name="settings_activated">Activated</string>
-    <string name="activity_about_content">Access your intra with a native app.\nContact me on Slack or mail (pvarry)</string>
-    <string name="settings_value_all">All</string>
-
-    <!-- Need to be renamed -->
-
-    <string name="apps_private">private</string>
-    <string name="are_you_sure_to_delete_message">Are you sure to delete this message ?</string>
-    <string name="are_you_sure_to_delete_this_slot">Are you sure to delete this slot with a booked scale ?\nYou will lose a correction point</string>
-    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
-    <string name="auth_error">Authentication error</string>
-    <string name="automatic_correction">Automatic evaluation</string>
-    <string name="automatic_corrections">Automatic evaluations</string>
-    <string name="availability_is_not_checked">Availability is not checked</string>
-    <string name="available">Available</string>
     <string name="base_url_intra_forum" translatable="false">https://forum.intra.42.fr/</string>
     <string name="base_url_intra_profile" translatable="false">https://profile.intra.42.fr/</string>
-    <string name="booked_slot">Booked slot</string>
-    <string name="bookings">bookings</string>
+    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
+
+    <!-- - - - - - - - - - - Strings with format - - - - - - - - - - -->
+
     <string name="bookings_corrected_by">Your _project_\'s will be reviewed at _date_.</string>
     <string name="bookings_corrected_by_login">Your _project_\'s will be reviewed by _login_ at _date_.</string>
     <string name="bookings_correct_login">You will review _login_\'s project at _date_.</string>
     <string name="bookings_correct_somebody">You will review somebody\'s code at _date_.</string>
-    <string name="bookings_title_imminent">Imminent evaluation</string>
-    <string name="bookings_title_new">You have a new booking</string>
-    <string name="calling">calling …</string>
-    <string name="calling_users_1_1">calling users 1/1</string>
-    <string name="campus">Campus</string>
-    <string name="cancel">Cancel</string>
-    <string name="cantina_menu">Cantina Menu</string>
-    <string name="check_your_registration">Checking your registration</string>
-    <string name="choose_action_colon">"Choose action: "</string>
-    <string name="closed">closed</string>
-    <string name="cluster_map">Cluster Map</string>
-    <string name="content">Content</string>
-    <string name="copied">Copied</string>
-    <string name="copy">Copy</string>
-    <string name="corrected_by">Corrected by</string>
-    <string name="correction">evaluation</string>
-    <string name="corrections">evaluations</string>
-    <string name="correction_points">Correction points</string>
-    <string name="correct__someone">Corrects</string>
-    <string name="create">Create</string>
-    <string name="created">Created</string>
-    <string name="created_at">Created at</string>
-    <string name="cursus">Cursus</string>
-    <string name="date">Date</string>
-    <string name="delete">Delete</string>
-    <string name="deleted">Deleted</string>
-    <string name="Deleted">Deleted</string>
-    <string name="delete_message">Delete Message</string>
-    <string name="delete_this_slot">Delete this slot</string>
-    <string name="delete_topic">Delete Topic</string>
-    <string name="description">Description</string>
-    <string name="disable_dont_force">Disable (don\'t force)</string>
-    <string name="discard_edition">Discard</string>
-    <string name="done">Done</string>
-    <string name="edit">Edit</string>
-    <string name="edit_expertise">Edit Expertise</string>
-    <string name="edit_expertises">Edit Expertises</string>
-    <string name="edit_message">Edit message</string>
-    <string name="edit_topic">Edit Topic</string>
-    <string name="elearning">Elearning</string>
-    <string name="email">Email</string>
-    <string name="empty">empty</string>
-    <string name="english">English</string>
-    <string name="error">error</string>
-    <string name="error_on_loading_this_page">Error on loading this page</string>
-    <string name="error_on_open_this_element">Error on open this element</string>
-    <string name="event_full">Full</string>
-    <string name="failed">Failed</string>
-    <string name="filter">filter</string>
-    <string name="forbidden">forbidden</string>
-    <string name="force_content_location">Force content location</string>
     <string name="format_dont_have_any_expertise_yet">%s don\'t have any expertise yet</string>
     <string name="format__dont_have_write_topic">%s don\'t have write any topic yet</string>
     <string name="format__host_s_history">%s\'s history</string>
-    <string name="forum">Forum</string>
-    <string name="french">French</string>
-    <string name="friends">Friends</string>
-    <string name="galaxy">Galaxy</string>
-    <string name="git_repository">Git repository for this team</string>
-    <string name="grade">Grade</string>
-    <string name="home">Home</string>
+
+    <!-- - - - - - - - - - - Basic Words - - - - - - - - - - -->
+
+    <string name="campus">Campus</string>
+    <string name="cursus">Cursus</string>
+    <string name="cancel">Cancel</string>
+    <string name="copied">Copied</string>
+    <string name="copy">Copy</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+    <string name="error">error</string>
+    <string name="ok">OK</string>
+    <string name="open_this">Open this</string>
+    <string name="save">Save</string>
+    <string name="soon">Soon</string>
+    <string name="sort_by">Sort by</string>
+    <string name="refresh">Refresh</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="value">Value</string>
+    <string name="tags">Tags</string>
+
+
+    <!-- - - - - - - - - - - Strings related to shortcuts - - - - - - - - - - -->
+
+    <string name="shortcut_friends">Friends</string>
+    <string name="shortcut_long_friends">Friends list</string>
+    <string name="shortcut_cluster_map">Cluster map</string>
+    <string name="shortcut_long_cluster_map">Clusters map</string>
+    <string name="shortcut_galaxy">Galaxy</string>
+    <string name="shortcut_long_galaxy">Galaxy</string>
+
+
+    <!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->
+
+    <string name="about_content">Access your intra with a native app.\nContact me on Slack or mail (pvarry)</string>
+    <string name="about_version">Version</string>
+    <string name="cantina_menu_fremont_only">Cantina Menu</string>
+    <string name="dialog_choose_action_colon">"Choose action: "</string>
+    <string name="elearning_select_file_to_open">Select file to open</string>
+    <string name="elearning_title">Elearning</string>
+    <string name="evaluation_correct_someone">Corrects</string>
+    <string name="evaluation_corrected_by">Corrected by</string>
+    <string name="evaluation_on_project">on</string>
+    <string name="evaluation_slot_begin_at">Begin at</string>
+    <string name="evaluation_slot_create">Create</string>
+    <string name="evaluation_slot_delete_button">Delete this slot</string>
+    <string name="evaluation_slot_deleted">Deleted</string>
+    <string name="evaluation_slot_end_at">End at</string>
+    <string name="evaluation_slot_modify">Modify slot</string>
+    <string name="evaluation_slot_new">New slot</string>
+    <string name="evaluation_slot_start_before_end">In this space-time, start must be before end</string>
+    <string name="evaluation_slot_success">successful</string>
+    <string name="evaluation_someone">someone</string>
+    <string name="evaluation_with">With</string>
+    <string name="evaluations_booked_slot">Booked slot</string>
+    <string name="evaluations_confirmation_delete_booked_slot">Are you sure to delete this slot with a booked scale ?\nYou will lose a correction point</string>
+    <string name="event_check_registration">Checking your registration</string>
+    <string name="event_full">Full</string>
+    <string name="event_nothing_found_for_your_campus_cursus">No event found for your campus/cursus</string>
+    <string name="event_subscribe">Subscribe</string>
+    <string name="event_subscribed">Subscribed</string>
+    <string name="event_subscription_unavailable">Subscription unavailable</string>
+    <string name="event_unsubscribe">Unsubscribe</string>
+    <string name="event_unsubscribed">Unsubscribed</string>
+    <string name="forum_about_this_message">About message</string>
+    <string name="forum_confirmation_delete_message">Are you sure to delete this message ?</string>
+    <string name="forum_created_at">Created at</string>
+    <string name="forum_delete_message">Delete Message</string>
+    <string name="forum_delete_topic">Delete Topic</string>
+    <string name="forum_message_edit">Edit message</string>
+    <string name="forum_message_hint">Message</string>
+    <string name="forum_readings">Readings</string>
+    <string name="forum_reply">Reply</string>
+    <string name="forum_tags">Tags</string>
+    <string name="forum_topic_content">Content</string>
+    <string name="forum_topic_edit_button">Edit Topic</string>
+    <string name="forum_topic_edit_title">Edit Topic</string>
+    <string name="forum_topic_error_empty">empty</string>
+    <string name="forum_topics_kind_announce">Announce</string>
+    <string name="forum_topics_kind_question">Question</string>
+    <string name="forum_updated_at">Updated at</string>
+    <string name="forum_you">you</string>
+    <string name="friend_remove_user">Remove from friends</string>
+    <string name="friend_view_profile">View profile</string>
+    <string name="galaxy_available">Available</string>
+    <string name="galaxy_failed">Failed</string>
+    <string name="galaxy_in_progress">in progress</string>
+    <string name="galaxy_not_found">No Galaxy available</string>
+    <string name="galaxy_succeeded">Succeeded</string>
+    <string name="galaxy_unavailable">Unavailable</string>
+    <string name="galaxy_unknown_state">Unknown state</string>
     <string name="icon" translatable="false">icon</string>
+    <string name="icon_achievement_example" translatable="false">achievement icon example</string>
     <string name="icon_copy" translatable="false">Copy icon</string>
     <string name="icon_cursus" translatable="false">Cursus icon</string>
     <string name="icon_delete" translatable="false">Delete Icon</string>
@@ -307,56 +328,73 @@
     <string name="icon_star" translatable="false">star icon</string>
     <string name="icon_status" translatable="false">Status icon</string>
     <string name="icon_time" translatable="false">Time icon</string>
-    <string name="info">Info</string>
-    <string name="initializing">Initializing</string>
-    <string name="interested">Interested:</string>
-    <string name="in_progress">in progress</string>
-    <string name="level">Level</string>
-    <string name="loading_please_wait">Loading. Please wait…</string>
-    <string name="location">Location</string>
-    <string name="login" translatable="false">Login</string>
-    <string name="login_student_42_fr" translatable="false">login@student.42.fr</string>
-    <string name="logout">Logout</string>
-    <string name="main_activity_loading">loading …</string>
-    <string name="message">Message</string>
-    <string name="mobile">Mobile</string>
-    <string name="modify_slot">Modify slot</string>
-    <string name="moulinette" translatable="false">Moulinette</string>
-    <string name="name">Name</string>
+    <string name="info_api_request_users_1_1">calling users 1/1</string>
+    <string name="info_api_requesting">calling …</string>
+    <string name="info_error_on_loading_this_page">Error on loading this page</string>
+    <string name="info_initializing">Initializing</string>
+    <string name="info_loading">loading …</string>
+    <string name="info_loading_please_wait">Loading. Please wait…</string>
+    <string name="info_network_error">Network error</string>
+    <string name="info_network_no_internet">unable to connect to internet</string>
+    <string name="info_nothing_to_show">Nothing to show</string>
+    <string name="language_english">English</string>
+    <string name="language_french">French</string>
+    <string name="language_romanian">Romanian</string>
+    <string name="language_ukrainian">Ukrainian</string>
+    <string name="login_open_browser">Open Web browser</string>
+    <string name="login_open_browser_to_login">You need to sign in</string>
+    <string name="login_unofficial_intra" translatable="false">Unofficial intra</string>
+    <string name="login_view_sources">View sources</string>
+    <string name="menu_action_filter">filter</string>
+    <string name="menu_action_open_intra">Show web version</string>
+    <string name="menu_action_search">Search</string>
+    <string name="menu_action_settings">Settings</string>
+    <string name="menu_action_share">Share</string>
+    <string name="menu_action_user_add_friends">Add/Remove to friends</string>
+    <string name="menu_action_user_add_to_home">Add to home screen</string>
+    <string name="navigation_cluster_map">Cluster Map</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="nav_header_action">Actions</string>
-    <string name="network_error">Network error</string>
-    <string name="new_expertise">Add new expertise</string>
-    <string name="new_slot">New slot</string>
-    <string name="new_topic">New topic</string>
-    <string name="nothing_found">Nothing found</string>
-    <string name="nothing_to_show">Nothing to show</string>
-    <string name="notifications_announcements_sub_text">announcements</string>
+    <string name="navigation_forum">Forum</string>
+    <string name="navigation_header_action">Actions</string>
+    <string name="navigation_header_info">Info</string>
+    <string name="navigation_header_tools">Tools</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_logout">Logout</string>
+    <string name="navigation_place_holder_email" translatable="false">login@student.42.fr</string>
+    <string name="navigation_place_holder_login" translatable="false">Login</string>
+    <string name="navigation_settings">Settings</string>
+    <string name="navigation_share">Share</string>
+    <string name="navigation_time_on_campus">Time on campus</string>
     <string name="notification_auto_clear">auto close in 5s</string>
+    <string name="notification_bookings_title_imminent">Imminent evaluation</string>
+    <string name="notification_bookings_title_new">You have a new booking</string>
     <string name="notification_see_project">see project</string>
     <string name="notification_see_user">see user</string>
-    <string name="not_registered">not registered</string>
-    <string name="no_achievements">No achievement</string>
-    <string name="no_cursus_available">No cursus available</string>
-    <string name="no_event_found_for_your_campus_cursus">No event found for your campus/cursus</string>
-    <string name="no_scale">No scale</string>
-    <string name="no_session_found_for_this_cursus_campus">No session found for selected cursus/campus</string>
-    <string name="no_slots">No slots</string>
-    <string name="objectives">Objectives</string>
-    <string name="official_app">Official App</string>
-    <string name="ok">OK</string>
-    <string name="on">on</string>
-    <string name="open_chrome">Open Web browser</string>
-    <string name="open_chrome_to_connect_with_42_api">You need to sign in</string>
-    <string name="open_this">Open this</string>
-    <string name="past_session">Past session</string>
-    <string name="peer_corrections">Peer evaluations</string>
-    <string name="pool">Piscine</string>
-    <string name="pref_title_beta_allow">Allow advanced preferences</string>
-    <string name="pref_title_notifications_announcements">Notify announcements</string>
-    <string name="project">Project</string>
-    <string name="projects">Projects</string>
+    <string name="notifications_announcements_sub_text">announcements</string>
+    <string name="oauth_error">Authentication error</string>
+    <string name="profile_apps_private">private</string>
+    <string name="project_automatic_correction">Automatic evaluation</string>
+    <string name="project_automatic_corrections">Automatic evaluations</string>
+    <string name="project_availability_is_not_checked">Availability is not checked</string>
+    <string name="project_available">Available</string>
+    <string name="project_description">Description</string>
+    <string name="project_evaluation">evaluation</string>
+    <string name="project_evaluation_plural">evaluations</string>
+    <string name="project_forbidden_to_open">forbidden</string>
+    <string name="project_git_repository">Git repository for this team</string>
+    <string name="project_list_user_team">Users in this team</string>
+    <string name="project_moulinette" translatable="false">Moulinette</string>
+    <string name="project_no_scale">No scale</string>
+    <string name="project_no_session_found_for_this_cursus_campus">No session found for selected cursus/campus</string>
+    <string name="project_objectives">Objectives</string>
+    <string name="project_past_session">Past session</string>
+    <string name="project_peer_corrections">Peer evaluations</string>
+    <string name="project_register">Register</string>
+    <string name="project_session">Session</string>
+    <string name="project_show_mine">Go Mine</string>
+    <string name="project_skills">Skills</string>
+    <string name="project_sub_projects">Sub</string>
     <string name="project_user_status_creating_group">creating group</string>
     <string name="project_user_status_finished">finished</string>
     <string name="project_user_status_in_progress">in progress</string>
@@ -365,18 +403,9 @@
     <string name="project_user_status_unknown">unknown</string>
     <string name="project_user_status_waiting_for_correction">waiting for evaluations</string>
     <string name="project_user_status_waiting_to_start">waiting to start</string>
-    <string name="readings">Readings</string>
-    <string name="refresh">Refresh</string>
-    <string name="register">Register</string>
-    <string name="remove_from_friends">Remove from friends</string>
-    <string name="reply">Reply</string>
-    <string name="romanian">Romanian</string>
-    <string name="save">Save</string>
-    <string name="scale">scale</string>
-    <string name="scales">scales</string>
-    <string name="search">Search</string>
-    <string name="searching">Searching …</string>
+    <string name="project_you_cant_have_mark_for_this_project">You can\'t have mark for this project</string>
     <string name="search_by">Search by</string>
+    <string name="search_error_on_open_this_element">Error on opening this element</string>
     <string name="search_hint">hint</string>
     <string name="search_on_projects">Searching on projects</string>
     <string name="search_on_topics">Searching on topics</string>
@@ -384,100 +413,89 @@
     <string name="search_section_projects">projects</string>
     <string name="search_section_topics">topics</string>
     <string name="search_section_users">users</string>
-    <string name="select_file_to_open">Select file to open</string>
-    <string name="session">Session</string>
-    <string name="share">Share</string>
+    <string name="searching">Searching …</string>
     <string name="share_using">Share using</string>
     <string name="showcaseview_user_project_galaxy">You can change the content of this view.</string>
     <string name="showcaseview_user_project_galaxy_title">GOT IT</string>
-    <string name="show_mine">Go Mine</string>
-    <string name="skills">Skills</string>
-    <string name="slots_begin_at">Begin at</string>
-    <string name="slots_end_at">End at</string>
-    <string name="slots_start_must_be_before_end">In this space-time, start must be before end</string>
-    <string name="someone">someone</string>
-    <string name="soon">Soon</string>
-    <string name="sort_by">Sort by</string>
-    <string name="subscribe">Subscribe</string>
-    <string name="subscribed">Subscribed</string>
-    <string name="subscription_unavailable">Subscription unavailable</string>
-    <string name="sub_projects">Sub</string>
-    <string name="succeeded">Succeeded</string>
-    <string name="success">successful</string>
-    <string name="tab_elearning_all">All</string>
-    <string name="tab_elearning_tags">Tags</string>
-    <string name="tab_home_agenda">Agenda</string>
-    <string name="tab_home_corrections">Evaluations</string>
-    <string name="tab_home_home">Home</string>
-    <string name="tab_home_past_events">Past events</string>
-    <string name="tab_home_slots">Slots</string>
-    <string name="tab_projects_all">All</string>
-    <string name="tab_projects_doing">Doing</string>
-    <string name="tab_projects_graphic">Galaxy</string>
-    <string name="tab_project_attachments">Attachments</string>
-    <string name="tab_project_me">Me</string>
-    <string name="tab_project_overview">Overview</string>
-    <string name="tab_project_users">Users</string>
-    <string name="tab_tags_forum">Forum</string>
-    <string name="tab_tags_notions">Notions</string>
-    <string name="tab_tags_projects">Projects</string>
-    <string name="tab_users_advanced_search">Advanced Search</string>
-    <string name="tab_users_all">All</string>
-    <string name="tab_users_friends">Friends</string>
-    <string name="tab_users_search">Search</string>
-    <string name="tab_user_achievements">Achievements</string>
-    <string name="tab_user_expertises">Expertises</string>
-    <string name="tab_user_forum">Forum</string>
-    <string name="tab_user_marks">Marks</string>
-    <string name="tab_user_overview">Overview</string>
-    <string name="tab_user_partnerships">Partnerships</string>
-    <string name="tab_user_projects">Projects</string>
-    <string name="tab_user_skills">Skills</string>
-    <string name="tag">Tag</string>
-    <string name="tags">Tags</string>
-    <string name="time">Time</string>
-    <string name="time_on_campus">Time on campus</string>
     <string name="time_zone_error">Time zone error</string>
     <string name="title">Title</string>
+    <string name="title_activity_about">About</string>
     <string name="title_activity_cantina_menu">Cantina Menu (Fremont)</string>
     <string name="title_activity_cluster_map">Cluster Map</string>
     <string name="title_activity_elearning" translatable="false">Elearning</string>
     <string name="title_activity_event">Event</string>
+    <string name="title_activity_forum_new_topic">New topic</string>
+    <string name="title_activity_friends">Friends</string>
+    <string name="title_activity_library_list">Library list</string>
+    <string name="title_activity_project">Project</string>
+    <string name="title_activity_projects">Projects</string>
+    <string name="title_activity_search">Search</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="today">Today</string>
-    <string name="tomorrow">Tomorrow</string>
-    <string name="tools">Tools</string>
-    <string name="topics_kind_announce">Announce</string>
-    <string name="topics_kind_question">Question</string>
+    <string name="title_activity_sub_notion">Sub notion</string>
+    <string name="title_activity_tag">Tag</string>
+    <string name="title_activity_time">Time</string>
+    <string name="title_activity_topic">Topic</string>
+    <string name="title_activity_user">User</string>
+    <string name="title_activity_user_location_history">Location History</string>
+    <string name="title_activity_users">Users</string>
+    <string name="title_tab_elearning_all">All</string>
+    <string name="title_tab_elearning_tags">Tags</string>
+    <string name="title_tab_home_agenda">Agenda</string>
+    <string name="title_tab_home_evaluation">Evaluations</string>
+    <string name="title_tab_home_home">Home</string>
+    <string name="title_tab_home_past_events">Past events</string>
+    <string name="title_tab_home_slots">Slots</string>
+    <string name="title_tab_project_attachments">Attachments</string>
+    <string name="title_tab_project_me">Me</string>
+    <string name="title_tab_project_overview">Overview</string>
+    <string name="title_tab_project_users">Users</string>
+    <string name="title_tab_projects_all">All</string>
+    <string name="title_tab_projects_doing">Doing</string>
+    <string name="title_tab_projects_graphic">Galaxy</string>
+    <string name="title_tab_tags_forum">Forum</string>
+    <string name="title_tab_tags_notions">Notions</string>
+    <string name="title_tab_tags_projects">Projects</string>
+    <string name="title_tab_user_achievements">Achievements</string>
+    <string name="title_tab_user_expertises">Expertises</string>
+    <string name="title_tab_user_forum">Forum</string>
+    <string name="title_tab_user_marks">Marks</string>
+    <string name="title_tab_user_overview">Overview</string>
+    <string name="title_tab_user_partnerships">Partnerships</string>
+    <string name="title_tab_user_projects">Projects</string>
+    <string name="title_tab_user_skills">Skills</string>
+    <string name="title_tab_users_advanced_search">Advanced Search</string>
+    <string name="title_tab_users_all">All</string>
+    <string name="title_tab_users_friends">Friends</string>
+    <string name="title_tab_users_search">Search</string>
     <string name="topics_kind_survey">Survey</string>
-    <string name="ukrainian">Ukrainian</string>
-    <string name="unable_to_connect_to_internet">unable to connect to internet</string>
-    <string name="unactivated">Unactivated</string>
-    <string name="unavailable">Unavailable</string>
-    <string name="unknown">Unknown</string>
-    <string name="unknown_state">Unknown state</string>
-    <string name="unofficial_intra" translatable="false">Unofficial intra</string>
-    <string name="unsubscribe">Unsubscribe</string>
-    <string name="unsubscribed">Unsubscribed</string>
-    <string name="update">Update</string>
-    <string name="updated_at">Updated at</string>
-    <string name="user">User</string>
-    <string name="users">Users</string>
-    <string name="user_in_this_team">Users in this team</string>
-    <string name="user_profile_image" translatable="false">user profile image</string>
-    <string name="value">Value</string>
-    <string name="version">Version</string>
-    <string name="view_on_cluster_map">View on ClusterMap</string>
-    <string name="view_profile">View profile</string>
-    <string name="view_sources">View sources</string>
-    <string name="wallet" translatable="false">Wallet</string>
-    <string name="with">With</string>
-    <string name="you">you</string>
-    <string name="you_cant_have_mark_for_this_project">You can\'t have mark for this project</string>
-    <string name="you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
-    <string name="user_overview_cursus_date_not_start_not_finised">Not begun and finish yet</string>
-    <string name="user_overview_cursus_date_not_start">Not begun yet</string>
+    <string name="user_app_official">Official App</string>
+    <string name="user_correction_points">Correction points</string>
+    <string name="user_cursus_date">Date</string>
+    <string name="user_email">Email</string>
+    <string name="user_expertise_deleted">Deleted</string>
+    <string name="user_expertise_discard">Discard</string>
+    <string name="user_expertise_edit">Edit Expertise</string>
+    <string name="user_expertise_edit_plural">Edit Expertises</string>
+    <string name="user_expertise_interested">Interested:</string>
+    <string name="user_expertise_new">Add new expertise</string>
+    <string name="user_grade">Grade</string>
+    <string name="user_level">Level</string>
+    <string name="user_location">Location</string>
+    <string name="user_mobile_phone">Mobile</string>
+    <string name="user_name">Name</string>
+    <string name="user_no_achievements">No achievement</string>
+    <string name="user_no_cursus_available">No cursus available</string>
     <string name="user_overview_cursus_date_not_finished">Not finished yet</string>
-    <string name="no_galaxy">No Galaxy available</string>
+    <string name="user_overview_cursus_date_not_start">Not begun yet</string>
+    <string name="user_overview_cursus_date_not_start_not_finised">Not begun and finish yet</string>
+    <string name="user_pool">Piscine</string>
+    <string name="user_profile_image" translatable="false">user profile image</string>
+    <string name="user_unavailable">Unavailable</string>
+    <string name="user_view_on_cluster_map">View on ClusterMap</string>
+    <string name="user_wallet" translatable="false">Wallet</string>
+    <string name="user_you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
+    <string name="info_loading_cache">Get cache …</string>
+    <string name="info_loading_current_user">current user</string>
+    <string name="evaluation_user_nothing">you have no correction</string>
 
 </resources>

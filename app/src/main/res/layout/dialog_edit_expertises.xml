@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/interested"/>
+                android:text="@string/user_expertise_interested" />
 
             <CheckBox
                 android:id="@+id/checkboxInterested"
@@ -62,7 +62,7 @@
             style="?android:borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/discard_edition"
+            android:text="@string/user_expertise_discard"
             android:textColor="@color/colorAccent"/>
 
         <Button

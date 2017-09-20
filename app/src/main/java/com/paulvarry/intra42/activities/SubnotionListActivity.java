@@ -213,7 +213,7 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.select_file_to_open);
+            builder.setTitle(R.string.elearning_select_file_to_open);
             builder.setItems(items, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int item) {
                     // Do something with the selection

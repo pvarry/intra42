@@ -101,7 +101,7 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, Li
 
         String login = activity.login;
         if (app.me != null && app.me.id == activity.user.id)
-            return getString(R.string.you_dont_have_any_expertise_yet);
+            return getString(R.string.user_you_dont_have_any_expertise_yet);
         return String.format(getString(R.string.format_dont_have_any_expertise_yet), login);
     }
 

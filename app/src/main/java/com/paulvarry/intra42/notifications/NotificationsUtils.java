@@ -106,11 +106,11 @@ public class NotificationsUtils {
             PendingIntent intentAction = PendingIntent.getService(context, 1000000 + events.id, notificationIntentAction, PendingIntent.FLAG_UPDATE_CURRENT);
 
             if (eventsUsers == null) {
-                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.subscribe), intentAction);
+                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.event_subscribe), intentAction);
             } else if (!events.beginAt.after(new Date()))
-                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.unsubscribe), null);
+                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.event_unsubscribe), null);
             else
-                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.unsubscribe), intentAction);
+                notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.event_unsubscribe), intentAction);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -133,9 +133,9 @@ public class NotificationsUtils {
         Integer projectsAction = null;
 
         if (imminentCorrection)
-            title = app.getString(R.string.bookings_title_imminent);
+            title = app.getString(R.string.notification_bookings_title_imminent);
         else
-            title = app.getString(R.string.bookings_title_new);
+            title = app.getString(R.string.notification_bookings_title_new);
 
         String text = "";
         if (scaleTeams.corrector != null && scaleTeams.corrector.equals(app.me)) { // i'm the corrector

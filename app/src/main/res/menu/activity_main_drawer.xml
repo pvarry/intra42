@@ -5,27 +5,27 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24px"
-            android:title="@string/home"/>
+            android:title="@string/navigation_home" />
         <item
             android:id="@+id/nav_users"
             android:icon="@drawable/ic_person_black_24dp"
-            android:title="@string/users"/>
+            android:title="@string/title_activity_users" />
         <item
             android:id="@+id/nav_projects"
             android:icon="@drawable/ic_class_black_24px"
-            android:title="@string/projects"/>
+            android:title="@string/title_activity_projects" />
         <item
             android:id="@+id/nav_forum"
             android:icon="@drawable/ic_forum_black_24px"
-            android:title="@string/forum"/>
+            android:title="@string/navigation_forum" />
         <item
             android:id="@+id/nav_elearning"
             android:icon="@drawable/ic_videocam_black_24dp"
-            android:title="@string/elearning"/>
+            android:title="@string/elearning_title" />
 
     </group>
 
-    <item android:title="@string/tools">
+    <item android:title="@string/navigation_header_tools">
         <menu>
             <group
                 android:id="@+id/group_tools"
@@ -34,27 +34,27 @@
                 <item
                     android:id="@+id/nav_friends"
                     android:icon="@drawable/ic_people_black_24dp"
-                    android:title="@string/friends"/>
+                    android:title="@string/title_activity_friends" />
 
                 <item
                     android:id="@+id/nav_time_on_campus"
                     android:icon="@drawable/ic_access_time_black_24dp"
-                    android:title="@string/time_on_campus"/>
+                    android:title="@string/navigation_time_on_campus" />
                 <item
                     android:id="@+id/nav_cluster_map"
                     android:icon="@drawable/ic_place_black_24dp"
-                    android:title="@string/cluster_map"/>
+                    android:title="@string/navigation_cluster_map" />
 
                 <item
                     android:id="@+id/nav_cantina_menu"
                     android:icon="@drawable/ic_restaurant_menu_black_24dp"
-                    android:title="@string/cantina_menu"/>
+                    android:title="@string/cantina_menu_fremont_only" />
 
             </group>
         </menu>
     </item>
 
-    <item android:title="@string/info">
+    <item android:title="@string/navigation_header_info">
         <menu>
             <group
                 android:id="@+id/group_action"
@@ -63,17 +63,17 @@
                 <item
                     android:id="@+id/nav_about"
                     android:icon="@drawable/ic_info_black_24dp"
-                    android:title="@string/menu_drawer_about" />
+                    android:title="@string/title_activity_about" />
                 <item
                     android:id="@+id/nav_share"
                     android:icon="@drawable/ic_share_black_24dp"
-                    android:title="@string/share"/>
+                    android:title="@string/navigation_share" />
 
             </group>
         </menu>
     </item>
 
-    <item android:title="@string/nav_header_action">
+    <item android:title="@string/navigation_header_action">
         <menu>
 
             <group android:id="@+id/group_log">
@@ -81,12 +81,12 @@
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_open_in_new_black_24dp"
-                    android:title="@string/logout"/>
+                    android:title="@string/navigation_logout" />
 
                 <item
                     android:id="@+id/nav_settings"
                     android:icon="@drawable/ic_settings_black_24dp"
-                    android:title="@string/menu_action_settings" />
+                    android:title="@string/navigation_settings" />
 
             </group>
         </menu>

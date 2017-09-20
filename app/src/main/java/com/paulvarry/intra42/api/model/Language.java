@@ -35,10 +35,10 @@ public class Language {
 
         List<Language> list = new ArrayList<>();
 
-        list.add(new Language(1, context.getString(R.string.french), "fr"));
-        list.add(new Language(2, context.getString(R.string.english), "en"));
-        list.add(new Language(3, context.getString(R.string.romanian), "ro"));
-        list.add(new Language(5, context.getString(R.string.ukrainian), "uk"));
+        list.add(new Language(1, context.getString(R.string.language_french), "fr"));
+        list.add(new Language(2, context.getString(R.string.language_english), "en"));
+        list.add(new Language(3, context.getString(R.string.language_romanian), "ro"));
+        list.add(new Language(5, context.getString(R.string.language_ukrainian), "uk"));
 
         return list;
 

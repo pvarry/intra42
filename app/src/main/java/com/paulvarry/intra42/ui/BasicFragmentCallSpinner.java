@@ -108,7 +108,7 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
         listSpinner = getSpinnerElemList();
         if (listSpinner == null) {
             textView.setVisibility(View.VISIBLE);
-            textView.setText(R.string.initializing);
+            textView.setText(R.string.info_initializing);
             new Thread(new Runnable() {
                 @Override
                 public void run() {

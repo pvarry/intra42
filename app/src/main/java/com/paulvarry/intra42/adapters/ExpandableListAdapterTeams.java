@@ -255,7 +255,7 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             }
         });
 
-        String peer_corrections = context.getResources().getString(R.string.peer_corrections);
+        String peer_corrections = context.getResources().getString(R.string.project_peer_corrections);
         if (team.scaleTeams != null && team.scaleTeams.size() != 0 && team.scaleTeams.get(0) != null && team.scaleTeams.get(0).scale != null)
             peer_corrections += " (" + String.valueOf(team.scaleTeams.size()) + "/" + team.scaleTeams.get(0).scale.correctionNumber + ")";
         holder.textViewPeerCorrection.setText(peer_corrections);

@@ -97,13 +97,13 @@ public class ListAdapterCorrections extends BaseAdapter {
         } else if (item.corrector != null && !item.corrector.isMe(activity.app))
             holder.textViewLogin.setText(item.corrector.login);
         else {
-            holder.textViewLogin.setText(R.string.someone);
+            holder.textViewLogin.setText(R.string.evaluation_someone);
         }
 
         if (item.corrector != null && item.corrector.isMe(activity.app))
-            holder.textViewWith.setText(R.string.correct__someone);
+            holder.textViewWith.setText(R.string.evaluation_correct_someone);
         else
-            holder.textViewWith.setText(R.string.corrected_by);
+            holder.textViewWith.setText(R.string.evaluation_corrected_by);
 
         if (item.scale != null && item.scale.name != null)
             holder.textViewProject.setText(item.scale.name);

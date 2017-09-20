@@ -223,7 +223,7 @@ public class UserOverviewFragment
         if (user.location != null) {
             strLocation.append(user.location);
         } else
-            strLocation.append(getString(R.string.unavailable));
+            strLocation.append(getString(R.string.user_unavailable));
         if (user.campus != null && !user.campus.isEmpty()) {
             strLocation.append(" - ");
             String sep = "";
@@ -424,7 +424,7 @@ public class UserOverviewFragment
                     } else
                         textViewDate.setVisibility(View.GONE);
                 } else if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), R.string.nothing_found, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.info_nothing_to_show, Toast.LENGTH_SHORT).show();
                     alertDialog.cancel();
                 } else {
                     Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
@@ -536,7 +536,7 @@ public class UserOverviewFragment
         final Context context = getContext();
         CharSequence action[] = new CharSequence[]{
                 context.getString(R.string.copy),
-                context.getString(R.string.share)};
+                context.getString(R.string.navigation_share)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(string);

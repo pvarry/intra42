@@ -32,7 +32,7 @@
 
     <PreferenceCategory
         android:dependency="switch_preference_advanced_allow_beta"
-        android:title="@string/force_content_location">
+        android:title="@string/pref_force_content_location">
 
         <ListPreference
             android:defaultValue="-1"

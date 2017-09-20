@@ -135,7 +135,7 @@ public class SuperSearch {
             } else
                 return false;
         } catch (NumberFormatException e) {
-            Toast.makeText(activity, activity.getString(R.string.error_on_open_this_element), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getString(R.string.search_error_on_open_this_element), Toast.LENGTH_SHORT).show();
         }
         return false;
     }

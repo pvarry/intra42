@@ -75,7 +75,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
 
                 setButtonSubscribe();
                 if (call.request().method().equals("DELETE"))
-                    Toast.makeText(getContext(), R.string.unsubscribed, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -102,7 +102,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
 
                 setButtonSubscribe();
                 if (call.request().method().equals("DELETE"))
-                    Toast.makeText(getContext(), R.string.unsubscribed, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -128,7 +128,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
             if (response.isSuccessful()) {
                 eventsUsers = response.body();
                 setButtonSubscribe();
-                Toast.makeText(getContext(), R.string.subscribed, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.event_subscribed, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -214,7 +214,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
 
         String people;
         if (event.maxPeople == 0)
-            people = getString(R.string.subscription_unavailable);
+            people = getString(R.string.event_subscription_unavailable);
         else
             people = String.valueOf(event.nbrSubscribers) + " / " + String.valueOf(event.maxPeople);
         textViewPeople.setText(people);
@@ -260,13 +260,13 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         if (eventsUsers == null) {
             if (DateTool.isInFuture(event.beginAt)) {
                 buttonSubscribe.setEnabled(true);
-                buttonSubscribe.setText(R.string.subscribe);
+                buttonSubscribe.setText(R.string.event_subscribe);
             } else {
                 buttonSubscribe.setEnabled(false);
-                buttonSubscribe.setText(R.string.subscription_unavailable);
+                buttonSubscribe.setText(R.string.event_subscription_unavailable);
             }
         } else {
-            buttonSubscribe.setText(R.string.unsubscribe);
+            buttonSubscribe.setText(R.string.event_unsubscribe);
             if (DateTool.isInFuture(event.beginAt))
                 buttonSubscribe.setEnabled(true);
             else
@@ -276,7 +276,7 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         if (eventsUsers == null && event.nbrSubscribers >= event.maxPeople) {
 
             if (event.maxPeople == 0)
-                buttonSubscribe.setText(R.string.subscription_unavailable);
+                buttonSubscribe.setText(R.string.event_subscription_unavailable);
             else
                 buttonSubscribe.setText(R.string.event_full);
             buttonSubscribe.setEnabled(false);

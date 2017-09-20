@@ -334,7 +334,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
             visibilityGoneAll();
             constraintLayoutLoading.setVisibility(View.VISIBLE);
-            textViewLoading.setText(R.string.calling);
+            textViewLoading.setText(R.string.info_api_requesting);
             buttonApiOpen.setVisibility(View.GONE);
 
             String URL = split[1];

@@ -347,7 +347,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
         String empty = getEmptyText();
         if (empty == null || empty.isEmpty())
-            empty = getString(R.string.nothing_to_show);
+            empty = getString(R.string.info_nothing_to_show);
 
         setViewError(allowRefresh, empty);
     }
@@ -383,7 +383,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         constraintOnError.setVisibility(View.VISIBLE);
 
         if (errorText == null)
-            errorText = getString(R.string.error_on_loading_this_page);
+            errorText = getString(R.string.info_error_on_loading_this_page);
         textViewError.setText(errorText);
 
         if (allowRefresh) {

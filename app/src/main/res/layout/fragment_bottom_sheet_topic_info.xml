@@ -218,7 +218,7 @@
             android:drawableLeft="@drawable/ic_share_black_24dp"
             android:drawableStart="@drawable/ic_share_black_24dp"
             android:drawableTint="#838383"
-            android:text="@string/share" />
+            android:text="@string/navigation_share" />
 
         <View
             android:layout_width="match_parent"
@@ -231,7 +231,7 @@
             android:drawableLeft="@drawable/ic_reply_black_24dp"
             android:drawableStart="@drawable/ic_reply_black_24dp"
             android:drawableTint="#838383"
-            android:text="@string/reply" />
+            android:text="@string/forum_reply" />
 
         <View
             android:layout_width="match_parent"
@@ -244,7 +244,7 @@
             android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
             android:drawableStart="@drawable/ic_mode_edit_black_24dp"
             android:drawableTint="#838383"
-            android:text="@string/edit_message" />
+            android:text="@string/forum_message_edit" />
 
         <View
             android:id="@+id/viewEdit"
@@ -258,7 +258,7 @@
             android:drawableLeft="@drawable/ic_delete_black_24dp"
             android:drawableStart="@drawable/ic_delete_black_24dp"
             android:drawableTint="#e53935"
-            android:text="@string/delete_message" />
+            android:text="@string/forum_delete_message" />
 
         <View
             android:id="@+id/viewDelete"
@@ -310,7 +310,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/created_at"
+                        android:text="@string/forum_created_at"
                         android:textColor="@color/colorGrayDark" />
 
                     <TextView
@@ -324,7 +324,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/updated_at"
+                        android:text="@string/forum_updated_at"
                         android:textColor="@color/colorGrayDark" />
 
                     <TextView
@@ -344,7 +344,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/readings"
+                        android:text="@string/forum_readings"
                         android:textColor="@color/colorGrayDark" />
 
                     <TextView

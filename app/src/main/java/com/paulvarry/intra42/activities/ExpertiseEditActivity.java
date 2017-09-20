@@ -61,7 +61,7 @@ public class ExpertiseEditActivity extends BasicActivity implements View.OnClick
 
     @Override
     public String getToolbarName() {
-        return getString(R.string.edit_expertises);
+        return getString(R.string.user_expertise_edit_plural);
     }
 
     @Override
@@ -137,9 +137,9 @@ public class ExpertiseEditActivity extends BasicActivity implements View.OnClick
         buttonCreate = dialog.findViewById(R.id.buttonCreate);
 
         if (expertisesUsers == null)
-            textViewTitle.setText(R.string.new_expertise);
+            textViewTitle.setText(R.string.user_expertise_new);
         else
-            textViewTitle.setText(R.string.edit_expertise);
+            textViewTitle.setText(R.string.user_expertise_edit);
 
         final SpinnerAdapterExpertises adapter = new SpinnerAdapterExpertises(this, expertisesList);
         spinnerExpertises.setAdapter(adapter);
@@ -206,7 +206,7 @@ public class ExpertiseEditActivity extends BasicActivity implements View.OnClick
             @Override
             public void onResponse(Call<Expertises> call, Response<Expertises> response) {
                 if (response.isSuccessful())
-                    Toast.makeText(ExpertiseEditActivity.this, R.string.deleted, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ExpertiseEditActivity.this, R.string.user_expertise_deleted, Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(ExpertiseEditActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 ExpertiseEditActivity.this.refresh();

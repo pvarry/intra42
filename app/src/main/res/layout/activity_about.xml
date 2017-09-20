@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
-        android:text="@string/unofficial_intra" />
+        android:text="@string/login_unofficial_intra" />
 
     <ListView
         android:id="@+id/listView"

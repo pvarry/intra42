@@ -82,17 +82,17 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
 
         String state;
         if (projectData.state == null)
-            state = getString(R.string.unknown_state);
+            state = getString(R.string.galaxy_unknown_state);
         else if (projectData.state == ProjectDataIntra.State.DONE)
-            state = getString(R.string.succeeded);
+            state = getString(R.string.galaxy_succeeded);
         else if (projectData.state == ProjectDataIntra.State.FAIL)
-            state = getString(R.string.failed);
+            state = getString(R.string.galaxy_failed);
         else if (projectData.state == ProjectDataIntra.State.IN_PROGRESS)
-            state = getString(R.string.in_progress);
+            state = getString(R.string.galaxy_in_progress);
         else if (projectData.state == ProjectDataIntra.State.AVAILABLE)
-            state = getString(R.string.available);
+            state = getString(R.string.galaxy_available);
         else if (projectData.state == ProjectDataIntra.State.UNAVAILABLE)
-            state = getString(R.string.unavailable);
+            state = getString(R.string.galaxy_unavailable);
         else
             state = projectData.state.toString();
 

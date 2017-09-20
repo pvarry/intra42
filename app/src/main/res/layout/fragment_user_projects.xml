@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:background="#fff"
         android:gravity="center"
-        android:text="@string/nothing_to_show"
+        android:text="@string/info_nothing_to_show"
         android:visibility="gone" />
 
 </FrameLayout>

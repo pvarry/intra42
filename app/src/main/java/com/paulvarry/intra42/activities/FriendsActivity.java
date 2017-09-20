@@ -216,7 +216,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             res = R.array.alert_friends_open_long_click;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.choose_action_colon) + user.login);
+        builder.setTitle(getString(R.string.dialog_choose_action_colon) + user.login);
         builder.setItems(res, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

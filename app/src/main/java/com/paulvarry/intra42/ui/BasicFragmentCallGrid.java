@@ -144,7 +144,7 @@ public abstract class BasicFragmentCallGrid<T, ADAPTER extends BaseAdapter> exte
 
     private void addItems() {
 
-        textViewStatus.setText(R.string.calling_users_1_1);
+        textViewStatus.setText(R.string.info_api_request_users_1_1);
 
         ApiService apiService = ((AppClass) getActivity().getApplication()).getApiService();
         Call<List<T>> call = getCall(apiService, list);

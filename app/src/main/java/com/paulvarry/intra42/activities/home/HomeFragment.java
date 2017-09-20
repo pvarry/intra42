@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
 
                 progressBarLevel.setProgress((int) (mainCursus.level / 21.0 * 100.0));
                 StringBuilder lvl = new StringBuilder();
-                lvl.append(getContext().getString(R.string.level)).append(": ").append(mainCursus.level);
+                lvl.append(getContext().getString(R.string.user_level)).append(": ").append(mainCursus.level);
                 textViewLevel.setText(lvl);
 
             } else {

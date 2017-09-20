@@ -20,7 +20,7 @@
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@+id/frameLayoutSearch"
             android:layout_toStartOf="@+id/frameLayoutSearch"
-            android:hint="@string/login"
+            android:hint="@string/navigation_place_holder_login"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textNoSuggestions|textVisiblePassword" />
 
@@ -37,7 +37,7 @@
                 android:id="@+id/buttonSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/search" />
+                android:text="@string/title_activity_search" />
 
             <TextView
                 android:id="@+id/textViewSearching"

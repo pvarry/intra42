@@ -57,7 +57,7 @@ public class UsersSearchFragment extends Fragment implements View.OnClickListene
                 final GridAdapterUsers adapter = new GridAdapterUsers(getActivity(), users);
                 gridViewUser.setAdapter(adapter);
             } else
-                Toast.makeText(getContext(), R.string.nothing_found, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.info_nothing_to_show, Toast.LENGTH_SHORT).show();
 
             buttonSearch.setVisibility(View.VISIBLE);
             textViewSearching.setVisibility(View.INVISIBLE);
