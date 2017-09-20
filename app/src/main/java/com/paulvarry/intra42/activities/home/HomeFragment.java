@@ -1,11 +1,14 @@
 package com.paulvarry.intra42.activities.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +57,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     private ProgressBar progressBarLevel;
     private TextView textViewLevel;
     private ImageButton imageButtonOpenProfile;
+    private CardView cardViewPOEditor;
     private HomeFragment fragment;
     private HomeActivity activity;
     private AppClass app;
@@ -106,6 +110,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         progressBarLevel = view.findViewById(R.id.progressBarLevel);
         textViewLevel = view.findViewById(R.id.textViewLevel);
         imageButtonOpenProfile = view.findViewById(R.id.imageButtonOpenProfile);
+        cardViewPOEditor = view.findViewById(R.id.cardViewPOEditor);
 
         linearLayoutContent.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -197,6 +202,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
             RequestCreator p = UserImage.getPicassoCorned(app, app.me);
             if (p != null)
                 p.into(imageViewProfile);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                cardViewPOEditor.setElevation(2);
+            cardViewPOEditor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://poeditor.com/join/project/hDRec5Vk8b"));
+                    startActivity(intent);
+                }
+            });
         }
         swipeRefreshLayout.setRefreshing(false);
         linearLayoutContent.setVisibility(View.VISIBLE);

@@ -164,7 +164,7 @@
     <string name="event_unsubscribe">Se désinscrire</string>
     <string name="event_unsubscribed">Désinscrit</string>
     <string name="pref_unactivated">Désactivé</string>
-    <string name="navigation_time_on_campus">Heure sur les campus</string>
+    <string name="navigation_time_on_campus">Heure dans campus</string>
     <string name="pref_activated">Activé</string>
     <string name="profile_apps_private">privé</string>
     <string name="evaluation_slot_end_at">Finit à</string>
@@ -277,4 +277,5 @@
     <string name="notifications_announcements_channel_name">Annonces</string>
     <string name="notifications_announcements_channel_description">Notification pour les annonces</string>
     <string name="app_name">Intra 42</string>
+    <string name="home_help_POEditor">Si vous trouvez des erreurs dans le texte ou si vous voulez participer à la traduction, vous pouvez le faire via le projet sur POEditor. Cliquer ici</string>
 </resources>

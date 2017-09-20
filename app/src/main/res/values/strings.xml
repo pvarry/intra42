@@ -12,24 +12,6 @@
     <string name="pref_activated">Activated</string>
     <string name="pref_value_all">All</string>
 
-    <!-- Example General settings -->
-
-    <string name="pref_title_social_recommendations" translatable="false">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations" translatable="false">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name" translatable="false">Display name</string>
-    <string name="pref_default_display_name" translatable="false">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages" translatable="false">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>All</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>0</item>
-    </string-array>
-
     <!-- Settings for Notifications -->
 
     <string name="pref_header_notifications">Notifications</string>
@@ -497,5 +479,6 @@
     <string name="info_loading_cache">Get cache …</string>
     <string name="info_loading_current_user">current user</string>
     <string name="evaluation_user_nothing">you have no correction</string>
+    <string name="home_help_POEditor">If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor. Click here</string>
 
 </resources>
