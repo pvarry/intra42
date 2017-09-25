@@ -116,6 +116,9 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
 
     private void addItems() {
 
+        if (isDetached())
+            return;
+
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {

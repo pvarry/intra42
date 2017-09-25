@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.utils.AppSettings;
@@ -47,7 +46,6 @@ public class NotificationsJobService extends JobService {
         // I am on the main thread, so if you need to do background work,
         // be sure to start up an AsyncTask, Thread, or IntentService!
 
-        Log.d("JobService", "test");
         new Thread(new Runnable() {
             @Override
             public void run() {

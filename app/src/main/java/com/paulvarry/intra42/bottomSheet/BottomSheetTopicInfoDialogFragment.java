@@ -371,10 +371,13 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                 call.enqueue(new Callback<Messages>() {
                     @Override
                     public void onResponse(Call<Messages> call, retrofit2.Response<Messages> response) {
+                        Context context = getContext();
+                        if (context == null)
+                            return;
                         if (response.isSuccessful())
-                            Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                         else
-                            Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

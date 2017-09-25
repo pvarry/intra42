@@ -48,7 +48,7 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
     @Nullable
     @Override
     public String getUrlIntra() {
-        return "cantina.42.us.org";
+        return "https://cantina.42.us.org/";
     }
 
     /**
