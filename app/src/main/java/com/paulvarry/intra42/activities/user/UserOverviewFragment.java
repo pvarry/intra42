@@ -70,11 +70,10 @@ public class UserOverviewFragment
     UserActivity activity;
     Users user;
     SwipeRefreshLayout swipeRefreshLayout;
-    LinearLayout linearLayoutMobile;
-    LinearLayout linearLayoutPhone;
+    ViewGroup layoutPhone;
     ImageButton imageButtonSMS;
-    LinearLayout relativeLayoutMail;
-    LinearLayout linearLayoutLocation;
+    ViewGroup layoutMail;
+    ViewGroup layoutLocation;
     ImageView imageViewProfile;
     ImageButton imageButtonFriends;
     ChipView chipViewTags;
@@ -158,11 +157,10 @@ public class UserOverviewFragment
         View view = inflater.inflate(R.layout.fragment_user_overview, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-        linearLayoutMobile = view.findViewById(R.id.linearLayoutMobile);
-        linearLayoutPhone = view.findViewById(R.id.linearLayoutPhone);
+        layoutPhone = view.findViewById(R.id.layoutPhone);
         imageButtonSMS = view.findViewById(R.id.imageButtonSMS);
-        relativeLayoutMail = view.findViewById(R.id.linearLayoutMail);
-        linearLayoutLocation = view.findViewById(R.id.linearLayoutLocation);
+        layoutMail = view.findViewById(R.id.layoutMail);
+        layoutLocation = view.findViewById(R.id.layoutLocation);
         imageViewProfile = view.findViewById(R.id.imageViewProfile);
         imageButtonFriends = view.findViewById(R.id.imageButtonFriends);
         chipViewTags = view.findViewById(R.id.chipViewTags);
@@ -214,7 +212,7 @@ public class UserOverviewFragment
         String name = user.displayName + " - " + user.login;
         textViewName.setText(name);
         if (user.phone == null || user.phone.isEmpty())
-            linearLayoutMobile.setVisibility(View.GONE);
+            layoutPhone.setVisibility(View.GONE);
         else
             textViewMobile.setText(user.phone);
         textViewMail.setText(user.email);
@@ -241,7 +239,7 @@ public class UserOverviewFragment
         textViewCorrectionPoints.setText(String.valueOf(user.correction_point));
 
         String pool = "";
-        if (user.pool_month != null)
+        if (user.pool_month != null && !user.pool_month.isEmpty())
             pool += user.pool_month.substring(0, 1).toUpperCase() + user.pool_month.substring(1) + " - ";
         if (user.pool_year != null)
             pool += user.pool_year;
@@ -254,15 +252,15 @@ public class UserOverviewFragment
             linePool.setVisibility(View.GONE);
         }
 
-        linearLayoutPhone.setOnClickListener(this);
+        layoutPhone.setOnClickListener(this);
         imageButtonSMS.setOnClickListener(this);
-        relativeLayoutMail.setOnClickListener(this);
-        linearLayoutLocation.setOnClickListener(this);
+        layoutMail.setOnClickListener(this);
+        layoutLocation.setOnClickListener(this);
 
-        linearLayoutPhone.setOnLongClickListener(this);
+        layoutPhone.setOnLongClickListener(this);
         imageButtonSMS.setOnLongClickListener(this);
-        relativeLayoutMail.setOnLongClickListener(this);
-        linearLayoutLocation.setOnLongClickListener(this);
+        layoutMail.setOnLongClickListener(this);
+        layoutLocation.setOnLongClickListener(this);
 
         CursusUsers selected = user.getCursusUsersToDisplay(getContext());
         if (selected != null && user.cursusUsers != null) {
@@ -335,7 +333,7 @@ public class UserOverviewFragment
 
     @Override
     public void onClick(View v) {
-        if (v == linearLayoutPhone) {
+        if (v == layoutPhone) {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + user.phone));
             getActivity().startActivity(intent);
@@ -343,12 +341,12 @@ public class UserOverviewFragment
             Intent sendIntent = new Intent(Intent.ACTION_VIEW);
             sendIntent.setData(Uri.parse("sms:" + user.phone));
             startActivity(sendIntent);
-        } else if (v == relativeLayoutMail) {
+        } else if (v == layoutMail) {
             Intent testIntent = new Intent(Intent.ACTION_VIEW);
             Uri data = Uri.parse("mailto:?to=" + user.email);
             testIntent.setData(data);
             startActivity(testIntent);
-        } else if (v == linearLayoutLocation) {
+        } else if (v == layoutLocation) {
             if (user.location == null)
                 seeLastLocation();
             else
@@ -519,13 +517,13 @@ public class UserOverviewFragment
     @Override
     public boolean onLongClick(View v) {
 
-        if (v == linearLayoutPhone)
+        if (v == layoutPhone)
             dialogCopyOrShare(user.phone);
         else if (v == imageButtonSMS)
             dialogCopyOrShare(user.phone);
-        else if (v == relativeLayoutMail)
+        else if (v == layoutMail)
             dialogCopyOrShare(user.email);
-        else if (v == linearLayoutLocation)
+        else if (v == layoutLocation)
             dialogCopyOrShare(user.location);
         else
             return false;
