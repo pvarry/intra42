@@ -90,11 +90,14 @@ public class ClusterMapFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        locations = activity.locations;
         gridLayout = view.findViewById(R.id.gridLayout);
-        makeMap();
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        locations = activity.locations;
+        makeMap();
     }
 
     void makeMap() {

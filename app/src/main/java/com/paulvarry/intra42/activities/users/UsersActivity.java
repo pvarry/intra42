@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
@@ -46,7 +46,7 @@ public class UsersActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(UsersSearchFragment.newInstance(), getString(R.string.tab_users_search));
 //        if (AppSettings.Advanced.getAllowFriends(this))
 //            adapter.addFragment(UsersFriendsFragment.newInstance(), getString(R.string.tab_users_friends));

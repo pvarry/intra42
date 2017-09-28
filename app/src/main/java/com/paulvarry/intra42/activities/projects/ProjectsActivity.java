@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.CustomViewPager;
@@ -27,7 +27,7 @@ public class ProjectsActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(ProjectsGraphFragment.newInstance(), getString(R.string.title_tab_projects_graphic));
         adapter.addFragment(ProjectsDoingFragment.newInstance(), getString(R.string.title_tab_projects_doing));
         adapter.addFragment(ProjectsAllFragment.newInstance(), getString(R.string.title_tab_projects_all));

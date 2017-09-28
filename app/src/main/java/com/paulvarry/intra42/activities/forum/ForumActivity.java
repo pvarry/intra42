@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.NewTopicActivity;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
@@ -30,7 +30,7 @@ public class ForumActivity extends BasicTabActivity
     }
 
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(ForumUnreadFragment.newInstance(), "Unread");
         adapter.addFragment(ForumLastTopicsFragment.newInstance(), "Last topics");
         adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.title_activity_tag));
