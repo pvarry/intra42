@@ -11,7 +11,7 @@
      dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
-        android:defaultValue="15"
+        android:defaultValue="60"
         android:dependency="notifications_allow"
         android:entries="@array/pref_notifications_frequency_titles"
         android:entryValues="@array/pref_notifications_frequency_values"
@@ -41,6 +41,7 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
+            android:enabled="false"
             android:key="check_box_preference_notifications_forum"
             android:title="@string/pref_title_notifications_forum" />
     </PreferenceCategory>

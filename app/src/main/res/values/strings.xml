@@ -31,12 +31,12 @@
 
     <string name="pref_title_notifications_frequency">Sync frequency</string>
     <string-array name="pref_notifications_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
+        <item>@string/pref_notifications_frequency_titles_15min</item>
+        <item>@string/pref_notifications_frequency_titles_30min</item>
+        <item>@string/pref_notifications_frequency_titles_1hour</item>
+        <item>@string/pref_notifications_frequency_titles_3hour</item>
+        <item>@string/pref_notifications_frequency_titles_6hour</item>
+        <item>@string/pref_notifications_frequency_titles_never</item>
     </string-array>
     <string-array name="pref_notifications_frequency_values">
         <item>15</item>
@@ -53,6 +53,13 @@
         <item>3</item>
     </string-array>
 
+    <string name="pref_notifications_frequency_titles_15min">15 minutes</string>
+    <string name="pref_notifications_frequency_titles_30min">30 minutes</string>
+    <string name="pref_notifications_frequency_titles_1hour">1 hour (default)</string>
+    <string name="pref_notifications_frequency_titles_3hour">3 hours</string>
+    <string name="pref_notifications_frequency_titles_6hour">6 hours</string>
+    <string name="pref_notifications_frequency_titles_never">Never</string>
+
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
     <!-- Settings for Network -->
@@ -64,11 +71,11 @@
     <string name="pref_title_network_over_wifi">Over wifi</string>
 
     <string-array name="list_preference_network_titles">
-        <item>Large (583×700)</item>
-        <item>Medium (292×350)</item>
-        <item>Default (200×240)</item>
-        <item>Small (146×175)</item>
-        <item>None</item>
+        <item>@string/list_preference_network_titles_large</item>
+        <item>@string/list_preference_network_titles_medium</item>
+        <item>@string/list_preference_network_titles_default</item>
+        <item>@string/list_preference_network_titles_small</item>
+        <item>@string/list_preference_network_titles_none</item>
     </string-array>
     <string-array name="list_preference_network_values">
         <item>large</item>
@@ -77,6 +84,12 @@
         <item>small</item>
         <item>none</item>
     </string-array>
+
+    <string name="list_preference_network_titles_large">Large (583×700)</string>
+    <string name="list_preference_network_titles_medium">Medium (292×350)</string>
+    <string name="list_preference_network_titles_default">Default (200×240)</string>
+    <string name="list_preference_network_titles_small">Small (146×175)</string>
+    <string name="list_preference_network_titles_none">None</string>
 
 
     <!-- Search stuff -->

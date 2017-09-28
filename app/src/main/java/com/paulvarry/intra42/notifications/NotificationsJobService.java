@@ -25,14 +25,33 @@ public class NotificationsJobService extends JobService {
         ComponentName component = new ComponentName(context, NotificationsJobService.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, component)
                 .setPeriodic(60000 * notificationsFrequency);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_NOT_ROAMING);
+        else
+            builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
 
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(builder.build());
     }
 
     @Override
-    public boolean onStartJob(JobParameters params) {
-        doMyWork(getBaseContext());
+    public boolean onStartJob(final JobParameters params) {
+        // I am on the main thread, so if you need to do background work,
+        // be sure to start up an AsyncTask, Thread, or IntentService!
+
+        final AppClass app = (AppClass) getApplication();
+
+        if (app.userIsLogged())
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    NotificationsUtils.run(getBaseContext(), app);
+                    jobFinished(params, true);
+                }
+            }).start();
+        else
+            jobFinished(params, false);
         return true;
     }
 
@@ -40,17 +59,5 @@ public class NotificationsJobService extends JobService {
     public boolean onStopJob(JobParameters params) {
         // whether or not you would like JobScheduler to automatically retry your failed job.
         return false;
-    }
-
-    private void doMyWork(Context context) {
-        // I am on the main thread, so if you need to do background work,
-        // be sure to start up an AsyncTask, Thread, or IntentService!
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                NotificationsUtils.run(getBaseContext(), (AppClass) getApplication());
-            }
-        }).start();
     }
 }

@@ -278,4 +278,10 @@
     <string name="notifications_announcements_channel_description">Notification pour les annonces</string>
     <string name="app_name">Intra 42</string>
     <string name="home_help_POEditor">Si vous trouvez des erreurs dans le texte ou si vous voulez participer à la traduction, vous pouvez le faire via le projet sur POEditor. Cliquer ici</string>
+    <string name="pref_notifications_frequency_titles_1hour">1 heure (défaut)</string>
+    <string name="pref_notifications_frequency_titles_3hour">3 heures</string>
+    <string name="pref_notifications_frequency_titles_30min">30 minutes</string>
+    <string name="pref_notifications_frequency_titles_6hour">6 heures</string>
+    <string name="pref_notifications_frequency_titles_never">Jamais</string>
+    <string name="pref_notifications_frequency_titles_15min">15 minutes</string>
 </resources>

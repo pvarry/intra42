@@ -205,7 +205,7 @@ public class AppSettings {
         }
 
         public static int getNotificationsFrequency(SharedPreferences settings) {
-            return Integer.parseInt(settings.getString(FREQUENCY, "-1"));
+            return Integer.parseInt(settings.getString(FREQUENCY, "60"));
         }
 
         public static boolean getNotificationsEvents(Context context) {
