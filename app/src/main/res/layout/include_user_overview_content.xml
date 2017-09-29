@@ -231,7 +231,7 @@
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
                     android:paddingStart="@dimen/user_inline_stat"
-                    android:text="@string/user_wallet"
+                    android:text="@string/user_wallet_money"
                     android:textColor="#333" />
 
                 <TextView

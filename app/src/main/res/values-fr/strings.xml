@@ -231,13 +231,6 @@
     <string name="title_tab_project_overview">Aperçu</string>
     <string name="user_expertise_interested">Intéressé:</string>
     <string name="login_view_sources">Voir les sources</string>
-
-    <string-array name="spinner_user_projects">
-        <item>Galaxy</item>
-        <item>Tout</item>
-        <item>En cours</item>
-    </string-array>
-
     <string name="user_overview_cursus_date_not_start_not_finised">Pas encore commancé et pas encore fini</string>
     <string name="user_overview_cursus_date_not_start">Pas encore commancée</string>
     <string name="user_overview_cursus_date_not_finished">Pas encore fini</string>

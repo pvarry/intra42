@@ -505,7 +505,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      * Set the toggle (is the icon on the left on toolbar)
      */
     private void setToggle() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.accessibility_navigation_drawer_open, R.string.accessibility_navigation_drawer_close);
         if (drawer != null) {
             drawer.addDrawerListener(toggle);
         }
@@ -513,7 +513,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     }
 
     private void setToggleNoHamburger() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.accessibility_navigation_drawer_open, R.string.accessibility_navigation_drawer_close);
         toggle.setDrawerIndicatorEnabled(false);
 
         setNoHamburger(toolbar);
