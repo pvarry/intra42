@@ -47,7 +47,7 @@
     "final_mark": null,
     "id": 6,
     "kind": "exam",
-    "name": "C Exam - Beginner",
+    "name": "C Exam Alone In The Dark - Beginner",
     "x": 2350.0,
     "y": 3450.0,
     "by": [],
@@ -56,7 +56,7 @@
     "duration": "about 1 week",
     "rules": "",
     "description": "Les examens machine permettent de vérifier vos acquis lorsque vous êtes seuls face à votre travail, sans vos peers et sans internet.\r\nPour valider ce projet (qui est un pré-requis à votre départ en 1er stage), il vous faut valider 5 examens avec une note minimum de 75.",
-    "slug": "c-exam-beginner"
+    "slug": "c-exam-alone-in-the-dark-beginner"
   },
   {
     "state": null,
@@ -787,7 +787,7 @@
     "project_id": 118,
     "difficulty": "Tier 5",
     "duration": "about 17 weeks",
-    "rules": "You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-beginner and savoir-relier",
+    "rules": "You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-alone-in-the-dark-beginner. You must have validated 1 of curriculum-vitae and savoir-relier",
     "description": "Ce premier pas en entreprise est un passage important de votre cursus 42. Ce stage est le moment où vous allez découvrir le monde de l'entreprise et mettre en oeuvre vos capacités de travail, d'adaptation, au service du marché. C'est un premier élément pour votre CV, et l'occasion de voir émerger votre futur domaine de prédilection.",
     "slug": "first-internship"
   },
@@ -1023,7 +1023,7 @@
     "project_id": 62,
     "difficulty": "Tier 2",
     "duration": null,
-    "rules": "You must have validated First Internship",
+    "rules": "You must have validated first-internship",
     "description": "Cette piscine C++ est le passage obligé pour le déblocage des projets de programmation orientée objet du cursus 42. Vous allez ici aborder les concepts de base de la POO à travers les spécifités du C++. ",
     "slug": "piscine-cpp"
   },
@@ -1090,6 +1090,36 @@
   {
     "state": null,
     "final_mark": null,
+    "id": 51,
+    "kind": "piscine",
+    "name": "Piscine OCaml",
+    "x": 1872.0,
+    "y": 3410.0,
+    "by": [
+      {
+        "parent_id": 118,
+        "points": [
+          [
+            2060,
+            3342
+          ],
+          [
+            1872,
+            3410
+          ]
+        ]
+      }
+    ],
+    "project_id": 370,
+    "difficulty": "Tier 2",
+    "duration": null,
+    "rules": "You must have validated first-internship",
+    "description": "Cette piscine OCaml est la porte d'entrée vers les projets de programmation fonctionnelle du cursus 42. Vous aborderez ici le paradigme fonctionnel à travers les spécificités de l'OCaml.",
+    "slug": "piscine-ocaml"
+  },
+  {
+    "state": null,
+    "final_mark": null,
     "id": 56,
     "kind": "project",
     "name": "Nibbler",
@@ -1129,6 +1159,49 @@
     "rules": "You must have validated abstract-vm",
     "description": "Ce projet de C++ vous fait recoder le jeu Snake avec plusieurs interfaces graphiques différentes; le joueur devant pouvoir switcher entre les interfaces pendant le jeu. C'est l'occasion de voir comment charger et utiliser des bibliothèques dynamiques au runtime.",
     "slug": "nibbler"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 57,
+    "kind": "piscine",
+    "name": "Piscine Unity",
+    "x": 2600.0,
+    "y": 4250.0,
+    "by": [
+      {
+        "parent_id": 62,
+        "points": [
+          [
+            2400,
+            4150
+          ],
+          [
+            2600,
+            4150
+          ]
+        ]
+      },
+      {
+        "parent_id": 62,
+        "points": [
+          [
+            2600,
+            4145
+          ],
+          [
+            2600,
+            4250
+          ]
+        ]
+      }
+    ],
+    "project_id": 394,
+    "difficulty": "Tier 2",
+    "duration": null,
+    "rules": "You must be at least level 8 in cursus 42. You must have validated piscine-cpp",
+    "description": "Vous avez déjà rêvé de programmer un jeu video ? Unity est une plate-forme de developpement graphique 2D et 3D simple à prendre en main sur laquelle vous pourrez developper vos premiers jeux videos pendant cette piscine !",
+    "slug": "piscine-unity"
   },
   {
     "state": null,
@@ -1223,6 +1296,66 @@
   {
     "state": null,
     "final_mark": null,
+    "id": 81,
+    "kind": "project",
+    "name": "ft_linux",
+    "x": 2650.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 79,
+        "points": [
+          [
+            2800,
+            1500
+          ],
+          [
+            2650,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 695,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated libftasm",
+    "description": "Le premier projet de la branche Kernel ! Il s'agit d'un simple LFS, afin que vous construisiez votre propre distribution sur laquelle vous travaillerez ensuite pour les prochains projets.",
+    "slug": "ft_linux"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 84,
+    "kind": "project",
+    "name": "little-penguin-1",
+    "x": 2500.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 695,
+        "points": [
+          [
+            2650,
+            1500
+          ],
+          [
+            2500,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 696,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated ft_linux",
+    "description": "Le début d'une série de challenges inspirés du challenge Eudyptula, vous permettant d'aborder de nombreux points du developpement Kernel.",
+    "slug": "little-penguin-1"
+  },
+  {
+    "state": null,
+    "final_mark": null,
     "id": 99,
     "kind": "project",
     "name": "ft_printf",
@@ -1247,7 +1380,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "You must have validated get_next_line",
-    "description": "Vous en avez assez de faire vos affichages en alternant ft_putstr et ft_putnbr ? Vous n'avez pas le droit d'utiliser printf ? Recodez le votre ! Ce sera l'occasion de découvrir une feature du C - les fonctions variadiques - et de vous entrainer à la gestion fine des options d'affichage. Vous aurez ensuite le droit d'utiliser votre printf dans tous vos projets ultérieurs.",
+    "description": "Tired of managing your displays using ft_putnbr and ft_putstr? Not allowed to use printf? Code your own printf! An opportunity to discover a new C feature, variadic functions, and learn to fine-tune display options. You will be allowed to use your printf function in all future projects!",
     "slug": "ft_printf"
   },
   {
@@ -1412,6 +1545,126 @@
     "rules": "You must not have validated ft_sh2 and ft_sh3. You must have validated minishell",
     "description": "Vous allez repartir de votre minishell et le rendre plus robuste pour vous approcher petit à petit d'un vrai shell fonctionnel. Vous allez ici ajouter divers features, telles que la gestion du multi-commande, des différentes redirections, ainsi que l'édition de ligne pour pouvoir éditer la ligne de commande à la volée.",
     "slug": "21sh"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 112,
+    "kind": "project",
+    "name": "Process and Memory",
+    "x": 2350.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 696,
+        "points": [
+          [
+            2500,
+            1500
+          ],
+          [
+            2350,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 709,
+    "difficulty": "Tier 2",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated little-penguin-1",
+    "description": "An introduction to syscalls and memory management within linux kernel",
+    "slug": "process-and-memory"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 115,
+    "kind": "project",
+    "name": "Drivers and Interrupts",
+    "x": 2200.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 709,
+        "points": [
+          [
+            2350,
+            1500
+          ],
+          [
+            2200,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 710,
+    "difficulty": "Tier 3",
+    "duration": "about 2 weeks",
+    "rules": "You must have validated process-and-memory",
+    "description": "Learn how to connect a driver to your kernel. We will use a keyboard driver for this project.",
+    "slug": "drivers-and-interrupts"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 116,
+    "kind": "project",
+    "name": "Filesystem",
+    "x": 2050.0,
+    "y": 1500.0,
+    "by": [
+      {
+        "parent_id": 710,
+        "points": [
+          [
+            2200,
+            1500
+          ],
+          [
+            2050,
+            1500
+          ]
+        ]
+      }
+    ],
+    "project_id": 711,
+    "difficulty": "Tier 3",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated drivers-and-interrupts",
+    "description": "Create your own filesystem, for your linux kernel.",
+    "slug": "filesystem"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 122,
+    "kind": "piscine",
+    "name": "Piscine Swift iOS",
+    "x": 2100.0,
+    "y": 3839.0,
+    "by": [
+      {
+        "parent_id": 118,
+        "points": [
+          [
+            2272,
+            3685
+          ],
+          [
+            2100,
+            3839
+          ]
+        ]
+      }
+    ],
+    "project_id": 742,
+    "difficulty": "Tier 2",
+    "duration": null,
+    "rules": "You must have validated first-internship",
+    "description": "",
+    "slug": "piscine-swift-ios"
   },
   {
     "state": null,

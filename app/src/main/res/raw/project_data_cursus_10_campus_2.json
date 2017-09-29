@@ -4,7 +4,7 @@
     "final_mark": null,
     "id": 6,
     "kind": "exam",
-    "name": "C Exam - Beginner",
+    "name": "C Exam Alone In The Dark - Beginner",
     "x": 2350.0,
     "y": 3450.0,
     "by": [],
@@ -13,7 +13,7 @@
     "duration": "about 1 week",
     "rules": "",
     "description": "Les examens machine permettent de vérifier vos acquis lorsque vous êtes seuls face à votre travail, sans vos peers et sans internet.\r\nPour valider ce projet (qui est un pré-requis à votre départ en 1er stage), il vous faut valider 5 examens avec une note minimum de 75.",
-    "slug": "c-exam-beginner"
+    "slug": "c-exam-alone-in-the-dark-beginner"
   },
   {
     "state": null,
@@ -110,7 +110,7 @@
     "project_id": 118,
     "difficulty": "Tier 5",
     "duration": "about 17 weeks",
-    "rules": "You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-beginner and savoir-relier",
+    "rules": "You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-alone-in-the-dark-beginner. You must have validated 1 of curriculum-vitae and savoir-relier",
     "description": "Ce premier pas en entreprise est un passage important de votre cursus 42. Ce stage est le moment où vous allez découvrir le monde de l'entreprise et mettre en oeuvre vos capacités de travail, d'adaptation, au service du marché. C'est un premier élément pour votre CV, et l'occasion de voir émerger votre futur domaine de prédilection.",
     "slug": "first-internship"
   },
@@ -140,7 +140,7 @@
     "project_id": 62,
     "difficulty": "Tier 2",
     "duration": null,
-    "rules": "You must have validated First Internship",
+    "rules": "You must have validated first-internship",
     "description": "Cette piscine C++ est le passage obligé pour le déblocage des projets de programmation orientée objet du cursus 42. Vous allez ici aborder les concepts de base de la POO à travers les spécifités du C++. ",
     "slug": "piscine-cpp"
   },
@@ -216,6 +216,75 @@
     "rules": "You must have validated abstract-vm",
     "description": "Ce projet de C++ vous fait recoder le jeu Snake avec plusieurs interfaces graphiques différentes; le joueur devant pouvoir switcher entre les interfaces pendant le jeu. C'est l'occasion de voir comment charger et utiliser des bibliothèques dynamiques au runtime.",
     "slug": "nibbler"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 61,
+    "kind": "project",
+    "name": "ft_linear_regression",
+    "x": 4600.0,
+    "y": 2800.0,
+    "by": [
+      {
+        "parent_id": 23,
+        "points": [
+          [
+            4300,
+            2850
+          ],
+          [
+            4450,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 22,
+        "points": [
+          [
+            4300,
+            3150
+          ],
+          [
+            4450,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 98,
+        "points": [
+          [
+            4450,
+            3000
+          ],
+          [
+            4600,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 98,
+        "points": [
+          [
+            4600,
+            3000
+          ],
+          [
+            4600,
+            2800
+          ]
+        ]
+      }
+    ],
+    "project_id": 414,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated 1 of expert-system and n-puzzle",
+    "description": "",
+    "slug": "ft_linear_regression"
   },
   {
     "state": null,
@@ -462,7 +531,7 @@
     "project_id": 742,
     "difficulty": "Tier 2",
     "duration": null,
-    "rules": "You must have validated First Internship",
+    "rules": "You must have validated first-internship",
     "description": "",
     "slug": "piscine-swift-ios"
   },
@@ -550,7 +619,7 @@
     ],
     "project_id": 537,
     "difficulty": "Tier 1",
-    "duration": "about 1 week",
+    "duration": null,
     "rules": "You should be at least level 0 in cursus Piscine\\ C\\ formation",
     "description": "Ce premier projet vous remet dans le bain après la piscine PHP : vous allez devoir réaliser, en PHP, un petit site Instagram-like permettant à des utilisateurs de réaliser et partager des photo-montages. Vous allez ainsi implémenter, à mains nues (les frameworks sont interdits), les fonctionnalités de base rencontrées sur la majorité des sites possédant une base utilisateur.",
     "slug": "camagru"
@@ -580,7 +649,7 @@
     ],
     "project_id": 596,
     "difficulty": "Tier 2",
-    "duration": "about 2 weeks",
+    "duration": null,
     "rules": "You must have validated camagru",
     "description": "Ce second projet vous introduit à un outil plus évolué pour réaliser vos applications web : le micro-framework. Nous vous invitons à réaliser, dans le langage de votre choix, un site de rencontres. Les interactions entre utilisateurs seront au coeur du projet !",
     "slug": "matcha"
@@ -610,8 +679,8 @@
     ],
     "project_id": 597,
     "difficulty": "Tier 3",
-    "duration": "about 4 weeks",
-    "rules": "You must have validated Matcha",
+    "duration": null,
+    "rules": "You must have validated matcha",
     "description": "Dernier projet de sa série, le projet Hypertube vous invite à découvrir une catégorie d'outil extrêmement puissante : les frameworks MVC. Vous apprendrez à manipuler un MVC, dans le langage de votre choix, pour réaliser un site de streaming de video téléchargées via le protocole BitTorrent.",
     "slug": "hypertube"
   },
@@ -641,7 +710,7 @@
     "project_id": 818,
     "difficulty": "Tier 3",
     "duration": "about 3 weeks",
-    "rules": "You must have validated First Internship",
+    "rules": "You must have validated first-internship",
     "description": "L’objectif de ce projet est de développer un jeu de tetris multijoueurs en réseau à partir d’une pile logicielle exclusivement Full Stack Javascript",
     "slug": "red-tetris"
   },

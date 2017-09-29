@@ -26,7 +26,7 @@
     "by": [],
     "project_id": 155,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "",
     "description": "",
     "slug": "piscine-c-day-01"
@@ -56,7 +56,7 @@
     ],
     "project_id": 156,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-00",
     "description": "",
     "slug": "piscine-c-day-02"
@@ -86,7 +86,7 @@
     ],
     "project_id": 157,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-01",
     "description": "",
     "slug": "piscine-c-day-03"
@@ -116,7 +116,7 @@
     ],
     "project_id": 158,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-02",
     "description": "",
     "slug": "piscine-c-day-04"
@@ -146,7 +146,7 @@
     ],
     "project_id": 159,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-03",
     "description": "",
     "slug": "piscine-c-day-05"
@@ -176,7 +176,7 @@
     ],
     "project_id": 160,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-04",
     "description": "",
     "slug": "piscine-c-day-06"
@@ -206,7 +206,7 @@
     ],
     "project_id": 161,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-05",
     "description": "",
     "slug": "piscine-c-day-07"
@@ -236,7 +236,7 @@
     ],
     "project_id": 162,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-06",
     "description": "",
     "slug": "piscine-c-day-08"
@@ -266,7 +266,7 @@
     ],
     "project_id": 163,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-07",
     "description": "",
     "slug": "piscine-c-day-10"
@@ -296,7 +296,7 @@
     ],
     "project_id": 164,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-08",
     "description": "",
     "slug": "piscine-c-day-11"
@@ -326,7 +326,7 @@
     ],
     "project_id": 165,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-10",
     "description": "",
     "slug": "piscine-c-day-12"
@@ -356,7 +356,7 @@
     ],
     "project_id": 166,
     "difficulty": "Tier 1",
-    "duration": "about 1 day",
+    "duration": null,
     "rules": "You must have validated piscine-c-day-11",
     "description": "",
     "slug": "piscine-c-day-13"

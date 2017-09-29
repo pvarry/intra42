@@ -16,8 +16,8 @@ conn = Net::HTTP.new('projects.intra.42.fr', 443)
 conn.use_ssl = true
 conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-(1..16).each do |cursus_id|
-  (1..9).each do |campus_id|
+(1..17).each do |cursus_id|
+  (1..10).each do |campus_id|
 
     print "Calling cursus: #{cursus_id}, campus: #{campus_id} ...  "
 

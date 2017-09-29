@@ -1,0 +1,698 @@
+[
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 242,
+    "kind": "big_project",
+    "name": "APCSP - Explore",
+    "x": 2200.0,
+    "y": 2100.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2200,
+            2500
+          ],
+          [
+            2200,
+            2100
+          ]
+        ]
+      }
+    ],
+    "project_id": 988,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-hacker-baby",
+    "description": "APCSP - Explore",
+    "slug": "h2s-apcsp-explore"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 243,
+    "kind": "big_project",
+    "name": "APCSP - Exam",
+    "x": 1700.0,
+    "y": 2100.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2550,
+            3000
+          ],
+          [
+            2200,
+            2500
+          ]
+        ]
+      },
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2200,
+            2500
+          ],
+          [
+            1700,
+            2100
+          ]
+        ]
+      }
+    ],
+    "project_id": 987,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-hacker-baby",
+    "description": "APCSP - Exam",
+    "slug": "h2s-apcsp-exam"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 244,
+    "kind": "project",
+    "name": "Cryptography",
+    "x": 2550.0,
+    "y": 2200.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2550,
+            3000
+          ],
+          [
+            2550,
+            2200
+          ]
+        ]
+      }
+    ],
+    "project_id": 991,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You should have validated h2s-hacker-baby",
+    "description": "H2S - Cryptography",
+    "slug": "h2s-cryptography"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 245,
+    "kind": "project",
+    "name": "SonicPi",
+    "x": 2550.0,
+    "y": 1800.0,
+    "by": [
+      {
+        "parent_id": 1501,
+        "points": [
+          [
+            2550,
+            2200
+          ],
+          [
+            2550,
+            1800
+          ]
+        ]
+      }
+    ],
+    "project_id": 999,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-cryptography",
+    "description": "H2S - SonicPi",
+    "slug": "h2s-sonicpi"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 246,
+    "kind": "project",
+    "name": "A room of one's own",
+    "x": 2900.0,
+    "y": 2500.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2550,
+            3000
+          ],
+          [
+            2900,
+            2500
+          ]
+        ]
+      }
+    ],
+    "project_id": 994,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-hacker-baby",
+    "description": "H2S - Cryptography",
+    "slug": "h2s-a-room-of-one-s-own"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 247,
+    "kind": "project",
+    "name": "SinatraProject",
+    "x": 2900.0,
+    "y": 2300.0,
+    "by": [
+      {
+        "parent_id": 1505,
+        "points": [
+          [
+            2900,
+            2500
+          ],
+          [
+            2900,
+            2300
+          ]
+        ]
+      }
+    ],
+    "project_id": 995,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-a-room-of-one-s-own",
+    "description": "H2S - Cryptography",
+    "slug": "h2s-sinatraproject"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 248,
+    "kind": "project",
+    "name": "FlaskProject",
+    "x": 3100.0,
+    "y": 2500.0,
+    "by": [
+      {
+        "parent_id": 1504,
+        "points": [
+          [
+            2900,
+            2500
+          ],
+          [
+            3100,
+            2500
+          ]
+        ]
+      }
+    ],
+    "project_id": 997,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-a-room-of-one-s-own",
+    "description": "H2S - FlaskProject",
+    "slug": "h2s-flaskproject"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 251,
+    "kind": "project",
+    "name": "Hangman",
+    "x": 2900.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2550,
+            3000
+          ],
+          [
+            2900,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 1503,
+        "points": [
+          [
+            2900,
+            3000
+          ],
+          [
+            3250,
+            3000
+          ]
+        ]
+      },
+      {
+        "parent_id": 1521,
+        "points": [
+          [
+            2900,
+            3000
+          ],
+          [
+            3250,
+            3300
+          ]
+        ]
+      }
+    ],
+    "project_id": 992,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-hacker-baby",
+    "description": "H2S - Cryptography",
+    "slug": "h2s-hangman"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 252,
+    "kind": "project",
+    "name": "Connect-4",
+    "x": 3250.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 1521,
+        "points": [
+          [
+            3250,
+            3000
+          ],
+          [
+            3250,
+            3300
+          ]
+        ]
+      }
+    ],
+    "project_id": 993,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-hangman",
+    "description": "H2S - Cryptography",
+    "slug": "h2s-connect-4"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 253,
+    "kind": "project",
+    "name": "WireFrame",
+    "x": 2550.0,
+    "y": 3600.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2550,
+            3000
+          ],
+          [
+            2550,
+            3600
+          ]
+        ]
+      },
+      {
+        "parent_id": 1515,
+        "points": [
+          [
+            2550,
+            3600
+          ],
+          [
+            2900,
+            3600
+          ]
+        ]
+      }
+    ],
+    "project_id": 1004,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-hacker-baby",
+    "description": "H2S - WireFrame",
+    "slug": "h2s-wireframe"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 254,
+    "kind": "project",
+    "name": "MardelBrot",
+    "x": 2900.0,
+    "y": 3600.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2550,
+            3000
+          ],
+          [
+            2900,
+            3600
+          ]
+        ]
+      },
+      {
+        "parent_id": 1511,
+        "points": [
+          [
+            2900,
+            3600
+          ],
+          [
+            3250,
+            3600
+          ]
+        ]
+      }
+    ],
+    "project_id": 1005,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You should have validated h2s-hacker-baby",
+    "description": "H2S - MardelBrot",
+    "slug": "h2s-mardelbrot"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 255,
+    "kind": "project",
+    "name": "Game Of Life",
+    "x": 3500.0,
+    "y": 3800.0,
+    "by": [],
+    "project_id": 1000,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-snek",
+    "description": "H2S - SonicPi",
+    "slug": "h2s-game-of-life"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 256,
+    "kind": "project",
+    "name": "Snek",
+    "x": 3250.0,
+    "y": 3600.0,
+    "by": [
+      {
+        "parent_id": 1510,
+        "points": [
+          [
+            3250,
+            3600
+          ],
+          [
+            3500,
+            3800
+          ]
+        ]
+      }
+    ],
+    "project_id": 1001,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated 1 of h2s-tic-tac-toe and h2s-mardelbrot",
+    "description": "Code a Snake game with a graphics game library",
+    "slug": "h2s-snek"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 257,
+    "kind": "project",
+    "name": "Kotlin",
+    "x": 3700.0,
+    "y": 3800.0,
+    "by": [
+      {
+        "parent_id": 1511,
+        "points": [
+          [
+            3500,
+            3800
+          ],
+          [
+            3700,
+            3800
+          ]
+        ]
+      }
+    ],
+    "project_id": 1002,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-game-of-life",
+    "description": "H2S - SonicPi",
+    "slug": "h2s-kotlin"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 258,
+    "kind": "project",
+    "name": "Swift",
+    "x": 3500.0,
+    "y": 4000.0,
+    "by": [
+      {
+        "parent_id": 1511,
+        "points": [
+          [
+            3500,
+            3800
+          ],
+          [
+            3500,
+            4000
+          ]
+        ]
+      }
+    ],
+    "project_id": 1003,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-swift",
+    "description": "H2S - Swift",
+    "slug": "h2s-swift"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 259,
+    "kind": "project",
+    "name": "APCSP - Create",
+    "x": 1700.0,
+    "y": 2500.0,
+    "by": [
+      {
+        "parent_id": 1516,
+        "points": [
+          [
+            2200,
+            2500
+          ],
+          [
+            1700,
+            2500
+          ]
+        ]
+      }
+    ],
+    "project_id": 1007,
+    "difficulty": "Tier 0",
+    "duration": "about 1 week",
+    "rules": "You must have validated h2s-hacker-baby",
+    "description": "",
+    "slug": "h2s-apcsp-create"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 260,
+    "kind": "project",
+    "name": "42stagram",
+    "x": 3300.0,
+    "y": 2100.0,
+    "by": [
+      {
+        "parent_id": 1505,
+        "points": [
+          [
+            2900,
+            2300
+          ],
+          [
+            3300,
+            2100
+          ]
+        ]
+      },
+      {
+        "parent_id": 1507,
+        "points": [
+          [
+            3100,
+            2500
+          ],
+          [
+            3300,
+            2100
+          ]
+        ]
+      }
+    ],
+    "project_id": 982,
+    "difficulty": "Tier 3",
+    "duration": "about 8 weeks",
+    "rules": "You should be at least level 5 in cursus h2s",
+    "description": "",
+    "slug": "h2s-42stagram"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 262,
+    "kind": "project",
+    "name": "First Day",
+    "x": 1850.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 0,
+        "points": [
+          [
+            1850,
+            3000
+          ],
+          [
+            2200,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 1009,
+    "difficulty": "Tier 1",
+    "duration": "about 1 day",
+    "rules": "",
+    "description": "Setup, peer correction, and terminal navigation.",
+    "slug": "h2s-first-day"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 263,
+    "kind": "big_project",
+    "name": "Hacker, baby",
+    "x": 2550.0,
+    "y": 3000.0,
+    "by": [],
+    "project_id": 1006,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You must have validated h2s-first-day and h2s-information-wants-to-be-free",
+    "description": "H2S - Code Introduction",
+    "slug": "h2s-hacker-baby"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 264,
+    "kind": "project",
+    "name": "Tic Tac Toe",
+    "x": 3250.0,
+    "y": 3300.0,
+    "by": [
+      {
+        "parent_id": 1511,
+        "points": [
+          [
+            3250,
+            3300
+          ],
+          [
+            3250,
+            3600
+          ]
+        ]
+      }
+    ],
+    "project_id": 1010,
+    "difficulty": "Tier 0",
+    "duration": null,
+    "rules": "You must have validated h2s-hangman",
+    "description": "",
+    "slug": "h2s-tic-tac-toe"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 265,
+    "kind": "project",
+    "name": "Information Libre",
+    "x": 2200.0,
+    "y": 3000.0,
+    "by": [
+      {
+        "parent_id": 0,
+        "points": [
+          [
+            2200,
+            3000
+          ],
+          [
+            2550,
+            3000
+          ]
+        ]
+      }
+    ],
+    "project_id": 1008,
+    "difficulty": "Tier 1",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated h2s-first-day",
+    "description": "",
+    "slug": "h2s-information-libre"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 266,
+    "kind": "project",
+    "name": "ChatBot",
+    "x": 1500.0,
+    "y": 1500.0,
+    "by": [],
+    "project_id": 989,
+    "difficulty": "Tier 1",
+    "duration": null,
+    "rules": "You should have validated h2s-hacker-baby",
+    "description": "H2S - ChatBot",
+    "slug": "h2s-chatbot"
+  }
+]

@@ -107,7 +107,7 @@
     "final_mark": null,
     "id": 6,
     "kind": "exam",
-    "name": "C Exam - Beginner",
+    "name": "C Exam Alone In The Dark - Beginner",
     "x": 2350.0,
     "y": 3450.0,
     "by": [],
@@ -116,7 +116,7 @@
     "duration": "about 1 week",
     "rules": "",
     "description": "Les examens machine permettent de vérifier vos acquis lorsque vous êtes seuls face à votre travail, sans vos peers et sans internet.\r\nPour valider ce projet (qui est un pré-requis à votre départ en 1er stage), il vous faut valider 5 examens avec une note minimum de 75.",
-    "slug": "c-exam-beginner"
+    "slug": "c-exam-alone-in-the-dark-beginner"
   },
   {
     "state": null,
@@ -1022,7 +1022,7 @@
     "project_id": 118,
     "difficulty": "Tier 5",
     "duration": "about 17 weeks",
-    "rules": "You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-beginner and savoir-relier",
+    "rules": "You must have validated 1 of hypertube, 42sh, corewar, and rt. You must have validated c-exam-alone-in-the-dark-beginner. You must have validated 1 of curriculum-vitae and savoir-relier",
     "description": "Ce premier pas en entreprise est un passage important de votre cursus 42. Ce stage est le moment où vous allez découvrir le monde de l'entreprise et mettre en oeuvre vos capacités de travail, d'adaptation, au service du marché. C'est un premier élément pour votre CV, et l'occasion de voir émerger votre futur domaine de prédilection.",
     "slug": "first-internship"
   },
@@ -1586,7 +1586,7 @@
     "project_id": 62,
     "difficulty": "Tier 2",
     "duration": null,
-    "rules": "You must have validated First Internship",
+    "rules": "You must have validated first-internship",
     "description": "Cette piscine C++ est le passage obligé pour le déblocage des projets de programmation orientée objet du cursus 42. Vous allez ici aborder les concepts de base de la POO à travers les spécifités du C++. ",
     "slug": "piscine-cpp"
   },
@@ -1692,7 +1692,7 @@
     "project_id": 212,
     "difficulty": "Tier ",
     "duration": "about 25 weeks",
-    "rules": "You must have validated First Internship. You must be at least level 14 in cursus 42",
+    "rules": "You must have validated first-internship. You must be at least level 14 in cursus 42",
     "description": "Votre cursus 42 se clot sur une dernière période d'insertion professionnelle : le stage final. Ce stage est l'accomplissement de votre parcours, il vous permettra d'aller démontrer votre expertise en entreprise, et vous servira de tremplin pour lancer votre carrière.",
     "slug": "final-internship"
   },
@@ -1708,7 +1708,7 @@
     "project_id": 184,
     "difficulty": "Tier 5",
     "duration": "about 25 weeks",
-    "rules": "You must have validated First Internship. You must be at least level 14 in cursus 42",
+    "rules": "You must be at least level 14 in cursus 42. You must have validated first-internship",
     "description": "Une bonne insertion professionnelle reste un des objectifs fondamenteaux de l'école. Nous vous donnons, via ce projet, la possibilité de valoriser une activité professionnelle à temps partiel sur la troisième partie de votre scolarité.",
     "slug": "part-time"
   },
@@ -1761,7 +1761,7 @@
     "id": 57,
     "kind": "piscine",
     "name": "Piscine Unity",
-    "x": 2650.0,
+    "x": 2600.0,
     "y": 4250.0,
     "by": [
       {
@@ -1772,7 +1772,7 @@
             4150
           ],
           [
-            2650,
+            2600,
             4150
           ]
         ]
@@ -1781,11 +1781,11 @@
         "parent_id": 62,
         "points": [
           [
-            2650,
+            2600,
             4145
           ],
           [
-            2650,
+            2600,
             4250
           ]
         ]
@@ -2432,18 +2432,18 @@
     "id": 74,
     "kind": "project",
     "name": "XV",
-    "x": 2575.0,
+    "x": 2525.0,
     "y": 4450.0,
     "by": [
       {
         "parent_id": 394,
         "points": [
           [
-            2650,
-            4200
+            2600,
+            4250
           ],
           [
-            2650,
+            2600,
             4350
           ]
         ]
@@ -2452,11 +2452,11 @@
         "parent_id": 394,
         "points": [
           [
-            2655,
+            2605,
             4350
           ],
           [
-            2570,
+            2520,
             4350
           ]
         ]
@@ -2465,11 +2465,11 @@
         "parent_id": 394,
         "points": [
           [
-            2575,
+            2525,
             4350
           ],
           [
-            2575,
+            2525,
             4450
           ]
         ]
@@ -2488,18 +2488,18 @@
     "id": 75,
     "kind": "project",
     "name": "In the Shadows",
-    "x": 2725.0,
+    "x": 2675.0,
     "y": 4450.0,
     "by": [
       {
         "parent_id": 394,
         "points": [
           [
-            2600,
+            2550,
             4350
           ],
           [
-            2730,
+            2680,
             4350
           ]
         ]
@@ -2508,11 +2508,11 @@
         "parent_id": 394,
         "points": [
           [
-            2725,
+            2675,
             4350
           ],
           [
-            2725,
+            2675,
             4450
           ]
         ]
@@ -2531,8 +2531,8 @@
     "id": 76,
     "kind": "project",
     "name": "Particle System",
-    "x": 3000.0,
-    "y": 4400.0,
+    "x": 3100.0,
+    "y": 4500.0,
     "by": [
       {
         "parent_id": 135,
@@ -2543,7 +2543,33 @@
           ],
           [
             3000,
+            4300
+          ]
+        ]
+      },
+      {
+        "parent_id": 135,
+        "points": [
+          [
+            3000,
+            4300
+          ],
+          [
+            3100,
             4400
+          ]
+        ]
+      },
+      {
+        "parent_id": 135,
+        "points": [
+          [
+            3100,
+            4397
+          ],
+          [
+            3100,
+            4450
           ]
         ]
       }
@@ -2981,7 +3007,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "You must have validated get_next_line",
-    "description": "Vous en avez assez de faire vos affichages en alternant ft_putstr et ft_putnbr ? Vous n'avez pas le droit d'utiliser printf ? Recodez le votre ! Ce sera l'occasion de découvrir une feature du C - les fonctions variadiques - et de vous entrainer à la gestion fine des options d'affichage. Vous aurez ensuite le droit d'utiliser votre printf dans tous vos projets ultérieurs.",
+    "description": "Tired of managing your displays using ft_putnbr and ft_putstr? Not allowed to use printf? Code your own printf! An opportunity to discover a new C feature, variadic functions, and learn to fine-tune display options. You will be allowed to use your printf function in all future projects!",
     "slug": "ft_printf"
   },
   {
@@ -3399,7 +3425,7 @@
     "project_id": 742,
     "difficulty": "Tier 2",
     "duration": null,
-    "rules": "You must have validated First Internship",
+    "rules": "You must have validated first-internship",
     "description": "",
     "slug": "piscine-swift-ios"
   },
@@ -3475,7 +3501,7 @@
     "project_id": 717,
     "difficulty": "Tier 5",
     "duration": "about 6 weeks",
-    "rules": "You must have validated KFS-2",
+    "rules": "You must have validated kfs-2",
     "description": "Third \"Kernel from Scratch\" project. Learn how to manage the memory in you kernel.",
     "slug": "kfs-3"
   },
@@ -3505,7 +3531,7 @@
     "project_id": 818,
     "difficulty": "Tier 3",
     "duration": "about 3 weeks",
-    "rules": "You must have validated First Internship",
+    "rules": "You must have validated first-internship",
     "description": "L’objectif de ce projet est de développer un jeu de tetris multijoueurs en réseau à partir d’une pile logicielle exclusivement Full Stack Javascript",
     "slug": "red-tetris"
   },
@@ -3723,7 +3749,7 @@
     "difficulty": "Tier 1",
     "duration": "about 1 week",
     "rules": "",
-    "description": "Ce premier projet en tant qu'étudiant de 42 va vous faire consolider vos acquis de piscine. Vous allez recoder un certain nombre de fonctions de la librairie C standard, ainsi que d'autres fonctions utilitaires que vous réutiliserez tout au long de votre cursus.",
+    "description": "Strengthen your skills learned during the C Piscine by recoding functions from the standard C library and other very useful functions. You'll be able to use these functions again and again throughout the curriculum.",
     "slug": "libft"
   },
   {
@@ -4008,5 +4034,164 @@
     "rules": "You must have validated famine",
     "description": "Second projet virus. Reprenez la base de Famine pour ajouter une méthode d'obfuscation de votre code.\t",
     "slug": "pestilence"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 237,
+    "kind": "project",
+    "name": "ft_vox",
+    "x": 2900.0,
+    "y": 4500.0,
+    "by": [
+      {
+        "parent_id": 135,
+        "points": [
+          [
+            3000,
+            4150
+          ],
+          [
+            3000,
+            4300
+          ]
+        ]
+      },
+      {
+        "parent_id": 135,
+        "points": [
+          [
+            3000,
+            4300
+          ],
+          [
+            2900,
+            4400
+          ]
+        ]
+      },
+      {
+        "parent_id": 135,
+        "points": [
+          [
+            2900,
+            4395
+          ],
+          [
+            2900,
+            4500
+          ]
+        ]
+      }
+    ],
+    "project_id": 978,
+    "difficulty": "Tier 2",
+    "duration": "about 3 weeks",
+    "rules": "You must have validated scop. You should have validated 42run",
+    "description": "ft_vox est un projet d'introduction au moteur de voxel, inspiré de minecraft, dans lequel vous devez créer un monde généré aléatoirement.",
+    "slug": "ft_vox"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 238,
+    "kind": "project",
+    "name": "ft_ssl_des",
+    "x": 3200.0,
+    "y": 2800.0,
+    "by": [
+      {
+        "parent_id": 270,
+        "points": [
+          [
+            3200,
+            3000
+          ],
+          [
+            3200,
+            2800
+          ]
+        ]
+      },
+      {
+        "parent_id": 284,
+        "points": [
+          [
+            3000,
+            2800
+          ],
+          [
+            3200,
+            2800
+          ]
+        ]
+      }
+    ],
+    "project_id": 985,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated 1 of ft_printf and ft_ls",
+    "description": "You will recode part of the OpenSSL program, specifically BASE64, DES-ECB and DES-CBC.",
+    "slug": "ft_ssl_des"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 239,
+    "kind": "project",
+    "name": "ft_ssl_md5",
+    "x": 3300.0,
+    "y": 2700.0,
+    "by": [
+      {
+        "parent_id": 1488,
+        "points": [
+          [
+            3200,
+            2800
+          ],
+          [
+            3300,
+            2700
+          ]
+        ]
+      }
+    ],
+    "project_id": 984,
+    "difficulty": "Tier 1",
+    "duration": "about 1 week",
+    "rules": "You must have validated ft_ssl_des",
+    "description": "You will recode part of the OpenSSL program, specifically the MD5 Hashing Algorithm.",
+    "slug": "ft_ssl_md5"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 240,
+    "kind": "project",
+    "name": "ft_ssl_rsa",
+    "x": 3400.0,
+    "y": 2600.0,
+    "by": [
+      {
+        "parent_id": 1487,
+        "points": [
+          [
+            3300,
+            2700
+          ],
+          [
+            3400,
+            2600
+          ]
+        ]
+      }
+    ],
+    "project_id": 983,
+    "difficulty": "Tier 2",
+    "duration": "about 1 week",
+    "rules": "You must have validated ft_ssl_md5",
+    "description": "You will code your own random prime number generator and use it to make private RSA keys.",
+    "slug": "ft_ssl_rsa"
   }
 ]
