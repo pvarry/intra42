@@ -51,6 +51,11 @@ public class ServiceGenerator {
     private static AccessToken mToken;
     private static AppClass app;
 
+    private static String HEADER_KEY_USER_AGENT = "User-Agent";
+    private static String HEADER_KEY_ACCEPT = "Accept";
+    private static String HEADER_KEY_API_AUTH = "Authorization";
+    private static String HEADER_VALUE_ACCEPT = "application/json";
+
     public static <S> S createService(Class<S> serviceClass) {
 
         httpClient = getBaseClient(true);
@@ -136,9 +141,9 @@ public class ServiceGenerator {
                                 app.accessToken = newToken;
 
                             return response.request().newBuilder()
-                                    .header("Authorization", newToken.tokenType + " " + newToken.accessToken)
-                                    .header("Users-Agent", getUserAgent())
-                                    .header("Accept", "application/json")
+                                    .header(HEADER_KEY_API_AUTH, newToken.tokenType + " " + newToken.accessToken)
+                                    .header(HEADER_KEY_USER_AGENT, getUserAgent())
+                                    .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
                                     .build();
                         } else {
                             return null;
@@ -160,10 +165,10 @@ public class ServiceGenerator {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()
-                        .header("Accept", "application/json")
+                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
 //                        .header("Content-type", "application/json")
-                        .header("Authorization", accessToken.tokenType + " " + accessToken.accessToken)
-                        .header("Users-Agent", getUserAgent())
+                        .header(HEADER_KEY_API_AUTH, accessToken.tokenType + " " + accessToken.accessToken)
+                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
                         .method(original.method(), original.body());
 
                 Request request = requestBuilder.build();
@@ -179,9 +184,9 @@ public class ServiceGenerator {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()
-                        .header("Accept", "application/json")
+                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
 //                        .header("Content-type", "application/json")
-                        .header("Users-Agent", getUserAgent())
+                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
                         .method(original.method(), original.body());
 
                 Request request = requestBuilder.build();
