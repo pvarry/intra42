@@ -41,7 +41,7 @@ public class NotificationsJobService extends JobService {
 
         final AppClass app = (AppClass) getApplication();
 
-        if (app.userIsLogged())
+        if (app.userIsLogged(false))
 
             new Thread(new Runnable() {
                 @Override

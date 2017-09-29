@@ -262,12 +262,17 @@ public class AppClass extends Application {
         MainActivity.openActivity(this);
     }
 
-    public boolean userIsLogged() {
+    public boolean userIsLogged(boolean canOpenActivity) {
         if (me == null && accessToken == null) {
-            MainActivity.openActivity(this);
+            if (canOpenActivity)
+                MainActivity.openActivity(this);
             return false;
         }
         return true;
+    }
+
+    public boolean userIsLogged() {
+        return userIsLogged(true);
     }
 
     /* Checks if external storage is available for read and write */
