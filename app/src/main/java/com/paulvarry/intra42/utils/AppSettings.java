@@ -18,6 +18,8 @@ import com.paulvarry.intra42.api.model.Users;
  */
 public class AppSettings {
 
+    final static String PREFERENCE_POEDITOR_ACTIVATED = "POEditor_activated";
+
     public static SharedPreferences getSharedPreferences(Context context) {
         if (context == null)
             return null;
@@ -76,6 +78,30 @@ public class AppSettings {
         if (app.me != null)
             return app.me.getCursusUsersToDisplayID(app);
         return -1;
+    }
+
+    public static boolean getPOEditorActivated(Context context) {
+        if (context == null)
+            return true;
+        else
+            return getPOEditorActivated(getSharedPreferences(context));
+    }
+
+    public static boolean getPOEditorActivated(SharedPreferences settings) {
+        return settings.getBoolean(PREFERENCE_POEDITOR_ACTIVATED, true);
+    }
+
+    public static void setPOEditorActivated(Context context, boolean activated) {
+        if (context == null)
+            return;
+        else
+            setPOEditorActivated(getSharedPreferences(context), activated);
+    }
+
+    public static void setPOEditorActivated(SharedPreferences settings, boolean activated) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(PREFERENCE_POEDITOR_ACTIVATED, activated);
+        editor.apply();
     }
 
     public static class Advanced {

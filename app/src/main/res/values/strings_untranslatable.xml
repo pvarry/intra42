@@ -38,4 +38,8 @@
     <string name="icon_time" translatable="false">Time icon</string>
     <string name="user_profile_image" translatable="false">user profile image</string>
 
+    <string name="POEditor_link">https://poeditor.com/join/project/hDRec5Vk8b</string>
+    <string name="Github_link">https://github.com/pvarry/intra42/</string>
+    <string name="Github_link_issues">https://github.com/pvarry/intra42/issues/</string>
+
 </resources>

@@ -55,13 +55,16 @@ public class AboutActivity extends BasicActivity {
         item = new Item(str, getString(R.string.about_version));
         list.add(item);
 
-        item = new Item("View source", "on Github");
+        item = new Item(getString(R.string.about_view_source), getString(R.string.about_on_github));
         list.add(item);
 
-        item = new Item("Report bug", "on Github");
+        item = new Item(getString(R.string.about_report_bug), getString(R.string.about_on_github));
         list.add(item);
 
-        item = new Item("Library list", null);
+        item = new Item(getString(R.string.about_library_list), null);
+        list.add(item);
+
+        item = new Item(getString(R.string.about_poeditor), getString(R.string.home_help_POEditor));
         list.add(item);
 
         Adapter adapter = new Adapter(list);
@@ -70,15 +73,17 @@ public class AboutActivity extends BasicActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 2) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://github.com/pvarry/intra42/"));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.Github_link)));
                     startActivity(browserIntent);
                 } else if (i == 3) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://github.com/pvarry/intra42/issues/"));
+                            Uri.parse(getString(R.string.Github_link_issues)));
                     startActivity(browserIntent);
                 } else if (i == 4) {
                     Intent intent = new Intent(AboutActivity.this, LibraryListActivity.class);
+                    startActivity(intent);
+                } else if (i == 5) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.POEditor_link)));
                     startActivity(intent);
                 }
             }

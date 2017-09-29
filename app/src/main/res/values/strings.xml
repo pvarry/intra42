@@ -340,5 +340,10 @@
     <string name="info_loading_current_user">current user</string>
     <string name="evaluation_user_nothing">you have no correction</string>
     <string name="home_help_POEditor">If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor. Click here</string>
+    <string name="about_view_source">View source</string>
+    <string name="about_on_github">on Github</string>
+    <string name="about_report_bug">Report bug</string>
+    <string name="about_library_list">Library list</string>
+    <string name="about_poeditor">Project on POEditor</string>
 
 </resources>

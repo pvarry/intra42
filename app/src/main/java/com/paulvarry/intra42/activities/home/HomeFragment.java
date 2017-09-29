@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     private TextView textViewLevel;
     private ImageButton imageButtonOpenProfile;
     private CardView cardViewPOEditor;
+    private ImageButton imageButtonClosePOEditor;
     private HomeFragment fragment;
     private HomeActivity activity;
     private AppClass app;
@@ -111,6 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         textViewLevel = view.findViewById(R.id.textViewLevel);
         imageButtonOpenProfile = view.findViewById(R.id.imageButtonOpenProfile);
         cardViewPOEditor = view.findViewById(R.id.cardViewPOEditor);
+        imageButtonClosePOEditor = view.findViewById(R.id.imageButtonClosePOEditor);
 
         linearLayoutContent.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -203,15 +205,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
             if (p != null)
                 p.into(imageViewProfile);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                cardViewPOEditor.setElevation(2);
-            cardViewPOEditor.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://poeditor.com/join/project/hDRec5Vk8b"));
-                    startActivity(intent);
-                }
-            });
+            if (AppSettings.getPOEditorActivated(getContext())) {
+                cardViewPOEditor.setVisibility(View.VISIBLE);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    cardViewPOEditor.setElevation(2);
+
+                cardViewPOEditor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.POEditor_link)));
+                        startActivity(intent);
+                    }
+                });
+                imageButtonClosePOEditor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AppSettings.setPOEditorActivated(getContext(), false);
+                        cardViewPOEditor.setVisibility(View.GONE);
+                    }
+                });
+            } else
+                cardViewPOEditor.setVisibility(View.GONE);
         }
         swipeRefreshLayout.setRefreshing(false);
         linearLayoutContent.setVisibility(View.VISIBLE);
