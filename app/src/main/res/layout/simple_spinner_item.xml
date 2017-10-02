@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
+    android:paddingBottom="5dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="5dp"
     android:singleLine="true"
     android:textAlignment="inherit"
-    android:textColor="@color/textColorPrimary" />
+    android:textColor="@color/textColorPrimary"
+    android:textSize="12sp" />

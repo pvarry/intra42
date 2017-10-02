@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -18,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
@@ -49,7 +47,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 
 public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
@@ -295,7 +292,6 @@ public class UserActivity extends BasicTabActivity
     @Override
     public void setupViewPager(ViewPager viewPager) {
 
-
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.title_tab_user_overview));
         adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.title_tab_user_forum));
@@ -319,23 +315,6 @@ public class UserActivity extends BasicTabActivity
             @Override
             public void onPageSelected(int position) {
                 selectedTab = position;
-                if (menuItemSpinner == null)
-                    return;
-                if (position == 2) {
-                    menuItemSpinner.setVisible(true);
-
-                    new MaterialShowcaseView.Builder(UserActivity.this)
-                            .setTarget(menuItemSpinner.getActionView())
-                            .setDismissText(getString(R.string.showcaseview_user_project_galaxy_title))
-                            .setDelay(200) // optional but starting animations immediately in onCreate can make them choppy
-                            .singleUse("showcase_view_user_project_galaxy") // provide a unique ID used to ensure it is only shown once
-                            .setMaskColour(Color.argb(220, 230, 81, 0))
-                            .setContentText(getString(R.string.showcaseview_user_project_galaxy))
-                            .setDismissOnTouch(true)
-                            .show();
-                } else
-                    menuItemSpinner.setVisible(false);
-
                 app.mFirebaseAnalytics.setCurrentScreen(UserActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
             }
         });
@@ -392,20 +371,6 @@ public class UserActivity extends BasicTabActivity
                 return true;
             }
         });
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_user_projects, R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        Spinner menuSpinner = (Spinner) menuItemSpinner.getActionView();
-        //menuSpinner.setGravity(Gravity.END);
-        menuSpinner.setAdapter(adapter);
-
-        if (viewPager != null) {
-            ViewPagerAdapter pagerAdapter = (ViewPagerAdapter) viewPager.getAdapter();
-
-            menuSpinner.setOnItemSelectedListener(((UserProjectsFragment) pagerAdapter.getItem(2)));
-            if (selectedTab == 2)
-                menuItemSpinner.setVisible(true);
-        }
 
 //        menu.add("Add to contacts").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 //            @Override

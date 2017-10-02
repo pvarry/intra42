@@ -12,6 +12,7 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -53,12 +54,9 @@ public class UserProjectsFragment
     ListView listViewAll;
     TextView textViewNoItem;
     Galaxy galaxy;
-
-    Spinner menuSpinner;
-
     int spinnerSelected = 0;
-
     ListAdapterMarks adapterList;
+    private Spinner spinnerContent;
     private OnFragmentInteractionListener mListener;
 
     public UserProjectsFragment() {
@@ -79,8 +77,6 @@ public class UserProjectsFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (UserActivity) getActivity();
-        if (activity.menuItemSpinner != null)
-            menuSpinner = (Spinner) activity.menuItemSpinner.getActionView();
     }
 
     @Override
@@ -98,6 +94,12 @@ public class UserProjectsFragment
         listViewAll = view.findViewById(R.id.listViewAll);
         textViewNoItem = view.findViewById(R.id.textViewNoItem);
         galaxy = view.findViewById(R.id.galaxy);
+        spinnerContent = view.findViewById(R.id.spinnerContent);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.spinner_user_projects, R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        spinnerContent.setAdapter(adapter);
+        spinnerContent.setOnItemSelectedListener(this);
 
         setViewHide();
         galaxy.setVisibility(View.VISIBLE);
@@ -211,9 +213,6 @@ public class UserProjectsFragment
         if (AppSettings.Advanced.getAllowAdvancedData(getContext()))
             Toast.makeText(getContext(), "onItemSelected", Toast.LENGTH_SHORT).show();
 
-        if (activity != null && activity.menuItemSpinner != null)
-            menuSpinner = (Spinner) activity.menuItemSpinner.getActionView();
-
         if (activity == null)
             return;
         if (spinnerSelected == position)
@@ -222,7 +221,7 @@ public class UserProjectsFragment
         if (position == 0) {
             List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
             galaxy.setData(list);
-            animate(menuSpinner, galaxy);
+            animate(spinnerContent, galaxy);
         } else {
             List<ProjectsUsers> list = null;
 
@@ -233,12 +232,12 @@ public class UserProjectsFragment
                     list = ProjectsUsers.getListCursus(list, activity.selectedCursus.cursusId);
                 adapterList = new ListAdapterMarks(activity, list);
                 listViewAll.setAdapter(adapterList);
-                animate(menuSpinner, listViewAll);
+                animate(spinnerContent, listViewAll);
             } else if (position == 2) {
                 list = ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.selectedCursus);
                 adapterList = new ListAdapterMarks(activity, list);
                 listView.setAdapter(adapterList);
-                animate(menuSpinner, listView);
+                animate(spinnerContent, listView);
             }
 
             if (list == null || list.size() != 0)
@@ -257,7 +256,7 @@ public class UserProjectsFragment
     }
 
     public boolean canSwipe() {
-        return menuSpinner != null && menuSpinner.getSelectedItemPosition() != 0;
+        return spinnerContent != null && spinnerContent.getSelectedItemPosition() != 0;
     }
 
     /**
