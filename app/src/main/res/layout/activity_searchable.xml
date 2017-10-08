@@ -73,6 +73,11 @@
             wheel:layout_constraintTop_toBottomOf="@+id/progress_wheel" />
     </android.support.constraint.ConstraintLayout>
 
+    <include
+        android:id="@+id/layoutOnError"
+        layout="@layout/include_constraint_layout_on_error"
+        android:visibility="gone" />
+
     <FrameLayout
         android:id="@+id/layoutApi"
         android:layout_width="match_parent"

@@ -55,6 +55,7 @@ public class ServiceGenerator {
     private static String HEADER_KEY_ACCEPT = "Accept";
     private static String HEADER_KEY_API_AUTH = "Authorization";
     private static String HEADER_VALUE_ACCEPT = "application/json";
+    private static String HEADER_CONTENT_TYPE = "Content-type";
 
     public static <S> S createService(Class<S> serviceClass) {
 
@@ -144,6 +145,7 @@ public class ServiceGenerator {
                                     .header(HEADER_KEY_API_AUTH, newToken.tokenType + " " + newToken.accessToken)
                                     .header(HEADER_KEY_USER_AGENT, getUserAgent())
                                     .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                                    .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
                                     .build();
                         } else {
                             return null;
@@ -163,10 +165,10 @@ public class ServiceGenerator {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-
+                Log.d("token", accessToken.accessToken);
                 Request.Builder requestBuilder = original.newBuilder()
                         .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
-//                        .header("Content-type", "application/json")
+                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
                         .header(HEADER_KEY_API_AUTH, accessToken.tokenType + " " + accessToken.accessToken)
                         .header(HEADER_KEY_USER_AGENT, getUserAgent())
                         .method(original.method(), original.body());
@@ -185,7 +187,7 @@ public class ServiceGenerator {
 
                 Request.Builder requestBuilder = original.newBuilder()
                         .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
-//                        .header("Content-type", "application/json")
+                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
                         .header(HEADER_KEY_USER_AGENT, getUserAgent())
                         .method(original.method(), original.body());
 

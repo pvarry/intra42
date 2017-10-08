@@ -48,6 +48,9 @@ public class ChipViewAdapterUsers extends ChipViewAdapter { //Exactly like ChipV
 
     public void setTagList(List<Tags> list) {
 
+        if (list == null)
+            super.setChipList(null);
+
         List<Chip> chip = new ArrayList<>();
         for (Tags t : list) {
             chip.add(t);

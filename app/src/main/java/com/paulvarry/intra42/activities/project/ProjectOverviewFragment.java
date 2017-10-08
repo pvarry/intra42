@@ -34,6 +34,7 @@ import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -347,11 +348,14 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 Call<Projects> call = api.createProjectRegister(project.id);
                 call.enqueue(new Callback<Projects>() {
                     @Override
-                    public void onResponse(Call<Projects> call, retrofit2.Response<Projects> response) {
+                    public void onResponse(Call<Projects> call, Response<Projects> response) {
+                        Context context = getContext();
+                        if (context == null)
+                            return;
                         if (response.isSuccessful())
-                            Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                         else
-                            Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

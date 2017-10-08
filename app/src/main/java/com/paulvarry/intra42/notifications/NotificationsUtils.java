@@ -364,7 +364,7 @@ public class NotificationsUtils {
                     NotificationsUtils.notify(app, e);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
         }
     }
@@ -382,7 +382,7 @@ public class NotificationsUtils {
                     NotificationsUtils.notify(app, s, false);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
         }
     }
@@ -401,7 +401,7 @@ public class NotificationsUtils {
                     NotificationsUtils.notify(app, s, true);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
         }
     }

@@ -33,6 +33,7 @@ import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.SuperSearch;
+import com.paulvarry.intra42.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,12 +48,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchableActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class SearchableActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     ConstraintLayout constraintLayoutLoading;
     SwipeRefreshLayout layoutResult;
     FrameLayout layoutApi;
     TextView textViewJson;
+    View layoutOnError;
 
     TextView textViewLoading;
     ListView listView;
@@ -78,6 +80,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         listView = findViewById(R.id.listView);
         textViewJson = findViewById(R.id.textViewJson);
         buttonApiOpen = findViewById(R.id.buttonApiOpen);
+        layoutOnError = findViewById(R.id.layoutOnError);
 
         app = (AppClass) getApplication();
 
@@ -95,6 +98,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         }
 
         listView.setOnItemClickListener(this);
+        layoutResult.setOnRefreshListener(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -241,6 +245,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
         Call<List<UsersLTE>> callUsersLogin = apiService.getUsersSearchLogin(stringToSearch);
         Call<List<UsersLTE>> callUsersFirstName = apiService.getUsersSearchFirstName(stringToSearch);
+        Call<List<UsersLTE>> callUsersLastName = apiService.getUsersSearchLastName(stringToSearch);
 
         Call<List<Projects>> callProjects;
         if (cursusUsers != null)
@@ -256,6 +261,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
         Response<List<UsersLTE>> responseUsersLogin = null;
         Response<List<UsersLTE>> responseUsersFirstName = null;
+        Response<List<UsersLTE>> responseUsersLastName = null;
         Response<List<Projects>> responseProjects = null;
         Response<List<Topics>> responseTopics = null;
 
@@ -266,6 +272,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 if (SuperSearch.searchOnArray(R.array.search_users, split[0], SearchableActivity.this)) {
                     responseUsersLogin = execUsers(callUsersLogin);
                     responseUsersFirstName = execUsers(callUsersFirstName);
+                    responseUsersLastName = execUsers(callUsersLastName);
                 } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
                     responseProjects = execProjects(callProjects);
                 } else if (SuperSearch.searchOnArray(R.array.search_topics, split[0], SearchableActivity.this)) {
@@ -279,32 +286,39 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             } else {
                 responseUsersLogin = execUsers(callUsersLogin);
                 responseUsersFirstName = execUsers(callUsersFirstName);
+                responseUsersLastName = execUsers(callUsersLastName);
                 responseProjects = execProjects(callProjects);
                 responseTopics = execTopics(callTopics);
             }
 
             items = new ArrayList<>();
 
-            if ((responseUsersLogin != null && responseUsersLogin.isSuccessful()) || responseUsersFirstName != null && responseUsersFirstName.isSuccessful())
+            boolean responseUsersLoginStatus = (responseUsersLogin != null && responseUsersLogin.isSuccessful() && responseUsersLogin.body() != null);
+            boolean responseUsersFirstNameStatus = (responseUsersFirstName != null && responseUsersFirstName.isSuccessful() && responseUsersFirstName.body() != null);
+            boolean responseUsersLastNameStatus = (responseUsersLastName != null && responseUsersLastName.isSuccessful() && responseUsersLastName.body() != null);
+            if (responseUsersLoginStatus || responseUsersFirstNameStatus || responseUsersLastNameStatus)
                 items.add(new SectionListViewSearch.Item<UsersLTE>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users)));
 
-            if (responseUsersLogin != null && responseUsersLogin.isSuccessful()) {
-
+            if (responseUsersLoginStatus) {
                 for (UsersLTE u : responseUsersLogin.body())
                     items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
             }
-            if (responseUsersFirstName != null && responseUsersFirstName.isSuccessful()) {
+            if (responseUsersFirstNameStatus) {
                 for (UsersLTE u : responseUsersFirstName.body())
                     items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
             }
+            if (responseUsersLastNameStatus) {
+                for (UsersLTE u : responseUsersLastName.body())
+                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
+            }
 
-            if (responseProjects != null && responseProjects.isSuccessful()) {
+            if (responseProjects != null && responseProjects.isSuccessful() && responseProjects.body() != null) {
                 items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_projects)));
                 for (Projects p : responseProjects.body())
                     items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, p, p.getName()));
             }
 
-            if (responseTopics != null && responseTopics.isSuccessful()) {
+            if (responseTopics != null && responseTopics.isSuccessful() && responseTopics.body() != null) {
                 items.add(new SectionListViewSearch.Item<Topics>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_topics)));
                 for (Topics t : responseTopics.body())
                     items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, t, t.getName()));
@@ -319,8 +333,16 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                     listView.setAdapter(adapter);
                 }
             });
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    visibilityGoneAll();
+                    layoutOnError.setVisibility(View.VISIBLE);
+                    Tools.setLayoutOnError(layoutOnError, R.drawable.ic_cloud_off_black_24dp, R.string.info_network_error, SearchableActivity.this);
+                }
+            });
         }
     }
 
@@ -441,5 +463,11 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         layoutResult.setVisibility(View.GONE);
         constraintLayoutLoading.setVisibility(View.GONE);
         layoutApi.setVisibility(View.GONE);
+        layoutOnError.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onRefresh() {
+        doSearchSpitActions(query);
     }
 }

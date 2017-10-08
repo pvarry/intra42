@@ -34,7 +34,7 @@ public class EventsUsers {
 
     public static SparseArray<EventsUsers> get(AppClass app, ApiService apiService, List<Events> events) throws IOException {
 
-        if (app == null || app.me == null)
+        if (app == null || app.me == null || events == null || events.isEmpty())
             return null;
 
         String eventsId;

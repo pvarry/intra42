@@ -242,7 +242,7 @@ public class AppClass extends Application {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             if (me != null)
                 firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException | NullPointerException e) {
             Log.e("Firebase", "Fail to init friends with firebase");
         }
     }

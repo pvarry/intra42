@@ -6,11 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Attachments;
 import com.squareup.picasso.Picasso;
 
@@ -121,5 +126,26 @@ public class Tools {
             textView.setMovementMethod(LinkMovementMethod.getInstance());
         } else
             textView.setText(content);
+    }
+
+    public static void setLayoutOnError(View view, int image, int text, final SwipeRefreshLayout.OnRefreshListener refreshListener) {
+        ImageView imageView = view.findViewById(R.id.imageViewStatus);
+        TextView textViewError = view.findViewById(R.id.textViewError);
+        Button buttonRefresh = view.findViewById(R.id.buttonRefresh);
+
+        view.setVisibility(View.VISIBLE);
+
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageResource(image);
+        textViewError.setText(text);
+        if (refreshListener != null)
+            buttonRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refreshListener.onRefresh();
+                }
+            });
+        else
+            buttonRefresh.setVisibility(View.GONE);
     }
 }

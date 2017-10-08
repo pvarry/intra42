@@ -42,6 +42,7 @@ import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.SuperSearch;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
@@ -63,7 +64,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private ConstraintLayout constraintOnError;
     private TextView textViewLoading;
     private TextView textViewLoadingStatus;
-    private TextView textViewError;
     private Button buttonForceRefresh;
     private int drawerSelectedItemPosition = -1;
     @LayoutRes
@@ -91,7 +91,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         textViewLoading = findViewById(R.id.textViewLoading);
         textViewLoadingStatus = findViewById(R.id.textViewStatus);
         progressBarLoading = findViewById(R.id.progressBarLoading);
-        textViewError = findViewById(R.id.textViewError);
         buttonForceRefresh = findViewById(R.id.buttonRefresh);
 
         fabBaseActivity = findViewById(R.id.fabBaseActivity);
@@ -362,15 +361,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     /**
      * Set view error if something wrong append on loading data or view.
      *
-     * @param errorText Text to display.
-     */
-    protected void setViewError(String errorText) {
-        setViewError(true, errorText);
-    }
-
-    /**
-     * Set view error if something wrong append on loading data or view.
-     *
      * @param allowRefresh Allow to display a refresh button.
      * @param errorText    Text to display.
      */
@@ -380,11 +370,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         String toolbarName = getToolbarName();
         if (toolbarName != null)
             toolbar.setTitle(toolbarName);
-        constraintOnError.setVisibility(View.VISIBLE);
-
-        if (errorText == null)
-            errorText = getString(R.string.info_error_on_loading_this_page);
-        textViewError.setText(errorText);
+        Tools.setLayoutOnError(constraintOnError, R.drawable.ic_cloud_off_black_24dp, R.string.info_error_on_loading_this_page, null);
 
         if (allowRefresh) {
             buttonForceRefresh.setVisibility(View.VISIBLE);
