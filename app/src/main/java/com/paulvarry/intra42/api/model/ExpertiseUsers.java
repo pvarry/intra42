@@ -4,7 +4,9 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,23 +47,20 @@ public class ExpertiseUsers {
     public UsersLTE user;
 
     @Nullable
-    public static List<ExpertiseUsers> getExpertiseUsers(ApiService api, Users user) {
+    public static List<ExpertiseUsers> getExpertiseUsers(ApiService api, Users user) throws IOException, BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorException {
         List<ExpertiseUsers> list = new ArrayList<>();
         int i = 0;
         int pageSize = 100;
 
-        try {
-            while (i < 10 && Pagination.canAdd(list, pageSize)) {
-                Response<List<ExpertiseUsers>> response = api.getUserExpertises(user.login, Pagination.getPage(list, pageSize)).execute();
-                List<ExpertiseUsers> tmp = response.body();
-                if (!response.isSuccessful())
-                    break;
-                list.addAll(tmp);
-                ++i;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (i < 10 && Pagination.canAdd(list, pageSize)) {
+            Response<List<ExpertiseUsers>> response = api.getUserExpertises(user.login, Pagination.getPage(list, pageSize)).execute();
+            if (!Tools.apiIsSuccessful(response))
+                break;
+            List<ExpertiseUsers> tmp = response.body();
+            list.addAll(tmp);
+            ++i;
         }
+
         if (list.isEmpty())
             return null;
         return list;

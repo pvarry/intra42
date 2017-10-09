@@ -29,12 +29,13 @@ import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.cache.CacheUsers;
-import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Friends;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
@@ -53,7 +54,7 @@ public class UserActivity extends BasicTabActivity
         UserProjectsDoingFragment.OnFragmentInteractionListener, UserSkillsFragment.OnFragmentInteractionListener,
         UserAchievementsFragment.OnFragmentInteractionListener, UserForumFragment.OnFragmentInteractionListener,
         UserExpertisesFragment.OnFragmentInteractionListener, UserProjectsFragment.OnFragmentInteractionListener,
-        BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
+        BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
 
     private static final String INTENT_USER_LTE = "user_lte";
     private static final String INTENT_USER_FULL = "user_full";
@@ -256,14 +257,14 @@ public class UserActivity extends BasicTabActivity
     protected void setViewContent() {
 
         if (user == null)
-            setViewError();
+            setViewState(StatusCode.API_DATA_ERROR);
         else
             super.setViewContent();
 
         if (user != null && user.local_cachedAt != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(user.local_cachedAt);
-            calendar.add(Calendar.MINUTE, 15);
+            calendar.add(Calendar.HOUR, 1);
             Date timeout = calendar.getTime();
             if (user.local_cachedAt != null && timeout.before(new Date())) {
 
@@ -278,7 +279,7 @@ public class UserActivity extends BasicTabActivity
                         refresh(new Runnable() {
                             @Override
                             public void run() {
-                                UserActivity.super.setView();
+                                setViewState(StatusCode.CONTENT);
                                 s.dismiss();
                             }
                         });
@@ -407,47 +408,41 @@ public class UserActivity extends BasicTabActivity
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorException {
         if (login != null) {
             if (user == null) {
                 ApiService service = app.getApiService();
                 Call<Users> call = service.getUser(login);
-                try {
-                    Response<Users> ret = call.execute();
-                    if (ret.code() == 200)
-                        user = ret.body();
-                    else
-                        return StatusCode.ERROR;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                Response<Users> ret = call.execute();
+                if (Tools.apiIsSuccessful(ret))
+                    user = ret.body();
             }
             if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
                 selectedCursus = user.cursusUsers.get(0);
             }
         }
-        return StatusCode.FINISH;
     }
 
     @Override
-    public StatusCode getDataOnMainThread() {
+    public ThreadStatusCode getDataOnMainThread() {
         if (user != null)
-            return StatusCode.FINISH;
+            return ThreadStatusCode.FINISH;
         if (app == null)
-            return StatusCode.ERROR;
+            return ThreadStatusCode.NONE;
 
         if (app.me != null && login != null && login.contentEquals(app.me.login)) {
             user = app.me;
-            return StatusCode.FINISH;
+            return ThreadStatusCode.FINISH;
         }
 
         Users tmp = CacheUsers.get(app.cacheSQLiteHelper, login);
         if (tmp != null) {
             user = tmp;
-            return StatusCode.FINISH;
+            return ThreadStatusCode.FINISH;
         }
 
-        return StatusCode.CONTINUE;
+        return ThreadStatusCode.CONTINUE;
     }
 
     @Override
@@ -459,7 +454,7 @@ public class UserActivity extends BasicTabActivity
     }
 
     /**
-     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

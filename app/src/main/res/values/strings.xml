@@ -345,5 +345,6 @@
     <string name="about_report_bug">Report bug</string>
     <string name="about_library_list">Library list</string>
     <string name="about_poeditor">Project on POEditor</string>
+    <string name="info_api_unauthorized">You not allowed</string>
 
 </resources>

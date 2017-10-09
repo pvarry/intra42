@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.paulvarry.intra42.R;
 
-public abstract class BasicTabActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class BasicTabActivity extends BasicThreadActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public TabLayout tabLayout;
     public CustomViewPager viewPager;

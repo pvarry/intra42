@@ -11,9 +11,10 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.SectionListViewSearch;
 import com.paulvarry.intra42.api.model.Locations;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 import de.halfbit.pinnedsection.PinnedSectionListView;
 import retrofit2.Response;
 
-public class LocationHistoryActivity extends BasicActivity implements BasicActivity.GetDataOnThread, AdapterView.OnItemClickListener {
+public class LocationHistoryActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, AdapterView.OnItemClickListener {
 
     final static private String INTENT_LOCATION = "location";
     List<SectionListViewSearch.Item> items;
@@ -93,21 +94,15 @@ public class LocationHistoryActivity extends BasicActivity implements BasicActiv
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorException {
 
-        try {
-            Response<List<Locations>> response = app.getApiService().getLocationsHost(AppSettings.getAppCampus(app), host).execute();
-            if (locations == null)
-                locations = new ArrayList<>();
-            if (response.isSuccessful()) {
-                locations.addAll(response.body());
-                return StatusCode.FINISH;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Response<List<Locations>> response = app.getApiService().getLocationsHost(AppSettings.getAppCampus(app), host).execute();
 
-        return StatusCode.ERROR;
+        if (locations == null)
+            locations = new ArrayList<>();
+        if (Tools.apiIsSuccessful(response))
+            locations.addAll(response.body());
+
     }
 
     @Override

@@ -238,10 +238,6 @@ public class UserOverviewFragment
             }
         }
         textViewPosition.setText(strLocation);
-
-//        Toast t = Toast.makeText(getContext(), "ici", Toast.LENGTH_SHORT);
-//        t.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
-//        t.show();
         textViewWallet.setText(String.valueOf(user.wallet));
         textViewCorrectionPoints.setText(String.valueOf(user.correction_point));
 

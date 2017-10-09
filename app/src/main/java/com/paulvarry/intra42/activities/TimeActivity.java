@@ -12,11 +12,11 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.GridAdapterTimeTool;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 
 import java.util.List;
 
-public class TimeActivity extends BasicActivity implements BasicActivity.GetDataOnThread, BasicActivity.GetDataOnMain {
+public class TimeActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, BasicThreadActivity.GetDataOnMain {
 
     private final Handler timerHandler = new Handler();
     private GridAdapterTimeTool adapterTimeTool;
@@ -68,19 +68,18 @@ public class TimeActivity extends BasicActivity implements BasicActivity.GetData
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws ErrorException {
         campusList = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
         if (campusList == null || campusList.size() == 0)
-            return StatusCode.ERROR;
-        return StatusCode.FINISH;
+            throw new ErrorException();
     }
 
     @Override
-    public StatusCode getDataOnMainThread() {
+    public ThreadStatusCode getDataOnMainThread() {
         campusList = CacheCampus.get(app.cacheSQLiteHelper);
         if (campusList == null || campusList.size() == 0)
-            return StatusCode.CONTINUE;
-        return StatusCode.FINISH;
+            return ThreadStatusCode.CONTINUE;
+        return ThreadStatusCode.FINISH;
     }
 
     @Override

@@ -259,6 +259,7 @@ public interface ApiService {
     Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") int userId);
 
     @GET("/v2/projects/{project_id}/projects_users?page[size]=1")
+    @Deprecated
     Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") String login);
 
     @GET("/v2/projects/{project_id}/projects_users?page[size]=1")

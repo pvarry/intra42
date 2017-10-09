@@ -9,8 +9,8 @@ import android.view.View;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.NewTopicActivity;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
-import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
 public class ForumActivity extends BasicTabActivity
@@ -47,7 +47,7 @@ public class ForumActivity extends BasicTabActivity
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link BasicThreadActivity#getDataOnMainThread()} and {@link BasicThreadActivity#getDataOnOtherThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

@@ -109,6 +109,28 @@ public class ServiceGenerator {
         httpClient.readTimeout(20, TimeUnit.SECONDS);
         httpClient.connectTimeout(5, TimeUnit.SECONDS);
 
+        /*
+        httpClient.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                try {
+
+
+                    Thread.sleep(200000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                return new Response.Builder()
+                        .code(500)
+                        .message("MockError")
+                        .protocol(Protocol.HTTP_1_1)
+                        .request(chain.request())
+                        .body(ResponseBody.create(MediaType.parse("text/plain"), "MockError"))
+                        .build();
+            }
+        });*/
+
         return httpClient;
     }
 

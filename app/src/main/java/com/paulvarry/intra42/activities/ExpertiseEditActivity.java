@@ -21,15 +21,16 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.ExpertiseUsers;
 import com.paulvarry.intra42.api.model.Expertises;
 import com.paulvarry.intra42.cache.CacheExpertise;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ExpertiseEditActivity extends BasicActivity implements View.OnClickListener, BasicActivity.GetDataOnThread {
+public class ExpertiseEditActivity extends BasicThreadActivity implements View.OnClickListener, BasicThreadActivity.GetDataOnThread {
 
     List<ExpertiseUsers> expertiseList;
 
@@ -49,14 +50,8 @@ public class ExpertiseEditActivity extends BasicActivity implements View.OnClick
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
-
+    public void getDataOnOtherThread() throws UnauthorizedException, ErrorException, IOException {
         expertiseList = ExpertiseUsers.getExpertiseUsers(app.getApiService(), app.me);
-
-        if (expertiseList != null && expertiseList.size() != 0)
-            return StatusCode.FINISH;
-        else
-            return StatusCode.EMPTY;
     }
 
     @Override
@@ -66,6 +61,12 @@ public class ExpertiseEditActivity extends BasicActivity implements View.OnClick
 
     @Override
     public void setViewContent() {
+
+        if (expertiseList != null && expertiseList.size() != 0) {
+            setViewState(StatusCode.EMPTY);
+            return;
+        }
+
         ListView listView = findViewById(R.id.listView);
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.activity_expertise_edit);
 

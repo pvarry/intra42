@@ -23,7 +23,7 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.GridAdapterUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ import java.util.Set;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class FriendsActivity extends BasicActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class FriendsActivity extends BasicThreadActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     List<UsersLTE> list;
     HashMap<String, Locations> locations;
@@ -57,7 +57,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             list = new ArrayList<>();
 
             if (messages == null) {
-                setViewEmpty(false);
+                setViewState(StatusCode.API_DATA_ERROR);
                 return;
             } else {
                 Set<String> s = messages.keySet();
@@ -83,7 +83,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             // Failed to read value
             Log.e("Firebase", "Failed to read value.", error.toException());
 
-            setViewError();
+            setViewState(StatusCode.API_DATA_ERROR);
         }
     };
 
@@ -102,7 +102,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setView();
+                        setViewState(StatusCode.CONTENT);
                     }
                 });
             }
@@ -165,7 +165,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         if (!firebaseFinished)
             setLoadingProgress("Friends", 0, 2);
         else if (list == null)
-            setViewError();
+            setViewState(StatusCode.EMPTY);
         else if (!list.isEmpty()) {
             adapter = new GridAdapterUsers(this, list, locations);
             gridView.setAdapter(adapter);
@@ -173,7 +173,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
             gridView.setOnItemClickListener(this);
             gridView.setOnItemLongClickListener(this);
         } else
-            setViewEmpty(false);
+            setViewState(StatusCode.EMPTY);
     }
 
     @Override
@@ -195,7 +195,7 @@ public class FriendsActivity extends BasicActivity implements AdapterView.OnItem
         if (app.firebaseRefFriends != null)
             app.firebaseRefFriends.addValueEventListener(friendsEventListener);
         else {
-            setViewError();
+            setViewState(StatusCode.API_DATA_ERROR);
             firebaseFinished = true;
         }
     }

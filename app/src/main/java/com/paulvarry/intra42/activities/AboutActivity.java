@@ -15,12 +15,12 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AboutActivity extends BasicActivity {
+public class AboutActivity extends BasicThreadActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

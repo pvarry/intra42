@@ -24,18 +24,20 @@ import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.pack.Topic;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class TopicActivity
-        extends BasicActivity
-        implements AdapterView.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, BasicActivity.GetDataOnThread {
+        extends BasicThreadActivity
+        implements AdapterView.OnItemLongClickListener, View.OnClickListener, BasicThreadActivity.GetDataOnThread, SwipeRefreshLayout.OnRefreshListener {
 
     private final static String INTENT_ID = "intent_topic_id";
     private final static String INTENT_TOPIC_JSON = "intent_topic_json";
@@ -88,23 +90,18 @@ public class TopicActivity
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws ErrorException, IOException, UnauthorizedException {
         String json = getIntent().getStringExtra(INTENT_TOPIC_JSON);
 
         if (json != null) {
             Topics topics = ServiceGenerator.getGson().fromJson(json, Topics.class);
             if (topics != null && topics.id != 0) {
                 topic = Topic.get(this, app.getApiService(), topics);
-                if (topic == null)
-                    return StatusCode.ERROR;
-                return StatusCode.FINISH;
+                throw new ErrorException();
             }
         }
 
         topic = Topic.get(this, app.getApiService(), id);
-        if (topic == null)
-            return StatusCode.ERROR;
-        return StatusCode.FINISH;
     }
 
     @Override
@@ -178,29 +175,6 @@ public class TopicActivity
         return null;
     }
 
-    @Override
-    public void onRefresh() {
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getDataOnOtherThread();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                        setView();
-                    }
-                });
-            }
-        }).start();
-    }
-
     public void newMessage(View view) {
 
     }
@@ -272,5 +246,10 @@ public class TopicActivity
             scrollViewReply.setVisibility(View.VISIBLE);
             textViewPreviewMessage.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        super.refresh();
     }
 }

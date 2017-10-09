@@ -13,8 +13,8 @@ import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.cache.CacheCampus;
-import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
+public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
 
     final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
     HashMap<String, UsersLTE> locations;
@@ -103,12 +103,14 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws IOException {
 
         final List<Locations> locationsTmp = new ArrayList<>();
         campusId = AppSettings.getAppCampus(app);
-        if (!(campusId == 1 || campusId == 7))
-            return StatusCode.EMPTY;
+        if (!(campusId == 1 || campusId == 7)) {
+            setViewStateThread(StatusCode.EMPTY);
+            return;
+        }
 
         setLoadingInfo("Loading locations …");
         setLoadingProgress(0, -1);
@@ -116,24 +118,22 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         int page = 1;
         int pageSize = 100;
         int pageMax;
-        try {
-            while (true) {
 
-                Response<List<Locations>> r = app.getApiService().getLocations(campusId, pageSize, page).execute();
-                if (r.isSuccessful()) {
-                    locationsTmp.addAll(r.body());
-                    if (r.body().size() == pageSize) {
-                        pageMax = (int) Math.ceil(Double.parseDouble(r.headers().get("X-Total")) / pageSize);
-                        setLoadingProgress(page, pageMax);
-                        page++;
-                    } else
-                        break;
+        while (true) {
+
+            Response<List<Locations>> r = app.getApiService().getLocations(campusId, pageSize, page).execute();
+            if (r.isSuccessful()) {
+                locationsTmp.addAll(r.body());
+                if (r.body().size() == pageSize) {
+                    pageMax = (int) Math.ceil(Double.parseDouble(r.headers().get("X-Total")) / pageSize);
+                    setLoadingProgress(page, pageMax);
+                    page++;
                 } else
-                    return StatusCode.ERROR;
+                    break;
+            } else {
+                setViewStateThread(StatusCode.API_DATA_ERROR);
+                return;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return StatusCode.ERROR;
         }
 
         locations = new HashMap<>();
@@ -141,11 +141,11 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             locations.put(l.host, l.user);
         }
 
-        return StatusCode.FINISH;
+        setViewStateThread(StatusCode.CONTENT);
     }
 
     @Override
-    public BasicActivity.StatusCode getDataOnMainThread() {
+    public ThreadStatusCode getDataOnMainThread() {
 
         List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
         if (campusCache != null) {
@@ -155,7 +155,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             }
         }
 
-        return StatusCode.CONTINUE;
+        return ThreadStatusCode.CONTINUE;
     }
 
     @Override
@@ -164,7 +164,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     }
 
     /**
-     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

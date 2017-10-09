@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Attachments;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.squareup.picasso.Picasso;
 
 import in.uncod.android.bypass.Bypass;
+import retrofit2.Response;
 
 public class Tools {
 
@@ -128,10 +130,15 @@ public class Tools {
             textView.setText(content);
     }
 
-    public static void setLayoutOnError(View view, int image, int text, final SwipeRefreshLayout.OnRefreshListener refreshListener) {
+    public static boolean setLayoutOnError(View view, int image, int text, final SwipeRefreshLayout.OnRefreshListener refreshListener) {
+        if (view == null)
+            return false;
         ImageView imageView = view.findViewById(R.id.imageViewStatus);
         TextView textViewError = view.findViewById(R.id.textViewError);
         Button buttonRefresh = view.findViewById(R.id.buttonRefresh);
+
+        if (imageView == null || textViewError == null || buttonRefresh == null)
+            return false;
 
         view.setVisibility(View.VISIBLE);
 
@@ -147,5 +154,18 @@ public class Tools {
             });
         else
             buttonRefresh.setVisibility(View.GONE);
+        return true;
+    }
+
+    public static boolean apiIsSuccessful(Response<?> response) throws BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorException {
+        if (response == null)
+            throw new BasicThreadActivity.ErrorException();
+        else if (response.isSuccessful())
+            return true;
+        else if (response.code() / 100 == 4)
+            throw new BasicThreadActivity.UnauthorizedException();
+        else if (response.code() / 100 == 5)
+            throw new BasicThreadActivity.ErrorException();
+        else return false;
     }
 }

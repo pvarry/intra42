@@ -10,14 +10,15 @@ import android.widget.ListView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterMarvinMeal;
 import com.paulvarry.intra42.api.cantina.MarvinMeals;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Response;
 
-public class MarvinMealsActivity extends BasicActivity implements BasicActivity.GetDataOnThread {
+public class MarvinMealsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread {
 
     List<MarvinMeals> marvinMealList;
 
@@ -55,26 +56,14 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
      * Triggered when the activity start.
      * <p>
      * This method is run on main Thread, so you can make api call.
-     *
-     * @return Return StatusCode of what appending {@link BasicActivity.GetDataOnMain#getDataOnMainThread()}.
      */
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws UnauthorizedException, ErrorException, IOException {
 
-        try {
-            Response<List<MarvinMeals>> response = app.getApiServiceCantina().getMeals().execute();
-            if (response.isSuccessful()) {
-                marvinMealList = response.body();
-                if (marvinMealList == null || marvinMealList.isEmpty())
-                    return StatusCode.EMPTY;
-                else return StatusCode.FINISH;
-            } else
-                return StatusCode.ERROR;
-        } catch (IOException e) {
-            e.printStackTrace();
+        Response<List<MarvinMeals>> response = app.getApiServiceCantina().getMeals().execute();
+        if (Tools.apiIsSuccessful(response)) {
+            marvinMealList = response.body();
         }
-
-        return StatusCode.ERROR;
     }
 
     /**
@@ -92,13 +81,20 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
      */
     @Override
     public void setViewContent() {
+
+        if (marvinMealList == null || marvinMealList.isEmpty()) {
+            setViewState(StatusCode.EMPTY);
+            return;
+        }
+
+
         ListView listView = findViewById(R.id.listView);
         ListAdapterMarvinMeal adapterMarvinMeal = new ListAdapterMarvinMeal(this, marvinMealList);
         listView.setAdapter(adapterMarvinMeal);
     }
 
     /**
-     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicActivity.GetDataOnMain#getDataOnMainThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */
