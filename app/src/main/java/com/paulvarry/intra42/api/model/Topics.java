@@ -8,9 +8,13 @@ import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.api.BaseItem;
 import com.paulvarry.intra42.api.ServiceGenerator;
 
+import org.ocpsoft.prettytime.Duration;
+import org.ocpsoft.prettytime.PrettyTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Topics implements BaseItem {
 
@@ -70,7 +74,24 @@ public class Topics implements BaseItem {
 
     @Override
     public String getSub() {
-        return author.login;
+        StringBuilder summary = new StringBuilder(author.login);
+        PrettyTime formatter = new PrettyTime(Locale.getDefault());
+
+        summary.append(" • ").append(formatter.format(createdAt));
+
+        if (updatedAt != null) {
+            Duration createdAt = formatter.approximateDuration(this.createdAt);
+            Duration updatedAt = formatter.approximateDuration(this.updatedAt);
+            if (createdAt.getQuantity() != updatedAt.getQuantity() || !createdAt.getUnit().equals(updatedAt.getUnit())) {
+                summary.append(" • ").append(formatter.format(updatedAt));
+            }
+        }
+
+        String flag = language.getFlag();
+        if (flag != null)
+            summary.append(" ").append(flag);
+
+        return summary.toString();
     }
 
     @Override

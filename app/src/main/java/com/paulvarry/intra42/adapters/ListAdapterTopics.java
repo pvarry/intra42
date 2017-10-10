@@ -16,11 +16,7 @@ import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.utils.UserImage;
 
-import org.ocpsoft.prettytime.Duration;
-import org.ocpsoft.prettytime.PrettyTime;
-
 import java.util.List;
-import java.util.Locale;
 
 public class ListAdapterTopics extends BaseAdapter {
 
@@ -120,23 +116,7 @@ public class ListAdapterTopics extends BaseAdapter {
             });
         }
 
-        StringBuilder summary = new StringBuilder(topic.author.login);
-        PrettyTime formatter = new PrettyTime(Locale.getDefault());
-
-        summary.append(" • ").append(formatter.format(topic.createdAt));
-
-        if (topic.updatedAt != null) {
-            Duration createdAt = formatter.approximateDuration(topic.createdAt);
-            Duration updatedAt = formatter.approximateDuration(topic.updatedAt);
-            if (createdAt.getQuantity() != updatedAt.getQuantity() || !createdAt.getUnit().equals(updatedAt.getUnit())) {
-                summary.append(" • ").append(formatter.format(topic.updatedAt));
-            }
-        }
-
-        String flag = topic.language.getFlag();
-        if (flag != null)
-            summary.append(" ").append(flag);
-        holder.textViewSummary.setText(summary);
+        holder.textViewSummary.setText(topic.getSub());
 
         return convertView;
     }

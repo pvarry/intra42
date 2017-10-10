@@ -1,15 +1,19 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.UserImage;
 
 import java.util.List;
 
@@ -56,7 +60,8 @@ public class SectionListViewSearch extends BaseAdapter
             holder.linearLayoutTitle = convertView.findViewById(R.id.linearLayoutTitle);
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
 
-            holder.linearLayoutContent = convertView.findViewById(R.id.linearLayoutContent);
+            holder.layoutContent = convertView.findViewById(R.id.layoutContent);
+            holder.imageViewUser = convertView.findViewById(R.id.imageViewUser);
             holder.textViewName = convertView.findViewById(R.id.textViewName);
             holder.textViewSub = convertView.findViewById(R.id.textViewSub);
 
@@ -68,18 +73,26 @@ public class SectionListViewSearch extends BaseAdapter
         Item i = getItem(position);
 
         if (isItemViewTypePinned(getItemViewType(position))) {
-            holder.linearLayoutContent.setVisibility(View.GONE);
+            holder.layoutContent.setVisibility(View.GONE);
             holder.linearLayoutTitle.setVisibility(View.VISIBLE);
 
             holder.textViewTitle.setText(i.title);
         } else {
-            holder.linearLayoutContent.setVisibility(View.VISIBLE);
+            holder.layoutContent.setVisibility(View.VISIBLE);
             holder.linearLayoutTitle.setVisibility(View.GONE);
 
+            if (i.item instanceof UsersLTE) {
+                holder.imageViewUser.setVisibility(View.VISIBLE);
+                UserImage.setImage(context, (UsersLTE) i.item, holder.imageViewUser);
+            } else
+                holder.imageViewUser.setVisibility(View.GONE);
+
             holder.textViewName.setText(i.item.getName());
-            if (i.item.getSub() != null)
-                holder.textViewSub.setText(i.item.getSub());
-            else
+            String sub = i.item.getSub();
+            if (sub != null) {
+                holder.textViewSub.setText(sub);
+                holder.textViewSub.setVisibility(View.VISIBLE);
+            } else
                 holder.textViewSub.setVisibility(View.GONE);
         }
 
@@ -108,7 +121,8 @@ public class SectionListViewSearch extends BaseAdapter
         private LinearLayout linearLayoutTitle;
         private TextView textViewTitle;
 
-        private LinearLayout linearLayoutContent;
+        private ConstraintLayout layoutContent;
+        private ImageView imageViewUser;
         private TextView textViewName;
         private TextView textViewSub;
 

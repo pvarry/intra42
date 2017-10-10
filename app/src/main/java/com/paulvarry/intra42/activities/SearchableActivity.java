@@ -41,6 +41,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -155,22 +156,6 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 return true;
             }
         });
-
-    /*
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                // Do whatever you need
-                return true; // KEEP IT TO TRUE OR IT DOESN'T OPEN !!
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                onBackPressed();
-                return false; // OR FALSE IF YOU DIDN'T WANT IT TO CLOSE!
-            }
-        });*/
 
         return true;
     }
@@ -296,19 +281,28 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             boolean responseUsersLoginStatus = (responseUsersLogin != null && responseUsersLogin.isSuccessful() && responseUsersLogin.body() != null);
             boolean responseUsersFirstNameStatus = (responseUsersFirstName != null && responseUsersFirstName.isSuccessful() && responseUsersFirstName.body() != null);
             boolean responseUsersLastNameStatus = (responseUsersLastName != null && responseUsersLastName.isSuccessful() && responseUsersLastName.body() != null);
-            if (responseUsersLoginStatus || responseUsersFirstNameStatus || responseUsersLastNameStatus)
+
+            HashMap<String, UsersLTE> user = null;
+            if (responseUsersLoginStatus || responseUsersFirstNameStatus || responseUsersLastNameStatus) {
                 items.add(new SectionListViewSearch.Item<UsersLTE>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users)));
+                user = new HashMap<>();
+            }
 
             if (responseUsersLoginStatus) {
                 for (UsersLTE u : responseUsersLogin.body())
-                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
+                    user.put(u.getName(), u);
             }
             if (responseUsersFirstNameStatus) {
                 for (UsersLTE u : responseUsersFirstName.body())
-                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
+                    user.put(u.getName(), u);
             }
             if (responseUsersLastNameStatus) {
                 for (UsersLTE u : responseUsersLastName.body())
+                    user.put(u.getName(), u);
+            }
+
+            if (user != null) {
+                for (UsersLTE u : user.values())
                     items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
             }
 
