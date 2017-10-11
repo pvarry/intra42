@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.UserImage;
 
 import java.util.List;
@@ -99,7 +100,12 @@ public class ListAdapterScaleTeams extends BaseAdapter {
         ScaleTeams item = getItem(position);
         if (item.corrector != null) {
             UserImage.setImage(context, item.corrector, holder.imageViewUser);
-            holder.textViewCorrector.setText(item.corrector.login);
+            String s = item.corrector.login + " • ";
+            if (item.filledAt != null)
+                s += DateTool.getDurationAgo(item.filledAt);
+            else
+                s += DateTool.getDurationAgo(item.beginAt);
+            holder.textViewCorrector.setText(s);
         }
 
         holder.textViewScale.setText(String.valueOf(item.finalMark));
