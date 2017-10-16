@@ -319,23 +319,25 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
         holder.textViewLogin.setText(message.author.login);
         holder.textViewDate.setText(DateTool.getDurationAgo(message.createdAt));
 
-        if (message.votesCount.upvote < 10)
-            holder.viewUp.setVisibility(View.GONE);
-        else if (message.votesCount.upvote < 25)
-            holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_0));
-        else if (message.votesCount.upvote < 50)
-            holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_1));
-        else
-            holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_2));
+        if (message.votesCount != null) {
+            if (message.votesCount.upvote < 10)
+                holder.viewUp.setVisibility(View.GONE);
+            else if (message.votesCount.upvote < 25)
+                holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_0));
+            else if (message.votesCount.upvote < 50)
+                holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_1));
+            else
+                holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_2));
 
-        if (message.votesCount.downvote < 10)
-            holder.viewDown.setVisibility(View.GONE);
-        else if (message.votesCount.downvote < 25)
-            holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_0));
-        else if (message.votesCount.downvote < 50)
-            holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_1));
-        else
-            holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_2));
+            if (message.votesCount.downvote < 10)
+                holder.viewDown.setVisibility(View.GONE);
+            else if (message.votesCount.downvote < 25)
+                holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_0));
+            else if (message.votesCount.downvote < 50)
+                holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_1));
+            else
+                holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_2));
+        }
     }
 
     private void openBottomSheet(Messages message) {
