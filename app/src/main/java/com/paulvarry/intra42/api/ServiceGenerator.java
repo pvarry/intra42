@@ -187,7 +187,6 @@ public class ServiceGenerator {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-                Log.d("token", accessToken.accessToken);
                 Request.Builder requestBuilder = original.newBuilder()
                         .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
                         .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)

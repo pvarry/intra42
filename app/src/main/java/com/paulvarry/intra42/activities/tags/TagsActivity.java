@@ -67,7 +67,7 @@ public class TagsActivity
     }
 
     @Override
-    public void getDataOnOtherThread() throws UnauthorizedException, ErrorException, IOException {
+    public void getDataOnOtherThread() throws UnauthorizedException, ErrorServerException, IOException {
         if (tag == null) {
 
             Response<Tags> response = app.getApiService().getTag(tagId).execute();

@@ -47,7 +47,7 @@ public class ExpertiseUsers {
     public UsersLTE user;
 
     @Nullable
-    public static List<ExpertiseUsers> getExpertiseUsers(ApiService api, Users user) throws IOException, BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorException {
+    public static List<ExpertiseUsers> getExpertiseUsers(ApiService api, Users user) throws IOException, BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorServerException {
         List<ExpertiseUsers> list = new ArrayList<>();
         int i = 0;
         int pageSize = 100;

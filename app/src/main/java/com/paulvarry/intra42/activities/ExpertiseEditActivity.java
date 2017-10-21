@@ -50,7 +50,7 @@ public class ExpertiseEditActivity extends BasicThreadActivity implements View.O
     }
 
     @Override
-    public void getDataOnOtherThread() throws UnauthorizedException, ErrorException, IOException {
+    public void getDataOnOtherThread() throws UnauthorizedException, ErrorServerException, IOException {
         expertiseList = ExpertiseUsers.getExpertiseUsers(app.getApiService(), app.me);
     }
 

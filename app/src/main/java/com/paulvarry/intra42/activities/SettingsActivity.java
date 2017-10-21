@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.activities;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -148,6 +149,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+        app = (AppClass) getApplication();
     }
 
     @Override
@@ -183,11 +186,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * {@inheritDoc}
      */
     @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(final List<Header> target) {
         loadHeadersFromResource(R.xml.pref_headers, target);
         final SharedPreferences preferences = AppSettings.getSharedPreferences(this);
-        app = (AppClass) getApplication();
 
         for (Header h : target) {
             if (NotificationPreferenceFragment.class.getName().equals(h.fragment)) {
@@ -223,6 +224,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_notification);
             setHasOptionsMenu(true);
 
+            Activity activity = getActivity();
+            AppClass app = (AppClass) activity.getApplication();
+            app.mFirebaseAnalytics.setCurrentScreen(activity, activity.getClass().getSimpleName() + " -> " + getClass().getSimpleName(), null /* class override */);
+
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
@@ -253,6 +258,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_network);
             setHasOptionsMenu(true);
+
+            Activity activity = getActivity();
+            AppClass app = (AppClass) activity.getApplication();
+            app.mFirebaseAnalytics.setCurrentScreen(activity, activity.getClass().getSimpleName() + " -> " + getClass().getSimpleName(), null /* class override */);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
@@ -285,7 +294,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_advanced);
             setHasOptionsMenu(true);
-            AppClass app = (AppClass) getActivity().getApplication();
+
+            Activity activity = getActivity();
+            AppClass app = (AppClass) activity.getApplication();
+            app.mFirebaseAnalytics.setCurrentScreen(activity, activity.getClass().getSimpleName() + " -> " + getClass().getSimpleName(), null /* class override */);
 
             List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS);

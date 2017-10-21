@@ -408,7 +408,7 @@ public class UserActivity extends BasicTabActivity
     }
 
     @Override
-    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorException {
+    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorServerException {
         if (login != null) {
             if (user == null) {
                 ApiService service = app.getApiService();

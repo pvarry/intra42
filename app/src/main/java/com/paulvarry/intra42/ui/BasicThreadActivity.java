@@ -42,12 +42,16 @@ public abstract class BasicThreadActivity extends BasicActivity implements Navig
                     } catch (IOException e) {
                         e.printStackTrace();
                         setViewStateThread(StatusCode.NETWORK_ERROR);
-                    } catch (RuntimeException | ErrorException e) {
-                        e.printStackTrace();
-                        setViewStateThread(StatusCode.API_DATA_ERROR);
                     } catch (UnauthorizedException e) {
                         e.printStackTrace();
                         setViewStateThread(StatusCode.API_UNAUTHORIZED);
+                    } catch (ErrorServerException e) {
+                        e.printStackTrace();
+                        setViewStateThread(StatusCode.API_DATA_ERROR);
+
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                        setViewStateThread(StatusCode.API_DATA_ERROR);
                     }
                 }
             }).start();
@@ -95,12 +99,12 @@ public abstract class BasicThreadActivity extends BasicActivity implements Navig
          *
          * @return Return ThreadStatusCode of what appending {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()}.
          */
-        void getDataOnOtherThread() throws IOException, RuntimeException, UnauthorizedException, ErrorException;
+        void getDataOnOtherThread() throws IOException, RuntimeException;
     }
 
-    public static class UnauthorizedException extends Exception {
+    public static class UnauthorizedException extends RuntimeException {
     }
 
-    public static class ErrorException extends Exception {
+    public static class ErrorServerException extends RuntimeException {
     }
 }

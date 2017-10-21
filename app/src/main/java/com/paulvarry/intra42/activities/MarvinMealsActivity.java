@@ -58,7 +58,7 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
      * This method is run on main Thread, so you can make api call.
      */
     @Override
-    public void getDataOnOtherThread() throws UnauthorizedException, ErrorException, IOException {
+    public void getDataOnOtherThread() throws UnauthorizedException, ErrorServerException, IOException {
 
         Response<List<MarvinMeals>> response = app.getApiServiceCantina().getMeals().execute();
         if (Tools.apiIsSuccessful(response)) {

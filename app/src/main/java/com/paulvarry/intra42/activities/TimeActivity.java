@@ -68,10 +68,10 @@ public class TimeActivity extends BasicThreadActivity implements BasicThreadActi
     }
 
     @Override
-    public void getDataOnOtherThread() throws ErrorException {
+    public void getDataOnOtherThread() throws ErrorServerException {
         campusList = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
         if (campusList == null || campusList.size() == 0)
-            throw new ErrorException();
+            throw new ErrorServerException();
     }
 
     @Override

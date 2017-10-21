@@ -157,15 +157,15 @@ public class Tools {
         return true;
     }
 
-    public static boolean apiIsSuccessful(Response<?> response) throws BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorException {
+    public static boolean apiIsSuccessful(Response<?> response) throws BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorServerException {
         if (response == null)
-            throw new BasicThreadActivity.ErrorException();
+            throw new BasicThreadActivity.ErrorServerException();
         else if (response.isSuccessful())
             return true;
         else if (response.code() / 100 == 4)
             throw new BasicThreadActivity.UnauthorizedException();
         else if (response.code() / 100 == 5)
-            throw new BasicThreadActivity.ErrorException();
+            throw new BasicThreadActivity.ErrorServerException();
         else return false;
     }
 }

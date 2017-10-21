@@ -21,7 +21,7 @@ public class Topic {
     public List<Messages> messages;
 
     @Nullable
-    static public Topic get(TopicActivity activity, ApiService service, int id) throws IOException, BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorException {
+    static public Topic get(TopicActivity activity, ApiService service, int id) throws IOException, BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorServerException {
         Topic topic = new Topic();
 
         Call<Topics> callTopic = service.getTopic(id);

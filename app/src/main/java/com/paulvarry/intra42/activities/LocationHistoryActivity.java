@@ -94,7 +94,7 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
     }
 
     @Override
-    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorException {
+    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorServerException {
 
         Response<List<Locations>> response = app.getApiService().getLocationsHost(AppSettings.getAppCampus(app), host).execute();
 
