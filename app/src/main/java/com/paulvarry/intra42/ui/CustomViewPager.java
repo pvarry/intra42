@@ -54,7 +54,7 @@ public class CustomViewPager extends ViewPager {
             ViewStatePagerAdapter adapter = (ViewStatePagerAdapter) getAdapter();
 
             List<String> title = adapter.getPageTitle();
-            if (title == null || title.size() < currentItem)
+            if (title == null || title.size() <= currentItem)
                 return true;
             item = title.get(currentItem);
 
@@ -63,7 +63,7 @@ public class CustomViewPager extends ViewPager {
             ViewPagerAdapter adapter = (ViewPagerAdapter) getAdapter();
 
             List<String> title = adapter.getPageTitle();
-            if (title == null || title.size() < currentItem)
+            if (title == null || title.size() <= currentItem)
                 return true;
             item = title.get(currentItem);
 

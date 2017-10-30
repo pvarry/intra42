@@ -347,4 +347,7 @@
     <string name="about_poeditor">Project on POEditor</string>
     <string name="info_api_unauthorized">You not allowed</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

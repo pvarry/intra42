@@ -159,6 +159,9 @@ public interface ApiService {
     Call<List<ExpertiseUsers>> getUserExpertises(@Path("id") String userSlug, @Query("page") int page);
 
     /* Events */
+    @GET("/v2/events/{id}")
+    Call<Events> getEvent(@Path("id") int id);
+
     @GET("/v2/campus/{campus_id}/cursus/{cursus_id}/events?sort=begin_at")
     Call<List<Events>> getEvent(@Path("campus_id") int campus, @Path("cursus_id") int cursus, @Query("range[end_at]") String rangeEnd, @Query("page") int page);
 
