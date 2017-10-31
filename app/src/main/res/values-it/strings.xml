@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string name="app_name">"Intra 42"</string>
+
+<!-- - - - - - - - - - - Strings related to Settings - - - - - - - - - - -->
 <string name="pref_advanced_dont_force">"Disabilita (non forzare)"</string>
 <string name="pref_force_content_location">"Forza posizione contenuto"</string>
 <string name="pref_title_beta_allow">"Abilita impostazioni avanzate"</string>
@@ -8,6 +10,8 @@
 <string name="pref_unactivated">"Disattivo"</string>
 <string name="pref_activated">"Attivo"</string>
 <string name="pref_value_all">"Tutto"</string>
+
+<!-- Settings for Notifications -->
 <string name="pref_header_notifications">"Notifiche"</string>
 <string name="pref_title_notifications_allow">"Consenti notifiche"</string>
 <string name="pref_title_notifications_events">"Consenti eventi"</string>
@@ -16,10 +20,14 @@
 <string name="pref_title_ringtone">"Suoneria"</string>
 <string name="pref_title_notifications_frequency">"Frequenza di sincronizzazione"</string>
 <string name="pref_title_system_sync_settings">"Impostazioni sistema di sincronia"</string>
+
+<!-- Settings for Network -->
 <string name="pref_header_network">"Rete"</string>
 <string name="pref_title_network_over_cellular_slow">"Via rete cellulare lenta"</string>
 <string name="pref_title_network_over_cellular_fast">"Via rete cellulare veloce"</string>
 <string name="pref_title_network_over_wifi">"Via wifi"</string>
+
+<!-- - - - - - - - - - - Strings related to Notifications - - - - - - - - - - -->
 <string name="notifications_events_sub_text">"evento"</string>
 <string name="notifications_events_channel_name">"Eventi"</string>
 <string name="notifications_events_channel_description">"Notifiche per eventi"</string>
@@ -28,6 +36,8 @@
 <string name="notifications_bookings_channel_description">"Notifiche per prenotazioni corrette"</string>
 <string name="notifications_announcements_channel_name">"Avvisi"</string>
 <string name="notifications_announcements_channel_description">"Notifiche avvisi"</string>
+
+<!-- - - - - - - - - - - Strings with format - - - - - - - - - - -->
 <string name="bookings_corrected_by">"Il tuo _project_ verrà valutato a _date_."</string>
 <string name="bookings_corrected_by_login">"Il tuo _project_ verrà valutato da _login_ a _date_."</string>
 <string name="bookings_correct_login">"Esaminerai il progetto di _login_ a _date_."</string>
@@ -35,6 +45,8 @@
 <string name="format_dont_have_any_expertise_yet">"%s non ha ancora alcuna esperienza"</string>
 <string name="format__dont_have_write_topic">"%s non ha ancora scritto alcun topic"</string>
 <string name="format__host_s_history">"cronologia %s"</string>
+
+<!-- - - - - - - - - - - Basic Words - - - - - - - - - - -->
 <string name="campus">"Campus"</string>
 <string name="cursus">"Corsi"</string>
 <string name="cancel">"Annulla"</string>
@@ -53,12 +65,16 @@
 <string name="tomorrow">"Domani"</string>
 <string name="value">"Valore"</string>
 <string name="tags">"Tags"</string>
+
+<!-- - - - - - - - - - - Strings related to shortcuts - - - - - - - - - - -->
 <string name="shortcut_friends">"Amici"</string>
 <string name="shortcut_long_friends">"Lista amici"</string>
 <string name="shortcut_cluster_map">"Mappa cluster"</string>
 <string name="shortcut_long_cluster_map">"Mappa cluster"</string>
 <string name="shortcut_galaxy">"Galassia"</string>
 <string name="shortcut_long_galaxy">"Galassia"</string>
+
+<!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->
 <string name="about_content">"Accedi all'intra con un'app nativa
 Contattami su Slack o tramite mail (pvarry)"</string>
 <string name="about_version">"Versione"</string>
@@ -296,6 +312,8 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="list_preference_network_titles_default">"Default (200×240)"</string>
 <string name="list_preference_network_titles_small">"Small (146×175)"</string>
 <string name="list_preference_network_titles_none">"None"</string>
+
+<!-- - - - - - - - - - - Strings for other array - - - - - - - - - - -->
 <string name="spinner_user_projects_galaxy">"Galaxy"</string>
 <string name="spinner_user_projects_all">"All"</string>
 <string name="spinner_user_projects_in_progress">"In-progress"</string>
@@ -307,4 +325,22 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="about_report_bug">"Report bug"</string>
 <string name="about_library_list">"Library list"</string>
 <string name="about_poeditor">"Project on POEditor"</string>
+<string name="info_api_unauthorized">"You not allowed"</string>
+<string name="pref_title_notifications_sync_allow"><![CDATA[Enable notifications & sync]]></string>
+<string name="pref_title_notifications_sync_calendar">"Sync calendar"</string>
+<string name="pref_title_calendar_list">"Calendar to put events"</string>
+<string name="pref_category_notifications">"Notifications"</string>
+<string name="pref_summary_notifications_events">"Notify for new events published to 42 intranet"</string>
+<string name="pref_summary_notifications_scales">"Remind you about evaluations"</string>
+<string name="pref_summary_notifications_sync_calendar">"Automatically check your events subscriptions and add then"</string>
+<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
+<string name="home_help_calendar_hide">"hide"</string>
+<string name="home_help_calendar_enable">"enable"</string>
+<string name="pref_title_calendar_enable">"Enable calendar edition"</string>
+<string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
+<string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
+<string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
+<string name="pref_button_calendar_list_positive">"set"</string>
+<string name="pref_button_calendar_list_negative">"cancel"</string>
+<string name="pref_title_calendar">"Events sync"</string>
 </resources>
