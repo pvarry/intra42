@@ -346,8 +346,22 @@
     <string name="about_library_list">Library list</string>
     <string name="about_poeditor">Project on POEditor</string>
     <string name="info_api_unauthorized">You not allowed</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pref_title_notifications_sync_allow"><![CDATA[Enable notifications & sync]]></string>
+    <string name="pref_title_notifications_sync_calendar">Sync calendar</string>
+    <string name="pref_title_calendar_list">Calendar to put events</string>
+    <string name="pref_category_notifications">Notifications</string>
+    <string name="pref_summary_notifications_events">Notify for new events published to 42 intranet</string>
+    <string name="pref_summary_notifications_scales">Remind you about evaluations</string>
+    <string name="pref_summary_notifications_sync_calendar">Automatically check your events subscriptions and add then</string>
+    <string name="home_help_calendar_sync">Sync your phone calendar with your subscribed events</string>
+    <string name="home_help_calendar_hide">hide</string>
+    <string name="home_help_calendar_enable">enable</string>
+    <string name="pref_title_calendar_enable">Enable calendar edition</string>
+    <string name="pref_summary_calendar_enable">After grant calendar auth, this app will be able to put events tou your calendar</string>
+    <string name="pref_title_calendar_after_subscription">Insert to calendar</string>
+    <string name="pref_summary_calendar_after_subscription">Insert the event just after subscription to it</string>
+    <string name="pref_button_calendar_list_positive">set</string>
+    <string name="pref_button_calendar_list_negative">cancel</string>
+    <string name="pref_title_calendar">Events sync</string>
 
 </resources>

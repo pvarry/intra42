@@ -1,17 +1,22 @@
 package com.paulvarry.intra42.activities.home;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +63,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     private TextView textViewLevel;
     private ImageButton imageButtonOpenProfile;
     private CardView cardViewPOEditor;
+    private CardView cardViewCalendarSync;
     private ImageButton imageButtonClosePOEditor;
     private HomeFragment fragment;
     private HomeActivity activity;
@@ -112,6 +118,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         textViewLevel = view.findViewById(R.id.textViewLevel);
         imageButtonOpenProfile = view.findViewById(R.id.imageButtonOpenProfile);
         cardViewPOEditor = view.findViewById(R.id.cardViewPOEditor);
+        cardViewCalendarSync = view.findViewById(R.id.cardViewCalendarSync);
         imageButtonClosePOEditor = view.findViewById(R.id.imageButtonClosePOEditor);
 
         linearLayoutContent.setVisibility(View.GONE);
@@ -227,6 +234,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                 });
             } else
                 cardViewPOEditor.setVisibility(View.GONE);
+            if (!AppSettings.Notifications.containEnableCalendar(getContext())) {
+                cardViewCalendarSync.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    cardViewCalendarSync.setElevation(2);
+
+                View view = getView();
+                if (view != null) {
+                    final Button hide = view.findViewById(R.id.buttonCalendarSyncHide);
+                    final Button enable = view.findViewById(R.id.buttonCalendarSyncEnable);
+
+                    hide.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppSettings.Notifications.setEnableCalendar(getContext(), false);
+                            cardViewCalendarSync.setVisibility(View.GONE);
+                        }
+                    });
+                    enable.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED ||
+                                    ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR},
+                                        HomeActivity.PERMISSIONS_REQUEST_CALENDAR);
+                            } else {
+                                AppSettings.Notifications.setEnableCalendar(getContext(), true);
+                                cardViewCalendarSync.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
+            } else
+                cardViewCalendarSync.setVisibility(View.GONE);
         }
         swipeRefreshLayout.setRefreshing(false);
         linearLayoutContent.setVisibility(View.VISIBLE);

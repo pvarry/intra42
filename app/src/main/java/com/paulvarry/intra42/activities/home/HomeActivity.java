@@ -2,8 +2,10 @@ package com.paulvarry.intra42.activities.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
@@ -18,8 +20,30 @@ public class HomeActivity extends BasicTabActivity
         HomeSlotsFragment.OnFragmentInteractionListener, HomeCorrectionsFragment.OnFragmentInteractionListener,
         HomePastEventsFragment.OnFragmentInteractionListener, EventFragment.OnFragmentInteractionListener {
 
+    static final int PERMISSIONS_REQUEST_CALENDAR = 1;
+
     public static Intent getIntent(Context context) {
         return new Intent(context, HomeActivity.class);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_CALENDAR: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    AppSettings.Notifications.setEnableCalendar(this, true);
+                    refresh();
+
+                } else
+                    AppSettings.Notifications.setEnableCalendar(this, false);
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override

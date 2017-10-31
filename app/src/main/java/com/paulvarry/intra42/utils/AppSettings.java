@@ -1,8 +1,11 @@
 package com.paulvarry.intra42.utils;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.api.model.Users;
@@ -203,24 +206,32 @@ public class AppSettings {
 
     static public class Notifications {
 
-        public static final String ALLOW = "notifications_allow";
+        public static final String ENABLE_NOTIFICATIONS = "notifications_allow";
         public static final String FREQUENCY = "notifications_frequency";
         public static final String CHECKBOX_EVENTS = "check_box_preference_notifications_events";
         public static final String CHECKBOX_SCALES = "check_box_preference_notifications_scales";
+        public static final String ENABLE_CALENDAR = "switch_preference_enable_calendar";
         public static final String CHECKBOX_ANNOUNCEMENTS = "check_box_preference_notifications_announcements";
+        public static final String LIST_CALENDAR = "sync_events_calendars";
+        public static final String CHECKBOX_SYNC_CALENDAR = "check_box_preference_notifications_sync_calendar";
+
+        public static boolean permissionCalendarEnable(Context context) {
+            return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED;
+        }
 
         public static boolean getNotificationsAllow(Context context) {
             return context != null && getNotificationsAllow(getSharedPreferences(context));
         }
 
         public static boolean getNotificationsAllow(SharedPreferences settings) {
-            return settings.getBoolean(ALLOW, true);
+            return settings.getBoolean(ENABLE_NOTIFICATIONS, true);
         }
 
         public static void setNotificationsAllow(Context context, boolean allow) {
             SharedPreferences sharedPreferences = getSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(ALLOW, allow);
+            editor.putBoolean(ENABLE_NOTIFICATIONS, allow);
             editor.apply();
         }
 
@@ -248,6 +259,27 @@ public class AppSettings {
 
         public static boolean getNotificationsScales(SharedPreferences settings) {
             return settings.getBoolean(CHECKBOX_SCALES, false);
+        }
+
+        public static boolean getEnableCalendar(Context context) {
+            return context != null
+                    && getSharedPreferences(context).getBoolean(ENABLE_CALENDAR, false)
+                    && permissionCalendarEnable(context);
+        }
+
+        public static boolean containEnableCalendar(SharedPreferences settings) {
+            return settings.contains(ENABLE_CALENDAR);
+        }
+
+        public static boolean containEnableCalendar(Context context) {
+            return context != null && containEnableCalendar(getSharedPreferences(context));
+        }
+
+        public static void setEnableCalendar(Context context, boolean enable) {
+            SharedPreferences sharedPreferences = getSharedPreferences(context);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(ENABLE_CALENDAR, enable);
+            editor.apply();
         }
 
         public static boolean getNotificationsAnnouncements(Context context) {

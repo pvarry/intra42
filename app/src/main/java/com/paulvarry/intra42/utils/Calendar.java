@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
+import android.util.SparseArray;
 
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.api.model.Events;
@@ -96,6 +97,49 @@ public class Calendar {
 
     private static String getEventUri(int id) {
         return "intra42://events/" + String.valueOf(id);
+    }
+
+    public static SparseArray<String> getCalendarList(Context context) {
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return null;
+        }
+
+
+        SparseArray<String> calendar = new SparseArray<>();
+
+        final String[] EVENT_PROJECTION = new String[]{
+                CalendarContract.Calendars._ID,
+                CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+                CalendarContract.Calendars.CALENDAR_COLOR,
+                CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL
+        };
+
+        final ContentResolver cr = context.getContentResolver();
+        final Uri uri = CalendarContract.Calendars.CONTENT_URI;
+
+        Cursor cur = cr.query(uri, EVENT_PROJECTION, null, null, null);
+
+        while (cur.moveToNext()) {
+
+            if (cur.getInt(3) < 300)
+                continue;
+
+            Long id = cur.getLong(0);
+            String name = cur.getString(1);
+            calendar.append(id.intValue(), name);
+        }
+
+        cur.close();
+
+        return calendar;
     }
 
 }
