@@ -14,6 +14,7 @@ import com.paulvarry.intra42.fragments.EventFragment;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Calendar;
 
 public class HomeActivity extends BasicTabActivity
         implements HomeFragment.OnFragmentInteractionListener, HomeEventsFragment.OnFragmentInteractionListener,
@@ -34,11 +35,11 @@ public class HomeActivity extends BasicTabActivity
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    AppSettings.Notifications.setEnableCalendar(this, true);
+                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
                     refresh();
 
                 } else
-                    AppSettings.Notifications.setEnableCalendar(this, false);
+                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
             }
 
             // other 'case' lines to check for other
@@ -103,7 +104,8 @@ public class HomeActivity extends BasicTabActivity
             @Override
             public void onPageSelected(int position) {
 
-                app.mFirebaseAnalytics.setCurrentScreen(HomeActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
+                if (adapter.getCount() > position)
+                    app.mFirebaseAnalytics.setCurrentScreen(HomeActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
             }
         });
         app.mFirebaseAnalytics.setCurrentScreen(HomeActivity.this, "User Profile -> " + HomeFragment.class.getSimpleName(), null /* class override */);

@@ -360,8 +360,6 @@
     <string name="pref_summary_calendar_enable">After grant calendar auth, this app will be able to put events tou your calendar</string>
     <string name="pref_title_calendar_after_subscription">Insert to calendar</string>
     <string name="pref_summary_calendar_after_subscription">Insert the event just after subscription to it</string>
-    <string name="pref_button_calendar_list_positive">set</string>
-    <string name="pref_button_calendar_list_negative">cancel</string>
     <string name="pref_title_calendar">Events sync</string>
 
 </resources>

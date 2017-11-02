@@ -19,7 +19,6 @@ import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.fragments.EventFragment;
 import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
-import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.Tag;
 import com.veinhorn.tagview.TagView;
 
@@ -86,9 +85,6 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         buttonSubscribe = view.findViewById(R.id.buttonSubscribe);
         linearLayoutProgress = view.findViewById(R.id.linearLayoutProgress);
         progressBarButton = view.findViewById(R.id.progressBarButton);
-
-        if (!Calendar.checkEventExist(getContext(), event.id))
-            Calendar.addEventToCalendar(getContext(), event);
 
         Tag.setTagEvent(event, tagViewKind);
         textViewTitle.setText(event.name);

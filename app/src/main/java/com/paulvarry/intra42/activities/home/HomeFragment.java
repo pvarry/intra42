@@ -32,6 +32,7 @@ import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
@@ -262,7 +263,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                                         new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR},
                                         HomeActivity.PERMISSIONS_REQUEST_CALENDAR);
                             } else {
-                                AppSettings.Notifications.setEnableCalendar(getContext(), true);
+                                Calendar.setEnableCalendarAutoSelectCalendar(getContext(), true);
                                 cardViewCalendarSync.setVisibility(View.GONE);
                             }
                         }

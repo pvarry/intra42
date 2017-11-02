@@ -214,6 +214,8 @@ public class AppSettings {
         public static final String CHECKBOX_ANNOUNCEMENTS = "check_box_preference_notifications_announcements";
         public static final String LIST_CALENDAR = "sync_events_calendars";
         public static final String CHECKBOX_SYNC_CALENDAR = "check_box_preference_notifications_sync_calendar";
+        public static final String SWITCH_PREFERENCE_ENABLE_PUT_TO_CALENDAR = "check_box_preference_put_to_calendar";
+        public static final String SELECTED_CALENDAR = "sync_events_calendars";
 
         public static boolean permissionCalendarEnable(Context context) {
             return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED &&
@@ -279,6 +281,32 @@ public class AppSettings {
             SharedPreferences sharedPreferences = getSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(ENABLE_CALENDAR, enable);
+            editor.apply();
+        }
+
+        public static boolean getPutEventAfterSubscription(Context context) {
+            if (!getEnableCalendar(context))
+                return false;
+            SharedPreferences preferences = getSharedPreferences(context);
+            return preferences.getBoolean(SWITCH_PREFERENCE_ENABLE_PUT_TO_CALENDAR, true);
+        }
+
+        public static int getSelectedCalendar(Context context) {
+            if (context == null)
+                return -1;
+            return getSelectedCalendar(getSharedPreferences(context));
+        }
+
+        public static int getSelectedCalendar(SharedPreferences settings) {
+            return Integer.decode(settings.getString(SELECTED_CALENDAR, "-1"));
+        }
+
+        public static void setCalendarSelected(Context context, int calendar) {
+            if (calendar == -1)
+                return;
+            SharedPreferences sharedPreferences = getSharedPreferences(context);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(SELECTED_CALENDAR, String.valueOf(calendar));
             editor.apply();
         }
 

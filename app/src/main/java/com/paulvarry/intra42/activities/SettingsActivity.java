@@ -190,10 +190,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    AppSettings.Notifications.setEnableCalendar(this, true);
+                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
 
                 } else
-                    AppSettings.Notifications.setEnableCalendar(this, false);
+                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
                 recreate();
             }
 
@@ -287,7 +287,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             SparseArray<String> calendar = Calendar.getCalendarList(activity);
 
-            MultiSelectListPreference prefListCalendar = (MultiSelectListPreference) findPreference(AppSettings.Notifications.LIST_CALENDAR);
+            ListPreference prefListCalendar = (ListPreference) findPreference(AppSettings.Notifications.LIST_CALENDAR);
             if (calendar != null) {
                 CharSequence entryKey[] = new String[calendar.size()];
                 CharSequence entryValues[] = new String[calendar.size()];

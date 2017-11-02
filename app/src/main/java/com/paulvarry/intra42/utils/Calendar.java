@@ -2,6 +2,7 @@ package com.paulvarry.intra42.utils;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.util.SparseArray;
 
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.api.model.EventsUsers;
 
 import java.util.ArrayList;
 import java.util.TimeZone;
@@ -61,9 +63,26 @@ public class Calendar {
         return count >= 1;
     }
 
-    public static void addEventToCalendar(Context context, Events event) {
+    public static boolean syncEventCalendar(Context context, Events event) {
+        return syncEventCalendar(context, event, null);
+    }
 
-        long calID = 3;
+    public static boolean syncEventCalendar(Context context, Events event, EventsUsers eventsUsers) {
+        boolean calendarEnable = AppSettings.Notifications.getPutEventAfterSubscription(context);
+        if (calendarEnable) {
+            boolean eventOnCalendar = Calendar.checkEventExist(context, event.id);
+            if (!eventOnCalendar && eventsUsers != null)
+                addEventToCalendar(context, event);
+            else if (eventOnCalendar && eventsUsers == null)
+                removeEventFromCalendar(context, event);
+            return true;
+        }
+        return false;
+    }
+
+    private static void addEventToCalendar(Context context, Events event) {
+
+        long calID = AppSettings.Notifications.getSelectedCalendar(context);
         long startMillis;
         long endMillis;
         startMillis = event.beginAt.getTime();
@@ -83,16 +102,26 @@ public class Calendar {
         values.put(CalendarContract.Events.CUSTOM_APP_URI, getEventUri(event.id));
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         cr.insert(CalendarContract.Events.CONTENT_URI, values);
+    }
+
+    private static void removeEventFromCalendar(Context context, Events event) {
+
+        Uri eventsUri = Uri.parse("content://com.android.calendar/events");
+
+        ContentResolver resolver = context.getContentResolver();
+
+        String selection = CalendarContract.Events.CUSTOM_APP_URI + " = ?";
+        String[] selectionArgs = {getEventUri(event.id)};
+
+        Cursor cursor = resolver.query(eventsUri, new String[]{"_id"}, selection, selectionArgs, null);
+        while (cursor.moveToNext()) {
+            long eventId = cursor.getLong(cursor.getColumnIndex("_id"));
+            resolver.delete(ContentUris.withAppendedId(eventsUri, eventId), null, null);
+        }
+        cursor.close();
     }
 
     private static String getEventUri(int id) {
@@ -102,13 +131,6 @@ public class Calendar {
     public static SparseArray<String> getCalendarList(Context context) {
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return null;
         }
 
@@ -140,6 +162,74 @@ public class Calendar {
         cur.close();
 
         return calendar;
+    }
+
+    public static SparseArray<String> getCalendarListPrimary(Context context) {
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+
+
+        SparseArray<String> calendar = new SparseArray<>();
+
+        final String[] EVENT_PROJECTION;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            EVENT_PROJECTION = new String[]{
+                    CalendarContract.Calendars._ID,
+                    CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+                    CalendarContract.Calendars.CALENDAR_COLOR,
+                    CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL,
+                    CalendarContract.Calendars.IS_PRIMARY
+            };
+        } else
+            EVENT_PROJECTION = new String[]{
+                    CalendarContract.Calendars._ID,
+                    CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+                    CalendarContract.Calendars.CALENDAR_COLOR,
+                    CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL,
+                    CalendarContract.Calendars.OWNER_ACCOUNT,
+                    CalendarContract.Calendars.ACCOUNT_NAME
+            };
+
+        final ContentResolver cr = context.getContentResolver();
+        final Uri uri = CalendarContract.Calendars.CONTENT_URI;
+
+        Cursor cur = cr.query(uri, EVENT_PROJECTION, null, null, null);
+
+        while (cur.moveToNext()) {
+
+            if (cur.getInt(3) < 300)
+                continue;
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                if (cur.getInt(4) != 1)
+                    continue;
+            } else {
+                if (!cur.getString(4).contentEquals(cur.getString(5)))
+                    continue;
+            }
+
+
+            Long id = cur.getLong(0);
+            String name = cur.getString(1);
+            calendar.append(id.intValue(), name);
+        }
+
+        cur.close();
+
+        return calendar;
+    }
+
+    public static boolean setEnableCalendarAutoSelectCalendar(Context context, boolean enable) {
+        AppSettings.Notifications.setEnableCalendar(context, enable);
+        if (enable && AppSettings.Notifications.getSelectedCalendar(context) == -1) {
+            SparseArray<String> array = getCalendarListPrimary(context);
+            if (array == null || array.size() == 0)
+                return false;
+            AppSettings.Notifications.setCalendarSelected(context, array.keyAt(0));
+        }
+        return true;
     }
 
 }

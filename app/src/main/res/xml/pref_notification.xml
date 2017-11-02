@@ -59,7 +59,7 @@
             android:summary="@string/pref_summary_calendar_enable"
             android:title="@string/pref_title_calendar_enable" />
 
-        <MultiSelectListPreference
+        <ListPreference
             android:dependency="switch_preference_enable_calendar"
             android:key="sync_events_calendars"
             android:negativeButtonText="@string/pref_button_calendar_list_negative"

@@ -45,9 +45,7 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class EventFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_EVENT = "param1";
+    private static final String ARG_EVENT = "event";
 
     Button buttonSubscribe;
     LinearLayout linearLayoutProgress;
@@ -88,6 +86,8 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 setButtonSubscribe();
                 if (call.request().method().equals("DELETE"))
                     Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
+
+                Calendar.syncEventCalendar(getContext(), event, eventsUsers);
             }
         }
 
@@ -115,6 +115,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 setButtonSubscribe();
                 if (call.request().method().equals("DELETE"))
                     Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
+                Calendar.syncEventCalendar(getContext(), event, eventsUsers);
             }
         }
 
@@ -142,6 +143,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 setButtonSubscribe();
                 Toast.makeText(getContext(), R.string.event_subscribed, Toast.LENGTH_SHORT).show();
             }
+            Calendar.syncEventCalendar(getContext(), event, eventsUsers);
         }
 
         @Override
@@ -210,7 +212,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
 
     private void setView(View contentView) {
 
-
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
 
@@ -225,9 +226,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         buttonSubscribe = contentView.findViewById(R.id.buttonSubscribe);
         linearLayoutProgress = contentView.findViewById(R.id.linearLayoutProgress);
         progressBarButton = contentView.findViewById(R.id.progressBarButton);
-
-        if (!Calendar.checkEventExist(getContext(), event.id))
-            Calendar.addEventToCalendar(getContext(), event);
 
         if (tagViewKind != null && textViewTitle != null) {
             Tag.setTagEvent(event, tagViewKind);
@@ -283,7 +281,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         buttonSubscribe.setOnClickListener(this);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -341,6 +338,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 buttonSubscribe.setEnabled(true);
             else
                 buttonSubscribe.setEnabled(false);
+            Calendar.syncEventCalendar(getContext(), event, eventsUsers);
         }
 
         if (eventsUsers == null && event.nbrSubscribers >= event.maxPeople) {
@@ -369,7 +367,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
