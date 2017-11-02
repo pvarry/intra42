@@ -87,7 +87,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 if (call.request().method().equals("DELETE"))
                     Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
 
-                Calendar.syncEventCalendar(getContext(), event, eventsUsers);
+                Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
             }
         }
 
@@ -115,7 +115,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 setButtonSubscribe();
                 if (call.request().method().equals("DELETE"))
                     Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
-                Calendar.syncEventCalendar(getContext(), event, eventsUsers);
+                Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
             }
         }
 
@@ -143,7 +143,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 setButtonSubscribe();
                 Toast.makeText(getContext(), R.string.event_subscribed, Toast.LENGTH_SHORT).show();
             }
-            Calendar.syncEventCalendar(getContext(), event, eventsUsers);
+            Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
         }
 
         @Override
@@ -338,7 +338,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 buttonSubscribe.setEnabled(true);
             else
                 buttonSubscribe.setEnabled(false);
-            Calendar.syncEventCalendar(getContext(), event, eventsUsers);
+            Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
         }
 
         if (eventsUsers == null && event.nbrSubscribers >= event.maxPeople) {

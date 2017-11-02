@@ -19,6 +19,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.fragments.EventFragment;
+import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.Tag;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
@@ -55,11 +56,7 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
             event = ServiceGenerator.getGson().fromJson(extras.getString(ARG_EVENT), Events.class);
         } else if (extras.containsKey(CalendarContract.Events.CUSTOM_APP_URI)) {
             String appUri = extras.getString(CalendarContract.Events.CUSTOM_APP_URI);
-            if (appUri != null && !appUri.isEmpty()) {
-                String[] split = appUri.split("/");
-                if (split.length == 4)
-                    id = Integer.valueOf(split[3]);
-            }
+            id = Calendar.getEventIdFromUri(appUri);
         }
 
         setContentView(R.layout.activity_event);
@@ -97,7 +94,7 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
 
         if (event != null)
             setView();
-        else if (id != 0)
+        else if (id > 0)
             getData();
         else
             finish();

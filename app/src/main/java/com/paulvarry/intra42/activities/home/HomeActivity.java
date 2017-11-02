@@ -35,11 +35,11 @@ public class HomeActivity extends BasicTabActivity
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
+                    Calendar.setEnableCalendarWithAutoSelect(this, true);
                     refresh();
 
                 } else
-                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
+                    Calendar.setEnableCalendarWithAutoSelect(this, true);
             }
 
             // other 'case' lines to check for other

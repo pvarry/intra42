@@ -207,6 +207,10 @@ public interface ApiService {
     @GET("/v2/events_users")
     Call<List<EventsUsers>> getEventsUsers(@Query("filter[user_id]") int user, @Query("filter[event_id]") String events);
 
+    @GET("/v2/events_users")
+    Call<List<EventsUsers>> getEventsUsersDateRange(@Query("filter[user_id]") int user, @Query("range[created_at]") String rangeCreated);
+
+
     @POST("/v2/events_users")
     Call<EventsUsers> createEventsUsers(@Query("events_user[event_id]") int eventId, @Query("events_user[user_id]") int userId);
 

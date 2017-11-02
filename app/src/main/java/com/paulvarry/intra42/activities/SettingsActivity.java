@@ -190,10 +190,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
+                    Calendar.setEnableCalendarWithAutoSelect(this, true);
 
                 } else
-                    Calendar.setEnableCalendarAutoSelectCalendar(this, true);
+                    Calendar.setEnableCalendarWithAutoSelect(this, true);
                 recreate();
             }
 

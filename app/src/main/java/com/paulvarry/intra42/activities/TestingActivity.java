@@ -84,4 +84,13 @@ public class TestingActivity extends AppCompatActivity {
         }).start();
 
     }
+
+    public void runJob(View view) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NotificationsUtils.run(TestingActivity.this, (AppClass) getApplication());
+            }
+        }).run();
+    }
 }

@@ -26,7 +26,6 @@ import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
-import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
 
 import java.io.IOException;
@@ -66,11 +65,6 @@ public class MainActivity extends AppCompatActivity {
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
             edit.apply();
         }
-
-        SharedPreferences tmp = AppSettings.getSharedPreferences(this);
-        SharedPreferences.Editor editor = tmp.edit();
-        editor.remove("switch_preference_enable_calendar");
-        editor.apply();
 
         app = (AppClass) getApplication();
 

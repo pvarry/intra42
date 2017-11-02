@@ -20,6 +20,9 @@ import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+import java.util.StringJoiner;
+
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Response;
 
@@ -167,5 +170,26 @@ public class Tools {
         else if (response.code() / 100 == 5)
             throw new BasicThreadActivity.ErrorServerException();
         else return false;
+    }
+
+    public static String concatIds(List<Integer> integerList) {
+        String eventsId;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            StringJoiner join = new StringJoiner(",");
+            for (Integer integer : integerList) {
+                join.add(String.valueOf(integer));
+            }
+            eventsId = join.toString();
+        } else {
+            StringBuilder builder = new StringBuilder();
+            String join = "";
+            for (Integer e : integerList) {
+                builder.append(join).append(String.valueOf(e));
+                join = ",";
+            }
+            eventsId = builder.toString();
+        }
+
+        return eventsId;
     }
 }

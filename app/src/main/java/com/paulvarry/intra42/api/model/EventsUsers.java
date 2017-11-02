@@ -37,6 +37,22 @@ public class EventsUsers {
         if (app == null || app.me == null || events == null || events.isEmpty())
             return null;
 
+        String eventsId = concatIds(events);
+
+        Call<List<EventsUsers>> callEventsUsers = apiService.getEventsUsers(app.me.id, eventsId);
+        Response<List<EventsUsers>> responseEventsUsers = callEventsUsers.execute();
+
+        if (!responseEventsUsers.isSuccessful())
+            return null;
+
+        SparseArray<EventsUsers> list = new SparseArray<>();
+        for (EventsUsers u : responseEventsUsers.body())
+            list.put(u.eventId, u);
+
+        return list;
+    }
+
+    public static String concatIds(List<Events> events) {
         String eventsId;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             StringJoiner join = new StringJoiner(",");
@@ -54,17 +70,7 @@ public class EventsUsers {
             eventsId = builder.toString();
         }
 
-        Call<List<EventsUsers>> callEventsUsers = apiService.getEventsUsers(app.me.id, eventsId);
-        Response<List<EventsUsers>> responseEventsUsers = callEventsUsers.execute();
-
-        if (!responseEventsUsers.isSuccessful())
-            return null;
-
-        SparseArray<EventsUsers> list = new SparseArray<>();
-        for (EventsUsers u : responseEventsUsers.body())
-            list.put(u.eventId, u);
-
-        return list;
+        return eventsId;
     }
 
 }

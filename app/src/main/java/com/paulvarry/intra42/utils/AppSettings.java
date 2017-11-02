@@ -263,20 +263,46 @@ public class AppSettings {
             return settings.getBoolean(CHECKBOX_SCALES, false);
         }
 
+        /**
+         * Return true when calendar sync is enable. This will check if calendar primary option is
+         * enable in prefs and if this app have permissions for the calendar.
+         *
+         * @param context THe context.
+         * @return Boolean
+         */
         public static boolean getEnableCalendar(Context context) {
             return context != null
                     && getSharedPreferences(context).getBoolean(ENABLE_CALENDAR, false)
                     && permissionCalendarEnable(context);
         }
 
+        /**
+         * Check if calendar primary option have been touch, what event the value contained.
+         *
+         * @param settings Prefs.
+         * @return true if the prefs contain calendar primary option.
+         */
         public static boolean containEnableCalendar(SharedPreferences settings) {
             return settings.contains(ENABLE_CALENDAR);
         }
 
+        /**
+         * Check if calendar primary option have been touch, what event the value contained.
+         *
+         * @param context Context.
+         * @return true if the prefs contain calendar primary option.
+         */
         public static boolean containEnableCalendar(Context context) {
             return context != null && containEnableCalendar(getSharedPreferences(context));
         }
 
+        /**
+         * Set calendar primary param without check permission requirements. For better usability :
+         * {@link Calendar#setEnableCalendarWithAutoSelect(Context, boolean)}
+         *
+         * @param context Context.
+         * @param enable  value to set
+         */
         public static void setEnableCalendar(Context context, boolean enable) {
             SharedPreferences sharedPreferences = getSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -284,23 +310,66 @@ public class AppSettings {
             editor.apply();
         }
 
-        public static boolean getPutEventAfterSubscription(Context context) {
+        /**
+         * Check if put events to calendar after subscribe to a event from the app. Will also check
+         * if primary option is enable and if calendar permissions are enable.
+         * <p>
+         * Note: this method will not verify if a calendar is correctly selected.
+         *
+         * @param context Context.
+         * @return If you can put events to calendar after subscription.
+         */
+        public static boolean getCalendarAfterSubscription(Context context) {
             if (!getEnableCalendar(context))
                 return false;
             SharedPreferences preferences = getSharedPreferences(context);
             return preferences.getBoolean(SWITCH_PREFERENCE_ENABLE_PUT_TO_CALENDAR, true);
         }
 
+        /**
+         * Check if auto sync of the events in the calendar is enable. If enable, subscribed events
+         * will be periodically synchronised with the calendar.
+         * <p>
+         * Note: this method will not verify if a calendar is correctly selected.
+         *
+         * @param context Context.
+         * @return If you can put events to calendar after subscription.
+         */
+        public static boolean getCalendarSync(Context context) {
+            if (!getEnableCalendar(context))
+                return false;
+            SharedPreferences preferences = getSharedPreferences(context);
+            return preferences.getBoolean(CHECKBOX_SYNC_CALENDAR, true);
+        }
+
+        /**
+         * Get the id of the selected calendar of the phone to puts events.
+         *
+         * @param context The context.
+         * @return Id of the selected calendar, -1 otherwise.
+         */
         public static int getSelectedCalendar(Context context) {
             if (context == null)
                 return -1;
             return getSelectedCalendar(getSharedPreferences(context));
         }
 
+        /**
+         * Get the id of the selected calendar of the phone to puts events.
+         *
+         * @param settings Prefs.
+         * @return Id of the selected calendar, -1 otherwise.
+         */
         public static int getSelectedCalendar(SharedPreferences settings) {
             return Integer.decode(settings.getString(SELECTED_CALENDAR, "-1"));
         }
 
+        /**
+         * Set the selected calendar.
+         *
+         * @param context  Context.
+         * @param calendar Id of the selected calendar of the phone.
+         */
         public static void setCalendarSelected(Context context, int calendar) {
             if (calendar == -1)
                 return;

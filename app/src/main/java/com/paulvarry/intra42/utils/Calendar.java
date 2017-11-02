@@ -17,70 +17,109 @@ import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 public class Calendar {
 
     public static boolean checkEventExist(Context context, int id) {
 
-        ArrayList<String> nameOfEvent = new ArrayList<String>();
-        ArrayList<String> startDates = new ArrayList<String>();
-        ArrayList<String> endDates = new ArrayList<String>();
-        ArrayList<String> descriptions = new ArrayList<String>();
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED)
+            return false;
 
         String selection = CalendarContract.Events.CUSTOM_APP_URI + " = ?";
         String[] selectionArgs = {getEventUri(id)};
 
         Cursor cursor = context.getContentResolver()
                 .query(
-                        Uri.parse("content://com.android.calendar/events"),
-                        new String[]{"calendar_id", "title", "description",
-                                "dtstart", "dtend", "eventLocation"}, selection,
+                        CalendarContract.Events.CONTENT_URI,
+                        new String[]{CalendarContract.Events._ID},
+                        selection,
                         selectionArgs, null);
-        cursor.moveToFirst();
-        // fetching calendars name
-        String CNames[] = new String[cursor.getCount()];
-
-        // fetching calendars id
-        nameOfEvent.clear();
-        startDates.clear();
-        endDates.clear();
-        descriptions.clear();
-        for (int i = 0; i < CNames.length; i++) {
-
-            nameOfEvent.add(cursor.getString(1));
-            descriptions.add(cursor.getString(2));
-            CNames[i] = cursor.getString(1);
-            cursor.moveToNext();
-
-        }
+        if (cursor == null)
+            return false;
 
         int count = cursor.getCount();
-
         cursor.close();
-        //  return nameOfEvent;
-
         return count >= 1;
     }
 
-    public static boolean syncEventCalendar(Context context, Events event) {
-        return syncEventCalendar(context, event, null);
+    public static ArrayList<Integer> getEventList(Context context) {
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+
+        ArrayList<Integer> eventsId = new ArrayList<>();
+
+        String selection = CalendarContract.Events.CUSTOM_APP_PACKAGE + " = ? AND " + CalendarContract.Events.DTEND + " >= ?";
+        String[] selectionArgs = {BuildConfig.APPLICATION_ID, String.valueOf((new Date()).getTime())};
+
+        Cursor cursor = context.getContentResolver()
+                .query(
+                        CalendarContract.Events.CONTENT_URI,
+                        new String[]{CalendarContract.Events.CUSTOM_APP_URI},
+                        selection,
+                        selectionArgs,
+                        null);
+        if (cursor == null)
+            return null;
+
+        eventsId.clear();
+        while (cursor.moveToNext()) {
+            String uri = cursor.getString(0);
+            eventsId.add(getEventIdFromUri(uri));
+        }
+        cursor.close();
+
+        return eventsId;
     }
 
-    public static boolean syncEventCalendar(Context context, Events event, EventsUsers eventsUsers) {
-        boolean calendarEnable = AppSettings.Notifications.getPutEventAfterSubscription(context);
-        if (calendarEnable) {
-            boolean eventOnCalendar = Calendar.checkEventExist(context, event.id);
-            if (!eventOnCalendar && eventsUsers != null)
-                addEventToCalendar(context, event);
-            else if (eventOnCalendar && eventsUsers == null)
-                removeEventFromCalendar(context, event);
-            return true;
-        }
-        return false;
+    public static boolean syncEventCalendarAfterSubscription(Context context, Events event) {
+        return syncEventCalendarAfterSubscription(context, event, null);
+    }
+
+    public static boolean syncEventCalendarAfterSubscription(Context context, Events event, EventsUsers eventsUsers) {
+        boolean calendarEnable = AppSettings.Notifications.getCalendarAfterSubscription(context);
+        return calendarEnable && syncEventCalendar(context, event, eventsUsers);
+    }
+
+    public static boolean syncEventCalendarNotificationDeleteOnly(Context context, int event, EventsUsers eventsUsers) {
+        boolean calendarEnable = AppSettings.Notifications.getCalendarSync(context);
+        return calendarEnable && syncEventCalendarDeletOnly(context, event, eventsUsers);
+    }
+
+    public static boolean syncEventCalendarNotification(Context context, List<EventsUsers> eventsUsers) {
+        boolean calendarEnable = AppSettings.Notifications.getCalendarSync(context);
+        if (!calendarEnable)
+            return false;
+        for (EventsUsers e : eventsUsers)
+            syncEventCalendar(context, e.event, e);
+        return true;
+    }
+
+    private static boolean syncEventCalendar(Context context, Events event, EventsUsers eventsUsers) {
+        boolean eventOnCalendar = Calendar.checkEventExist(context, event.id);
+        if (!eventOnCalendar && eventsUsers != null)
+            addEventToCalendar(context, event);
+        else if (eventOnCalendar && eventsUsers == null)
+            removeEventFromCalendar(context, event.id);
+        return true;
+    }
+
+    private static boolean syncEventCalendarDeletOnly(Context context, int event, EventsUsers eventsUsers) {
+        boolean eventOnCalendar = Calendar.checkEventExist(context, event);
+        if (eventOnCalendar && eventsUsers == null)
+            removeEventFromCalendar(context, event);
+        return true;
     }
 
     private static void addEventToCalendar(Context context, Events event) {
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
 
         long calID = AppSettings.Notifications.getSelectedCalendar(context);
         long startMillis;
@@ -101,20 +140,17 @@ public class Calendar {
         values.put(CalendarContract.Events.CUSTOM_APP_PACKAGE, BuildConfig.APPLICATION_ID);
         values.put(CalendarContract.Events.CUSTOM_APP_URI, getEventUri(event.id));
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
         cr.insert(CalendarContract.Events.CONTENT_URI, values);
     }
 
-    private static void removeEventFromCalendar(Context context, Events event) {
+    private static void removeEventFromCalendar(Context context, int event) {
 
         Uri eventsUri = Uri.parse("content://com.android.calendar/events");
 
         ContentResolver resolver = context.getContentResolver();
 
         String selection = CalendarContract.Events.CUSTOM_APP_URI + " = ?";
-        String[] selectionArgs = {getEventUri(event.id)};
+        String[] selectionArgs = {getEventUri(event)};
 
         Cursor cursor = resolver.query(eventsUri, new String[]{"_id"}, selection, selectionArgs, null);
         while (cursor.moveToNext()) {
@@ -128,12 +164,19 @@ public class Calendar {
         return "intra42://events/" + String.valueOf(id);
     }
 
+    public static int getEventIdFromUri(String appUri) {
+        if (appUri != null && !appUri.isEmpty()) {
+            Uri uri = Uri.parse(appUri);
+            return Integer.parseInt(uri.getLastPathSegment());
+        }
+        return -1;
+    }
+
     public static SparseArray<String> getCalendarList(Context context) {
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
-
 
         SparseArray<String> calendar = new SparseArray<>();
 
@@ -148,6 +191,8 @@ public class Calendar {
         final Uri uri = CalendarContract.Calendars.CONTENT_URI;
 
         Cursor cur = cr.query(uri, EVENT_PROJECTION, null, null, null);
+        if (cur == null)
+            return null;
 
         while (cur.moveToNext()) {
 
@@ -221,7 +266,7 @@ public class Calendar {
         return calendar;
     }
 
-    public static boolean setEnableCalendarAutoSelectCalendar(Context context, boolean enable) {
+    public static boolean setEnableCalendarWithAutoSelect(Context context, boolean enable) {
         AppSettings.Notifications.setEnableCalendar(context, enable);
         if (enable && AppSettings.Notifications.getSelectedCalendar(context) == -1) {
             SparseArray<String> array = getCalendarListPrimary(context);

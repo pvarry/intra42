@@ -29,10 +29,13 @@ import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -313,7 +316,7 @@ public class NotificationsUtils {
         mNotificationManager.createNotificationChannel(channelAnnouncements);
     }
 
-    static void run(Context context, AppClass app) {
+    public static void run(Context context, AppClass app) {
 
         if (app != null) {
 
@@ -328,6 +331,9 @@ public class NotificationsUtils {
             if (AppSettings.Notifications.getNotificationsScales(settings)) {
                 notifyScalesApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
                 notifyImminentScalesApiCall(app, app.getApiServiceDisableRedirectActivity());
+            }
+            if (AppSettings.Notifications.getCalendarSync(context)) {
+                syncCalendarApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
             }
 //            if (AppSettings.Notifications.getNotificationsAnnouncements(settings))
 //                notifyAnnouncementsApiCall(app, apiService);
@@ -404,6 +410,50 @@ public class NotificationsUtils {
         } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean syncCalendarApiCall(AppClass app, ApiService apiService, String dateFilter) {
+        boolean success = true;
+
+        ArrayList<Integer> eventsOnCal = Calendar.getEventList(app);
+
+        if (eventsOnCal != null && eventsOnCal.size() != 0)
+            try {
+                Response<List<EventsUsers>> eventsToSync = apiService.getEventsUsers(app.me.id, Tools.concatIds(eventsOnCal)).execute();
+                if (eventsToSync.isSuccessful() && eventsToSync.body() != null) {
+
+                    SparseArray<EventsUsers> ret = new SparseArray<>(eventsToSync.body().size());
+                    for (EventsUsers e : eventsToSync.body())
+                        ret.put(e.eventId, e);
+
+                    for (Integer id : eventsOnCal) {
+                        Calendar.syncEventCalendarNotificationDeleteOnly(app, id, ret.get(id));
+                    }
+
+                } else
+                    success = false;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                success = false;
+            }
+
+        Call<List<EventsUsers>> events;
+        events = apiService.getEventsUsersDateRange(app.me.id, dateFilter);
+
+        Response<List<EventsUsers>> response;
+        try {
+            response = events.execute();
+            if (response.isSuccessful())
+                Calendar.syncEventCalendarNotification(app, response.body());
+            else
+                success = false;
+        } catch (IOException | IllegalStateException e) {
+            e.printStackTrace();
+            success = false;
+        }
+
+        return success;
     }
 
     void notifyAnnouncementsApiCall(final AppClass app, ApiService apiService, String dateFilter) {

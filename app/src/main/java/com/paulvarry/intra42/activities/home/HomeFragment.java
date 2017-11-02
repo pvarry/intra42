@@ -263,7 +263,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                                         new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR},
                                         HomeActivity.PERMISSIONS_REQUEST_CALENDAR);
                             } else {
-                                Calendar.setEnableCalendarAutoSelectCalendar(getContext(), true);
+                                Calendar.setEnableCalendarWithAutoSelect(getContext(), true);
                                 cardViewCalendarSync.setVisibility(View.GONE);
                             }
                         }
