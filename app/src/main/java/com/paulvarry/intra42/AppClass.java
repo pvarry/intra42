@@ -22,7 +22,6 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ApiServiceCantina;
 import com.paulvarry.intra42.api.ServiceGenerator;
-import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.cache.CacheCampus;
@@ -53,7 +52,6 @@ public class AppClass extends Application {
     public List<CursusUsers> cursus;
     public Users me;
 
-    public AccessToken accessToken;
     public CacheSQLiteHelper cacheSQLiteHelper;
     @Nullable
     public DatabaseReference firebaseRefFriends;
@@ -120,7 +118,7 @@ public class AppClass extends Application {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        accessToken = Token.getTokenFromShared(this);
+        ServiceGenerator.init(this);
         cacheSQLiteHelper = new CacheSQLiteHelper(this);
         sInstance = this;
 
@@ -167,19 +165,19 @@ public class AppClass extends Application {
     }
 
     public ApiService getApiService() {
-        return ServiceGenerator.createService(ApiService.class, accessToken, this, this, true);
+        return ServiceGenerator.createService(ApiService.class, this, true);
     }
 
     public ApiService getApiServiceDisableRedirectActivity() {
-        return ServiceGenerator.createService(ApiService.class, accessToken, this, this, false);
+        return ServiceGenerator.createService(ApiService.class, this, false);
     }
 
     public ApiServiceCantina getApiServiceCantina() {
-        return ServiceGenerator.createService(ApiServiceCantina.class, null, this, this, false);
+        return ServiceGenerator.createService(ApiServiceCantina.class, this, false);
     }
 
     public ApiServiceAuthServer getApiServiceAuthServer() {
-        return ServiceGenerator.createService(ApiServiceAuthServer.class, null, this, this, false);
+        return ServiceGenerator.createService(ApiServiceAuthServer.class, this, false);
     }
 
     /**
@@ -249,7 +247,7 @@ public class AppClass extends Application {
 
     public void logout() {
         me = null;
-        accessToken = null;
+        ServiceGenerator.logout();
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(API_ME_LOGIN);
@@ -263,7 +261,7 @@ public class AppClass extends Application {
     }
 
     public boolean userIsLogged(boolean canOpenActivity) {
-        if (me == null && accessToken == null) {
+        if (me == null && !ServiceGenerator.have42Token()) {
             if (canOpenActivity)
                 MainActivity.openActivity(this);
             return false;

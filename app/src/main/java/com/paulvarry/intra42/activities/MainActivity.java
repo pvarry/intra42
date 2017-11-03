@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT))// oauth callback
             setViewLoading();
-        else if (app.accessToken != null) {
+        else if (ServiceGenerator.have42Token()) {
             setViewLoading();
 
             new Thread(new Runnable() {
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         if (statusCode == 200) {
                             AccessToken token = response.body();
                             Token.save(MainActivity.this, token);
-                            app.accessToken = token;
+                            ServiceGenerator.setToken(token);
 
                             new Thread(new Runnable() {
                                 @Override
