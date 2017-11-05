@@ -19,11 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.activities.MainActivity;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ApiServiceCantina;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Users;
+import com.paulvarry.intra42.api.tools42.AccessToken;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
@@ -40,6 +42,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class AppClass extends Application {
 
@@ -214,25 +219,37 @@ public class AppClass extends Application {
 
         if (me == null)
             return false;
-        else {
-            cursus = me.cursusUsers;
-            initFirebase();
 
-            if (refreshStatus != null)
-                refreshStatus.update(null, getString(R.string.cursus), 1, 6);
-            CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
-            if (refreshStatus != null)
-                refreshStatus.update(null, getString(R.string.campus), 2, 6);
-            CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
-            if (refreshStatus != null)
-                refreshStatus.update(null, getString(R.string.tags), 3, 6);
-            CacheTags.getAllowInternet(cacheSQLiteHelper, this);
-            if (refreshStatus != null)
-                refreshStatus.update(null, "finishing", 6, 6);
-            //TODO: add integration to force use API with a cache manager in the UI !!
-            editor.apply();
-            return true;
+        ApiService42Tools client = ServiceGenerator.createService(ApiService42Tools.class);
+        Call<AccessToken> call = client.getAccessToken(ServiceGenerator.getToken().accessToken);
+        try {
+            Response<AccessToken> ret = call.execute();
+            if (ret != null && ret.isSuccessful()) {
+                Token.save(this, ret.body());
+                ServiceGenerator.setToken(ret.body());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        cursus = me.cursusUsers;
+        initFirebase();
+
+        if (refreshStatus != null)
+            refreshStatus.update(null, getString(R.string.cursus), 1, 6);
+        CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
+        if (refreshStatus != null)
+            refreshStatus.update(null, getString(R.string.campus), 2, 6);
+        CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
+        if (refreshStatus != null)
+            refreshStatus.update(null, getString(R.string.tags), 3, 6);
+        CacheTags.getAllowInternet(cacheSQLiteHelper, this);
+        if (refreshStatus != null)
+            refreshStatus.update(null, "finishing", 6, 6);
+        //TODO: add integration to force use API with a cache manager in the UI !!
+        editor.apply();
+        return true;
+
     }
 
     void initFirebase() {

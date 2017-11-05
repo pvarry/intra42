@@ -62,8 +62,8 @@
         <ListPreference
             android:dependency="switch_preference_enable_calendar"
             android:key="sync_events_calendars"
-            android:negativeButtonText="@string/pref_button_calendar_list_negative"
-            android:positiveButtonText="@string/pref_button_calendar_list_positive"
+            android:negativeButtonText="null"
+            android:positiveButtonText="null"
             android:title="@string/pref_title_calendar_list" />
 
         <CheckBoxPreference

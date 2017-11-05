@@ -10,7 +10,7 @@ import com.paulvarry.intra42.api.model.AccessToken;
 public class Token {
 
     private static final String ACCESS_TOKEN_INTRA_42 = "accessToken";
-    private static final String ACCESS_TOKEN_42TOOLS = "accessToken";
+    private static final String ACCESS_TOKEN_42TOOLS = "accessToken42Tools";
 
     private static SharedPreferences getShared(Context context) {
         return context.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);

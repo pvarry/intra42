@@ -46,8 +46,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
     public static final String API_BASE_URL = "https://api.intra.42.fr";
+    public static final String API_BASE_URL_42TOOLS = "https://f7681272.ngrok.io/";
     private static OkHttpClient.Builder httpClient;
-    private static Retrofit.Builder builder;
     private static AccessToken accessTokenIntra42;
     private static com.paulvarry.intra42.api.tools42.AccessToken accessToken42Tools;
     private static AppClass app;
@@ -75,6 +75,14 @@ public class ServiceGenerator {
 
     public static <S> S createService(Class<S> serviceClass) {
 
+        Retrofit.Builder builder;
+        builder = new Retrofit.Builder()
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(getGson()));
+
+        if (serviceClass == ApiService42Tools.class)
+            builder.baseUrl(API_BASE_URL_42TOOLS);
+
         httpClient = getBaseClient(true);
         httpClient.addInterceptor(getHeaderInterceptor());
 
@@ -86,6 +94,11 @@ public class ServiceGenerator {
 
     public static <S> S createService(Class<S> serviceClass, AppClass app, boolean allowRedirectWrongAuth) {
         ServiceGenerator.app = app;
+        Retrofit.Builder builder;
+
+        builder = new Retrofit.Builder()
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         httpClient = getBaseClient(allowRedirectWrongAuth);
 
@@ -95,6 +108,7 @@ public class ServiceGenerator {
         } else if (serviceClass == ApiService42Tools.class) {
             httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
             httpClient.authenticator(getAuthenticator42Tools(app));
+            builder.baseUrl(API_BASE_URL_42TOOLS);
         } else
             httpClient.addInterceptor(getHeaderInterceptor());
 
@@ -114,9 +128,6 @@ public class ServiceGenerator {
 
     private static OkHttpClient.Builder getBaseClient(boolean allowRedirectWrongAuth) {
         httpClient = new OkHttpClient.Builder();
-        builder = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         getLogInterceptor(httpClient);
         if (allowRedirectWrongAuth)
@@ -340,8 +351,16 @@ public class ServiceGenerator {
                 " (Android/" + Build.VERSION.RELEASE + " ; " + Build.MODEL + ") retrofit2/2.1.0";
     }
 
+    public static AccessToken getToken() {
+        return accessTokenIntra42;
+    }
+
     public static void setToken(AccessToken token) {
         ServiceGenerator.accessTokenIntra42 = token;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
+        ServiceGenerator.accessToken42Tools = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {
