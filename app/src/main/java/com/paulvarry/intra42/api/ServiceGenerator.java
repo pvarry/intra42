@@ -68,6 +68,10 @@ public class ServiceGenerator {
         return accessTokenIntra42 != null;
     }
 
+    public static boolean have42ToolsToken() {
+        return accessToken42Tools != null;
+    }
+
     public static void logout() {
         accessTokenIntra42 = null;
         accessToken42Tools = null;
@@ -200,23 +204,23 @@ public class ServiceGenerator {
                     return null;
                 }
 
-                if (accessToken42Tools == null)
+                if (accessTokenIntra42 == null)
                     return null;
 
                 //noinspection SynchronizeOnNonFinalField
                 synchronized (accessToken42Tools) {
                     // We need a new client, since we don't want to make another call using our client with access token
-                    ApiService tokenClient = createService(ApiService.class);
-                    Call<AccessToken> call = tokenClient.getRefreshAccessToken(accessTokenIntra42.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
+                    ApiService42Tools tokenClient = createService(ApiService42Tools.class);
+                    Call<com.paulvarry.intra42.api.tools42.AccessToken> call = tokenClient.getAccessToken(accessTokenIntra42.refreshToken);
                     try {
-                        retrofit2.Response<AccessToken> tokenResponse = call.execute();
+                        retrofit2.Response<com.paulvarry.intra42.api.tools42.AccessToken> tokenResponse = call.execute();
                         if (tokenResponse.code() == 200) {
-                            AccessToken newToken = tokenResponse.body();
-                            accessTokenIntra42 = newToken;
+                            com.paulvarry.intra42.api.tools42.AccessToken newToken = tokenResponse.body();
+                            accessToken42Tools = newToken;
                             Token.save(context, accessTokenIntra42);
 
                             return response.request().newBuilder()
-                                    .header(HEADER_KEY_API_AUTH, newToken.tokenType + " " + newToken.accessToken)
+                                    .header(HEADER_KEY_API_AUTH, "Bearer " + newToken.accessToken)
                                     .header(HEADER_KEY_USER_AGENT, getUserAgent())
                                     .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
                                     .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)

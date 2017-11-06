@@ -220,18 +220,6 @@ public class AppClass extends Application {
         if (me == null)
             return false;
 
-        ApiService42Tools client = ServiceGenerator.createService(ApiService42Tools.class);
-        Call<AccessToken> call = client.getAccessToken(ServiceGenerator.getToken().accessToken);
-        try {
-            Response<AccessToken> ret = call.execute();
-            if (ret != null && ret.isSuccessful()) {
-                Token.save(this, ret.body());
-                ServiceGenerator.setToken(ret.body());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         cursus = me.cursusUsers;
         initFirebase();
 
@@ -248,6 +236,21 @@ public class AppClass extends Application {
             refreshStatus.update(null, "finishing", 6, 6);
         //TODO: add integration to force use API with a cache manager in the UI !!
         editor.apply();
+
+        if (!ServiceGenerator.have42ToolsToken()) {
+            ApiService42Tools client = ServiceGenerator.createService(ApiService42Tools.class);
+            Call<AccessToken> call = client.getAccessToken(ServiceGenerator.getToken().accessToken);
+            try {
+                Response<AccessToken> ret = call.execute();
+                if (ret != null && ret.isSuccessful()) {
+                    Token.save(this, ret.body());
+                    ServiceGenerator.setToken(ret.body());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         return true;
 
     }
