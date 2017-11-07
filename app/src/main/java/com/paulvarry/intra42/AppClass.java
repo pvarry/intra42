@@ -285,7 +285,7 @@ public class AppClass extends Application {
     }
 
     public boolean userIsLogged(boolean canOpenActivity) {
-        if (me == null && !ServiceGenerator.have42Token()) {
+        if (me == null || !ServiceGenerator.have42Token()) {
             if (canOpenActivity)
                 MainActivity.openActivity(this);
             return false;
