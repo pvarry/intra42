@@ -175,6 +175,12 @@ public class Tag {
     }
 
     public static void setTagForum(Context context, List<Tags> tags, ChipView chipViewTags) {
+        if (tags == null || tags.size() == 0) {
+            chipViewTags.setVisibility(View.GONE);
+            return;
+        } else
+            chipViewTags.setVisibility(View.VISIBLE);
+
         ChipViewAdapterForum adapter = new ChipViewAdapterForum(context);
         adapter.setTagList(tags);
         adapter.setChipCornerRadius(5);
@@ -184,6 +190,12 @@ public class Tag {
     }
 
     public static void setTagUsers(Context context, List<Tags> tags, ChipView chipViewTags) {
+        if (tags == null || tags.size() == 0) {
+            chipViewTags.setVisibility(View.GONE);
+            return;
+        } else
+            chipViewTags.setVisibility(View.VISIBLE);
+
         ChipViewAdapterUsers adapter = new ChipViewAdapterUsers(context);
         adapter.setTagList(tags);
         adapter.setChipCornerRadius(5);
