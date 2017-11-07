@@ -172,6 +172,14 @@ public class Tools {
         else return false;
     }
 
+    public static boolean apiIsSuccessfulNoThrow(Response<?> response) {
+        try {
+            return apiIsSuccessful(response);
+        } catch (BasicThreadActivity.UnauthorizedException | BasicThreadActivity.ErrorServerException e) {
+            return false;
+        }
+    }
+
     public static String concatIds(List<Integer> integerList) {
         String eventsId;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {

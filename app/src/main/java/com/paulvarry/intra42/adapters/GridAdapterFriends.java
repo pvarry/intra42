@@ -11,34 +11,40 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.utils.UserImage;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class GridAdapterUsers extends BaseAdapter {
+public class GridAdapterFriends extends BaseAdapter {
 
+
+    HashMap<String, Locations> locations;
     private Context context;
-    private List<UsersLTE> users;
+    private List<FriendsSmall> friends;
 
-    public GridAdapterUsers(Context context, List<UsersLTE> users) {
+    public GridAdapterFriends(Context context, List<FriendsSmall> friends, HashMap<String, Locations> locations) {
         this.context = context;
-        this.users = users;
+        this.friends = friends;
+        this.locations = locations;
     }
 
     @Override
     public int getCount() {
-        return users.size();
+        return friends.size();
     }
 
     @Override
-    public UsersLTE getItem(int position) {
-        return users.get(position);
+    public FriendsSmall getItem(int position) {
+        return friends.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return users.get(position).id;
+        return friends.get(position).id;
     }
 
     @Override
@@ -65,7 +71,11 @@ public class GridAdapterUsers extends BaseAdapter {
         holder.textViewUserLogin.setText(user.login);
         UserImage.setImage(context, user, holder.imageViewUsers);
 
-        holder.linearLayoutLocation.setVisibility(View.GONE);
+        if (locations != null && locations.containsKey(user.login)) {
+            holder.linearLayoutLocation.setVisibility(View.VISIBLE);
+            holder.textViewLocation.setText(locations.get(user.login).host);
+        } else
+            holder.linearLayoutLocation.setVisibility(View.GONE);
 
         return convertView;
     }

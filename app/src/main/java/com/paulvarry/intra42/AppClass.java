@@ -173,6 +173,10 @@ public class AppClass extends Application {
         return ServiceGenerator.createService(ApiService.class, this, true);
     }
 
+    public ApiService42Tools getApiService42Tools() {
+        return ServiceGenerator.createService(ApiService42Tools.class, this, false);
+    }
+
     public ApiService getApiServiceDisableRedirectActivity() {
         return ServiceGenerator.createService(ApiService.class, this, false);
     }

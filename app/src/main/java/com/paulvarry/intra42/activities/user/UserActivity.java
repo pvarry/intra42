@@ -34,7 +34,6 @@ import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
-import com.paulvarry.intra42.utils.Friends;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
@@ -387,14 +386,6 @@ public class UserActivity extends BasicTabActivity
 //                return true;
 //            }
 //        });
-
-        menu.add(R.string.menu_action_user_add_friends).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Friends.actionAddRemove(app.firebaseRefFriends, user);
-                return true;
-            }
-        });
 
         return true;
     }

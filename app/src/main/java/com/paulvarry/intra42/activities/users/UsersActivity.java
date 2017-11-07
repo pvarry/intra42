@@ -14,7 +14,7 @@ import com.paulvarry.intra42.ui.tools.Navigation;
 public class UsersActivity
         extends BasicTabActivity
         implements UsersSearchFragment.OnFragmentInteractionListener, UsersAllFragment.OnFragmentInteractionListener,
-        UsersAdvancedFragment.OnFragmentInteractionListener, UsersFriendsFragment.OnFragmentInteractionListener {
+        UsersAdvancedFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class UsersActivity
     }
 
     /**
-     * This text is useful when both {@link BasicThreadActivity#getDataOnMainThread()} and {@link BasicThreadActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link BasicThreadActivity.GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

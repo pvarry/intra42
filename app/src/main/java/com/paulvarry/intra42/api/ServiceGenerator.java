@@ -46,7 +46,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
     public static final String API_BASE_URL = "https://api.intra.42.fr";
-    public static final String API_BASE_URL_42TOOLS = "https://f7681272.ngrok.io/";
+    public static final String API_BASE_URL_42TOOLS = "http://8db08419.ngrok.io/";
     private static OkHttpClient.Builder httpClient;
     private static AccessToken accessTokenIntra42;
     private static com.paulvarry.intra42.api.tools42.AccessToken accessToken42Tools;
@@ -359,12 +359,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(AccessToken token) {
-        ServiceGenerator.accessTokenIntra42 = token;
-    }
-
     public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
         ServiceGenerator.accessToken42Tools = token;
+    }
+
+    public static void setToken(AccessToken token) {
+        ServiceGenerator.accessTokenIntra42 = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

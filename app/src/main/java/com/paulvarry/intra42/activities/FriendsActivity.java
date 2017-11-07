@@ -6,47 +6,40 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.GridAdapterUsers;
+import com.paulvarry.intra42.adapters.GridAdapterFriends;
+import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FriendsActivity extends BasicThreadActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    List<UsersLTE> list;
+    List<FriendsSmall> list;
     HashMap<String, Locations> locations;
 
     GridView gridView;
-    GridAdapterUsers adapter;
+    GridAdapterFriends adapter;
 
-    boolean firebaseFinished;
-
+    /*
     ValueEventListener friendsEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot snapshot) {
@@ -86,6 +79,7 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
             setViewState(StatusCode.API_DATA_ERROR);
         }
     };
+*/
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, FriendsActivity.class);
@@ -96,7 +90,6 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         new Thread(new Runnable() {
             @Override
             public void run() {
-                setLoadingProgress("Locations", 1, 2);
                 getData();
                 setLoadingProgress("Finishing", 2, 2);
                 runOnUiThread(new Runnable() {
@@ -130,14 +123,28 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
     }
 
     public void getData() {
+        setLoadingProgress(getString(R.string.friends_loading_friends), 1, 2);
+
+        ApiService42Tools api = app.getApiService42Tools();
+        Call<List<FriendsSmall>> call = api.getFriends();
+        try {
+            Response<List<FriendsSmall>> ret = call.execute();
+            if (Tools.apiIsSuccessful(ret))
+                list = ret.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         if (list == null)
             return;
 
+        setLoadingProgress(getString(R.string.friends_loading_locations), 1, 2);
+
         StringBuilder searchOn = new StringBuilder();
         String separator = "";
 
-        for (UsersLTE u : list) {
+        for (FriendsSmall u : list) {
             searchOn.append(separator).append(u.id);
             separator = ",";
         }
@@ -145,7 +152,7 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOn.toString(), 100, 1);
         try {
             Response<List<Locations>> response = c.execute();
-            if (response != null && response.isSuccessful()) {
+            if (Tools.apiIsSuccessful(response)) {
                 locations = new HashMap<>(response.body().size());
                 for (Locations l : response.body())
                     locations.put(l.user.login, l);
@@ -162,12 +169,12 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
 
     @Override
     public void setViewContent() {
-        if (!firebaseFinished)
-            setLoadingProgress("Friends", 0, 2);
-        else if (list == null)
+        if (list == null)
             setViewState(StatusCode.EMPTY);
         else if (!list.isEmpty()) {
-            adapter = new GridAdapterUsers(this, list, locations);
+
+
+            adapter = new GridAdapterFriends(this, list, locations);
             gridView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             gridView.setOnItemClickListener(this);
@@ -178,26 +185,7 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
 
     @Override
     public String getEmptyText() {
-        return "You can add friends from their profile";
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        firebaseFinished = false;
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.removeEventListener(friendsEventListener);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-        else {
-            setViewState(StatusCode.API_DATA_ERROR);
-            firebaseFinished = true;
-        }
+        return getString(R.string.friends_nothing_found);
     }
 
     @Override
@@ -210,6 +198,21 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         final UsersLTE user = adapter.getItem(position);
         int res;
 
+        Callback<Void> removeFriend = new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (Tools.apiIsSuccessfulNoThrow(response))
+                    Toast.makeText(app, getString(R.string.done), Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(app, getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(app, getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        };
+
         if (locations != null && locations.get(user.login) != null)
             res = R.array.alert_friends_open_long_click_location;
         else
@@ -221,11 +224,7 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    DatabaseReference ref = user.getFriendsFirebaseRef(app);
-                    if (ref != null)
-                        ref.removeValue();
-                    else
-                        Toast.makeText(app, "Can't perform this action", Toast.LENGTH_SHORT).show();
+                    app.getApiService42Tools().deleteFriend(user.id);
                 } else if (which == 1)
                     UserActivity.openIt(app, user);
                 else if (which == 2)

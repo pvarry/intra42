@@ -1,9 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -68,13 +66,6 @@ public class UsersLTE
     public boolean openIt(Context context) {
         UserActivity.openIt(context, this);
         return true;
-    }
-
-    @Nullable
-    public DatabaseReference getFriendsFirebaseRef(AppClass app) {
-        if (app.firebaseRefFriends != null)
-            return app.firebaseRefFriends.child(String.valueOf(this.id));
-        return null;
     }
 
     static public class UserLTEDeserializer implements JsonDeserializer<UsersLTE> {

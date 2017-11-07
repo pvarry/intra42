@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,29 +22,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.adapters.SpinnerAdapterCursusAccent;
+import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
+import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.Friends;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.plumillonforge.android.chipview.ChipView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,6 +64,7 @@ public class UserOverviewFragment
     @Nullable
     UserActivity activity;
     Users user;
+    Friends friendsRelation;
     SwipeRefreshLayout swipeRefreshLayout;
     ViewGroup layoutPhone;
     ImageButton imageButtonSMS;
@@ -96,30 +92,54 @@ public class UserOverviewFragment
     LinearLayout linearLayoutCursus;
     TextView textViewCursusDate;
     AppClass app;
-    ValueEventListener friendsEventListener = new ValueEventListener() {
+
+    Callback<Friends> checkFriend = new Callback<Friends>() {
         @Override
-        public void onDataChange(DataSnapshot snapshot) {
-            GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
-            };
-            HashMap<String, String> messages = snapshot.getValue(t);
-            if (messages == null || user == null) {
-                Log.d("fire", "no");
-            } else {
-                Set<String> s = messages.keySet();
-                for (String k : s) {
-                    if (user.id == Integer.decode(k)) {
-                        setButtonFriends(true);
-                        return;
-                    }
-                }
-            }
-            setButtonFriends(false);
+        public void onResponse(Call<Friends> call, Response<Friends> response) {
+            friendsRelation = null;
+            if (Tools.apiIsSuccessfulNoThrow(response)) {
+                friendsRelation = response.body();
+            } else if (response.code() == 404)
+                setButtonFriends(1);
+            else
+                setButtonFriends(-1);
         }
 
         @Override
-        public void onCancelled(DatabaseError error) {
-            // Failed to read value
-            Log.w("fire", "Failed to read value.", error.toException());
+        public void onFailure(Call<Friends> call, Throwable t) {
+            setButtonFriends(-1);
+        }
+    };
+
+    Callback<Friends> addFriend = new Callback<Friends>() {
+        @Override
+        public void onResponse(Call<Friends> call, Response<Friends> response) {
+            if (Tools.apiIsSuccessfulNoThrow(response)) {
+                friendsRelation = response.body();
+                setButtonFriends(1);
+            } else
+                setButtonFriends(-1);
+        }
+
+        @Override
+        public void onFailure(Call<Friends> call, Throwable t) {
+            setButtonFriends(-1);
+        }
+    };
+
+    Callback<Void> removeFriend = new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            if (Tools.apiIsSuccessfulNoThrow(response)) {
+                friendsRelation = null;
+                setButtonFriends(1);
+            } else
+                setButtonFriends(-1);
+        }
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable t) {
+            setButtonFriends(-1);
         }
     };
 
@@ -208,13 +228,9 @@ public class UserOverviewFragment
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        imageButtonFriends.setOnClickListener(this);
-        setButtonFriends(null);
-
-        if (app.firebaseRefFriends != null) {
-            app.firebaseRefFriends.removeEventListener(friendsEventListener);
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-        }
+        setButtonFriends(0);
+        ApiService42Tools api = app.getApiService42Tools();
+        api.getFriends(user.id).enqueue(checkFriend);
 
         String name = user.displayName + " - " + user.login;
         textViewName.setText(name);
@@ -307,20 +323,6 @@ public class UserOverviewFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.removeEventListener(friendsEventListener);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -355,20 +357,47 @@ public class UserOverviewFragment
             else
                 ClusterMapActivity.openIt(getContext(), user.location);
         } else if (v == imageButtonFriends) {
-            Friends.actionAddRemove(app.firebaseRefFriends, user);
-            setButtonFriends(null);
+            ApiService42Tools api = app.getApiService42Tools();
+
+            setButtonFriends(0);
+            if (friendsRelation == null) { //add
+                Call<Friends> friendsCall = api.addFriend(user.id);
+                friendsCall.enqueue(addFriend);
+            } else {
+                api.deleteFriend(friendsRelation.id).enqueue(removeFriend);
+            }
         }
     }
 
-    void setButtonFriends(Boolean friendsFound) {
+    /**
+     * 0 -> loading;
+     * <p>
+     * 1 -> normal state;
+     * <p>
+     * -1 -> error on loading;
+     *
+     * @param state Current state;
+     */
+    void setButtonFriends(int state) {
 
-        if (friendsFound == null)
+        if (state == 1) {
+            imageButtonFriends.setOnClickListener(this);
+            imageButtonFriends.setOnLongClickListener(this);
+            if (friendsRelation != null)
+                imageButtonFriends.setColorFilter(Color.argb(255, 247, 202, 24));
+            else
+                imageButtonFriends.setColorFilter(Color.argb(255, 255, 255, 255));
+            return;
+        }
+
+        imageButtonFriends.setOnClickListener(null);
+        imageButtonFriends.setOnLongClickListener(null);
+
+        if (state == -1)
             imageButtonFriends.setColorFilter(Color.argb(200, 150, 150, 150));
-        else if (friendsFound)
-            imageButtonFriends.setColorFilter(Color.argb(255, 247, 202, 24));
-        else
-            imageButtonFriends.setColorFilter(Color.argb(255, 255, 255, 255));
 
+        if (state == -1)
+            imageButtonFriends.setColorFilter(Color.argb(200, 0, 0, 0));
     }
 
     void seeLastLocation() {

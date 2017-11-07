@@ -361,5 +361,8 @@
     <string name="pref_title_calendar_after_subscription">Insert to calendar</string>
     <string name="pref_summary_calendar_after_subscription">Insert the event just after subscription to it</string>
     <string name="pref_title_calendar">Events sync</string>
+    <string name="friends_nothing_found">You can add friends from their profile</string>
+    <string name="friends_loading_locations">Locations</string>
+    <string name="friends_loading_friends">Friends</string>
 
 </resources>
