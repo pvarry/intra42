@@ -54,8 +54,12 @@ public class GridAdapterUsers extends BaseAdapter {
         if (locations == null || users == null)
             return;
 
+        int capacity = users.size() - locations.size();
+        if (capacity < 0)
+            capacity = 0;
+
         List<UsersLTE> usersLogged = new ArrayList<>(locations.size());
-        List<UsersLTE> usersNonLogged = new ArrayList<>(users.size() - locations.size());
+        List<UsersLTE> usersNonLogged = new ArrayList<>(capacity);
 
         for (UsersLTE u : users) {
             if (locations.containsKey(u.login))

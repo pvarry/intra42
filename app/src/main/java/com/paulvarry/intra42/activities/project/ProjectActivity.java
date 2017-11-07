@@ -202,9 +202,10 @@ public class ProjectActivity extends BasicTabActivity
             if (projectUser.project != null && projectUser.project.attachments != null && !projectUser.project.attachments.isEmpty())
                 adapter.addFragment(ProjectAttachmentsFragment.newInstance(), getString(R.string.title_tab_project_attachments));
             adapter.addFragment(ProjectUsersListFragment.newInstance(), getString(R.string.title_tab_project_users));
+
+            viewPager.setAdapter(adapter);
         } else
             setViewState(StatusCode.EMPTY);
-        viewPager.setAdapter(adapter);
     }
 
     @Override

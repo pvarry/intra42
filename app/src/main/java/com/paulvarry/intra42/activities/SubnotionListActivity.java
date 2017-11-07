@@ -185,7 +185,9 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
     @Override
 
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        if (subnotionsList.get(position).attachments != null &&
+        if (subnotionsList != null &&
+                subnotionsList.size() > position &&
+                subnotionsList.get(position).attachments != null &&
                 !subnotionsList.get(position).attachments.isEmpty() &&
                 subnotionsList.get(position).attachments.size() >= 1) {
 
@@ -224,7 +226,5 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
             AlertDialog alert = builder.create();
             alert.show();
         }
-
-
     }
 }
