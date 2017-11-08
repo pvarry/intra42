@@ -364,5 +364,10 @@
     <string name="friends_nothing_found">You can add friends from their profile</string>
     <string name="friends_loading_locations">Locations</string>
     <string name="friends_loading_friends">Friends</string>
+    <string name="friend_group_name">Group name</string>
+    <string name="friends">Friends</string>
+    <string name="friends_group_edit_in_group">Friends in group</string>
+    <string name="friends_group_edit_discard">Discard</string>
+    <string name="friends_groups_edit_no_empty_name">Can\'t be empty</string>
 
 </resources>

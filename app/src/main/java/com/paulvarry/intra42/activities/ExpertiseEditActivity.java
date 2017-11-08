@@ -62,7 +62,7 @@ public class ExpertiseEditActivity extends BasicThreadActivity implements View.O
     @Override
     public void setViewContent() {
 
-        if (expertiseList != null && expertiseList.size() != 0) {
+        if (expertiseList == null || expertiseList.size() == 0) {
             setViewState(StatusCode.EMPTY);
             return;
         }

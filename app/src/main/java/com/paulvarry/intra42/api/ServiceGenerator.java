@@ -159,7 +159,7 @@ public class ServiceGenerator {
                     return null;
 
                 //noinspection SynchronizeOnNonFinalField
-                synchronized (accessTokenIntra42.refreshToken) {
+                synchronized (accessTokenIntra42) {
                     // We need a new client, since we don't want to make another call using our client with access token
                     ApiService tokenClient = createService(ApiService.class);
                     Call<AccessToken> call = tokenClient.getRefreshAccessToken(accessTokenIntra42.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
@@ -359,12 +359,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
-        ServiceGenerator.accessToken42Tools = token;
-    }
-
     public static void setToken(AccessToken token) {
         ServiceGenerator.accessTokenIntra42 = token;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
+        ServiceGenerator.accessToken42Tools = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

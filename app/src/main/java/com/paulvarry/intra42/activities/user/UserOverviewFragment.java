@@ -99,6 +99,7 @@ public class UserOverviewFragment
             friendsRelation = null;
             if (Tools.apiIsSuccessfulNoThrow(response)) {
                 friendsRelation = response.body();
+                setButtonFriends(1);
             } else if (response.code() == 404)
                 setButtonFriends(1);
             else

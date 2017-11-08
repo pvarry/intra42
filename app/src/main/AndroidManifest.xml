@@ -49,6 +49,7 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -153,11 +154,9 @@
         <service
             android:name=".notifications.IntentServiceNotifications"
             android:exported="false" />
-
         <service
             android:name=".notifications.IntentEvent"
             android:exported="false" />
-
         <service
             android:name=".notifications.NotificationsJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
@@ -168,11 +167,12 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.provider.calendar.action.HANDLE_CUSTOM_EVENT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="vnd.android.cursor.item/event" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SearchableActivity"
             android:label="@string/title_activity_search"
@@ -210,6 +210,8 @@
             android:name=".activities.TestingActivity"
             android:label="Testing"
             android:theme="@style/AppTheme.ActionBar" />
+        <activity android:name=".activities.FriendsGroupsActivity" />
+        <activity android:name=".activities.FriendsGroupsEditActivity"></activity>
     </application>
 
 </manifest>

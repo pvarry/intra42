@@ -16,6 +16,7 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.utils.UserImage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class GridAdapterFriends extends BaseAdapter {
         this.context = context;
         this.friends = friends;
         this.locations = locations;
+        sortUsers();
     }
 
     @Override
@@ -78,6 +80,30 @@ public class GridAdapterFriends extends BaseAdapter {
             holder.linearLayoutLocation.setVisibility(View.GONE);
 
         return convertView;
+    }
+
+    private void sortUsers() {
+
+        if (locations == null || friends == null)
+            return;
+
+        int capacity = friends.size() - locations.size();
+        if (capacity < 0)
+            capacity = 0;
+
+        List<FriendsSmall> usersLogged = new ArrayList<>(locations.size());
+        List<FriendsSmall> usersNonLogged = new ArrayList<>(capacity);
+
+        for (FriendsSmall u : friends) {
+            if (locations.containsKey(u.login))
+                usersLogged.add(u);
+            else
+                usersNonLogged.add(u);
+        }
+
+        friends = new ArrayList<>(friends.size());
+        friends.addAll(usersLogged);
+        friends.addAll(usersNonLogged);
     }
 
     static class ViewHolder {

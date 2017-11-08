@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
@@ -31,75 +32,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FriendsActivity extends BasicThreadActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class FriendsActivity extends BasicThreadActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnClickListener, BasicThreadActivity.GetDataOnThread {
 
     List<FriendsSmall> list;
     HashMap<String, Locations> locations;
 
     GridView gridView;
+    ImageButton imageButtonSettings;
     GridAdapterFriends adapter;
-
-    /*
-    ValueEventListener friendsEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot snapshot) {
-            firebaseFinished = true;
-            GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
-            };
-            HashMap<String, String> messages = snapshot.getValue(t);
-            list = new ArrayList<>();
-
-            if (messages == null) {
-                setViewState(StatusCode.API_DATA_ERROR);
-                return;
-            } else {
-                Set<String> s = messages.keySet();
-                for (String k : s) {
-                    UsersLTE tmp = new UsersLTE();
-                    tmp.id = Integer.decode(k);
-                    tmp.login = messages.get(k);
-                    list.add(tmp);
-                }
-
-                Collections.sort(list, new Comparator<UsersLTE>() {
-                    @Override
-                    public int compare(UsersLTE o1, UsersLTE o2) {
-                        return o1.login.compareTo(o2.login);
-                    }
-                });
-            }
-            refresh();
-        }
-
-        @Override
-        public void onCancelled(DatabaseError error) {
-            // Failed to read value
-            Log.e("Firebase", "Failed to read value.", error.toException());
-
-            setViewState(StatusCode.API_DATA_ERROR);
-        }
-    };
-*/
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, FriendsActivity.class);
         context.startActivity(intent);
-    }
-
-    protected void refresh() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getData();
-                setLoadingProgress("Finishing", 2, 2);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setViewState(StatusCode.CONTENT);
-                    }
-                });
-            }
-        }).start();
     }
 
     @Override
@@ -112,8 +56,12 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         if (!app.userIsLogged())
             finish();
 
+        registerGetDataOnOtherThread(this);
+
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
         gridView = findViewById(R.id.gridView);
+        imageButtonSettings = findViewById(R.id.imageButtonSettings);
+        imageButtonSettings.setOnClickListener(this);
     }
 
     @Nullable
@@ -122,7 +70,8 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         return null;
     }
 
-    public void getData() {
+    @Override
+    public void getDataOnOtherThread() throws IOException, RuntimeException {
         setLoadingProgress(getString(R.string.friends_loading_friends), 1, 2);
 
         ApiService42Tools api = app.getApiService42Tools();
@@ -172,7 +121,6 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         if (list == null)
             setViewState(StatusCode.EMPTY);
         else if (!list.isEmpty()) {
-
 
             adapter = new GridAdapterFriends(this, list, locations);
             gridView.setAdapter(adapter);
@@ -234,5 +182,13 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         });
         builder.show();
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == imageButtonSettings) {
+            Intent i = new Intent(this, FriendsGroupsActivity.class);
+            startActivity(i);
+        }
     }
 }
