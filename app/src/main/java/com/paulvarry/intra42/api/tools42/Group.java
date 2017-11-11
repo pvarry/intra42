@@ -3,6 +3,7 @@ package com.paulvarry.intra42.api.tools42;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.List;
@@ -14,18 +15,18 @@ public class Group extends GroupSmall implements BaseItem {
     public List<Integer> users;
 
     @Override
-    public String getName() {
+    public String getName(Context context) {
         return name;
     }
 
     @Override
-    public String getSub() {
+    public String getSub(Context context) {
         if (users != null && users.size() != 0)
             if (users.size() == 1)
-                return String.format(Locale.getDefault(), "%d friend", users.size());
+                return String.format(Locale.getDefault(), context.getString(R.string.friends_summary_format_friend), users.size());
             else
-                return String.format(Locale.getDefault(), "%d friends", users.size());
-        return "No friend";
+                return String.format(Locale.getDefault(), context.getString(R.string.friends_summary_format_friends), users.size());
+        return context.getString(R.string.friends_summary_no_friends);
     }
 
     @Override

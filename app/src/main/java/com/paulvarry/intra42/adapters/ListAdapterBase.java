@@ -68,6 +68,8 @@ public class ListAdapterBase<T extends BaseItem> extends BaseAdapter {
 
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            if (vi == null)
+                return null;
             convertView = vi.inflate(R.layout.list_view_, parent, false);
 
             holder.textViewName = convertView.findViewById(R.id.textViewName);
@@ -80,14 +82,14 @@ public class ListAdapterBase<T extends BaseItem> extends BaseAdapter {
 
         final BaseItem item = getItem(position);
 
-        String name = item.getName();
+        String name = item.getName(context);
         if (name != null && !name.isEmpty()) {
             holder.textViewName.setVisibility(View.VISIBLE);
             holder.textViewName.setText(name);
         } else
             holder.textViewName.setVisibility(View.GONE);
 
-        String description = item.getSub();
+        String description = item.getSub(context);
         if (description != null && !description.isEmpty()) {
             holder.textViewSub.setVisibility(View.VISIBLE);
             holder.textViewSub.setText(description);

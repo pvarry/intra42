@@ -116,7 +116,7 @@ public class ListAdapterTopics extends BaseAdapter {
             });
         }
 
-        holder.textViewSummary.setText(topic.getSub());
+        holder.textViewSummary.setText(topic.getSub(context));
 
         return convertView;
     }

@@ -369,5 +369,20 @@
     <string name="friends_group_edit_in_group">Friends in group</string>
     <string name="friends_group_edit_discard">Discard</string>
     <string name="friends_groups_edit_no_empty_name">Can\'t be empty</string>
+    <string name="friends_groups_edit_no_name_set">No name set</string>
+    <string name="friends_select_group">Select Group</string>
+    <string name="friends_groups_all">All</string>
+    <string name="friends_groups_edit_unsaved_changes_title">You have unsaved changes</string>
+    <string name="friends_groups_edit_unsaved_changes_content">Do you want to save your changes to this group ?</string>
+    <string name="friends_groups_new">New Friends Group</string>
+    <string name="friends_groups_edit">Edit Friends Group</string>
+    <string name="location_undetermined">undetermined</string>
+    <string name="friends_summary_no_friends">No friend</string>
+    <string name="friends_summary_format_friend">%d friend</string>
+    <string name="friends_summary_format_friends">%d friends</string>
+    <string name="friends_add_to_group">Add to group</string>
+    <string name="friends_remove_from_group">Remove from group</string>
+    <string name="friends_delete_friends_title">Do want to delete those friends ?</string>
+    <string name="friends_groups_nothing">You have to create groups first</string>
 
 </resources>

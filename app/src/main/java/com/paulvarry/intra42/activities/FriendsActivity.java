@@ -1,45 +1,63 @@
 package com.paulvarry.intra42.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.GridAdapterFriends;
+import com.paulvarry.intra42.adapters.ItemDecoration;
+import com.paulvarry.intra42.adapters.RecyclerViewAdapterFriends;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Locations;
-import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
+import com.paulvarry.intra42.api.tools42.Group;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FriendsActivity extends BasicThreadActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnClickListener, BasicThreadActivity.GetDataOnThread {
+public class FriendsActivity
+        extends BasicThreadActivity
+        implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, RecyclerViewAdapterFriends.OnItemClickListener, RecyclerViewAdapterFriends.SelectionListener, AdapterView.OnItemSelectedListener {
 
     List<FriendsSmall> list;
+    SparseArray<FriendsSmall> listSoled;
+    List<Group> groups;
     HashMap<String, Locations> locations;
+    List<Integer> selection;
 
-    GridView gridView;
+    RecyclerView recyclerView;
     ImageButton imageButtonSettings;
-    GridAdapterFriends adapter;
+
+    ViewGroup linearLayoutHeader;
+    ViewGroup linearLayoutHeaderSelection;
+
+    Spinner spinner;
+
+    RecyclerViewAdapterFriends adapter;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, FriendsActivity.class);
@@ -59,9 +77,17 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         registerGetDataOnOtherThread(this);
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
-        gridView = findViewById(R.id.gridView);
+
+        spinner = findViewById(R.id.spinner);
+        linearLayoutHeader = findViewById(R.id.linearLayoutHeader);
+        linearLayoutHeaderSelection = findViewById(R.id.linearLayoutHeaderSelection);
+        recyclerView = findViewById(R.id.recyclerView);
         imageButtonSettings = findViewById(R.id.imageButtonSettings);
+
         imageButtonSettings.setOnClickListener(this);
+        linearLayoutHeader.setVisibility(View.VISIBLE);
+        linearLayoutHeaderSelection.setVisibility(View.GONE);
+        spinner.setOnItemSelectedListener(this);
     }
 
     @Nullable
@@ -78,8 +104,24 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
         Call<List<FriendsSmall>> call = api.getFriends();
         try {
             Response<List<FriendsSmall>> ret = call.execute();
-            if (Tools.apiIsSuccessful(ret))
+            if (Tools.apiIsSuccessful(ret)) {
                 list = ret.body();
+
+                listSoled = new SparseArray<>();
+                for (FriendsSmall f : list) {
+                    listSoled.put(f.id, f);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Call<List<Group>> callGroup = api.getFriendsGroups();
+        try {
+            Response<List<Group>> ret = callGroup.execute();
+            if (Tools.apiIsSuccessful(ret))
+                groups = ret.body();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,11 +164,37 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
             setViewState(StatusCode.EMPTY);
         else if (!list.isEmpty()) {
 
-            adapter = new GridAdapterFriends(this, list, locations);
-            gridView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-            gridView.setOnItemClickListener(this);
-            gridView.setOnItemLongClickListener(this);
+            if (selection != null) {
+                linearLayoutHeaderSelection.setVisibility(View.VISIBLE);
+                linearLayoutHeader.setVisibility(View.GONE);
+            } else {
+                linearLayoutHeaderSelection.setVisibility(View.GONE);
+                linearLayoutHeader.setVisibility(View.VISIBLE);
+            }
+
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            int noOfColumns = (int) (dpWidth / 90);
+
+            recyclerView.setLayoutManager(new GridLayoutManager(this, noOfColumns));
+
+            recyclerView.addItemDecoration(new ItemDecoration(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns));
+
+            adapter = new RecyclerViewAdapterFriends(this, list, locations);
+            adapter.setClickListener(this);
+            adapter.setSelectionListener(this);
+            recyclerView.setAdapter(adapter);
+
+            List<String> list = new ArrayList<>();
+            list.add(getString(R.string.friends_groups_all));
+            if (groups != null)
+                for (Group g : groups) {
+                    list.add(g.name);
+                }
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(spinnerArrayAdapter);
+
         } else
             setViewState(StatusCode.EMPTY);
     }
@@ -137,58 +205,148 @@ public class FriendsActivity extends BasicThreadActivity implements AdapterView.
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        UserActivity.openIt(this, adapter.getItem(position));
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        final UsersLTE user = adapter.getItem(position);
-        int res;
-
-        Callback<Void> removeFriend = new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (Tools.apiIsSuccessfulNoThrow(response))
-                    Toast.makeText(app, getString(R.string.done), Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(app, getString(R.string.error), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(app, getString(R.string.error), Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        if (locations != null && locations.get(user.login) != null)
-            res = R.array.alert_friends_open_long_click_location;
-        else
-            res = R.array.alert_friends_open_long_click;
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.dialog_choose_action_colon) + user.login);
-        builder.setItems(res, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    app.getApiService42Tools().deleteFriend(user.id);
-                } else if (which == 1)
-                    UserActivity.openIt(app, user);
-                else if (which == 2)
-                    ClusterMapActivity.openIt(FriendsActivity.this, locations.get(user.login).host);
-
-            }
-        });
-        builder.show();
-        return true;
-    }
-
-    @Override
     public void onClick(View v) {
         if (v == imageButtonSettings) {
             Intent i = new Intent(this, FriendsGroupsActivity.class);
             startActivity(i);
         }
+    }
+
+    @Override
+    public void onItemClick(int position, FriendsSmall clicked) {
+        UserActivity.openIt(this, clicked);
+    }
+
+    @Override
+    public void onSelectionChanged(List<Integer> selected) {
+
+        if (selected != null) {
+            linearLayoutHeaderSelection.setVisibility(View.VISIBLE);
+            linearLayoutHeader.setVisibility(View.GONE);
+        } else {
+            linearLayoutHeaderSelection.setVisibility(View.GONE);
+            linearLayoutHeader.setVisibility(View.VISIBLE);
+        }
+
+        selection = selected;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        List<FriendsSmall> list = this.list;
+        Group group;
+
+        if (position > 0 && groups != null && groups.size() > position) {
+            list = new ArrayList<>();
+            group = groups.get(position - 1);
+            for (Integer i : group.users) {
+                list.add(listSoled.get(i));
+            }
+        }
+
+        adapter = new RecyclerViewAdapterFriends(this, list, locations);
+        adapter.setClickListener(this);
+        adapter.setSelectionListener(this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public void setToGroup(View view) {
+        String[] group = getGroupStringList();
+        if (group == null)
+            Toast.makeText(app, R.string.friends_groups_nothing, Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setItems(group, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Group clickedGroup = groups.get(which);
+
+                List<FriendsSmall> list = getSelectedList();
+                clickedGroup.addToThisGroup(FriendsActivity.this, list, new Runnable() {
+                    @Override
+                    public void run() {
+                        selection = null;
+                        Toast.makeText(app, R.string.done, Toast.LENGTH_SHORT).show();
+                        refresh();
+                    }
+                });
+            }
+        });
+        builder.setTitle(R.string.friends_select_group);
+        builder.show();
+    }
+
+    public void removeFromGroup(View view) {
+        String[] group = getGroupStringList();
+        if (group == null)
+            Toast.makeText(app, R.string.friends_groups_nothing, Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setItems(group, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Group clickedGroup = groups.get(which);
+
+                List<FriendsSmall> list = getSelectedList();
+                clickedGroup.removeFromGroup(FriendsActivity.this, list, new Runnable() {
+                    @Override
+                    public void run() {
+                        selection = null;
+                        Toast.makeText(app, R.string.done, Toast.LENGTH_SHORT).show();
+                        refresh();
+                    }
+                });
+            }
+        });
+        builder.setTitle(R.string.friends_select_group);
+        builder.show();
+    }
+
+    public void removeFromFriends(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                List<FriendsSmall> list = getSelectedList();
+                Friends.deleteFriendsList(FriendsActivity.this, list, new Runnable() {
+                    @Override
+                    public void run() {
+                        selection = null;
+                        Toast.makeText(app, R.string.done, Toast.LENGTH_SHORT).show();
+                        refresh();
+                    }
+                });
+            }
+        });
+        builder.setTitle(R.string.friends_delete_friends_title);
+        builder.show();
+    }
+
+    List<FriendsSmall> getSelectedList() {
+        List<FriendsSmall> toAdd = new ArrayList<>();
+        for (Integer i : selection) {
+            toAdd.add(list.get(i));
+        }
+        return toAdd;
+    }
+
+    String[] getGroupStringList() {
+
+        if (groups == null || groups.size() == 0)
+            return null;
+
+        String[] group = new String[groups.size()];
+        for (int i = 0; groups.size() > i; i++)
+            group[i] = groups.get(i).name;
+        return group;
     }
 }

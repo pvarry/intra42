@@ -3,6 +3,7 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.BaseItem;
 import com.paulvarry.intra42.utils.DateTool;
 
@@ -34,24 +35,24 @@ public class Locations implements BaseItem {
     public UsersLTE user;
 
     @Override
-    public String getName() {
+    public String getName(Context context) {
         return user.login;
     }
 
     @Override
-    public String getSub() {
+    public String getSub(Context context) {
 
         if (beginAt != null && endAt != null && !DateTool.sameDayOf(beginAt, endAt))
             return DateTool.getDateTimeLong(beginAt) + " - " + DateTool.getDateTimeLong(endAt);
 
         String ret = "";
         if (beginAt == null)
-            ret += "undetermined";
+            ret += context.getString(R.string.location_undetermined);
         else
             ret += DateTool.getTimeShort(beginAt);
         ret += " - ";
         if (endAt == null)
-            ret += "undetermined";
+            ret += context.getString(R.string.location_undetermined);
         else
             ret += DateTool.getTimeShort(endAt);
 

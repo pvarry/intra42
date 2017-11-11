@@ -290,32 +290,32 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
             if (responseUsersLoginStatus) {
                 for (UsersLTE u : responseUsersLogin.body())
-                    user.put(u.getName(), u);
+                    user.put(u.getName(this), u);
             }
             if (responseUsersFirstNameStatus) {
                 for (UsersLTE u : responseUsersFirstName.body())
-                    user.put(u.getName(), u);
+                    user.put(u.getName(this), u);
             }
             if (responseUsersLastNameStatus) {
                 for (UsersLTE u : responseUsersLastName.body())
-                    user.put(u.getName(), u);
+                    user.put(u.getName(this), u);
             }
 
             if (user != null) {
                 for (UsersLTE u : user.values())
-                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
+                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName(this)));
             }
 
             if (responseProjects != null && responseProjects.isSuccessful() && responseProjects.body() != null) {
                 items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_projects)));
                 for (Projects p : responseProjects.body())
-                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, p, p.getName()));
+                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, p, p.getName(this)));
             }
 
             if (responseTopics != null && responseTopics.isSuccessful() && responseTopics.body() != null) {
                 items.add(new SectionListViewSearch.Item<Topics>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_topics)));
                 for (Topics t : responseTopics.body())
-                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, t, t.getName()));
+                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, t, t.getName(this)));
             }
 
             final SectionListViewSearch adapter = new SectionListViewSearch(SearchableActivity.this, items);

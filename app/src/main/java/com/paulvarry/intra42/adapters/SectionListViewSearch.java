@@ -87,8 +87,8 @@ public class SectionListViewSearch extends BaseAdapter
             } else
                 holder.imageViewUser.setVisibility(View.GONE);
 
-            holder.textViewName.setText(i.item.getName());
-            String sub = i.item.getSub();
+            holder.textViewName.setText(i.item.getName(context));
+            String sub = i.item.getSub(context);
             if (sub != null) {
                 holder.textViewSub.setText(sub);
                 holder.textViewSub.setVisibility(View.VISIBLE);
@@ -145,7 +145,7 @@ public class SectionListViewSearch extends BaseAdapter
 
         @Override
         public String toString() {
-            return item.getName();
+            return item.getName(null);
         }
 
     }

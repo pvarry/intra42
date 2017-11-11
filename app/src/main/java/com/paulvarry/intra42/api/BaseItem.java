@@ -9,14 +9,14 @@ public interface BaseItem {
      *
      * @return The name (title) of the item.
      */
-    String getName();
+    String getName(Context context);
 
     /**
      * Usual use like subtitle on a list view.
      *
      * @return The sub title.
      */
-    String getSub();
+    String getSub(Context context);
 
     /**
      * Declare here the method to open this elem n a activity.

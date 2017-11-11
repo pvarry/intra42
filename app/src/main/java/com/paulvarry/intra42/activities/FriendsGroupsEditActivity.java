@@ -127,9 +127,9 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
     @Override
     public String getToolbarName() {
         if (groupId == 0)
-            return "New Friends Group";
+            return getString(R.string.friends_groups_new);
         else
-            return "Edit Friends Group";
+            return getString(R.string.friends_groups_edit);
     }
 
     @Override
@@ -165,11 +165,11 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
 
     @Override
     public void onBackPressed() {
-        if ((groupId == 0 && newName.isEmpty()) ||
+        if ((groupId == 0 && (newName == null || newName.isEmpty())) ||
                 groupId != 0 && !newName.contentEquals(group.name)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("You have unsaved changes");
-            builder.setMessage("Do you want to save your changes ti this group ?");
+            builder.setTitle(R.string.friends_groups_edit_unsaved_changes_title);
+            builder.setMessage(R.string.friends_groups_edit_unsaved_changes_content);
 
             builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                 @Override

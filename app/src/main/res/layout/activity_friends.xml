@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.users.UsersAllFragment">
+    tools:context=".activities.FriendsActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linearLayoutHeader"
@@ -41,6 +41,49 @@
 
     </LinearLayout>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayoutHeaderSelection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@color/colorSecondary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setToGroup"
+            android:text="@string/friends_add_to_group"
+            android:textColor="#fff" />
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="removeFromGroup"
+            android:text="@string/friends_remove_from_group"
+            android:textColor="#fff" />
+
+        <ImageButton
+            android:id="@+id/imageButtonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/icon"
+            android:onClick="removeFromFriends"
+            android:padding="12dp"
+            android:tint="#fff"
+            app:srcCompat="@drawable/ic_delete_white_24dp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
@@ -50,6 +93,7 @@
         android:horizontalSpacing="1dp"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="1dp" />
+        android:verticalSpacing="1dp"
+        android:visibility="gone" />
 
 </LinearLayout>

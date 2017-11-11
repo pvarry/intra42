@@ -63,12 +63,12 @@ public class Projects extends ProjectsLTE implements BaseItem {
     }
 
     @Override
-    public String getName() {
+    public String getName(Context context) {
         return name;
     }
 
     @Override
-    public String getSub() {
+    public String getSub(Context context) {
         return slug;
     }
 

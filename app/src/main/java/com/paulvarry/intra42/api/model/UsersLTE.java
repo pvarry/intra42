@@ -53,12 +53,12 @@ public class UsersLTE
     }
 
     @Override
-    public String getName() {
+    public String getName(Context context) {
         return login;
     }
 
     @Override
-    public String getSub() {
+    public String getSub(Context context) {
         return null;
     }
 

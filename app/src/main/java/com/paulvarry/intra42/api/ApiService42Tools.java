@@ -18,9 +18,11 @@ import retrofit2.http.Query;
 
 public interface ApiService42Tools {
 
+    /* Auth */
     @POST("/auth")
     Call<AccessToken> getAccessToken(@Query("access_token") String access_token);
 
+    /* Friends */
     @GET("friends")
     Call<List<FriendsSmall>> getFriends();
 
@@ -33,6 +35,7 @@ public interface ApiService42Tools {
     @DELETE("friends/{id}")
     Call<Void> deleteFriend(@Path("id") int friendId);
 
+    /* Groups */
     @GET("friends_groups")
     Call<List<Group>> getFriendsGroups();
 
@@ -42,9 +45,16 @@ public interface ApiService42Tools {
     @PUT("friends_groups/{id}")
     Call<Group> updateFriendsGroup(@Path("id") int groupId, @Query("name") String name);
 
+    @POST("friends_groups")
+    Call<Group> createFriendsGroup(@Query("name") String name);
+
+    @POST("/friends_groups/{id}/friends")
+    Call<Friends> addFriendToGroup(@Path("id") int groupId, @Query("user_id") int userId);
+
     @DELETE("friends_groups/{id}")
     Call<Void> deleteFriendsGroup(@Path("id") int groupId);
 
-    @POST("friends_groups")
-    Call<Group> createFriendsGroup(@Query("name") String name);
+    @DELETE("/friends_groups/{group_id}/friends/{user_id}")
+    Call<Void> deleteFriendFromGroup(@Path("group_id") int groupId, @Path("user_id") int userId);
+
 }

@@ -23,7 +23,7 @@ import java.util.List;
 public class GridAdapterFriends extends BaseAdapter {
 
 
-    HashMap<String, Locations> locations;
+    private HashMap<String, Locations> locations;
     private Context context;
     private List<FriendsSmall> friends;
 
