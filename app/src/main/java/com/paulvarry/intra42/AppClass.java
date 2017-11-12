@@ -31,7 +31,6 @@ import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
 import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.cache.CacheUsers;
-import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.notifications.NotificationsJobService;
 import com.paulvarry.intra42.notifications.NotificationsUtils;
@@ -203,14 +202,14 @@ public class AppClass extends Application {
      *
      * @return status
      */
-    public boolean initCache(boolean forceAPI, RefreshCallbackMainActivity refreshStatus) {
+    public boolean initCache(boolean forceAPI, MainActivity mainActivity) {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         ApiService api = getApiService();
 
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
-        if (refreshStatus != null)
-            refreshStatus.update(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
 
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = Users.me(api);
@@ -227,17 +226,17 @@ public class AppClass extends Application {
         cursus = me.cursusUsers;
         initFirebase();
 
-        if (refreshStatus != null)
-            refreshStatus.update(null, getString(R.string.cursus), 1, 6);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, getString(R.string.cursus), 1, 6);
         CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
-        if (refreshStatus != null)
-            refreshStatus.update(null, getString(R.string.campus), 2, 6);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, getString(R.string.campus), 2, 6);
         CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
-        if (refreshStatus != null)
-            refreshStatus.update(null, getString(R.string.tags), 3, 6);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, getString(R.string.tags), 3, 6);
         CacheTags.getAllowInternet(cacheSQLiteHelper, this);
-        if (refreshStatus != null)
-            refreshStatus.update(null, "finishing", 6, 6);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, "finishing", 6, 6);
         //TODO: add integration to force use API with a cache manager in the UI !!
         editor.apply();
 
@@ -253,6 +252,11 @@ public class AppClass extends Application {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        if (mainActivity != null) {
+            mainActivity.updateViewSate(getString(R.string.info_loading_cache), getString(R.string.friends), 1, 6);
+            mainActivity.getFriendsFromFirebase();
         }
 
         return true;

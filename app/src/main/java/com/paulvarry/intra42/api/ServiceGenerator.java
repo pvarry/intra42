@@ -46,7 +46,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
     public static final String API_BASE_URL = "https://api.intra.42.fr";
-    public static final String API_BASE_URL_42TOOLS = "http://8db08419.ngrok.io/";
+    public static final String API_BASE_URL_42TOOLS = "https://api.42.tools/";
     private static OkHttpClient.Builder httpClient;
     private static AccessToken accessTokenIntra42;
     private static com.paulvarry.intra42.api.tools42.AccessToken accessToken42Tools;
@@ -211,13 +211,13 @@ public class ServiceGenerator {
                 synchronized (accessToken42Tools) {
                     // We need a new client, since we don't want to make another call using our client with access token
                     ApiService42Tools tokenClient = createService(ApiService42Tools.class);
-                    Call<com.paulvarry.intra42.api.tools42.AccessToken> call = tokenClient.getAccessToken(accessTokenIntra42.refreshToken);
+                    Call<com.paulvarry.intra42.api.tools42.AccessToken> call = tokenClient.getAccessToken(accessTokenIntra42.accessToken);
                     try {
                         retrofit2.Response<com.paulvarry.intra42.api.tools42.AccessToken> tokenResponse = call.execute();
                         if (tokenResponse.code() == 200) {
                             com.paulvarry.intra42.api.tools42.AccessToken newToken = tokenResponse.body();
                             accessToken42Tools = newToken;
-                            Token.save(context, accessTokenIntra42);
+                            Token.save(context, newToken);
 
                             return response.request().newBuilder()
                                     .header(HEADER_KEY_API_AUTH, "Bearer " + newToken.accessToken)
@@ -359,12 +359,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(AccessToken token) {
-        ServiceGenerator.accessTokenIntra42 = token;
-    }
-
     public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
         ServiceGenerator.accessToken42Tools = token;
+    }
+
+    public static void setToken(AccessToken token) {
+        ServiceGenerator.accessTokenIntra42 = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

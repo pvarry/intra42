@@ -31,15 +31,16 @@ import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
+import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.Friends;
-import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
             edit.apply();
 
-            if (appVersion <= 20171107) {
+            if (appVersion <= 20171112) {
                 SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
                 pref.putBoolean("should_sync_friends", true);
                 pref.apply();
@@ -104,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    getFriendsFromFirebase();
-                    final boolean ret = app.initCache(false);
+                    final boolean ret = app.initCache(false, MainActivity.this);
                     runOnUiThread(new Runnable() {
                                       @Override
                                       public void run() {
@@ -181,24 +181,7 @@ public class MainActivity extends AppCompatActivity {
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    app.initCache(true, new RefreshCallbackMainActivity() {
-                                        @Override
-                                        public void update(final String info, final String status, final int progress, final int progressMax) {
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    if (info != null)
-                                                        textViewLoadingInfo.setText(info);
-                                                    if (status != null)
-                                                        textViewStatus.setText(status);
-                                                    progressBarLoading.setIndeterminate(false);
-                                                    progressBarLoading.setProgress(progress);
-                                                    if (progressMax != -1)
-                                                        progressBarLoading.setMax(progressMax);
-                                                }
-                                            });
-                                        }
-                                    });
+                                    app.initCache(true, MainActivity.this);
 
                                     final Intent intent = new Intent(getApplication(), HomeActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -272,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void getFriendsFromFirebase() {
+    public void getFriendsFromFirebase() {
         final boolean[] firebaseFinished = {false};
 
         ValueEventListener friendsEventListener = new ValueEventListener() {
@@ -282,20 +265,28 @@ public class MainActivity extends AppCompatActivity {
                 GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
                 };
                 final HashMap<String, String> messages = snapshot.getValue(t);
-                final ApiService42Tools api = app.getApiService42Tools();
 
 
                 if (messages == null) {
                     firebaseFinished[0] = true;
-                    return;
                 } else {
 
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
+
                             Call<Friends> call;
                             boolean success = true;
                             try {
+
+                                final ApiService apiIntra = app.getApiService();
+
+                                Response<List<Locations>> retIntra = apiIntra.getLocations(1, 1, 1).execute();
+                                if (!Tools.apiIsSuccessfulNoThrow(retIntra))
+                                    return;
+
+                                final ApiService42Tools api = app.getApiService42Tools();
+
                                 Set<String> s = messages.keySet();
                                 for (String k : s) {
                                     UsersLTE tmp = new UsersLTE();
@@ -311,17 +302,18 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
+                                success = false;
                             }
                             if (success) {
                                 SharedPreferences.Editor pref = AppSettings.getSharedPreferences(MainActivity.this).edit();
                                 pref.remove("should_sync_friends");
                                 pref.apply();
                             }
+                            firebaseFinished[0] = true;
                         }
                     }).start();
 
                 }
-                firebaseFinished[0] = true;
             }
 
             @Override
@@ -346,5 +338,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             app.firebaseRefFriends.removeEventListener(friendsEventListener);
         }
+    }
+
+    public void updateViewSate(final String info, final String status, final int progress, final int progressMax) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (info != null)
+                    textViewLoadingInfo.setText(info);
+                if (status != null)
+                    textViewStatus.setText(status);
+                if (progressBarLoading != null) {
+                    progressBarLoading.setIndeterminate(false);
+                    progressBarLoading.setProgress(progress);
+                    if (progressMax != -1)
+                        progressBarLoading.setMax(progressMax);
+                }
+            }
+        });
     }
 }
