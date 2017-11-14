@@ -6,28 +6,39 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Response;
 
 public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
 
     final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
+    /**
+     * key : Location name
+     * <p>
+     * Value : User on this location
+     */
     HashMap<String, UsersLTE> locations;
+    SparseArray<FriendsSmall> friends;
     List<Campus> campus = new ArrayList<>();
     int campusId;
     String locationHighlight;
@@ -112,21 +123,21 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             return;
         }
 
-        setLoadingInfo("Loading locations …");
+        setLoadingInfo(getString(R.string.info_loading_locations));
         setLoadingProgress(0, -1);
 
         int page = 1;
         int pageSize = 100;
-        int pageMax;
+        int pageMax = 0;
 
         while (true) {
 
             Response<List<Locations>> r = app.getApiService().getLocations(campusId, pageSize, page).execute();
-            if (r.isSuccessful()) {
+            if (Tools.apiIsSuccessful(r)) {
                 locationsTmp.addAll(r.body());
                 if (r.body().size() == pageSize) {
                     pageMax = (int) Math.ceil(Double.parseDouble(r.headers().get("X-Total")) / pageSize);
-                    setLoadingProgress(page, pageMax);
+                    setLoadingProgress(page, pageMax + 1);
                     page++;
                 } else
                     break;
@@ -139,6 +150,20 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         locations = new HashMap<>();
         for (Locations l : locationsTmp) {
             locations.put(l.host, l.user);
+        }
+
+        setLoadingInfo(getString(R.string.info_loading_friends));
+        setLoadingProgress(pageMax, pageMax - 1);
+
+        ApiService42Tools api = app.getApiService42Tools();
+
+        Call<List<FriendsSmall>> call = api.getFriends();
+        Response<List<FriendsSmall>> ret = call.execute();
+        if (Tools.apiIsSuccessful(ret)) {
+            friends = new SparseArray<>();
+            for (FriendsSmall f : ret.body()) {
+                friends.put(f.id, f);
+            }
         }
 
         setViewStateThread(StatusCode.CONTENT);

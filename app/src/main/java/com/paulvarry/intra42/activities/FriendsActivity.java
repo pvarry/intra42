@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,18 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.ItemDecoration;
 import com.paulvarry.intra42.adapters.RecyclerViewAdapterFriends;
+import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Locations;
+import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.api.tools42.Group;
@@ -35,6 +43,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -44,7 +53,7 @@ public class FriendsActivity
         implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, RecyclerViewAdapterFriends.OnItemClickListener, RecyclerViewAdapterFriends.SelectionListener, AdapterView.OnItemSelectedListener {
 
     List<FriendsSmall> list;
-    SparseArray<FriendsSmall> listSoled;
+    SparseArray<FriendsSmall> listFriends;
     List<Group> groups;
     HashMap<String, Locations> locations;
     List<Integer> selection;
@@ -58,6 +67,8 @@ public class FriendsActivity
     Spinner spinner;
 
     RecyclerViewAdapterFriends adapter;
+
+    boolean needUpdateFriends = false;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, FriendsActivity.class);
@@ -90,6 +101,117 @@ public class FriendsActivity
         spinner.setOnItemSelectedListener(this);
     }
 
+    @Override
+    protected void refresh() {
+
+        setViewState(StatusCode.LOADING);
+
+        SharedPreferences pref = AppSettings.getSharedPreferences(this);
+        if (pref.getBoolean("should_sync_friends", false) && app.firebaseRefFriends != null) {
+            needUpdateFriends = true;
+
+            getFriendsFromFirebase();
+
+        } else {
+            needUpdateFriends = false;
+            super.refresh();
+        }
+    }
+
+    public void getFriendsFromFirebase() {
+        ValueEventListener friendsEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
+                };
+                final HashMap<String, String> messages = snapshot.getValue(t);
+
+                if (messages == null) {
+                    friendsDatabaseFinish(true);
+                } else {
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Call<Friends> call;
+                            boolean success = true;
+                            boolean apiWorking = false;
+                            try {
+
+                                final ApiService apiIntra = app.getApiService();
+
+                                Response<List<Locations>> retIntra = apiIntra.getLocations(1, 1, 1).execute();
+                                if (!Tools.apiIsSuccessfulNoThrow(retIntra))
+                                    return;
+
+                                final ApiService42Tools api = app.getApiService42Tools();
+
+                                Set<String> s = messages.keySet();
+                                UsersLTE tmp = new UsersLTE();
+                                int i = 1;
+                                for (String k : s) {
+                                    tmp.id = Integer.decode(k);
+                                    tmp.login = messages.get(k);
+                                    call = api.addFriend(tmp.id);
+
+                                    String state = getString(R.string.friends) + " " + String.valueOf(i) + "/" + s.size();
+                                    setLoadingProgress(state, i, s.size());
+
+                                    Response<Friends> ret = call.execute();
+                                    if (Tools.apiIsSuccessfulNoThrow(ret))
+                                        app.firebaseRefFriends.child(String.valueOf(tmp.id)).removeValue();
+                                    else
+                                        success = false;
+                                    if (ret != null && ret.code() == 102) {
+                                        if (!apiWorking)
+                                            Toast.makeText(app, "Friends API is currently getting new users, please try again in 2min", Toast.LENGTH_SHORT).show();
+                                        apiWorking = true;
+                                    }
+                                    i++;
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                success = false;
+                            }
+                            friendsDatabaseFinish(success);
+                        }
+                    }).start();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.e("Firebase", "Failed to read value.", error.toException());
+                friendsDatabaseFinish(false);
+            }
+        };
+
+        setViewState(StatusCode.LOADING);
+        setLoadingInfo("Friends database update");
+        setLoadingProgress("calculating", 0, -1);
+
+        app.firebaseRefFriends.addListenerForSingleValueEvent(friendsEventListener);
+    }
+
+    private void friendsDatabaseFinish(boolean success) {
+        if (success) {
+            SharedPreferences.Editor pref = AppSettings.getSharedPreferences(FriendsActivity.this).edit();
+            pref.remove("should_sync_friends");
+            pref.apply();
+        }
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FriendsActivity.super.refresh();
+            }
+        });
+    }
+
     @Nullable
     @Override
     public String getUrlIntra() {
@@ -98,7 +220,7 @@ public class FriendsActivity
 
     @Override
     public void getDataOnOtherThread() throws IOException, RuntimeException {
-        setLoadingProgress(getString(R.string.friends_loading_friends), 1, 2);
+        setLoadingProgress(getString(R.string.info_loading_friends), 0, 2);
 
         ApiService42Tools api = app.getApiService42Tools();
         Call<List<FriendsSmall>> call = api.getFriends();
@@ -107,9 +229,9 @@ public class FriendsActivity
             if (Tools.apiIsSuccessful(ret)) {
                 list = ret.body();
 
-                listSoled = new SparseArray<>();
+                listFriends = new SparseArray<>();
                 for (FriendsSmall f : list) {
-                    listSoled.put(f.id, f);
+                    listFriends.put(f.id, f);
                 }
             }
 
@@ -178,7 +300,8 @@ public class FriendsActivity
 
             recyclerView.setLayoutManager(new GridLayoutManager(this, noOfColumns));
 
-            recyclerView.addItemDecoration(new ItemDecoration(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns));
+            if (recyclerView.getItemDecorationAt(0) == null)
+                recyclerView.addItemDecoration(new ItemDecoration(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns), 0);
 
             adapter = new RecyclerViewAdapterFriends(this, list, locations);
             adapter.setClickListener(this);
@@ -236,11 +359,11 @@ public class FriendsActivity
         List<FriendsSmall> list = this.list;
         Group group;
 
-        if (position > 0 && groups != null && groups.size() > position) {
+        if (position > 0 && groups != null && position - 1 < groups.size() && position - 1 >= 0) {
             list = new ArrayList<>();
             group = groups.get(position - 1);
             for (Integer i : group.users) {
-                list.add(listSoled.get(i));
+                list.add(listFriends.get(i));
             }
         }
 
@@ -248,6 +371,7 @@ public class FriendsActivity
         adapter.setClickListener(this);
         adapter.setSelectionListener(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.invalidate();
     }
 
     @Override

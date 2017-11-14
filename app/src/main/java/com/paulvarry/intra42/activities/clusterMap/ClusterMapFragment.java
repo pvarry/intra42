@@ -141,21 +141,31 @@ public class ClusterMapFragment extends Fragment {
     }
 
     View makeMapItem(final LocationItem[][] cluster, int r, int p) {
-        boolean highlight = false;
+        boolean highlightOpen = false;
+        boolean highlightFriend = false;
+
         final LocationItem locationItem = cluster[r][p];
         View view;
         LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView imageViewContent;
         int padding = Tools.dpToPx(getContext(), 2);
         GridLayout.LayoutParams paramsGridLayout;
+        UsersLTE user = null;
 
-        if (activity != null &&
-                activity.locationHighlight != null &&
-                locationItem.locationName != null &&
-                activity.locationHighlight.contentEquals(locationItem.locationName))
-            highlight = true;
+        if (locationItem.kind == LocationItem.KIND_USER && locationItem.locationName != null) {
+            if (activity != null &&
+                    activity.locationHighlight != null &&
+                    activity.locationHighlight.contentEquals(locationItem.locationName))
+                highlightOpen = true;
 
-        if (highlight)
+            if (locations != null) {
+                user = locations.get(locationItem.locationName);
+                if (activity != null && activity.friends != null && user != null && activity.friends.get(user.id) != null)
+                    highlightFriend = true;
+            }
+        }
+
+        if (highlightOpen || highlightFriend)
             view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
         else
             view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
@@ -173,13 +183,13 @@ public class ClusterMapFragment extends Fragment {
                         return true;
                     }
                 });
-                if (locations != null && locations.containsKey(locationItem.locationName)) {
-                    final UsersLTE user = locations.get(locationItem.locationName);
+                if (user != null) {
                     UserImage.setImageSmall(getContext(), user, imageViewContent);
+                    final UsersLTE finalUser = user;
                     imageViewContent.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            UserActivity.openIt(activity, user);
+                            UserActivity.openIt(activity, finalUser);
                         }
                     });
                 } else {
@@ -211,7 +221,7 @@ public class ClusterMapFragment extends Fragment {
         imageViewContent.setPadding(padding, padding, padding, padding);
         view.setLayoutParams(paramsGridLayout);
 
-        if (highlight) {
+        if (highlightOpen || highlightFriend) {
             padding = Tools.dpToPx(getContext(), 3);
             FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
             paramsFrameLayout.height = (int) (baseItemHeight * locationItem.sizeY);
@@ -222,7 +232,10 @@ public class ClusterMapFragment extends Fragment {
             view.setPadding(padding, padding, padding, padding);
 
             imageViewContent.setBackgroundResource(R.color.windowBackground);
-            view.setBackgroundResource(R.color.colorAccent);
+            if (highlightOpen)
+                view.setBackgroundResource(R.color.colorSecondary);
+            else
+                view.setBackgroundResource(R.color.colorAccent);
         }
 
         return view;

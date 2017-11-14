@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AndroidRuntimeException;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,10 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
@@ -27,21 +22,13 @@ import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.activities.projects.ProjectsActivity;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
-import com.paulvarry.intra42.api.model.Locations;
-import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
-import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,12 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(AppClass.PREFS_NAME, 0);
         int appVersion = sharedPreferences.getInt(AppClass.PREFS_APP_VERSION, 0);
+        appVersion = 0;
         if (appVersion == 0 || appVersion != BuildConfig.VERSION_CODE) {
             SharedPreferences.Editor edit = sharedPreferences.edit();
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
             edit.apply();
 
-            if (appVersion <= 20171112) {
+            if (appVersion <= 20171113) {
                 SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
                 pref.putBoolean("should_sync_friends", true);
                 pref.apply();
@@ -253,91 +241,6 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
-    }
-
-    public void getFriendsFromFirebase() {
-        final boolean[] firebaseFinished = {false};
-
-        ValueEventListener friendsEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
-                };
-                final HashMap<String, String> messages = snapshot.getValue(t);
-
-
-                if (messages == null) {
-                    firebaseFinished[0] = true;
-                } else {
-
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            Call<Friends> call;
-                            boolean success = true;
-                            try {
-
-                                final ApiService apiIntra = app.getApiService();
-
-                                Response<List<Locations>> retIntra = apiIntra.getLocations(1, 1, 1).execute();
-                                if (!Tools.apiIsSuccessfulNoThrow(retIntra))
-                                    return;
-
-                                final ApiService42Tools api = app.getApiService42Tools();
-
-                                Set<String> s = messages.keySet();
-                                for (String k : s) {
-                                    UsersLTE tmp = new UsersLTE();
-                                    tmp.id = Integer.decode(k);
-                                    tmp.login = messages.get(k);
-                                    call = api.addFriend(tmp.id);
-
-                                    Response<Friends> ret = call.execute();
-                                    if (Tools.apiIsSuccessfulNoThrow(ret))
-                                        app.firebaseRefFriends.child(String.valueOf(tmp.id)).removeValue();
-                                    else
-                                        success = false;
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                success = false;
-                            }
-                            if (success) {
-                                SharedPreferences.Editor pref = AppSettings.getSharedPreferences(MainActivity.this).edit();
-                                pref.remove("should_sync_friends");
-                                pref.apply();
-                            }
-                            firebaseFinished[0] = true;
-                        }
-                    }).start();
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.e("Firebase", "Failed to read value.", error.toException());
-
-                firebaseFinished[0] = true;
-            }
-        };
-
-        SharedPreferences pref = AppSettings.getSharedPreferences(this);
-        if (pref.getBoolean("should_sync_friends", false)) {
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-
-
-            while (!firebaseFinished[0])
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            app.firebaseRefFriends.removeEventListener(friendsEventListener);
-        }
     }
 
     public void updateViewSate(final String info, final String status, final int progress, final int progressMax) {

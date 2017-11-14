@@ -254,11 +254,6 @@ public class AppClass extends Application {
             }
         }
 
-        if (mainActivity != null) {
-            mainActivity.updateViewSate(getString(R.string.info_loading_cache), getString(R.string.friends), 1, 6);
-            mainActivity.getFriendsFromFirebase();
-        }
-
         return true;
 
     }
