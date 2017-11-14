@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(AppClass.PREFS_NAME, 0);
         int appVersion = sharedPreferences.getInt(AppClass.PREFS_APP_VERSION, 0);
-        appVersion = 0;
         if (appVersion == 0 || appVersion != BuildConfig.VERSION_CODE) {
             SharedPreferences.Editor edit = sharedPreferences.edit();
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
