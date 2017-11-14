@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string name="app_name">"Intra 42"</string>
-
-<!-- - - - - - - - - - - Strings related to Settings - - - - - - - - - - -->
 <string name="pref_advanced_dont_force">"Disable (don't force)"</string>
 <string name="pref_force_content_location">"Force content location"</string>
 <string name="pref_title_beta_allow">"Allow advanced preferences"</string>
@@ -296,7 +294,7 @@ You will lose a correction point"</string>
 <string name="user_unavailable">"Unavailable"</string>
 <string name="user_view_on_cluster_map">"View on ClusterMap"</string>
 <string name="user_you_dont_have_any_expertise_yet">"You don't have any expertise yet"</string>
-<string name="info_loading_cache">"Get cache …"</string>
+<string name="info_loading_cache">"Getting cache …"</string>
 <string name="info_loading_current_user">"current user"</string>
 <string name="evaluation_user_nothing">"you have no correction"</string>
 <string name="home_help_POEditor">"If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor. Click here"</string>
@@ -325,7 +323,7 @@ You will lose a correction point"</string>
 <string name="about_library_list">"Library list"</string>
 <string name="about_poeditor">"Project on POEditor"</string>
 <string name="info_api_unauthorized">"You not allowed"</string>
-<string name="pref_title_notifications_sync_allow"><![CDATA[Enable notifications & sync]]></string>
+<string name="pref_title_notifications_sync_allow">"Enable notifications &amp; sync"</string>
 <string name="pref_title_notifications_sync_calendar">"Sync calendar"</string>
 <string name="pref_title_calendar_list">"Calendar to put events"</string>
 <string name="pref_category_notifications">"Notifications"</string>
@@ -339,7 +337,5 @@ You will lose a correction point"</string>
 <string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
 <string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
 <string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
-<string name="pref_button_calendar_list_positive">"set"</string>
-<string name="pref_button_calendar_list_negative">"cancel"</string>
 <string name="pref_title_calendar">"Events sync"</string>
 </resources>

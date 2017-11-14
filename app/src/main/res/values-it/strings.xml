@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string name="app_name">"Intra 42"</string>
-
-<!-- - - - - - - - - - - Strings related to Settings - - - - - - - - - - -->
 <string name="pref_advanced_dont_force">"Disabilita (non forzare)"</string>
 <string name="pref_force_content_location">"Forza posizione contenuto"</string>
 <string name="pref_title_beta_allow">"Abilita impostazioni avanzate"</string>
@@ -326,7 +324,7 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="about_library_list">"Library list"</string>
 <string name="about_poeditor">"Project on POEditor"</string>
 <string name="info_api_unauthorized">"You not allowed"</string>
-<string name="pref_title_notifications_sync_allow"><![CDATA[Enable notifications & sync]]></string>
+<string name="pref_title_notifications_sync_allow">"Enable notifications &amp; sync"</string>
 <string name="pref_title_notifications_sync_calendar">"Sync calendar"</string>
 <string name="pref_title_calendar_list">"Calendar to put events"</string>
 <string name="pref_category_notifications">"Notifications"</string>
@@ -340,7 +338,5 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
 <string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
 <string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
-<string name="pref_button_calendar_list_positive">"set"</string>
-<string name="pref_button_calendar_list_negative">"cancel"</string>
 <string name="pref_title_calendar">"Events sync"</string>
 </resources>
