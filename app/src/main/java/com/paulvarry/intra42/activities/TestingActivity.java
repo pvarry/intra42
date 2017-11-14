@@ -91,6 +91,6 @@ public class TestingActivity extends AppCompatActivity {
             public void run() {
                 NotificationsUtils.run(TestingActivity.this, (AppClass) getApplication());
             }
-        }).run();
+        }).start();
     }
 }

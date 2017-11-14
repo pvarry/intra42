@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.EventActivity;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
@@ -51,6 +52,28 @@ public class NotificationsUtils {
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
     }
 
+    private static void setSummaryNotificationEvent(Context context) {
+        NotificationCompat.Builder summaryNotification = getBaseNotification(context)
+                .setAutoCancel(false)
+                .setSubText(context.getString(R.string.notifications_events_sub_text))
+                .setGroup(context.getString(R.string.notifications_events_unique_id))
+                .setChannelId(context.getString(R.string.notifications_events_unique_id))
+                .setGroupSummary(true);
+
+        NotificationManagerCompat.from(context).notify(-1, summaryNotification.build());
+    }
+
+    private static void setSummaryNotificationEvaluations(Context context) {
+        NotificationCompat.Builder summaryNotification = getBaseNotification(context)
+                .setAutoCancel(false)
+                .setSubText(context.getString(R.string.notifications_bookings_sub_text))
+                .setGroup(context.getString(R.string.notifications_bookings_unique_id))
+                .setChannelId(context.getString(R.string.notifications_bookings_unique_id))
+                .setGroupSummary(true);
+
+        NotificationManagerCompat.from(context).notify(-2, summaryNotification.build());
+    }
+
     public static void notify(Context context, Events events) {
         notify(context, events, null, false, false);
     }
@@ -63,9 +86,16 @@ public class NotificationsUtils {
         notify(context, events, eventsUsers, true, autoCancel);
     }
 
-    public static void notify(final Context context, final Events events, EventsUsers eventsUsers, boolean activeAction, boolean autoCancel) {
+    /**
+     * @param context      Context of the app
+     * @param event        Event to notify
+     * @param eventsUsers  EventUser associated with this event
+     * @param activeAction If actions will be shown
+     * @param autoCancel   If force notification to auto-cancel in 5s (after subscription)
+     */
+    public static void notify(final Context context, final Events event, EventsUsers eventsUsers, boolean activeAction, boolean autoCancel) {
 
-        Intent notificationIntent = EventActivity.getIntent(context, events);
+        Intent notificationIntent = EventActivity.getIntent(context, event);
 
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -73,15 +103,15 @@ public class NotificationsUtils {
         PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         final NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
-                .setContentTitle(events.name)
-                .setContentText(events.description.replace('\n', ' '))
-                .setSubText(context.getString(R.string.notifications_events_sub_text))
-                .setWhen(events.beginAt.getTime())
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(events.description))
+                .setContentTitle(event.name)
+                .setContentText(event.description.replace('\n', ' '))
+                .setWhen(event.beginAt.getTime())
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(event.description))
                 .setGroup(context.getString(R.string.notifications_events_unique_id))
-                .setGroupSummary(true)
                 .setChannelId(context.getString(R.string.notifications_events_unique_id))
                 .setContentIntent(intent);
+        if (event.kind != null)
+            notificationBuilder.setSubText(event.kind.name());
 
         if (autoCancel) {
             notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.notification_auto_clear), null);
@@ -90,7 +120,7 @@ public class NotificationsUtils {
             long delayInMilliseconds = 5000;
             h.postDelayed(new Runnable() {
                 public void run() {
-                    NotificationManagerCompat.from(context).cancel(context.getString(R.string.notifications_events_unique_id), events.id);
+                    NotificationManagerCompat.from(context).cancel(context.getString(R.string.notifications_events_unique_id), event.id);
                 }
             }, delayInMilliseconds);
 
@@ -102,15 +132,15 @@ public class NotificationsUtils {
                 notificationIntentAction.putExtra(IntentEvent.CONTENT_EVENT_ID, eventsUsers.eventId);
             } else {
                 notificationIntentAction.putExtra(IntentEvent.ACTION, IntentEvent.ACTION_CREATE);
-                notificationIntentAction.putExtra(IntentEvent.CONTENT_EVENT_ID, events.id);
+                notificationIntentAction.putExtra(IntentEvent.CONTENT_EVENT_ID, event.id);
             }
             // intentEvent.putExtra(EventActivity.ARG_EVENT, ServiceGenerator.getGson().toJson(event));
 
-            PendingIntent intentAction = PendingIntent.getService(context, 1000000 + events.id, notificationIntentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent intentAction = PendingIntent.getService(context, 1000000 + event.id, notificationIntentAction, PendingIntent.FLAG_UPDATE_CURRENT);
 
             if (eventsUsers == null) {
                 notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.event_subscribe), intentAction);
-            } else if (!events.beginAt.after(new Date()))
+            } else if (!event.beginAt.after(new Date()))
                 notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.event_unsubscribe), null);
             else
                 notificationBuilder.addAction(R.drawable.ic_event_black_24dp, context.getString(R.string.event_unsubscribe), intentAction);
@@ -124,7 +154,7 @@ public class NotificationsUtils {
 
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_events_unique_id), events.id, notification);
+        NotificationManagerCompat.from(context).notify(context.getString(R.string.notifications_events_unique_id), event.id, notification);
     }
 
     private static void notify(AppClass app, ScaleTeams scaleTeams, boolean imminentCorrection) {
@@ -134,6 +164,9 @@ public class NotificationsUtils {
 
         UsersLTE userAction = null;
         Integer projectsAction = null;
+
+        NotificationCompat.Builder builder = getBaseNotification(app)
+                .setSubText(app.getString(R.string.notifications_bookings_sub_text));
 
         if (imminentCorrection)
             title = app.getString(R.string.notification_bookings_title_imminent);
@@ -179,13 +212,11 @@ public class NotificationsUtils {
             pendingIntentOpen = PendingIntent.getActivity(app, 0, notificationIntent, 0);
         }
 
-        NotificationCompat.Builder builder = getBaseNotification(app)
-                .setChannelId(app.getString(R.string.notifications_bookings_unique_id))
+        builder.setChannelId(app.getString(R.string.notifications_bookings_unique_id))
                 .setContentTitle(title)
                 .setContentText(text)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setContentIntent(pendingIntentOpen)
-                .setSubText(app.getString(R.string.notifications_bookings_sub_text))
                 .setWhen(scaleTeams.beginAt.getTime());
 
         if (userAction != null) {
@@ -214,8 +245,7 @@ public class NotificationsUtils {
 
         Notification notification = builder.build();
 
-        NotificationManager notificationManager = (NotificationManager) app.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(app.getString(R.string.notifications_bookings_unique_id), scaleTeams.id, notification);
+        NotificationManagerCompat.from(app).notify(app.getString(R.string.notifications_bookings_unique_id), scaleTeams.id, notification);
     }
 
     private static void notify(Context context, Announcements announcements) {
@@ -346,24 +376,31 @@ public class NotificationsUtils {
         int campus = AppSettings.getUserCampus(app);
         int cursus = AppSettings.getUserCursus(app);
 
-        if (cursus != -1 && cursus != 0 && campus != -1 && campus != 0)
-            events = apiService.getEventCreatedAt(campus, cursus, dateFilter, Pagination.getPage(null));
-        else if (cursus != -1 && cursus != 0)
-            events = apiService.getEventCreatedAtCursus(cursus, dateFilter, Pagination.getPage(null));
-        else if (campus != -1 && campus != 0)
-            events = apiService.getEventCreatedAtCampus(campus, dateFilter, Pagination.getPage(null));
-        else
-            events = apiService.getEventCreatedAt(dateFilter, Pagination.getPage(null));
+        if (BuildConfig.DEBUG)
+            events = apiService.getEventCreatedAt("2017-11-14T8:16:42.966Z,2017-11-14T14:16:56.695Z", Pagination.getPage(null));
+        else {
+            if (cursus != -1 && cursus != 0 && campus != -1 && campus != 0)
+                events = apiService.getEventCreatedAt(campus, cursus, dateFilter, Pagination.getPage(null));
+            else if (cursus != -1 && cursus != 0)
+                events = apiService.getEventCreatedAtCursus(cursus, dateFilter, Pagination.getPage(null));
+            else if (campus != -1 && campus != 0)
+                events = apiService.getEventCreatedAtCampus(campus, dateFilter, Pagination.getPage(null));
+            else
+                events = apiService.getEventCreatedAt(dateFilter, Pagination.getPage(null));
+
+        }
 
         try {
             Response<List<Events>> responseEvents = events.execute();
-            if (!responseEvents.isSuccessful())
+            if (!responseEvents.isSuccessful() || responseEvents.body() == null || responseEvents.body().size() == 0)
                 return;
 
-            SparseArray<EventsUsers> list = EventsUsers.get(app, apiService, responseEvents.body());
-            if (list != null) {
+            //create summary notification
+            setSummaryNotificationEvent(app);
+            SparseArray<EventsUsers> eventUser = EventsUsers.get(app, apiService, responseEvents.body());
+            if (eventUser != null) {
                 for (Events e : responseEvents.body()) {
-                    NotificationsUtils.notify(app, e, list.get(e.id));
+                    NotificationsUtils.notify(app, e, eventUser.get(e.id));
                 }
             } else {
                 for (Events e : responseEvents.body()) {
@@ -383,7 +420,8 @@ public class NotificationsUtils {
         Response<List<ScaleTeams>> response;
         try {
             response = scaleTeams.execute();
-            if (response.isSuccessful()) {
+            if (response.isSuccessful() && response.body() != null && response.body().size() != 0) {
+                NotificationsUtils.setSummaryNotificationEvaluations(app);
                 for (ScaleTeams s : response.body()) {
                     NotificationsUtils.notify(app, s, false);
                 }
@@ -402,7 +440,8 @@ public class NotificationsUtils {
 
         try {
             Response<List<ScaleTeams>> response = scaleTeams.execute();
-            if (response.isSuccessful()) {
+            if (response.isSuccessful() && response.body() != null && response.body().size() != 0) {
+                NotificationsUtils.setSummaryNotificationEvaluations(app);
                 for (ScaleTeams s : response.body()) {
                     NotificationsUtils.notify(app, s, true);
                 }
