@@ -18,7 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.EventActivity;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
@@ -376,19 +375,14 @@ public class NotificationsUtils {
         int campus = AppSettings.getUserCampus(app);
         int cursus = AppSettings.getUserCursus(app);
 
-        if (BuildConfig.DEBUG)
-            events = apiService.getEventCreatedAt("2017-11-14T8:16:42.966Z,2017-11-14T14:16:56.695Z", Pagination.getPage(null));
-        else {
-            if (cursus != -1 && cursus != 0 && campus != -1 && campus != 0)
-                events = apiService.getEventCreatedAt(campus, cursus, dateFilter, Pagination.getPage(null));
-            else if (cursus != -1 && cursus != 0)
-                events = apiService.getEventCreatedAtCursus(cursus, dateFilter, Pagination.getPage(null));
-            else if (campus != -1 && campus != 0)
-                events = apiService.getEventCreatedAtCampus(campus, dateFilter, Pagination.getPage(null));
-            else
-                events = apiService.getEventCreatedAt(dateFilter, Pagination.getPage(null));
-
-        }
+        if (cursus != -1 && cursus != 0 && campus != -1 && campus != 0)
+            events = apiService.getEventCreatedAt(campus, cursus, dateFilter, Pagination.getPage(null));
+        else if (cursus != -1 && cursus != 0)
+            events = apiService.getEventCreatedAtCursus(cursus, dateFilter, Pagination.getPage(null));
+        else if (campus != -1 && campus != 0)
+            events = apiService.getEventCreatedAtCampus(campus, dateFilter, Pagination.getPage(null));
+        else
+            events = apiService.getEventCreatedAt(dateFilter, Pagination.getPage(null));
 
         try {
             Response<List<Events>> responseEvents = events.execute();
