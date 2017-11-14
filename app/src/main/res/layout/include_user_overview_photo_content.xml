@@ -59,6 +59,18 @@
             android:padding="4dp"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBarFriends"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:indeterminate="true"
+            android:padding="4dp" />
     </RelativeLayout>
 
 </FrameLayout>

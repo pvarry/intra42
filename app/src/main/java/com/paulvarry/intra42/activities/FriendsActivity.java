@@ -41,9 +41,11 @@ import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -221,17 +223,25 @@ public class FriendsActivity
     @Override
     public void getDataOnOtherThread() throws IOException, RuntimeException {
         setLoadingProgress(getString(R.string.info_loading_friends), 0, 2);
-
         ApiService42Tools api = app.getApiService42Tools();
+
+        StringBuilder searchOnLocation = new StringBuilder();
+        String separator = "";
+        HashMap<String, FriendsSmall> tmp = new HashMap<>();
+
         Call<List<FriendsSmall>> call = api.getFriends();
         try {
             Response<List<FriendsSmall>> ret = call.execute();
             if (Tools.apiIsSuccessful(ret)) {
-                list = ret.body();
+                List<FriendsSmall> data = ret.body();
 
-                listFriends = new SparseArray<>();
-                for (FriendsSmall f : list) {
+                listFriends = new SparseArray<>(data.size());
+                for (FriendsSmall f : data) {
                     listFriends.put(f.id, f);
+                    tmp.put(f.login, f);
+
+                    searchOnLocation.append(separator).append(f.id);
+                    separator = ",";
                 }
             }
 
@@ -249,20 +259,12 @@ public class FriendsActivity
             e.printStackTrace();
         }
 
-        if (list == null)
+        if (searchOnLocation.length() == 0)
             return;
 
         setLoadingProgress(getString(R.string.friends_loading_locations), 1, 2);
 
-        StringBuilder searchOn = new StringBuilder();
-        String separator = "";
-
-        for (FriendsSmall u : list) {
-            searchOn.append(separator).append(u.id);
-            separator = ",";
-        }
-
-        Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOn.toString(), 100, 1);
+        Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOnLocation.toString(), 100, 1);
         try {
             Response<List<Locations>> response = c.execute();
             if (Tools.apiIsSuccessful(response)) {
@@ -273,6 +275,24 @@ public class FriendsActivity
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        list = new ArrayList<>();
+        if (locations != null && locations.size() != 0) {
+            Collection<FriendsSmall> s = tmp.values();
+
+            TreeSet<FriendsSmall> haveLocation = new TreeSet<>();
+            TreeSet<FriendsSmall> noLocation = new TreeSet<>();
+            for (FriendsSmall f : s) {
+                if (locations.containsKey(f.login))
+                    haveLocation.add(f);
+                else
+                    noLocation.add(f);
+            }
+
+            list.addAll(haveLocation);
+            list.addAll(noLocation);
+        } else
+            list.addAll(tmp.values());
     }
 
     @Override
@@ -356,18 +376,30 @@ public class FriendsActivity
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        List<FriendsSmall> list = this.list;
+        List<FriendsSmall> data = list;
         Group group;
 
         if (position > 0 && groups != null && position - 1 < groups.size() && position - 1 >= 0) {
-            list = new ArrayList<>();
+            TreeSet<FriendsSmall> listHaveLocation = new TreeSet<>();
+            TreeSet<FriendsSmall> listNoLocation = new TreeSet<>();
+
             group = groups.get(position - 1);
-            for (Integer i : group.users) {
-                list.add(listFriends.get(i));
+            for (Integer pos : group.users) {
+                FriendsSmall friend = listFriends.get(pos);
+
+                if (locations != null && locations.containsKey(friend.login))
+                    listHaveLocation.add(friend);
+                else
+                    listNoLocation.add(friend);
             }
+
+            data = new ArrayList<>();
+            data.addAll(listHaveLocation);
+            data.addAll(listNoLocation);
         }
 
-        adapter = new RecyclerViewAdapterFriends(this, list, locations);
+
+        adapter = new RecyclerViewAdapterFriends(this, data, locations);
         adapter.setClickListener(this);
         adapter.setSelectionListener(this);
         recyclerView.setAdapter(adapter);

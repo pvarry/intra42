@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.GridAdapterUsers;
 import com.paulvarry.intra42.api.ApiService42Tools;
+import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.Group;
 import com.paulvarry.intra42.api.tools42.GroupLarge;
 import com.paulvarry.intra42.api.tools42.GroupSmall;
@@ -29,6 +30,8 @@ import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -138,8 +141,12 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
             newName = group.name;
             textViewSub.setText(group.name);
 
-            GridAdapterUsers adapter = new GridAdapterUsers(this, group.users);
-            gridView.setAdapter(adapter);
+            if (group.users != null) {
+                TreeSet<UsersLTE> friends = new TreeSet<>(group.users);
+
+                GridAdapterUsers adapter = new GridAdapterUsers(this, new ArrayList<>(friends));
+                gridView.setAdapter(adapter);
+            }
         } else {
             gridView.setVisibility(View.GONE);
             textViewFriendsInGroup.setVisibility(View.GONE);

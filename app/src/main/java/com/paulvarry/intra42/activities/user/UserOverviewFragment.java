@@ -72,6 +72,7 @@ public class UserOverviewFragment
     ViewGroup layoutLocation;
     ImageView imageViewProfile;
     ImageButton imageButtonFriends;
+    ProgressBar progressBarFriends;
     ChipView chipViewTags;
     TextView textViewName;
     TextView textViewMobile;
@@ -184,6 +185,7 @@ public class UserOverviewFragment
         layoutLocation = view.findViewById(R.id.layoutLocation);
         imageViewProfile = view.findViewById(R.id.imageViewProfile);
         imageButtonFriends = view.findViewById(R.id.imageButtonFriends);
+        progressBarFriends = view.findViewById(R.id.progressBarFriends);
         chipViewTags = view.findViewById(R.id.chipViewTags);
 
         textViewName = view.findViewById(R.id.textViewName);
@@ -381,6 +383,14 @@ public class UserOverviewFragment
      */
     void setButtonFriends(int state) {
 
+        if (state == 0) {
+            progressBarFriends.setVisibility(View.VISIBLE);
+            imageButtonFriends.setVisibility(View.GONE);
+        } else {
+            progressBarFriends.setVisibility(View.GONE);
+            imageButtonFriends.setVisibility(View.VISIBLE);
+        }
+
         if (state == 1) {
             imageButtonFriends.setOnClickListener(this);
             imageButtonFriends.setOnLongClickListener(this);
@@ -396,9 +406,6 @@ public class UserOverviewFragment
 
         if (state == -1)
             imageButtonFriends.setColorFilter(Color.argb(200, 150, 150, 150));
-
-        if (state == -1)
-            imageButtonFriends.setColorFilter(Color.argb(200, 0, 0, 0));
     }
 
     void seeLastLocation() {

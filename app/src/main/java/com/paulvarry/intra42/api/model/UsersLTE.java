@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -26,7 +27,7 @@ import java.util.List;
 @Parcel
 public class UsersLTE
         extends BaseCacheData
-        implements BaseItem {
+        implements BaseItem, Comparable<UsersLTE> {
 
     final static String API_ID = "id";
     final static String API_LOGIN = "login";
@@ -66,6 +67,11 @@ public class UsersLTE
     public boolean openIt(Context context) {
         UserActivity.openIt(context, this);
         return true;
+    }
+
+    @Override
+    public int compareTo(@NonNull UsersLTE o) {
+        return login.compareTo(o.login);
     }
 
     static public class UserLTEDeserializer implements JsonDeserializer<UsersLTE> {
