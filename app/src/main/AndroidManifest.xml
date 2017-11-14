@@ -211,7 +211,7 @@
             android:label="Testing"
             android:theme="@style/AppTheme.ActionBar" />
         <activity android:name=".activities.FriendsGroupsActivity" />
-        <activity android:name=".activities.FriendsGroupsEditActivity"></activity>
+        <activity android:name=".activities.FriendsGroupsEditActivity" />
     </application>
 
 </manifest>

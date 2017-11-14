@@ -17,7 +17,7 @@ public class Contacts {
 
     public static boolean add(Context context, Users user) {
         ArrayList<ContentProviderOperation> ops =
-                new ArrayList<ContentProviderOperation>();
+                new ArrayList<>();
 
         int rawContactID = ops.size();
 

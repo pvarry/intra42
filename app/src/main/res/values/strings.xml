@@ -1,28 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">Intra 42</string>
 
-
-    <!-- - - - - - - - - - - Strings related to Settings - - - - - - - - - - -->
-
     <string name="pref_advanced_dont_force">Disable (don\'t force)</string>
     <string name="pref_force_content_location">Force content location</string>
     <string name="pref_title_beta_allow">Allow advanced preferences</string>
-    <string name="pref_title_notifications_announcements">Notify announcements</string>
     <string name="pref_unactivated">Unactivated</string>
     <string name="pref_activated">Activated</string>
     <string name="pref_value_all">All</string>
 
-    <!-- Settings for Notifications -->
-
     <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_notifications_allow">Allow notifications</string>
 
     <string name="pref_title_notifications_events">Notify events</string>
     <string name="pref_title_notifications_scales">Notify corrections (beta)</string>
-    <string name="pref_title_notifications_forum">Notify forum (soon)</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
 
     <string name="pref_title_notifications_frequency">Sync frequency</string>
 
@@ -32,10 +21,6 @@
     <string name="pref_notifications_frequency_titles_3hour">3 hours</string>
     <string name="pref_notifications_frequency_titles_6hour">6 hours</string>
     <string name="pref_notifications_frequency_titles_never">Never</string>
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Settings for Network -->
 
     <string name="pref_header_network">Network</string>
 
@@ -49,8 +34,6 @@
     <string name="list_preference_network_titles_small">Small (146×175)</string>
     <string name="list_preference_network_titles_none">None</string>
 
-    <!-- - - - - - - - - - - Strings related to Notifications - - - - - - - - - - -->
-
     <string name="notifications_events_sub_text">event</string>
     <string name="notifications_events_channel_name">Events</string>
     <string name="notifications_events_channel_description">Notifications for events</string>
@@ -62,25 +45,25 @@
     <string name="notifications_announcements_channel_name">Announcements</string>
     <string name="notifications_announcements_channel_description">Notifications announcements</string>
 
-
-    <!-- - - - - - - - - - - Strings for other array - - - - - - - - - - -->
-
-
     <string name="spinner_user_projects_galaxy">Galaxy</string>
     <string name="spinner_user_projects_all">All</string>
     <string name="spinner_user_projects_in_progress">In-progress</string>
 
-    <!-- - - - - - - - - - - Strings with format - - - - - - - - - - -->
-
+    <!-- Format warning -->
     <string name="bookings_corrected_by">Your _project_\'s will be reviewed at _date_.</string>
+    <!-- Format warning -->
     <string name="bookings_corrected_by_login">Your _project_\'s will be reviewed by _login_ at _date_.</string>
+    <!-- Format warning -->
     <string name="bookings_correct_login">You will review _login_\'s project at _date_.</string>
+    <!-- Format warning -->
     <string name="bookings_correct_somebody">You will review somebody\'s code at _date_.</string>
+    <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">%s don\'t have any expertise yet</string>
+    <!-- Format warning -->
     <string name="format__dont_have_write_topic">%s don\'t have write any topic yet</string>
+    <!-- Format warning -->
     <string name="format__host_s_history">%s\'s history</string>
 
-    <!-- - - - - - - - - - - Basic Words - - - - - - - - - - -->
 
     <string name="campus">Campus</string>
     <string name="cursus">Cursus</string>
@@ -101,9 +84,6 @@
     <string name="value">Value</string>
     <string name="tags">Tags</string>
 
-
-    <!-- - - - - - - - - - - Strings related to shortcuts - - - - - - - - - - -->
-
     <string name="shortcut_friends">Friends</string>
     <string name="shortcut_long_friends">Friends list</string>
     <string name="shortcut_cluster_map">Cluster map</string>
@@ -111,13 +91,9 @@
     <string name="shortcut_galaxy">Galaxy</string>
     <string name="shortcut_long_galaxy">Galaxy</string>
 
-
-    <!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->
-
     <string name="about_content">Access your intra with a native app.\nContact me on Slack or mail (pvarry)</string>
     <string name="about_version">Version</string>
     <string name="cantina_menu_fremont_only">Cantina Menu</string>
-    <string name="dialog_choose_action_colon">"Choose action: "</string>
     <string name="elearning_select_file_to_open">Select file to open</string>
     <string name="elearning_title">Elearning</string>
     <string name="evaluation_correct_someone">Corrects</string>
@@ -156,14 +132,11 @@
     <string name="forum_tags">Tags</string>
     <string name="forum_topic_content">Content</string>
     <string name="forum_topic_edit_button">Edit Topic</string>
-    <string name="forum_topic_edit_title">Edit Topic</string>
     <string name="forum_topic_error_empty">empty</string>
     <string name="forum_topics_kind_announce">Announce</string>
     <string name="forum_topics_kind_question">Question</string>
     <string name="forum_updated_at">Updated at</string>
     <string name="forum_you">you</string>
-    <string name="friend_remove_user">Remove from friends</string>
-    <string name="friend_view_profile">View profile</string>
     <string name="galaxy_available">Available</string>
     <string name="galaxy_failed">Failed</string>
     <string name="galaxy_in_progress">in progress</string>
@@ -193,7 +166,6 @@
     <string name="menu_action_search">Search</string>
     <string name="menu_action_settings">Settings</string>
     <string name="menu_action_share">Share</string>
-    <string name="menu_action_user_add_friends">Add/Remove to friends</string>
     <string name="menu_action_user_add_to_home">Add to home screen</string>
     <string name="navigation_cluster_map">Cluster Map</string>
     <string name="accessibility_navigation_drawer_close">Close navigation drawer</string>
@@ -215,12 +187,9 @@
     <string name="notification_see_project">see project</string>
     <string name="notification_see_user">see user</string>
     <string name="notifications_announcements_sub_text">announcements</string>
-    <string name="oauth_error">Authentication error</string>
     <string name="profile_apps_private">private</string>
     <string name="project_automatic_correction">Automatic evaluation</string>
     <string name="project_automatic_corrections">Automatic evaluations</string>
-    <string name="project_availability_is_not_checked">Availability is not checked</string>
-    <string name="project_available">Available</string>
     <string name="project_description">Description</string>
     <string name="project_evaluation">evaluation</string>
     <string name="project_evaluation_plural">evaluations</string>
@@ -258,8 +227,6 @@
     <string name="search_section_users">users</string>
     <string name="searching">Searching …</string>
     <string name="share_using">Share using</string>
-    <string name="showcaseview_user_project_galaxy">You can change the content of this view.</string>
-    <string name="showcaseview_user_project_galaxy_title">GOT IT</string>
     <string name="time_zone_error">Time zone error</string>
     <string name="title">Title</string>
     <string name="title_activity_about">About</string>
@@ -297,19 +264,14 @@
     <string name="title_tab_projects_graphic">Galaxy</string>
     <string name="title_tab_tags_forum">Forum</string>
     <string name="title_tab_tags_notions">Notions</string>
-    <string name="title_tab_tags_projects">Projects</string>
     <string name="title_tab_user_achievements">Achievements</string>
     <string name="title_tab_user_expertises">Expertises</string>
     <string name="title_tab_user_forum">Forum</string>
-    <string name="title_tab_user_marks">Marks</string>
     <string name="title_tab_user_overview">Overview</string>
     <string name="title_tab_user_partnerships">Partnerships</string>
     <string name="title_tab_user_projects">Projects</string>
     <string name="title_tab_user_skills">Skills</string>
-    <string name="title_tab_users_advanced_search">Advanced Search</string>
     <string name="title_tab_users_all">All</string>
-    <string name="title_tab_users_friends">Friends</string>
-    <string name="title_tab_users_search">Search</string>
     <string name="topics_kind_survey">Survey</string>
     <string name="user_app_official">Official App</string>
     <string name="user_correction_points">Correction points</string>
@@ -333,7 +295,6 @@
     <string name="user_overview_cursus_date_not_start_not_finised">Not begun and finish yet</string>
     <string name="user_pool">Piscine</string>
     <string name="user_unavailable">Unavailable</string>
-    <string name="user_view_on_cluster_map">View on ClusterMap</string>
     <string name="user_wallet_money">Wallet</string>
     <string name="user_you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
     <string name="info_loading_cache">Get cache …</string>
@@ -377,7 +338,9 @@
     <string name="friends_groups_edit">Edit Friends Group</string>
     <string name="location_undetermined">undetermined</string>
     <string name="friends_summary_no_friends">No friend</string>
+    <!-- Format warning -->
     <string name="friends_summary_format_friend">%d friend</string>
+    <!-- Format warning -->
     <string name="friends_summary_format_friends">%d friends</string>
     <string name="friends_add_to_group">Add to group</string>
     <string name="friends_remove_from_group">Remove from group</string>
@@ -385,5 +348,6 @@
     <string name="friends_groups_nothing">You have to create groups first</string>
     <string name="info_loading_locations">Loading locations …</string>
     <string name="info_loading_friends">Loading friends …</string>
+    <string name="friend_group_list">Group</string>
 
 </resources>
