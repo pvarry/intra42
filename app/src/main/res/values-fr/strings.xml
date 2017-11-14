@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string name="app_name">"Intra 42"</string>
-
-<!-- - - - - - - - - - - Strings related to Settings - - - - - - - - - - -->
 <string name="pref_advanced_dont_force">"Désactiver (ne pas forcer)"</string>
 <string name="pref_force_content_location">"Forcer la localisation du contenu"</string>
 <string name="pref_title_beta_allow">"Activer les préférences avancées"</string>
@@ -148,7 +146,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="language_ukrainian">"Ukrainien"</string>
 <string name="login_open_browser">"Ouvrir le navigateur"</string>
 <string name="login_open_browser_to_login">"Vous devez vous identifier"</string>
-<string name="login_unofficial_intra">"Unofficial intra"</string>
+<string name="login_unofficial_intra">"Intra non-officiel"</string>
 <string name="login_view_sources">"Voir les sources"</string>
 <string name="menu_action_filter">"filtre"</string>
 <string name="menu_action_open_intra">"Afficher la version Web"</string>
@@ -164,7 +162,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="navigation_header_tools">"Outils"</string>
 <string name="navigation_home">"Accueil"</string>
 <string name="navigation_logout">"Se déconnecter"</string>
-<string name="navigation_place_holder_email">"login@student.42.us.org"</string>
+<string name="navigation_place_holder_email">"login@student.42.fr"</string>
 <string name="navigation_place_holder_login">"Login"</string>
 <string name="navigation_settings">"Parametres"</string>
 <string name="navigation_share">"Partager"</string>
@@ -208,14 +206,14 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="project_user_status_waiting_to_start">"en attente du début"</string>
 <string name="project_you_cant_have_mark_for_this_project">"Vous ne pouvez pas avoir de note pour ce projet"</string>
 <string name="search_by">"Recherché par"</string>
-<string name="search_error_on_open_this_element">"Error on opening this element"</string>
-<string name="search_hint">"hint"</string>
+<string name="search_error_on_open_this_element">"Erreur lors de l'ouverture de l'élément"</string>
+<string name="search_hint">"Indice"</string>
 <string name="search_on_projects">"Recherche de projets"</string>
 <string name="search_on_topics">"Recherche de topics"</string>
 <string name="search_on_users">"Recherche d'utilisteurs"</string>
 <string name="search_section_projects">"projets"</string>
 <string name="search_section_topics">"topics"</string>
-<string name="search_section_users">"users"</string>
+<string name="search_section_users">"Utilisateurs"</string>
 <string name="searching">"Recherche …"</string>
 <string name="share_using">"Partager en utilisant"</string>
 <string name="showcaseview_user_project_galaxy">"Vous pouvez modifier le contenu de cette vue."</string>
@@ -281,7 +279,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="user_expertise_edit_plural">"Editer les compétences"</string>
 <string name="user_expertise_interested">"Intéressé:"</string>
 <string name="user_expertise_new">"Ajouter une nouvelle compétence"</string>
-<string name="user_grade">"Grade"</string>
+<string name="user_grade">"Note"</string>
 <string name="user_level">"Niveau"</string>
 <string name="user_location">"Emplacement"</string>
 <string name="user_mobile_phone">"Mobile"</string>
@@ -289,15 +287,15 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="user_no_achievements">"Aucune réussite"</string>
 <string name="user_no_cursus_available">"Aucun cursus disponible"</string>
 <string name="user_overview_cursus_date_not_finished">"Pas encore fini"</string>
-<string name="user_overview_cursus_date_not_start">"Pas encore commancée"</string>
+<string name="user_overview_cursus_date_not_start">"Pas encore commancé"</string>
 <string name="user_overview_cursus_date_not_start_not_finised">"Pas encore commancé et pas encore fini"</string>
 <string name="user_pool">"Piscine"</string>
 <string name="user_unavailable">"Indisponible"</string>
 <string name="user_view_on_cluster_map">"Voir sur la map du cluster"</string>
 <string name="user_you_dont_have_any_expertise_yet">"Vous n'avez pas encore de compétence"</string>
-<string name="info_loading_cache">"Get cache …"</string>
-<string name="info_loading_current_user">"current user"</string>
-<string name="evaluation_user_nothing">"you have no correction"</string>
+<string name="info_loading_cache">"Récuperation du cache ..."</string>
+<string name="info_loading_current_user">"Utilisateur courrant"</string>
+<string name="evaluation_user_nothing">"Vous n'avez pas de corréction"</string>
 <string name="home_help_POEditor">"Si vous trouvez des erreurs dans le texte ou si vous voulez participer à la traduction, vous pouvez le faire via le projet sur POEditor. Cliquer ici"</string>
 <string name="pref_notifications_frequency_titles_15min">"15 minutes"</string>
 <string name="pref_notifications_frequency_titles_30min">"30 minutes"</string>
@@ -307,38 +305,36 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="pref_notifications_frequency_titles_never">"Jamais"</string>
 <string name="list_preference_network_titles_large">"Large (583×700)"</string>
 <string name="list_preference_network_titles_medium">"Medium (292×350)"</string>
-<string name="list_preference_network_titles_default">"Default (200×240)"</string>
-<string name="list_preference_network_titles_small">"Small (146×175)"</string>
-<string name="list_preference_network_titles_none">"None"</string>
+<string name="list_preference_network_titles_default">"Défaut (200x240)"</string>
+<string name="list_preference_network_titles_small">"Petit (146x175)"</string>
+<string name="list_preference_network_titles_none">"Aucun"</string>
 
 <!-- - - - - - - - - - - Strings for other array - - - - - - - - - - -->
-<string name="spinner_user_projects_galaxy">"Galaxy"</string>
-<string name="spinner_user_projects_all">"All"</string>
-<string name="spinner_user_projects_in_progress">"In-progress"</string>
-<string name="accessibility_navigation_drawer_close">"Close navigation drawer"</string>
-<string name="accessibility_navigation_drawer_open">"Open navigation drawer"</string>
-<string name="user_wallet_money">"Wallet"</string>
-<string name="about_view_source">"View source"</string>
-<string name="about_on_github">"on Github"</string>
-<string name="about_report_bug">"Report bug"</string>
-<string name="about_library_list">"Library list"</string>
-<string name="about_poeditor">"Project on POEditor"</string>
-<string name="info_api_unauthorized">"You not allowed"</string>
-<string name="pref_title_notifications_sync_allow"><![CDATA[Enable notifications & sync]]></string>
-<string name="pref_title_notifications_sync_calendar">"Sync calendar"</string>
-<string name="pref_title_calendar_list">"Calendar to put events"</string>
+<string name="spinner_user_projects_galaxy">"Galaxie"</string>
+<string name="spinner_user_projects_all">"Tous"</string>
+<string name="spinner_user_projects_in_progress">"En cours"</string>
+<string name="accessibility_navigation_drawer_close">"Fermer le navigateur"</string>
+<string name="accessibility_navigation_drawer_open">"Ouvrir le navigateur"</string>
+<string name="user_wallet_money">"Porte monnaie"</string>
+<string name="about_view_source">"Voir source"</string>
+<string name="about_on_github">"Sur Github"</string>
+<string name="about_report_bug">"Reporter un bug"</string>
+<string name="about_library_list">"Liste de la librairie"</string>
+<string name="about_poeditor">"Projet sur POEditor"</string>
+<string name="info_api_unauthorized">"vous n'êtes pas autorisé"</string>
+<string name="pref_title_notifications_sync_allow">"Activer les notifications et synchronisation"</string>
+<string name="pref_title_notifications_sync_calendar">"Synchroniser le calendrier"</string>
+<string name="pref_title_calendar_list">"Calendrier pour mettre des évènements"</string>
 <string name="pref_category_notifications">"Notifications"</string>
-<string name="pref_summary_notifications_events">"Notify for new events published to 42 intranet"</string>
-<string name="pref_summary_notifications_scales">"Remind you about evaluations"</string>
-<string name="pref_summary_notifications_sync_calendar">"Automatically check your events subscriptions and add then"</string>
-<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
-<string name="home_help_calendar_hide">"hide"</string>
-<string name="home_help_calendar_enable">"enable"</string>
-<string name="pref_title_calendar_enable">"Enable calendar edition"</string>
-<string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
-<string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
-<string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
-<string name="pref_button_calendar_list_positive">"set"</string>
-<string name="pref_button_calendar_list_negative">"cancel"</string>
-<string name="pref_title_calendar">"Events sync"</string>
+<string name="pref_summary_notifications_events">"Me notifier pour tous les évènements publiés sur l'intra de 42"</string>
+<string name="pref_summary_notifications_scales">"Rappel des évaluations"</string>
+<string name="pref_summary_notifications_sync_calendar">"Automatiquement vérifier vos évènements suivis et les ajouter"</string>
+<string name="home_help_calendar_sync">"Synchroniser le calendrier de votre téléphone avec les évènements suivis"</string>
+<string name="home_help_calendar_hide">"Masquer"</string>
+<string name="home_help_calendar_enable">"Activer"</string>
+<string name="pref_title_calendar_enable">"Activer l'édition du calendrier"</string>
+<string name="pref_summary_calendar_enable">"Après vous ètre connecté a votre calendrier, cette application pourra publier les évènements sur ce dernié"</string>
+<string name="pref_title_calendar_after_subscription">"Insérer au calendrier"</string>
+<string name="pref_summary_calendar_after_subscription">"Insérer l'évènement juste après l'avoir suivi"</string>
+<string name="pref_title_calendar">"Synchronisation des évènements"</string>
 </resources>
