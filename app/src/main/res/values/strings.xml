@@ -297,7 +297,7 @@
     <string name="user_unavailable">Unavailable</string>
     <string name="user_wallet_money">Wallet</string>
     <string name="user_you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
-    <string name="info_loading_cache">Get cache …</string>
+    <string name="info_loading_cache">Getting cache …</string>
     <string name="info_loading_current_user">current user</string>
     <string name="evaluation_user_nothing">you have no correction</string>
     <string name="home_help_POEditor">If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor. Click here</string>
