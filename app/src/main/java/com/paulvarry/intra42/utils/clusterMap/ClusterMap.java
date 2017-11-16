@@ -2,7 +2,6 @@ package com.paulvarry.intra42.utils.clusterMap;
 
 public class ClusterMap {
 
-
     public static LocationItem[][] getFremontCluster(String clusterName) {
 
         int row = 20;
@@ -23,15 +22,14 @@ public class ClusterMap {
         return map;
     }
 
-
-    public static void addEmptyRow(LocationItem[] map, int KIND_OF_ROW) {
+    static void addEmptyRow(LocationItem[] map, int KIND_OF_ROW) {
         for (int p = 0; p < ClusterMapFremontE1Z1.CLUSTER_FREMONT_E1_Z1_WIDTH; p++) {
             map[p] = new LocationItem(null, KIND_OF_ROW);
             map[p].sizeY = 0.5f;
         }
     }
 
-    public static void addDoublePostFromDown(LocationItem[][] map, String clusterID, int locationKind, int r, int p, int realP, int realR) {
+    static void addDoublePostFromDown(LocationItem[][] map, String clusterID, int locationKind, int r, int p, int realP, int realR) {
         addDoublePostFromDown(map, clusterID, locationKind, locationKind, r, p, realP, realR);
     }
 
@@ -49,11 +47,11 @@ public class ClusterMap {
         map[r][p] = new LocationItem(locationName, locationKindTop);
     }
 
-    public static void addDoublePost(LocationItem[][] map, String clusterID, int locationKind, int r, int p, int realP, int realR) {
+    static void addDoublePost(LocationItem[][] map, String clusterID, int locationKind, int r, int p, int realP, int realR) {
         addDoublePost(map, clusterID, locationKind, locationKind, r, p, realP, realR);
     }
 
-    public static void addDoublePost(LocationItem[][] map, String clusterID, int locationKindTop, int locationKindBottom, int r, int p, int realP, int realR) {
+    static void addDoublePost(LocationItem[][] map, String clusterID, int locationKindTop, int locationKindBottom, int r, int p, int realP, int realR) {
         String locationName = null;
 
         realP++;

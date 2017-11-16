@@ -349,5 +349,8 @@
     <string name="info_loading_locations">Loading locations …</string>
     <string name="info_loading_friends">Loading friends …</string>
     <string name="friend_group_list">Group</string>
+    <string name="info_loading_calculating">calculating</string>
+    <string name="friends_info_api_try_again">Friends API is currently getting new users, please try again in 2min</string>
+    <string name="friends_info_database_update">Friends database update</string>
 
 </resources>

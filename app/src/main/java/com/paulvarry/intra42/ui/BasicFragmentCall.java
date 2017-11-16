@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -126,7 +127,10 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
             }
         });
 
-        ApiService apiService = ((AppClass) getActivity().getApplication()).getApiService();
+        Activity a = getActivity();
+        if (a == null)
+            return;
+        ApiService apiService = ((AppClass) a.getApplication()).getApiService();
 
         Call<List<T>> call = getCall(apiService, list);
 

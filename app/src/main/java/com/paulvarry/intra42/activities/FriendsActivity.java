@@ -120,7 +120,7 @@ public class FriendsActivity
         }
     }
 
-    public void getFriendsFromFirebase() {
+    private void getFriendsFromFirebase() {
         ValueEventListener friendsEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -168,7 +168,12 @@ public class FriendsActivity
                                         success = false;
                                     if (ret != null && ret.code() == 102) {
                                         if (!apiWorking)
-                                            Toast.makeText(app, "Friends API is currently getting new users, please try again in 2min", Toast.LENGTH_SHORT).show();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(app, R.string.friends_info_api_try_again, Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                         apiWorking = true;
                                     }
                                     i++;
@@ -193,8 +198,8 @@ public class FriendsActivity
         };
 
         setViewState(StatusCode.LOADING);
-        setLoadingInfo("Friends database update");
-        setLoadingProgress("calculating", 0, -1);
+        setLoadingInfo(getString(R.string.friends_info_database_update));
+        setLoadingProgress(getString(R.string.info_loading_calculating), 0, -1);
 
         app.firebaseRefFriends.addListenerForSingleValueEvent(friendsEventListener);
     }
@@ -262,7 +267,7 @@ public class FriendsActivity
         if (searchOnLocation.length() == 0)
             return;
 
-        setLoadingProgress(getString(R.string.friends_loading_locations), 1, 2);
+        setLoadingProgress(getString(R.string.info_loading_locations), 1, 2);
 
         Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOnLocation.toString(), 100, 1);
         try {
