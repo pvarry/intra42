@@ -17,6 +17,7 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
+import com.paulvarry.intra42.activities.MainActivity;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Slots;
@@ -46,7 +47,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
     public static final String API_BASE_URL = "https://api.intra.42.fr";
-    public static final String API_BASE_URL_42TOOLS = "https://api.42.tools/";
+    public static final String API_BASE_URL_42TOOLS = "https://api.42.tools/v1/";
     private static OkHttpClient.Builder httpClient;
     private static AccessToken accessTokenIntra42;
     private static com.paulvarry.intra42.api.tools42.AccessToken accessToken42Tools;
@@ -107,8 +108,10 @@ public class ServiceGenerator {
         httpClient = getBaseClient(allowRedirectWrongAuth);
 
         if (serviceClass == ApiService.class) {
-            if (app.userIsLogged(allowRedirectWrongAuth))
+            if (ServiceGenerator.have42Token())
                 httpClient.addInterceptor(getHeaderInterceptor(accessTokenIntra42));
+            else if (allowRedirectWrongAuth)
+                MainActivity.openActivity(app);
             httpClient.authenticator(getAuthenticatorIntra42(app));
         } else if (serviceClass == ApiService42Tools.class) {
             httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
@@ -361,12 +364,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
-        ServiceGenerator.accessToken42Tools = token;
-    }
-
     public static void setToken(AccessToken token) {
         ServiceGenerator.accessTokenIntra42 = token;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
+        ServiceGenerator.accessToken42Tools = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {
