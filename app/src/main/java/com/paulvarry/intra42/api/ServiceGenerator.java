@@ -107,7 +107,8 @@ public class ServiceGenerator {
         httpClient = getBaseClient(allowRedirectWrongAuth);
 
         if (serviceClass == ApiService.class) {
-            httpClient.addInterceptor(getHeaderInterceptor(accessTokenIntra42));
+            if (app.userIsLogged(allowRedirectWrongAuth))
+                httpClient.addInterceptor(getHeaderInterceptor(accessTokenIntra42));
             httpClient.authenticator(getAuthenticatorIntra42(app));
         } else if (serviceClass == ApiService42Tools.class) {
             httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
@@ -246,9 +247,10 @@ public class ServiceGenerator {
                 Request.Builder requestBuilder = original.newBuilder()
                         .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
                         .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_KEY_API_AUTH, accessToken.tokenType + " " + accessToken.accessToken)
-                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
-                        .method(original.method(), original.body());
+                        .header(HEADER_KEY_USER_AGENT, getUserAgent());
+                if (accessToken != null)
+                    requestBuilder.header(HEADER_KEY_API_AUTH, accessToken.tokenType + " " + accessToken.accessToken);
+                requestBuilder.method(original.method(), original.body());
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
