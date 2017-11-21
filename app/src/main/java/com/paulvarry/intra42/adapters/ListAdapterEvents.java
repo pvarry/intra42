@@ -74,14 +74,14 @@ public class ListAdapterEvents extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_view_event, parent, false);
 
-            holder.textViewDateDay = (TextView) convertView.findViewById(R.id.textViewDateDay);
-            holder.textViewDateMonth = (TextView) convertView.findViewById(R.id.textViewDateMonth);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.tagViewKind = (TagView) convertView.findViewById(R.id.tagViewKind);
-            holder.textViewDescription = (TextView) convertView.findViewById(R.id.textViewDescription);
-            holder.textViewTime = (TextView) convertView.findViewById(R.id.textViewTime);
-            holder.textViewPlace = (TextView) convertView.findViewById(R.id.textViewPlace);
-            holder.textViewFull = (TextView) convertView.findViewById(R.id.textViewFull);
+            holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
+            holder.textViewDateMonth = convertView.findViewById(R.id.textViewDateMonth);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.tagViewKind = convertView.findViewById(R.id.tagViewKind);
+            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
+            holder.textViewPlace = convertView.findViewById(R.id.textViewPlace);
+            holder.textViewFull = convertView.findViewById(R.id.textViewFull);
 
             convertView.setTag(holder);
 
@@ -94,7 +94,13 @@ public class ListAdapterEvents extends BaseAdapter {
         holder.textViewDateDay.setText(DateTool.getDay(item.beginAt));
         holder.textViewDateMonth.setText(DateTool.getMonthMedium(item.beginAt));
         holder.textViewName.setText(item.name);
-        holder.textViewDescription.setText(item.description.replace('\n', ' '));
+
+        String content = item.description;
+        content = content.replace("\r\n\r\n", " ");
+        content = content.replace("\n\n", " ");
+        content = content.replace("\r\n", " ");
+        content = content.replace('\n', ' ');
+        holder.textViewDescription.setText(content);
 
         Bypass b = new Bypass(context);
         String content_tmp = b.markdownToSpannable(item.description).toString().replace('\n', ' ');
@@ -109,9 +115,9 @@ public class ListAdapterEvents extends BaseAdapter {
 
         Tag.setTagEvent(item, holder.tagViewKind);
 
-        if (item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0)
+        if (item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0) {
             holder.textViewFull.setVisibility(View.VISIBLE);
-        else
+        } else
             holder.textViewFull.setVisibility(View.GONE);
 
         return convertView;

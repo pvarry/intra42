@@ -110,9 +110,9 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
             actionBar.setDisplayShowHomeEnabled(true);
         }
 
-        listView = (ListView) findViewById(R.id.listView);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        textView = (TextView) findViewById(R.id.textView);
+        listView = findViewById(R.id.listView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        textView = findViewById(R.id.textView);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         textView.setVisibility(View.GONE);
@@ -185,7 +185,9 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
     @Override
 
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        if (subnotionsList.get(position).attachments != null &&
+        if (subnotionsList != null &&
+                subnotionsList.size() > position &&
+                subnotionsList.get(position).attachments != null &&
                 !subnotionsList.get(position).attachments.isEmpty() &&
                 subnotionsList.get(position).attachments.size() >= 1) {
 
@@ -213,7 +215,7 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.select_file_to_open);
+            builder.setTitle(R.string.elearning_select_file_to_open);
             builder.setItems(items, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int item) {
                     // Do something with the selection
@@ -224,7 +226,5 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
             AlertDialog alert = builder.create();
             alert.show();
         }
-
-
     }
 }

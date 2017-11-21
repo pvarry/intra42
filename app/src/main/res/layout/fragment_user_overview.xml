@@ -1,32 +1,26 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin_tablet_only"
-    android:paddingRight="@dimen/activity_horizontal_margin_tablet_only"
     tools:context=".activities.home.HomeFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UselessParent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <include layout="@layout/include_user_overview_photo" />
 
-                <include layout="@layout/include_user_overview_photo" />
+            <include layout="@layout/include_user_overview_content" />
 
-                <include layout="@layout/include_user_overview_content" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
-</FrameLayout>

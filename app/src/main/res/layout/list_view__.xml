@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,7 +16,7 @@
         android:paddingRight="16dp"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -28,26 +29,48 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutContent"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="gone">
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageViewUser"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/user_profile_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_person_black_custom" />
 
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="New Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:layout_constraintBottom_toTopOf="@+id/textViewSub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUser"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewSub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text" />
-    </LinearLayout>
+            android:layout_marginBottom="8dp"
+            android:text="New Text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

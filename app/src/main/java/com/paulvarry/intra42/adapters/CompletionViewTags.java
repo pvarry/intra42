@@ -26,7 +26,7 @@ public class CompletionViewTags extends TokenCompleteTextView<Tags> {
 
         LayoutInflater l = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = l.inflate(R.layout.auto_complete_tag, (ViewGroup) getParent(), false);
-        TextView textView = (TextView) view.findViewById(R.id.name);
+        TextView textView = view.findViewById(R.id.name);
         textView.setText(tag.name);
 
         textView.setBackgroundResource(R.drawable.shape_completion_view_tag);

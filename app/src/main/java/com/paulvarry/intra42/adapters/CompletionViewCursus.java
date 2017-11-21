@@ -23,7 +23,7 @@ public class CompletionViewCursus extends TokenCompleteTextView<Cursus> {
 
         LayoutInflater l = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = l.inflate(R.layout.auto_complete_cursus, (ViewGroup) getParent(), false);
-        TextView textView = (TextView) view.findViewById(R.id.name);
+        TextView textView = view.findViewById(R.id.name);
         textView.setText(cursus.name);
 
         return view;

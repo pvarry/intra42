@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string-array name="spinner_user_search_sort">
+        <item>Login</item>
+        <item>Email</item>
+        <item>First name</item>
+        <item>Last name</item>
+        <item>Phone</item>
+        <item>Pool year</item>
+        <item>Pool month</item>
+        <item>Kind</item>
+        <item>Status</item>
+    </string-array>
+    <string-array name="spinner_user_search_search_by">
+        <item>Login</item>
+        <item>Email</item>
+        <item>First name</item>
+        <item>Last name</item>
+        <item>Phone</item>
+        <item>Kind</item>
+        <item>Status</item>
+    </string-array>
+
+    <string-array name="spinner_user_projects">
+        <item>@string/spinner_user_projects_galaxy</item>
+        <item>@string/spinner_user_projects_all</item>
+        <item>@string/spinner_user_projects_in_progress</item>
+    </string-array>
+
+
+    <string-array name="alert_friends_open_long_click">
+        <item>@string/friend_remove_user</item>
+        <item>@string/friend_view_profile</item>
+    </string-array>
+    <string-array name="alert_friends_open_long_click_location">
+        <item>@string/friend_remove_user</item>
+        <item>@string/friend_view_profile</item>
+        <item>@string/user_view_on_cluster_map</item>
+    </string-array>
+
+    <!-- Settings for Network -->
+
+    <string-array name="list_preference_network_titles">
+        <item>@string/list_preference_network_titles_large</item>
+        <item>@string/list_preference_network_titles_medium</item>
+        <item>@string/list_preference_network_titles_default</item>
+        <item>@string/list_preference_network_titles_small</item>
+        <item>@string/list_preference_network_titles_none</item>
+    </string-array>
+    <string-array name="list_preference_network_values">
+        <item>large</item>
+        <item>medium</item>
+        <item>default</item>
+        <item>small</item>
+        <item>none</item>
+    </string-array>
+
+    <!-- Settings for Notifications -->
+
+    <string-array name="pref_notifications_frequency_titles">
+        <item>@string/pref_notifications_frequency_titles_15min</item>
+        <item>@string/pref_notifications_frequency_titles_30min</item>
+        <item>@string/pref_notifications_frequency_titles_1hour</item>
+        <item>@string/pref_notifications_frequency_titles_3hour</item>
+        <item>@string/pref_notifications_frequency_titles_6hour</item>
+        <item>@string/pref_notifications_frequency_titles_never</item>
+    </string-array>
+    <string-array name="pref_notifications_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- Search stuff -->
+
+    <string-array name="search_users">
+        <item>u</item>
+        <item>l</item>
+        <item>user</item>
+        <item>login</item>
+    </string-array>
+
+    <string-array name="search_projects">
+        <item>p</item>
+        <item>project</item>
+    </string-array>
+
+    <string-array name="search_topics">
+        <item>t</item>
+        <item>topic</item>
+        <item>f</item>
+        <item>forum</item>
+    </string-array>
+
+    <string-array name="search_tags">
+        <item>tag</item>
+    </string-array>
+
+    <string-array name="search_api">
+        <item>a</item>
+        <item>api</item>
+        <item>url</item>
+    </string-array>
+
+    <string-array name="search_location">
+        <item>l</item>
+        <item>location</item>
+    </string-array>
+
+    <string-array name="search_test">
+        <item>test</item>
+    </string-array>
+
+
+</resources>

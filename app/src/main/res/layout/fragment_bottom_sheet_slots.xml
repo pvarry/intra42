@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,8 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="32dp"
+            android:paddingEnd="16dp"
             android:paddingLeft="80dp"
             android:paddingRight="16dp"
+            android:paddingStart="80dp"
             android:paddingTop="85dp"
             android:text="New Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -37,7 +40,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Begin at" />
+            android:text="@string/evaluation_slot_begin_at" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +61,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="-"
-                android:textColor="@color/colorGrayDark" />
+                android:textColor="@color/colorGrayDark"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textViewStartTime"
@@ -74,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="End at" />
+            android:text="@string/evaluation_slot_end_at" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +99,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="-"
-                android:textColor="@color/colorGrayDark" />
+                android:textColor="@color/colorGrayDark"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textViewEndTime"
@@ -122,7 +127,7 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right">
+                android:layout_gravity="end">
 
                 <TextView
                     android:id="@+id/textViewError"
@@ -137,7 +142,7 @@
                     style="@style/AppTheme.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
                     android:text="@string/save" />
             </FrameLayout>
 

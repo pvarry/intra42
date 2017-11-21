@@ -1,0 +1,104 @@
+package com.paulvarry.intra42.activities;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.adapters.ListAdapterBase;
+import com.paulvarry.intra42.api.ApiService42Tools;
+import com.paulvarry.intra42.api.tools42.Group;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.utils.Tools;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+
+public class FriendsGroupsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain, View.OnClickListener {
+
+    List<Group> groups;
+    ListView listView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_friends_groups);
+        super.onCreate(savedInstanceState);
+
+        registerGetDataOnOtherThread(this);
+        registerGetDataOnMainTread(this);
+
+        listView = findViewById(R.id.listView);
+        listView.setOnItemClickListener(this);
+
+        fabBaseActivity.setVisibility(View.VISIBLE);
+        fabBaseActivity.setOnClickListener(this);
+    }
+
+    @Nullable
+    @Override
+    public String getUrlIntra() {
+        return null;
+    }
+
+    @Override
+    public String getToolbarName() {
+        return "Friends groups";
+    }
+
+    @Override
+    protected void setViewContent() {
+        ListAdapterBase<Group> adapter = new ListAdapterBase<>(this, groups);
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public String getEmptyText() {
+        return null;
+    }
+
+    @Override
+    public void getDataOnOtherThread() throws IOException, RuntimeException {
+
+        ApiService42Tools api = app.getApiService42Tools();
+
+        Call<List<Group>> call = api.getFriendsGroups();
+        Response<List<Group>> ret = call.execute();
+        if (Tools.apiIsSuccessful(ret))
+            groups = ret.body();
+        else
+            groups = null;
+    }
+
+    @Override
+    public final Object onRetainCustomNonConfigurationInstance() {
+        return groups;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (groups.size() > position)
+            FriendsGroupsEditActivity.open(this, groups.get(position));
+    }
+
+    @Override
+    public ThreadStatusCode getDataOnMainThread() {
+        Object o = getLastCustomNonConfigurationInstance();
+
+        if (o instanceof List)
+            groups = (List<Group>) o;
+        if (groups != null)
+            return ThreadStatusCode.FINISH;
+        return ThreadStatusCode.CONTINUE;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == fabBaseActivity)
+            FriendsGroupsEditActivity.open(this);
+    }
+}

@@ -57,7 +57,7 @@ public class UsersSearchFragment extends Fragment implements View.OnClickListene
                 final GridAdapterUsers adapter = new GridAdapterUsers(getActivity(), users);
                 gridViewUser.setAdapter(adapter);
             } else
-                Toast.makeText(getContext(), R.string.nothing_found, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.info_nothing_to_show, Toast.LENGTH_SHORT).show();
 
             buttonSearch.setVisibility(View.VISIBLE);
             textViewSearching.setVisibility(View.INVISIBLE);
@@ -125,10 +125,10 @@ public class UsersSearchFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_users_search, container, false);
 
-        buttonSearch = (Button) rootView.findViewById(R.id.buttonSearch);
-        textViewSearching = (TextView) rootView.findViewById(R.id.textViewSearching);
-        editTextLogin = (EditText) rootView.findViewById(R.id.editTextLogin);
-        gridViewUser = (GridView) rootView.findViewById(R.id.gridViewUser);
+        buttonSearch = rootView.findViewById(R.id.buttonSearch);
+        textViewSearching = rootView.findViewById(R.id.textViewSearching);
+        editTextLogin = rootView.findViewById(R.id.editTextLogin);
+        gridViewUser = rootView.findViewById(R.id.gridViewUser);
 
         buttonSearch.setOnClickListener(this);
         gridViewUser.setOnItemClickListener(this);

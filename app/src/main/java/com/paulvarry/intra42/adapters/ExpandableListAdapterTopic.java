@@ -3,7 +3,6 @@ package com.paulvarry.intra42.adapters;
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,18 +23,14 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.pack.Topic;
 import com.paulvarry.intra42.bottomSheet.BottomSheetTopicInfoDialogFragment;
-import com.paulvarry.intra42.utils.AppSettings;
-import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.plumillonforge.android.chipview.ChipView;
-import com.squareup.picasso.Picasso;
 import com.veinhorn.tagview.TagView;
 
 import java.util.List;
-
-import in.uncod.android.bypass.Bypass;
 
 public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
@@ -157,7 +152,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
      * @return the View corresponding to the group at the specified position
      */
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final Messages message = getGroup(groupPosition);
         ViewHolderParent holder;
 
@@ -167,20 +162,19 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_group, null);
 
-
-            holder.imageViewProfile = (ImageView) convertView.findViewById(R.id.imageViewProfile);
-            holder.textViewLogin = (TextView) convertView.findViewById(R.id.textViewLogin);
-            holder.textViewMessage = (TextView) convertView.findViewById(R.id.textViewMessage);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
-            holder.tagView1 = (TagView) convertView.findViewById(R.id.tagView1);
-            holder.tagView2 = (TagView) convertView.findViewById(R.id.tagView2);
+            holder.imageViewProfile = convertView.findViewById(R.id.imageViewProfile);
+            holder.textViewLogin = convertView.findViewById(R.id.textViewLogin);
+            holder.textViewMessage = convertView.findViewById(R.id.textViewMessage);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
+            holder.tagView1 = convertView.findViewById(R.id.tagView1);
+            holder.tagView2 = convertView.findViewById(R.id.tagView2);
             holder.viewUp = convertView.findViewById(R.id.viewUp);
             holder.viewDown = convertView.findViewById(R.id.viewDown);
-            holder.imageButtonOption = (ImageButton) convertView.findViewById(R.id.imageButtonOption);
+            holder.imageButtonOption = convertView.findViewById(R.id.imageButtonOption);
 
-            holder.linearLayoutInfoTopic = (LinearLayout) convertView.findViewById(R.id.linearLayoutInfoTopic);
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.chipViewTags = (ChipView) convertView.findViewById(R.id.chipViewTags);
+            holder.linearLayoutInfoTopic = convertView.findViewById(R.id.linearLayoutInfoTopic);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.chipViewTags = convertView.findViewById(R.id.chipViewTags);
 
             convertView.setTag(holder);
         } else
@@ -188,13 +182,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
         setHeader(holder, message);
 
-        if (AppSettings.Advanced.getAllowMarkdownRenderer(context)) {
-            Bypass bypass = new Bypass(context);
-            CharSequence messageContent = bypass.markdownToSpannable(message.content, new BypassPicassoImageGetter(holder.textViewMessage, Picasso.with(context)));
-            holder.textViewMessage.setText(messageContent);
-            holder.textViewMessage.setMovementMethod(LinkMovementMethod.getInstance());
-        } else
-            holder.textViewMessage.setText(message.content);
+        Tools.setMarkdown(context, holder.textViewMessage, message.content);
 
         holder.textViewMessage.setTextIsSelectable(true);
         holder.textViewMessage.setFocusable(true);
@@ -216,7 +204,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
                 AppClass app = context.app;
 
-                if (app != null && app.me != null && app.me.equals(message.author)) {
+                if (groupPosition == 0 && app != null && app.me != null && app.me.equals(message.author)) {
                     PopupMenu popup = new PopupMenu(context, view);
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.menu_forum_message_item, popup.getMenu());
@@ -284,15 +272,15 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_item, null);
 
-            holder.imageViewProfile = (ImageView) convertView.findViewById(R.id.imageViewProfile);
-            holder.textViewLogin = (TextView) convertView.findViewById(R.id.textViewLogin);
-            holder.textViewMessage = (TextView) convertView.findViewById(R.id.textViewMessage);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
-            holder.tagView1 = (TagView) convertView.findViewById(R.id.tagView1);
-            holder.tagView2 = (TagView) convertView.findViewById(R.id.tagView2);
+            holder.imageViewProfile = convertView.findViewById(R.id.imageViewProfile);
+            holder.textViewLogin = convertView.findViewById(R.id.textViewLogin);
+            holder.textViewMessage = convertView.findViewById(R.id.textViewMessage);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
+            holder.tagView1 = convertView.findViewById(R.id.tagView1);
+            holder.tagView2 = convertView.findViewById(R.id.tagView2);
             holder.viewUp = convertView.findViewById(R.id.viewUp);
             holder.viewDown = convertView.findViewById(R.id.viewDown);
-            holder.imageButtonOption = (ImageButton) convertView.findViewById(R.id.imageButtonOption);
+            holder.imageButtonOption = convertView.findViewById(R.id.imageButtonOption);
 
             convertView.setTag(holder);
         } else {
@@ -301,13 +289,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
         setHeader(holder, message);
 
-        if (AppSettings.Advanced.getAllowMarkdownRenderer(context)) {
-            Bypass bypass = new Bypass(context);
-            CharSequence messageContent = bypass.markdownToSpannable(message.content);
-            holder.textViewMessage.setText(messageContent);
-            holder.textViewMessage.setMovementMethod(LinkMovementMethod.getInstance());
-        } else
-            holder.textViewMessage.setText(message.content);
+        Tools.setMarkdown(context, holder.textViewMessage, message.content);
 
         holder.textViewMessage.setTextIsSelectable(true);
         holder.textViewMessage.setFocusable(true);
@@ -337,23 +319,25 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
         holder.textViewLogin.setText(message.author.login);
         holder.textViewDate.setText(DateTool.getDurationAgo(message.createdAt));
 
-        if (message.votesCount.upvote < 10)
-            holder.viewUp.setVisibility(View.GONE);
-        else if (message.votesCount.upvote < 25)
-            holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_0));
-        else if (message.votesCount.upvote < 50)
-            holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_1));
-        else
-            holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_2));
+        if (message.votesCount != null) {
+            if (message.votesCount.upvote < 10)
+                holder.viewUp.setVisibility(View.GONE);
+            else if (message.votesCount.upvote < 25)
+                holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_0));
+            else if (message.votesCount.upvote < 50)
+                holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_1));
+            else
+                holder.viewUp.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_up_2));
 
-        if (message.votesCount.downvote < 10)
-            holder.viewDown.setVisibility(View.GONE);
-        else if (message.votesCount.downvote < 25)
-            holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_0));
-        else if (message.votesCount.downvote < 50)
-            holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_1));
-        else
-            holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_2));
+            if (message.votesCount.downvote < 10)
+                holder.viewDown.setVisibility(View.GONE);
+            else if (message.votesCount.downvote < 25)
+                holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_0));
+            else if (message.votesCount.downvote < 50)
+                holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_1));
+            else
+                holder.viewDown.setBackgroundColor(ContextCompat.getColor(context, R.color.topic_message_down_2));
+        }
     }
 
     private void openBottomSheet(Messages message) {

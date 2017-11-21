@@ -93,7 +93,7 @@ public class CacheUsers {
         return put(base, user, ServiceGenerator.getGson().toJson(user));
     }
 
-    public static long put(CacheSQLiteHelper base, Users user, String gson) {
+    public static long put(CacheSQLiteHelper base, Users user, String json) {
         // Gets the data repository in write mode
         SQLiteDatabase db = base.getWritableDatabase();
 
@@ -104,7 +104,7 @@ public class CacheUsers {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, user.id);
         values.put(COLUMN_LOGIN, user.login);
-        values.put(COLUMN_DATA, gson);
+        values.put(COLUMN_DATA, json);
 
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -116,6 +116,8 @@ public class CacheUsers {
 
     public static Users get(CacheSQLiteHelper base, String login) {
         SQLiteDatabase db = base.getReadableDatabase();
+        if (login == null)
+            return null;
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.

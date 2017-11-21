@@ -4,27 +4,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
-import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
 import com.paulvarry.intra42.ui.Galaxy;
-import com.paulvarry.intra42.utils.ProjectUserStatus;
+import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.GalaxyUtils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,66 +69,37 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Gson gson = ServiceGenerator.getGson();
+        final AppClass app = activity.app;
 
-        InputStream ins = getResources().openRawResource(R.raw.project_data);
-        String data = readTextFile(ins);
-
-        Type listType = new TypeToken<ArrayList<ProjectDataIntra>>() {
-        }.getType();
-        List<ProjectDataIntra> list = gson.fromJson(data, listType);
-
-        SparseArray<ProjectsUsers> project = new SparseArray<>();
-        for (ProjectsUsers p : activity.app.me.projectsUsers) {
-            project.put(p.project.id, p);
-        }
-
-        for (ProjectDataIntra p : list) {
-            ProjectsUsers projectsUsers = project.get(p.projectId);
-
-            if (projectsUsers == null) {
-                p.state = null;
-                p.finalMark = null;
-                continue;
-            }
-            p.finalMark = projectsUsers.finalMark;
-            if (projectsUsers.status.equals(ProjectUserStatus.FINISHED)) {
-                if (projectsUsers.validated != null && projectsUsers.validated)
-                    p.state = ProjectDataIntra.State.DONE;
-                else
-                    p.state = ProjectDataIntra.State.FAIL;
-            } else if (projectsUsers.status.contentEquals(ProjectUserStatus.CREATING_GROUP) ||
-                    projectsUsers.status.contentEquals(ProjectUserStatus.IN_PROGRESS) ||
-                    projectsUsers.status.contentEquals(ProjectUserStatus.SEARCHING_A_GROUP) ||
-                    projectsUsers.status.contentEquals(ProjectUserStatus.WAITING_FOR_CORRECTION) ||
-                    projectsUsers.status.contentEquals(ProjectUserStatus.WAITING_TO_START))
-                p.state = ProjectDataIntra.State.IN_PROGRESS;
-            else
-                p.state = ProjectDataIntra.State.IN_PROGRESS;
-
-        }
-
-        Galaxy galaxy = (Galaxy) view.findViewById(R.id.galaxy);
-        galaxy.setData(list);
+        final Galaxy galaxy = view.findViewById(R.id.galaxy);
         galaxy.setOnProjectClickListener(this);
-    }
 
-    public String readTextFile(InputStream inputStream) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        byte buf[] = new byte[1024];
-        int len;
-        try {
-            while ((len = inputStream.read(buf)) != -1) {
-                outputStream.write(buf, 0, len);
+        ApiServiceAuthServer client = app.getApiServiceAuthServer();
+        if (!app.userIsLogged())
+            return;
+        Call<List<ProjectDataIntra>> l = client.getGalaxy(AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me.login);
+        l.enqueue(new Callback<List<ProjectDataIntra>>() {
+            @Override
+            public void onResponse(Call<List<ProjectDataIntra>> call, Response<List<ProjectDataIntra>> response) {
+                if (response.isSuccessful())
+                    galaxy.setData(response.body());
+                else {
+                    Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                    List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
+                    galaxy.setData(list);
+                }
             }
-            outputStream.close();
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return outputStream.toString();
+
+            @Override
+            public void onFailure(Call<List<ProjectDataIntra>> call, Throwable t) {
+                Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
+                galaxy.setData(list);
+            }
+        });
+        galaxy.setState("loading");
     }
+
 
     @Override
     public void onDetach() {

@@ -12,11 +12,11 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.GridAdapterTimeTool;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 
 import java.util.List;
 
-public class TimeActivity extends BasicActivity implements BasicActivity.GetDataOnThread, BasicActivity.GetDataOnMain {
+public class TimeActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, BasicThreadActivity.GetDataOnMain {
 
     private final Handler timerHandler = new Handler();
     private GridAdapterTimeTool adapterTimeTool;
@@ -68,24 +68,23 @@ public class TimeActivity extends BasicActivity implements BasicActivity.GetData
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws ErrorServerException {
         campusList = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
         if (campusList == null || campusList.size() == 0)
-            return StatusCode.ERROR;
-        return StatusCode.FINISH;
+            throw new ErrorServerException();
     }
 
     @Override
-    public StatusCode getDataOnMainThread() {
+    public ThreadStatusCode getDataOnMainThread() {
         campusList = CacheCampus.get(app.cacheSQLiteHelper);
         if (campusList == null || campusList.size() == 0)
-            return StatusCode.CONTINUE;
-        return StatusCode.FINISH;
+            return ThreadStatusCode.CONTINUE;
+        return ThreadStatusCode.FINISH;
     }
 
     @Override
     public String getToolbarName() {
-        return getString(R.string.time);
+        return getString(R.string.title_activity_time);
     }
 
     @Override
@@ -94,7 +93,7 @@ public class TimeActivity extends BasicActivity implements BasicActivity.GetData
         if (campusList == null)
             return;
 
-        GridView gridView = (GridView) coordinatorLayout.findViewById(R.id.gridViewTime);
+        GridView gridView = coordinatorLayout.findViewById(R.id.gridViewTime);
         adapterTimeTool = new GridAdapterTimeTool(this, campusList);
         gridView.setAdapter(adapterTimeTool);
 

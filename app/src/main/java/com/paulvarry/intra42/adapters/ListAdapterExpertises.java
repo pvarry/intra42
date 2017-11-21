@@ -10,16 +10,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.model.ExpertisesUsers;
+import com.paulvarry.intra42.api.model.ExpertiseUsers;
 
 import java.util.List;
 
 public class ListAdapterExpertises extends BaseAdapter {
 
     Context context;
-    private List<ExpertisesUsers> expertisesUsersList;
+    private List<ExpertiseUsers> expertisesUsersList;
 
-    public ListAdapterExpertises(Context context, List<ExpertisesUsers> expertisesUsersList) {
+    public ListAdapterExpertises(Context context, List<ExpertiseUsers> expertisesUsersList) {
         this.expertisesUsersList = expertisesUsersList;
         this.context = context;
     }
@@ -42,7 +42,7 @@ public class ListAdapterExpertises extends BaseAdapter {
      * @return The data at the specified position.
      */
     @Override
-    public ExpertisesUsers getItem(int position) {
+    public ExpertiseUsers getItem(int position) {
         return expertisesUsersList.get(position);
     }
 
@@ -85,16 +85,16 @@ public class ListAdapterExpertises extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_expertises, parent, false);
-            holder.textView = (TextView) convertView.findViewById(R.id.textView);
-            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
-            holder.checkboxInterested = (CheckBox) convertView.findViewById(R.id.checkboxInterested);
+            holder.textView = convertView.findViewById(R.id.textView);
+            holder.ratingBar = convertView.findViewById(R.id.ratingBar);
+            holder.checkboxInterested = convertView.findViewById(R.id.checkboxInterested);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ExpertisesUsers item = getItem(position);
+        ExpertiseUsers item = getItem(position);
 
         if (item.expertise != null)
             holder.textView.setText(item.expertise.name);

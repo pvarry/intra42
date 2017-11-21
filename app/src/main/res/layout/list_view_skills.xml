@@ -21,6 +21,7 @@
             android:id="@+id/textViewLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:text="New Text"
             android:textAppearance="?android:attr/textAppearanceSmall"

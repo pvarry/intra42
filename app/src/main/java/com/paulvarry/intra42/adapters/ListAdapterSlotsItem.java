@@ -19,7 +19,7 @@ public class ListAdapterSlotsItem extends BaseAdapter {
     private final Context activity;
     private List<SlotsTools.SlotsGroup> slots;
 
-    public ListAdapterSlotsItem(Context context, List<SlotsTools.SlotsGroup> slots) {
+    ListAdapterSlotsItem(Context context, List<SlotsTools.SlotsGroup> slots) {
 
         this.activity = context;
         this.slots = slots;
@@ -50,7 +50,7 @@ public class ListAdapterSlotsItem extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_slots_item, parent, false);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
 
             convertView.setTag(holder);
         } else {

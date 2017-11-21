@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/icon" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/textViewSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text" />
+
+            <TextView
+                android:id="@+id/textViewWebSite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="New Text" />
+
+            <com.veinhorn.tagview.TagView
+                android:id="@+id/tagViewOfficialApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/user_app_official"
+                app:tagColor="@color/colorSuccess" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewBack"
+            style="@style/AppTheme.BigTextBackground"
+            android:text="@string/profile_apps_private"
+            android:textSize="60sp" />
+    </FrameLayout>
+
+</LinearLayout>

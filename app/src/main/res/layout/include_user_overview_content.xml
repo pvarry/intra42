@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,163 +20,188 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutMobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="16dp"
-                        android:contentDescription="@string/icon_phone"
-                        android:tint="@color/colorGrayTint"
-                        app:srcCompat="@drawable/ic_phone_black_24dp" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayoutPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_toLeftOf="@+id/imageButtonSMS"
-                        android:layout_toStartOf="@+id/imageButtonSMS"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:orientation="vertical"
-                        android:paddingBottom="16dp"
-                        android:paddingLeft="72dp"
-                        android:paddingRight="0dp"
-                        android:paddingTop="16dp"
-                        tools:ignore="RelativeOverlap">
-
-                        <TextView
-                            android:id="@+id/textViewMobile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New Text"
-                            android:textColor="#000" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/mobile" />
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/imageButtonSMS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="right"
-                        android:layout_margin="0dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:contentDescription="@string/icon_sms"
-                        android:padding="16dp"
-                        android:tint="@color/colorGrayTint"
-                        app:srcCompat="@drawable/ic_chat_black_24dp" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="72dp"
-                    android:background="@color/colorGrayLight" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutMail"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layoutPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:orientation="horizontal">
+                android:focusable="true">
+
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/imageViewMobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_margin="16dp"
-                    android:contentDescription="@string/icon_email"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/icon_phone"
                     android:tint="@color/colorGrayTint"
-                    app:srcCompat="@drawable/ic_email_black_24dp" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_phone_black_24dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    android:layout_marginRight="0dp"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textViewMail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:textColor="#000" />
+                <TextView
+                    android:id="@+id/textViewMobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:text="New Text"
+                    android:textColor="#000"
+                    app:layout_constraintLeft_toRightOf="@+id/imageViewMobile"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/email" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/user_mobile_phone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/textViewMobile"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewMobile" />
 
-                </LinearLayout>
-            </LinearLayout>
+                <ImageButton
+                    android:id="@+id/imageButtonSMS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="end"
+                    android:layout_margin="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:contentDescription="@string/icon_sms"
+                    android:focusable="true"
+                    android:padding="16dp"
+                    android:tint="@color/colorGrayTint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_chat_black_24dp" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="72dp"
+                android:layout_marginStart="72dp"
                 android:background="@color/colorGrayLight" />
 
-            <LinearLayout
-                android:id="@+id/linearLayoutLocation"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layoutMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:orientation="horizontal">
+                android:focusable="true">
 
                 <ImageView
+                    android:id="@+id/imageView3"
                     android:layout_width="24dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:layout_margin="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/icon_email"
+                    android:tint="@color/colorGrayTint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_email_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textViewMail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:text="New Text"
+                    android:textColor="@color/textColorBlackPrimary"
+                    app:layout_constraintLeft_toRightOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/user_email"
+                    android:textColor="@color/textColorBlackSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/textViewMail"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewMail" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:layout_marginStart="72dp"
+                android:background="@color/colorGrayLight" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layoutLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/imageViewLocation"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:contentDescription="@string/icon_location"
                     android:tint="@color/colorGrayTint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_place_black_24dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    android:layout_marginRight="0dp"
-                    android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textViewPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:text="New Text"
+                    android:textColor="@color/textColorBlackPrimary"
+                    app:layout_constraintLeft_toRightOf="@+id/imageViewLocation"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textViewPosition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:textColor="#000" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/user_location"
+                    android:textColor="@color/textColorBlackSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/textViewPosition"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPosition" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/location" />
-
-                </LinearLayout>
-            </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -196,23 +220,28 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
-                    android:text="@string/wallet"
+                    android:paddingStart="@dimen/user_inline_stat"
+                    android:text="@string/user_wallet_money"
                     android:textColor="#333" />
 
                 <TextView
                     android:id="@+id/textViewWallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="New Text" />
             </LinearLayout>
 
@@ -226,23 +255,28 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
-                    android:text="@string/correction_points"
+                    android:paddingStart="@dimen/user_inline_stat"
+                    android:text="@string/user_correction_points"
                     android:textColor="#333" />
 
                 <TextView
                     android:id="@+id/textViewCorrectionPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="New Text" />
             </LinearLayout>
 
@@ -258,23 +292,28 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
-                    android:text="@string/pool"
+                    android:paddingStart="@dimen/user_inline_stat"
+                    android:text="@string/user_pool"
                     android:textColor="#333" />
 
                 <TextView
                     android:id="@+id/textViewPiscine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
                     android:paddingLeft="@dimen/user_inline_stat"
                     android:paddingRight="0dp"
+                    android:paddingStart="@dimen/user_inline_stat"
                     android:text="New Text" />
             </LinearLayout>
 
@@ -299,21 +338,14 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/spinnerCursus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="4dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="4dp">
-
-                <Spinner
-                    android:id="@+id/spinnerCursus"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp" />
 
             <View
                 android:id="@+id/viewSeparatorGrade"
@@ -327,13 +359,14 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/grade"
+                    android:text="@string/user_grade"
                     android:textColor="#333" />
 
                 <TextView
@@ -348,42 +381,57 @@
                 android:layout_height="1dp"
                 android:background="@color/colorGrayLight" />
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:focusable="true">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/level"
-                        android:textColor="#333" />
-
-                    <TextView
-                        android:id="@+id/textViewLvl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:text="New Text" />
-
-                </FrameLayout>
+                <TextView
+                    android:id="@+id/textViewLvl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="0dp"
+                    android:text="New Text"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView4" />
 
                 <ProgressBar
                     android:id="@+id/progressBarLevel"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="0dp"
                     android:indeterminate="false"
                     android:max="100"
-                    android:progress="3" />
-            </LinearLayout>
+                    android:progress="3"
+                    app:layout_constraintHorizontal_bias="0.501"
+                    app:layout_constraintLeft_toLeftOf="@+id/textView4"
+                    app:layout_constraintRight_toRightOf="@+id/textViewLvl"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/user_level"
+                    android:textColor="#333"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -396,13 +444,14 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date"
+                    android:text="@string/user_cursus_date"
                     android:textColor="#333" />
 
                 <TextView
@@ -421,7 +470,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="16dp"
-            android:text="@string/no_cursus_available"
+            android:text="@string/user_no_cursus_available"
             android:visibility="gone" />
     </android.support.v7.widget.CardView>
 

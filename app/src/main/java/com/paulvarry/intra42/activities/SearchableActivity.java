@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +33,7 @@ import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.SuperSearch;
+import com.paulvarry.intra42.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +41,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -48,12 +49,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchableActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class SearchableActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     ConstraintLayout constraintLayoutLoading;
     SwipeRefreshLayout layoutResult;
     FrameLayout layoutApi;
     TextView textViewJson;
+    View layoutOnError;
 
     TextView textViewLoading;
     ListView listView;
@@ -71,14 +73,17 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
 
-        constraintLayoutLoading = (ConstraintLayout) findViewById(R.id.constraintLayoutLoading);
-        layoutResult = (SwipeRefreshLayout) findViewById(R.id.layoutResult);
-        layoutApi = (FrameLayout) findViewById(R.id.layoutApi);
+        constraintLayoutLoading = findViewById(R.id.constraintLayoutLoading);
+        layoutResult = findViewById(R.id.layoutResult);
+        layoutApi = findViewById(R.id.layoutApi);
 
-        textViewLoading = (TextView) findViewById(R.id.textViewLoading);
-        listView = (ListView) findViewById(R.id.listView);
-        textViewJson = (TextView) findViewById(R.id.textViewJson);
-        buttonApiOpen = (Button) findViewById(R.id.buttonApiOpen);
+        textViewLoading = findViewById(R.id.textViewLoading);
+        listView = findViewById(R.id.listView);
+        textViewJson = findViewById(R.id.textViewJson);
+        buttonApiOpen = findViewById(R.id.buttonApiOpen);
+        layoutOnError = findViewById(R.id.layoutOnError);
+
+        app = (AppClass) getApplication();
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
@@ -87,15 +92,16 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             if (query != null) {
                 setTitle(query);
             }
-            doSearch(query);
+            doSearchSpitActions(query);
         } else {
             finish();
             Toast.makeText(this, "Can't open this", Toast.LENGTH_SHORT).show();
         }
 
         listView.setOnItemClickListener(this);
+        layoutResult.setOnRefreshListener(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -106,7 +112,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
         MenuItem searchItem = menu.findItem(R.id.search);
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchAdapter = SuperSearch.setSearchSuggestionAdapter(this);
 
         searchItem.expandActionView();
@@ -139,7 +145,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 if (SuperSearch.open(SearchableActivity.this, s)) {
                     return true;
                 } else {
-                    doSearch(s);
+                    doSearchSpitActions(s);
                     return true;
                 }
             }
@@ -148,22 +154,6 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
             public boolean onQueryTextChange(String s) {
                 populateAdapter(s);
                 return true;
-            }
-        });
-
-
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                // Do whatever you need
-                return true; // KEEP IT TO TRUE OR IT DOESN'T OPEN !!
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                onBackPressed();
-                return false; // OR FALSE IF YOU DIDN'T WANT IT TO CLOSE!
             }
         });
 
@@ -201,18 +191,17 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         searchAdapter.changeCursor(c);
     }
 
-    private void doSearch(String query) {
-        if (query == null || query.isEmpty()) {
+    private void doSearchSpitActions(String query) {
+        if (query == null || query.isEmpty() || app == null || app.me == null) {
             finish();
             Toast.makeText(this, "Can't open this", Toast.LENGTH_SHORT).show();
             return;
         }
         this.query = query;
-        app = (AppClass) getApplication();
         apiService = app.getApiService();
 
         // Api call
-        if (doSearchApiCall(query))
+        if (doSearchActionApiCall(query))
             return;
 
         // Basic search
@@ -224,103 +213,134 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         new Thread(new Runnable() {
             @Override
             public void run() {
-                CursusUsers cursusUsers = app.me.getCursusUsersToDisplay(SearchableActivity.this);
-
-                String[] split = finalQuery.split(" ");
-                String stringToSearch;
-                if (split.length > 1)
-                    stringToSearch = finalQuery.replaceFirst(split[0] + " ", "");
-                else
-                    stringToSearch = finalQuery;
-
-                Call<List<UsersLTE>> callUsersLogin = apiService.getUsersSearchLogin(stringToSearch);
-                Call<List<UsersLTE>> callUsersFirstName = apiService.getUsersSearchFirstName(stringToSearch);
-
-                Call<List<Projects>> callProjects;
-                if (cursusUsers != null)
-                    callProjects = apiService.getProjectsSearch(cursusUsers.cursusId, stringToSearch);
-                else
-                    callProjects = apiService.getProjectsSearch(stringToSearch);
-
-                Call<List<Topics>> callTopics;
-                if (cursusUsers != null)
-                    callTopics = apiService.getTopicsSearch(cursusUsers.cursusId, stringToSearch);
-                else
-                    callTopics = apiService.getTopicsSearch(stringToSearch);
-
-                Response<List<UsersLTE>> responseUsersLogin = null;
-                Response<List<UsersLTE>> responseUsersFirstName = null;
-                Response<List<Projects>> responseProjects = null;
-                Response<List<Topics>> responseTopics = null;
-
-                try {
-
-                    if (split.length > 1) {
-
-                        if (SuperSearch.searchOnArray(R.array.search_users, split[0], SearchableActivity.this)) {
-                            responseUsersLogin = execUsers(callUsersLogin);
-                            responseUsersFirstName = execUsers(callUsersFirstName);
-                        } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
-                            responseProjects = execProjects(callProjects);
-                        } else if (SuperSearch.searchOnArray(R.array.search_topics, split[0], SearchableActivity.this)) {
-                            responseTopics = execTopics(callTopics);
-                        } else {
-                            responseUsersLogin = execUsers(callUsersLogin);
-                            responseUsersFirstName = execUsers(callUsersFirstName);
-                            responseProjects = execProjects(callProjects);
-                            responseTopics = execTopics(callTopics);
-                        }
-                    } else {
-                        responseUsersLogin = execUsers(callUsersLogin);
-                        responseUsersFirstName = execUsers(callUsersFirstName);
-                        responseProjects = execProjects(callProjects);
-                        responseTopics = execTopics(callTopics);
-                    }
-
-                    items = new ArrayList<>();
-
-                    if ((responseUsersLogin != null && responseUsersLogin.isSuccessful()) || responseUsersFirstName != null && responseUsersFirstName.isSuccessful())
-                        items.add(new SectionListViewSearch.Item<UsersLTE>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users)));
-
-                    if (responseUsersLogin != null && responseUsersLogin.isSuccessful()) {
-
-                        for (UsersLTE u : responseUsersLogin.body())
-                            items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
-                    }
-                    if (responseUsersFirstName != null && responseUsersFirstName.isSuccessful()) {
-                        for (UsersLTE u : responseUsersFirstName.body())
-                            items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName()));
-                    }
-
-                    if (responseProjects != null && responseProjects.isSuccessful()) {
-                        items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_projects)));
-                        for (Projects p : responseProjects.body())
-                            items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, p, p.getName()));
-                    }
-
-                    if (responseTopics != null && responseTopics.isSuccessful()) {
-                        items.add(new SectionListViewSearch.Item<Topics>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_topics)));
-                        for (Topics t : responseTopics.body())
-                            items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, t, t.getName()));
-                    }
-
-                    final SectionListViewSearch adapter = new SectionListViewSearch(SearchableActivity.this, items);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            visibilityGoneAll();
-                            layoutResult.setVisibility(View.VISIBLE);
-                            listView.setAdapter(adapter);
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                search(finalQuery);
             }
         }).start();
     }
 
-    private boolean doSearchApiCall(String query) {
+    private void search(String query) {
+        CursusUsers cursusUsers = app.me.getCursusUsersToDisplay(SearchableActivity.this);
+
+        String[] split = query.split(" ");
+        String stringToSearch;
+        if (split.length > 1)
+            stringToSearch = query.replaceFirst(split[0] + " ", "");
+        else
+            stringToSearch = query;
+
+        Call<List<UsersLTE>> callUsersLogin = apiService.getUsersSearchLogin(stringToSearch);
+        Call<List<UsersLTE>> callUsersFirstName = apiService.getUsersSearchFirstName(stringToSearch);
+        Call<List<UsersLTE>> callUsersLastName = apiService.getUsersSearchLastName(stringToSearch);
+
+        Call<List<Projects>> callProjects;
+        if (cursusUsers != null)
+            callProjects = apiService.getProjectsSearch(cursusUsers.cursusId, stringToSearch);
+        else
+            callProjects = apiService.getProjectsSearch(stringToSearch);
+
+        Call<List<Topics>> callTopics;
+        if (cursusUsers != null)
+            callTopics = apiService.getTopicsSearch(cursusUsers.cursusId, stringToSearch);
+        else
+            callTopics = apiService.getTopicsSearch(stringToSearch);
+
+        Response<List<UsersLTE>> responseUsersLogin = null;
+        Response<List<UsersLTE>> responseUsersFirstName = null;
+        Response<List<UsersLTE>> responseUsersLastName = null;
+        Response<List<Projects>> responseProjects = null;
+        Response<List<Topics>> responseTopics = null;
+
+        try {
+
+            if (split.length > 1) {
+
+                if (SuperSearch.searchOnArray(R.array.search_users, split[0], SearchableActivity.this)) {
+                    responseUsersLogin = execUsers(callUsersLogin);
+                    responseUsersFirstName = execUsers(callUsersFirstName);
+                    responseUsersLastName = execUsers(callUsersLastName);
+                } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
+                    responseProjects = execProjects(callProjects);
+                } else if (SuperSearch.searchOnArray(R.array.search_topics, split[0], SearchableActivity.this)) {
+                    responseTopics = execTopics(callTopics);
+                } else {
+                    responseUsersLogin = execUsers(callUsersLogin);
+                    responseUsersFirstName = execUsers(callUsersFirstName);
+                    responseProjects = execProjects(callProjects);
+                    responseTopics = execTopics(callTopics);
+                }
+            } else {
+                responseUsersLogin = execUsers(callUsersLogin);
+                responseUsersFirstName = execUsers(callUsersFirstName);
+                responseUsersLastName = execUsers(callUsersLastName);
+                responseProjects = execProjects(callProjects);
+                responseTopics = execTopics(callTopics);
+            }
+
+            items = new ArrayList<>();
+
+            boolean responseUsersLoginStatus = (responseUsersLogin != null && responseUsersLogin.isSuccessful() && responseUsersLogin.body() != null);
+            boolean responseUsersFirstNameStatus = (responseUsersFirstName != null && responseUsersFirstName.isSuccessful() && responseUsersFirstName.body() != null);
+            boolean responseUsersLastNameStatus = (responseUsersLastName != null && responseUsersLastName.isSuccessful() && responseUsersLastName.body() != null);
+
+            HashMap<String, UsersLTE> user = null;
+            if (responseUsersLoginStatus || responseUsersFirstNameStatus || responseUsersLastNameStatus) {
+                items.add(new SectionListViewSearch.Item<UsersLTE>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users)));
+                user = new HashMap<>();
+            }
+
+            if (responseUsersLoginStatus) {
+                for (UsersLTE u : responseUsersLogin.body())
+                    user.put(u.getName(this), u);
+            }
+            if (responseUsersFirstNameStatus) {
+                for (UsersLTE u : responseUsersFirstName.body())
+                    user.put(u.getName(this), u);
+            }
+            if (responseUsersLastNameStatus) {
+                for (UsersLTE u : responseUsersLastName.body())
+                    user.put(u.getName(this), u);
+            }
+
+            if (user != null) {
+                for (UsersLTE u : user.values())
+                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName(this)));
+            }
+
+            if (responseProjects != null && responseProjects.isSuccessful() && responseProjects.body() != null) {
+                items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_projects)));
+                for (Projects p : responseProjects.body())
+                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, p, p.getName(this)));
+            }
+
+            if (responseTopics != null && responseTopics.isSuccessful() && responseTopics.body() != null) {
+                items.add(new SectionListViewSearch.Item<Topics>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_topics)));
+                for (Topics t : responseTopics.body())
+                    items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, t, t.getName(this)));
+            }
+
+            final SectionListViewSearch adapter = new SectionListViewSearch(SearchableActivity.this, items);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    visibilityGoneAll();
+                    layoutResult.setVisibility(View.VISIBLE);
+                    listView.setAdapter(adapter);
+                }
+            });
+        } catch (IOException | IllegalStateException e) {
+            e.printStackTrace();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    visibilityGoneAll();
+                    layoutOnError.setVisibility(View.VISIBLE);
+                    Tools.setLayoutOnError(layoutOnError, R.drawable.ic_cloud_off_black_24dp, R.string.info_network_error, SearchableActivity.this);
+                }
+            });
+        }
+    }
+
+    private boolean doSearchActionApiCall(String query) {
         String[] split = query.split("\\.");
         if (split.length <= 1)
             return false;
@@ -330,7 +350,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
             visibilityGoneAll();
             constraintLayoutLoading.setVisibility(View.VISIBLE);
-            textViewLoading.setText(R.string.calling);
+            textViewLoading.setText(R.string.info_api_requesting);
             buttonApiOpen.setVisibility(View.GONE);
 
             String URL = split[1];
@@ -422,7 +442,7 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query =
                     intent.getStringExtra(SearchManager.QUERY);
-            doSearch(query);
+            doSearchSpitActions(query);
         }
     }
 
@@ -437,5 +457,11 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         layoutResult.setVisibility(View.GONE);
         constraintLayoutLoading.setVisibility(View.GONE);
         layoutApi.setVisibility(View.GONE);
+        layoutOnError.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onRefresh() {
+        doSearchSpitActions(query);
     }
 }

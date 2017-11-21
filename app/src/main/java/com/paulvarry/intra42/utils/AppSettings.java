@@ -1,8 +1,11 @@
 package com.paulvarry.intra42.utils;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -18,6 +21,8 @@ import com.paulvarry.intra42.api.model.Users;
  * 0 : No specific element selected, all.
  */
 public class AppSettings {
+
+    final static String PREFERENCE_POEDITOR_ACTIVATED = "POEditor_activated";
 
     public static SharedPreferences getSharedPreferences(Context context) {
         if (context == null)
@@ -77,6 +82,30 @@ public class AppSettings {
         if (app.me != null)
             return app.me.getCursusUsersToDisplayID(app);
         return -1;
+    }
+
+    public static boolean getPOEditorActivated(Context context) {
+        if (context == null)
+            return true;
+        else
+            return getPOEditorActivated(getSharedPreferences(context));
+    }
+
+    public static boolean getPOEditorActivated(SharedPreferences settings) {
+        return settings.getBoolean(PREFERENCE_POEDITOR_ACTIVATED, true);
+    }
+
+    public static void setPOEditorActivated(Context context, boolean activated) {
+        if (context == null)
+            return;
+        else
+            setPOEditorActivated(getSharedPreferences(context), activated);
+    }
+
+    public static void setPOEditorActivated(SharedPreferences settings, boolean activated) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(PREFERENCE_POEDITOR_ACTIVATED, activated);
+        editor.apply();
     }
 
     public static class Advanced {
@@ -178,24 +207,34 @@ public class AppSettings {
 
     static public class Notifications {
 
-        public static final String ALLOW = "notifications_allow";
+        public static final String ENABLE_NOTIFICATIONS = "notifications_allow";
         public static final String FREQUENCY = "notifications_frequency";
         public static final String CHECKBOX_EVENTS = "check_box_preference_notifications_events";
         public static final String CHECKBOX_SCALES = "check_box_preference_notifications_scales";
+        public static final String ENABLE_CALENDAR = "switch_preference_enable_calendar";
         public static final String CHECKBOX_ANNOUNCEMENTS = "check_box_preference_notifications_announcements";
+        public static final String LIST_CALENDAR = "sync_events_calendars";
+        public static final String CHECKBOX_SYNC_CALENDAR = "check_box_preference_notifications_sync_calendar";
+        public static final String SWITCH_PREFERENCE_ENABLE_PUT_TO_CALENDAR = "check_box_preference_put_to_calendar";
+        public static final String SELECTED_CALENDAR = "sync_events_calendars";
+
+        public static boolean permissionCalendarEnable(Context context) {
+            return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED;
+        }
 
         public static boolean getNotificationsAllow(Context context) {
             return context != null && getNotificationsAllow(getSharedPreferences(context));
         }
 
         public static boolean getNotificationsAllow(SharedPreferences settings) {
-            return settings.getBoolean(ALLOW, true);
+            return settings.getBoolean(ENABLE_NOTIFICATIONS, true);
         }
 
         public static void setNotificationsAllow(Context context, boolean allow) {
             SharedPreferences sharedPreferences = getSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(ALLOW, allow);
+            editor.putBoolean(ENABLE_NOTIFICATIONS, allow);
             editor.apply();
         }
 
@@ -206,7 +245,7 @@ public class AppSettings {
         }
 
         public static int getNotificationsFrequency(SharedPreferences settings) {
-            return Integer.parseInt(settings.getString(FREQUENCY, "-1"));
+            return Integer.parseInt(settings.getString(FREQUENCY, "60"));
         }
 
         public static boolean getNotificationsEvents(Context context) {
@@ -223,6 +262,122 @@ public class AppSettings {
 
         public static boolean getNotificationsScales(SharedPreferences settings) {
             return settings.getBoolean(CHECKBOX_SCALES, false);
+        }
+
+        /**
+         * Return true when calendar sync is enable. This will check if calendar primary option is
+         * enable in prefs and if this app have permissions for the calendar.
+         *
+         * @param context THe context.
+         * @return Boolean
+         */
+        public static boolean getEnableCalendar(Context context) {
+            return context != null
+                    && getSharedPreferences(context).getBoolean(ENABLE_CALENDAR, false)
+                    && permissionCalendarEnable(context);
+        }
+
+        /**
+         * Check if calendar primary option have been touch, what event the value contained.
+         *
+         * @param settings Prefs.
+         * @return true if the prefs contain calendar primary option.
+         */
+        public static boolean containEnableCalendar(SharedPreferences settings) {
+            return settings.contains(ENABLE_CALENDAR);
+        }
+
+        /**
+         * Check if calendar primary option have been touch, what event the value contained.
+         *
+         * @param context Context.
+         * @return true if the prefs contain calendar primary option.
+         */
+        public static boolean containEnableCalendar(Context context) {
+            return context != null && containEnableCalendar(getSharedPreferences(context));
+        }
+
+        /**
+         * Set calendar primary param without check permission requirements. For better usability :
+         * {@link Calendar#setEnableCalendarWithAutoSelect(Context, boolean)}
+         *
+         * @param context Context.
+         * @param enable  value to set
+         */
+        public static void setEnableCalendar(Context context, boolean enable) {
+            SharedPreferences sharedPreferences = getSharedPreferences(context);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(ENABLE_CALENDAR, enable);
+            editor.apply();
+        }
+
+        /**
+         * Check if put events to calendar after subscribe to a event from the app. Will also check
+         * if primary option is enable and if calendar permissions are enable.
+         * <p>
+         * Note: this method will not verify if a calendar is correctly selected.
+         *
+         * @param context Context.
+         * @return If you can put events to calendar after subscription.
+         */
+        public static boolean getCalendarAfterSubscription(Context context) {
+            if (!getEnableCalendar(context))
+                return false;
+            SharedPreferences preferences = getSharedPreferences(context);
+            return preferences.getBoolean(SWITCH_PREFERENCE_ENABLE_PUT_TO_CALENDAR, true);
+        }
+
+        /**
+         * Check if auto sync of the events in the calendar is enable. If enable, subscribed events
+         * will be periodically synchronised with the calendar.
+         * <p>
+         * Note: this method will not verify if a calendar is correctly selected.
+         *
+         * @param context Context.
+         * @return If you can put events to calendar after subscription.
+         */
+        public static boolean getCalendarSync(Context context) {
+            if (!getEnableCalendar(context))
+                return false;
+            SharedPreferences preferences = getSharedPreferences(context);
+            return preferences.getBoolean(CHECKBOX_SYNC_CALENDAR, true);
+        }
+
+        /**
+         * Get the id of the selected calendar of the phone to puts events.
+         *
+         * @param context The context.
+         * @return Id of the selected calendar, -1 otherwise.
+         */
+        public static int getSelectedCalendar(Context context) {
+            if (context == null)
+                return -1;
+            return getSelectedCalendar(getSharedPreferences(context));
+        }
+
+        /**
+         * Get the id of the selected calendar of the phone to puts events.
+         *
+         * @param settings Prefs.
+         * @return Id of the selected calendar, -1 otherwise.
+         */
+        public static int getSelectedCalendar(SharedPreferences settings) {
+            return Integer.decode(settings.getString(SELECTED_CALENDAR, "-1"));
+        }
+
+        /**
+         * Set the selected calendar.
+         *
+         * @param context  Context.
+         * @param calendar Id of the selected calendar of the phone.
+         */
+        public static void setCalendarSelected(Context context, int calendar) {
+            if (calendar == -1)
+                return;
+            SharedPreferences sharedPreferences = getSharedPreferences(context);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(SELECTED_CALENDAR, String.valueOf(calendar));
+            editor.apply();
         }
 
         public static boolean getNotificationsAnnouncements(Context context) {

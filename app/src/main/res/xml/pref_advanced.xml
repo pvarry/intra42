@@ -32,12 +32,11 @@
 
     <PreferenceCategory
         android:dependency="switch_preference_advanced_allow_beta"
-        android:title="@string/force_content_location">
+        android:title="@string/pref_force_content_location">
 
         <ListPreference
             android:defaultValue="-1"
-            android:entries="@array/pref_example_list_titles"
-            android:entryValues="@array/pref_example_list_values"
+
             android:key="list_preference_advanced_force_cursus"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
@@ -45,8 +44,7 @@
 
         <ListPreference
             android:defaultValue="-1"
-            android:entries="@array/pref_example_list_titles"
-            android:entryValues="@array/pref_example_list_values"
+
             android:key="list_preference_advanced_force_campus"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"

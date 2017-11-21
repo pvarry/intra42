@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.ui;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -76,10 +78,10 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ListView) view.findViewById(R.id.listView);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        textView = (TextView) view.findViewById(R.id.textView);
-        fabBasicFragmentCall = (FloatingActionButton) view.findViewById(R.id.fabBasicFragmentCall);
+        listView = view.findViewById(R.id.listView);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        textView = view.findViewById(R.id.textView);
+        fabBasicFragmentCall = view.findViewById(R.id.fabBasicFragmentCall);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);
@@ -115,6 +117,9 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
 
     private void addItems() {
 
+        if (isDetached())
+            return;
+
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -122,7 +127,10 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
             }
         });
 
-        ApiService apiService = ((AppClass) getActivity().getApplication()).getApiService();
+        Activity a = getActivity();
+        if (a == null)
+            return;
+        ApiService apiService = ((AppClass) a.getApplication()).getApiService();
 
         Call<List<T>> call = getCall(apiService, list);
 
@@ -142,6 +150,7 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     @Nullable
     public abstract Call<List<T>> getCall(ApiService apiService, @Nullable List<T> list);
 
+    @SuppressLint("SetTextI18n")
     public void setView() {
         if (!isAdded())
             return;
@@ -152,7 +161,7 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
             if (message != null && !message.isEmpty())
                 textView.setText(message);
             else if (isAdded())
-                textView.setText(getString(R.string.nothing_to_show));
+                textView.setText(getString(R.string.info_nothing_to_show));
             else
                 textView.setText("Nothing to show");
         } else {

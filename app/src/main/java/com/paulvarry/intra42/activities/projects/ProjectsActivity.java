@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
@@ -20,16 +20,19 @@ public class ProjectsActivity extends BasicTabActivity
         activeHamburger();
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
         super.onCreate(savedInstanceState);
+
+        if (!app.userIsLogged())
+            finish();
     }
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(ProjectsGraphFragment.newInstance(), getString(R.string.tab_projects_graphic));
-        adapter.addFragment(ProjectsDoingFragment.newInstance(), getString(R.string.tab_projects_doing));
-        adapter.addFragment(ProjectsAllFragment.newInstance(), getString(R.string.tab_projects_all));
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(ProjectsGraphFragment.newInstance(), getString(R.string.title_tab_projects_graphic));
+        adapter.addFragment(ProjectsDoingFragment.newInstance(), getString(R.string.title_tab_projects_doing));
+        adapter.addFragment(ProjectsAllFragment.newInstance(), getString(R.string.title_tab_projects_all));
         viewPager.setAdapter(adapter);
-        ((CustomViewPager) viewPager).setPagingEnabled(false);
+        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.title_tab_projects_graphic));
     }
 
     @Nullable
@@ -40,11 +43,11 @@ public class ProjectsActivity extends BasicTabActivity
 
     @Override
     public String getToolbarName() {
-        return getString(R.string.projects);
+        return getString(R.string.title_activity_projects);
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

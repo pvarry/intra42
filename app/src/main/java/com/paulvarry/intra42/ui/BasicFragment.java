@@ -38,9 +38,9 @@ public abstract class BasicFragment<T, ADAPTER extends BaseAdapter>
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = (ListView) view.findViewById(R.id.listView);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        textView = (TextView) view.findViewById(R.id.textView);
+        listView = view.findViewById(R.id.listView);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        textView = view.findViewById(R.id.textView);
 
         swipeRefreshLayout.setOnRefreshListener(this);
         listView.setOnItemClickListener(this);
@@ -52,7 +52,7 @@ public abstract class BasicFragment<T, ADAPTER extends BaseAdapter>
         if (list == null || list.isEmpty()) {
             listView.setAdapter(null);
             textView.setVisibility(View.VISIBLE);
-            textView.setText(R.string.nothing_to_show);
+            textView.setText(R.string.info_nothing_to_show);
         } else {
             if (adapter == null) {
                 adapter = generateAdapter(list);

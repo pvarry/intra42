@@ -34,6 +34,7 @@ import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -118,33 +119,33 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FrameLayout frameLayoutStatus = (FrameLayout) view.findViewById(R.id.frameLayoutStatus);
-        RelativeLayout linearLayoutMark = (RelativeLayout) view.findViewById(R.id.linearLayoutMark);
-        LinearLayout linearLayoutStatus = (LinearLayout) view.findViewById(R.id.linearLayoutStatus);
-        FrameLayout frameLayoutRegister = (FrameLayout) view.findViewById(R.id.frameLayoutRegister);
-        TextView textViewFinalMark = (TextView) view.findViewById(R.id.textViewFinalMark);
-        TextView textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
-        buttonRegister = (Button) view.findViewById(R.id.buttonRegister);
+        FrameLayout frameLayoutStatus = view.findViewById(R.id.frameLayoutStatus);
+        RelativeLayout linearLayoutMark = view.findViewById(R.id.linearLayoutMark);
+        LinearLayout linearLayoutStatus = view.findViewById(R.id.linearLayoutStatus);
+        FrameLayout frameLayoutRegister = view.findViewById(R.id.frameLayoutRegister);
+        TextView textViewFinalMark = view.findViewById(R.id.textViewFinalMark);
+        TextView textViewStatus = view.findViewById(R.id.textViewStatus);
+        buttonRegister = view.findViewById(R.id.buttonRegister);
 
-        LinearLayout linearLayoutDescription = (LinearLayout) view.findViewById(R.id.linearLayoutDescription);
-        TextView tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+        LinearLayout linearLayoutDescription = view.findViewById(R.id.linearLayoutDescription);
+        TextView tvDescription = view.findViewById(R.id.tvDescription);
         View viewDescriptionLine = view.findViewById(R.id.viewDescriptionLine);
-        LinearLayout linearLayoutSkills = (LinearLayout) view.findViewById(R.id.linearLayoutSkills);
-        TextView tvSkills = (TextView) view.findViewById(R.id.tvSkills);
+        LinearLayout linearLayoutSkills = view.findViewById(R.id.linearLayoutSkills);
+        TextView tvSkills = view.findViewById(R.id.tvSkills);
         View viewSkillsLine = view.findViewById(R.id.viewSkillsLine);
-        LinearLayout linearLayoutInfo = (LinearLayout) view.findViewById(R.id.linearLayoutInfo);
-        TextView tvInfo = (TextView) view.findViewById(R.id.tvInfo);
+        LinearLayout linearLayoutInfo = view.findViewById(R.id.linearLayoutInfo);
+        TextView tvInfo = view.findViewById(R.id.tvInfo);
         View viewInfoLine = view.findViewById(R.id.viewInfoLine);
-        LinearLayout linearLayoutSession = (LinearLayout) view.findViewById(R.id.linearLayoutSession);
-        TextView tvSessionTitle = (TextView) view.findViewById(R.id.tvSessionTitle);
-        TextView tvSession = (TextView) view.findViewById(R.id.tvSession);
+        LinearLayout linearLayoutSession = view.findViewById(R.id.linearLayoutSession);
+        TextView tvSessionTitle = view.findViewById(R.id.tvSessionTitle);
+        TextView tvSession = view.findViewById(R.id.tvSession);
         View viewSessionLine = view.findViewById(R.id.viewSessionLine);
-        LinearLayout linearLayoutObjectives = (LinearLayout) view.findViewById(R.id.linearLayoutObjectives);
-        TextView tvObjectives = (TextView) view.findViewById(R.id.tvObjectives);
+        LinearLayout linearLayoutObjectives = view.findViewById(R.id.linearLayoutObjectives);
+        TextView tvObjectives = view.findViewById(R.id.tvObjectives);
         View viewObjectivesLine = view.findViewById(R.id.viewObjectivesLine);
 
-        buttonParent = (Button) view.findViewById(R.id.buttonParent);
-        buttonMine = (Button) view.findViewById(R.id.buttonMine);
+        buttonParent = view.findViewById(R.id.buttonParent);
+        buttonMine = view.findViewById(R.id.buttonMine);
 
         frameLayoutStatus.setVisibility(View.VISIBLE);
         linearLayoutStatus.setVisibility(View.GONE);
@@ -158,7 +159,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         if (projectUser == null) { // register
             if (session != null && !session.isSubscribable) {
                 linearLayoutStatus.setVisibility(View.VISIBLE);
-                textViewStatus.setText(getString(R.string.forbidden));
+                textViewStatus.setText(getString(R.string.project_forbidden_to_open));
                 textViewStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
             } else {
                 frameLayoutRegister.setVisibility(View.VISIBLE);
@@ -174,7 +175,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 textViewFinalMark.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
         } else if (projectUser.status.equals(ProjectUserStatus.FINISHED)) {
             linearLayoutStatus.setVisibility(View.VISIBLE);
-            textViewStatus.setText(R.string.no_scale);
+            textViewStatus.setText(R.string.project_no_scale);
         } else if (projectUser.status.equals(ProjectUserStatus.PARENT)) {
             frameLayoutStatus.setVisibility(View.GONE);
         } else {
@@ -185,7 +186,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         if (session == null && project.sessionsList != null && project.sessionsList.size() != 0) {
             linearLayoutSession.setVisibility(View.VISIBLE);
             viewSessionLine.setVisibility(View.VISIBLE);
-            tvSession.setText(R.string.no_session_found_for_this_cursus_campus);
+            tvSession.setText(R.string.project_no_session_found_for_this_cursus_campus);
         } else if (session == null || session.endAt == null) {
             linearLayoutSession.setVisibility(View.GONE);
             viewSessionLine.setVisibility(View.GONE);
@@ -193,7 +194,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             linearLayoutSession.setVisibility(View.VISIBLE);
             viewSessionLine.setVisibility(View.VISIBLE);
             if (DateTool.isInPast(session.endAt))
-                tvSessionTitle.setText(R.string.past_session);
+                tvSessionTitle.setText(R.string.project_past_session);
             String s = DateTool.getDateTimeLong(session.beginAt) + " - " + DateTool.getDateTimeLong(session.endAt);
             tvSession.setText(s);
         }
@@ -251,9 +252,9 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             if (scales != null) {
                 info += separator + scales.correctionNumber;
                 if (scales.correctionNumber > 1)
-                    info += " " + getContext().getString(R.string.corrections);
+                    info += " " + getContext().getString(R.string.project_evaluation_plural);
                 else
-                    info += " " + getContext().getString(R.string.correction);
+                    info += " " + getContext().getString(R.string.project_evaluation);
             }
 
             List<ProjectsSessions.Uploads> uploads = session.uploads;
@@ -261,16 +262,18 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 info += separator + " ";
 
                 if (uploads.size() > 1)
-                    info += getContext().getString(R.string.automatic_corrections);
+                    info += getContext().getString(R.string.project_automatic_corrections);
                 else
-                    info += getContext().getString(R.string.automatic_correction);
+                    info += getContext().getString(R.string.project_automatic_correction);
 
                 info += ": ";
+                StringBuilder tmp = new StringBuilder();
                 String localSeparator = "";
                 for (ProjectsSessions.Uploads u : uploads) {
-                    info += localSeparator + u.name;
+                    tmp.append(localSeparator).append(u.name);
                     localSeparator = ", ";
                 }
+                info += tmp.toString();
             }
         }
         tvInfo.setText(info);
@@ -282,14 +285,13 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             linearLayoutObjectives.setVisibility(View.VISIBLE);
             viewObjectivesLine.setVisibility(View.VISIBLE);
 
-            String objectives = "";
+            StringBuilder objectives = new StringBuilder();
             String sep = "";
             for (String s : project.objectives) {
-                objectives += sep + s;
+                objectives.append(sep).append(s);
                 sep = " • ";
             }
-
-            tvObjectives.setText(objectives);
+            tvObjectives.setText(objectives.toString());
         }
 
         if (project != null && project.parent != null) {
@@ -346,11 +348,14 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 Call<Projects> call = api.createProjectRegister(project.id);
                 call.enqueue(new Callback<Projects>() {
                     @Override
-                    public void onResponse(Call<Projects> call, retrofit2.Response<Projects> response) {
+                    public void onResponse(Call<Projects> call, Response<Projects> response) {
+                        Context context = getContext();
+                        if (context == null)
+                            return;
                         if (response.isSuccessful())
-                            Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                         else
-                            Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

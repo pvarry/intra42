@@ -1,9 +1,12 @@
 package com.paulvarry.intra42.activities;
 
+import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -11,13 +14,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
+import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.preference.SwitchPreference;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.MenuItem;
 
 import com.paulvarry.intra42.AppClass;
@@ -27,7 +35,10 @@ import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Calendar;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +54,9 @@ import java.util.Map;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
+    private static final int PERMISSIONS_REQUEST_CALENDAR = 1;
+
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -92,7 +106,29 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         preference.setSummary(name);
                     }
                 }
+            } else if (preference instanceof MultiSelectListPreference) {
+                String sep = "";
+                StringBuilder out = new StringBuilder();
+                HashSet<String> selected = null;
+                if (value instanceof HashSet<?>)
+                    selected = (HashSet<String>) value;
+                CharSequence[] preferenceEntries = ((MultiSelectListPreference) preference).getEntries();
+                CharSequence[] preferenceValues = ((MultiSelectListPreference) preference).getEntryValues();
+                HashMap<String, String> preferenceList = new HashMap<>();
 
+                if (preferenceEntries != null && preferenceValues != null && preferenceEntries.length != preferenceValues.length && selected != null) {
+                    for (int i = 0; preferenceEntries.length > i; i++) {
+                        preferenceList.put(preferenceValues[i].toString(), preferenceEntries[i].toString());
+                    }
+
+                    for (String s : selected) {
+                        out.append(preferenceList.get(s)).append(sep);
+                        sep = ", ";
+                    }
+
+                    // Set the summary to reflect the new value.
+                    preference.setSummary(out.toString());
+                }
             } else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.
@@ -100,7 +136,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     preference.setSummary(stringValue);
             }
 
-            if (value instanceof Boolean && preference.getKey().equals(AppSettings.Notifications.ALLOW)) {
+            if (value instanceof Boolean && preference.getKey().equals(AppSettings.Notifications.ENABLE_NOTIFICATIONS)) {
                 if ((boolean) value)
                     AppClass.scheduleAlarm(preference.getContext());
                 else
@@ -151,13 +187,37 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, sharedPreferences.getString(preference.getKey(), ""));
         if (sharedPreferencesAll.get(preference.getKey()) instanceof Boolean)
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, sharedPreferences.getBoolean(preference.getKey(), false));
+        if (sharedPreferencesAll.get(preference.getKey()) instanceof HashSet)
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, sharedPreferences.getStringSet(preference.getKey(), null));
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_CALENDAR: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Calendar.setEnableCalendarWithAutoSelect(this, true);
+
+                } else
+                    Calendar.setEnableCalendarWithAutoSelect(this, true);
+                recreate();
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+        app = (AppClass) getApplication();
     }
 
     @Override
@@ -193,18 +253,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * {@inheritDoc}
      */
     @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(final List<Header> target) {
         loadHeadersFromResource(R.xml.pref_headers, target);
         final SharedPreferences preferences = AppSettings.getSharedPreferences(this);
-        app = (AppClass) getApplication();
 
         for (Header h : target) {
             if (NotificationPreferenceFragment.class.getName().equals(h.fragment)) {
                 if (AppSettings.Notifications.getNotificationsAllow(preferences))
-                    h.summaryRes = R.string.activated;
+                    h.summaryRes = R.string.pref_activated;
                 else
-                    h.summaryRes = R.string.unactivated;
+                    h.summaryRes = R.string.pref_unactivated;
             }
         }
     }
@@ -215,43 +273,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || NotificationPreferenceFragment.class.getName().equals(fragmentName)
                 || NetworkPreferenceFragment.class.getName().equals(fragmentName)
                 || AdvancedPreferenceFragment.class.getName().equals(fragmentName)
                 || ThemePreferenceFragment.class.getName().equals(fragmentName);
     }
 
-    /**
-     * This fragment shows general preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class GeneralPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
-            setHasOptionsMenu(true);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-    }
 
     /**
      * This fragment shows general preferences only. It is used when the
@@ -295,12 +322,78 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_notification);
             setHasOptionsMenu(true);
 
+            final Activity activity = getActivity();
+            AppClass app = (AppClass) activity.getApplication();
+            app.mFirebaseAnalytics.setCurrentScreen(activity, activity.getClass().getSimpleName() + " -> " + getClass().getSimpleName(), null /* class override */);
+
+            SparseArray<String> calendar = Calendar.getCalendarList(activity);
+
+            ListPreference prefListCalendar = (ListPreference) findPreference(AppSettings.Notifications.LIST_CALENDAR);
+            if (calendar != null) {
+                CharSequence entryKey[] = new String[calendar.size()];
+                CharSequence entryValues[] = new String[calendar.size()];
+
+                for (int i = 0; i < calendar.size(); i++) {
+                    int key = calendar.keyAt(i);
+                    entryKey[i] = String.valueOf(key);
+                    entryValues[i] = calendar.get(key);
+                }
+                prefListCalendar.setEntries(entryValues);
+                prefListCalendar.setEntryValues(entryKey);
+            }
+
+            Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    updateCheckBoxSyncCalendarEnabled();
+
+                    return true;
+                }
+            };
+            final SwitchPreference prefCalendar = (SwitchPreference) findPreference(AppSettings.Notifications.ENABLE_CALENDAR);
+            SwitchPreference prefNotifications = (SwitchPreference) findPreference(AppSettings.Notifications.ENABLE_CALENDAR);
+            prefNotifications.setOnPreferenceChangeListener(listener);
+            prefCalendar.setOnPreferenceChangeListener(listener);
+            prefCalendar.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    updateCheckBoxSyncCalendarEnabled();
+                    if (((SwitchPreference) preference).isChecked() && !AppSettings.Notifications.permissionCalendarEnable(activity)) {
+
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR},
+                                SettingsActivity.PERMISSIONS_REQUEST_CALENDAR);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            if (!AppSettings.Notifications.permissionCalendarEnable(activity))
+                prefCalendar.setChecked(false);
+
+            updateCheckBoxSyncCalendarEnabled();
+
+
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference(AppSettings.Notifications.ALLOW));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.Notifications.ENABLE_NOTIFICATIONS));
             bindPreferenceSummaryToValue(findPreference(AppSettings.Notifications.FREQUENCY));
+            bindPreferenceSummaryToValue(findPreference(AppSettings.Notifications.LIST_CALENDAR));
+        }
+
+        void updateCheckBoxSyncCalendarEnabled() {
+            final SwitchPreference prefCalendar = (SwitchPreference) findPreference(AppSettings.Notifications.ENABLE_CALENDAR);
+            final SwitchPreference prefNotifications = (SwitchPreference) findPreference(AppSettings.Notifications.ENABLE_CALENDAR);
+            final Preference prefSyncCalendar = findPreference(AppSettings.Notifications.CHECKBOX_SYNC_CALENDAR);
+
+            if (prefCalendar.isChecked() && prefNotifications.isChecked())
+                prefSyncCalendar.setEnabled(true);
+            else
+                prefSyncCalendar.setEnabled(false);
         }
 
         @Override
@@ -325,6 +418,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_network);
             setHasOptionsMenu(true);
+
+            Activity activity = getActivity();
+            AppClass app = (AppClass) activity.getApplication();
+            app.mFirebaseAnalytics.setCurrentScreen(activity, activity.getClass().getSimpleName() + " -> " + getClass().getSimpleName(), null /* class override */);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
@@ -357,7 +454,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_advanced);
             setHasOptionsMenu(true);
-            AppClass app = (AppClass) getActivity().getApplication();
+
+            Activity activity = getActivity();
+            AppClass app = (AppClass) activity.getApplication();
+            app.mFirebaseAnalytics.setCurrentScreen(activity, activity.getClass().getSimpleName() + " -> " + getClass().getSimpleName(), null /* class override */);
 
             List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS);
@@ -365,9 +465,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 CharSequence entries[] = new String[cursusCache.size() + 2];
                 CharSequence entryValues[] = new String[cursusCache.size() + 2];
 
-                entries[0] = app.getString(R.string.disable_dont_force);
+                entries[0] = app.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";
-                entries[1] = app.getString(R.string.all);
+                entries[1] = app.getString(R.string.pref_value_all);
                 entryValues[1] = "0";
                 int i = 2;
                 for (Cursus cursus : cursusCache) {
@@ -385,9 +485,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 CharSequence entries[] = new String[campusCache.size() + 2];
                 CharSequence entryValues[] = new String[campusCache.size() + 2];
 
-                entries[0] = app.getString(R.string.disable_dont_force);
+                entries[0] = app.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";
-                entries[1] = app.getString(R.string.all);
+                entries[1] = app.getString(R.string.pref_value_all);
                 entryValues[1] = "0";
                 int i = 2;
                 for (Campus campus : campusCache) {

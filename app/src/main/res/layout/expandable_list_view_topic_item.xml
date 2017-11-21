@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:paddingEnd="0dp"
     android:paddingLeft="8dp"
     android:paddingRight="0dp"
     android:paddingStart="8dp">
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingEnd="0dp"
             android:paddingLeft="8dp"
             android:paddingRight="0dp"
             android:paddingStart="8dp">
@@ -45,7 +47,9 @@
                 android:id="@+id/textViewMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text" />
+                android:paddingTop="4dp"
+                android:text="New Text"
+                android:textColor="@color/colorGrayDark" />
         </LinearLayout>
     </LinearLayout>
 

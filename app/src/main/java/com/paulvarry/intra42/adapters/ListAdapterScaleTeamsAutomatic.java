@@ -21,7 +21,7 @@ public class ListAdapterScaleTeamsAutomatic extends BaseAdapter {
     List<TeamsUploads> list;
     int flag;
 
-    public ListAdapterScaleTeamsAutomatic(Activity context, List<TeamsUploads> list) {
+    ListAdapterScaleTeamsAutomatic(Activity context, List<TeamsUploads> list) {
 
         this.context = context;
         this.list = list;
@@ -70,20 +70,20 @@ public class ListAdapterScaleTeamsAutomatic extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.list_view_scale_teams, parent, false);
 
-            holder.imageViewUser = (ImageView) convertView.findViewById(R.id.imageView);
-            holder.textViewCorrector = (TextView) convertView.findViewById(R.id.textViewCorrector);
-            holder.textViewScale = (TextView) convertView.findViewById(R.id.textViewScale);
-            holder.textViewComment = (TextView) convertView.findViewById(R.id.textViewComment);
+            holder.imageViewUser = convertView.findViewById(R.id.imageView);
+            holder.textViewCorrector = convertView.findViewById(R.id.textViewCorrector);
+            holder.textViewScale = convertView.findViewById(R.id.textViewScale);
+            holder.textViewComment = convertView.findViewById(R.id.textViewComment);
 
-            holder.imageViewIconStatus = (ImageView) convertView.findViewById(R.id.imageViewIconStatus);
-            holder.linearLayoutFeedback = (LinearLayout) convertView.findViewById(R.id.linearLayoutFeedback);
-            holder.linearLayoutFeedbackMark = (LinearLayout) convertView.findViewById(R.id.linearLayoutFeedbackMark);
-            holder.textViewFeedbackInterested = (TextView) convertView.findViewById(R.id.textViewDescription);
-            holder.textViewFeedbackNice = (TextView) convertView.findViewById(R.id.textViewFeedbackNice);
-            holder.textViewFeedbackPunctuality = (TextView) convertView.findViewById(R.id.textViewFeedbackPunctuality);
-            holder.textViewFeedbackRigorous = (TextView) convertView.findViewById(R.id.textViewFeedbackRigorous);
-            holder.textViewFeedback = (TextView) convertView.findViewById(R.id.textViewFeedback);
-            holder.textViewFeedbackStars = (TextView) convertView.findViewById(R.id.textViewFeedbackStars);
+            holder.imageViewIconStatus = convertView.findViewById(R.id.imageViewIconStatus);
+            holder.linearLayoutFeedback = convertView.findViewById(R.id.linearLayoutFeedback);
+            holder.linearLayoutFeedbackMark = convertView.findViewById(R.id.linearLayoutFeedbackMark);
+            holder.textViewFeedbackInterested = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewFeedbackNice = convertView.findViewById(R.id.textViewFeedbackNice);
+            holder.textViewFeedbackPunctuality = convertView.findViewById(R.id.textViewFeedbackPunctuality);
+            holder.textViewFeedbackRigorous = convertView.findViewById(R.id.textViewFeedbackRigorous);
+            holder.textViewFeedback = convertView.findViewById(R.id.textViewFeedback);
+            holder.textViewFeedbackStars = convertView.findViewById(R.id.textViewFeedbackStars);
 
             convertView.setTag(holder);
         } else {
@@ -92,7 +92,7 @@ public class ListAdapterScaleTeamsAutomatic extends BaseAdapter {
 
         TeamsUploads item = getItem(position);
 
-        holder.textViewCorrector.setText(R.string.moulinette);
+        holder.textViewCorrector.setText(R.string.project_moulinette);
         holder.textViewScale.setText(String.valueOf(item.finalMark));
         holder.textViewComment.setText(item.comment);
         holder.linearLayoutFeedback.setVisibility(View.GONE);

@@ -69,7 +69,7 @@ public class HomeSlotsFragment extends BasicFragmentCall<Slots, ListAdapterSlots
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        fabNew = (FloatingActionButton) view.findViewById(R.id.fabNew);
+        fabNew = view.findViewById(R.id.fabNew);
         fabNew.setOnClickListener(this);
         super.onViewCreated(view, savedInstanceState);
     }

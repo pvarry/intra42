@@ -71,13 +71,13 @@ public class ListAdapterCorrections extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_corrections, parent, false);
-            holder.textViewWith = (TextView) convertView.findViewById(R.id.textViewWith);
-            holder.textViewLogin = (TextView) convertView.findViewById(R.id.textViewLogin);
-            holder.textViewProject = (TextView) convertView.findViewById(R.id.textViewProject);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
-            holder.linearLayoutWith = (LinearLayout) convertView.findViewById(R.id.linearLayoutWith);
-            holder.linearLayoutOn = (LinearLayout) convertView.findViewById(R.id.linearLayoutOn);
-            holder.linearLayoutDate = (LinearLayout) convertView.findViewById(R.id.linearLayoutDate);
+            holder.textViewWith = convertView.findViewById(R.id.textViewWith);
+            holder.textViewLogin = convertView.findViewById(R.id.textViewLogin);
+            holder.textViewProject = convertView.findViewById(R.id.textViewProject);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
+            holder.linearLayoutWith = convertView.findViewById(R.id.linearLayoutWith);
+            holder.linearLayoutOn = convertView.findViewById(R.id.linearLayoutOn);
+            holder.linearLayoutDate = convertView.findViewById(R.id.linearLayoutDate);
 
             convertView.setTag(holder);
         } else {
@@ -87,23 +87,23 @@ public class ListAdapterCorrections extends BaseAdapter {
         ScaleTeams item = getItem(position);
 
         if (item.corrector != null && item.corrector.isMe(activity.app) && item.correcteds != null) {
-            String login = "";
+            StringBuilder login = new StringBuilder();
             String sep = "";
             for (UsersLTE u : item.correcteds) {
-                login += sep + u.login;
+                login.append(sep).append(u.login);
                 sep = ", ";
             }
             holder.textViewLogin.setText(login);
         } else if (item.corrector != null && !item.corrector.isMe(activity.app))
             holder.textViewLogin.setText(item.corrector.login);
         else {
-            holder.textViewLogin.setText(R.string.someone);
+            holder.textViewLogin.setText(R.string.evaluation_someone);
         }
 
         if (item.corrector != null && item.corrector.isMe(activity.app))
-            holder.textViewWith.setText(R.string.correct);
+            holder.textViewWith.setText(R.string.evaluation_correct_someone);
         else
-            holder.textViewWith.setText(R.string.corrected_by);
+            holder.textViewWith.setText(R.string.evaluation_corrected_by);
 
         if (item.scale != null && item.scale.name != null)
             holder.textViewProject.setText(item.scale.name);
@@ -111,8 +111,13 @@ public class ListAdapterCorrections extends BaseAdapter {
             holder.linearLayoutOn.setVisibility(View.GONE);
         }
 
-        String str = DateTool.getTodayTomorrow(activity, item.beginAt, true) + DateTool.getDateTimeLong(item.beginAt);
-        holder.textViewDate.setText(str);
+        if (item.beginAt == null)
+            holder.textViewDate.setVisibility(View.GONE);
+        else {
+            String str = DateTool.getTodayTomorrow(activity, item.beginAt, true) + DateTool.getDateTimeLong(item.beginAt);
+            holder.textViewDate.setVisibility(View.VISIBLE);
+            holder.textViewDate.setText(str);
+        }
 
         return convertView;
     }

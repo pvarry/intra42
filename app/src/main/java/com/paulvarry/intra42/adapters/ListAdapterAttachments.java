@@ -16,7 +16,7 @@ import java.util.List;
 public class ListAdapterAttachments extends BaseAdapter {
 
     private final Context context;
-    List<Attachments> attachmentsList;
+    private List<Attachments> attachmentsList;
 
     public ListAdapterAttachments(Context context, List<Attachments> attachmentsList) {
 
@@ -68,9 +68,9 @@ public class ListAdapterAttachments extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_attachments, parent, false);
-            holder.imageViewIcon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.textViewSub = (TextView) convertView.findViewById(R.id.textViewSub);
+            holder.imageViewIcon = convertView.findViewById(R.id.imageViewIcon);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewSub = convertView.findViewById(R.id.textViewSub);
 
             convertView.setTag(holder);
         } else {

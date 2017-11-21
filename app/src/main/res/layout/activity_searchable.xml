@@ -67,11 +67,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Searching"
+            android:text="@string/searching"
             wheel:layout_constraintLeft_toLeftOf="parent"
             wheel:layout_constraintRight_toRightOf="parent"
             wheel:layout_constraintTop_toBottomOf="@+id/progress_wheel" />
     </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/layoutOnError"
+        layout="@layout/include_constraint_layout_on_error"
+        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/layoutApi"
@@ -84,8 +89,8 @@
             android:id="@+id/buttonApiOpen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:text="Open this" />
+            android:layout_gravity="bottom|end"
+            android:text="@string/open_this" />
 
         <ScrollView
             android:layout_width="match_parent"

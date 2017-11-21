@@ -3,32 +3,37 @@ package com.paulvarry.intra42;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
+import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.AndroidRuntimeException;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.activities.MainActivity;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiService42Tools;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ApiServiceCantina;
 import com.paulvarry.intra42.api.ServiceGenerator;
-import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Users;
+import com.paulvarry.intra42.api.tools42.AccessToken;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
 import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.cache.CacheUsers;
-import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
+import com.paulvarry.intra42.notifications.NotificationsJobService;
+import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
 
@@ -36,6 +41,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class AppClass extends Application {
 
@@ -48,43 +56,62 @@ public class AppClass extends Application {
     public List<CursusUsers> cursus;
     public Users me;
 
-    public AccessToken accessToken;
     public CacheSQLiteHelper cacheSQLiteHelper;
     @Nullable
     public DatabaseReference firebaseRefFriends;
+    public FirebaseAnalytics mFirebaseAnalytics;
+
 
     public static AppClass instance() {
         return sInstance;
     }
 
     public static void scheduleAlarm(Context context) {
-        // Construct an intent that will execute the AlarmReceiver
-        Intent intent = new Intent(context, AlarmReceiverNotifications.class);
-
-        // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         SharedPreferences settings = AppSettings.getSharedPreferences(context);
-        int notificationsFrequency = AppSettings.Notifications.getNotificationsFrequency(settings);
+        if (!AppSettings.Notifications.getNotificationsAllow(settings))
+            return;
 
-        int epoch = 1451607360; // Human time (GMT): Fri, 01 Jan 2016 00:16:00 GMT
-        if (AppSettings.Notifications.getNotificationsAllow(settings) && notificationsFrequency != -1)
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, epoch * 1000, 60000 * notificationsFrequency, pIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            NotificationsJobService.schedule(context);
+        } else {
 
+            // Construct an intent that will execute the AlarmReceiver
+            Intent intent = new Intent(context, AlarmReceiverNotifications.class);
+
+            // Create a PendingIntent to be triggered when the alarm goes off
+            final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+
+            int notificationsFrequency = AppSettings.Notifications.getNotificationsFrequency(settings);
+
+            int epoch = 1451607360; // Human time (GMT): Fri, 01 Jan 2016 00:16:00 GMT
+            if (notificationsFrequency != -1)
+                alarm.setRepeating(AlarmManager.RTC_WAKEUP, epoch, 60000 * notificationsFrequency, pIntent);
+        }
         Log.d("Notification", "schedule");
     }
 
     public static void unscheduleAlarm(Context context) {
-        // Construct an intent that will execute the AlarmReceiver
-        Intent intent = new Intent(context, AlarmReceiverNotifications.class);
 
-        // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            jobScheduler.cancel(1);
+        } else {
 
-        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarm.cancel(pIntent);
+
+            // Construct an intent that will execute the AlarmReceiver
+            Intent intent = new Intent(context, AlarmReceiverNotifications.class);
+
+            // Create a PendingIntent to be triggered when the alarm goes off
+            final PendingIntent pIntent = PendingIntent.getBroadcast(context, AlarmReceiverNotifications.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarm.cancel(pIntent);
+
+        }
 
         Log.d("Notification", "unschedule");
     }
@@ -97,7 +124,7 @@ public class AppClass extends Application {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        accessToken = Token.getTokenFromShared(this);
+        ServiceGenerator.init(this);
         cacheSQLiteHelper = new CacheSQLiteHelper(this);
         sInstance = this;
 
@@ -107,7 +134,12 @@ public class AppClass extends Application {
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
             me = CacheUsers.get(cacheSQLiteHelper, login);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationsUtils.generateNotificationChannel(this);
+        }
+
         initFirebase();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         if (isExternalStorageWritable() && (AppSettings.Advanced.getAllowSaveLogs(this) | BuildConfig.DEBUG)) {
 
@@ -139,15 +171,23 @@ public class AppClass extends Application {
     }
 
     public ApiService getApiService() {
-        return ServiceGenerator.createService(ApiService.class, accessToken, this, this, true);
+        return ServiceGenerator.createService(ApiService.class, this, true);
+    }
+
+    public ApiService42Tools getApiService42Tools() {
+        return ServiceGenerator.createService(ApiService42Tools.class, this, false);
     }
 
     public ApiService getApiServiceDisableRedirectActivity() {
-        return ServiceGenerator.createService(ApiService.class, accessToken, this, this, false);
+        return ServiceGenerator.createService(ApiService.class, this, false);
     }
 
     public ApiServiceCantina getApiServiceCantina() {
-        return ServiceGenerator.createService(ApiServiceCantina.class, null, this, this, false);
+        return ServiceGenerator.createService(ApiServiceCantina.class, this, false);
+    }
+
+    public ApiServiceAuthServer getApiServiceAuthServer() {
+        return ServiceGenerator.createService(ApiServiceAuthServer.class, this, false);
     }
 
     /**
@@ -164,14 +204,14 @@ public class AppClass extends Application {
      *
      * @return status
      */
-    public boolean initCache(boolean forceAPI, RefreshCallbackMainActivity refreshStatus) {
+    public boolean initCache(boolean forceAPI, MainActivity mainActivity) {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         ApiService api = getApiService();
 
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
-        if (refreshStatus != null)
-            refreshStatus.update("Get cache …", "current user", 1, 6);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
 
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = Users.me(api);
@@ -184,25 +224,40 @@ public class AppClass extends Application {
 
         if (me == null)
             return false;
-        else {
-            cursus = me.cursusUsers;
-            initFirebase();
 
-            if (refreshStatus != null)
-                refreshStatus.update(null, "cursus", 1, 6);
-            CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
-            if (refreshStatus != null)
-                refreshStatus.update(null, "campus", 2, 6);
-            CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
-            if (refreshStatus != null)
-                refreshStatus.update(null, "tags", 3, 6);
-            CacheTags.getAllowInternet(cacheSQLiteHelper, this);
-            if (refreshStatus != null)
-                refreshStatus.update(null, "finishing", 6, 6);
-            //TODO: add integration to force use API with a cache manager in the UI !!
-            editor.apply();
-            return true;
+        cursus = me.cursusUsers;
+        initFirebase();
+
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, getString(R.string.cursus), 1, 6);
+        CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, getString(R.string.campus), 2, 6);
+        CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, getString(R.string.tags), 3, 6);
+        CacheTags.getAllowInternet(cacheSQLiteHelper, this);
+        if (mainActivity != null)
+            mainActivity.updateViewSate(null, "finishing", 6, 6);
+        //TODO: add integration to force use API with a cache manager in the UI !!
+        editor.apply();
+
+        if (!ServiceGenerator.have42ToolsToken()) {
+            ApiService42Tools client = ServiceGenerator.createService(ApiService42Tools.class);
+            Call<AccessToken> call = client.getAccessToken(ServiceGenerator.getToken().accessToken);
+            try {
+                Response<AccessToken> ret = call.execute();
+                if (ret != null && ret.isSuccessful()) {
+                    Token.save(this, ret.body());
+                    ServiceGenerator.setToken(ret.body());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        return true;
+
     }
 
     void initFirebase() {
@@ -210,14 +265,14 @@ public class AppClass extends Application {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             if (me != null)
                 firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException | NullPointerException e) {
             Log.e("Firebase", "Fail to init friends with firebase");
         }
     }
 
     public void logout() {
         me = null;
-        accessToken = null;
+        ServiceGenerator.logout();
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(API_ME_LOGIN);
@@ -227,15 +282,20 @@ public class AppClass extends Application {
 
     public void logoutAndRedirect() {
         logout();
+        MainActivity.openActivity(this);
+    }
 
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        try {
-            startActivity(i);
-        } catch (AndroidRuntimeException e) {
-            e.printStackTrace();
+    public boolean userIsLogged(boolean canOpenActivity) {
+        if (me == null || !ServiceGenerator.have42Token()) {
+            if (canOpenActivity)
+                MainActivity.openActivity(this);
+            return false;
         }
+        return true;
+    }
 
+    public boolean userIsLogged() {
+        return userIsLogged(true);
     }
 
     /* Checks if external storage is available for read and write */

@@ -36,6 +36,7 @@ public class ScaleTeams {
     private static final String API_SCALE = "scale";
     private static final String API_TEAM = "team";
     private static final String API_FEEDBACKS = "feedbacks";
+    private static final String API_FILLED_AT = "filled_at";
 
     @SerializedName(API_ID)
     public int id;
@@ -77,6 +78,8 @@ public class ScaleTeams {
     public Teams teams;
     @SerializedName(API_FEEDBACKS)
     public List<Feedback> feedbacks;
+    @SerializedName(API_FILLED_AT)
+    public Date filledAt;
 
     public boolean equals(ScaleTeams scaleTeams) {
         return scaleTeams.id == id;

@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:text="New Text"
         android:textColor="@color/textColorBlackSecondary" />
 

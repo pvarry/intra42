@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.UserImage;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ListAdapterScaleTeams extends BaseAdapter {
     List<ScaleTeams> list;
     int flag;
 
-    public ListAdapterScaleTeams(Activity context, List<ScaleTeams> list) {
+    ListAdapterScaleTeams(Activity context, List<ScaleTeams> list) {
 
         this.context = context;
         this.list = list;
@@ -76,20 +77,20 @@ public class ListAdapterScaleTeams extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.list_view_scale_teams, parent, false);
 
-            holder.imageViewUser = (ImageView) convertView.findViewById(R.id.imageView);
-            holder.textViewCorrector = (TextView) convertView.findViewById(R.id.textViewCorrector);
-            holder.textViewScale = (TextView) convertView.findViewById(R.id.textViewScale);
-            holder.textViewComment = (TextView) convertView.findViewById(R.id.textViewComment);
+            holder.imageViewUser = convertView.findViewById(R.id.imageView);
+            holder.textViewCorrector = convertView.findViewById(R.id.textViewCorrector);
+            holder.textViewScale = convertView.findViewById(R.id.textViewScale);
+            holder.textViewComment = convertView.findViewById(R.id.textViewComment);
 
-            holder.imageViewIconStatus = (ImageView) convertView.findViewById(R.id.imageViewIconStatus);
-            holder.linearLayoutFeedback = (LinearLayout) convertView.findViewById(R.id.linearLayoutFeedback);
-            holder.linearLayoutFeedbackMark = (LinearLayout) convertView.findViewById(R.id.linearLayoutFeedbackMark);
-            holder.textViewFeedbackInterested = (TextView) convertView.findViewById(R.id.textViewDescription);
-            holder.textViewFeedbackNice = (TextView) convertView.findViewById(R.id.textViewFeedbackNice);
-            holder.textViewFeedbackPunctuality = (TextView) convertView.findViewById(R.id.textViewFeedbackPunctuality);
-            holder.textViewFeedbackRigorous = (TextView) convertView.findViewById(R.id.textViewFeedbackRigorous);
-            holder.textViewFeedback = (TextView) convertView.findViewById(R.id.textViewFeedback);
-            holder.textViewFeedbackStars = (TextView) convertView.findViewById(R.id.textViewFeedbackStars);
+            holder.imageViewIconStatus = convertView.findViewById(R.id.imageViewIconStatus);
+            holder.linearLayoutFeedback = convertView.findViewById(R.id.linearLayoutFeedback);
+            holder.linearLayoutFeedbackMark = convertView.findViewById(R.id.linearLayoutFeedbackMark);
+            holder.textViewFeedbackInterested = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewFeedbackNice = convertView.findViewById(R.id.textViewFeedbackNice);
+            holder.textViewFeedbackPunctuality = convertView.findViewById(R.id.textViewFeedbackPunctuality);
+            holder.textViewFeedbackRigorous = convertView.findViewById(R.id.textViewFeedbackRigorous);
+            holder.textViewFeedback = convertView.findViewById(R.id.textViewFeedback);
+            holder.textViewFeedbackStars = convertView.findViewById(R.id.textViewFeedbackStars);
 
             convertView.setTag(holder);
         } else {
@@ -99,7 +100,12 @@ public class ListAdapterScaleTeams extends BaseAdapter {
         ScaleTeams item = getItem(position);
         if (item.corrector != null) {
             UserImage.setImage(context, item.corrector, holder.imageViewUser);
-            holder.textViewCorrector.setText(item.corrector.login);
+            String s = item.corrector.login + " • ";
+            if (item.filledAt != null)
+                s += DateTool.getDurationAgo(item.filledAt);
+            else
+                s += DateTool.getDurationAgo(item.beginAt);
+            holder.textViewCorrector.setText(s);
         }
 
         holder.textViewScale.setText(String.valueOf(item.finalMark));

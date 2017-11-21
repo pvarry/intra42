@@ -73,10 +73,10 @@ public class ListAdapterProjects extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_projects, parent, false);
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.textViewTime = (TextView) convertView.findViewById(R.id.textViewTime);
-            holder.textViewTier = (TextView) convertView.findViewById(R.id.textViewTier);
-            holder.textViewSlug = (TextView) convertView.findViewById(R.id.textViewSlug);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
+            holder.textViewTier = convertView.findViewById(R.id.textViewTier);
+            holder.textViewSlug = convertView.findViewById(R.id.textViewSlug);
 
             convertView.setTag(holder);
         } else {

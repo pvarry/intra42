@@ -2,12 +2,29 @@ package com.paulvarry.intra42.utils;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Attachments;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+import java.util.StringJoiner;
+
+import in.uncod.android.bypass.Bypass;
+import retrofit2.Response;
 
 public class Tools {
 
@@ -90,5 +107,97 @@ public class Tools {
                     Toast.makeText(activity, "There are no applications installed to open this", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public static int dpToPx(Context context, int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static int pxToDp(Context context, int px) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static void setMarkdown(Context context, TextView textView, String content) {
+        if (AppSettings.Advanced.getAllowMarkdownRenderer(context)) {
+            Bypass bypass = new Bypass(context);
+
+            content = content.replace(":\r\n-", ":\r\n\r\n-");
+
+            CharSequence string = bypass.markdownToSpannable(content, new BypassPicassoImageGetter(textView, Picasso.with(context)));
+
+            textView.setText(string);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+        } else
+            textView.setText(content);
+    }
+
+    public static boolean setLayoutOnError(View view, int image, int text, final SwipeRefreshLayout.OnRefreshListener refreshListener) {
+        if (view == null)
+            return false;
+        ImageView imageView = view.findViewById(R.id.imageViewStatus);
+        TextView textViewError = view.findViewById(R.id.textViewError);
+        Button buttonRefresh = view.findViewById(R.id.buttonRefresh);
+
+        if (imageView == null || textViewError == null || buttonRefresh == null)
+            return false;
+
+        view.setVisibility(View.VISIBLE);
+
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageResource(image);
+        textViewError.setText(text);
+        if (refreshListener != null)
+            buttonRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refreshListener.onRefresh();
+                }
+            });
+        else
+            buttonRefresh.setVisibility(View.GONE);
+        return true;
+    }
+
+    public static boolean apiIsSuccessful(Response<?> response) throws BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorServerException {
+        if (response == null)
+            throw new BasicThreadActivity.ErrorServerException();
+        else if (response.isSuccessful())
+            return true;
+        else if (response.code() / 100 == 4)
+            throw new BasicThreadActivity.UnauthorizedException();
+        else if (response.code() / 100 == 5)
+            throw new BasicThreadActivity.ErrorServerException();
+        else return false;
+    }
+
+    public static boolean apiIsSuccessfulNoThrow(Response<?> response) {
+        try {
+            return apiIsSuccessful(response);
+        } catch (BasicThreadActivity.UnauthorizedException | BasicThreadActivity.ErrorServerException e) {
+            return false;
+        }
+    }
+
+    public static String concatIds(List<Integer> integerList) {
+        String eventsId;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            StringJoiner join = new StringJoiner(",");
+            for (Integer integer : integerList) {
+                join.add(String.valueOf(integer));
+            }
+            eventsId = join.toString();
+        } else {
+            StringBuilder builder = new StringBuilder();
+            String join = "";
+            for (Integer e : integerList) {
+                builder.append(join).append(String.valueOf(e));
+                join = ",";
+            }
+            eventsId = builder.toString();
+        }
+
+        return eventsId;
     }
 }

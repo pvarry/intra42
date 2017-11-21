@@ -2,6 +2,7 @@ package com.paulvarry.intra42.bottomSheet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -108,33 +109,33 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_topic_info, null);
         dialog.setContentView(contentView);
 
-        TextView textViewMessage = (TextView) contentView.findViewById(R.id.textViewMessage);
+        TextView textViewMessage = contentView.findViewById(R.id.textViewMessage);
 
-        textViewUp = (TextView) contentView.findViewById(R.id.textViewUp);
-        textViewDown = (TextView) contentView.findViewById(R.id.textViewDown);
-        textViewReport = (TextView) contentView.findViewById(R.id.textViewReport);
-        textViewTroll = (TextView) contentView.findViewById(R.id.textViewTroll);
-        imageButtonUp = (ImageButton) contentView.findViewById(R.id.imageButtonUp);
-        imageButtonDown = (ImageButton) contentView.findViewById(R.id.imageButtonDown);
-        imageButtonReport = (ImageButton) contentView.findViewById(R.id.imageButtonReport);
-        imageButtonTroll = (ImageButton) contentView.findViewById(R.id.imageButtonTroll);
-        progressBarUp = (ProgressBar) contentView.findViewById(R.id.progressBarUp);
-        progressBarDown = (ProgressBar) contentView.findViewById(R.id.progressBarDown);
-        progressBarReport = (ProgressBar) contentView.findViewById(R.id.progressBarReport);
-        progressBarTroll = (ProgressBar) contentView.findViewById(R.id.progressBarTroll);
+        textViewUp = contentView.findViewById(R.id.textViewUp);
+        textViewDown = contentView.findViewById(R.id.textViewDown);
+        textViewReport = contentView.findViewById(R.id.textViewReport);
+        textViewTroll = contentView.findViewById(R.id.textViewTroll);
+        imageButtonUp = contentView.findViewById(R.id.imageButtonUp);
+        imageButtonDown = contentView.findViewById(R.id.imageButtonDown);
+        imageButtonReport = contentView.findViewById(R.id.imageButtonReport);
+        imageButtonTroll = contentView.findViewById(R.id.imageButtonTroll);
+        progressBarUp = contentView.findViewById(R.id.progressBarUp);
+        progressBarDown = contentView.findViewById(R.id.progressBarDown);
+        progressBarReport = contentView.findViewById(R.id.progressBarReport);
+        progressBarTroll = contentView.findViewById(R.id.progressBarTroll);
 
-        buttonReply = (Button) contentView.findViewById(R.id.buttonReply);
-        buttonShare = (Button) contentView.findViewById(R.id.buttonShare);
-        buttonEdit = (Button) contentView.findViewById(R.id.buttonEdit);
-        buttonDelete = (Button) contentView.findViewById(R.id.buttonDelete);
+        buttonReply = contentView.findViewById(R.id.buttonReply);
+        buttonShare = contentView.findViewById(R.id.buttonShare);
+        buttonEdit = contentView.findViewById(R.id.buttonEdit);
+        buttonDelete = contentView.findViewById(R.id.buttonDelete);
         View viewEdit = contentView.findViewById(R.id.viewEdit);
         View viewDelete = contentView.findViewById(R.id.viewDelete);
 
-        TextView textViewCreated = (TextView) contentView.findViewById(R.id.textViewCreated);
-        TextView textViewUpdated = (TextView) contentView.findViewById(R.id.textViewUpdated);
-        TextView textViewView = (TextView) contentView.findViewById(R.id.textViewView);
+        TextView textViewCreated = contentView.findViewById(R.id.textViewCreated);
+        TextView textViewUpdated = contentView.findViewById(R.id.textViewUpdated);
+        TextView textViewView = contentView.findViewById(R.id.textViewView);
 
-        massageWithoutRendering = (TextView) contentView.findViewById(R.id.massageWithoutRendering);
+        massageWithoutRendering = contentView.findViewById(R.id.massageWithoutRendering);
 
         textViewMessage.setText(message.content.replace('\n', ' '));
         textViewUp.setText(String.valueOf(message.votesCount.upvote));
@@ -241,7 +242,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
     private void onDelete() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.delete);
-        builder.setMessage(R.string.are_you_sure_to_delete_message);
+        builder.setMessage(R.string.forum_confirmation_delete_message);
         builder.setCancelable(true);
 
         // Set up the buttons
@@ -282,14 +283,16 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
     private void onReply() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.reply);
+        builder.setTitle(R.string.forum_reply);
 
         // Set up the input
         final EditText input = new EditText(getContext());
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE |
+                InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE |
+                InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
         input.setSingleLine(false);
-        input.setHint(R.string.message);
+        input.setHint(R.string.forum_message_hint);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -306,15 +309,21 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                 call.enqueue(new Callback<Messages>() {
                     @Override
                     public void onResponse(Call<Messages> call, retrofit2.Response<Messages> response) {
+                        Context context = getContext();
+                        if (context == null)
+                            return;
+
                         if (response.isSuccessful())
-                            Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                         else
-                            Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Messages> call, Throwable t) {
-                        Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        Context context = getContext();
+                        if (context != null)
+                            Toast.makeText(context, "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -335,7 +344,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
     private void onEdit(final String str) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.edit_message);
+        builder.setTitle(R.string.forum_message_edit);
 
         // Set up the input
         final EditText input = new EditText(getContext());
@@ -362,10 +371,13 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                 call.enqueue(new Callback<Messages>() {
                     @Override
                     public void onResponse(Call<Messages> call, retrofit2.Response<Messages> response) {
+                        Context context = getContext();
+                        if (context == null)
+                            return;
                         if (response.isSuccessful())
-                            Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                         else
-                            Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

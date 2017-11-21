@@ -58,8 +58,8 @@ public class ListAdapterSlotsGroup extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) activity.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_slots_group, parent, false);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
-            holder.listViewSlots = (ExpandableHeightListView) convertView.findViewById(R.id.listViewSlots);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
+            holder.listViewSlots = convertView.findViewById(R.id.listViewSlots);
 
             convertView.setTag(holder);
         } else {

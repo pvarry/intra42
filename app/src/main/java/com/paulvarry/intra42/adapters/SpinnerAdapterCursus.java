@@ -69,8 +69,8 @@ public class SpinnerAdapterCursus extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.spinner_cursus, parent, false);
 
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
-            holder.textViewLvl = (TextView) convertView.findViewById(R.id.textViewLvl);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewLvl = convertView.findViewById(R.id.textViewLvl);
 
             convertView.setTag(holder);
         } else {

@@ -55,10 +55,10 @@ public class GridAdapterTimeTool extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.grid_view_time_tool, parent, false);
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.textViewTime = (TextView) convertView.findViewById(R.id.textViewTime);
-            holder.textViewDate = (TextView) convertView.findViewById(R.id.textViewDate);
-            holder.textViewTimeZone = (TextView) convertView.findViewById(R.id.textViewTimeZone);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
+            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
+            holder.textViewTimeZone = convertView.findViewById(R.id.textViewTimeZone);
 
             convertView.setTag(holder);
         } else {

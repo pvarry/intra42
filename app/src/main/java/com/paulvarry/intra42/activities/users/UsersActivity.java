@@ -6,15 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
 public class UsersActivity
         extends BasicTabActivity
         implements UsersSearchFragment.OnFragmentInteractionListener, UsersAllFragment.OnFragmentInteractionListener,
-        UsersAdvancedFragment.OnFragmentInteractionListener, UsersFriendsFragment.OnFragmentInteractionListener {
+        UsersAdvancedFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class UsersActivity
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link BasicThreadActivity.GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */
@@ -46,11 +46,11 @@ public class UsersActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(UsersSearchFragment.newInstance(), getString(R.string.tab_users_search));
 //        if (AppSettings.Advanced.getAllowFriends(this))
 //            adapter.addFragment(UsersFriendsFragment.newInstance(), getString(R.string.tab_users_friends));
-        adapter.addFragment(UsersAllFragment.newInstance(), getString(R.string.tab_users_all));
+        adapter.addFragment(UsersAllFragment.newInstance(), getString(R.string.title_tab_users_all));
 //        adapter.addFragment(UsersAdvancedFragment.newInstance(), getString(R.string.tab_users_advanced_search));
         viewPager.setAdapter(adapter);
     }

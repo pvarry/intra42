@@ -9,6 +9,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -118,6 +119,9 @@ public class DateTool extends java.util.Date {
     // is
 
     static public boolean isToday(java.util.Date date) {
+        if (date == null)
+            return false;
+
         Calendar smsTime = Calendar.getInstance();
         smsTime.setTimeInMillis(date.getTime());
 
@@ -129,6 +133,8 @@ public class DateTool extends java.util.Date {
     }
 
     public static boolean isTomorrow(java.util.Date date) {
+        if (date == null)
+            return false;
         Calendar smsTime = Calendar.getInstance();
         smsTime.setTimeInMillis(date.getTime());
 
@@ -150,12 +156,12 @@ public class DateTool extends java.util.Date {
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
-    static public boolean isInFuture(java.util.Date date) {
-        return date.after(new java.util.Date(System.currentTimeMillis()));
+    static public boolean isInFuture(Date date) {
+        return date != null && date.after(new Date(System.currentTimeMillis()));
     }
 
-    static public boolean isInPast(java.util.Date date) {
-        return date.before(new java.util.Date(System.currentTimeMillis()));
+    static public boolean isInPast(Date date) {
+        return date != null && date.before(new java.util.Date(System.currentTimeMillis()));
     }
 
     // get

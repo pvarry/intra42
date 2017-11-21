@@ -107,18 +107,18 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_slots, null);
         dialog.setContentView(contentView);
 
-        textViewTitle = (TextView) contentView.findViewById(R.id.textViewTitle);
-        textViewStartDate = (TextView) contentView.findViewById(R.id.textViewStartDate);
-        textViewStartTime = (TextView) contentView.findViewById(R.id.textViewStartTime);
-        textViewEndDate = (TextView) contentView.findViewById(R.id.textViewEndDate);
-        textViewEndTime = (TextView) contentView.findViewById(R.id.textViewEndTime);
-        textViewError = (TextView) contentView.findViewById(R.id.textViewError);
-        buttonSave = (Button) contentView.findViewById(R.id.buttonSave);
-        buttonDelete = (Button) contentView.findViewById(R.id.buttonDelete);
+        textViewTitle = contentView.findViewById(R.id.textViewTitle);
+        textViewStartDate = contentView.findViewById(R.id.textViewStartDate);
+        textViewStartTime = contentView.findViewById(R.id.textViewStartTime);
+        textViewEndDate = contentView.findViewById(R.id.textViewEndDate);
+        textViewEndTime = contentView.findViewById(R.id.textViewEndTime);
+        textViewError = contentView.findViewById(R.id.textViewError);
+        buttonSave = contentView.findViewById(R.id.buttonSave);
+        buttonDelete = contentView.findViewById(R.id.buttonDelete);
 
         if (isNew) {
-            textViewTitle.setText(R.string.new_slot);
-            buttonSave.setText(R.string.create);
+            textViewTitle.setText(R.string.evaluation_slot_new);
+            buttonSave.setText(R.string.evaluation_slot_create);
             buttonDelete.setVisibility(View.GONE);
 
             slotsGroup = new SlotsTools.SlotsGroup();
@@ -135,11 +135,11 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             slotsGroup.endAt = calendar.getTime();
 
         } else if (slotsGroup.scaleTeam != null || slotsGroup.isBooked) {
-            textViewTitle.setText(R.string.booked_slot);
+            textViewTitle.setText(R.string.evaluations_booked_slot);
             buttonSave.setVisibility(View.GONE);
             textViewTitle.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorFail));
         } else {
-            textViewTitle.setText(R.string.modify_slot);
+            textViewTitle.setText(R.string.evaluation_slot_modify);
         }
 
         setView();
@@ -168,8 +168,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                     deleteSlotFull();
                 else {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                    alert.setTitle(R.string.delete_this_slot);
-                    alert.setMessage(R.string.are_you_sure_to_delete_this_slot);
+                    alert.setTitle(R.string.evaluation_slot_delete_button);
+                    alert.setMessage(R.string.evaluations_confirmation_delete_booked_slot);
 
                     alert.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -204,7 +204,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
         if (slotsGroup.beginAt.after(slotsGroup.endAt)) {
             textViewError.setVisibility(View.VISIBLE);
-            textViewError.setText(R.string.slots_start_must_be_before_end);
+            textViewError.setText(R.string.evaluation_slot_start_before_end);
             buttonSave.setVisibility(View.GONE);
         } else {
             textViewError.setVisibility(View.GONE);
@@ -275,7 +275,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private void saveSlot() {
         final ApiService api = app.getApiService();
         final List<Response<?>> responseList = new ArrayList<>();
-        final ProgressDialog progressDialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.loading_please_wait), true);
+        final ProgressDialog progressDialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.info_loading_please_wait), true);
 
         new Thread(new Runnable() {
             @Override
@@ -324,7 +324,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                     } else if (slotsGroup.beginAt.compareTo(groupLast) < 0) { //delete slots at the end
                         int i = slotsGroup.group.size() - 1;
 
-                        while (slotsGroup.endAt.compareTo(slotsGroup.group.get(i).endAt) < 0 && i >= 0) {
+                        while (i >= 0 && slotsGroup.endAt.compareTo(slotsGroup.group.get(i).endAt) < 0) {
                             ApiService api = app.getApiService();
                             Call<Slots> call = api.destroySlot(slotsGroup.group.get(i).id);
 
@@ -349,7 +349,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                         progressDialog.dismiss();
 
                         if (finalIsSuccess) {
-                            Toast.makeText(getContext(), R.string.success, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
                             dialogFragment.dismiss();
                         } else {
 
@@ -382,7 +382,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                 if (a == null)
                     return;
                 if (response.isSuccessful()) {
-                    Toast.makeText(a, R.string.success, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(a, R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
                     dialogFragment.dismiss();
                 } else
                     Toast.makeText(a, response.message(), Toast.LENGTH_SHORT).show();
@@ -399,7 +399,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     }
 
     private void deleteSlotFull() {
-        final ProgressDialog dialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.loading_please_wait), false);
+        final ProgressDialog dialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.info_loading_please_wait), false);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         new Thread(new Runnable() {
             @Override
@@ -409,8 +409,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getContext(), R.string.Deleted, Toast.LENGTH_SHORT).show();
-                            dialogFragment.dismiss();
+                            Toast.makeText(getContext(), R.string.evaluation_slot_deleted, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

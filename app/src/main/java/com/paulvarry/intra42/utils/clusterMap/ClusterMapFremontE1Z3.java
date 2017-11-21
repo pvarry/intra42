@@ -90,8 +90,8 @@ public class ClusterMapFremontE1Z3 {
                 if (locationKind == 0)
                     map[r][p] = new LocationItem(clusterID + clusterLocationName[r][p], locationKind);
 
-                map[r][p].sizeX = (float) 0.9;
-                map[r][p].sizeY = (float) 0.9;
+                map[r][p].sizeX = 1f;
+                map[r][p].sizeY = 1f;
             }
         }
 

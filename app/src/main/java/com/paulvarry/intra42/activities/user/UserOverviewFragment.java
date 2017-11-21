@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,28 +22,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.adapters.SpinnerAdapterCursusAccent;
+import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
+import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.Friends;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.plumillonforge.android.chipview.ChipView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,18 +60,19 @@ public class UserOverviewFragment
         extends Fragment
         implements View.OnClickListener, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, View.OnLongClickListener {
 
+    final static private String STATE_SELECTED_CURSUS = "selected_cursus";
     @Nullable
     UserActivity activity;
     Users user;
-
+    Friends friendsRelation;
     SwipeRefreshLayout swipeRefreshLayout;
-    LinearLayout linearLayoutMobile;
-    LinearLayout linearLayoutPhone;
+    ViewGroup layoutPhone;
     ImageButton imageButtonSMS;
-    LinearLayout relativeLayoutMail;
-    LinearLayout linearLayoutLocation;
+    ViewGroup layoutMail;
+    ViewGroup layoutLocation;
     ImageView imageViewProfile;
     ImageButton imageButtonFriends;
+    ProgressBar progressBarFriends;
     ChipView chipViewTags;
     TextView textViewName;
     TextView textViewMobile;
@@ -95,33 +92,56 @@ public class UserOverviewFragment
     TextView textViewNoCursusAvailable;
     LinearLayout linearLayoutCursus;
     TextView textViewCursusDate;
-
     AppClass app;
 
-    ValueEventListener friendsEventListener = new ValueEventListener() {
+    Callback<Friends> checkFriend = new Callback<Friends>() {
         @Override
-        public void onDataChange(DataSnapshot snapshot) {
-            GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
-            };
-            HashMap<String, String> messages = snapshot.getValue(t);
-            if (messages == null || user == null) {
-                Log.d("fire", "no");
-            } else {
-                Set<String> s = messages.keySet();
-                for (String k : s) {
-                    if (user.id == Integer.decode(k)) {
-                        setButtonFriends(true);
-                        return;
-                    }
-                }
-            }
-            setButtonFriends(false);
+        public void onResponse(Call<Friends> call, Response<Friends> response) {
+            friendsRelation = null;
+            if (Tools.apiIsSuccessfulNoThrow(response)) {
+                friendsRelation = response.body();
+                setButtonFriends(1);
+            } else if (response.code() == 404)
+                setButtonFriends(1);
+            else
+                setButtonFriends(-1);
         }
 
         @Override
-        public void onCancelled(DatabaseError error) {
-            // Failed to read value
-            Log.w("fire", "Failed to read value.", error.toException());
+        public void onFailure(Call<Friends> call, Throwable t) {
+            setButtonFriends(-1);
+        }
+    };
+
+    Callback<Friends> addFriend = new Callback<Friends>() {
+        @Override
+        public void onResponse(Call<Friends> call, Response<Friends> response) {
+            if (Tools.apiIsSuccessfulNoThrow(response)) {
+                friendsRelation = response.body();
+                setButtonFriends(1);
+            } else
+                setButtonFriends(-1);
+        }
+
+        @Override
+        public void onFailure(Call<Friends> call, Throwable t) {
+            setButtonFriends(-1);
+        }
+    };
+
+    Callback<Void> removeFriend = new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            if (Tools.apiIsSuccessfulNoThrow(response)) {
+                friendsRelation = null;
+                setButtonFriends(1);
+            } else
+                setButtonFriends(-1);
+        }
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable t) {
+            setButtonFriends(-1);
         }
     };
 
@@ -158,88 +178,90 @@ public class UserOverviewFragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_overview, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        linearLayoutMobile = (LinearLayout) view.findViewById(R.id.linearLayoutMobile);
-        linearLayoutPhone = (LinearLayout) view.findViewById(R.id.linearLayoutPhone);
-        imageButtonSMS = (ImageButton) view.findViewById(R.id.imageButtonSMS);
-        relativeLayoutMail = (LinearLayout) view.findViewById(R.id.linearLayoutMail);
-        linearLayoutLocation = (LinearLayout) view.findViewById(R.id.linearLayoutLocation);
-        imageViewProfile = (ImageView) view.findViewById(R.id.imageViewProfile);
-        imageButtonFriends = (ImageButton) view.findViewById(R.id.imageButtonFriends);
-        chipViewTags = (ChipView) view.findViewById(R.id.chipViewTags);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        layoutPhone = view.findViewById(R.id.layoutPhone);
+        imageButtonSMS = view.findViewById(R.id.imageButtonSMS);
+        layoutMail = view.findViewById(R.id.layoutMail);
+        layoutLocation = view.findViewById(R.id.layoutLocation);
+        imageViewProfile = view.findViewById(R.id.imageViewProfile);
+        imageButtonFriends = view.findViewById(R.id.imageButtonFriends);
+        progressBarFriends = view.findViewById(R.id.progressBarFriends);
+        chipViewTags = view.findViewById(R.id.chipViewTags);
 
-        textViewName = (TextView) view.findViewById(R.id.textViewName);
-        textViewMobile = (TextView) view.findViewById(R.id.textViewMobile);
-        textViewMail = (TextView) view.findViewById(R.id.textViewMail);
-        textViewPosition = (TextView) view.findViewById(R.id.textViewPosition);
-        textViewWallet = (TextView) view.findViewById(R.id.textViewWallet);
-        textViewCorrectionPoints = (TextView) view.findViewById(R.id.textViewCorrectionPoints);
+        textViewName = view.findViewById(R.id.textViewName);
+        textViewMobile = view.findViewById(R.id.textViewMobile);
+        textViewMail = view.findViewById(R.id.textViewMail);
+        textViewPosition = view.findViewById(R.id.textViewPosition);
+        textViewWallet = view.findViewById(R.id.textViewWallet);
+        textViewCorrectionPoints = view.findViewById(R.id.textViewCorrectionPoints);
         linePool = view.findViewById(R.id.viewPool);
-        linearLayoutPool = (LinearLayout) view.findViewById(R.id.linearLayoutPool);
-        textViewPiscine = (TextView) view.findViewById(R.id.textViewPiscine);
+        linearLayoutPool = view.findViewById(R.id.linearLayoutPool);
+        textViewPiscine = view.findViewById(R.id.textViewPiscine);
 
-        linearLayoutCursus = (LinearLayout) view.findViewById(R.id.linearLayoutCursus);
-        textViewNoCursusAvailable = (TextView) view.findViewById(R.id.textViewNoCursusAvailable);
-        spinnerCursus = (Spinner) view.findViewById(R.id.spinnerCursus);
-        linearLayoutGrade = (LinearLayout) view.findViewById(R.id.linearLayoutGrade);
+        linearLayoutCursus = view.findViewById(R.id.linearLayoutCursus);
+        textViewNoCursusAvailable = view.findViewById(R.id.textViewNoCursusAvailable);
+        spinnerCursus = view.findViewById(R.id.spinnerCursus);
+        linearLayoutGrade = view.findViewById(R.id.linearLayoutGrade);
         viewSeparatorGrade = view.findViewById(R.id.viewSeparatorGrade);
-        textViewGrade = (TextView) view.findViewById(R.id.textViewGrade);
-        textViewLvl = (TextView) view.findViewById(R.id.textViewLvl);
-        progressBarLevel = (ProgressBar) view.findViewById(R.id.progressBarLevel);
-        textViewCursusDate = (TextView) view.findViewById(R.id.textViewCursusDate);
+        textViewGrade = view.findViewById(R.id.textViewGrade);
+        textViewLvl = view.findViewById(R.id.textViewLvl);
+        progressBarLevel = view.findViewById(R.id.progressBarLevel);
+        textViewCursusDate = view.findViewById(R.id.textViewCursusDate);
 
         setView();
+
+        if (savedInstanceState != null && spinnerCursus != null)
+            spinnerCursus.setSelection(savedInstanceState.getInt(STATE_SELECTED_CURSUS), false);
 
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setView();
+    }
+
     void setView() {
 
-        if (activity == null || activity.user == null)
+        if (activity == null || activity.user == null || isDetached() || !isAdded())
             return;
         user = activity.user;
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        imageButtonFriends.setOnClickListener(this);
-        setButtonFriends(null);
-
-        if (app.firebaseRefFriends != null) {
-            app.firebaseRefFriends.removeEventListener(friendsEventListener);
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-        }
+        setButtonFriends(0);
+        ApiService42Tools api = app.getApiService42Tools();
+        api.getFriends(user.id).enqueue(checkFriend);
 
         String name = user.displayName + " - " + user.login;
         textViewName.setText(name);
         if (user.phone == null || user.phone.isEmpty())
-            linearLayoutMobile.setVisibility(View.GONE);
+            layoutPhone.setVisibility(View.GONE);
         else
             textViewMobile.setText(user.phone);
         textViewMail.setText(user.email);
 
-        String strLocation;
+        StringBuilder strLocation = new StringBuilder();
         if (user.location != null) {
-            strLocation = user.location;
+            strLocation.append(user.location);
         } else
-            strLocation = getResources().getString(R.string.unavailable);
+            strLocation.append(getString(R.string.user_unavailable));
         if (user.campus != null && !user.campus.isEmpty()) {
-            strLocation += " - ";
+            strLocation.append(" - ");
             String sep = "";
             for (Campus c : user.campus) {
-                strLocation += sep + c.name;
+                strLocation.append(sep).append(c.name);
                 sep = " | ";
             }
         }
         textViewPosition.setText(strLocation);
-
-//        Toast t = Toast.makeText(getContext(), "ici", Toast.LENGTH_SHORT);
-//        t.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
-//        t.show();
         textViewWallet.setText(String.valueOf(user.wallet));
         textViewCorrectionPoints.setText(String.valueOf(user.correction_point));
 
         String pool = "";
-        if (user.pool_month != null)
+        if (user.pool_month != null && !user.pool_month.isEmpty())
             pool += user.pool_month.substring(0, 1).toUpperCase() + user.pool_month.substring(1) + " - ";
         if (user.pool_year != null)
             pool += user.pool_year;
@@ -252,15 +274,15 @@ public class UserOverviewFragment
             linePool.setVisibility(View.GONE);
         }
 
-        linearLayoutPhone.setOnClickListener(this);
+        layoutPhone.setOnClickListener(this);
         imageButtonSMS.setOnClickListener(this);
-        relativeLayoutMail.setOnClickListener(this);
-        linearLayoutLocation.setOnClickListener(this);
+        layoutMail.setOnClickListener(this);
+        layoutLocation.setOnClickListener(this);
 
-        linearLayoutPhone.setOnLongClickListener(this);
+        layoutPhone.setOnLongClickListener(this);
         imageButtonSMS.setOnLongClickListener(this);
-        relativeLayoutMail.setOnLongClickListener(this);
-        linearLayoutLocation.setOnLongClickListener(this);
+        layoutMail.setOnLongClickListener(this);
+        layoutLocation.setOnLongClickListener(this);
 
         CursusUsers selected = user.getCursusUsersToDisplay(getContext());
         if (selected != null && user.cursusUsers != null) {
@@ -304,28 +326,22 @@ public class UserOverviewFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.addValueEventListener(friendsEventListener);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (app.firebaseRefFriends != null)
-            app.firebaseRefFriends.removeEventListener(friendsEventListener);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (spinnerCursus != null)
+            outState.putInt(STATE_SELECTED_CURSUS, spinnerCursus.getSelectedItemPosition());
+    }
+
+    @Override
     public void onClick(View v) {
-        if (v == linearLayoutPhone) {
+        if (v == layoutPhone) {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + user.phone));
             getActivity().startActivity(intent);
@@ -333,42 +349,76 @@ public class UserOverviewFragment
             Intent sendIntent = new Intent(Intent.ACTION_VIEW);
             sendIntent.setData(Uri.parse("sms:" + user.phone));
             startActivity(sendIntent);
-        } else if (v == relativeLayoutMail) {
+        } else if (v == layoutMail) {
             Intent testIntent = new Intent(Intent.ACTION_VIEW);
             Uri data = Uri.parse("mailto:?to=" + user.email);
             testIntent.setData(data);
             startActivity(testIntent);
-        } else if (v == linearLayoutLocation) {
+        } else if (v == layoutLocation) {
             if (user.location == null)
                 seeLastLocation();
+            else
+                ClusterMapActivity.openIt(getContext(), user.location);
         } else if (v == imageButtonFriends) {
-            Friends.actionAddRemove(app.firebaseRefFriends, user);
-            setButtonFriends(null);
+            ApiService42Tools api = app.getApiService42Tools();
+
+            setButtonFriends(0);
+            if (friendsRelation == null) { //add
+                Call<Friends> friendsCall = api.addFriend(user.id);
+                friendsCall.enqueue(addFriend);
+            } else {
+                api.deleteFriend(friendsRelation.id).enqueue(removeFriend);
+            }
         }
     }
 
-    void setButtonFriends(Boolean friendsFound) {
+    /**
+     * 0 -> loading;
+     * <p>
+     * 1 -> normal state;
+     * <p>
+     * -1 -> error on loading;
+     *
+     * @param state Current state;
+     */
+    void setButtonFriends(int state) {
 
-        if (friendsFound == null)
+        if (state == 0) {
+            progressBarFriends.setVisibility(View.VISIBLE);
+            imageButtonFriends.setVisibility(View.GONE);
+        } else {
+            progressBarFriends.setVisibility(View.GONE);
+            imageButtonFriends.setVisibility(View.VISIBLE);
+        }
+
+        if (state == 1) {
+            imageButtonFriends.setOnClickListener(this);
+            imageButtonFriends.setOnLongClickListener(this);
+            if (friendsRelation != null)
+                imageButtonFriends.setColorFilter(Color.argb(255, 247, 202, 24));
+            else
+                imageButtonFriends.setColorFilter(Color.argb(255, 255, 255, 255));
+            return;
+        }
+
+        imageButtonFriends.setOnClickListener(null);
+        imageButtonFriends.setOnLongClickListener(null);
+
+        if (state == -1)
             imageButtonFriends.setColorFilter(Color.argb(200, 150, 150, 150));
-        else if (friendsFound)
-            imageButtonFriends.setColorFilter(Color.argb(255, 247, 202, 24));
-        else
-            imageButtonFriends.setColorFilter(Color.argb(255, 255, 255, 255));
-
     }
 
     void seeLastLocation() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         // ...Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = this.getLayoutInflater(null);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.alert_last_location, null);
         dialogBuilder.setView(dialogView);
 
-        final LinearLayout linearLayoutLoadingData = (LinearLayout) dialogView.findViewById(R.id.layoutGetData);
-        final LinearLayout linearLayoutLocation = (LinearLayout) dialogView.findViewById(R.id.layoutLocation);
-        final TextView textViewLocation = (TextView) dialogView.findViewById(R.id.textViewLocation);
-        final TextView textViewDate = (TextView) dialogView.findViewById(R.id.textViewDate);
+        final LinearLayout linearLayoutLoadingData = dialogView.findViewById(R.id.layoutGetData);
+        final LinearLayout linearLayoutLocation = dialogView.findViewById(R.id.layoutLocation);
+        final TextView textViewLocation = dialogView.findViewById(R.id.textViewLocation);
+        final TextView textViewDate = dialogView.findViewById(R.id.textViewDate);
 
         linearLayoutLoadingData.setVisibility(View.VISIBLE);
         linearLayoutLocation.setVisibility(View.GONE);
@@ -379,6 +429,8 @@ public class UserOverviewFragment
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
+        if (activity == null)
+            return;
         activity.app.getApiService().getLastLocations(user.login).enqueue(new Callback<List<Locations>>() {
             @Override
             public void onResponse(Call<List<Locations>> call, Response<List<Locations>> response) {
@@ -410,7 +462,7 @@ public class UserOverviewFragment
                     } else
                         textViewDate.setVisibility(View.GONE);
                 } else if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), R.string.nothing_found, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.info_nothing_to_show, Toast.LENGTH_SHORT).show();
                     alertDialog.cancel();
                 } else {
                     Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
@@ -441,9 +493,11 @@ public class UserOverviewFragment
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (user.cursusUsers == null)
+            return;
         CursusUsers userCursus = user.cursusUsers.get(position);
         if (activity != null) {
-            activity.userCursus = userCursus;
+            activity.selectedCursus = userCursus;
         }
 
         if (userCursus.grade == null) {
@@ -460,19 +514,19 @@ public class UserOverviewFragment
         String dateInfo;
 
         if (userCursus.begin_at == null && userCursus.end_at == null)
-            dateInfo = "Not begun and finish yet";
+            dateInfo = getString(R.string.user_overview_cursus_date_not_start_not_finised);
         else {
             if (userCursus.begin_at != null)
                 dateInfo = DateTool.getDateLong(userCursus.begin_at);
             else
-                dateInfo = "Not begun yet";
+                dateInfo = getString(R.string.user_overview_cursus_date_not_start);
 
             dateInfo += " • ";
 
             if (userCursus.end_at != null)
                 dateInfo += DateTool.getDateLong(userCursus.end_at);
             else
-                dateInfo += "Not finished yet";
+                dateInfo += getString(R.string.user_overview_cursus_date_not_finished);
         }
         textViewCursusDate.setText(dateInfo);
     }
@@ -503,13 +557,13 @@ public class UserOverviewFragment
     @Override
     public boolean onLongClick(View v) {
 
-        if (v == linearLayoutPhone)
+        if (v == layoutPhone)
             dialogCopyOrShare(user.phone);
         else if (v == imageButtonSMS)
             dialogCopyOrShare(user.phone);
-        else if (v == relativeLayoutMail)
+        else if (v == layoutMail)
             dialogCopyOrShare(user.email);
-        else if (v == linearLayoutLocation)
+        else if (v == layoutLocation)
             dialogCopyOrShare(user.location);
         else
             return false;
@@ -520,7 +574,7 @@ public class UserOverviewFragment
         final Context context = getContext();
         CharSequence action[] = new CharSequence[]{
                 context.getString(R.string.copy),
-                context.getString(R.string.share)};
+                context.getString(R.string.navigation_share)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(string);

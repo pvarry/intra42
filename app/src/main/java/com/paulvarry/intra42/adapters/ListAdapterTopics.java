@@ -16,10 +16,7 @@ import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.utils.UserImage;
 
-import org.ocpsoft.prettytime.PrettyTime;
-
 import java.util.List;
-import java.util.Locale;
 
 public class ListAdapterTopics extends BaseAdapter {
 
@@ -76,10 +73,10 @@ public class ListAdapterTopics extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_topics, parent, false);
-            holder.imageViewUser = (ImageView) convertView.findViewById(R.id.imageViewUser);
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.textViewSummary = (TextView) convertView.findViewById(R.id.textViewSummary);
-            holder.completionViewTags = (CompletionViewTags) convertView.findViewById(R.id.completion_view_tags);
+            holder.imageViewUser = convertView.findViewById(R.id.imageViewUser);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
+            holder.completionViewTags = convertView.findViewById(R.id.completion_view_tags);
 
             convertView.setTag(holder);
         } else {
@@ -119,14 +116,7 @@ public class ListAdapterTopics extends BaseAdapter {
             });
         }
 
-        String summary = topic.author.login;
-        PrettyTime p = new PrettyTime(Locale.getDefault());
-        if (topic.updatedAt != null)
-            summary += " • " + p.format(topic.updatedAt);
-        String flag = topic.language.getFlag();
-        if (flag != null)
-            summary += " " + flag;
-        holder.textViewSummary.setText(summary);
+        holder.textViewSummary.setText(topic.getSub(context));
 
         return convertView;
     }

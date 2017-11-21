@@ -5,13 +5,14 @@
     <SwitchPreference
         android:defaultValue="true"
         android:key="notifications_allow"
-        android:title="@string/pref_title_notifications_allow" />
+        android:summary="Enable recurrent actions"
+        android:title="@string/pref_title_notifications_sync_allow" />
 
     <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
      dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
-        android:defaultValue="15"
+        android:defaultValue="60"
         android:dependency="notifications_allow"
         android:entries="@array/pref_notifications_frequency_titles"
         android:entryValues="@array/pref_notifications_frequency_values"
@@ -22,7 +23,7 @@
 
     <PreferenceCategory
         android:dependency="notifications_allow"
-        android:title="Notifications">
+        android:title="@string/pref_category_notifications">
 
         <!--<CheckBoxPreference-->
         <!--android:defaultValue="true"-->
@@ -32,16 +33,45 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="check_box_preference_notifications_events"
+            android:summary="@string/pref_summary_notifications_events"
             android:title="@string/pref_title_notifications_events" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="check_box_preference_notifications_scales"
+            android:summary="@string/pref_summary_notifications_scales"
             android:title="@string/pref_title_notifications_scales" />
 
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="check_box_preference_notifications_sync_calendar"
+            android:summary="@string/pref_summary_notifications_sync_calendar"
+            android:title="@string/pref_title_notifications_sync_calendar" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:dependency="notifications_allow"
+        android:title="@string/pref_title_calendar">
+
+        <SwitchPreference
             android:defaultValue="false"
-            android:key="check_box_preference_notifications_forum"
-            android:title="@string/pref_title_notifications_forum" />
+            android:key="switch_preference_enable_calendar"
+            android:summary="@string/pref_summary_calendar_enable"
+            android:title="@string/pref_title_calendar_enable" />
+
+        <ListPreference
+            android:dependency="switch_preference_enable_calendar"
+            android:key="sync_events_calendars"
+            android:negativeButtonText="null"
+            android:positiveButtonText="null"
+            android:title="@string/pref_title_calendar_list" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="switch_preference_enable_calendar"
+            android:key="check_box_preference_notifications_sync_calendar"
+            android:summary="@string/pref_summary_calendar_after_subscription"
+            android:title="@string/pref_title_calendar_after_subscription" />
+
     </PreferenceCategory>
 </PreferenceScreen>

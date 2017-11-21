@@ -1,143 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name" translatable="false">Intra 42</string>
-
-
-    <!-- - - - - - - - - - - Strings related to Settings - - - - - - - - - - -->
-
-    <!-- Example General settings -->
-
-    <string name="pref_title_social_recommendations" translatable="false">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations" translatable="false">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name" translatable="false">Display name</string>
-    <string name="pref_default_display_name" translatable="false">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages" translatable="false">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>All</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>0</item>
-    </string-array>
-
-    <!-- Settings for Notifications -->
-
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_notifications_allow">Allow notifications</string>
-
-    <string name="pref_title_notifications_events">Notify events</string>
-    <string name="pref_title_notifications_scales">Notify corrections (beta)</string>
-    <string name="pref_title_notifications_forum">Notify forum (soon)</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent" translatable="false">Silent</string>
-
-    <string name="pref_title_vibrate" translatable="false">Vibrate</string>
-    <string name="pref_header_content" translatable="false">Content option</string>
-
-
-    <string name="pref_title_notifications_frequency">Sync frequency</string>
-    <string-array name="pref_notifications_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_notifications_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Settings for Network -->
-
-    <string name="pref_header_network">Network</string>
-
-    <string name="pref_title_network_over_cellular_slow">Over slow cellular network</string>
-    <string name="pref_title_network_over_cellular_fast">Over fast cellular network</string>
-    <string name="pref_title_network_over_wifi">Over wifi</string>
-
-    <string-array name="list_preference_network_titles">
-        <item>Large (583×700)</item>
-        <item>Medium (292×350)</item>
-        <item>Default (200×240)</item>
-        <item>Small (146×175)</item>
-        <item>None</item>
-    </string-array>
-    <string-array name="list_preference_network_values">
-        <item>large</item>
-        <item>medium</item>
-        <item>default</item>
-        <item>small</item>
-        <item>none</item>
-    </string-array>
-
-
-    <!-- Search stuff -->
-
-    <string-array name="search_users">
-        <item>u</item>
-        <item>l</item>
-        <item>user</item>
-        <item>login</item>
-    </string-array>
-
-    <string-array name="search_projects">
-        <item>p</item>
-        <item>project</item>
-    </string-array>
-
-    <string-array name="search_topics">
-        <item>t</item>
-        <item>topic</item>
-        <item>f</item>
-        <item>forum</item>
-    </string-array>
-
-    <string-array name="search_tags">
-        <item>tag</item>
-    </string-array>
-
-    <string-array name="search_api">
-        <item>a</item>
-        <item>api</item>
-        <item>url</item>
-    </string-array>
-
-    <string-array name="search_location">
-        <item>l</item>
-        <item>location</item>
-    </string-array>
-
-    <!-- - - - - - - - - - - Strings related to Notifications - - - - - - - - - - -->
-
-    <string name="notifications_scales_tag" translatable="false">scaleTeams</string>
-    <string name="notifications_scales_group" translatable="false">booking</string>
-    <string name="notifications_scales_sub_text">bookings</string>
-    <string name="notifications_event_tag" translatable="false">events</string>
-    <string name="notifications_event_group" translatable="false">events</string>
-    <string name="notifications_event_sub_text">event</string>
-
-
-    <!-- - - - - - - - - - - Strings related to Theme - - - - - - - - - - -->
+    <string name="app_name">Intra 42</string>
 
     <string name="pref_theme_title_change_theme" translatable="true">Set theme</string>
+    <string name="pref_header_theme">Theme</string>
 
     <string-array name="pref_theme_list_titles">
         <item>Original (Default)</item>
@@ -155,299 +20,356 @@
         <item>4</item>
     </string-array>
 
+    <string name="pref_advanced_dont_force">Disable (don\'t force)</string>
+    <string name="pref_force_content_location">Force content location</string>
+    <string name="pref_title_beta_allow">Allow advanced preferences</string>
+    <string name="pref_unactivated">Unactivated</string>
+    <string name="pref_activated">Activated</string>
+    <string name="pref_value_all">All</string>
 
-    <!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->
+    <string name="pref_header_notifications">Notifications</string>
 
-    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
-    <string name="open_chrome_to_connect_with_42_api">You need to sign in</string>
-    <string name="home">Home</string>
-    <string name="users">Users</string>
-    <string name="projects">Projects</string>
-    <string name="forum">Forum</string>
-    <string name="wallet" translatable="false">Wallet</string>
-    <string name="correction_points">Correction points</string>
-    <string name="cursus">Cursus</string>
-    <string name="user">User</string>
-    <string name="search">Search</string>
-    <string name="login" translatable="false">Login</string>
-    <string name="unavailable">Unavailable</string>
-    <string name="level">Level</string>
-    <string name="nothing_to_show">Nothing to show</string>
-    <string name="soon">Soon</string>
-    <string name="login_student_42_fr" translatable="false">login@student.42.fr</string>
-    <string name="action_open_intra">Show web version</string>
-    <string name="open_chrome">Open Web browser</string>
-    <string name="main_activity_loading">loading …</string>
-    <string name="unofficial_intra" translatable="false">Unofficial intra</string>
-    <string name="announcements">Announcements</string>
-    <string name="user_profile_image" translatable="false">user profile image</string>
-    <string name="location">Location</string>
-    <string name="email">Email</string>
-    <string name="grade">Grade</string>
-    <string name="no_slots">No slots</string>
-    <string name="name">Name</string>
-    <string name="unable_to_connect_to_internet">unable to connect to internet</string>
-    <string name="copy">Copy</string>
-    <string name="git_repository">Git repository for this team</string>
-    <string name="user_in_this_team">Users in this team</string>
-    <string name="automatic_corrections">Automatic corrections</string>
-    <string name="peer_corrections">Peer corrections</string>
-    <string name="copied">Copied</string>
-    <string name="campus">Campus</string>
-    <string name="pool">Piscine</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="subscribe">Subscribe</string>
-    <string name="save">Save</string>
-    <string name="new_slot">New slot</string>
-    <string name="modify_slot">Modify slot</string>
-    <string name="delete">Delete</string>
-    <string name="create">Create</string>
-    <string name="icon_location" translatable="false">Location icon</string>
-    <string name="icon_people" translatable="false">People icon</string>
-    <string name="icon_time" translatable="false">Time icon</string>
-    <string name="achievement_icon_example" translatable="false">achievement icon example</string>
-    <string name="icon_cursus" translatable="false">Cursus icon</string>
-    <string name="info">Info</string>
-    <string name="about">About</string>
-    <string name="logout">Logout</string>
-    <string name="share">Share</string>
-    <string name="description">Description</string>
-    <string name="skills">Skills</string>
-    <string name="icon_status" translatable="false">Status icon</string>
-    <string name="icon_phone" translatable="false">Phone icon</string>
-    <string name="mobile">Mobile</string>
-    <string name="icon_email" translatable="false">Email icon</string>
-    <string name="icon_sms" translatable="false">SMS icon</string>
-    <string name="icon_eye" translatable="false">Eye icon</string>
-    <string name="tab_home_home">Home</string>
-    <string name="tab_home_agenda">Agenda</string>
-    <string name="tab_home_slots">Slots</string>
-    <string name="tab_home_corrections">Corrections</string>
-    <string name="tab_project_overview">Overview</string>
-    <string name="tab_project_attachments">Attachments</string>
-    <string name="tab_project_me">Me</string>
-    <string name="tab_projects_doing">Doing</string>
-    <string name="tab_projects_all">All</string>
-    <string name="tab_projects_graphic">Galaxy</string>
-    <string name="tab_user_overview">Overview</string>
-    <string name="tab_user_achivements">Achievements</string>
-    <string name="tab_user_marks">Marks</string>
-    <string name="tab_user_projects">Projects</string>
-    <string name="tab_user_skills">Skills</string>
-    <string name="tab_user_partnerships">Partnerships</string>
-    <string name="tab_users_search">Search</string>
-    <string name="tab_users_all">All</string>
-    <string name="tab_users_advanced_search">Advanced Search</string>
-    <string name="tab_users_friends">Friends</string>
-    <string name="allowed">allowed</string>
-    <string name="subscribed">Subscribed</string>
-    <string name="activity_about_content">Access your intra with a native app.\nContact me on Slack or mail (pvarry)</string>
-    <string name="icon" translatable="false">icon</string>
-    <string name="icon_feedback_interested" translatable="false">Feedback Interested icon</string>
-    <string name="icon_feedback_nice" translatable="false">Feedback Nice icon</string>
-    <string name="icon_feedback_punctuality" translatable="false">Feedback Punctuality icon</string>
-    <string name="icon_feedback_rigorous" translatable="false">Feedback Rigorous icon</string>
-    <string name="search_by">Search by</string>
-    <string name="sort_by">Sort by</string>
-    <string name="done">Done</string>
-    <string name="value">Value</string>
-    <string name="closed">closed</string>
-    <string name="icon_report" translatable="false">Report icon</string>
-    <string name="reply">Reply</string>
-    <string name="edit">Edit</string>
-    <string name="scale">scale</string>
-    <string name="scales">scales</string>
-    <string name="icon_star" translatable="false">star icon</string>
-    <string name="in_progress">in progress</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="content">Content</string>
-    <string name="title">Title</string>
-    <string name="tags">Tags</string>
-    <string name="empty">empty</string>
-    <string name="icon_reply" translatable="false">Reply icon</string>
-    <string name="about_message">About message</string>
+    <string name="pref_title_notifications_events">Notify events</string>
+    <string name="pref_title_notifications_scales">Notify corrections (beta)</string>
 
-    <string-array name="spinner_user_search_sort">
-        <item>Login</item>
-        <item>Email</item>
-        <item>First name</item>
-        <item>Last name</item>
-        <item>Phone</item>
-        <item>Pool year</item>
-        <item>Pool month</item>
-        <item>Kind</item>
-        <item>Status</item>
-    </string-array>
-    <string-array name="spinner_user_search_search_by">
-        <item>Login</item>
-        <item>Email</item>
-        <item>First name</item>
-        <item>Last name</item>
-        <item>Phone</item>
-        <item>Kind</item>
-        <item>Status</item>
-    </string-array>
+    <string name="pref_title_notifications_frequency">Sync frequency</string>
 
-    <string name="tab_user_forum">Forum</string>
-    <string name="format_dont_have_any_expertises_yet">%s don\'t have any expertises yet</string>
-    <string name="you">you</string>
-    <string name="new_topic">New topic</string>
-    <string name="session">Session</string>
-    <string name="sub_projects">Sub</string>
-    <string name="objectives">Objectives</string>
-    <string name="success">successful</string>
-    <string name="edit_message">Edit message</string>
-    <string name="are_you_sure_to_delete_message">Are you sure to delete this message ?</string>
-    <string name="message">Message</string>
+    <string name="pref_notifications_frequency_titles_15min">15 minutes</string>
+    <string name="pref_notifications_frequency_titles_30min">30 minutes</string>
+    <string name="pref_notifications_frequency_titles_1hour">1 hour (default)</string>
+    <string name="pref_notifications_frequency_titles_3hour">3 hours</string>
+    <string name="pref_notifications_frequency_titles_6hour">6 hours</string>
+    <string name="pref_notifications_frequency_titles_never">Never</string>
+
+    <string name="pref_header_network">Network</string>
+
+    <string name="pref_title_network_over_cellular_slow">Over slow cellular network</string>
+    <string name="pref_title_network_over_cellular_fast">Over fast cellular network</string>
+    <string name="pref_title_network_over_wifi">Over wifi</string>
+
+    <string name="list_preference_network_titles_large">Large (583×700)</string>
+    <string name="list_preference_network_titles_medium">Medium (292×350)</string>
+    <string name="list_preference_network_titles_default">Default (200×240)</string>
+    <string name="list_preference_network_titles_small">Small (146×175)</string>
+    <string name="list_preference_network_titles_none">None</string>
+
+    <string name="notifications_events_sub_text">event</string>
+    <string name="notifications_events_channel_name">Events</string>
+    <string name="notifications_events_channel_description">Notifications for events</string>
+
+    <string name="notifications_bookings_sub_text">booking</string>
+    <string name="notifications_bookings_channel_name">Bookings</string>
+    <string name="notifications_bookings_channel_description">Notifications for correction bookings</string>
+
+    <string name="notifications_announcements_channel_name">Announcements</string>
+    <string name="notifications_announcements_channel_description">Notifications announcements</string>
+
+    <string name="spinner_user_projects_galaxy">Galaxy</string>
+    <string name="spinner_user_projects_all">All</string>
+    <string name="spinner_user_projects_in_progress">In-progress</string>
+
+    <!-- Format warning -->
+    <string name="bookings_corrected_by">Your _project_\'s will be reviewed at _date_.</string>
+    <!-- Format warning -->
+    <string name="bookings_corrected_by_login">Your _project_\'s will be reviewed by _login_ at _date_.</string>
+    <!-- Format warning -->
+    <string name="bookings_correct_login">You will review _login_\'s project at _date_.</string>
+    <!-- Format warning -->
+    <string name="bookings_correct_somebody">You will review somebody\'s code at _date_.</string>
+    <!-- Format warning -->
+    <string name="format_dont_have_any_expertise_yet">%s don\'t have any expertise yet</string>
+    <!-- Format warning -->
     <string name="format__dont_have_write_topic">%s don\'t have write any topic yet</string>
-    <string name="project_user_status_searching_a_group">searching a group</string>
-    <string name="project_user_status_finished">finished</string>
-    <string name="project_user_status_waiting_for_correction">waiting for correction</string>
-    <string name="project_user_status_waiting_to_start">waiting to start</string>
-    <string name="project_user_status_creating_group">creating group</string>
-    <string name="project_user_status_parent">parent</string>
-    <string name="project_user_status_unknown">unknown</string>
-    <string name="project_user_status_in_progress">in progress</string>
-    <string name="delete_this_slot">Delete this slot</string>
-    <string name="are_you_sure_to_delete_this_slot">Are you sure to delete this slot with a booked scale ?\nYou will lose a correction point</string>
-    <string name="slots_start_must_be_before_end">In this space-time, start must be before end</string>
-    <string name="Deleted">Deleted</string>
+    <!-- Format warning -->
+    <string name="format__host_s_history">%s\'s history</string>
+
+
+    <string name="campus">Campus</string>
+    <string name="cursus">Cursus</string>
+    <string name="cancel">Cancel</string>
+    <string name="copied">Copied</string>
+    <string name="copy">Copy</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+    <string name="error">error</string>
+    <string name="ok">OK</string>
+    <string name="open_this">Open this</string>
+    <string name="save">Save</string>
+    <string name="soon">Soon</string>
+    <string name="sort_by">Sort by</string>
+    <string name="refresh">Refresh</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
-    <string name="tab_project_users">Users</string>
-    <string name="show_mine">Go Mine</string>
-    <string name="update">Update</string>
-    <string name="not_registered">not registered</string>
-    <string name="past_session">Past session</string>
-    <string name="version">Version</string>
-    <string name="register">Register</string>
-    <string name="tab_elearning_all">All</string>
-    <string name="elearning">Elearning</string>
-    <string name="someone">someone</string>
-    <string name="correct">Correct</string>
-    <string name="corrected_by">Corrected by</string>
-    <string name="error">error</string>
-    <string name="forbidden">forbidden</string>
-    <string name="tab_elearning_tags">Tags</string>
-    <string name="title_activity_elearning">Elearning</string>
-    <string name="title_activity_event">Event</string>
-    <string name="select_file_to_open">Select file to open</string>
-    <string name="loading_please_wait">Loading. Please wait…</string>
-    <string name="booked_slot">Booked slot</string>
-    <string name="time_zone_error">Time zone error</string>
-    <string name="initializing">Initializing</string>
-    <string name="no_scale">No scale</string>
-    <string name="with">With</string>
-    <string name="tag">Tag</string>
-    <string name="searching">Searching …</string>
-    <string name="availability_is_not_checked">Availability is not checked</string>
-    <string name="created_at">Created at</string>
-    <string name="updated_at">Updated at</string>
-    <string name="readings">Readings</string>
-    <string name="on">on</string>
-    <string name="nothing_found">Nothing found</string>
-    <string name="bookings_title_new">You have a new booking</string>
-    <string name="bookings_title_imminent">Correction imminent</string>
-    <string name="bookings_corrected_by">Your _project_\'s code will be reviewed at _date_.</string>
-    <string name="bookings_corrected_by_login">Your _project_\'s code will be reviewed by _login_ at _date_.</string>
-    <string name="bookings_correct_somebody">You will review somebody\'s code at _date_.</string>
-    <string name="bookings_correct_login">You will review _login_\'s code at _date_.</string>
-    <string name="project">Project</string>
+    <string name="value">Value</string>
+    <string name="tags">Tags</string>
+
+    <string name="shortcut_friends">Friends</string>
+    <string name="shortcut_long_friends">Friends list</string>
+    <string name="shortcut_cluster_map">Cluster map</string>
+    <string name="shortcut_long_cluster_map">Clusters map</string>
+    <string name="shortcut_galaxy">Galaxy</string>
+    <string name="shortcut_long_galaxy">Galaxy</string>
+
+    <string name="about_content">Access your intra with a native app.\nContact me on Slack or mail (pvarry)</string>
+    <string name="about_version">Version</string>
+    <string name="cantina_menu_fremont_only">Cantina Menu</string>
+    <string name="elearning_select_file_to_open">Select file to open</string>
+    <string name="elearning_title">Elearning</string>
+    <string name="evaluation_correct_someone">Corrects</string>
+    <string name="evaluation_corrected_by">Corrected by</string>
+    <string name="evaluation_on_project">on</string>
+    <string name="evaluation_slot_begin_at">Begin at</string>
+    <string name="evaluation_slot_create">Create</string>
+    <string name="evaluation_slot_delete_button">Delete this slot</string>
+    <string name="evaluation_slot_deleted">Deleted</string>
+    <string name="evaluation_slot_end_at">End at</string>
+    <string name="evaluation_slot_modify">Modify slot</string>
+    <string name="evaluation_slot_new">New slot</string>
+    <string name="evaluation_slot_start_before_end">In this space-time, start must be before end</string>
+    <string name="evaluation_slot_success">successful</string>
+    <string name="evaluation_someone">someone</string>
+    <string name="evaluation_with">With</string>
+    <string name="evaluations_booked_slot">Booked slot</string>
+    <string name="evaluations_confirmation_delete_booked_slot">Are you sure to delete this slot with a booked scale ?\nYou will lose a correction point</string>
+    <string name="event_check_registration">Checking your registration</string>
+    <string name="event_full">Full</string>
+    <string name="event_nothing_found_for_your_campus_cursus">No event found for your campus/cursus</string>
+    <string name="event_subscribe">Subscribe</string>
+    <string name="event_subscribed">Subscribed</string>
+    <string name="event_subscription_unavailable">Subscription unavailable</string>
+    <string name="event_unsubscribe">Unsubscribe</string>
+    <string name="event_unsubscribed">Unsubscribed</string>
+    <string name="forum_about_this_message">About message</string>
+    <string name="forum_confirmation_delete_message">Are you sure to delete this message ?</string>
+    <string name="forum_created_at">Created at</string>
+    <string name="forum_delete_message">Delete Message</string>
+    <string name="forum_delete_topic">Delete Topic</string>
+    <string name="forum_message_edit">Edit message</string>
+    <string name="forum_message_hint">Message</string>
+    <string name="forum_readings">Readings</string>
+    <string name="forum_reply">Reply</string>
+    <string name="forum_tags">Tags</string>
+    <string name="forum_topic_content">Content</string>
+    <string name="forum_topic_edit_button">Edit Topic</string>
+    <string name="forum_topic_error_empty">empty</string>
+    <string name="forum_topics_kind_announce">Announce</string>
+    <string name="forum_topics_kind_question">Question</string>
+    <string name="forum_updated_at">Updated at</string>
+    <string name="forum_you">you</string>
+    <string name="galaxy_available">Available</string>
+    <string name="galaxy_failed">Failed</string>
+    <string name="galaxy_in_progress">in progress</string>
+    <string name="galaxy_not_found">No Galaxy available</string>
+    <string name="galaxy_succeeded">Succeeded</string>
+    <string name="galaxy_unavailable">Unavailable</string>
+    <string name="galaxy_unknown_state">Unknown state</string>
+    <string name="info_api_request_users_1_1">calling users 1/1</string>
+    <string name="info_api_requesting">calling …</string>
+    <string name="info_error_on_loading_this_page">Error on loading this page</string>
+    <string name="info_initializing">Initializing</string>
+    <string name="info_loading">loading …</string>
+    <string name="info_loading_please_wait">Loading. Please wait…</string>
+    <string name="info_network_error">Network error</string>
+    <string name="info_network_no_internet">unable to connect to internet</string>
+    <string name="info_nothing_to_show">Nothing to show</string>
+    <string name="language_english">English</string>
+    <string name="language_french">French</string>
+    <string name="language_romanian">Romanian</string>
+    <string name="language_ukrainian">Ukrainian</string>
+    <string name="login_open_browser">Open Web browser</string>
+    <string name="login_open_browser_to_login">You need to sign in</string>
+    <string name="login_unofficial_intra">Unofficial intra</string>
+    <string name="login_view_sources">View sources</string>
+    <string name="menu_action_filter">filter</string>
+    <string name="menu_action_open_intra">Show web version</string>
+    <string name="menu_action_search">Search</string>
+    <string name="menu_action_settings">Settings</string>
+    <string name="menu_action_share">Share</string>
+    <string name="menu_action_user_add_to_home">Add to home screen</string>
+    <string name="navigation_cluster_map">Cluster Map</string>
+    <string name="accessibility_navigation_drawer_close">Close navigation drawer</string>
+    <string name="accessibility_navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_forum">Forum</string>
+    <string name="navigation_header_action">Actions</string>
+    <string name="navigation_header_info">Info</string>
+    <string name="navigation_header_tools">Tools</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_logout">Logout</string>
+    <string name="navigation_place_holder_email">login@student.42.us.org</string>
+    <string name="navigation_place_holder_login">Login</string>
+    <string name="navigation_settings">Settings</string>
+    <string name="navigation_share">Share</string>
+    <string name="navigation_time_on_campus">Time on campus</string>
+    <string name="notification_auto_clear">auto close in 5s</string>
+    <string name="notification_bookings_title_imminent">Imminent evaluation</string>
+    <string name="notification_bookings_title_new">You have a new booking</string>
     <string name="notification_see_project">see project</string>
     <string name="notification_see_user">see user</string>
+    <string name="notifications_announcements_sub_text">announcements</string>
+    <string name="profile_apps_private">private</string>
+    <string name="project_automatic_correction">Automatic evaluation</string>
+    <string name="project_automatic_corrections">Automatic evaluations</string>
+    <string name="project_description">Description</string>
+    <string name="project_evaluation">evaluation</string>
+    <string name="project_evaluation_plural">evaluations</string>
+    <string name="project_forbidden_to_open">forbidden</string>
+    <string name="project_git_repository">Git repository for this team</string>
+    <string name="project_list_user_team">Users in this team</string>
+    <string name="project_moulinette">Moulinette</string>
+    <string name="project_no_scale">No scale</string>
+    <string name="project_no_session_found_for_this_cursus_campus">No session found for selected cursus/campus</string>
+    <string name="project_objectives">Objectives</string>
+    <string name="project_past_session">Past session</string>
+    <string name="project_peer_corrections">Peer evaluations</string>
+    <string name="project_register">Register</string>
+    <string name="project_session">Session</string>
+    <string name="project_show_mine">Go Mine</string>
+    <string name="project_skills">Skills</string>
+    <string name="project_sub_projects">Sub</string>
+    <string name="project_user_status_creating_group">creating group</string>
+    <string name="project_user_status_finished">finished</string>
+    <string name="project_user_status_in_progress">in progress</string>
+    <string name="project_user_status_parent">parent</string>
+    <string name="project_user_status_searching_a_group">searching a group</string>
+    <string name="project_user_status_unknown">unknown</string>
+    <string name="project_user_status_waiting_for_correction">waiting for evaluations</string>
+    <string name="project_user_status_waiting_to_start">waiting to start</string>
+    <string name="project_you_cant_have_mark_for_this_project">You can\'t have mark for this project</string>
+    <string name="search_by">Search by</string>
+    <string name="search_error_on_open_this_element">Error on opening this element</string>
     <string name="search_hint">hint</string>
-    <string name="tab_tags_forum">Forum</string>
-    <string name="tab_tags_projects">Projects</string>
-    <string name="tab_tags_notions">Notions</string>
-    <string name="bookings">bookings</string>
-    <string name="search_on_users">Searching on users</string>
     <string name="search_on_projects">Searching on projects</string>
     <string name="search_on_topics">Searching on topics</string>
-    <string name="search_section_users">users</string>
+    <string name="search_on_users">Searching on users</string>
     <string name="search_section_projects">projects</string>
     <string name="search_section_topics">topics</string>
-    <string name="tab_user_expertises">Expertises</string>
-    <string name="base_url_intra_profile" translatable="false">https://profile.intra.42.fr/</string>
-    <string name="base_url_intra_forum" translatable="false">https://forum.intra.42.fr/</string>
-    <string name="action_user_add_to_home">Add to home screen</string>
-    <string name="action_user_add_friends">Add/Remove to friends</string>
-    <string name="choose_action_colon">"Choose action: "</string>
-    <string name="view_profile">View profile</string>
-    <string name="remove_from_friends">Remove from friends</string>
-    <string name="edit_topic">Edit Topic</string>
-    <string name="delete_message">Delete Message</string>
-    <string name="delete_topic">Delete Topic</string>
-    <string name="refresh">Refresh</string>
-    <string name="pref_title_beta_allow">Allow advanced preferences</string>
-    <string name="topics_kind_announce">Announce</string>
-    <string name="topics_kind_survey">Survey</string>
-    <string name="topics_kind_question">Question</string>
-    <string name="french">French</string>
-    <string name="english">English</string>
-    <string name="romanian">Romanian</string>
-    <string name="ukrainian">Ukrainian</string>
-    <string name="network_error">Network error</string>
-    <string name="icon_copy">Copy icon</string>
-    <string name="icon_menu">Menu icon</string>
-    <string name="icon_project">Project icon</string>
-    <string name="icon_friends">Friends icon</string>
-    <string name="calling_users_1_1">calling users 1/1</string>
-    <string name="moulinette">Moulinette</string>
-    <string name="no_session_found_for_this_cursus_campus">No session found for selected cursus/campus</string>
-    <string name="you_cant_have_mark_for_this_project">You can\'t have mark for this project</string>
-    <string name="calling">calling ...</string>
-    <string name="no_achievements">No achievement</string>
-    <string name="auth_error">Authentication error</string>
-    <string name="filter">filter</string>
-    <string name="time">Time</string>
-    <string name="action">Action</string>
-    <string name="tools">Tools</string>
-    <string name="cluster_map">Cluster Map</string>
-    <string name="title_activity_cluster_map">Cluster Map</string>
-    <string name="time_on_campus">Time on campus</string>
-    <string name="activated">Activated</string>
-    <string name="unactivated">Unactivated</string>
-    <string name="pref_title_notifications_announcements">Notify announcements</string>
-    <string name="notifications_announcements_sub_text">announcements</string>
-    <string name="no_cursus_available">No cursus available</string>
-    <string name="no_event_found_for_your_campus_cursus">No event found for you campus/cursus</string>
-    <string name="check_your_registration">Checking your registration</string>
-    <string name="unsubscribe">Unsubscribe</string>
-    <string name="cantina_menu">Cantina Menu</string>
-    <string name="title_activity_cantina_menu">Cantina Menu (Fremont)</string>
-    <string name="unsubscribed">Unsubscribed</string>
-    <string name="full">Full</string>
-    <string name="icon_edit">Edit Icon</string>
-    <string name="icon_delete">Delete Icon</string>
-    <string name="edit_expertises">Edit Expertises</string>
-    <string name="subscription_unavailable">Subscription unavailable</string>
-    <string name="interested">Interested:</string>
-    <string name="discard">discard</string>
-    <string name="created">Created</string>
-    <string name="edit_expertise">Edit Expertise</string>
-    <string name="new_expertise">Add new expertise</string>
-    <string name="deleted">Deleted</string>
-    <string name="force_content_location">Force content location</string>
-    <string name="disable_dont_force">Disable (don\'t force)</string>
-    <string name="all">All</string>
-    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
-    <string name="date">Date</string>
+    <string name="search_section_users">users</string>
+    <string name="searching">Searching …</string>
     <string name="share_using">Share using</string>
+    <string name="time_zone_error">Time zone error</string>
+    <string name="title">Title</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_cantina_menu">Cantina Menu (Fremont)</string>
+    <string name="title_activity_cluster_map">Cluster Map</string>
+    <string name="title_activity_elearning">Elearning</string>
+    <string name="title_activity_event">Event</string>
+    <string name="title_activity_forum_new_topic">New topic</string>
+    <string name="title_activity_friends">Friends</string>
+    <string name="title_activity_library_list">Library list</string>
+    <string name="title_activity_project">Project</string>
+    <string name="title_activity_projects">Projects</string>
+    <string name="title_activity_search">Search</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_sub_notion">Sub notion</string>
+    <string name="title_activity_tag">Tag</string>
+    <string name="title_activity_time">Time</string>
+    <string name="title_activity_topic">Topic</string>
+    <string name="title_activity_user">User</string>
+    <string name="title_activity_user_location_history">Location History</string>
+    <string name="title_activity_users">Users</string>
+    <string name="title_tab_elearning_all">All</string>
+    <string name="title_tab_elearning_tags">Tags</string>
+    <string name="title_tab_home_agenda">Agenda</string>
+    <string name="title_tab_home_evaluation">Evaluations</string>
+    <string name="title_tab_home_home">Home</string>
+    <string name="title_tab_home_past_events">Past events</string>
+    <string name="title_tab_home_slots">Slots</string>
+    <string name="title_tab_project_attachments">Attachments</string>
+    <string name="title_tab_project_me">Me</string>
+    <string name="title_tab_project_overview">Overview</string>
+    <string name="title_tab_project_users">Users</string>
+    <string name="title_tab_projects_all">All</string>
+    <string name="title_tab_projects_doing">Doing</string>
+    <string name="title_tab_projects_graphic">Galaxy</string>
+    <string name="title_tab_tags_forum">Forum</string>
+    <string name="title_tab_tags_notions">Notions</string>
+    <string name="title_tab_user_achievements">Achievements</string>
+    <string name="title_tab_user_expertises">Expertises</string>
+    <string name="title_tab_user_forum">Forum</string>
+    <string name="title_tab_user_overview">Overview</string>
+    <string name="title_tab_user_partnerships">Partnerships</string>
+    <string name="title_tab_user_projects">Projects</string>
+    <string name="title_tab_user_skills">Skills</string>
+    <string name="title_tab_users_all">All</string>
+    <string name="topics_kind_survey">Survey</string>
+    <string name="user_app_official">Official App</string>
+    <string name="user_correction_points">Correction points</string>
+    <string name="user_cursus_date">Date</string>
+    <string name="user_email">Email</string>
+    <string name="user_expertise_deleted">Deleted</string>
+    <string name="user_expertise_discard">Discard</string>
+    <string name="user_expertise_edit">Edit Expertise</string>
+    <string name="user_expertise_edit_plural">Edit Expertises</string>
+    <string name="user_expertise_interested">Interested:</string>
+    <string name="user_expertise_new">Add new expertise</string>
+    <string name="user_grade">Grade</string>
+    <string name="user_level">Level</string>
+    <string name="user_location">Location</string>
+    <string name="user_mobile_phone">Mobile</string>
+    <string name="user_name">Name</string>
+    <string name="user_no_achievements">No achievement</string>
+    <string name="user_no_cursus_available">No cursus available</string>
+    <string name="user_overview_cursus_date_not_finished">Not finished yet</string>
+    <string name="user_overview_cursus_date_not_start">Not begun yet</string>
+    <string name="user_overview_cursus_date_not_start_not_finised">Not begun and finish yet</string>
+    <string name="user_pool">Piscine</string>
+    <string name="user_unavailable">Unavailable</string>
+    <string name="user_wallet_money">Wallet</string>
+    <string name="user_you_dont_have_any_expertise_yet">You don\'t have any expertise yet</string>
+    <string name="info_loading_cache">Getting cache …</string>
+    <string name="info_loading_current_user">current user</string>
+    <string name="evaluation_user_nothing">you have no correction</string>
+    <string name="home_help_POEditor">If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor. Click here</string>
+    <string name="about_view_source">View source</string>
+    <string name="about_on_github">on Github</string>
+    <string name="about_report_bug">Report bug</string>
+    <string name="about_library_list">Library list</string>
+    <string name="about_poeditor">Project on POEditor</string>
+    <string name="info_api_unauthorized">You not allowed</string>
+    <string name="pref_title_notifications_sync_allow"><![CDATA[Enable notifications & sync]]></string>
+    <string name="pref_title_notifications_sync_calendar">Sync calendar</string>
+    <string name="pref_title_calendar_list">Calendar to put events</string>
+    <string name="pref_category_notifications">Notifications</string>
+    <string name="pref_summary_notifications_events">Notify for new events published to 42 intranet</string>
+    <string name="pref_summary_notifications_scales">Remind you about evaluations</string>
+    <string name="pref_summary_notifications_sync_calendar">Automatically check your events subscriptions and add then</string>
+    <string name="home_help_calendar_sync">Sync your phone calendar with your subscribed events</string>
+    <string name="home_help_calendar_hide">hide</string>
+    <string name="home_help_calendar_enable">enable</string>
+    <string name="pref_title_calendar_enable">Enable calendar edition</string>
+    <string name="pref_summary_calendar_enable">After grant calendar auth, this app will be able to put events tou your calendar</string>
+    <string name="pref_title_calendar_after_subscription">Insert to calendar</string>
+    <string name="pref_summary_calendar_after_subscription">Insert the event just after subscription to it</string>
+    <string name="pref_title_calendar">Events sync</string>
+    <string name="friends_nothing_found">You can add friends from their profile</string>
+    <string name="friends_loading_locations">Locations</string>
+    <string name="friend_group_name">Group name</string>
     <string name="friends">Friends</string>
-    <string name="correction">correction</string>
-    <string name="corrections">corrections</string>
-    <string name="automatic_correction">Automatic correction</string>
-    <string name="icon_info">Info icon</string>
-    <string name="available">Available</string>
-    <string name="failed">Failed</string>
-    <string name="succeeded">Succeeded</string>
-    <string name="error_on_loading_this_page">Error on loading this page</string>
-    <string name="unknown">Unknown</string>
-    <string name="unknown_state">Unknown state</string>
-    <string name="tab_home_past_events">Past events</string>
-    <string name="pref_header_theme">Theme</string>
+    <string name="friends_group_edit_in_group">Friends in group</string>
+    <string name="friends_group_edit_discard">Discard</string>
+    <string name="friends_groups_edit_no_empty_name">Can\'t be empty</string>
+    <string name="friends_groups_edit_no_name_set">No name set</string>
+    <string name="friends_select_group">Select Group</string>
+    <string name="friends_groups_all">All</string>
+    <string name="friends_groups_edit_unsaved_changes_title">You have unsaved changes</string>
+    <string name="friends_groups_edit_unsaved_changes_content">Do you want to save your changes to this group ?</string>
+    <string name="friends_groups_new">New Friends Group</string>
+    <string name="friends_groups_edit">Edit Friends Group</string>
+    <string name="location_undetermined">undetermined</string>
+    <string name="friends_summary_no_friends">No friend</string>
+    <!-- Format warning -->
+    <string name="friends_summary_format_friend">%d friend</string>
+    <!-- Format warning -->
+    <string name="friends_summary_format_friends">%d friends</string>
+    <string name="friends_add_to_group">Add to group</string>
+    <string name="friends_remove_from_group">Remove from group</string>
+    <string name="friends_delete_friends_title">Do want to delete those friends ?</string>
+    <string name="friends_groups_nothing">You have to create groups first</string>
+    <string name="info_loading_locations">Loading locations …</string>
+    <string name="info_loading_friends">Loading friends …</string>
+    <string name="friend_group_list">Group</string>
+    <string name="info_loading_calculating">calculating</string>
+    <string name="friends_info_api_try_again">Friends API is currently getting new users, please try again in 2min</string>
+    <string name="friends_info_database_update">Friends database update</string>
 
 </resources>

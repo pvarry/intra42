@@ -1,0 +1,48 @@
+[
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 205,
+    "kind": "project",
+    "name": "Pestilence",
+    "x": 3000.0,
+    "y": 1110.0,
+    "by": [
+      {
+        "parent_id": 820,
+        "points": [
+          [
+            3000,
+            1200
+          ],
+          [
+            3000,
+            1110
+          ]
+        ]
+      }
+    ],
+    "project_id": 905,
+    "difficulty": "Tier 3",
+    "duration": "about 4 weeks",
+    "rules": "You must have validated famine",
+    "description": "Second projet virus. Reprenez la base de Famine pour ajouter une méthode d'obfuscation de votre code.\t",
+    "slug": "pestilence"
+  },
+  {
+    "state": null,
+    "final_mark": null,
+    "id": 235,
+    "kind": "project",
+    "name": "Curriculum Vitae",
+    "x": 3425.0,
+    "y": 3425.0,
+    "by": [],
+    "project_id": 902,
+    "difficulty": "Tier 0",
+    "duration": "about 2 days",
+    "rules": "You must be at least level 5 in cursus 42",
+    "description": "Tout aussi créatif, atypique, ou particulier que vous puissiez être, il existe certains codes sociaux dans le monde du travail que vous ne pourrez que difficilement contourner, tout du moins dans l’immédiat.\r\nVotre intégration professionnelle figurant en bonne place dans les objectifs de l’école, il est naturel que nous vous intéressions à cette porte d’entrée (parmi d’autres) que constitue l’établissement de votre CV.",
+    "slug": "curriculum-vitae"
+  }
+]

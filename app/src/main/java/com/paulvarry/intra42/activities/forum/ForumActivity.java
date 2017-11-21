@@ -8,9 +8,9 @@ import android.view.View;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.NewTopicActivity;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 
 public class ForumActivity extends BasicTabActivity
@@ -30,10 +30,10 @@ public class ForumActivity extends BasicTabActivity
     }
 
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(ForumUnreadFragment.newInstance(), "Unread");
         adapter.addFragment(ForumLastTopicsFragment.newInstance(), "Last topics");
-        adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.tag));
+        adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.title_activity_tag));
         viewPager.setAdapter(adapter);
 
         fabBaseActivity.setVisibility(View.VISIBLE);
@@ -43,11 +43,11 @@ public class ForumActivity extends BasicTabActivity
 
     @Override
     public String getToolbarName() {
-        return getString(R.string.forum);
+        return getString(R.string.navigation_forum);
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link BasicThreadActivity#getDataOnMainThread()} and {@link BasicThreadActivity#getDataOnOtherThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

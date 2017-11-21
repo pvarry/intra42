@@ -29,8 +29,8 @@ public class LocationItem {
         this.locationName = locationName;
         this.kind = kind;
         this.angle = angle;
-        this.sizeX = 1;
-        this.sizeY = 1;
+        this.sizeX = 1f;
+        this.sizeY = 1f;
     }
 
     public LocationItem(String locationName, int kind) {

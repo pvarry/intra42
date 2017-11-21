@@ -7,28 +7,33 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.api.model.Teams;
+import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.api.pack.ProjectUser;
-import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
+import com.paulvarry.intra42.utils.Tools;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class ProjectActivity extends BasicTabActivity
         implements ProjectOverviewFragment.OnFragmentInteractionListener, ProjectUserFragment.OnFragmentInteractionListener,
         ProjectAttachmentsFragment.OnFragmentInteractionListener, ProjectSubFragment.OnFragmentInteractionListener,
-        ProjectUsersListFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnThread {
+        ProjectUsersListFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnThread {
 
     private static final String INTENT_ID_PROJECT_USER = "project_user_id";
     private static final String INTENT_ID_USER = "P_user_id";
@@ -89,12 +94,20 @@ public class ProjectActivity extends BasicTabActivity
         context.startActivity(intent);
     }
 
+    public static void openIt(Context context, String projectSlug, int idUser) {
+        Intent intent = new Intent(context, ProjectActivity.class);
+        intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, projectSlug);
+        intent.putExtra(ProjectActivity.INTENT_ID_USER, idUser);
+        context.startActivity(intent);
+    }
+
     public static void openIt(Context context, String projectSlug) {
         Intent intent = new Intent(context, ProjectActivity.class);
         intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, projectSlug);
         context.startActivity(intent);
     }
 
+    @Deprecated
     public static void openIt(Context context, String projectSlug, String login) {
         Intent intent = new Intent(context, ProjectActivity.class);
         intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, projectSlug);
@@ -111,6 +124,7 @@ public class ProjectActivity extends BasicTabActivity
         return null;
     }
 
+    @Deprecated
     public static Intent getIntent(Context context, int idProject, UsersLTE user) {
         if (idProject != 0 && user != null) {
             Intent intent = new Intent(context, ProjectActivity.class);
@@ -128,7 +142,6 @@ public class ProjectActivity extends BasicTabActivity
         //handle just logged users.
         Intent intent = getIntent();
         String action = intent.getAction();
-        String type = intent.getType();
         app = (AppClass) getApplication();
 
         if (Intent.ACTION_VIEW.equals(action)) {
@@ -173,25 +186,26 @@ public class ProjectActivity extends BasicTabActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
         if (projectUser != null && projectUser.project != null) {
-            adapter.addFragment(ProjectOverviewFragment.newInstance(), getString(R.string.tab_project_overview));
+            adapter.addFragment(ProjectOverviewFragment.newInstance(), getString(R.string.title_tab_project_overview));
             if (projectUser.user != null && projectUser.user.user != null) {
                 String user;
                 if (projectUser.user.user.equals(app.me))
-                    user = getString(R.string.tab_project_me);
+                    user = getString(R.string.title_tab_project_me);
                 else
                     user = projectUser.user.user.login;
                 adapter.addFragment(ProjectUserFragment.newInstance(), user);
             }
             if (projectUser.project.children != null && !projectUser.project.children.isEmpty())
-                adapter.addFragment(ProjectSubFragment.newInstance(), getString(R.string.sub_projects));
+                adapter.addFragment(ProjectSubFragment.newInstance(), getString(R.string.project_sub_projects));
             if (projectUser.project != null && projectUser.project.attachments != null && !projectUser.project.attachments.isEmpty())
-                adapter.addFragment(ProjectAttachmentsFragment.newInstance(), getString(R.string.tab_project_attachments));
-            adapter.addFragment(ProjectUsersListFragment.newInstance(), getString(R.string.tab_project_users));
+                adapter.addFragment(ProjectAttachmentsFragment.newInstance(), getString(R.string.title_tab_project_attachments));
+            adapter.addFragment(ProjectUsersListFragment.newInstance(), getString(R.string.title_tab_project_users));
+
+            viewPager.setAdapter(adapter);
         } else
-            Toast.makeText(ProjectActivity.this, "You not allowed", Toast.LENGTH_SHORT).show();
-        viewPager.setAdapter(adapter);
+            setViewState(StatusCode.EMPTY);
     }
 
     @Override
@@ -200,7 +214,7 @@ public class ProjectActivity extends BasicTabActivity
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorServerException {
         ApiService apiService = app.getApiService();
 
         if (idProjectUser != 0)
@@ -223,23 +237,6 @@ public class ProjectActivity extends BasicTabActivity
                     projectUser = ProjectUser.getWithProject(apiService, idProject, idUser);
             }
         }
-
-//        if (!projectUser.project.tags.isEmpty()) {
-//            List<Notions> notions = Notions.get(this, api, projectUser.project.tags.get(0).id);
-//
-//            if (projectUser.project.attachments == null)
-//                projectUser.project.attachments = new ArrayList<>();
-//
-//            if (notions != null && !notions.isEmpty()) {
-//                List<Subnotions> subnotions = Subnotions.get(this, api, notions.get(0).id);
-//                if (subnotions != null) {
-//                    for (Subnotions title : subnotions)
-//                        projectUser.project.attachments.addAll(title.attachments);
-//                }
-//            }
-//
-//        }
-        return StatusCode.FINISH;
     }
 
     @Override
@@ -260,4 +257,130 @@ public class ProjectActivity extends BasicTabActivity
     public String getEmptyText() {
         return null;
     }
+
+    public static class ProjectUser {
+
+        public Projects project;
+        public ProjectsUsers user;
+
+        static ProjectUser getWithProject(ApiService api, int projectId, int userId) throws IOException, UnauthorizedException, ErrorServerException {
+            Call<Projects> callProject = api.getProject(projectId);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectId, userId);
+            Call<List<Teams>> callTeams = api.getTeams(userId, projectId, 1);
+
+            return getWithProject(callProject, callProjectUsers, callTeams);
+        }
+
+        static ProjectUser getWithProject(ApiService api, int projectId, String login) throws IOException, UnauthorizedException, ErrorServerException {
+            Call<Projects> callProject = api.getProject(projectId);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectId, login);
+            Call<List<Teams>> callTeams = api.getTeams(login, projectId, 1);
+
+            return getWithProject(callProject, callProjectUsers, callTeams);
+        }
+
+        static ProjectUser getWithProject(ApiService api, String projectSlug, String userLogin) throws IOException, UnauthorizedException, ErrorServerException {
+            Response<Users> response = api.getUser(userLogin).execute();
+            if (!Tools.apiIsSuccessful(response))
+                return null;
+            Call<Projects> callProject = api.getProject(projectSlug);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectSlug, response.body().id);
+            Call<List<Teams>> callTeams = api.getTeams(userLogin, projectSlug, 1);
+
+            return getWithProject(callProject, callProjectUsers, callTeams);
+        }
+
+        static ProjectUser getWithProject(ApiService api, String projectSlug, int userId) throws IOException, UnauthorizedException, ErrorServerException {
+            Call<Projects> callProject = api.getProject(projectSlug);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectSlug, userId);
+            Call<List<Teams>> callTeams = api.getTeams(userId, projectSlug, 1);
+
+            return getWithProject(callProject, callProjectUsers, callTeams);
+        }
+
+        static ProjectUser getWithProject(Call<Projects> callProject, Call<List<ProjectsUsers>> callProjectUsers, Call<List<Teams>> callTeams) throws IOException, UnauthorizedException, ErrorServerException {
+            Response<Projects> repProject;
+            Response<List<ProjectsUsers>> repProjectUsers;
+            Response<List<Teams>> repTeams;
+
+            repProject = callProject.execute();
+            repProjectUsers = callProjectUsers.execute();
+            repTeams = callTeams.execute();
+
+            ProjectUser p = new ProjectUser();
+            if (Tools.apiIsSuccessful(repProject))
+                p.project = repProject.body();
+
+            if (repProjectUsers != null && repProjectUsers.code() == 200 && repProjectUsers.body().size() != 0 &&
+                    repTeams != null && repTeams.code() == 200) {
+                p.user = repProjectUsers.body().get(0);
+                p.user.teams = repTeams.body();
+            }
+            return p;
+        }
+
+        public static ProjectUser get(ApiService api, int projectUserId, int projectId) throws IOException, ErrorServerException, UnauthorizedException {
+            Call<Projects> callProject = api.getProject(projectId);
+            Call<ProjectsUsers> callProjectUsers = api.getProjectsUsers(projectUserId);
+
+
+            Response<Projects> repProject;
+            Response<ProjectsUsers> repProjectUsers;
+            Response<List<Teams>> repTeams;
+
+            repProject = callProject.execute();
+            repProjectUsers = callProjectUsers.execute();
+
+
+            ProjectUser p = new ProjectUser();
+            if (Tools.apiIsSuccessful(repProject))
+                p.project = repProject.body();
+
+            if (Tools.apiIsSuccessful(repProjectUsers)) {
+                p.user = repProjectUsers.body();
+
+                if (p.user.user == null)
+                    throw new ErrorServerException();
+
+                Call<List<Teams>> callTeams = api.getTeams(p.user.user.id, projectId, 1);
+
+                repTeams = callTeams.execute();
+
+                if (Tools.apiIsSuccessful(repTeams))
+                    p.user.teams = repTeams.body();
+            }
+            return p;
+        }
+
+        public static ProjectUser get(ApiService api, int projectUserId, String projectSlug) throws UnauthorizedException, ErrorServerException, IOException {
+            Call<Projects> callProject = api.getProject(projectSlug);
+            Call<ProjectsUsers> callProjectUsers = api.getProjectsUsers(projectUserId);
+
+            Response<Projects> repProject;
+            Response<ProjectsUsers> repProjectUsers;
+            Response<List<Teams>> repTeams;
+
+            ProjectUser p = new ProjectUser();
+            repProject = callProject.execute();
+            if (Tools.apiIsSuccessful(repProject))
+                p.project = repProject.body();
+
+            repProjectUsers = callProjectUsers.execute();
+            if (Tools.apiIsSuccessful(repProjectUsers)) {
+                p.user = repProjectUsers.body();
+
+                if (p.user.user == null)
+                    throw new ErrorServerException();
+
+                Call<List<Teams>> callTeams = api.getTeams(p.user.user.id, projectSlug, 1);
+
+                repTeams = callTeams.execute();
+
+                if (Tools.apiIsSuccessful(repTeams))
+                    p.user.teams = repTeams.body();
+            }
+            return p;
+        }
+    }
+
 }

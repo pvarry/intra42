@@ -69,7 +69,7 @@ public class SpinnerAdapterExpertises extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.spinner_basic_simple_text, parent, false);
 
-            holder.textViewName = (TextView) convertView.findViewById(R.id.textViewName);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
 
             convertView.setTag(holder);
         } else {

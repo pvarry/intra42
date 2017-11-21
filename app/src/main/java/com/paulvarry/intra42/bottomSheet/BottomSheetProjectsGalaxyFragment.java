@@ -20,6 +20,7 @@ import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
 public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 
     private static final String ARG_PROJECT = "project_galaxy";
+    private static final String ARG_USER = "id_user";
 
     ImageButton buttonOpen;
 
@@ -27,16 +28,23 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
     ApiService api;
 
     ProjectDataIntra projectData;
+    int idUser;
 
-    public static void openIt(FragmentActivity activity, ProjectDataIntra item) {
-        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item);
+    public static void openIt(FragmentActivity activity, ProjectDataIntra item, int idUser) {
+        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item, idUser);
         bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
-    public static BottomSheetProjectsGalaxyFragment newInstance(ProjectDataIntra projectData) {
+    public static void openIt(FragmentActivity activity, ProjectDataIntra item) {
+        BottomSheetProjectsGalaxyFragment bottomSheetDialogFragment = BottomSheetProjectsGalaxyFragment.newInstance(item, 0);
+        bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+    }
+
+    public static BottomSheetProjectsGalaxyFragment newInstance(ProjectDataIntra projectData, int idUser) {
         BottomSheetProjectsGalaxyFragment fragment = new BottomSheetProjectsGalaxyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PROJECT, ServiceGenerator.getGson().toJson(projectData));
+        args.putInt(ARG_USER, idUser);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,8 +53,10 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            projectData = ServiceGenerator.getGson().fromJson(getArguments().getString(ARG_PROJECT), ProjectDataIntra.class);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            projectData = ServiceGenerator.getGson().fromJson(bundle.getString(ARG_PROJECT), ProjectDataIntra.class);
+            idUser = bundle.getInt(ARG_USER);
         }
     }
 
@@ -59,30 +69,30 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
 
-        TextView textViewTitle = (TextView) contentView.findViewById(R.id.textViewTitle);
-        TextView textViewInfo = (TextView) contentView.findViewById(R.id.textViewInfo);
-        TextView textViewRules = (TextView) contentView.findViewById(R.id.textViewRules);
-        LinearLayout linearLayoutRules = (LinearLayout) contentView.findViewById(R.id.linearLayoutRules);
-        TextView textViewState = (TextView) contentView.findViewById(R.id.textViewState);
-        TextView textViewDescription = (TextView) contentView.findViewById(R.id.textViewDescription);
-        buttonOpen = (ImageButton) contentView.findViewById(R.id.buttonOpen);
+        TextView textViewTitle = contentView.findViewById(R.id.textViewTitle);
+        TextView textViewInfo = contentView.findViewById(R.id.textViewInfo);
+        TextView textViewRules = contentView.findViewById(R.id.textViewRules);
+        LinearLayout linearLayoutRules = contentView.findViewById(R.id.linearLayoutRules);
+        TextView textViewState = contentView.findViewById(R.id.textViewState);
+        TextView textViewDescription = contentView.findViewById(R.id.textViewDescription);
+        buttonOpen = contentView.findViewById(R.id.buttonOpen);
 
         buttonOpen.setOnClickListener(this);
         textViewTitle.setText(projectData.name);
 
         String state;
         if (projectData.state == null)
-            state = getString(R.string.unknown_state);
+            state = getString(R.string.galaxy_unknown_state);
         else if (projectData.state == ProjectDataIntra.State.DONE)
-            state = getString(R.string.succeeded);
+            state = getString(R.string.galaxy_succeeded);
         else if (projectData.state == ProjectDataIntra.State.FAIL)
-            state = getString(R.string.failed);
+            state = getString(R.string.galaxy_failed);
         else if (projectData.state == ProjectDataIntra.State.IN_PROGRESS)
-            state = getString(R.string.in_progress);
+            state = getString(R.string.galaxy_in_progress);
         else if (projectData.state == ProjectDataIntra.State.AVAILABLE)
-            state = getString(R.string.available);
+            state = getString(R.string.galaxy_available);
         else if (projectData.state == ProjectDataIntra.State.UNAVAILABLE)
-            state = getString(R.string.unavailable);
+            state = getString(R.string.galaxy_unavailable);
         else
             state = projectData.state.toString();
 
@@ -114,7 +124,7 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
     @Override
     public void onClick(View v) {
         if (v == buttonOpen)
-            ProjectActivity.openIt(getContext(), projectData.slug);
+            ProjectActivity.openIt(getContext(), projectData.slug, idUser);
     }
 
 }

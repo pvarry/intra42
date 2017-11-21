@@ -2,16 +2,20 @@ package com.paulvarry.intra42.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.MatrixCursor;
 import android.provider.BaseColumns;
 import android.support.annotation.ArrayRes;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.SubnotionListActivity;
+import com.paulvarry.intra42.activities.TestingActivity;
 import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.activities.tags.TagsActivity;
@@ -105,26 +109,35 @@ public class SuperSearch {
         if (split.length <= 1)
             return false;
 
-        if (searchOnArray(R.array.search_users, split[0], activity)) {
-            UserActivity.openIt(activity, split[1], activity);
-            return true;
-        } else if (searchOnArray(R.array.search_projects, split[0], activity)) {
-            ProjectActivity.openIt(activity, split[1]);
-            return true;
-        } else if (searchOnArray(R.array.search_topics, split[0], activity)) {
-            TopicActivity.openIt(activity, Integer.parseInt(split[1]));
-            return true;
-        } else if (searchOnArray(R.array.search_tags, split[0], activity)) {
-            TagsActivity.openIt(activity, Integer.parseInt(split[1]));
-            return true;
-        } else if (searchOnArray(R.array.search_location, split[0], activity)) {
-            UserActivity.openLocation(activity, split[1], (AppClass) activity.getApplication());
-            return true;
-        } else if (query.contains("@student.42")) {
-            UserActivity.openIt(activity, query.split("@")[0]);
-            return true;
-        } else
-            return false;
+        try {
+            if (searchOnArray(R.array.search_users, split[0], activity)) {
+                UserActivity.openIt(activity, split[1], activity);
+                return true;
+            } else if (searchOnArray(R.array.search_projects, split[0], activity)) {
+                ProjectActivity.openIt(activity, split[1]);
+                return true;
+            } else if (searchOnArray(R.array.search_topics, split[0], activity)) {
+                TopicActivity.openIt(activity, Integer.parseInt(split[1]));
+                return true;
+            } else if (searchOnArray(R.array.search_tags, split[0], activity)) {
+                TagsActivity.openIt(activity, Integer.parseInt(split[1]));
+                return true;
+            } else if (searchOnArray(R.array.search_location, split[0], activity)) {
+                UserActivity.openLocation(activity, split[1], (AppClass) activity.getApplication());
+                return true;
+            } else if (searchOnArray(R.array.search_test, split[0], activity) && BuildConfig.DEBUG) {
+                Intent i = new Intent(activity, TestingActivity.class);
+                activity.startActivity(i);
+                return true;
+            } else if (query.contains("@student.42")) {
+                UserActivity.openIt(activity, query.split("@")[0]);
+                return true;
+            } else
+                return false;
+        } catch (NumberFormatException e) {
+            Toast.makeText(activity, activity.getString(R.string.search_error_on_open_this_element), Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 
     public static boolean searchOnArray(@ArrayRes int l, String elem, Context context) {

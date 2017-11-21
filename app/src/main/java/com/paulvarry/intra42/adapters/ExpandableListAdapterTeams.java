@@ -154,8 +154,8 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_group, null);
 
-            holder.textViewNameGroup = (TextView) convertView.findViewById(R.id.textViewNameGroup);
-            holder.textViewMark = (TextView) convertView.findViewById(R.id.textViewMark);
+            holder.textViewNameGroup = convertView.findViewById(R.id.textViewNameGroup);
+            holder.textViewMark = convertView.findViewById(R.id.textViewMark);
 
             convertView.setTag(holder);
         } else
@@ -194,16 +194,16 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_item, null);
 
-            holder.textViewStatus = (TextView) convertView.findViewById(R.id.textViewStatus);
-            holder.linearLayoutGit = (LinearLayout) convertView.findViewById(R.id.linearLayoutGit);
-            holder.linearLayoutAutomaticCorrections = (LinearLayout) convertView.findViewById(R.id.linearLayoutAutomaticCorrections);
-            holder.linearLayoutPeerCorrections = (LinearLayout) convertView.findViewById(R.id.linearLayoutPeerCorrections);
-            holder.textViewGit = (TextView) convertView.findViewById(R.id.textViewGit);
-            holder.imageButtonCopyGit = (ImageButton) convertView.findViewById(R.id.imageButtonCopyGit);
-            holder.expandableHeightGridViewUsers = (ExpandableHeightGridView) convertView.findViewById(R.id.expandableHeightGridViewUsers);
-            holder.expandableHeightListViewPeerCorrections = (ExpandableHeightListView) convertView.findViewById(R.id.expandableHeightListViewPeerCorrections);
-            holder.textViewPeerCorrection = (TextView) convertView.findViewById(R.id.textViewPeerCorrection);
-            holder.expandableHeightListViewAutomaticCorrections = (ExpandableHeightListView) convertView.findViewById(R.id.expandableHeightListViewAutomaticCorrections);
+            holder.textViewStatus = convertView.findViewById(R.id.textViewStatus);
+            holder.linearLayoutGit = convertView.findViewById(R.id.linearLayoutGit);
+            holder.linearLayoutAutomaticCorrections = convertView.findViewById(R.id.linearLayoutAutomaticCorrections);
+            holder.linearLayoutPeerCorrections = convertView.findViewById(R.id.linearLayoutPeerCorrections);
+            holder.textViewGit = convertView.findViewById(R.id.textViewGit);
+            holder.imageButtonCopyGit = convertView.findViewById(R.id.imageButtonCopyGit);
+            holder.expandableHeightGridViewUsers = convertView.findViewById(R.id.expandableHeightGridViewUsers);
+            holder.expandableHeightListViewPeerCorrections = convertView.findViewById(R.id.expandableHeightListViewPeerCorrections);
+            holder.textViewPeerCorrection = convertView.findViewById(R.id.textViewPeerCorrection);
+            holder.expandableHeightListViewAutomaticCorrections = convertView.findViewById(R.id.expandableHeightListViewAutomaticCorrections);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolderChild) convertView.getTag();
@@ -255,7 +255,7 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             }
         });
 
-        String peer_corrections = context.getResources().getString(R.string.peer_corrections);
+        String peer_corrections = context.getResources().getString(R.string.project_peer_corrections);
         if (team.scaleTeams != null && team.scaleTeams.size() != 0 && team.scaleTeams.get(0) != null && team.scaleTeams.get(0).scale != null)
             peer_corrections += " (" + String.valueOf(team.scaleTeams.size()) + "/" + team.scaleTeams.get(0).scale.correctionNumber + ")";
         holder.textViewPeerCorrection.setText(peer_corrections);

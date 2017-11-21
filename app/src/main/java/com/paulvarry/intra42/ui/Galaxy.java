@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.GestureDetector;
@@ -45,11 +46,13 @@ public class Galaxy extends View {
     /**
      * Data for current Galaxy.
      */
+    @Nullable
     private List<ProjectDataIntra> data;
     private GestureDetector mGestureDetector;
     private Scroller mScroller;
     private ValueAnimator mScrollAnimator;
     private ScaleGestureDetector mScaleDetector;
+    private String state;
 
     /**
      * Current scale factor.
@@ -215,24 +218,34 @@ public class Galaxy extends View {
     public void setData(List<ProjectDataIntra> data) {
         this.data = data;
 
-        for (ProjectDataIntra projectData : data) {
+        if (data != null) {
+            for (ProjectDataIntra projectData : data) {
 
-            if (projectData.kind == ProjectDataIntra.Kind.FIRST_INTERNSHIP)
-                projectDataFirstInternship = projectData;
-            else if (projectData.kind == ProjectDataIntra.Kind.SECOND_INTERNSHIP)
-                projectDataFinalInternship = projectData;
-        }
+                if (projectData.kind == ProjectDataIntra.Kind.FIRST_INTERNSHIP)
+                    projectDataFirstInternship = projectData;
+                else if (projectData.kind == ProjectDataIntra.Kind.SECOND_INTERNSHIP)
+                    projectDataFinalInternship = projectData;
+            }
 
-        if (projectDataFirstInternship != null) {
-            projectDataFirstInternship.x = 3680;
-            projectDataFirstInternship.y = 3750;
-        }
-        if (projectDataFinalInternship != null) {
-            projectDataFinalInternship.x = 4600;
-            projectDataFinalInternship.y = 4600;
+            if (projectDataFirstInternship != null) {
+                projectDataFirstInternship.x = 3680;
+                projectDataFirstInternship.y = 3750;
+            }
+            if (projectDataFinalInternship != null) {
+                projectDataFinalInternship.x = 4600;
+                projectDataFinalInternship.y = 4600;
+            }
         }
 
         onUpdateData();
+        onScrollFinished();
+        invalidate();
+    }
+
+    public void setState(String state) {
+        data = null;
+        this.state = state;
+
         onScrollFinished();
         invalidate();
     }
@@ -296,8 +309,18 @@ public class Galaxy extends View {
 
         canvas.drawPaint(mPaintBackground);
 
-        if (data == null)
+        if ((data != null && data.isEmpty()) || data == null) {
+            data = null;
+            state = getContext().getString(R.string.galaxy_not_found);
+
+            mPaintText.setColor(colorProjectTextAvailable);
+            mPaintText.setTextSize(50 * mScaleFactor);
+
+            int width = canvas.getWidth();
+            int height = canvas.getHeight();
+            canvas.drawText(state, width / 2, height * 0.8f, mPaintText);
             return;
+        }
 
         mPaintProject.setStrokeWidth(weightPath * mScaleFactor);
         mPaintPath.setStrokeWidth(weightPath * mScaleFactor);
@@ -321,16 +344,18 @@ public class Galaxy extends View {
                 }
         }
 
-        canvas.drawCircle(
-                getDrawPosX(3000),
-                getDrawPosY(3000),
-                1000 * mScaleFactor,
-                getColorPath(projectDataFirstInternship));
-        canvas.drawCircle(
-                getDrawPosX(3000),
-                getDrawPosY(3000),
-                2250 * mScaleFactor,
-                getColorPath(projectDataFinalInternship));
+        if (projectDataFirstInternship != null)
+            canvas.drawCircle(
+                    getDrawPosX(3000),
+                    getDrawPosY(3000),
+                    1000 * mScaleFactor,
+                    getColorPath(projectDataFirstInternship));
+        if (projectDataFinalInternship != null)
+            canvas.drawCircle(
+                    getDrawPosX(3000),
+                    getDrawPosY(3000),
+                    2250 * mScaleFactor,
+                    getColorPath(projectDataFinalInternship));
 
         // draw projects
         for (ProjectDataIntra projectData : data) {
@@ -399,6 +424,8 @@ public class Galaxy extends View {
                     return colorProjectInProgress;
                 case UNAVAILABLE:
                     return colorProjectUnavailable;
+                case FAIL:
+                    return colorProjectFailed;
             }
         return colorProjectUnavailable;
     }
@@ -415,6 +442,8 @@ public class Galaxy extends View {
                     return colorProjectTextInProgress;
                 case UNAVAILABLE:
                     return colorProjectTextUnavailable;
+                case FAIL:
+                    return colorProjectTextFailed;
             }
         return colorProjectTextUnavailable;
     }
@@ -775,6 +804,9 @@ public class Galaxy extends View {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
+
+            if (data == null)
+                return false;
 
             float x = e.getX();
             float y = e.getY();

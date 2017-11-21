@@ -9,11 +9,12 @@ import android.support.v4.view.ViewPager;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Tags;
-import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ import retrofit2.Response;
 
 public class TagsActivity
         extends BasicTabActivity
-        implements TagsForumFragment.OnFragmentInteractionListener, TagsNotionsFragment.OnFragmentInteractionListener, TagsProjectsFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnThread {
+        implements TagsForumFragment.OnFragmentInteractionListener, TagsNotionsFragment.OnFragmentInteractionListener, TagsProjectsFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnThread {
 
     private static final String INTENT_TAG = "login";
     private static final String INTENT_TAG_ID = "tag_id";
@@ -66,19 +67,13 @@ public class TagsActivity
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws UnauthorizedException, ErrorServerException, IOException {
         if (tag == null) {
-            try {
-                Response<Tags> call = app.getApiService().getTag(tagId).execute();
-                if (call.isSuccessful())
-                    tag = call.body();
-                else
-                    return StatusCode.ERROR;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            Response<Tags> response = app.getApiService().getTag(tagId).execute();
+            if (Tools.apiIsSuccessful(response))
+                tag = response.body();
         }
-        return StatusCode.FINISH;
     }
 
     @Override
@@ -89,7 +84,7 @@ public class TagsActivity
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link BasicThreadActivity.GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */
@@ -100,10 +95,10 @@ public class TagsActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(TagsProjectsFragment.newInstance(), getString(R.string.tab_tags_projects));
-        adapter.addFragment(TagsForumFragment.newInstance(), getString(R.string.tab_tags_forum));
-        adapter.addFragment(TagsNotionsFragment.newInstance(), getString(R.string.tab_tags_notions));
+        adapter.addFragment(TagsForumFragment.newInstance(), getString(R.string.title_tab_tags_forum));
+        adapter.addFragment(TagsNotionsFragment.newInstance(), getString(R.string.title_tab_tags_notions));
         viewPager.setAdapter(adapter);
     }
 

@@ -32,6 +32,7 @@
         app:srcCompat="@drawable/logo_42" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView"
@@ -41,7 +42,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="@string/unofficial_intra"
+        android:text="@string/login_unofficial_intra"
         android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
@@ -52,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="@string/main_activity_loading"
+        android:text="@string/info_loading"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/progressBarLoading"
@@ -104,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/open_chrome_to_connect_with_42_api"
+            android:text="@string/login_open_browser_to_login"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/textColorPrimary"
             tools:layout_editor_absoluteX="0dp"
@@ -115,7 +116,26 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="open"
-            android:text="@string/open_chrome" />
+            android:text="@string/login_open_browser" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonViewSources"
+        style="@style/AppTheme.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="openSources"
+        android:text="@string/login_view_sources"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutNeedLogin"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

@@ -92,7 +92,7 @@ public class NewTopicActivity extends AppCompatActivity {
         } else
             topic = new Topics();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -102,14 +102,14 @@ public class NewTopicActivity extends AppCompatActivity {
             }
         });
 
-        editTextTitle = (EditText) findViewById(R.id.editTextTitle);
-        spinnerKind = (Spinner) findViewById(R.id.spinnerKind);
-        completionViewTag = (CompletionViewTags) findViewById(R.id.completion_view_tags);
-        completionViewCursus = (CompletionViewCursus) findViewById(R.id.completion_view_cursus);
-        editTextContent = (EditText) findViewById(R.id.editTextContent);
-        spinnerLanguage = (Spinner) findViewById(R.id.spinnerLanguage);
-        textViewPreview = (TextView) findViewById(R.id.textViewPreview);
-        buttonCreate = (Button) findViewById(R.id.buttonCreate);
+        editTextTitle = findViewById(R.id.editTextTitle);
+        spinnerKind = findViewById(R.id.spinnerKind);
+        completionViewTag = findViewById(R.id.completion_view_tags);
+        completionViewCursus = findViewById(R.id.completion_view_cursus);
+        editTextContent = findViewById(R.id.editTextContent);
+        spinnerLanguage = findViewById(R.id.spinnerLanguage);
+        textViewPreview = findViewById(R.id.textViewPreview);
+        buttonCreate = findViewById(R.id.buttonCreate);
 
         app = (AppClass) getApplication();
 
@@ -121,7 +121,7 @@ public class NewTopicActivity extends AppCompatActivity {
         spinnerLanguage.setAdapter(new LanguageAdapter());
 
         if (editExistingTopic) {
-            setTitle(R.string.edit_topic);
+            setTitle(R.string.forum_topic_edit_button);
             editTextTitle.setText(topic.name);
             editTextContent.setText(topic.message.content.markdown);
 
@@ -218,9 +218,9 @@ public class NewTopicActivity extends AppCompatActivity {
 
     public void buttonActionTopic(View view) {
         if (editTextTitle.getText().toString().isEmpty())
-            editTextTitle.setError(getString(R.string.empty));
+            editTextTitle.setError(getString(R.string.forum_topic_error_empty));
         if (editTextContent.getText().toString().isEmpty())
-            editTextContent.setError(getString(R.string.empty));
+            editTextContent.setError(getString(R.string.forum_topic_error_empty));
 
         if (!editTextTitle.getText().toString().isEmpty() &&
                 !editTextContent.getText().toString().isEmpty() &&
@@ -342,7 +342,7 @@ public class NewTopicActivity extends AppCompatActivity {
 
         private LayoutInflater mInflater;
 
-        public KindAdapter() {
+        KindAdapter() {
             mInflater = LayoutInflater.from(NewTopicActivity.this);
         }
 
@@ -367,7 +367,7 @@ public class NewTopicActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = mInflater.inflate(android.R.layout.simple_spinner_item, null);
                 holder = new ViewHolder();
-                holder.spinnerValue = (TextView) convertView.findViewById(android.R.id.text1);
+                holder.spinnerValue = convertView.findViewById(android.R.id.text1);
 
                 convertView.setTag(holder);
             } else {
@@ -387,7 +387,7 @@ public class NewTopicActivity extends AppCompatActivity {
 
         private LayoutInflater mInflater;
 
-        public LanguageAdapter() {
+        LanguageAdapter() {
             mInflater = LayoutInflater.from(NewTopicActivity.this);
         }
 
@@ -414,7 +414,7 @@ public class NewTopicActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = mInflater.inflate(android.R.layout.simple_spinner_item, null);
                 holder = new ViewHolder();
-                holder.spinnerValue = (TextView) convertView.findViewById(android.R.id.text1);
+                holder.spinnerValue = convertView.findViewById(android.R.id.text1);
 
                 convertView.setTag(holder);
             } else {

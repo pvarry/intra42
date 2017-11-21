@@ -1,0 +1,52 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="25">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_grain"
+        android:shortcutId="galaxy"
+        android:shortcutLongLabel="@string/shortcut_galaxy"
+        android:shortcutShortLabel="@string/shortcut_long_galaxy">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.paulvarry.intra42.activities.MainActivity"
+            android:targetPackage="com.paulvarry.intra42.debug">
+            <extra
+                android:name="shortcut"
+                android:value="galaxy" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_people"
+        android:shortcutId="friends"
+        android:shortcutLongLabel="@string/shortcut_long_friends"
+        android:shortcutShortLabel="@string/shortcut_friends">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.paulvarry.intra42.activities.MainActivity"
+            android:targetPackage="com.paulvarry.intra42.debug">
+            <extra
+                android:name="shortcut"
+                android:value="friends" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_place"
+        android:shortcutId="clusterMap"
+        android:shortcutLongLabel="@string/shortcut_long_cluster_map"
+        android:shortcutShortLabel="@string/shortcut_cluster_map">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.paulvarry.intra42.activities.MainActivity"
+            android:targetPackage="com.paulvarry.intra42.debug">
+            <extra
+                android:name="shortcut"
+                android:value="clusterMap" />
+        </intent>
+    </shortcut>
+</shortcuts>

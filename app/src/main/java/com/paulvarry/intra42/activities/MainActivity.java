@@ -1,12 +1,14 @@
 package com.paulvarry.intra42.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.AndroidRuntimeException;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,11 +18,13 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
+import com.paulvarry.intra42.activities.projects.ProjectsActivity;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
-import com.paulvarry.intra42.interfaces.RefreshCallbackMainActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
 
@@ -34,9 +38,20 @@ public class MainActivity extends AppCompatActivity {
 
     public AppClass app;
     private LinearLayout linearLayoutNeedLogin;
+    private Button buttonViewSources;
     private TextView textViewLoadingInfo;
     private ProgressBar progressBarLoading;
     private TextView textViewStatus;
+
+    public static void openActivity(Context context) {
+        Intent i = new Intent(context, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            context.startActivity(i);
+        } catch (AndroidRuntimeException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +65,10 @@ public class MainActivity extends AppCompatActivity {
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
             edit.apply();
 
-            if (appVersion < 20170411) {
-                AppSettings.Notifications.setNotificationsAllow(this, true);
-                Log.i("notifications", "Notifications activated due to upgrade");
+            if (appVersion <= 20171113) {
+                SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
+                pref.putBoolean("should_sync_friends", true);
+                pref.apply();
             }
         }
 
@@ -60,30 +76,28 @@ public class MainActivity extends AppCompatActivity {
 
         AppClass.scheduleAlarm(this);
 
-        linearLayoutNeedLogin = (LinearLayout) findViewById(R.id.linearLayoutNeedLogin);
-        textViewLoadingInfo = (TextView) findViewById(R.id.textViewLoadingInfo);
-        progressBarLoading = (ProgressBar) findViewById(R.id.progressBarLoading);
-        textViewStatus = (TextView) findViewById(R.id.textViewStatus);
+        linearLayoutNeedLogin = findViewById(R.id.linearLayoutNeedLogin);
+        buttonViewSources = findViewById(R.id.buttonViewSources);
+        textViewLoadingInfo = findViewById(R.id.textViewLoadingInfo);
+        progressBarLoading = findViewById(R.id.progressBarLoading);
+        textViewStatus = findViewById(R.id.textViewStatus);
 
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT))// oauth callback
             setViewLoading();
-        else if (app.accessToken != null) {
+        else if (ServiceGenerator.have42Token()) {
             setViewLoading();
 
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 
-                    final boolean ret = app.initCache(false);
+                    final boolean ret = app.initCache(false, MainActivity.this);
                     runOnUiThread(new Runnable() {
                                       @Override
                                       public void run() {
                                           if (ret) {
-                                              Intent intent = new Intent(getApplication(), HomeActivity.class);
-                                              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                              startActivity(intent);
-                                              finish();
+                                              finishCache();
                                           } else
                                               setViewLogin();
                                       }
@@ -101,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         textViewStatus.setVisibility(View.GONE);
         progressBarLoading.setVisibility(View.GONE);
         linearLayoutNeedLogin.setVisibility(View.GONE);
+        buttonViewSources.setVisibility(View.GONE);
     }
 
     private void setViewLoading() {
@@ -113,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
     private void setViewLogin() {
         setViewHide();
         linearLayoutNeedLogin.setVisibility(View.VISIBLE);
+        buttonViewSources.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -124,10 +140,22 @@ public class MainActivity extends AppCompatActivity {
             String code = uri.getQueryParameter("code");
             if (code != null) {
 
-                ApiService client = ServiceGenerator.createService(ApiService.class);
-                Call<AccessToken> call = client.getNewAccessToken(code, Credential.UID,
-                        Credential.SECRET, Credential.API_OAUTH_REDIRECT,
-                        "authorization_code");
+                Call<AccessToken> call;
+                if (Credential.UID != null &&
+                        !Credential.UID.isEmpty() &&
+                        Credential.SECRET != null &&
+                        !Credential.SECRET.isEmpty()) {
+
+                    ApiService client = ServiceGenerator.createService(ApiService.class);
+                    call = client.getNewAccessToken(code, Credential.UID,
+                            Credential.SECRET, Credential.API_OAUTH_REDIRECT,
+                            "authorization_code");
+
+                } else {
+                    ApiServiceAuthServer client = app.getApiServiceAuthServer();
+                    call = client.getNewAccessToken(code, Credential.API_OAUTH_REDIRECT);
+                }
+
                 call.enqueue(new Callback<AccessToken>() {
                     @Override
                     public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
@@ -135,29 +163,12 @@ public class MainActivity extends AppCompatActivity {
                         if (statusCode == 200) {
                             AccessToken token = response.body();
                             Token.save(MainActivity.this, token);
-                            app.accessToken = token;
+                            ServiceGenerator.setToken(token);
 
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    app.initCache(true, new RefreshCallbackMainActivity() {
-                                        @Override
-                                        public void update(final String info, final String status, final int progress, final int progressMax) {
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    if (info != null)
-                                                        textViewLoadingInfo.setText(info);
-                                                    if (status != null)
-                                                        textViewStatus.setText(status);
-                                                    progressBarLoading.setIndeterminate(false);
-                                                    progressBarLoading.setProgress(progress);
-                                                    if (progressMax != -1)
-                                                        progressBarLoading.setMax(progressMax);
-                                                }
-                                            });
-                                        }
-                                    });
+                                    app.initCache(true, MainActivity.this);
 
                                     final Intent intent = new Intent(getApplication(), HomeActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -165,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            startActivity(intent);
+                                            finishCache();
                                         }
                                     });
                                 }
@@ -173,7 +184,8 @@ public class MainActivity extends AppCompatActivity {
 
                         } else {
                             try {
-                                Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                setViewLogin();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -191,6 +203,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void finishCache() {
+        Intent intent = null;
+        if (getIntent() != null) {
+            String shortcut = getIntent().getStringExtra("shortcut");
+            if (shortcut != null) {
+                if (shortcut.contentEquals("friends")) {
+                    intent = new Intent(MainActivity.this, FriendsActivity.class);
+                } else if (shortcut.contentEquals("clusterMap"))
+                    intent = new Intent(MainActivity.this, ClusterMapActivity.class);
+                else if (shortcut.contentEquals("galaxy"))
+                    intent = new Intent(MainActivity.this, ProjectsActivity.class);
+            }
+        }
+
+        if (intent == null)
+            intent = new Intent(getApplication(), HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
     public void open(View view) {
         Uri u = Uri.parse(ServiceGenerator.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
         Intent intent = new Intent(Intent.ACTION_VIEW, u);
@@ -201,4 +234,29 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void openSources(View view) {
+        Uri u = Uri.parse("https://github.com/pvarry/intra42");
+        Intent intent = new Intent(Intent.ACTION_VIEW, u);
+
+        startActivity(intent);
+        finish();
+    }
+
+    public void updateViewSate(final String info, final String status, final int progress, final int progressMax) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (info != null)
+                    textViewLoadingInfo.setText(info);
+                if (status != null)
+                    textViewStatus.setText(status);
+                if (progressBarLoading != null) {
+                    progressBarLoading.setIndeterminate(false);
+                    progressBarLoading.setProgress(progress);
+                    if (progressMax != -1)
+                        progressBarLoading.setMax(progressMax);
+                }
+            }
+        });
+    }
 }

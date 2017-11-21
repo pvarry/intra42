@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.ListAdapterCorrections;
 import com.paulvarry.intra42.api.ApiService;
@@ -106,7 +107,7 @@ public class HomeCorrectionsFragment extends BasicFragmentCall<ScaleTeams, ListA
 
     @Override
     public String getEmptyMessage() {
-        return "you have no correction";
+        return getString(R.string.evaluation_user_nothing);
     }
 
     /**

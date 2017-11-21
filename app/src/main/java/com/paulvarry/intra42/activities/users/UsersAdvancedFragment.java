@@ -60,8 +60,8 @@ public class UsersAdvancedFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        spinnerCursus = (Spinner) view.findViewById(R.id.spinnerCursus);
-        spinnerCampus = (Spinner) view.findViewById(R.id.spinnerCampus);
+        spinnerCursus = view.findViewById(R.id.spinnerCursus);
+        spinnerCampus = view.findViewById(R.id.spinnerCampus);
 
 //        ArrayAdapter<String> adapterCursus = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, Cursus.getStrings(activity.app.allCursus));
 //        adapterCursus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

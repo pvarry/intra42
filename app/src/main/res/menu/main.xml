@@ -2,37 +2,46 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
-        <item
-            android:id="@+id/action_settings"
-            android:orderInCategory="100"
-            android:title="@string/action_settings"
-            app:showAsAction="never" />
 
         <item
             android:id="@+id/action_share"
             android:orderInCategory="100"
-            android:title="@string/share"
+            android:title="@string/menu_action_share"
             app:showAsAction="never" />
 
         <item
             android:id="@+id/action_open_intra"
             android:orderInCategory="200"
-            android:title="@string/action_open_intra"
+            android:title="@string/menu_action_open_intra"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_settings"
+            android:orderInCategory="100"
+            android:title="@string/menu_action_settings"
             app:showAsAction="never" />
     </group>
 
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search_white_24px"
-        android:title="@string/search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        android:id="@+id/spinner"
+        android:background="#ff00"
+        android:title="New Text"
+        android:visible="false"
+        app:actionViewClass="android.widget.Spinner"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/filter"
         android:icon="@drawable/ic_filter_list_white_24dp"
-        android:title="@string/filter"
+        android:title="@string/menu_action_filter"
         android:visible="false"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_white_24px"
+        android:title="@string/menu_action_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

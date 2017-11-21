@@ -7,33 +7,48 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <Button
-        android:id="@+id/buttonRefresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/refresh"
-        wheel:layout_constraintBottom_toBottomOf="parent"
-        wheel:layout_constraintLeft_toLeftOf="parent"
-        wheel:layout_constraintRight_toRightOf="parent"
-        wheel:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageViewStatus"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/icon"
+        android:tint="@color/colorGrayTint"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/ic_cloud_off_black_24dp" />
+
 
     <TextView
         android:id="@+id/textViewError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="@string/nothing_to_show"
+        android:text="@string/info_nothing_to_show"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewStatus"
         wheel:layout_constraintLeft_toLeftOf="parent"
-        wheel:layout_constraintRight_toRightOf="parent"
-        wheel:layout_constraintTop_toBottomOf="@+id/buttonRefresh" />
+        wheel:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/buttonRefresh"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/refresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewError" />
 </android.support.constraint.ConstraintLayout>

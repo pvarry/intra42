@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="pref_ringtone_silent" translatable="false">Silent</string>
+    <string name="notifications_events_unique_id" translatable="false">events</string>
+    <string name="notifications_bookings_unique_id" translatable="false">booking</string>
+    <string name="notifications_announcements_unique_id" translatable="false">announcements</string>
+
+    <string name="base_url_intra_forum" translatable="false">https://forum.intra.42.fr/</string>
+    <string name="base_url_intra_profile" translatable="false">https://profile.intra.42.fr/</string>
+    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
+
+    <string name="icon" translatable="false">icon</string>
+    <string name="icon_achievement_example" translatable="false">achievement icon example</string>
+    <string name="icon_copy" translatable="false">Copy icon</string>
+    <string name="icon_cursus" translatable="false">Cursus icon</string>
+    <string name="icon_delete" translatable="false">Delete Icon</string>
+    <string name="icon_edit" translatable="false">Edit Icon</string>
+    <string name="icon_email" translatable="false">Email icon</string>
+    <string name="icon_eye" translatable="false">Eye icon</string>
+    <string name="icon_feedback_interested" translatable="false">Feedback Interested icon</string>
+    <string name="icon_feedback_nice" translatable="false">Feedback Nice icon</string>
+    <string name="icon_feedback_punctuality" translatable="false">Feedback Punctuality icon</string>
+    <string name="icon_feedback_rigorous" translatable="false">Feedback Rigorous icon</string>
+    <string name="icon_friends" translatable="false">Friends icon</string>
+    <string name="icon_info" translatable="false">Info icon</string>
+    <string name="icon_location" translatable="false">Location icon</string>
+    <string name="icon_menu" translatable="false">Menu icon</string>
+    <string name="icon_open" translatable="false">Open icon</string>
+    <string name="icon_people" translatable="false">People icon</string>
+    <string name="icon_phone" translatable="false">Phone icon</string>
+    <string name="icon_project" translatable="false">Project icon</string>
+    <string name="icon_reply" translatable="false">Reply icon</string>
+    <string name="icon_report" translatable="false">Report icon</string>
+    <string name="icon_sms" translatable="false">SMS icon</string>
+    <string name="icon_star" translatable="false">star icon</string>
+    <string name="icon_status" translatable="false">Status icon</string>
+    <string name="icon_time" translatable="false">Time icon</string>
+    <string name="user_profile_image" translatable="false">user profile image</string>
+
+    <string name="POEditor_link">https://poeditor.com/join/project/hDRec5Vk8b</string>
+    <string name="Github_link">https://github.com/pvarry/intra42/</string>
+    <string name="Github_link_issues">https://github.com/pvarry/intra42/issues/</string>
+
+</resources>

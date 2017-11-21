@@ -2,12 +2,13 @@ package com.paulvarry.intra42.api;
 
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Announcements;
+import com.paulvarry.intra42.api.model.Apps;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
+import com.paulvarry.intra42.api.model.ExpertiseUsers;
 import com.paulvarry.intra42.api.model.Expertises;
-import com.paulvarry.intra42.api.model.ExpertisesUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Notions;
@@ -152,12 +153,15 @@ public interface ApiService {
     Call<List<Topics>> getUserTopics(@Path("slug") String slug, @Query("page") int page);
 
     @GET("/v2/users/{id}/expertises_users?sort=-value")
-    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") int userId, @Query("page") int page);
+    Call<List<ExpertiseUsers>> getUserExpertises(@Path("id") int userId, @Query("page") int page);
 
     @GET("/v2/users/{id}/expertises_users?sort=-value")
-    Call<List<ExpertisesUsers>> getUserExpertises(@Path("id") String userSlug, @Query("page") int page);
+    Call<List<ExpertiseUsers>> getUserExpertises(@Path("id") String userSlug, @Query("page") int page);
 
     /* Events */
+    @GET("/v2/events/{id}")
+    Call<Events> getEvent(@Path("id") int id);
+
     @GET("/v2/campus/{campus_id}/cursus/{cursus_id}/events?sort=begin_at")
     Call<List<Events>> getEvent(@Path("campus_id") int campus, @Path("cursus_id") int cursus, @Query("range[end_at]") String rangeEnd, @Query("page") int page);
 
@@ -200,11 +204,18 @@ public interface ApiService {
     @GET("/v2/events_users")
     Call<List<EventsUsers>> getEventsUsers(@Query("filter[user_id]") int user, @Query("filter[event_id]") int event);
 
+    @GET("/v2/events_users")
+    Call<List<EventsUsers>> getEventsUsers(@Query("filter[user_id]") int user, @Query("filter[event_id]") String events);
+
+    @GET("/v2/events_users")
+    Call<List<EventsUsers>> getEventsUsersDateRange(@Query("filter[user_id]") int user, @Query("range[created_at]") String rangeCreated);
+
+
     @POST("/v2/events_users")
     Call<EventsUsers> createEventsUsers(@Query("events_user[event_id]") int eventId, @Query("events_user[user_id]") int userId);
 
     @DELETE("/v2/events_users/{id}")
-    Call<List<EventsUsers>> deleteEventsUsers(@Path("id") int eventUser);
+    Call<Void> deleteEventsUsers(@Path("id") int eventUser);
 
     /* Scale Teams */
     @GET("/v2/me/scale_teams?sort=begin_at")
@@ -255,6 +266,7 @@ public interface ApiService {
     Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") int userId);
 
     @GET("/v2/projects/{project_id}/projects_users?page[size]=1")
+    @Deprecated
     Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") String login);
 
     @GET("/v2/projects/{project_id}/projects_users?page[size]=1")
@@ -328,8 +340,11 @@ public interface ApiService {
     @GET("/v2/users/{id_user}/locations?sort=-begin_at")
     Call<List<Locations>> getLastLocations(@Path("id_user") String user);
 
-    @GET("/v2/locations?sort=-begin_at&page[size]=5")
+    @GET("/v2/locations?sort=-begin_at&page[size]=100")
     Call<List<Locations>> getLocationsHost(@Query("filter[host]") String host);
+
+    @GET("/v2/campus/{campus_id}/locations?sort=-begin_at&page[size]=100")
+    Call<List<Locations>> getLocationsHost(@Path("campus_id") int campus, @Query("filter[host]") String host);
 
     @GET("/v2/campus/{campus_id}/locations?filter[active]=true")
     Call<List<Locations>> getLocationsUsers(@Path("campus_id") int campus, @Query("filter[user_id]") String filter_users, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
@@ -354,6 +369,11 @@ public interface ApiService {
 
     @DELETE("/v2/expertises_users/{expertises_users_id}")
     Call<Expertises> deleteExpertisesUsers(@Path("expertises_users_id") int expertisesUsersID);
+
+    /* Apps */
+
+    @GET("/v2/users/{login}/apps")
+    Call<List<Apps>> getUsersApps(@Path("login") String login);
 
     /* Other */
     @GET

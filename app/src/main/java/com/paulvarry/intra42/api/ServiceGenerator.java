@@ -17,6 +17,7 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
+import com.paulvarry.intra42.activities.MainActivity;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Slots;
@@ -46,12 +47,46 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
     public static final String API_BASE_URL = "https://api.intra.42.fr";
+    public static final String API_BASE_URL_42TOOLS = "https://api.42.tools/v1/";
     private static OkHttpClient.Builder httpClient;
-    private static Retrofit.Builder builder;
-    private static AccessToken mToken;
+    private static AccessToken accessTokenIntra42;
+    private static com.paulvarry.intra42.api.tools42.AccessToken accessToken42Tools;
     private static AppClass app;
 
+    private static String HEADER_KEY_USER_AGENT = "User-Agent";
+    private static String HEADER_KEY_ACCEPT = "Accept";
+    private static String HEADER_KEY_API_AUTH = "Authorization";
+    private static String HEADER_VALUE_ACCEPT = "application/json";
+    private static String HEADER_CONTENT_TYPE = "Content-type";
+
+    public static void init(AppClass app) {
+        ServiceGenerator.app = app;
+        accessTokenIntra42 = Token.getIntra42TokenFromShared(app);
+        accessToken42Tools = Token.get42ToolsTokenFromShared(app);
+    }
+
+    public static boolean have42Token() {
+        return accessTokenIntra42 != null;
+    }
+
+    public static boolean have42ToolsToken() {
+        return accessToken42Tools != null;
+    }
+
+    public static void logout() {
+        accessTokenIntra42 = null;
+        accessToken42Tools = null;
+    }
+
     public static <S> S createService(Class<S> serviceClass) {
+
+        Retrofit.Builder builder;
+        builder = new Retrofit.Builder()
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(getGson()));
+
+        if (serviceClass == ApiService42Tools.class)
+            builder.baseUrl(API_BASE_URL_42TOOLS);
 
         httpClient = getBaseClient(true);
         httpClient.addInterceptor(getHeaderInterceptor());
@@ -62,18 +97,28 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-    public static <S> S createService(Class<S> serviceClass, AccessToken accessToken, Context c, AppClass app, boolean allowRedirectWrongAuth) {
+    public static <S> S createService(Class<S> serviceClass, AppClass app, boolean allowRedirectWrongAuth) {
+        ServiceGenerator.app = app;
+        Retrofit.Builder builder;
+
+        builder = new Retrofit.Builder()
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         httpClient = getBaseClient(allowRedirectWrongAuth);
 
-        if (accessToken != null) {
-            mToken = accessToken;
-            ServiceGenerator.app = app;
-            httpClient.addInterceptor(getHeaderInterceptor(accessToken));
-
-            httpClient.authenticator(getAuthenticator(c));
-
-        }
+        if (serviceClass == ApiService.class) {
+            if (ServiceGenerator.have42Token())
+                httpClient.addInterceptor(getHeaderInterceptor(accessTokenIntra42));
+            else if (allowRedirectWrongAuth)
+                MainActivity.openActivity(app);
+            httpClient.authenticator(getAuthenticatorIntra42(app));
+        } else if (serviceClass == ApiService42Tools.class) {
+            httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
+            httpClient.authenticator(getAuthenticator42Tools(app));
+            builder.baseUrl(API_BASE_URL_42TOOLS);
+        } else
+            httpClient.addInterceptor(getHeaderInterceptor());
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
@@ -91,9 +136,6 @@ public class ServiceGenerator {
 
     private static OkHttpClient.Builder getBaseClient(boolean allowRedirectWrongAuth) {
         httpClient = new OkHttpClient.Builder();
-        builder = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         getLogInterceptor(httpClient);
         if (allowRedirectWrongAuth)
@@ -105,7 +147,7 @@ public class ServiceGenerator {
         return httpClient;
     }
 
-    private static Authenticator getAuthenticator(final Context context) {
+    private static Authenticator getAuthenticatorIntra42(final Context context) {
         return new Authenticator() {
             @Override
             public Request authenticate(Route route, Response response) throws IOException {
@@ -117,27 +159,75 @@ public class ServiceGenerator {
                     return null;
                 }
 
-                if (app.accessToken == null)
+                if (accessTokenIntra42 == null)
                     return null;
 
                 //noinspection SynchronizeOnNonFinalField
-                synchronized (app.accessToken.refreshToken) {
+                synchronized (accessTokenIntra42) {
                     // We need a new client, since we don't want to make another call using our client with access token
                     ApiService tokenClient = createService(ApiService.class);
-                    Call<AccessToken> call = tokenClient.getRefreshAccessToken(mToken.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
+                    Call<AccessToken> call = tokenClient.getRefreshAccessToken(accessTokenIntra42.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
                     try {
                         retrofit2.Response<AccessToken> tokenResponse = call.execute();
                         if (tokenResponse.code() == 200) {
                             AccessToken newToken = tokenResponse.body();
-                            mToken = newToken;
-                            Token.save(context, mToken);
+                            accessTokenIntra42 = newToken;
+                            Token.save(context, accessTokenIntra42);
                             if (app != null)
-                                app.accessToken = newToken;
+                                accessTokenIntra42 = newToken;
 
                             return response.request().newBuilder()
-                                    .header("Authorization", newToken.tokenType + " " + newToken.accessToken)
-                                    .header("Users-Agent", getUserAgent())
-                                    .header("Accept", "application/json")
+                                    .header(HEADER_KEY_API_AUTH, newToken.tokenType + " " + newToken.accessToken)
+                                    .header(HEADER_KEY_USER_AGENT, getUserAgent())
+                                    .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                                    .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
+                                    .build();
+                        } else {
+                            return null;
+                        }
+                    } catch (IOException e) {
+                        return null;
+                    } catch (NullPointerException e) {
+                        return null;
+                    }
+                }
+            }
+        };
+    }
+
+    //TODO
+    private static Authenticator getAuthenticator42Tools(final Context context) {
+        return new Authenticator() {
+            @Override
+            public Request authenticate(Route route, Response response) throws IOException {
+
+                if (responseCount(response) >= 2) {
+                    // If both the original call and the call with refreshed token failed,
+                    // it will probably keep failing, so don't try again.
+
+                    return null;
+                }
+
+                if (accessTokenIntra42 == null)
+                    return null;
+
+                //noinspection SynchronizeOnNonFinalField
+                synchronized (accessToken42Tools) {
+                    // We need a new client, since we don't want to make another call using our client with access token
+                    ApiService42Tools tokenClient = createService(ApiService42Tools.class);
+                    Call<com.paulvarry.intra42.api.tools42.AccessToken> call = tokenClient.getAccessToken(accessTokenIntra42.accessToken);
+                    try {
+                        retrofit2.Response<com.paulvarry.intra42.api.tools42.AccessToken> tokenResponse = call.execute();
+                        if (tokenResponse.code() == 200) {
+                            com.paulvarry.intra42.api.tools42.AccessToken newToken = tokenResponse.body();
+                            accessToken42Tools = newToken;
+                            Token.save(context, newToken);
+
+                            return response.request().newBuilder()
+                                    .header(HEADER_KEY_API_AUTH, "Bearer " + newToken.accessToken)
+                                    .header(HEADER_KEY_USER_AGENT, getUserAgent())
+                                    .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                                    .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
                                     .build();
                         } else {
                             return null;
@@ -157,12 +247,30 @@ public class ServiceGenerator {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-
                 Request.Builder requestBuilder = original.newBuilder()
-                        .header("Accept", "application/json")
-//                        .header("Content-type", "application/json")
-                        .header("Authorization", accessToken.tokenType + " " + accessToken.accessToken)
-                        .header("Users-Agent", getUserAgent())
+                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
+                        .header(HEADER_KEY_USER_AGENT, getUserAgent());
+                if (accessToken != null)
+                    requestBuilder.header(HEADER_KEY_API_AUTH, accessToken.tokenType + " " + accessToken.accessToken);
+                requestBuilder.method(original.method(), original.body());
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
+            }
+        };
+    }
+
+    private static Interceptor getHeaderInterceptor(final com.paulvarry.intra42.api.tools42.AccessToken accessToken) {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+                Request.Builder requestBuilder = original.newBuilder()
+                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
+                        .header(HEADER_KEY_API_AUTH, "Bearer " + accessToken.accessToken)
+                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
                         .method(original.method(), original.body());
 
                 Request request = requestBuilder.build();
@@ -174,13 +282,13 @@ public class ServiceGenerator {
     private static Interceptor getHeaderInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()
-                        .header("Accept", "application/json")
-//                        .header("Content-type", "application/json")
-                        .header("Users-Agent", getUserAgent())
+                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
+                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
                         .method(original.method(), original.body());
 
                 Request request = requestBuilder.build();
@@ -202,8 +310,6 @@ public class ServiceGenerator {
     }
 
     static public Gson getGson() {
-
-        final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
 
         class DateDeserializer implements JsonDeserializer<Date> {
 
@@ -252,6 +358,18 @@ public class ServiceGenerator {
     private static String getUserAgent() {
         return "Intra42Android/" + BuildConfig.VERSION_NAME + "/" + BuildConfig.VERSION_CODE +
                 " (Android/" + Build.VERSION.RELEASE + " ; " + Build.MODEL + ") retrofit2/2.1.0";
+    }
+
+    public static AccessToken getToken() {
+        return accessTokenIntra42;
+    }
+
+    public static void setToken(AccessToken token) {
+        ServiceGenerator.accessTokenIntra42 = token;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
+        ServiceGenerator.accessToken42Tools = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

@@ -68,8 +68,8 @@ public class BottomSheetUserDialogFragment extends BottomSheetDialogFragment {
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_user, null);
         dialog.setContentView(contentView);
 
-        imageViewProfile = (ImageView) contentView.findViewById(R.id.imageViewProfile);
-        textViewName = (TextView) contentView.findViewById(R.id.textViewName);
+        imageViewProfile = contentView.findViewById(R.id.imageViewProfile);
+        textViewName = contentView.findViewById(R.id.textViewName);
 
         textViewName.setText(mUser.login);
 

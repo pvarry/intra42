@@ -29,10 +29,12 @@ import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.cache.CacheUsers;
-import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.ui.BasicTabActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.ui.tools.Navigation;
-import com.paulvarry.intra42.utils.Friends;
+import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
@@ -50,7 +52,8 @@ public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
         UserProjectsDoingFragment.OnFragmentInteractionListener, UserSkillsFragment.OnFragmentInteractionListener,
         UserAchievementsFragment.OnFragmentInteractionListener, UserForumFragment.OnFragmentInteractionListener,
-        UserExpertisesFragment.OnFragmentInteractionListener, BasicActivity.GetDataOnMain, BasicActivity.GetDataOnThread {
+        UserExpertisesFragment.OnFragmentInteractionListener, UserProjectsFragment.OnFragmentInteractionListener,
+        BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
 
     private static final String INTENT_USER_LTE = "user_lte";
     private static final String INTENT_USER_FULL = "user_full";
@@ -58,8 +61,9 @@ public class UserActivity extends BasicTabActivity
 
     public Users user;
     public HashMap<String, Bitmap> picAchievements;
-    public CursusUsers userCursus;
+    public CursusUsers selectedCursus;
     String login;
+    int selectedTab;
 
     public static void openIt(Context context, UsersLTE user) {
         if (user != null) {
@@ -94,7 +98,7 @@ public class UserActivity extends BasicTabActivity
                 return true;
             }
 
-            final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.loading_please_wait), true);
+            final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.info_loading_please_wait), true);
             ApiService s = app.getApiService();
 
             Call<Users> call = s.getUser(login);
@@ -145,7 +149,7 @@ public class UserActivity extends BasicTabActivity
     }
 
     public static void openLocation(final Context context, String location, final AppClass app) {
-        final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.loading_please_wait), true);
+        final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.info_loading_please_wait), true);
         ApiService s = app.getApiService();
 
         Call<List<Locations>> call = s.getLocationsHost(location);
@@ -227,16 +231,17 @@ public class UserActivity extends BasicTabActivity
         }
 
         user = (Users) getLastCustomNonConfigurationInstance();
+        if (user != null)
+            login = user.login;
 
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
 
+        super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
+
         super.onCreate(savedInstanceState);
         if (user == null && login == null)
             finish();
-        else {
-            super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
-        }
     }
 
     private String handleSendText(Intent intent) {
@@ -248,22 +253,17 @@ public class UserActivity extends BasicTabActivity
     }
 
     @Override
-    public void setupViewPager(final ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.tab_user_overview));
-        adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.tab_user_forum));
-        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
-        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
-        adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.tab_user_expertises));
-        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.tab_user_achivements));
-        adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.tab_user_skills));
-        adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.tab_user_partnerships));
-        viewPager.setAdapter(adapter);
+    protected void setViewContent() {
+
+        if (user == null)
+            setViewState(StatusCode.API_DATA_ERROR);
+        else
+            super.setViewContent();
 
         if (user != null && user.local_cachedAt != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(user.local_cachedAt);
-            calendar.add(Calendar.MINUTE, 15);
+            calendar.add(Calendar.HOUR, 1);
             Date timeout = calendar.getTime();
             if (user.local_cachedAt != null && timeout.before(new Date())) {
 
@@ -278,7 +278,7 @@ public class UserActivity extends BasicTabActivity
                         refresh(new Runnable() {
                             @Override
                             public void run() {
-                                UserActivity.super.setView();
+                                setViewState(StatusCode.CONTENT);
                                 s.dismiss();
                             }
                         });
@@ -287,6 +287,38 @@ public class UserActivity extends BasicTabActivity
                 s.show();
             }
         }
+    }
+
+    @Override
+    public void setupViewPager(ViewPager viewPager) {
+
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.title_tab_user_overview));
+        adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.title_tab_user_forum));
+        adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.title_tab_user_projects));
+//        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
+//        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
+        adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.title_tab_user_expertises));
+        adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.title_tab_user_achievements));
+        adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.title_tab_user_skills));
+        adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.title_tab_user_partnerships));
+
+        if (AppSettings.Advanced.getAllowAdvancedData(this)) {
+            adapter.addFragment(UserAppsFragment.newInstance(), "Apps");
+        }
+
+        viewPager.setAdapter(adapter);
+
+        ((CustomViewPager) viewPager).disableSwiping(getString(R.string.title_tab_user_projects));
+
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                selectedTab = position;
+                app.mFirebaseAnalytics.setCurrentScreen(UserActivity.this, "User Profile -> " + adapter.getItem(position).getClass().getSimpleName(), null /* class override */);
+            }
+        });
+        app.mFirebaseAnalytics.setCurrentScreen(UserActivity.this, "User Profile -> " + UserOverviewFragment.class.getSimpleName(), null /* class override */);
     }
 
     public void refresh(final Runnable runnable) {
@@ -299,7 +331,7 @@ public class UserActivity extends BasicTabActivity
                 if (app.me != null && login != null && login.contentEquals(app.me.login))
                     user = app.me;
                 if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
-                    userCursus = user.cursusUsers.get(0);
+                    selectedCursus = user.cursusUsers.get(0);
                 }
                 if (runnable != null)
                     runnable.run();
@@ -332,7 +364,7 @@ public class UserActivity extends BasicTabActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(R.string.action_user_add_to_home).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        menu.add(R.string.menu_action_user_add_to_home).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 addShortCut();
@@ -355,67 +387,53 @@ public class UserActivity extends BasicTabActivity
 //            }
 //        });
 
-        menu.add(R.string.action_user_add_friends).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Friends.actionAddRemove(app.firebaseRefFriends, user);
-                return true;
-            }
-        });
-
         return true;
     }
 
     @Nullable
     @Override
     public String getUrlIntra() {
-        if (user != null)
-            return getString(R.string.base_url_intra_profile) + "users/" + user.login;
+        if (login != null)
+            return getString(R.string.base_url_intra_profile) + "users/" + login;
         return null;
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorServerException {
         if (login != null) {
             if (user == null) {
                 ApiService service = app.getApiService();
                 Call<Users> call = service.getUser(login);
-                try {
-                    Response<Users> ret = call.execute();
-                    if (ret.code() == 200)
-                        user = ret.body();
-                    else
-                        return StatusCode.ERROR;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                Response<Users> ret = call.execute();
+                if (Tools.apiIsSuccessful(ret))
+                    user = ret.body();
             }
             if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
-                userCursus = user.cursusUsers.get(0);
+                selectedCursus = user.cursusUsers.get(0);
             }
         }
-        return StatusCode.FINISH;
     }
 
     @Override
-    public StatusCode getDataOnMainThread() {
+    public ThreadStatusCode getDataOnMainThread() {
         if (user != null)
-            return StatusCode.FINISH;
+            return ThreadStatusCode.FINISH;
         if (app == null)
-            return StatusCode.ERROR;
+            return ThreadStatusCode.NONE;
 
         if (app.me != null && login != null && login.contentEquals(app.me.login)) {
             user = app.me;
-            return StatusCode.FINISH;
+            return ThreadStatusCode.FINISH;
         }
 
         Users tmp = CacheUsers.get(app.cacheSQLiteHelper, login);
         if (tmp != null) {
             user = tmp;
-            return StatusCode.FINISH;
+            return ThreadStatusCode.FINISH;
         }
 
-        return StatusCode.CONTINUE;
+        return ThreadStatusCode.CONTINUE;
     }
 
     @Override
@@ -427,7 +445,7 @@ public class UserActivity extends BasicTabActivity
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */
@@ -437,6 +455,9 @@ public class UserActivity extends BasicTabActivity
     }
 
     private void addShortCut() {
+        if (user == null)
+            return;
+
         final Intent addIntent = new Intent();
         final RequestCreator p = UserImage.getPicassoCorned(UserActivity.this, user);
         if (p == null)

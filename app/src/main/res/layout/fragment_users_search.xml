@@ -16,9 +16,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@+id/frameLayoutSearch"
-            android:hint="@string/login"
+            android:layout_toStartOf="@+id/frameLayoutSearch"
+            android:hint="@string/navigation_place_holder_login"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textNoSuggestions|textVisiblePassword" />
 
@@ -29,13 +31,13 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_gravity="right|top">
+            android:layout_gravity="end|top">
 
             <Button
                 android:id="@+id/buttonSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/search" />
+                android:text="@string/title_activity_search" />
 
             <TextView
                 android:id="@+id/textViewSearching"

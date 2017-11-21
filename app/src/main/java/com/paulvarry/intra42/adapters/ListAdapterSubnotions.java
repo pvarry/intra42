@@ -67,8 +67,8 @@ public class ListAdapterSubnotions extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.list_view_notions, parent, false);
 
-            holder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            holder.textViewSub = (TextView) convertView.findViewById(R.id.textViewSub);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewSub = convertView.findViewById(R.id.textViewSub);
 
             convertView.setTag(holder);
         } else {

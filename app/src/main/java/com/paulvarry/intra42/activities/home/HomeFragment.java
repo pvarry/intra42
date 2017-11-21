@@ -1,14 +1,22 @@
 package com.paulvarry.intra42.activities.home;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +32,7 @@ import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
@@ -54,6 +63,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     private ProgressBar progressBarLevel;
     private TextView textViewLevel;
     private ImageButton imageButtonOpenProfile;
+    private CardView cardViewPOEditor;
+    private CardView cardViewCalendarSync;
+    private ImageButton imageButtonClosePOEditor;
     private HomeFragment fragment;
     private HomeActivity activity;
     private AppClass app;
@@ -95,17 +107,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        linearLayoutContent = (LinearLayout) view.findViewById(R.id.linearLayoutContent);
-        textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        linearLayoutContent = view.findViewById(R.id.linearLayoutContent);
+        textViewStatus = view.findViewById(R.id.textViewStatus);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
-        textViewWallet = (TextView) view.findViewById(R.id.textViewWallet);
-        textViewCP = (TextView) view.findViewById(R.id.textViewCP);
-        textViewName = (TextView) view.findViewById(R.id.textViewName);
-        imageViewProfile = (ImageView) view.findViewById(R.id.imageViewProfile);
-        progressBarLevel = (ProgressBar) view.findViewById(R.id.progressBarLevel);
-        textViewLevel = (TextView) view.findViewById(R.id.textViewLevel);
-        imageButtonOpenProfile = (ImageButton) view.findViewById(R.id.imageButtonOpenProfile);
+        textViewWallet = view.findViewById(R.id.textViewWallet);
+        textViewCP = view.findViewById(R.id.textViewCP);
+        textViewName = view.findViewById(R.id.textViewName);
+        imageViewProfile = view.findViewById(R.id.imageViewProfile);
+        progressBarLevel = view.findViewById(R.id.progressBarLevel);
+        textViewLevel = view.findViewById(R.id.textViewLevel);
+        imageButtonOpenProfile = view.findViewById(R.id.imageButtonOpenProfile);
+        cardViewPOEditor = view.findViewById(R.id.cardViewPOEditor);
+        cardViewCalendarSync = view.findViewById(R.id.cardViewCalendarSync);
+        imageButtonClosePOEditor = view.findViewById(R.id.imageButtonClosePOEditor);
 
         linearLayoutContent.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -185,7 +200,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                     mainCursus = app.me.cursusUsers.get(0);
 
                 progressBarLevel.setProgress((int) (mainCursus.level / 21.0 * 100.0));
-                textViewLevel.setText(String.valueOf(mainCursus.level));
+                StringBuilder lvl = new StringBuilder();
+                lvl.append(getContext().getString(R.string.user_level)).append(": ").append(mainCursus.level);
+                textViewLevel.setText(lvl);
 
             } else {
                 progressBarLevel.setVisibility(View.GONE);
@@ -195,6 +212,65 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
             RequestCreator p = UserImage.getPicassoCorned(app, app.me);
             if (p != null)
                 p.into(imageViewProfile);
+
+            if (AppSettings.getPOEditorActivated(getContext())) {
+                cardViewPOEditor.setVisibility(View.VISIBLE);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    cardViewPOEditor.setElevation(2);
+
+                cardViewPOEditor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.POEditor_link)));
+                        startActivity(intent);
+                    }
+                });
+                imageButtonClosePOEditor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AppSettings.setPOEditorActivated(getContext(), false);
+                        cardViewPOEditor.setVisibility(View.GONE);
+                    }
+                });
+            } else
+                cardViewPOEditor.setVisibility(View.GONE);
+            if (!AppSettings.Notifications.containEnableCalendar(getContext())) {
+                cardViewCalendarSync.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    cardViewCalendarSync.setElevation(2);
+
+                View view = getView();
+                if (view != null) {
+                    final Button hide = view.findViewById(R.id.buttonCalendarSyncHide);
+                    final Button enable = view.findViewById(R.id.buttonCalendarSyncEnable);
+
+                    hide.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppSettings.Notifications.setEnableCalendar(getContext(), false);
+                            cardViewCalendarSync.setVisibility(View.GONE);
+                        }
+                    });
+                    enable.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED ||
+                                    ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR},
+                                        HomeActivity.PERMISSIONS_REQUEST_CALENDAR);
+                            } else {
+                                Calendar.setEnableCalendarWithAutoSelect(getContext(), true);
+                                cardViewCalendarSync.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
+            } else
+                cardViewCalendarSync.setVisibility(View.GONE);
         }
         swipeRefreshLayout.setRefreshing(false);
         linearLayoutContent.setVisibility(View.VISIBLE);

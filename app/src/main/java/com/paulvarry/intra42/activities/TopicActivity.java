@@ -24,18 +24,20 @@ import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.pack.Topic;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class TopicActivity
-        extends BasicActivity
-        implements AdapterView.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, BasicActivity.GetDataOnThread {
+        extends BasicThreadActivity
+        implements AdapterView.OnItemLongClickListener, View.OnClickListener, BasicThreadActivity.GetDataOnThread, SwipeRefreshLayout.OnRefreshListener {
 
     private final static String INTENT_ID = "intent_topic_id";
     private final static String INTENT_TOPIC_JSON = "intent_topic_json";
@@ -88,23 +90,17 @@ public class TopicActivity
     }
 
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws ErrorServerException, IOException, UnauthorizedException {
         String json = getIntent().getStringExtra(INTENT_TOPIC_JSON);
 
         if (json != null) {
             Topics topics = ServiceGenerator.getGson().fromJson(json, Topics.class);
             if (topics != null && topics.id != 0) {
                 topic = Topic.get(this, app.getApiService(), topics);
-                if (topic == null)
-                    return StatusCode.ERROR;
-                return StatusCode.FINISH;
             }
         }
 
         topic = Topic.get(this, app.getApiService(), id);
-        if (topic == null)
-            return StatusCode.ERROR;
-        return StatusCode.FINISH;
     }
 
     @Override
@@ -118,12 +114,12 @@ public class TopicActivity
     @Override
     public void setViewContent() {
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        scrollViewReply = (ScrollView) findViewById(R.id.scrollViewReply);
-        editTextReply = (EditText) findViewById(R.id.editTextReply);
-        listView = (ExpandableListView) findViewById(R.id.expandableListView);
-        buttonReply = (ImageButton) findViewById(R.id.buttonReply);
-        textViewPreviewMessage = (TextView) findViewById(R.id.textViewPreviewMessage);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        scrollViewReply = findViewById(R.id.scrollViewReply);
+        editTextReply = findViewById(R.id.editTextReply);
+        listView = findViewById(R.id.expandableListView);
+        buttonReply = findViewById(R.id.buttonReply);
+        textViewPreviewMessage = findViewById(R.id.textViewPreviewMessage);
 
         scrollViewReply.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -176,34 +172,6 @@ public class TopicActivity
     @Override
     public String getEmptyText() {
         return null;
-    }
-
-    @Override
-    public void onRefresh() {
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getDataOnOtherThread();
-                    }
-                }).start();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                        setView();
-                    }
-                });
-            }
-        }).start();
     }
 
     public void newMessage(View view) {
@@ -277,5 +245,10 @@ public class TopicActivity
             scrollViewReply.setVisibility(View.VISIBLE);
             textViewPreviewMessage.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        super.refresh();
     }
 }

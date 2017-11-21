@@ -10,14 +10,15 @@ import android.widget.ListView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterMarvinMeal;
 import com.paulvarry.intra42.api.cantina.MarvinMeals;
-import com.paulvarry.intra42.ui.BasicActivity;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Response;
 
-public class MarvinMealsActivity extends BasicActivity implements BasicActivity.GetDataOnThread {
+public class MarvinMealsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread {
 
     List<MarvinMeals> marvinMealList;
 
@@ -48,37 +49,25 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
     @Nullable
     @Override
     public String getUrlIntra() {
-        return "cantina.42.us.org";
+        return "https://cantina.42.us.org/";
     }
 
     /**
-     * Triggered when the activity start, after {@link BasicActivity#getDataOnMainThread()}.
+     * Triggered when the activity start.
      * <p>
-     * This method is run on a Thread, so you can make API calls and other long stuff.
-     *
-     * @return Return true if something append on this method.
+     * This method is run on main Thread, so you can make api call.
      */
     @Override
-    public StatusCode getDataOnOtherThread() {
+    public void getDataOnOtherThread() throws UnauthorizedException, ErrorServerException, IOException {
 
-        try {
-            Response<List<MarvinMeals>> response = app.getApiServiceCantina().getMeals().execute();
-            if (response.isSuccessful()) {
-                marvinMealList = response.body();
-                if (marvinMealList == null || marvinMealList.isEmpty())
-                    return StatusCode.EMPTY;
-                else return StatusCode.FINISH;
-            } else
-                return StatusCode.ERROR;
-        } catch (IOException e) {
-            e.printStackTrace();
+        Response<List<MarvinMeals>> response = app.getApiServiceCantina().getMeals().execute();
+        if (Tools.apiIsSuccessful(response)) {
+            marvinMealList = response.body();
         }
-
-        return StatusCode.ERROR;
     }
 
     /**
-     * Use to get the text on the toolbar, triggered when the activity start and after {@link BasicActivity#getDataOnOtherThread()} (only if it return true).
+     * Use to get the text on the toolbar, triggered when the activity start and after {@link GetDataOnThread#getDataOnOtherThread()} (only if it return true).
      *
      * @return Return the text on the toolbar.
      */
@@ -92,13 +81,20 @@ public class MarvinMealsActivity extends BasicActivity implements BasicActivity.
      */
     @Override
     public void setViewContent() {
-        ListView listView = (ListView) findViewById(R.id.listView);
+
+        if (marvinMealList == null || marvinMealList.isEmpty()) {
+            setViewState(StatusCode.EMPTY);
+            return;
+        }
+
+
+        ListView listView = findViewById(R.id.listView);
         ListAdapterMarvinMeal adapterMarvinMeal = new ListAdapterMarvinMeal(this, marvinMealList);
         listView.setAdapter(adapterMarvinMeal);
     }
 
     /**
-     * This text is useful when both {@link BasicActivity#getDataOnMainThread()} and {@link BasicActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

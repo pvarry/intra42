@@ -15,7 +15,7 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
+        android:layout_gravity="start|center_vertical"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?colorAccent" />
@@ -24,6 +24,6 @@
         android:id="@+id/textViewLvl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
+        android:layout_gravity="end|center_vertical"
         android:text="New Text" />
 </FrameLayout>

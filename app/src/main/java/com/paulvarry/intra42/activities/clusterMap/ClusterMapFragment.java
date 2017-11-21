@@ -12,13 +12,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.LocationHistoryActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.paulvarry.intra42.utils.clusterMap.ClusterMap;
 import com.paulvarry.intra42.utils.clusterMap.ClusterMapFremontE1Z1;
@@ -39,6 +42,8 @@ import java.util.HashMap;
  */
 public class ClusterMapFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
+    float baseItemWidth;
+    float baseItemHeight;
 
     private String clusterName;
     private ClusterMapActivity activity;
@@ -85,88 +90,155 @@ public class ClusterMapFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        gridLayout = view.findViewById(R.id.gridLayout);
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         locations = activity.locations;
-        gridLayout = (GridLayout) view.findViewById(R.id.gridLayout);
         makeMap();
-
     }
 
     void makeMap() {
 
-        final LocationItem[][] cluster;
+        // set base item size
+        baseItemHeight = Tools.dpToPx(getContext(), 42);
+        baseItemWidth = Tools.dpToPx(getContext(), 35);
+
+        final LocationItem[][] clusterMap;
 
         if (activity.campusId == 1)
-            cluster = ClusterMapParis.getParisCluster(clusterName);
+            clusterMap = ClusterMapParis.getParisCluster(clusterName);
         else if (activity.campusId == 7) {
             if (clusterName.contentEquals("e1z1"))
-                cluster = ClusterMapFremontE1Z1.getFremontCluster1Zone1();
+                clusterMap = ClusterMapFremontE1Z1.getFremontCluster1Zone1();
             else if (clusterName.contentEquals("e1z2"))
-                cluster = ClusterMapFremontE1Z2.getFremontCluster1Zone2();
+                clusterMap = ClusterMapFremontE1Z2.getFremontCluster1Zone2();
             else if (clusterName.contentEquals("e1z3"))
-                cluster = ClusterMapFremontE1Z3.getFremontCluster1Zone3();
+                clusterMap = ClusterMapFremontE1Z3.getFremontCluster1Zone3();
             else
-                cluster = ClusterMap.getFremontCluster(clusterName);
+                clusterMap = ClusterMap.getFremontCluster(clusterName);
         } else
             return;
 
         gridLayout.removeAllViews();
-        gridLayout.setRowCount(cluster.length);
+        gridLayout.removeAllViewsInLayout();
+        gridLayout.setRowCount(clusterMap.length);
 
-        for (int r = 0; r < cluster.length; r++) {
+        for (int r = 0; r < clusterMap.length; r++) {
 
-            gridLayout.setColumnCount(cluster[r].length);
-            for (int p = 0; p < cluster[r].length; p++) {
+            gridLayout.setColumnCount(clusterMap[r].length);
+            for (int p = 0; p < clusterMap[r].length; p++) {
 
-                if (cluster[r][p] == null)
+                if (clusterMap[r][p] == null)
                     break;
 
-                ImageView imageViewContent = new ImageView(getContext());
-                if (cluster[r][p].kind == LocationItem.KIND_USER) {
-
-                    if (cluster[r][p].locationName.contains("null") || cluster[r][p].locationName.contains("TBD"))
-                        imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
-                    else if (locations != null && locations.containsKey(cluster[r][p].locationName)) {
-                        final UsersLTE user = locations.get(cluster[r][p].locationName);
-                        UserImage.setImageSmall(getContext(), user, imageViewContent);
-                        imageViewContent.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                UserActivity.openIt(activity, user);
-                            }
-                        });
-                    } else {
-                        imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_24dp));
-                        final int finalR = r;
-                        final int finalP = p;
-                        imageViewContent.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(activity, cluster[finalR][finalP].locationName, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-
-                } else if (cluster[r][p].kind == LocationItem.KIND_WALL)
-                    imageViewContent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorClusterMapWall));
-                else {
-                    imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
-                    imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
-                }
-
-                GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-                param.height = (int) (100 * cluster[r][p].sizeY);
-                param.width = (int) (100 * cluster[r][p].sizeX);
-                param.rightMargin = 5;
-                param.topMargin = 5;
-                param.setGravity(Gravity.FILL);
-                param.columnSpec = GridLayout.spec(p);
-                param.rowSpec = GridLayout.spec(r);
-                imageViewContent.setLayoutParams(param);
-//                imageViewContent.setRotation(10);
-                gridLayout.addView(imageViewContent);
+                View v = makeMapItem(clusterMap, r, p);
+                gridLayout.addView(v);
             }
         }
+    }
+
+    View makeMapItem(final LocationItem[][] cluster, int r, int p) {
+        boolean highlightOpen = false;
+        boolean highlightFriend = false;
+
+        final LocationItem locationItem = cluster[r][p];
+        View view;
+        LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ImageView imageViewContent;
+        int padding = Tools.dpToPx(getContext(), 2);
+        GridLayout.LayoutParams paramsGridLayout;
+        UsersLTE user = null;
+
+        if (locationItem.kind == LocationItem.KIND_USER && locationItem.locationName != null) {
+            if (activity != null &&
+                    activity.locationHighlight != null &&
+                    activity.locationHighlight.contentEquals(locationItem.locationName))
+                highlightOpen = true;
+
+            if (locations != null) {
+                user = locations.get(locationItem.locationName);
+                if (activity != null && activity.friends != null && user != null && activity.friends.get(user.id) != null)
+                    highlightFriend = true;
+            }
+        }
+
+        if (highlightOpen || highlightFriend)
+            view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
+        else
+            view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
+
+        imageViewContent = view.findViewById(R.id.imageView);
+        if (locationItem.kind == LocationItem.KIND_USER) {
+
+            if (locationItem.locationName.contains("null") || locationItem.locationName.contains("TBD"))
+                imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
+            else {
+                imageViewContent.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        LocationHistoryActivity.openIt(activity, locationItem.locationName);
+                        return true;
+                    }
+                });
+                if (user != null) {
+                    UserImage.setImageSmall(getContext(), user, imageViewContent);
+                    final UsersLTE finalUser = user;
+                    imageViewContent.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            UserActivity.openIt(activity, finalUser);
+                        }
+                    });
+                } else {
+                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_custom));
+                    imageViewContent.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(activity, locationItem.locationName, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+        } else if (locationItem.kind == LocationItem.KIND_WALL)
+            imageViewContent.setImageResource(R.color.colorClusterMapWall);
+        else {
+            imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
+            imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
+        }
+
+        paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
+        paramsGridLayout.columnSpec = GridLayout.spec(p);
+        paramsGridLayout.rowSpec = GridLayout.spec(r);
+        paramsGridLayout.setGravity(Gravity.FILL);
+        paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
+        paramsGridLayout.height = (int) (baseItemHeight * locationItem.sizeY);
+        paramsGridLayout.width = (int) (baseItemWidth * locationItem.sizeX);
+        imageViewContent.setPadding(padding, padding, padding, padding);
+        view.setLayoutParams(paramsGridLayout);
+
+        if (highlightOpen || highlightFriend) {
+            padding = Tools.dpToPx(getContext(), 3);
+            FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
+            paramsFrameLayout.height = (int) (baseItemHeight * locationItem.sizeY);
+            paramsFrameLayout.width = (int) (baseItemWidth * locationItem.sizeX);
+            imageViewContent.setLayoutParams(paramsFrameLayout);
+
+            imageViewContent.setPadding(0, 0, 0, 0);
+            view.setPadding(padding, padding, padding, padding);
+
+            imageViewContent.setBackgroundResource(R.color.windowBackground);
+            if (highlightOpen)
+                view.setBackgroundResource(R.color.colorSecondary);
+            else
+                view.setBackgroundResource(R.color.colorAccent);
+        }
+
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {
