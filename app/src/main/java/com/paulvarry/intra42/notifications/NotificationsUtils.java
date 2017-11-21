@@ -15,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.AppClass;
@@ -57,7 +58,10 @@ public class NotificationsUtils {
                 .setSubText(context.getString(R.string.notifications_events_sub_text))
                 .setGroup(context.getString(R.string.notifications_events_unique_id))
                 .setChannelId(context.getString(R.string.notifications_events_unique_id))
+                .setContentText(context.getString(R.string.notifications_events_sub_text))
                 .setGroupSummary(true);
+
+        Log.d("notifications", "display event summary");
 
         NotificationManagerCompat.from(context).notify(-1, summaryNotification.build());
     }
@@ -68,7 +72,10 @@ public class NotificationsUtils {
                 .setSubText(context.getString(R.string.notifications_bookings_sub_text))
                 .setGroup(context.getString(R.string.notifications_bookings_unique_id))
                 .setChannelId(context.getString(R.string.notifications_bookings_unique_id))
+                .setContentText(context.getString(R.string.notifications_bookings_sub_text))
                 .setGroupSummary(true);
+
+        Log.d("notifications", "display evaluations summary");
 
         NotificationManagerCompat.from(context).notify(-2, summaryNotification.build());
     }
