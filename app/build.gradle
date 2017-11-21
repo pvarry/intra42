@@ -18,7 +18,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode getVersionCodeTimestamp()
-        versionName "0.8.0-beta2"
+        versionName "0.8.0-beta3"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
@@ -52,6 +52,14 @@ android {
     aaptOptions {
         additionalParameters "--no-version-vectors"
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
 }
 
 dependencies {
