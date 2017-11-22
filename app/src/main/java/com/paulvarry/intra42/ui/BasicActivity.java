@@ -13,8 +13,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -54,7 +53,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     public MenuItem menuItemFilter;
     public MenuItem menuItemSpinner;
     public ProgressBar progressBarLoading;
-    protected CoordinatorLayout coordinatorLayout;
+    protected ViewGroup coordinatorLayout;
     protected View viewContent;
     protected NavigationView navigationView;
     protected FloatingActionButton fabBaseActivity;
@@ -104,8 +103,8 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewContent = inflater.inflate(resContentId, coordinatorLayout, false);
         coordinatorLayout.addView(viewContent);
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) viewContent.getLayoutParams();
-        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        // CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) viewContent.getLayoutParams();
+        // params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         viewContent.requestLayout();
 
         setSupportActionBar(toolbar);
@@ -124,15 +123,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onResume() {
         super.onResume();
+        //setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
 
         refresh();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
     }
 
     /**
