@@ -34,6 +34,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:alertDialogTheme">@style/AlertDialog</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -45,4 +49,7 @@
         <item name="android:background">#FFF</item>
     </style>
 
+    <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
+
+    </style>
 </resources>
