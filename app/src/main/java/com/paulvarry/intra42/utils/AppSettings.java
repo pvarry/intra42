@@ -5,15 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
-import android.support.annotation.StyleRes;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Users;
 
 /**
@@ -400,12 +394,9 @@ public class AppSettings {
         public static final String THEME = "list_preference_theme";
         public static final String ACTIONBAR_BACKGROUND = "switch_theme_actionbar_enable_background";
 
-        public static void setTheme(Context context) {
-            if (context == null)
-                return;
-
-            EnumTheme theme = getEnumTheme(context);
-            context.setTheme(getTheme(theme));
+        public static boolean getActionBarBackgroundEnable(Context context) {
+            SharedPreferences preferences = getSharedPreferences(context);
+            return preferences.getBoolean(ACTIONBAR_BACKGROUND, true);
         }
 
         public static EnumTheme getEnumTheme(Context context) {
@@ -442,107 +433,8 @@ public class AppSettings {
                 default:
                     enumTheme = EnumTheme.INTRA;
             }
+
             return enumTheme;
-        }
-
-        @StyleRes
-        private static int getTheme(Context context) {
-            return getTheme(getEnumTheme(context));
-        }
-
-        @StyleRes
-        public static int getTheme(EnumTheme theme) {
-            int themeRes;
-
-            switch (theme) {
-                case DEFAULT:
-                    themeRes = R.style.ThemeIntra;
-                    break;
-                case INTRA:
-                    themeRes = R.style.ThemeIntra;
-                    break;
-                case INTRA_ORDER:
-                    themeRes = R.style.ThemeIntraOrder;
-                    break;
-                case INTRA_ASSEMBLY:
-                    themeRes = R.style.ThemeIntraAssembly;
-                    break;
-                case INTRA_FEDERATION:
-                    themeRes = R.style.ThemeIntraFederation;
-                    break;
-                case INTRA_ALLIANCE:
-                    themeRes = R.style.ThemeIntraAlliance;
-                    break;
-                case STUDIOS_42:
-                    themeRes = R.style.ThemeStudios;
-                    break;
-                case STUDIOS_42_DARK:
-                    themeRes = R.style.ThemeStudiosDark;
-                    break;
-                case ANDROID:
-                    themeRes = R.style.ThemeDarkAndroid;
-                    break;
-                case OLD:
-                    themeRes = R.style.ThemeOld;
-                    break;
-                default:
-                    themeRes = R.style.ThemeIntra;
-                    break;
-            }
-
-            return themeRes;
-        }
-
-        public static int getColorPrimary(Context context) {
-            TypedValue typedValue = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
-            return typedValue.data;
-        }
-
-        public static int getColorAccent(Context context) {
-            TypedValue typedValue = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.colorAccent, typedValue, true);
-            return typedValue.data;
-        }
-
-        public static void setActionBar(AppBarLayout appBarLayout, Context context) {
-            setActionBar(appBarLayout, getEnumTheme(context));
-        }
-
-        public static void setActionBar(AppBarLayout appBarLayout, EnumTheme enumTheme) {
-            if (appBarLayout == null)
-                return;
-
-            SharedPreferences preferences = getSharedPreferences(appBarLayout.getContext());
-            boolean enable = preferences.getBoolean(ACTIONBAR_BACKGROUND, true);
-
-            ImageView imageView = appBarLayout.findViewById(R.id.imageViewActionBar);
-            if (imageView == null)
-                return;
-
-            if (!enable) {
-                imageView.setVisibility(View.GONE);
-                return;
-            }
-
-            imageView.setVisibility(View.VISIBLE);
-            switch (enumTheme) {
-                case INTRA_ORDER:
-                    imageView.setImageResource(R.drawable.order_background);
-                    break;
-                case INTRA_ASSEMBLY:
-                    imageView.setImageResource(R.drawable.assembly_background);
-                    break;
-
-                case INTRA_ALLIANCE:
-                    imageView.setImageResource(R.drawable.alliance_background);
-                    break;
-                case INTRA_FEDERATION:
-                    imageView.setImageResource(R.drawable.federation_background);
-                    break;
-                default:
-                    imageView.setVisibility(View.GONE);
-            }
         }
 
         public enum EnumTheme {

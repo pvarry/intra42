@@ -24,6 +24,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
@@ -34,6 +35,7 @@ import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
@@ -257,8 +259,12 @@ public class UserActivity extends BasicTabActivity
 
         if (user == null)
             setViewState(StatusCode.API_DATA_ERROR);
-        else
+        else {
             super.setViewContent();
+            Theme.setTheme(this, user);
+            Theme.setActionBar(actionBar, Theme.getThemeFromCoalition(user.coalitions));
+
+        }
 
         if (user != null && user.local_cachedAt != null) {
             Calendar calendar = Calendar.getInstance();
@@ -333,6 +339,7 @@ public class UserActivity extends BasicTabActivity
                 if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
                     selectedCursus = user.cursusUsers.get(0);
                 }
+                setViewContent();
                 if (runnable != null)
                     runnable.run();
             }
@@ -340,24 +347,18 @@ public class UserActivity extends BasicTabActivity
 
         if (login != null) {
 
-            app.getApiService().getUser(login).enqueue(new Callback<Users>() {
+            new Thread(new Runnable() {
                 @Override
-                public void onResponse(Call<Users> call, Response<Users> response) {
-                    if (response.isSuccessful()) {
-                        user = response.body();
-                        if (app.me != null && login != null && login.contentEquals(app.me.login)) // when refreshing
-                            app.me = response.body();
-                        CacheUsers.put(app.cacheSQLiteHelper, user);
+                public void run() {
+                    try {
+                        user = null;
+                        getDataOnOtherThread();
+                        runOnUiThread(localRunnable);
+                    } catch (IOException | RuntimeException e) {
+                        e.printStackTrace();
                     }
-                    localRunnable.run();
                 }
-
-                @Override
-                public void onFailure(Call<Users> call, Throwable t) {
-                    localRunnable.run();
-                }
-            });
-
+            }).start();
         }
     }
 
@@ -408,6 +409,13 @@ public class UserActivity extends BasicTabActivity
                 Response<Users> ret = call.execute();
                 if (Tools.apiIsSuccessful(ret))
                     user = ret.body();
+
+                if (user != null) {
+                    Response<List<Coalitions>> retCoalition = service.getUsersCoalitions(user.login).execute();
+                    if (Tools.apiIsSuccessful(retCoalition))
+                        user.coalitions = retCoalition.body();
+                    CacheUsers.put(app.cacheSQLiteHelper, user);
+                }
             }
             if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {
                 selectedCursus = user.cursusUsers.get(0);

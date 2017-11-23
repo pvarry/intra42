@@ -43,6 +43,7 @@ import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.SuperSearch;
+import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
@@ -54,13 +55,13 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     public MenuItem menuItemFilter;
     public MenuItem menuItemSpinner;
     public ProgressBar progressBarLoading;
+    public AppBarLayout actionBar;
     protected ViewGroup coordinatorLayout;
     protected View viewContent;
     protected NavigationView navigationView;
     protected FloatingActionButton fabBaseActivity;
     MenuItem menuItemSearch;
     DrawerLayout drawer;
-    private AppBarLayout actionBar;
     private SimpleCursorAdapter searchAdapter;
     private ConstraintLayout constraintLayoutLoading;
     private ConstraintLayout constraintOnError;
@@ -75,10 +76,11 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppSettings.Theme.setTheme(this);
-        super.setContentView(R.layout.activity__basic);
 
         app = (AppClass) getApplication();
+        Theme.setTheme(this, app);
+
+        super.setContentView(R.layout.activity__basic);
 
         toolbar = findViewById(R.id.toolbar);
         actionBar = findViewById(R.id.actionBar);
@@ -111,7 +113,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         viewContent.requestLayout();
 
         setSupportActionBar(toolbar);
-        AppSettings.Theme.setActionBar(actionBar, this);
+        Theme.setActionBar(actionBar, app);
 
         if (activeHamburger)
             setToggle();

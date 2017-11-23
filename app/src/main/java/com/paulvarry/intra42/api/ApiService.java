@@ -4,6 +4,7 @@ import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Apps;
 import com.paulvarry.intra42.api.model.Campus;
+import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
@@ -371,9 +372,12 @@ public interface ApiService {
     Call<Expertises> deleteExpertisesUsers(@Path("expertises_users_id") int expertisesUsersID);
 
     /* Apps */
-
     @GET("/v2/users/{login}/apps")
     Call<List<Apps>> getUsersApps(@Path("login") String login);
+
+    /* Coalitions */
+    @GET("/v2/users/{login}/coalitions")
+    Call<List<Coalitions>> getUsersCoalitions(@Path("login") String login);
 
     /* Other */
     @GET

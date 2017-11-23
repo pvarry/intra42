@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:defaultValue="-1"
+        android:defaultValue="default"
         android:entries="@array/pref_theme_list_titles"
         android:entryValues="@array/pref_theme_list_values"
         android:key="list_preference_theme"

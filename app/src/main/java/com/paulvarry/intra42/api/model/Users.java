@@ -8,12 +8,14 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Response;
 
 public class Users extends UsersLTE {
 
@@ -93,13 +95,23 @@ public class Users extends UsersLTE {
     @SerializedName(API_CAMPUS_USER)
     public List<CampusUsers> campusUsers;
 
+    @Nullable
+    @SerializedName("custom_coalitions")
+    public List<Coalitions> coalitions;
+
     static public Users me(ApiService apiService) {
 
         Call<Users> call = apiService.getUserMe();
         try {
             retrofit2.Response<Users> ret = call.execute();
-            if (ret.code() == 200)
-                return ret.body();
+            if (ret.code() == 200) {
+                Users u = ret.body();
+
+                Response<List<Coalitions>> retCoalition = apiService.getUsersCoalitions(u.login).execute();
+                if (Tools.apiIsSuccessfulNoThrow(retCoalition))
+                    u.coalitions = retCoalition.body();
+                return u;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -26,6 +26,7 @@ import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Token;
 
 import java.io.IOException;
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        app = (AppClass) getApplication();
+        Theme.setTheme(this, app);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -71,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 pref.apply();
             }
         }
-
-        app = (AppClass) getApplication();
 
         AppClass.scheduleAlarm(this);
 

@@ -42,6 +42,7 @@ import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
+import com.paulvarry.intra42.utils.Theme;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -154,7 +155,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (value instanceof String && preference.getKey().equals(AppSettings.Theme.THEME)) {
                 AppClass app = AppClass.instance();
                 if (app != null) {
-                    AppSettings.Theme.setTheme(app);
+                    Theme.setTheme(app);
                     Toast.makeText(app, "You need to restart app to update theme", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -230,7 +231,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
 
-        AppSettings.Theme.setTheme(this);
+        app = (AppClass) getApplication();
+        Theme.setTheme(this, app);
+
         super.onCreate(savedInstanceState);
 
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
@@ -239,11 +242,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         Toolbar toolbar = bar.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AppSettings.Theme.setActionBar(bar, this);
+        Theme.setActionBar(bar, app);
 
         setupActionBar();
-
-        app = (AppClass) getApplication();
     }
 
     @Override

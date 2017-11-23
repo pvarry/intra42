@@ -35,6 +35,7 @@ import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.notifications.NotificationsJobService;
 import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Token;
 
 import java.io.File;
@@ -120,8 +121,6 @@ public class AppClass extends Application {
     public void onCreate() {
         super.onCreate();
 
-        AppSettings.Theme.setTheme(this);
-
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         ServiceGenerator.init(this);
@@ -133,6 +132,8 @@ public class AppClass extends Application {
 
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
             me = CacheUsers.get(cacheSQLiteHelper, login);
+
+        Theme.setTheme(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationsUtils.generateNotificationChannel(this);
