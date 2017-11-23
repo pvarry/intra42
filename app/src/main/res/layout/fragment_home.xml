@@ -183,7 +183,7 @@
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:visibility="visible"
-                    app:cardBackgroundColor="@color/tag__a">
+                    app:cardBackgroundColor="?colorBackgroundFloating">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
@@ -235,7 +235,7 @@
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:visibility="visible"
-                    app:cardBackgroundColor="@color/tag__a">
+                    app:cardBackgroundColor="?colorBackgroundFloating">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"

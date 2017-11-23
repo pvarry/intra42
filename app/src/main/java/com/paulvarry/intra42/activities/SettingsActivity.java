@@ -22,11 +22,17 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -145,6 +151,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 AppClass.scheduleAlarm(preference.getContext());
             }
 
+            if (value instanceof String && preference.getKey().equals(AppSettings.Theme.THEME)) {
+                AppClass app = AppClass.instance();
+                if (app != null) {
+                    AppSettings.Theme.setTheme(app);
+                    Toast.makeText(app, "You need to restart app to update theme", Toast.LENGTH_SHORT).show();
+                }
+            }
+
             return true;
         }
     };
@@ -214,7 +228,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+
+        AppSettings.Theme.setTheme(this);
         super.onCreate(savedInstanceState);
+
+        LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
+        AppBarLayout bar = (AppBarLayout) LayoutInflater.from(this).inflate(R.layout.include_actionbar, root, false);
+        root.addView(bar, 0);
+        Toolbar toolbar = bar.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        AppSettings.Theme.setActionBar(bar, this);
+
         setupActionBar();
 
         app = (AppClass) getApplication();

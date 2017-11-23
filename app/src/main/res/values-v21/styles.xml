@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
 
@@ -17,8 +17,6 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
-        <item name="android:windowTranslucentStatus">true</item> <!-- temporary -->
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme">
@@ -35,6 +33,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

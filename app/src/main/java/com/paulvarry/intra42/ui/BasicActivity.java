@@ -13,6 +13,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -59,6 +60,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     protected FloatingActionButton fabBaseActivity;
     MenuItem menuItemSearch;
     DrawerLayout drawer;
+    private AppBarLayout actionBar;
     private SimpleCursorAdapter searchAdapter;
     private ConstraintLayout constraintLayoutLoading;
     private ConstraintLayout constraintOnError;
@@ -73,12 +75,13 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
+        AppSettings.Theme.setTheme(this);
         super.setContentView(R.layout.activity__basic);
 
         app = (AppClass) getApplication();
 
         toolbar = findViewById(R.id.toolbar);
+        actionBar = findViewById(R.id.actionBar);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
@@ -108,6 +111,8 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         viewContent.requestLayout();
 
         setSupportActionBar(toolbar);
+        AppSettings.Theme.setActionBar(actionBar, this);
+
         if (activeHamburger)
             setToggle();
         else

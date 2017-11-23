@@ -1,42 +1,48 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="ThemeIntra" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">#292D39</item>
+        <item name="colorPrimaryDark">#1e212a</item>
+        <item name="colorBackgroundFloating">#525663</item>
+        <item name="colorAccent">#00babc</item>
+
     </style>
 
-    <style name="AppTheme.Colored.Original" parent="AppTheme.Base">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="ThemeIntraOrder" parent="ThemeIntra">
+        <item name="colorAccent">#FF6950</item>
     </style>
 
-    <style name="AppTheme.Colored.Intra" parent="AppTheme.Base">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#00babc</item>
-        <item name="colorPrimaryDark">#00a4a6</item>
-        <item name="colorAccent">#2dd57a</item>
+    <style name="ThemeIntraAssembly" parent="ThemeIntra">
+        <item name="colorAccent">#A061D1</item>
     </style>
 
-    <style name="AppTheme.Colored.Studios_42" parent="AppTheme.Base">
-        <!-- Customize your theme here. -->
+    <style name="ThemeIntraAlliance" parent="ThemeIntra">
+        <item name="colorAccent">#33C47F</item>
+    </style>
+
+    <style name="ThemeIntraFederation" parent="ThemeIntra">
+        <item name="colorAccent">#4180DB</item>
+    </style>
+
+    <style name="ThemeStudios" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">#990000</item>
         <item name="colorPrimaryDark">#660000</item>
         <item name="colorAccent">#000000</item>
+        <item name="colorBackgroundFloating">#525663</item>
     </style>
 
-    <style name="AppTheme.Colored.Studios_42.Dark" parent="AppTheme.Base">
-        <!-- Customize your theme here. -->
+    <style name="ThemeStudiosDark" parent="ThemeStudios">
         <item name="colorAccent">#cc0000</item>
     </style>
 
-    <style name="AppTheme.Colored.Default" parent="AppTheme.Base" />
+    <style name="ThemeDarkAndroid" parent="AppTheme.NoActionBar" />
 
-
-    <style name="AppTheme" parent="AppTheme.Colored.Original" />
-
+    <style name="ThemeOld" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorBackgroundFloating">@color/colorSecondary</item>
+    </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>

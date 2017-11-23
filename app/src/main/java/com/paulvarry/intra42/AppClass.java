@@ -120,7 +120,7 @@ public class AppClass extends Application {
     public void onCreate() {
         super.onCreate();
 
-        setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
+        AppSettings.Theme.setTheme(this);
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 

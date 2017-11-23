@@ -4,21 +4,14 @@
     <string name="pref_theme_title_change_theme" translatable="true">Set theme</string>
     <string name="pref_header_theme">Theme</string>
 
-    <string-array name="pref_theme_list_titles">
-        <item>Original (Default)</item>
-        <item>Intra</item>
-        <item>Studios 42</item>
-        <item>Studios 42 (Dark)</item>
-        <item>Android Dark</item>
-    </string-array>
-
-    <string-array name="pref_theme_list_values">
-        <item>-1</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
+    <string name="pref_theme_list_titles_intra">Intra (Auto coalition)</string>
+    <string name="pref_theme_list_titles_intra_the_alliance">The Alliance</string>
+    <string name="pref_theme_list_titles_intra_the_federation">The Federation</string>
+    <string name="pref_theme_list_titles_intra_the_assembly">The Assembly</string>
+    <string name="pref_theme_list_titles_intra_the_order">The Order</string>
+    <string name="pref_theme_list_titles_dark">Dark</string>
+    <string name="pref_theme_list_titles_android_dark">Android Dark</string>
+    <string name="pref_theme_list_titles_old">Original (Old)</string>
 
     <string name="pref_advanced_dont_force">Disable (don\'t force)</string>
     <string name="pref_force_content_location">Force content location</string>
