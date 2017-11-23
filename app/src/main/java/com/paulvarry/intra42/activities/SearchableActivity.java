@@ -8,10 +8,10 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -32,6 +32,7 @@ import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.utils.SuperSearch;
 import com.paulvarry.intra42.utils.Tools;
 
@@ -49,7 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchableActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class SearchableActivity extends BasicActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     ConstraintLayout constraintLayoutLoading;
     SwipeRefreshLayout layoutResult;
@@ -70,8 +71,8 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.setContentView(R.layout.activity_searchable);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchable);
 
         constraintLayoutLoading = findViewById(R.id.constraintLayoutLoading);
         layoutResult = findViewById(R.id.layoutResult);
@@ -84,19 +85,6 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         layoutOnError = findViewById(R.id.layoutOnError);
 
         app = (AppClass) getApplication();
-
-        // Get the intent, verify the action and get the query
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            if (query != null) {
-                setTitle(query);
-            }
-            doSearchSpitActions(query);
-        } else {
-            finish();
-            Toast.makeText(this, "Can't open this", Toast.LENGTH_SHORT).show();
-        }
 
         listView.setOnItemClickListener(this);
         layoutResult.setOnRefreshListener(this);
@@ -156,6 +144,18 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 return true;
             }
         });
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                finish();
+                return false;
+            }
+        });
 
         return true;
     }
@@ -181,6 +181,12 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
         return true;
     }
 
+    @Nullable
+    @Override
+    public String getUrlIntra() {
+        return null;
+    }
+
     // You must implements your logic to get data using OrmLite
     private void populateAdapter(String query) {
         final MatrixCursor c = new MatrixCursor(new String[]{BaseColumns._ID, "name"});
@@ -189,6 +195,32 @@ public class SearchableActivity extends AppCompatActivity implements AdapterView
                 c.addRow(new Object[]{i, SuperSearch.suggestions[i]});
         }
         searchAdapter.changeCursor(c);
+    }
+
+    @Override
+    public String getToolbarName() {
+        return null;
+    }
+
+    @Override
+    protected void setViewContent() {
+        // Get the intent, verify the action and get the query
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            if (query != null) {
+                setTitle(query);
+            }
+            doSearchSpitActions(query);
+        } else {
+            finish();
+            Toast.makeText(this, "Can't open this", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public String getEmptyText() {
+        return null;
     }
 
     private void doSearchSpitActions(String query) {

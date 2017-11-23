@@ -216,15 +216,17 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                boolean ret;
                 if (SuperSearch.open(BasicActivity.this, s)) {
-                    searchView.clearFocus();
-                    menuItemSearch.collapseActionView();
-                    return true;
+                    ret = true;
                 } else {
                     Bundle appData = new Bundle();
                     startSearch(s, true, appData, false);
-                    return false;
+                    ret = false;
                 }
+                searchView.clearFocus();
+                menuItemSearch.collapseActionView();
+                return ret;
             }
 
             @Override
