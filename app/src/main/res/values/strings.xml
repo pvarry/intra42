@@ -321,7 +321,7 @@
     <string name="info_api_unauthorized">You not allowed</string>
     <string name="pref_title_notifications_sync_allow"><![CDATA[Enable notifications & sync]]></string>
     <string name="pref_title_notifications_sync_calendar">Sync calendar</string>
-    <string name="pref_title_calendar_list">Calendar to put events</string>
+    <string name="pref_title_calendar_list">Choose calendar to insert events</string>
     <string name="pref_category_notifications">Notifications</string>
     <string name="pref_summary_notifications_events">Notify for new events published to 42 intranet</string>
     <string name="pref_summary_notifications_scales">Remind you about evaluations</string>
