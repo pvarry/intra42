@@ -84,7 +84,7 @@
         android:layout_below="@+id/imageView"
         android:layout_toLeftOf="@+id/progressBar"
         android:layout_toStartOf="@+id/progressBar"
-        android:background="@color/colorPrimary"
+        android:background="?colorPrimary"
         android:gravity="center_horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"

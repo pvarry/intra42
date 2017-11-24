@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_expertise_discard"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="?colorAccent" />
 
         <Button
             android:id="@+id/buttonCreate"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="?colorAccent" />
     </LinearLayout>
 
 </LinearLayout>

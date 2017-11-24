@@ -130,7 +130,7 @@
         android:layout_marginTop="8dp"
         android:onClick="openSources"
         android:text="@string/login_view_sources"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"

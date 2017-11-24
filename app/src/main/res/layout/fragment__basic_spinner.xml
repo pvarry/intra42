@@ -9,7 +9,7 @@
         android:id="@+id/linearLayoutHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSecondary"
+        android:background="?colorBackgroundFloating"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="2dp">

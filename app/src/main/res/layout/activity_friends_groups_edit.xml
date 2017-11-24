@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/friends_group_edit_in_group"
-        android:textColor="@color/colorAccent"
+        android:textColor="?colorAccent"
         android:textStyle="bold" />
 
     <GridView

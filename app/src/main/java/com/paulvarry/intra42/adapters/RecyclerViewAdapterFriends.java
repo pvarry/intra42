@@ -14,6 +14,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
+import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 
@@ -74,7 +75,7 @@ public class RecyclerViewAdapterFriends extends RecyclerView.Adapter<RecyclerVie
             int px = Tools.dpToPx(context, 4);
             holder.layoutChild.setPadding(px, px, px, px);
             if (selectedPosition.contains(position))
-                holder.layoutParent.setBackgroundResource(R.color.colorAccent);
+                holder.layoutParent.setBackgroundColor(Theme.getColorAccent(context));
             else
                 holder.layoutParent.setBackgroundColor(Color.rgb(255, 255, 255));
         } else

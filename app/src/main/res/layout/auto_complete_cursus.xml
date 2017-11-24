@@ -7,4 +7,4 @@
     android:background="@drawable/shape_completion_view_cursus"
     android:padding="4dp"
     android:text="New Text"
-    android:textColor="@color/colorPrimary" />
+    android:textColor="?colorPrimary" />

@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -33,6 +32,7 @@ import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class NotificationsUtils {
     static private NotificationCompat.Builder getBaseNotification(Context context) {
         return new NotificationCompat.Builder(context, "intra42")
                 .setSmallIcon(R.drawable.logo_42)
-                .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                .setColor(Theme.getColorAccent(context));
     }
 
     private static void setSummaryNotificationEvent(Context context) {

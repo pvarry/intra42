@@ -94,7 +94,7 @@
             android:childDivider="@drawable/shape_empty"
             android:clipToPadding="false"
             android:footerDividersEnabled="true"
-            android:groupIndicator="@color/colorAccent"
+            android:groupIndicator="?colorAccent"
             android:headerDividersEnabled="true"
             android:paddingBottom="80dp" />
     </android.support.v4.widget.SwipeRefreshLayout>

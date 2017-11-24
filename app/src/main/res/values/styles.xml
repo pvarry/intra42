@@ -38,10 +38,10 @@
     <style name="ThemeDarkAndroid" parent="AppTheme.NoActionBar" />
 
     <style name="ThemeOld" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorBackgroundFloating">@color/colorSecondary</item>
+        <item name="colorPrimary">#3F51B5</item>
+        <item name="colorPrimaryDark">#303f9f</item>
+        <item name="colorAccent">#FF4081</item>
+        <item name="colorBackgroundFloating">#7a89dc</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -113,7 +113,7 @@
         <item name="colorProjectAvailable">#ffffff</item>
         <item name="colorProjectFailed">@color/colorFail</item>
         <item name="colorProjectInProgress">#afafaf</item>
-        <item name="colorProjectTextAvailable">@color/colorPrimary</item>
+        <item name="colorProjectTextAvailable">?colorPrimary</item>
         <item name="colorProjectTextFailed">#ffffff</item>
         <item name="colorProjectTextUnavailable">#ffffff</item>
         <item name="colorProjectTextValidated">#ffffff</item>

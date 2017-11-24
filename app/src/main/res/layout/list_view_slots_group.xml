@@ -26,7 +26,7 @@
                 android:padding="16dp"
                 android:text="New Text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <View
                 android:layout_width="match_parent"
