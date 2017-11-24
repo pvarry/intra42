@@ -364,5 +364,9 @@
     <string name="info_loading_calculating">calculating</string>
     <string name="friends_info_api_try_again">Friends API is currently getting new users, please try again in 2min</string>
     <string name="friends_info_database_update">Friends database update</string>
+    <string name="info_api_finishing">finishing</string>
+    <string name="search_section_users_login">user ― login</string>
+    <string name="search_section_users_first_name">user ― first name</string>
+    <string name="search_section_users_last_name">user ― last name</string>
 
 </resources>
