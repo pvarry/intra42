@@ -1,11 +1,10 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
 
     <style name="ThemeIntra" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">#292D39</item>
         <item name="colorPrimaryDark">#1e212a</item>
-        <item name="colorBackgroundFloating">#525663</item>
+        <item name="colorSecondary">#525663</item>
         <item name="colorAccent">#00babc</item>
-
     </style>
 
     <style name="ThemeIntraOrder" parent="ThemeIntra">
@@ -28,7 +27,7 @@
         <item name="colorPrimary">#990000</item>
         <item name="colorPrimaryDark">#660000</item>
         <item name="colorAccent">#000000</item>
-        <item name="colorBackgroundFloating">#525663</item>
+        <item name="colorSecondary">#525663</item>
     </style>
 
     <style name="ThemeStudiosDark" parent="ThemeStudios">
@@ -41,7 +40,19 @@
         <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryDark">#303f9f</item>
         <item name="colorAccent">#FF4081</item>
-        <item name="colorBackgroundFloating">#7a89dc</item>
+        <item name="colorSecondary">#7a89dc</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
+
+        <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -66,6 +77,16 @@
 
     <style name="AppTheme.Button.Borderless" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <style name="myDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:background">#FFF</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:padding">12dp</item>
+        <item name="android:background">#FFF</item>
+        <item name="android:textColor">#000</item>
     </style>
 
     <style name="AppTheme.Button.BorderlessDrawable" parent="@style/Widget.AppCompat.Button.Borderless">
@@ -129,6 +150,12 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="ThemeSelectionBar" parent="Base.ThemeOverlay.AppCompat.Dark">
+        <item name="android:tint">#fff</item>
+        <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
+        <item name="android:spinnerItemStyle">@android:style/Widget.TextView.SpinnerItem</item>
     </style>
 
 </resources>

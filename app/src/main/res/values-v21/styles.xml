@@ -17,6 +17,8 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme">
@@ -43,10 +45,6 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:colorControlNormal">#ffffff</item>
         <item name="android:textColorSecondary">#fff</item>
-    </style>
-
-    <style name="myDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
-        <item name="android:background">#FFF</item>
     </style>
 
     <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog.Alert">

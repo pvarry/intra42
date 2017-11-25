@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -270,15 +271,12 @@ public class FriendsActivity
         setLoadingProgress(getString(R.string.info_loading_locations), 1, 2);
 
         Call<List<Locations>> c = app.getApiService().getLocationsUsers(AppSettings.getAppCampus(app), searchOnLocation.toString(), 100, 1);
-        try {
-            Response<List<Locations>> response = c.execute();
-            if (Tools.apiIsSuccessful(response)) {
-                locations = new HashMap<>(response.body().size());
-                for (Locations l : response.body())
-                    locations.put(l.user.login, l);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        Response<List<Locations>> response = c.execute();
+        if (Tools.apiIsSuccessful(response)) {
+            locations = new HashMap<>(response.body().size());
+            for (Locations l : response.body())
+                locations.put(l.user.login, l);
         }
 
         list = new ArrayList<>();
@@ -339,7 +337,7 @@ public class FriendsActivity
                 for (Group g : groups) {
                     list.add(g.name);
                 }
-            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item, list);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(spinnerArrayAdapter);
 
@@ -402,7 +400,7 @@ public class FriendsActivity
             data.addAll(listHaveLocation);
             data.addAll(listNoLocation);
         }
-
+        ((AppCompatTextView) view).setTextSize(14);
 
         adapter = new RecyclerViewAdapterFriends(this, data, locations);
         adapter.setClickListener(this);
