@@ -73,10 +73,11 @@ public class Theme {
     public static void setActionBar(AppBarLayout appBarLayout, AppClass app) {
 
         AppSettings.Theme.EnumTheme theme = AppSettings.Theme.getEnumTheme(app);
-        if (theme == AppSettings.Theme.EnumTheme.INTRA) {
-            theme = com.paulvarry.intra42.utils.Theme.getThemeFromCoalition(app.me.coalitions);
+        if (theme == AppSettings.Theme.EnumTheme.INTRA && app != null && app.me != null) {
+            AppSettings.Theme.EnumTheme tmp = Theme.getThemeFromCoalition(app.me.coalitions);
+            if (tmp != null)
+                theme = tmp;
         }
-
         setActionBar(appBarLayout, theme);
     }
 

@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatTextView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -53,19 +53,21 @@ import retrofit2.Response;
 
 public class FriendsActivity
         extends BasicThreadActivity
-        implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, RecyclerViewAdapterFriends.OnItemClickListener, RecyclerViewAdapterFriends.SelectionListener, AdapterView.OnItemSelectedListener {
+        implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, RecyclerViewAdapterFriends.OnItemClickListener, RecyclerViewAdapterFriends.SelectionListener, AdapterView.OnItemSelectedListener, BasicThreadActivity.GetDataOnMain, SwipeRefreshLayout.OnRefreshListener {
 
     List<FriendsSmall> list;
     SparseArray<FriendsSmall> listFriends;
     List<Group> groups;
     HashMap<String, Locations> locations;
     List<Integer> selection;
+    DataWrapper dataWrapper;
 
     RecyclerView recyclerView;
     ImageButton imageButtonSettings;
 
     ViewGroup linearLayoutHeader;
     ViewGroup linearLayoutHeaderSelection;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     Spinner spinner;
 
@@ -88,6 +90,7 @@ public class FriendsActivity
         if (!app.userIsLogged())
             finish();
 
+        registerGetDataOnMainTread(this);
         registerGetDataOnOtherThread(this);
 
         navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
@@ -97,17 +100,21 @@ public class FriendsActivity
         linearLayoutHeaderSelection = findViewById(R.id.linearLayoutHeaderSelection);
         recyclerView = findViewById(R.id.recyclerView);
         imageButtonSettings = findViewById(R.id.imageButtonSettings);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         imageButtonSettings.setOnClickListener(this);
         linearLayoutHeader.setVisibility(View.VISIBLE);
         linearLayoutHeaderSelection.setVisibility(View.GONE);
         spinner.setOnItemSelectedListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
     }
 
     @Override
     protected void refresh() {
 
         setViewState(StatusCode.LOADING);
+        swipeRefreshLayout.setRefreshing(false);
 
         SharedPreferences pref = AppSettings.getSharedPreferences(this);
         if (pref.getBoolean("should_sync_friends", false) && app.firebaseRefFriends != null) {
@@ -227,6 +234,40 @@ public class FriendsActivity
     }
 
     @Override
+    public ThreadStatusCode getDataOnMainThread() {
+        if (dataWrapper != null) {
+            listFriends = dataWrapper.listFriends;
+            groups = dataWrapper.groups;
+            locations = dataWrapper.locations;
+            dataWrapper = null;
+            list = new ArrayList<>(listFriends.size());
+
+            for (int i = 0; i < listFriends.size(); i++)
+                list.add(listFriends.valueAt(i));
+            if (list == null)
+                return ThreadStatusCode.CONTINUE;
+
+            TreeSet<FriendsSmall> haveLocation = new TreeSet<>();
+            TreeSet<FriendsSmall> noLocation = new TreeSet<>();
+            for (FriendsSmall f : list) {
+                if (locations != null && locations.containsKey(f.login))
+                    haveLocation.add(f);
+                else
+                    noLocation.add(f);
+            }
+
+            list = new ArrayList<>();
+            list.addAll(haveLocation);
+            list.addAll(noLocation);
+
+            return ThreadStatusCode.FINISH;
+        }
+        dataWrapper = null;
+
+        return ThreadStatusCode.CONTINUE;
+    }
+
+    @Override
     public void getDataOnOtherThread() throws IOException, RuntimeException {
         setLoadingProgress(getString(R.string.info_loading_friends), 0, 2);
         ApiService42Tools api = app.getApiService42Tools();
@@ -236,34 +277,25 @@ public class FriendsActivity
         HashMap<String, FriendsSmall> tmp = new HashMap<>();
 
         Call<List<FriendsSmall>> call = api.getFriends();
-        try {
-            Response<List<FriendsSmall>> ret = call.execute();
-            if (Tools.apiIsSuccessful(ret)) {
-                List<FriendsSmall> data = ret.body();
 
-                listFriends = new SparseArray<>(data.size());
-                for (FriendsSmall f : data) {
-                    listFriends.put(f.id, f);
-                    tmp.put(f.login, f);
+        Response<List<FriendsSmall>> responseFriends = call.execute();
+        if (Tools.apiIsSuccessful(responseFriends)) {
+            List<FriendsSmall> data = responseFriends.body();
 
-                    searchOnLocation.append(separator).append(f.id);
-                    separator = ",";
-                }
+            listFriends = new SparseArray<>(data.size());
+            for (FriendsSmall f : data) {
+                listFriends.put(f.id, f);
+                tmp.put(f.login, f);
+
+                searchOnLocation.append(separator).append(f.id);
+                separator = ",";
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         Call<List<Group>> callGroup = api.getFriendsGroups();
-        try {
-            Response<List<Group>> ret = callGroup.execute();
-            if (Tools.apiIsSuccessful(ret))
-                groups = ret.body();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Response<List<Group>> responseGroup = callGroup.execute();
+        if (Tools.apiIsSuccessful(responseGroup))
+            groups = responseGroup.body();
 
         if (searchOnLocation.length() == 0)
             return;
@@ -337,7 +369,7 @@ public class FriendsActivity
                 for (Group g : groups) {
                     list.add(g.name);
                 }
-            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item, list);
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item_large, list);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(spinnerArrayAdapter);
 
@@ -369,9 +401,11 @@ public class FriendsActivity
         if (selected != null) {
             linearLayoutHeaderSelection.setVisibility(View.VISIBLE);
             linearLayoutHeader.setVisibility(View.GONE);
+            swipeRefreshLayout.setOnRefreshListener(null);
         } else {
             linearLayoutHeaderSelection.setVisibility(View.GONE);
             linearLayoutHeader.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setOnRefreshListener(this);
         }
 
         selection = selected;
@@ -400,7 +434,6 @@ public class FriendsActivity
             data.addAll(listHaveLocation);
             data.addAll(listNoLocation);
         }
-        ((AppCompatTextView) view).setTextSize(14);
 
         adapter = new RecyclerViewAdapterFriends(this, data, locations);
         adapter.setClickListener(this);
@@ -507,5 +540,25 @@ public class FriendsActivity
         for (int i = 0; groups.size() > i; i++)
             group[i] = groups.get(i).name;
         return group;
+    }
+
+    @Override
+    public final Object onRetainCustomNonConfigurationInstance() {
+        DataWrapper d = new DataWrapper();
+        d.listFriends = listFriends;
+        d.groups = groups;
+        d.locations = locations;
+        return d;
+    }
+
+    @Override
+    public void onRefresh() {
+        refresh();
+    }
+
+    private class DataWrapper {
+        SparseArray<FriendsSmall> listFriends;
+        List<Group> groups;
+        HashMap<String, Locations> locations;
     }
 }
