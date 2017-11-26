@@ -4,28 +4,17 @@
 <string name="pref_advanced_dont_force">"Disable (don't force)"</string>
 <string name="pref_force_content_location">"Force content location"</string>
 <string name="pref_title_beta_allow">"Allow advanced preferences"</string>
-<string name="pref_title_notifications_announcements">"Notify announcements"</string>
 <string name="pref_unactivated">"Неактивований"</string>
 <string name="pref_activated">"Активований"</string>
 <string name="pref_value_all">"Всі"</string>
-
-<!-- Settings for Notifications -->
 <string name="pref_header_notifications">"Сповіщення"</string>
-<string name="pref_title_notifications_allow">"Увімкнути сповіщення"</string>
 <string name="pref_title_notifications_events">"Notify events"</string>
 <string name="pref_title_notifications_scales">"Notify corrections (beta)"</string>
-<string name="pref_title_notifications_forum">"Notify forum (soon)"</string>
-<string name="pref_title_ringtone">"Ringtone"</string>
 <string name="pref_title_notifications_frequency">"Частота синхронізації"</string>
-<string name="pref_title_system_sync_settings">"Налаштування синхронізації системи"</string>
-
-<!-- Settings for Network -->
 <string name="pref_header_network">"Мережа"</string>
 <string name="pref_title_network_over_cellular_slow">"Через повільну стільникову мережу"</string>
 <string name="pref_title_network_over_cellular_fast">"Через швидку стільникову мережу"</string>
 <string name="pref_title_network_over_wifi">"Через wifi"</string>
-
-<!-- - - - - - - - - - - Strings related to Notifications - - - - - - - - - - -->
 <string name="notifications_events_sub_text">"подія"</string>
 <string name="notifications_events_channel_name">"Події"</string>
 <string name="notifications_events_channel_description">"Сповіщення для подій"</string>
@@ -35,25 +24,31 @@
 <string name="notifications_announcements_channel_name">"Announcements"</string>
 <string name="notifications_announcements_channel_description">"Notifications announcements"</string>
 
-<!-- - - - - - - - - - - Strings with format - - - - - - - - - - -->
+<!-- Format warning -->
 <!-- Fuzzy -->
 <string name="bookings_corrected_by">"Твій _project_'s буде перевірено _date_."</string>
 
+<!-- Format warning -->
 <!-- Fuzzy -->
 <string name="bookings_corrected_by_login">"Твій _project_'s буде перевірено  _login_ _date_."</string>
 
+<!-- Format warning -->
 <!-- Fuzzy -->
 <string name="bookings_correct_login">"Ти перевіриш _login_'s проект at _date_."</string>
 
+<!-- Format warning -->
 <!-- Fuzzy -->
 <string name="bookings_correct_somebody">"Ти перевіриш чийсь код at _date_."</string>
+
+<!-- Format warning -->
 <string name="format_dont_have_any_expertise_yet">"%s don't have any expertise yet"</string>
+
+<!-- Format warning -->
 <string name="format__dont_have_write_topic">"%s don't have write any topic yet"</string>
 
+<!-- Format warning -->
 <!-- Fuzzy -->
 <string name="format__host_s_history">"%s's історія"</string>
-
-<!-- - - - - - - - - - - Basic Words - - - - - - - - - - -->
 <string name="campus">"Кампус"</string>
 <string name="cursus">"Курс"</string>
 <string name="cancel">"Закінчити"</string>
@@ -72,21 +67,16 @@
 <string name="tomorrow">"Завтра"</string>
 <string name="value">"Значення"</string>
 <string name="tags">"Tags"</string>
-
-<!-- - - - - - - - - - - Strings related to shortcuts - - - - - - - - - - -->
 <string name="shortcut_friends">"Друзі"</string>
 <string name="shortcut_long_friends">"Список друзів"</string>
 <string name="shortcut_cluster_map">"Карта кластера"</string>
 <string name="shortcut_long_cluster_map">"Карта кластерів"</string>
 <string name="shortcut_galaxy">"Галактика"</string>
 <string name="shortcut_long_galaxy">"Галактика"</string>
-
-<!-- - - - - - - - - - - Strings related to Other stuff - - - - - - - - - - -->
 <string name="about_content">"Access your intra with a native app.
 Contact me on Slack or mail (pvarry)"</string>
 <string name="about_version">"Версія"</string>
 <string name="cantina_menu_fremont_only">"Cantina Menu"</string>
-<string name="dialog_choose_action_colon">"Вибери дію: "</string>
 <string name="elearning_select_file_to_open">"Select file to open"</string>
 <string name="elearning_title">"Elearning"</string>
 <string name="evaluation_correct_someone">"Corrects"</string>
@@ -126,14 +116,11 @@ You will lose a correction point"</string>
 <string name="forum_tags">"Tags"</string>
 <string name="forum_topic_content">"Content"</string>
 <string name="forum_topic_edit_button">"Редагувати Обговорення"</string>
-<string name="forum_topic_edit_title">"Редагувати заголовок Обговорення"</string>
 <string name="forum_topic_error_empty">"пусто"</string>
 <string name="forum_topics_kind_announce">"Announce"</string>
 <string name="forum_topics_kind_question">"Запитання"</string>
 <string name="forum_updated_at">"Оновлено о"</string>
 <string name="forum_you">"ти"</string>
-<string name="friend_remove_user">"Видалити з друзів"</string>
-<string name="friend_view_profile">"Переглянути профіль"</string>
 <string name="galaxy_available">"Доступний"</string>
 <string name="galaxy_failed">"Failed"</string>
 <string name="galaxy_in_progress">"В процесі"</string>
@@ -163,7 +150,6 @@ You will lose a correction point"</string>
 <string name="menu_action_search">"Пошук"</string>
 <string name="menu_action_settings">"Налаштування"</string>
 <string name="menu_action_share">"Поширити"</string>
-<string name="menu_action_user_add_friends">"Додати до/Видалити з списку друзів"</string>
 <string name="menu_action_user_add_to_home">"Додати на домашній екран"</string>
 <string name="navigation_cluster_map">"Карта Кластера"</string>
 <string name="navigation_forum">"Форум"</string>
@@ -183,12 +169,9 @@ You will lose a correction point"</string>
 <string name="notification_see_project">"see project"</string>
 <string name="notification_see_user">"see user"</string>
 <string name="notifications_announcements_sub_text">"announcements"</string>
-<string name="oauth_error">"Помилка авторизації"</string>
 <string name="profile_apps_private">"private"</string>
 <string name="project_automatic_correction">"Автоматична перевірка"</string>
 <string name="project_automatic_corrections">"Автоматичні перевірки"</string>
-<string name="project_availability_is_not_checked">"Availability is not checked"</string>
-<string name="project_available">"Доступно"</string>
 <string name="project_description">"Description"</string>
 <string name="project_evaluation">"перевірка"</string>
 <string name="project_evaluation_plural">"перевірки"</string>
@@ -226,8 +209,6 @@ You will lose a correction point"</string>
 <string name="search_section_users">"користувачі"</string>
 <string name="searching">"Пошук ..."</string>
 <string name="share_using">"Share using"</string>
-<string name="showcaseview_user_project_galaxy">"You can change the content of this view."</string>
-<string name="showcaseview_user_project_galaxy_title">"GOT IT"</string>
 <string name="time_zone_error">"Time zone error"</string>
 <string name="title">"Заголовок"</string>
 <string name="title_activity_about">"About"</string>
@@ -265,19 +246,14 @@ You will lose a correction point"</string>
 <string name="title_tab_projects_graphic">"Галактика"</string>
 <string name="title_tab_tags_forum">"Форум"</string>
 <string name="title_tab_tags_notions">"Notions"</string>
-<string name="title_tab_tags_projects">"Проекти"</string>
 <string name="title_tab_user_achievements">"Досягнення"</string>
 <string name="title_tab_user_expertises">"Expertises"</string>
 <string name="title_tab_user_forum">"Форум"</string>
-<string name="title_tab_user_marks">"Оцінки"</string>
 <string name="title_tab_user_overview">"Overview"</string>
 <string name="title_tab_user_partnerships">"Партнерство"</string>
 <string name="title_tab_user_projects">"Проекти"</string>
 <string name="title_tab_user_skills">"Навички"</string>
-<string name="title_tab_users_advanced_search">"Розширений пошук"</string>
 <string name="title_tab_users_all">"Всі"</string>
-<string name="title_tab_users_friends">"Друзі"</string>
-<string name="title_tab_users_search">"Пошук"</string>
 <string name="topics_kind_survey">"Survey"</string>
 <string name="user_app_official">"Офіційний Додаток"</string>
 <string name="user_correction_points">"Correction points"</string>
@@ -301,7 +277,6 @@ You will lose a correction point"</string>
 <string name="user_overview_cursus_date_not_start_not_finised">"Ще не почато і не закінчено"</string>
 <string name="user_pool">"Басейн"</string>
 <string name="user_unavailable">"Недоступно"</string>
-<string name="user_view_on_cluster_map">"View on ClusterMap"</string>
 <string name="user_you_dont_have_any_expertise_yet">"You don't have any expertise yet"</string>
 <string name="info_loading_cache">"Getting cache …"</string>
 <string name="info_loading_current_user">"current user"</string>
@@ -318,8 +293,6 @@ You will lose a correction point"</string>
 <string name="list_preference_network_titles_default">"Стандартний (200×240)"</string>
 <string name="list_preference_network_titles_small">"Маленький (146×175)"</string>
 <string name="list_preference_network_titles_none">"Нічого"</string>
-
-<!-- - - - - - - - - - - Strings for other array - - - - - - - - - - -->
 <string name="spinner_user_projects_galaxy">"Галактика"</string>
 <string name="spinner_user_projects_all">"Всі"</string>
 <string name="spinner_user_projects_in_progress">"В процесі"</string>
@@ -334,7 +307,7 @@ You will lose a correction point"</string>
 <string name="info_api_unauthorized">"You not allowed"</string>
 <string name="pref_title_notifications_sync_allow">"Enable notifications &amp; sync"</string>
 <string name="pref_title_notifications_sync_calendar">"Sync calendar"</string>
-<string name="pref_title_calendar_list">"Calendar to put events"</string>
+<string name="pref_title_calendar_list">"Choose calendar to insert events"</string>
 <string name="pref_category_notifications">"Notifications"</string>
 <string name="pref_summary_notifications_events">"Notify for new events published to 42 intranet"</string>
 <string name="pref_summary_notifications_scales">"Remind you about evaluations"</string>
@@ -347,4 +320,50 @@ You will lose a correction point"</string>
 <string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
 <string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
 <string name="pref_title_calendar">"Events sync"</string>
+<string name="friends_nothing_found">"You can add friends from their profile"</string>
+<string name="friends_loading_locations">"Locations"</string>
+<string name="friend_group_name">"Group name"</string>
+<string name="friends">"Friends"</string>
+<string name="friends_group_edit_in_group">"Friends in group"</string>
+<string name="friends_group_edit_discard">"Discard"</string>
+<string name="friends_groups_edit_no_empty_name">"Can't be empty"</string>
+<string name="friends_groups_edit_no_name_set">"No name set"</string>
+<string name="friends_select_group">"Select Group"</string>
+<string name="friends_groups_all">"All"</string>
+<string name="friends_groups_edit_unsaved_changes_title">"You have unsaved changes"</string>
+<string name="friends_groups_edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
+<string name="friends_groups_new">"New Friends Group"</string>
+<string name="friends_groups_edit">"Edit Friends Group"</string>
+<string name="location_undetermined">"undetermined"</string>
+<string name="friends_summary_no_friends">"No friend"</string>
+
+<!-- Format warning -->
+<string name="friends_summary_format_friend">"%d friend"</string>
+
+<!-- Format warning -->
+<string name="friends_summary_format_friends">"%d friends"</string>
+<string name="friends_add_to_group">"Add to group"</string>
+<string name="friends_remove_from_group">"Remove from group"</string>
+<string name="friends_delete_friends_title">"Do want to delete those friends ?"</string>
+<string name="friends_groups_nothing">"You have to create groups first"</string>
+<string name="info_loading_locations">"Loading locations …"</string>
+<string name="info_loading_friends">"Loading friends …"</string>
+<string name="friend_group_list">"Group"</string>
+<string name="info_loading_calculating">"calculating"</string>
+<string name="friends_info_api_try_again">"Friends API is currently getting new users, please try again in 2min"</string>
+<string name="friends_info_database_update">"Friends database update"</string>
+<string name="pref_theme_title_change_theme">"Set theme"</string>
+<string name="pref_header_theme">"Theme"</string>
+<string name="pref_theme_list_titles_intra">"Intra (Auto coalition)"</string>
+<string name="pref_theme_list_titles_intra_the_alliance">"The Alliance"</string>
+<string name="pref_theme_list_titles_intra_the_federation">"The Federation"</string>
+<string name="pref_theme_list_titles_intra_the_assembly">"The Assembly"</string>
+<string name="pref_theme_list_titles_intra_the_order">"The Order"</string>
+<string name="pref_theme_list_titles_dark">"Dark"</string>
+<string name="pref_theme_list_titles_android_dark">"Android Dark"</string>
+<string name="pref_theme_list_titles_old">"Original (Old)"</string>
+<string name="info_api_finishing">"finishing"</string>
+<string name="search_section_users_login">"user ― login"</string>
+<string name="search_section_users_first_name">"user ― first name"</string>
+<string name="search_section_users_last_name">"user ― last name"</string>
 </resources>
