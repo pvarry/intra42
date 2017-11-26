@@ -368,5 +368,7 @@
     <string name="search_section_users_login">user ― login</string>
     <string name="search_section_users_first_name">user ― first name</string>
     <string name="search_section_users_last_name">user ― last name</string>
+    <string name="title_activity_coalitions">Coalitions</string>
+    <string name="coalitions_nothing_selected_cursus_campus">No coalition found for selected cursus/campus</string>
 
 </resources>

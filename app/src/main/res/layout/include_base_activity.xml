@@ -7,15 +7,17 @@
 
     <include layout="@layout/include_actionbar" />
 
-    <include layout="@layout/include_constraint_layout_loading" />
-
-    <include layout="@layout/include_constraint_layout_on_error" />
-
     <FrameLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include layout="@layout/include_constraint_layout_loading" />
+
+        <include layout="@layout/include_constraint_layout_on_error" />
+
+    </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabBaseActivity"

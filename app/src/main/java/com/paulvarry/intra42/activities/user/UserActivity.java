@@ -242,6 +242,7 @@ public class UserActivity extends BasicTabActivity
         super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
 
         super.onCreate(savedInstanceState);
+        Theme.setActionBar(actionBar, AppSettings.Theme.EnumTheme.INTRA);
         if (user == null && login == null)
             finish();
     }
@@ -263,7 +264,6 @@ public class UserActivity extends BasicTabActivity
             super.setViewContent();
             Theme.setTheme(this, user);
             Theme.setActionBar(actionBar, Theme.getThemeFromCoalition(user.coalitions));
-
         }
 
         if (user != null && user.local_cachedAt != null) {

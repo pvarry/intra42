@@ -212,6 +212,15 @@
             android:theme="@style/AppTheme.ActionBar" />
         <activity android:name=".activities.FriendsGroupsActivity" />
         <activity android:name=".activities.FriendsGroupsEditActivity" />
+        <activity
+            android:name=".activities.CoalitionsActivity"
+            android:label="@string/title_activity_coalitions"
+            android:parentActivityName=".activities.home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.paulvarry.intra42.activities.home.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

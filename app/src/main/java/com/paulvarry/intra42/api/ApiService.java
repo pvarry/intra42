@@ -5,6 +5,7 @@ import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Apps;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Coalitions;
+import com.paulvarry.intra42.api.model.CoalitionsBlocs;
 import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
@@ -378,6 +379,9 @@ public interface ApiService {
     /* Coalitions */
     @GET("/v2/users/{login}/coalitions")
     Call<List<Coalitions>> getUsersCoalitions(@Path("login") String login);
+
+    @GET("/v2/blocs")
+    Call<List<CoalitionsBlocs>> getCoalitionsBlocs();
 
     /* Other */
     @GET

@@ -84,14 +84,14 @@ public class Theme {
         if (appBarLayout == null)
             return;
 
-        AppSettings.Theme.EnumTheme theme = AppSettings.Theme.getEnumTheme(appBarLayout.getContext());
-        if (theme == AppSettings.Theme.EnumTheme.INTRA) {
-            theme = AppSettings.Theme.getEnumTheme(appBarLayout.getContext());
-            if (theme != AppSettings.Theme.EnumTheme.INTRA &&
-                    theme != AppSettings.Theme.EnumTheme.INTRA_FEDERATION &&
-                    theme != AppSettings.Theme.EnumTheme.INTRA_ASSEMBLY &&
-                    theme != AppSettings.Theme.EnumTheme.INTRA_ALLIANCE &&
-                    theme != AppSettings.Theme.EnumTheme.INTRA_ORDER)
+        AppSettings.Theme.EnumTheme themeSettings = AppSettings.Theme.getEnumTheme(appBarLayout.getContext());
+        if (themeSettings == AppSettings.Theme.EnumTheme.INTRA) {
+            themeSettings = AppSettings.Theme.getEnumTheme(appBarLayout.getContext());
+            if (themeSettings != AppSettings.Theme.EnumTheme.INTRA &&
+                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_FEDERATION &&
+                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_ASSEMBLY &&
+                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_ALLIANCE &&
+                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_ORDER)
                 return;
         }
 
@@ -114,7 +114,6 @@ public class Theme {
             case INTRA_ASSEMBLY:
                 imageView.setImageResource(R.drawable.assembly_background);
                 break;
-
             case INTRA_ALLIANCE:
                 imageView.setImageResource(R.drawable.alliance_background);
                 break;

@@ -385,6 +385,32 @@
                             android:layout_height="wrap_content"
                             android:text="@string/cantina_menu_fremont_only" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutCoalitions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:contentDescription="@string/icon_menu"
+                            android:tint="@color/colorGrayTint"
+                            app:srcCompat="@drawable/banner" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_activity_coalitions" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>

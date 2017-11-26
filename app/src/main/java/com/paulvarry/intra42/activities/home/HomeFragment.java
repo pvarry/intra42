@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.CoalitionsActivity;
 import com.paulvarry.intra42.activities.FriendsActivity;
 import com.paulvarry.intra42.activities.MarvinMealsActivity;
 import com.paulvarry.intra42.activities.TimeActivity;
@@ -54,6 +55,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     LinearLayout linearLayoutCantinaMenu;
 
     private LinearLayout linearLayoutContent;
+    private LinearLayout linearLayoutCoalitions;
     private TextView textViewStatus;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewWallet;
@@ -121,6 +123,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         cardViewPOEditor = view.findViewById(R.id.cardViewPOEditor);
         cardViewCalendarSync = view.findViewById(R.id.cardViewCalendarSync);
         imageButtonClosePOEditor = view.findViewById(R.id.imageButtonClosePOEditor);
+        linearLayoutCoalitions = view.findViewById(R.id.linearLayoutCoalitions);
 
         linearLayoutContent.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -294,6 +297,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     @OnClick(R.id.linearLayoutCantinaMenu)
     void openCantinaMenu() {
         MarvinMealsActivity.openIt(getContext());
+    }
+
+    @OnClick(R.id.linearLayoutCoalitions)
+    void openCoalitions() {
+        CoalitionsActivity.openIt(getContext());
     }
 
     @Override

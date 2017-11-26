@@ -130,7 +130,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onResume() {
         super.onResume();
-        //setTheme(AppSettings.Theme.theme(AppSettings.Theme.getTheme(this)));
 
         refresh();
     }
@@ -341,7 +340,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     }
 
     private void setViewStateEmpty() {
-        constraintLayoutLoading.setVisibility(View.VISIBLE);
+        constraintOnError.setVisibility(View.VISIBLE);
 
         String empty = getEmptyText();
         if (empty == null || empty.isEmpty())
