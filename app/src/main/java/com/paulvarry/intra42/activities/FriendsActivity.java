@@ -264,6 +264,9 @@ public class FriendsActivity
         }
         dataWrapper = null;
 
+        if (listFriends != null)
+            return ThreadStatusCode.FINISH;
+
         return ThreadStatusCode.CONTINUE;
     }
 

@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 pref.putBoolean("should_sync_friends", true);
                 pref.apply();
             }
+            if (appVersion <= 20171126) {
+                if (app != null && app.cacheSQLiteHelper != null) {
+                    app.cacheSQLiteHelper.getWritableDatabase().execSQL("DELETE FROM users;");
+                }
+            }
         }
 
         AppClass.scheduleAlarm(this);
