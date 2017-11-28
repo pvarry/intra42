@@ -28,17 +28,6 @@
         <item>@string/spinner_user_projects_in_progress</item>
     </string-array>
 
-
-    <string-array name="alert_friends_open_long_click">
-        <item>@string/friend_remove_user</item>
-        <item>@string/friend_view_profile</item>
-    </string-array>
-    <string-array name="alert_friends_open_long_click_location">
-        <item>@string/friend_remove_user</item>
-        <item>@string/friend_view_profile</item>
-        <item>@string/user_view_on_cluster_map</item>
-    </string-array>
-
     <!-- Settings for Network -->
 
     <string-array name="list_preference_network_titles">
