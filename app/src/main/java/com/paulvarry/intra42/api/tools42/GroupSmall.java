@@ -1,7 +1,11 @@
 package com.paulvarry.intra42.api.tools42;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService42Tools;
+import com.paulvarry.intra42.api.BaseItem;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.utils.Tools;
 
@@ -11,7 +15,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GroupSmall {
+public class GroupSmall implements BaseItem {
 
     @SerializedName("id")
     public int id;
@@ -67,5 +71,24 @@ public class GroupSmall {
                     activity.runOnUiThread(callback);
             }
         }).start();
+    }
+
+    @Override
+    public String getName(Context context) {
+        if (context != null && (name == null || name.isEmpty()))
+            return "<" + context.getString(R.string.friends_groups_edit_no_name_set) + " (id:" + String.valueOf(id) + ")>";
+        else if (context == null)
+            return "(id:" + String.valueOf(id) + ")";
+        return name;
+    }
+
+    @Override
+    public String getSub(Context context) {
+        return "";
+    }
+
+    @Override
+    public boolean openIt(Context context) {
+        return false;
     }
 }

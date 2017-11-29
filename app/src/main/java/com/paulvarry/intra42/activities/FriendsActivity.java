@@ -55,25 +55,22 @@ public class FriendsActivity
         extends BasicThreadActivity
         implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, RecyclerViewAdapterFriends.OnItemClickListener, RecyclerViewAdapterFriends.SelectionListener, AdapterView.OnItemSelectedListener, BasicThreadActivity.GetDataOnMain, SwipeRefreshLayout.OnRefreshListener {
 
+    private final String SAVED_STATE_SPINNER_GROUP_SELECTED = "spinnerGroupSelected";
     List<FriendsSmall> list;
     SparseArray<FriendsSmall> listFriends;
     List<Group> groups;
     HashMap<String, Locations> locations;
     List<Integer> selection;
     DataWrapper dataWrapper;
-
     RecyclerView recyclerView;
     ImageButton imageButtonSettings;
-
     ViewGroup linearLayoutHeader;
     ViewGroup linearLayoutHeaderSelection;
     SwipeRefreshLayout swipeRefreshLayout;
-
     Spinner spinner;
-
     RecyclerViewAdapterFriends adapter;
-
     boolean needUpdateFriends = false;
+    int spinnerGroupSelected;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, FriendsActivity.class);
@@ -107,7 +104,10 @@ public class FriendsActivity
         linearLayoutHeaderSelection.setVisibility(View.GONE);
         spinner.setOnItemSelectedListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
+
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVED_STATE_SPINNER_GROUP_SELECTED))
+            spinnerGroupSelected = savedInstanceState.getInt(SAVED_STATE_SPINNER_GROUP_SELECTED);
     }
 
     @Override
@@ -364,17 +364,19 @@ public class FriendsActivity
             adapter = new RecyclerViewAdapterFriends(this, list, locations);
             adapter.setClickListener(this);
             adapter.setSelectionListener(this);
-            recyclerView.setAdapter(adapter);
+            if (spinnerGroupSelected == 0)
+                recyclerView.setAdapter(adapter);
 
             List<String> list = new ArrayList<>();
             list.add(getString(R.string.friends_groups_all));
             if (groups != null)
                 for (Group g : groups) {
-                    list.add(g.name);
+                    list.add(g.getName(this));
                 }
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item_large, list);
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(spinnerArrayAdapter);
+            spinner.setSelection(spinnerGroupSelected);
 
         } else
             setViewState(StatusCode.EMPTY);
@@ -418,6 +420,7 @@ public class FriendsActivity
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         List<FriendsSmall> data = list;
         Group group;
+        spinnerGroupSelected = position;
 
         if (position > 0 && groups != null && position - 1 < groups.size() && position - 1 >= 0) {
             TreeSet<FriendsSmall> listHaveLocation = new TreeSet<>();
@@ -463,6 +466,7 @@ public class FriendsActivity
                 Group clickedGroup = groups.get(which);
 
                 List<FriendsSmall> list = getSelectedList();
+                Toast.makeText(FriendsActivity.this, R.string.friends_adding_to_group, Toast.LENGTH_SHORT).show();
                 clickedGroup.addToThisGroup(FriendsActivity.this, list, new Runnable() {
                     @Override
                     public void run() {
@@ -490,6 +494,7 @@ public class FriendsActivity
                 Group clickedGroup = groups.get(which);
 
                 List<FriendsSmall> list = getSelectedList();
+                Toast.makeText(FriendsActivity.this, R.string.friends_removing_from_group, Toast.LENGTH_SHORT).show();
                 clickedGroup.removeFromGroup(FriendsActivity.this, list, new Runnable() {
                     @Override
                     public void run() {
@@ -541,7 +546,7 @@ public class FriendsActivity
 
         String[] group = new String[groups.size()];
         for (int i = 0; groups.size() > i; i++)
-            group[i] = groups.get(i).name;
+            group[i] = groups.get(i).getName(this);
         return group;
     }
 
@@ -556,7 +561,17 @@ public class FriendsActivity
 
     @Override
     public void onRefresh() {
+        listFriends = null;
+        list = null;
+        groups = null;
+        locations = null;
         refresh();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SAVED_STATE_SPINNER_GROUP_SELECTED, spinnerGroupSelected);
+        super.onSaveInstanceState(outState);
     }
 
     private class DataWrapper {

@@ -370,5 +370,7 @@
     <string name="search_section_users_last_name">user ― last name</string>
     <string name="title_activity_coalitions">Coalitions</string>
     <string name="coalitions_nothing_selected_cursus_campus">No coalition found for selected cursus/campus</string>
+    <string name="friends_adding_to_group">Adding friends to group</string>
+    <string name="friends_removing_from_group">Removing friends from group</string>
 
 </resources>

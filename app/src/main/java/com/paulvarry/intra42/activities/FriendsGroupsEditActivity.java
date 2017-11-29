@@ -173,7 +173,9 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
     @Override
     public void onBackPressed() {
         if ((groupId == 0 && (newName == null || newName.isEmpty())) ||
-                groupId != 0 && !newName.contentEquals(group.name)) {
+                groupId != 0 && (
+                        (newName != null && !newName.contentEquals(group.name))
+                )) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.friends_groups_edit_unsaved_changes_title);
             builder.setMessage(R.string.friends_groups_edit_unsaved_changes_content);
@@ -239,7 +241,7 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
     }
 
     void actionSave() {
-        if (newName.isEmpty()) {
+        if (newName == null || newName.isEmpty()) {
             Toast.makeText(app, R.string.friends_groups_edit_no_empty_name, Toast.LENGTH_SHORT).show();
             return;
         }

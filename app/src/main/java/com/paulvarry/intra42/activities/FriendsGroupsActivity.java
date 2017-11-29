@@ -2,6 +2,7 @@ package com.paulvarry.intra42.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,10 +20,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class FriendsGroupsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain, View.OnClickListener {
+public class FriendsGroupsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    List<Group> groups;
-    ListView listView;
+    private List<Group> groups;
+    private ListView listView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,10 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
         registerGetDataOnMainTread(this);
 
         listView = findViewById(R.id.listView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
         listView.setOnItemClickListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(this);
@@ -100,5 +105,11 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
     public void onClick(View v) {
         if (v == fabBaseActivity)
             FriendsGroupsEditActivity.open(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(false);
+        refresh();
     }
 }

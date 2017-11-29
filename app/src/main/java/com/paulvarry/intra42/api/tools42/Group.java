@@ -4,20 +4,14 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.List;
 import java.util.Locale;
 
-public class Group extends GroupSmall implements BaseItem {
+public class Group extends GroupSmall {
 
     @SerializedName("user_ids")
     public List<Integer> users;
-
-    @Override
-    public String getName(Context context) {
-        return name;
-    }
 
     @Override
     public String getSub(Context context) {
@@ -27,10 +21,5 @@ public class Group extends GroupSmall implements BaseItem {
             else
                 return String.format(Locale.getDefault(), context.getString(R.string.friends_summary_format_friends), users.size());
         return context.getString(R.string.friends_summary_no_friends);
-    }
-
-    @Override
-    public boolean openIt(Context context) {
-        return false;
     }
 }
