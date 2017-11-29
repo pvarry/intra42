@@ -252,7 +252,7 @@ public class AppSettings {
         }
 
         public static boolean getNotificationsEvents(SharedPreferences settings) {
-            return settings.getBoolean(CHECKBOX_EVENTS, false);
+            return getNotificationsAllow(settings) && settings.getBoolean(CHECKBOX_EVENTS, true);
         }
 
         public static boolean getNotificationsScales(Context context) {
@@ -260,7 +260,7 @@ public class AppSettings {
         }
 
         public static boolean getNotificationsScales(SharedPreferences settings) {
-            return settings.getBoolean(CHECKBOX_SCALES, false);
+            return getNotificationsAllow(settings) && settings.getBoolean(CHECKBOX_SCALES, true);
         }
 
         /**

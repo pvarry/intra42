@@ -269,9 +269,10 @@ public class ServiceGenerator {
                 Request.Builder requestBuilder = original.newBuilder()
                         .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
                         .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_KEY_API_AUTH, "Bearer " + accessToken.accessToken)
                         .header(HEADER_KEY_USER_AGENT, getUserAgent())
                         .method(original.method(), original.body());
+                if (accessToken != null)
+                    requestBuilder.header(HEADER_KEY_API_AUTH, "Bearer " + accessToken.accessToken);
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
@@ -364,12 +365,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(AccessToken token) {
-        ServiceGenerator.accessTokenIntra42 = token;
-    }
-
     public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
         ServiceGenerator.accessToken42Tools = token;
+    }
+
+    public static void setToken(AccessToken token) {
+        ServiceGenerator.accessTokenIntra42 = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

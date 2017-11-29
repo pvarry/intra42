@@ -9,8 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/order_background" />
+        android:scaleType="centerCrop" />
 
     <FrameLayout
         android:id="@+id/frameLayoutBanner"
@@ -18,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/banner"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView

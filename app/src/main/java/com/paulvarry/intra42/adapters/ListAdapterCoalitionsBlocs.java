@@ -112,6 +112,7 @@ public class ListAdapterCoalitionsBlocs extends BaseAdapter {
                 holder.imageView.setVisibility(View.GONE);
         }
 
+        holder.frameLayoutBanner.setBackgroundResource(R.drawable.banner);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.frameLayoutBanner.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(item.color)));
         }

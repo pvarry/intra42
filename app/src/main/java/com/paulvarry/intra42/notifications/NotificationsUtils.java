@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.AppClass;
@@ -47,35 +46,39 @@ import retrofit2.Response;
 public class NotificationsUtils {
 
     static private NotificationCompat.Builder getBaseNotification(Context context) {
-        return new NotificationCompat.Builder(context, "intra42")
-                .setSmallIcon(R.drawable.logo_42)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "intra42")
                 .setColor(Theme.getColorAccent(context));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            builder.setSmallIcon(R.drawable.logo_42);
+        else
+            builder.setSmallIcon(context.getApplicationInfo().icon);
+        return builder;
     }
 
     private static void setSummaryNotificationEvent(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+            return;
+
         NotificationCompat.Builder summaryNotification = getBaseNotification(context)
                 .setAutoCancel(false)
                 .setSubText(context.getString(R.string.notifications_events_sub_text))
                 .setGroup(context.getString(R.string.notifications_events_unique_id))
                 .setChannelId(context.getString(R.string.notifications_events_unique_id))
-                .setContentText(context.getString(R.string.notifications_events_sub_text))
                 .setGroupSummary(true);
-
-        Log.d("notifications", "display event summary");
 
         NotificationManagerCompat.from(context).notify(-1, summaryNotification.build());
     }
 
     private static void setSummaryNotificationEvaluations(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+            return;
+
         NotificationCompat.Builder summaryNotification = getBaseNotification(context)
                 .setAutoCancel(false)
                 .setSubText(context.getString(R.string.notifications_bookings_sub_text))
                 .setGroup(context.getString(R.string.notifications_bookings_unique_id))
                 .setChannelId(context.getString(R.string.notifications_bookings_unique_id))
-                .setContentText(context.getString(R.string.notifications_bookings_sub_text))
                 .setGroupSummary(true);
-
-        Log.d("notifications", "display evaluations summary");
 
         NotificationManagerCompat.from(context).notify(-2, summaryNotification.build());
     }
@@ -362,6 +365,8 @@ public class NotificationsUtils {
             if (dateFilter == null)
                 return;
 
+            // dateFilter = "2017-07-01T00:00:00.000Z" + "," + DateTool.getNowUTC();
+
             if (AppSettings.Notifications.getNotificationsEvents(settings))
                 notifyEventsApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
             if (AppSettings.Notifications.getNotificationsScales(settings)) {
@@ -396,8 +401,6 @@ public class NotificationsUtils {
             if (!responseEvents.isSuccessful() || responseEvents.body() == null || responseEvents.body().size() == 0)
                 return;
 
-            //create summary notification
-            setSummaryNotificationEvent(app);
             SparseArray<EventsUsers> eventUser = EventsUsers.get(app, apiService, responseEvents.body());
             if (eventUser != null) {
                 for (Events e : responseEvents.body()) {
@@ -408,6 +411,8 @@ public class NotificationsUtils {
                     NotificationsUtils.notify(app, e);
                 }
             }
+            //create summary notification
+            setSummaryNotificationEvent(app);
         } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
         }
@@ -422,10 +427,10 @@ public class NotificationsUtils {
         try {
             response = scaleTeams.execute();
             if (response.isSuccessful() && response.body() != null && response.body().size() != 0) {
-                NotificationsUtils.setSummaryNotificationEvaluations(app);
                 for (ScaleTeams s : response.body()) {
                     NotificationsUtils.notify(app, s, false);
                 }
+                NotificationsUtils.setSummaryNotificationEvaluations(app);
             }
         } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
@@ -442,10 +447,10 @@ public class NotificationsUtils {
         try {
             Response<List<ScaleTeams>> response = scaleTeams.execute();
             if (response.isSuccessful() && response.body() != null && response.body().size() != 0) {
-                NotificationsUtils.setSummaryNotificationEvaluations(app);
                 for (ScaleTeams s : response.body()) {
                     NotificationsUtils.notify(app, s, true);
                 }
+                NotificationsUtils.setSummaryNotificationEvaluations(app);
             }
         } catch (IOException | IllegalStateException e) {
             e.printStackTrace();

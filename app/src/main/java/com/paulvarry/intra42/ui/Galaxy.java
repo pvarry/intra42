@@ -284,7 +284,7 @@ public class Galaxy extends View {
     }
 
     /**
-     * Force a stop to all pie motion. Called when the user taps during a fling.
+     * Force a stop to all motion. Called when the user taps during a fling.
      */
     private void stopScrolling() {
         mScroller.forceFinished(true);
