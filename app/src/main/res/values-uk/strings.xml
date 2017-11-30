@@ -366,4 +366,13 @@ You will lose a correction point"</string>
 <string name="search_section_users_login">"user ― login"</string>
 <string name="search_section_users_first_name">"user ― first name"</string>
 <string name="search_section_users_last_name">"user ― last name"</string>
+<string name="title_activity_coalitions">"Coalitions"</string>
+<string name="coalitions_nothing_selected_cursus_campus">"No coalition found for selected cursus/campus"</string>
+<string name="friends_adding_to_group">"Adding friends to group"</string>
+<string name="friends_removing_from_group">"Removing friends from group"</string>
+<string name="galaxy_no_live_data">"Unable to get live data for Galaxy"</string>
+<string name="coalition_score">"Score"</string>
+<string name="refreshing">"Refreshing"</string>
+<string name="info_data_cached_long_time_ago">"Data cached long time ago"</string>
+<string name="title_tab_user_apps">"Apps"</string>
 </resources>
