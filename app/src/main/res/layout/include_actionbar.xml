@@ -21,6 +21,7 @@
             android:layout_alignBottom="@id/linearLayoutActionBar"
             android:layout_alignTop="@id/linearLayoutActionBar"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/icon_background"
             android:scaleType="centerCrop"
             android:src="@drawable/order_background" />
 

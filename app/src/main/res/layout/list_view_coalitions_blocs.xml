@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/icon_background"
         android:scaleType="centerCrop" />
 
     <FrameLayout
@@ -52,7 +53,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="24dp"
-        android:text="Score"
+        android:text="@string/coalition_score"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"

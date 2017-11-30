@@ -27,7 +27,7 @@ public class NotionsActivity
     }
 
     /**
-     * This text is useful when both {@link BasicThreadActivity#getDataOnMainThread()} and {@link BasicThreadActivity#getDataOnOtherThread()} return false.
+     * This text is useful when both {@link BasicThreadActivity.GetDataOnThread#getDataOnOtherThread()} and {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()} return false.
      *
      * @return A simple text to display on screen, may return null;
      */

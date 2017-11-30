@@ -87,7 +87,7 @@ public class Calendar {
 
     public static boolean syncEventCalendarNotificationDeleteOnly(Context context, int event, EventsUsers eventsUsers) {
         boolean calendarEnable = AppSettings.Notifications.getCalendarSync(context);
-        return calendarEnable && syncEventCalendarDeletOnly(context, event, eventsUsers);
+        return calendarEnable && syncEventCalendarDeleteOnly(context, event, eventsUsers);
     }
 
     public static boolean syncEventCalendarNotification(Context context, List<EventsUsers> eventsUsers) {
@@ -108,7 +108,7 @@ public class Calendar {
         return true;
     }
 
-    private static boolean syncEventCalendarDeletOnly(Context context, int event, EventsUsers eventsUsers) {
+    private static boolean syncEventCalendarDeleteOnly(Context context, int event, EventsUsers eventsUsers) {
         boolean eventOnCalendar = Calendar.checkEventExist(context, event);
         if (eventOnCalendar && eventsUsers == null)
             removeEventFromCalendar(context, event);

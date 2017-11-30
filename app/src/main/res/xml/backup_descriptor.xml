@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
-    <!-- TODO Remove the following "exclude" elements to make them a part of the auto backup -->
     <exclude
         domain="database"
         path="Cache.db" />
-    <!-- Exclude the shared preferences file that contains the GCM registrationId
-    <exclude
-        domain="sharedpref"
-        path="com.paulvarry.intra42.debug.xml" />
-    <exclude
-        domain="sharedpref"
-        path="intra_prefs.xml" /> -->
 </full-backup-content>

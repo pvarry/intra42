@@ -271,26 +271,26 @@ public class UserActivity extends BasicTabActivity
             calendar.setTime(user.local_cachedAt);
             calendar.add(Calendar.HOUR, 1);
             Date timeout = calendar.getTime();
-            if (user.local_cachedAt != null && timeout.before(new Date())) {
+            if (timeout.before(new Date())) {
 
-                Snackbar s = Snackbar.make(coordinatorLayout, "Data cached long time ago", Snackbar.LENGTH_LONG);
-                s.setAction(R.string.refresh, new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.info_data_cached_long_time_ago, Snackbar.LENGTH_LONG);
+                snackbar.setAction(R.string.refresh, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        final Snackbar s = Snackbar.make(coordinatorLayout, "Refreshing", Snackbar.LENGTH_INDEFINITE);
-                        s.show();
+                        final Snackbar snackbarRefreshing = Snackbar.make(coordinatorLayout, R.string.refreshing, Snackbar.LENGTH_INDEFINITE);
+                        snackbarRefreshing.show();
 
                         refresh(new Runnable() {
                             @Override
                             public void run() {
                                 setViewState(StatusCode.CONTENT);
-                                s.dismiss();
+                                snackbarRefreshing.dismiss();
                             }
                         });
                     }
                 });
-                s.show();
+                snackbar.show();
             }
         }
     }
@@ -310,7 +310,7 @@ public class UserActivity extends BasicTabActivity
         adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.title_tab_user_partnerships));
 
         if (AppSettings.Advanced.getAllowAdvancedData(this)) {
-            adapter.addFragment(UserAppsFragment.newInstance(), "Apps");
+            adapter.addFragment(UserAppsFragment.newInstance(), getString(R.string.title_tab_user_apps));
         }
 
         viewPager.setAdapter(adapter);
@@ -407,8 +407,10 @@ public class UserActivity extends BasicTabActivity
                 Call<Users> call = service.getUser(login);
 
                 Response<Users> ret = call.execute();
-                if (Tools.apiIsSuccessful(ret))
+                if (Tools.apiIsSuccessful(ret)) {
                     user = ret.body();
+                    user.local_cachedAt = new Date();
+                }
 
                 if (user != null) {
                     Response<List<Coalitions>> retCoalition = service.getUsersCoalitions(user.login).execute();

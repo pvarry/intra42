@@ -105,7 +105,7 @@ public class UserProjectsFragment
         galaxy.setVisibility(View.VISIBLE);
 
         activity = (UserActivity) getActivity();
-        if (activity != null && activity.selectedCursus != null) {
+        if (activity != null && activity.selectedCursus != null && activity.user != null) {
 
             ApiServiceAuthServer client = activity.app.getApiServiceAuthServer();
             Call<List<ProjectDataIntra>> l = client.getGalaxy(activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user.login);

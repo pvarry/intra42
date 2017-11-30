@@ -8,7 +8,6 @@ import android.os.Build;
 public class AlarmReceiverNotifications extends BroadcastReceiver {
 
     public static final int REQUEST_CODE = 12345;
-    public static final String ACTION = "com.paulvarry.intra42.servicesdemo.alarm";
 
     public AlarmReceiverNotifications() {
     }

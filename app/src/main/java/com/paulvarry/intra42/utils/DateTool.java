@@ -15,108 +15,10 @@ import java.util.TimeZone;
 
 public class DateTool extends java.util.Date {
 
-//    public static String getNow(Context context) {
-//        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//        format.setTimeZone(TimeZone.getDefault());
-//        return format.format(new java.util.Date(System.currentTimeMillis()));
-//    }
-//
-//
-//    /**
-//     * Example "12 Mar 12:16"
-//     *
-//     * @return The date
-//     */
-//    public String getDateTime() {
-//
-//        SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
-//        return format.format(this);
-//    }
-//
-//    /**
-//     * Example "12 Mar 12:16"
-//     *
-//     * @return The date
-//     */
-//    public String getDateTimeLarge() {
-//
-//        SimpleDateFormat format = new SimpleDateFormat("dd MMMM HH:mm");
-//        return format.format(this);
-//    }
-
-//    /**
-//     * Example "Thursday 21 April"
-//     *
-//     * @return date in string
-//     */
-//    public String getDate() {
-//
-//        SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMMM", locale);
-//        return format.format(date);
-//    }
-
-//    /**
-//     * Format : "dd MMMM"
-//     * <br>
-//     * Example "21 April"
-//     *
-//     * @return date in string
-//     */
-//    public String getDateLTE() {
-//
-//        SimpleDateFormat format = new SimpleDateFormat("dd MMMM");
-//        return format.format(this);
-//    }
-
-
-//
-//    @Deprecated
-//    public String getRelativeTime() {
-//        long now = System.currentTimeMillis();
-//        return DateUtils.getRelativeTimeSpanString(this.getTime(), now, DateUtils.SECOND_IN_MILLIS).toString();
-//    }
-//
-//    public boolean sameDayOf(Date date) {
-//        Calendar cal1 = Calendar.getInstance();
-//        Calendar cal2 = Calendar.getInstance();
-//        cal1.setTime(date.date);
-//        cal2.setTime(this);
-//        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-//                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
-//    }
-//
-
-
-//    public String getTimeShort() {
-//        SimpleDateFormat format = new SimpleDateFormat("HH:mm", locale);
-//        return format.format(date);
-//    }
-//
-//    public String get(String format) {
-//        SimpleDateFormat f = new SimpleDateFormat(format);
-//        return f.format(this);
-//    }
-//
-//    public String getDurationAgo() {
-//        PrettyTime p = new PrettyTime(Locale.getDefault());
-//        return p.format(this);
-//    }
-
     static public String getDurationAgo(java.util.Date date) {
         PrettyTime p = new PrettyTime(Locale.getDefault());
         return p.format(date);
     }
-
-//    public String getDuration(java.util.Date date) {
-//        PrettyTime p = new PrettyTime(Locale.getDefault());
-//        return p.formatApproximateDuration(date);
-//    }
-
-
-
-    /* NEW */
-
-    // is
 
     static public boolean isToday(java.util.Date date) {
         if (date == null)

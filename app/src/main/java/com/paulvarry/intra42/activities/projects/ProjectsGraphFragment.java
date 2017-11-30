@@ -73,6 +73,7 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
 
         final Galaxy galaxy = view.findViewById(R.id.galaxy);
         galaxy.setOnProjectClickListener(this);
+        galaxy.setState(getString(R.string.info_loading));
 
         ApiServiceAuthServer client = app.getApiServiceAuthServer();
         if (!app.userIsLogged())
@@ -84,7 +85,7 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
                 if (response.isSuccessful())
                     galaxy.setData(response.body());
                 else {
-                    Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.galaxy_no_live_data, Toast.LENGTH_SHORT).show();
                     List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
                     galaxy.setData(list);
                 }
@@ -92,12 +93,11 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
 
             @Override
             public void onFailure(Call<List<ProjectDataIntra>> call, Throwable t) {
-                Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, R.string.galaxy_no_live_data, Toast.LENGTH_SHORT).show();
                 List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
                 galaxy.setData(list);
             }
         });
-        galaxy.setState("loading");
     }
 
 

@@ -5,7 +5,6 @@
         <item name="colorPrimaryDark">#1e212a</item>
         <item name="colorSecondary">#525663</item>
         <item name="colorAccent">#00babc</item>
-        <item name="android:navigationBarColor">#1e212a</item>
     </style>
 
     <style name="ThemeIntraOrder" parent="ThemeIntra">
