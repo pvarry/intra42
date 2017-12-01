@@ -134,7 +134,7 @@
         <item name="colorProjectAvailable">#ffffff</item>
         <item name="colorProjectFailed">@color/colorFail</item>
         <item name="colorProjectInProgress">#afafaf</item>
-        <item name="colorProjectTextAvailable">?colorPrimary</item>
+        <item name="colorProjectTextAvailable">?attr/colorAccent</item>
         <item name="colorProjectTextFailed">#ffffff</item>
         <item name="colorProjectTextUnavailable">#ffffff</item>
         <item name="colorProjectTextValidated">#ffffff</item>

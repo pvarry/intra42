@@ -104,8 +104,16 @@ public class UserProjectsFragment
         setViewHide();
         galaxy.setVisibility(View.VISIBLE);
 
+        galaxy.setOnProjectClickListener(this);
+        listView.setOnItemClickListener(this);
+        listViewAll.setOnItemClickListener(this);
+
         activity = (UserActivity) getActivity();
-        if (activity != null && activity.selectedCursus != null && activity.user != null) {
+        if (activity != null && activity.user != null) {
+            if (activity.selectedCursus == null)
+                activity.selectedCursus = activity.user.getCursusUsersToDisplay(getContext());
+            if (activity.selectedCursus == null)
+                return;
 
             ApiServiceAuthServer client = activity.app.getApiServiceAuthServer();
             Call<List<ProjectDataIntra>> l = client.getGalaxy(activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user.login);
@@ -124,17 +132,13 @@ public class UserProjectsFragment
                     setGalaxyNoData();
                 }
             });
-            galaxy.setState("loading");
+            galaxy.setState(getString(R.string.info_loading));
         }
-
-        galaxy.setOnProjectClickListener(this);
-        listView.setOnItemClickListener(this);
-        listViewAll.setOnItemClickListener(this);
     }
 
     void setGalaxyNoData() {
         if (!isAdded() || isDetached()) return;
-        Toast.makeText(activity, "Unable to get live data for Galaxy", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, R.string.galaxy_no_live_data, Toast.LENGTH_SHORT).show();
         List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
         galaxy.setData(list);
     }

@@ -261,6 +261,8 @@ public class UserActivity extends BasicTabActivity
         if (user == null)
             setViewState(StatusCode.API_DATA_ERROR);
         else {
+            selectedCursus = user.getCursusUsersToDisplay(this);
+
             super.setViewContent();
             Theme.setTheme(this, user);
             Theme.setActionBar(actionBar, Theme.getThemeFromCoalition(user.coalitions));
