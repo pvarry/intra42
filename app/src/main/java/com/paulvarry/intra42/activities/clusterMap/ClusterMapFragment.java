@@ -1,6 +1,8 @@
 package com.paulvarry.intra42.activities.clusterMap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -15,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.LocationHistoryActivity;
@@ -41,7 +42,7 @@ import java.util.HashMap;
  * Use the {@link ClusterMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClusterMapFragment extends Fragment {
+public class ClusterMapFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     float baseItemWidth;
     float baseItemHeight;
@@ -135,13 +136,13 @@ public class ClusterMapFragment extends Fragment {
                 if (clusterMap[r][p] == null)
                     break;
 
-                View v = makeMapItem(clusterMap, r, p);
-                gridLayout.addView(v);
+                View view = makeMapItem(clusterMap, r, p);
+                gridLayout.addView(view);
             }
         }
     }
 
-    View makeMapItem(final LocationItem[][] cluster, int r, int p) {
+    private View makeMapItem(final LocationItem[][] cluster, int r, int p) {
         boolean highlightOpen = false;
         boolean highlightFriend = false;
 
@@ -166,6 +167,9 @@ public class ClusterMapFragment extends Fragment {
             }
         }
 
+        if (vi == null)
+            return null;
+
         if (highlightOpen || highlightFriend)
             view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
         else
@@ -173,35 +177,16 @@ public class ClusterMapFragment extends Fragment {
 
         imageViewContent = view.findViewById(R.id.imageView);
         if (locationItem.kind == LocationItem.KIND_USER) {
+            view.setTag(locationItem);
+            view.setOnClickListener(this);
 
-            if (locationItem.locationName.contains("null") || locationItem.locationName.contains("TBD"))
+            if (locationItem.locationName.contentEquals("null") || locationItem.locationName.contentEquals("TBD"))
                 imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
             else {
-                imageViewContent.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        LocationHistoryActivity.openIt(activity, locationItem.locationName);
-                        return true;
-                    }
-                });
-                if (user != null) {
+                if (user != null)
                     UserImage.setImageSmall(getContext(), user, imageViewContent);
-                    final UsersLTE finalUser = user;
-                    imageViewContent.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            UserActivity.openIt(activity, finalUser);
-                        }
-                    });
-                } else {
+                else
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_custom));
-                    imageViewContent.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(activity, locationItem.locationName, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
             }
 
         } else if (locationItem.kind == LocationItem.KIND_WALL)
@@ -263,6 +248,43 @@ public class ClusterMapFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        LocationItem locationItem = null;
+        UsersLTE user = null;
+
+        if (v.getTag() instanceof LocationItem)
+            locationItem = (LocationItem) v.getTag();
+        if (locationItem == null || locationItem.kind != LocationItem.KIND_USER)
+            return;
+
+        if (locations != null)
+            user = locations.get(locationItem.locationName);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.cluster_map_dialog_action);
+        String[] actions;
+        if (user != null)
+            actions = new String[]{String.format(getString(R.string.format__host_s_history), locationItem.locationName), String.format(getString(R.string.format__user_profile), user.login)};
+        else
+            actions = new String[]{String.format(getString(R.string.format__host_s_history), locationItem.locationName)};
+
+        final UsersLTE finalUser = user;
+        final String location = locationItem.locationName;
+        builder.setItems(actions, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    LocationHistoryActivity.openIt(activity, location);
+                } else if (which == 1) {
+                    UserActivity.openIt(activity, finalUser);
+                }
+            }
+        });
+        builder.show();
+
     }
 
     /**

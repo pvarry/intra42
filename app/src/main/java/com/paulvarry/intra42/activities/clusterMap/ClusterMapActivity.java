@@ -153,7 +153,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         }
 
         setLoadingInfo(getString(R.string.info_loading_friends));
-        setLoadingProgress(pageMax, pageMax - 1);
+        setLoadingProgress(pageMax, pageMax + 1);
 
         ApiService42Tools api = app.getApiService42Tools();
 

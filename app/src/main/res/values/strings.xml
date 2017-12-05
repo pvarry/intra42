@@ -75,6 +75,8 @@
     <string name="format__dont_have_write_topic">%s don\'t have write any topic yet</string>
     <!-- Format warning -->
     <string name="format__host_s_history">%s\'s history</string>
+    <!-- Format warning -->
+    <string name="format__user_profile">%s\'s profile</string>
 
 
     <string name="campus">Campus</string>
@@ -377,5 +379,6 @@
     <string name="refreshing">Refreshing</string>
     <string name="info_data_cached_long_time_ago">Data cached long time ago</string>
     <string name="title_tab_user_apps">Apps</string>
+    <string name="cluster_map_dialog_action">Action for this location</string>
 
 </resources>

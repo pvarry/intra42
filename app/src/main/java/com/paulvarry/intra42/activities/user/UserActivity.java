@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -101,34 +102,64 @@ public class UserActivity extends BasicTabActivity
             }
 
             final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.info_loading_please_wait), true);
-            ApiService s = app.getApiService();
+            dialog.setCanceledOnTouchOutside(true);
+            final ApiService api = app.getApiService();
+            final Call<Users> callUser = api.getUser(login);
+            final Call<List<Coalitions>> callCoalition = api.getUsersCoalitions(login);
+            final Handler mainHandler = new Handler(context.getMainLooper());
 
-            Call<Users> call = s.getUser(login);
-            call.enqueue(new Callback<Users>() {
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
-                public void onResponse(Call<Users> call, Response<Users> response) {
-
-                    if (!response.isSuccessful() && response.code() != 404)
-                        Toast.makeText(context, "Error on get user", Toast.LENGTH_SHORT).show();
-                    else if (response.body() == null || response.code() == 404)
-                        Toast.makeText(context, "Users not found", Toast.LENGTH_SHORT).show();
-                    else {
-
-                        UserActivity.openIt(context, response.body());
-
-                        String gson = ServiceGenerator.getGson().toJson(response.body());
-                        CacheUsers.put(app.cacheSQLiteHelper, response.body(), gson);
-
-                    }
-                    dialog.cancel();
-                }
-
-                @Override
-                public void onFailure(Call<Users> call, Throwable t) {
-                    dialog.cancel();
-                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                public void onCancel(DialogInterface dialog) {
+                    callUser.cancel();
+                    callCoalition.cancel();
                 }
             });
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        final Response<Users> responseUser = callUser.execute();
+                        Users user;
+
+                        if (Tools.apiIsSuccessfulNoThrow(responseUser)) {
+                            Response<List<Coalitions>> responseCoalition = callCoalition.execute();
+                            user = responseUser.body();
+                            if (Tools.apiIsSuccessfulNoThrow(responseCoalition))
+                                user.coalitions = responseCoalition.body();
+
+                            UserActivity.openIt(context, user);
+
+                            String gson = ServiceGenerator.getGson().toJson(user);
+                            CacheUsers.put(app.cacheSQLiteHelper, user, gson);
+                        } else {
+                            Runnable myRunnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context, "Users not found", Toast.LENGTH_SHORT).show();
+                                }
+                            };
+                            mainHandler.post(myRunnable);
+                        }
+
+                    } catch (final IOException e) {
+                        e.printStackTrace();
+                        if (callCoalition.isCanceled() || callUser.isCanceled())
+                            return;
+
+                        Runnable myRunnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            } // This is your code
+                        };
+                        mainHandler.post(myRunnable);
+                    } finally {
+                        dialog.dismiss();
+                    }
+                }
+            }).start();
             return true;
         }
         return false;
