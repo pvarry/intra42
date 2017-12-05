@@ -208,7 +208,7 @@ public class ServiceGenerator {
                     return null;
                 }
 
-                if (accessTokenIntra42 == null)
+                if (accessToken42Tools == null)
                     return null;
 
                 //noinspection SynchronizeOnNonFinalField
@@ -365,12 +365,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
-        ServiceGenerator.accessToken42Tools = token;
-    }
-
     public static void setToken(AccessToken token) {
         ServiceGenerator.accessTokenIntra42 = token;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
+        ServiceGenerator.accessToken42Tools = token;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

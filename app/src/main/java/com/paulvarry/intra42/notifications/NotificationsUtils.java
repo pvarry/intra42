@@ -357,7 +357,7 @@ public class NotificationsUtils {
 
     public static void run(Context context, AppClass app) {
 
-        if (app != null) {
+        if (app != null && app.userIsLogged(false)) {
 
             SharedPreferences settings;
             settings = PreferenceManager.getDefaultSharedPreferences(context);

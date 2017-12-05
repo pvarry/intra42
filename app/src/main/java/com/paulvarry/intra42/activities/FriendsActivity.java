@@ -240,12 +240,14 @@ public class FriendsActivity
             groups = dataWrapper.groups;
             locations = dataWrapper.locations;
             dataWrapper = null;
+
+            if (listFriends == null)
+                return ThreadStatusCode.CONTINUE;
+
             list = new ArrayList<>(listFriends.size());
 
             for (int i = 0; i < listFriends.size(); i++)
                 list.add(listFriends.valueAt(i));
-            if (list == null)
-                return ThreadStatusCode.CONTINUE;
 
             TreeSet<FriendsSmall> haveLocation = new TreeSet<>();
             TreeSet<FriendsSmall> noLocation = new TreeSet<>();

@@ -243,7 +243,7 @@ public class AppClass extends Application {
         //TODO: add integration to force use API with a cache manager in the UI !!
         editor.apply();
 
-        if (!ServiceGenerator.have42ToolsToken()) {
+        if (!ServiceGenerator.have42ToolsToken() && ServiceGenerator.have42Token()) {
             ApiService42Tools client = ServiceGenerator.createService(ApiService42Tools.class);
             Call<AccessToken> call = client.getAccessToken(ServiceGenerator.getToken().accessToken);
             try {

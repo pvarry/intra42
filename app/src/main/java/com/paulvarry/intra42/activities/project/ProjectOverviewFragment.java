@@ -360,11 +360,14 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
 
                     @Override
                     public void onFailure(Call<Projects> call, Throwable t) {
-                        Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        if (isAdded())
+                            Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
                 });
-            } else
-                Toast.makeText(getContext(), "problem", Toast.LENGTH_LONG).show();
+            } else {
+                if (isAdded())
+                    Toast.makeText(getContext(), "problem", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

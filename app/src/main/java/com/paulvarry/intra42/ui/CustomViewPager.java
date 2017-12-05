@@ -31,7 +31,6 @@ public class CustomViewPager extends ViewPager {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return canSwipe() && super.onTouchEvent(event);
-
     }
 
     public void setPagingEnabled(boolean enabled) {

@@ -222,10 +222,13 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         call.enqueue(new Callback<Votes>() {
             @Override
             public void onResponse(Call<Votes> call, retrofit2.Response<Votes> response) {
+                Context context = getContext();
+                if (context == null)
+                    return;
                 if (response.isSuccessful())
-                    Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
                 imageButton.setVisibility(View.VISIBLE);
             }
