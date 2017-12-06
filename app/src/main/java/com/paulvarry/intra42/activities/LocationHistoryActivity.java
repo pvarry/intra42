@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.SectionListViewSearch;
+import com.paulvarry.intra42.adapters.SectionListView;
 import com.paulvarry.intra42.api.model.Locations;
+import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
@@ -26,34 +28,46 @@ import retrofit2.Response;
 public class LocationHistoryActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, AdapterView.OnItemClickListener {
 
     final static private String INTENT_LOCATION = "location";
-    List<SectionListViewSearch.Item> items;
+    final static private String INTENT_USER = "user";
+
+    List<SectionListView.Item> items;
     PinnedSectionListView listView;
     List<Locations> locations;
     String host;
-    SectionListViewSearch adapter;
+    String login;
+    SectionListView adapter;
 
-    public static void openIt(Context context, String host) {
+    public static void openItWithLocation(Context context, String host) {
         Intent intent = new Intent(context, LocationHistoryActivity.class);
         intent.putExtra(INTENT_LOCATION, host);
         context.startActivity(intent);
     }
 
-    public static void openIt(Context context, Locations locations) {
+    public static void openItWithLocation(Context context, Locations locations) {
+        openItWithLocation(context, locations.host);
+    }
+
+    public static void openItWithUser(Context context, String login) {
         Intent intent = new Intent(context, LocationHistoryActivity.class);
-        intent.putExtra(INTENT_LOCATION, locations.host);
+        intent.putExtra(INTENT_USER, login);
         context.startActivity(intent);
+    }
+
+    public static void openItWithUser(Context context, UsersLTE user) {
+        openItWithUser(context, user.login);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         host = getIntent().getStringExtra(INTENT_LOCATION);
+        login = getIntent().getStringExtra(INTENT_USER);
 
         super.registerGetDataOnOtherThread(this);
         super.setContentView(R.layout.activity_location_history);
         super.onCreate(savedInstanceState);
 
-        if (host == null)
+        if (host == null && login == null)
             finish();
 
         listView = findViewById(R.id.listView);
@@ -68,23 +82,31 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
 
     @Override
     public String getToolbarName() {
-        return String.format(getString(R.string.format__host_s_history), host);
+        if (host != null)
+            return String.format(getString(R.string.format__host_s_history), host);
+        else
+            return String.format(getString(R.string.format__host_s_history), login);
     }
 
     @Override
     public void setViewContent() {
         items = new ArrayList<>();
+        Locations curLocation;
 
         for (int i = 0; i < locations.size(); i++) {
+            curLocation = locations.get(i);
+
             if (i > 0 && i - 1 < locations.size()) {
                 if (!DateTool.sameDayOf(locations.get(i).beginAt, locations.get(i - 1).beginAt))
-                    items.add(new SectionListViewSearch.Item<Locations>(SectionListViewSearch.Item.SECTION, null, DateTool.getDateLong(locations.get(i).beginAt)));
+                    items.add(new SectionListView.Item<Locations>(SectionListView.Item.SECTION, null, DateTool.getDateLong(curLocation.beginAt)));
             } else if (i == 0)
-                items.add(new SectionListViewSearch.Item<Locations>(SectionListViewSearch.Item.SECTION, null, DateTool.getDateLong(locations.get(i).beginAt)));
-            items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, locations.get(i), null));
+                items.add(new SectionListView.Item<Locations>(SectionListView.Item.SECTION, null, DateTool.getDateLong(curLocation.beginAt)));
+            items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, curLocation, (host != null ? curLocation.user.login : curLocation.host)));
         }
 
-        adapter = new SectionListViewSearch(this, items);
+        adapter = new SectionListView(this, items);
+        if (host != null)
+            adapter.forceUserPicture(true);
         listView.setAdapter(adapter);
     }
 
@@ -96,7 +118,11 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
     @Override
     public void getDataOnOtherThread() throws IOException, UnauthorizedException, ErrorServerException {
 
-        Response<List<Locations>> response = app.getApiService().getLocationsHost(AppSettings.getAppCampus(app), host).execute();
+        Response<List<Locations>> response;
+        if (host != null)
+            response = app.getApiService().getLocationsHost(AppSettings.getAppCampus(app), host).execute();
+        else
+            response = app.getApiService().getLastLocations(login).execute();
 
         if (locations == null)
             locations = new ArrayList<>();
@@ -107,6 +133,9 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        UserActivity.openIt(this, ((Locations) adapter.getItem(position).item).user, app);
+        if (host != null)
+            UserActivity.openIt(this, ((Locations) adapter.getItem(position).item).user, app);
+        else
+            ClusterMapActivity.openIt(this, ((Locations) adapter.getItem(position).item).host);
     }
 }

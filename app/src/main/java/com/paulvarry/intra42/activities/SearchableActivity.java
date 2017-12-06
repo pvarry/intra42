@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.SectionListViewSearch;
+import com.paulvarry.intra42.adapters.SectionListView;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Projects;
@@ -55,7 +55,7 @@ public class SearchableActivity
     ListView listView;
     Button buttonApiOpen;
 
-    List<SectionListViewSearch.Item> items;
+    List<SectionListView.Item> items;
     String apiRaw;
 
     AppClass app;
@@ -190,7 +190,7 @@ public class SearchableActivity
     protected void setViewContent() {
         visibilityGoneAll();
         if (items != null) {
-            final SectionListViewSearch adapter = new SectionListViewSearch(SearchableActivity.this, items);
+            final SectionListView adapter = new SectionListView(SearchableActivity.this, items);
 
             visibilityGoneAll();
             listView.setVisibility(View.VISIBLE);
@@ -287,33 +287,33 @@ public class SearchableActivity
         items = new ArrayList<>();
 
         if (responseUsersLogin != null && Tools.apiIsSuccessful(responseUsersLogin)) {
-            items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users_login)));
+            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_users_login)));
             for (UsersLTE u : responseUsersLogin.body())
-                items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName(this)));
+                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
         }
 
         if (responseUsersFirstName != null && Tools.apiIsSuccessful(responseUsersFirstName)) {
-            items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users_first_name)));
+            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_users_first_name)));
             for (UsersLTE u : responseUsersFirstName.body())
-                items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName(this)));
+                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
         }
 
         if (responseUsersLastName != null && Tools.apiIsSuccessful(responseUsersLastName)) {
-            items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_users_last_name)));
+            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_users_last_name)));
             for (UsersLTE u : responseUsersLastName.body())
-                items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, u, u.getName(this)));
+                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
         }
 
         if (responseProjects != null && Tools.apiIsSuccessful(responseProjects)) {
-            items.add(new SectionListViewSearch.Item<Projects>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_projects)));
+            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_projects)));
             for (Projects p : responseProjects.body())
-                items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, p, p.getName(this)));
+                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, p, p.getName(this)));
         }
 
         if (responseTopics != null && Tools.apiIsSuccessful(responseTopics)) {
-            items.add(new SectionListViewSearch.Item<Topics>(SectionListViewSearch.Item.SECTION, null, getString(R.string.search_section_topics)));
+            items.add(new SectionListView.Item<Topics>(SectionListView.Item.SECTION, null, getString(R.string.search_section_topics)));
             for (Topics t : responseTopics.body())
-                items.add(new SectionListViewSearch.Item<>(SectionListViewSearch.Item.ITEM, t, t.getName(this)));
+                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, t, t.getName(this)));
         }
     }
 
@@ -395,8 +395,8 @@ public class SearchableActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        SectionListViewSearch.Item i = items.get(position);
-        if (i.type == SectionListViewSearch.Item.ITEM)
+        SectionListView.Item i = items.get(position);
+        if (i.type == SectionListView.Item.ITEM)
             i.item.openIt(this);
     }
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.UserImage;
 
@@ -19,16 +20,20 @@ import java.util.List;
 
 import de.halfbit.pinnedsection.PinnedSectionListView;
 
-public class SectionListViewSearch extends BaseAdapter
+public class SectionListView extends BaseAdapter
         implements PinnedSectionListView.PinnedSectionListAdapter {
 
-    Context context;
-    List<Item> list;
+    private Context context;
+    private List<Item> list;
+    private boolean forceUserPicture;
 
-
-    public SectionListViewSearch(Context context, List<Item> list) {
+    public SectionListView(Context context, List<Item> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void forceUserPicture(boolean force) {
+        this.forceUserPicture = force;
     }
 
     @Override
@@ -55,6 +60,8 @@ public class SectionListViewSearch extends BaseAdapter
 
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            if (vi == null)
+                return null;
             convertView = vi.inflate(R.layout.list_view__, parent, false);
 
             holder.linearLayoutTitle = convertView.findViewById(R.id.linearLayoutTitle);
@@ -84,10 +91,16 @@ public class SectionListViewSearch extends BaseAdapter
             if (i.item instanceof UsersLTE) {
                 holder.imageViewUser.setVisibility(View.VISIBLE);
                 UserImage.setImage(context, (UsersLTE) i.item, holder.imageViewUser);
+            } else if (i.item instanceof Locations && forceUserPicture) {
+                holder.imageViewUser.setVisibility(View.VISIBLE);
+                UserImage.setImage(context, ((Locations) i.item).user, holder.imageViewUser);
             } else
                 holder.imageViewUser.setVisibility(View.GONE);
 
-            holder.textViewName.setText(i.item.getName(context));
+            if (i.title != null)
+                holder.textViewName.setText(i.title);
+            else
+                holder.textViewName.setText(i.item.getName(context));
             String sub = i.item.getSub(context);
             if (sub != null) {
                 holder.textViewSub.setText(sub);

@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.activities.LocationHistoryActivity;
 import com.paulvarry.intra42.adapters.SpinnerAdapterCursusAccent;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
@@ -355,10 +355,7 @@ public class UserOverviewFragment
             testIntent.setData(data);
             startActivity(testIntent);
         } else if (v == layoutLocation) {
-            if (user.location == null)
-                seeLastLocation();
-            else
-                ClusterMapActivity.openIt(getContext(), user.location);
+            LocationHistoryActivity.openItWithUser(getContext(), user);
         } else if (v == imageButtonFriends) {
             ApiService42Tools api = app.getApiService42Tools();
 
