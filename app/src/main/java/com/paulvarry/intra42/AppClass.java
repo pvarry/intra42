@@ -239,7 +239,7 @@ public class AppClass extends Application {
             mainActivity.updateViewSate(null, getString(R.string.tags), 3, 6);
         CacheTags.getAllowInternet(cacheSQLiteHelper, this);
         if (mainActivity != null)
-            mainActivity.updateViewSate(null, "finishing", 6, 6);
+            mainActivity.updateViewSate(null, getString(R.string.info_api_finishing), 6, 6);
         //TODO: add integration to force use API with a cache manager in the UI !!
         editor.apply();
 

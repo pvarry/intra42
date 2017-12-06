@@ -170,7 +170,7 @@ public class FriendsActivity
                                     setLoadingProgress(state, i, s.size());
 
                                     Response<Friends> ret = call.execute();
-                                    if (Tools.apiIsSuccessfulNoThrow(ret))
+                                    if (Tools.apiIsSuccessfulNoThrow(ret) && app.firebaseRefFriends != null)
                                         app.firebaseRefFriends.child(String.valueOf(tmp.id)).removeValue();
                                     else
                                         success = false;
@@ -209,7 +209,9 @@ public class FriendsActivity
         setLoadingInfo(getString(R.string.friends_info_database_update));
         setLoadingProgress(getString(R.string.info_loading_calculating), 0, -1);
 
-        app.firebaseRefFriends.addListenerForSingleValueEvent(friendsEventListener);
+        if (app.firebaseRefFriends != null) {
+            app.firebaseRefFriends.addListenerForSingleValueEvent(friendsEventListener);
+        }
     }
 
     private void friendsDatabaseFinish(boolean success) {
@@ -316,8 +318,10 @@ public class FriendsActivity
                 locations.put(l.user.login, l);
         }
 
+        setLoadingProgress(getString(R.string.info_api_finishing), 2, 2);
+
         list = new ArrayList<>();
-        if (locations != null && locations.size() != 0) {
+        if (locations != null) {
             Collection<FriendsSmall> s = tmp.values();
 
             TreeSet<FriendsSmall> haveLocation = new TreeSet<>();
