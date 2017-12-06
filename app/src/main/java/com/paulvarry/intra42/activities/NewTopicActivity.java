@@ -195,7 +195,7 @@ public class NewTopicActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {//TODO: hardcoded string
 
         if (edited) {
             new AlertDialog.Builder(this)

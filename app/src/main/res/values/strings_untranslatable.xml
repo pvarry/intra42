@@ -6,8 +6,15 @@
     <string name="notifications_bookings_unique_id" translatable="false">booking</string>
     <string name="notifications_announcements_unique_id" translatable="false">announcements</string>
 
+    <string name="base_url_intra" translatable="false">https://intra.42.fr/</string>
     <string name="base_url_intra_forum" translatable="false">https://forum.intra.42.fr/</string>
     <string name="base_url_intra_profile" translatable="false">https://profile.intra.42.fr/</string>
+    <string name="base_url_intra_profile_coalitions" translatable="false">https://profile.intra.42.fr/blocs/%d/coalitions</string>
+    <string name="base_url_intra_profile_expertises_users">https://profile.intra.42.fr/expertises_users</string>
+    <string name="base_url_intra_elearning">https://elearning.intra.42.fr/</string>
+    <string name="base_url_intra_cluster_map">https://meta.intra.42.fr/clusters</string>
+    <string name="base_url_cantina">https://cantina.42.us.org/</string>
+
     <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://intra.42.fr\",\n  }\n}]</string>
 
     <string name="icon" translatable="false">icon</string>

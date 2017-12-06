@@ -192,6 +192,8 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
         if (convertView == null) {
             holder = new ViewHolderChild();
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (layoutInflater == null)
+                return null;
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_item, null);
 
             holder.textViewStatus = convertView.findViewById(R.id.textViewStatus);
@@ -209,12 +211,16 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             holder = (ViewHolderChild) convertView.getTag();
         }
 
-        String str = null;
-        if (team.closed && team.closedAt != null)
-            str = "closed " + DateTool.getDurationAgo(team.closedAt);
-        else if (team.locked && team.lockedAt != null)
-            str = "locked " + DateTool.getDurationAgo(team.lockedAt);
-        else
+        StringBuilder str = new StringBuilder();
+        if (team.closed) {
+            str.append(context.getString(R.string.project_team_status_closed));
+            if (team.closedAt != null)
+                str.append(" ").append(DateTool.getDurationAgo(team.closedAt));
+        } else if (team.locked) {
+            str.append(context.getString(R.string.project_team_status_locked));
+            if (team.lockedAt != null)
+                str.append(" ").append(DateTool.getDurationAgo(team.lockedAt));
+        } else
             holder.textViewStatus.setVisibility(View.GONE);
         holder.textViewStatus.setText(str);
 

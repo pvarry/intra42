@@ -100,11 +100,11 @@ public class Tools {
             } catch (android.content.ActivityNotFoundException ex) {
 
                 if (url.contains(".3gp") || url.contains(".mpg") || url.contains(".mpeg") || url.contains(".mpe") || url.contains(".mp4") || url.contains(".avi"))
-                    Toast.makeText(activity, "There are no applications installed to open this, you can install VLC", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.info_attachment_no_app_video, Toast.LENGTH_SHORT).show();
                 else if (url.contains(".pdf"))
-                    Toast.makeText(activity, "There are no applications installed to open this, you can install a pdfviewer", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.info_attachment_no_app_pdf, Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(activity, "There are no applications installed to open this", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.info_attachment_no_app, Toast.LENGTH_SHORT).show();
             }
         }
     }

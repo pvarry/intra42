@@ -218,7 +218,7 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
             container.addView(input);
             builder.setView(container);
 
-            builder.setTitle("Edit name");
+            builder.setTitle(R.string.friends_group_edit_name_dialog);
             builder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

@@ -20,7 +20,7 @@
             android:layout_margin="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:text="@string/title_activity_tag" />
+            android:text="@string/tags" />
 
         <Spinner
             android:id="@+id/spinner"

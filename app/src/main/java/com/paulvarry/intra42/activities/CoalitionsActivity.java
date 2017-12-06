@@ -50,9 +50,9 @@ public class CoalitionsActivity
     @Override
     public String getUrlIntra() {
         if (blocs != null)
-            return "https://profile.intra.42.fr/blocs/" + String.valueOf(blocs.id) + "/coalitions";
+            return String.format(getString(R.string.base_url_intra_profile_coalitions), blocs.id);
         else
-            return "https://profile.intra.42.fr";
+            return getString(R.string.base_url_intra_profile);
     }
 
     @Override

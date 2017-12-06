@@ -299,7 +299,7 @@ public class NotificationsUtils {
         settings.edit().putLong("dynamic_last_notification", now).apply();
 
         if (lastNotification == 0) {
-            int since = Integer.parseInt(settings.getString(AppSettings.Notifications.FREQUENCY, "15"));
+            int since = Integer.parseInt(settings.getString(AppSettings.Notifications.FREQUENCY, "60"));
 
             if (since == -1)
                 return null;

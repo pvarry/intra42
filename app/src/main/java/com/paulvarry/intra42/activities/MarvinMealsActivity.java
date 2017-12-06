@@ -49,7 +49,7 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
     @Nullable
     @Override
     public String getUrlIntra() {
-        return "https://cantina.42.us.org/";
+        return getString(R.string.base_url_cantina);
     }
 
     /**

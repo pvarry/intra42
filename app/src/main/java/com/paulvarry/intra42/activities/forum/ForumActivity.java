@@ -31,9 +31,9 @@ public class ForumActivity extends BasicTabActivity
 
     public void setupViewPager(ViewPager viewPager) {
         ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(ForumUnreadFragment.newInstance(), "Unread");
-        adapter.addFragment(ForumLastTopicsFragment.newInstance(), "Last topics");
-        adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.title_activity_tag));
+        adapter.addFragment(ForumUnreadFragment.newInstance(), getString(R.string.title_tab_forum_unread));
+        adapter.addFragment(ForumLastTopicsFragment.newInstance(), getString(R.string.title_tab_forum_last_topics));
+        adapter.addFragment(ForumTagFragment.newInstance(), getString(R.string.title_tab_forum_tag));
         viewPager.setAdapter(adapter);
 
         fabBaseActivity.setVisibility(View.VISIBLE);

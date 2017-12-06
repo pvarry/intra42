@@ -156,7 +156,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 AppClass app = AppClass.instance();
                 if (app != null) {
                     Theme.setTheme(app);
-                    Toast.makeText(app, "You need to restart app to update theme", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(app, R.string.pref_theme_info_need_restart, Toast.LENGTH_SHORT).show();
                 }
             }
 

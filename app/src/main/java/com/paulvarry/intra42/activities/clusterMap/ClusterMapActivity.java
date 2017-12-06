@@ -110,7 +110,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     @Nullable
     @Override
     public String getUrlIntra() {
-        return "https://meta.intra.42.fr/clusters";
+        return getString(R.string.base_url_intra_cluster_map);
     }
 
     @Override
@@ -195,7 +195,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
      */
     @Override
     public String getEmptyText() {
-        return "Nothing to show. Not available in your campus";
+        return getString(R.string.cluster_map_not_in_campus);
     }
 
     @Override

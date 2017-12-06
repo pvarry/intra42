@@ -224,7 +224,7 @@ public class TopicActivity
                 @Override
                 public void onResponse(Call<Messages> call, retrofit2.Response<Messages> response) {
                     if (response.isSuccessful())
-                        Toast.makeText(TopicActivity.this, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TopicActivity.this, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();// TODO: hardcoded text
                     else
                         Toast.makeText(TopicActivity.this, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     editTextReply.setText("");

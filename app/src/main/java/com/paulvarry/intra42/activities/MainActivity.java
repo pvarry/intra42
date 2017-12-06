@@ -242,8 +242,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openSources(View view) {
-        Uri u = Uri.parse("https://github.com/pvarry/intra42");
-        Intent intent = new Intent(Intent.ACTION_VIEW, u);
+        Uri uri = Uri.parse(getString(R.string.Github_link));
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
         startActivity(intent);
         finish();

@@ -74,7 +74,7 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
             if (!call.isCanceled()) {
                 Context c = getContext();
                 if (c != null)
-                    Toast.makeText(c, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(c, R.string.error, Toast.LENGTH_SHORT).show();
             }
             t.printStackTrace();
             if (BasicFragmentCallSpinner.this.isAdded())

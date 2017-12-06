@@ -52,7 +52,7 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
 
     @Override
     public String getToolbarName() {
-        return "Friends groups";
+        return getString(R.string.title_activity_friends_groups);
     }
 
     @Override

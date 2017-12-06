@@ -27,7 +27,7 @@ public class Topic {
         Call<Topics> callTopic = service.getTopic(id);
         Call<List<Messages>> callMessages = service.getTopicMessages(id);
 
-        String info = "Loading topic";
+        String info = "Loading topic";//TODO: hardcoded text
         if (AppSettings.Advanced.getAllowAdvancedData(activity))
             info += " n°" + String.valueOf(id);
         info += " …";

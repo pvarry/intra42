@@ -380,5 +380,35 @@
     <string name="info_data_cached_long_time_ago">Data cached long time ago</string>
     <string name="title_tab_user_apps">Apps</string>
     <string name="cluster_map_dialog_action">Action for this location</string>
+    <string name="cluster_map_not_in_campus">Cluster map is not available in your campus</string>
+    <string name="project_team_status_closed">closed</string>
+    <string name="project_team_status_locked">locked</string>
+    <string name="title_tab_forum_unread">Unread</string>
+    <string name="title_tab_forum_last_topics">Last topics</string>
+    <string name="title_tab_forum_tag">Tags</string>
+    <string name="title_activity_friends_groups">Friends groups</string>
+    <string name="friends_group_edit_name_dialog">Edit name</string>
+    <string name="project_solo">solo</string>
+    <string name="project_group">group</string>
+    <string name="pref_theme_info_need_restart">You need to restart app to update theme</string>
+    <string name="event_kind_conf">conf</string>
+    <string name="event_kind_other">other</string>
+    <string name="event_kind_extern">extern</string>
+    <string name="event_kind_atelier">atelier</string>
+    <string name="event_kind_meet_up">meet up</string>
+    <string name="event_kind_hackathon">hackathon</string>
+    <string name="event_kind_workshop">workshop</string>
+    <string name="event_kind_association">association</string>
+    <string name="event_kind_partnership">partnership</string>
+    <string name="event_kind_unknown">unknown</string>
+    <string name="user_achievement_bronze">bronze</string>
+    <string name="user_achievement_silver">silver</string>
+    <string name="user_achievement_gold">gold</string>
+    <string name="user_achievements_platinum">platinum</string>
+    <string name="event_kind_event">event</string>
+    <string name="event_kind_challenge">challenge</string>
+    <string name="info_attachment_no_app_video">There are no applications installed to open this, you can install VLC</string>
+    <string name="info_attachment_no_app_pdf">There are no applications installed to open this, you can install a pdfviewer</string>
+    <string name="info_attachment_no_app">There are no applications installed to open this</string>
 
 </resources>

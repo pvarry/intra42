@@ -46,7 +46,7 @@ public class ExpertiseEditActivity extends BasicThreadActivity implements View.O
     @Nullable
     @Override
     public String getUrlIntra() {
-        return "https://profile.intra.42.fr/expertises_users";
+        return getString(R.string.base_url_intra_profile_expertises_users);
     }
 
     @Override

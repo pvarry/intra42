@@ -162,8 +162,6 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
                 textView.setText(message);
             else if (isAdded())
                 textView.setText(getString(R.string.info_nothing_to_show));
-            else
-                textView.setText("Nothing to show");
         } else {
             if (adapter == null) {
                 adapter = generateAdapter(list);

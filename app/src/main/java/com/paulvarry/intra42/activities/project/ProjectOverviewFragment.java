@@ -153,7 +153,6 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         frameLayoutRegister.setVisibility(View.GONE);
 
         if (project == null) {
-            Toast.makeText(getContext(), "Error, please report it", Toast.LENGTH_SHORT).show();
             return;
         }
         if (projectUser == null) { // register
@@ -219,7 +218,6 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             for (Skills s : project.skills) {
                 builder.append(currentSeparator);
                 builder.append(s.name);
-                // From the second iteration onwards, use this
                 currentSeparator = " • ";
             }
             tvSkills.setText(builder);
@@ -237,9 +235,9 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         if (session != null) {
 
             if (session.solo)
-                info += separator + "solo";
+                info += separator + getString(R.string.project_solo);
             else
-                info += separator + "group";
+                info += separator + getString(R.string.project_group);
             separator = " • ";
 
             if (session.estimateTime != 0) {
@@ -343,7 +341,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             ProjectActivity.openIt(getContext(), project);
         } else if (v == buttonRegister) {
 
-            if (activity != null) {
+            if (activity != null) { //TODO: hardcoded string
                 ApiService api = activity.app.getApiService();
                 Call<Projects> call = api.createProjectRegister(project.id);
                 call.enqueue(new Callback<Projects>() {

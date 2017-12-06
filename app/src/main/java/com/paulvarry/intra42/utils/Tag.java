@@ -21,42 +21,49 @@ import java.util.List;
 public class Tag {
 
     public static void setTagEvent(Events event, TagView tagView) {
-
         String str;
-        if (event.kind != null)
+        Context context = tagView.getContext();
+
+        if (event.kind != null) {
             switch (event.kind) {
                 case CONFERENCE:
-                    str = "conf";
+                    str = context.getString(R.string.event_kind_conf);
                     break;
                 case OTHER:
-                    str = "other";
+                    str = context.getString(R.string.event_kind_other);
                     break;
                 case EXTERN:
-                    str = "extern";
+                    str = context.getString(R.string.event_kind_extern);
                     break;
                 case ATELIER:
-                    str = "atelier";
+                    str = context.getString(R.string.event_kind_atelier);
                     break;
                 case MEET_UP:
-                    str = "meet up";
+                    str = context.getString(R.string.event_kind_meet_up);
                     break;
                 case HACKATHON:
-                    str = "hackathon";
+                    str = context.getString(R.string.event_kind_hackathon);
                     break;
                 case WORKSHOP:
-                    str = "workshop";
+                    str = context.getString(R.string.event_kind_workshop);
                     break;
                 case ASSOCIATION:
-                    str = "association";
+                    str = context.getString(R.string.event_kind_association);
                     break;
                 case PARTNERSHIP:
-                    str = "partnership";
+                    str = context.getString(R.string.event_kind_partnership);
+                    break;
+                case EVENT:
+                    str = context.getString(R.string.event_kind_event);
+                    break;
+                case CHALLENGE:
+                    str = context.getString(R.string.event_kind_challenge);
                     break;
                 default:
                     str = String.valueOf(event.kind);
             }
-        else {
-            str = "unknown";
+        } else {
+            str = context.getString(R.string.event_kind_unknown);
         }
 
         tagView.setText(str);
@@ -101,26 +108,25 @@ public class Tag {
         tagView.setVisibility(View.VISIBLE);
         switch (achievement.tier) {
             case "easy":
-                str = "bronze";
+                str = context.getString(R.string.user_achievement_bronze);
                 color = ContextCompat.getColor(context, R.color.user_achievements_bronze);
                 break;
             case "medium":
-                str = "silver";
-                color = ContextCompat.getColor(context, R.color.user_achievements_solver);
+                str = context.getString(R.string.user_achievement_silver);
+                color = ContextCompat.getColor(context, R.color.user_achievements_silver);
                 break;
             case "hard":
-                str = "gold";
+                str = context.getString(R.string.user_achievement_gold);
                 color = ContextCompat.getColor(context, R.color.user_achievements_gold);
                 break;
             case "challenge":
-                str = "platinum";
+                str = context.getString(R.string.user_achievements_platinum);
                 color = ContextCompat.getColor(context, R.color.user_achievements_platinum);
                 break;
             case "none":
                 tagView.setVisibility(View.GONE);
                 break;
             default:
-                Log.d("setTagAchievement", achievement.tier);
                 str = achievement.tier;
         }
 

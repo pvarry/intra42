@@ -458,9 +458,8 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      *
      * @param currentProgress The current progress to display.
      * @param max             Progress when loading is supposedly finish.
-     * @return Boolean if the progress is well display.
      */
-    public void setLoadingProgress(final int currentProgress, final int max) {
+    public void setLoadingProgress(final int currentProgress, final int max) { //TODO:hardcoded text
         String progress = "Loading page " + String.valueOf(currentProgress);
         if (max >= 0)
             progress += " " + "on" + " " + String.valueOf(max);

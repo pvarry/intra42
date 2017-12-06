@@ -113,7 +113,7 @@ public class HomeActivity extends BasicTabActivity
 
     @Override
     public String getUrlIntra() {
-        return "https://intra.42.fr/";
+        return getString(R.string.base_url_intra);
     }
 
     @Override

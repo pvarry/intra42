@@ -91,7 +91,7 @@ public class UsersSearchFragment extends Fragment implements View.OnClickListene
         @Override
         public void onFailure(Call<Users> call, Throwable t) {
             if (!call.isCanceled())
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.error, Toast.LENGTH_SHORT).show();
             t.printStackTrace();
             search();
         }
