@@ -99,9 +99,9 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, Li
 
         AppClass app = (AppClass) activity.getApplication();
 
-        String login = activity.login;
-        if (app.me != null && app.me.id == activity.user.id)
+        if (app.me != null && activity.user != null && app.me.id == activity.user.id)
             return getString(R.string.user_you_dont_have_any_expertise_yet);
+        String login = activity.login;
         return String.format(getString(R.string.format_dont_have_any_expertise_yet), login);
     }
 

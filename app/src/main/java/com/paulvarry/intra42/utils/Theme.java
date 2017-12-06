@@ -127,7 +127,7 @@ public class Theme {
     }
 
     @StyleRes
-    private static int getThemeRessource(Context context) {
+    public static int getThemeResource(Context context) {
         return getThemeResource(AppSettings.Theme.getEnumTheme(context));
     }
 

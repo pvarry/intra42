@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -29,10 +28,8 @@ import com.paulvarry.intra42.adapters.SpinnerAdapterCursusAccent;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.CursusUsers;
-import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.tools42.Friends;
-import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.Tag;
@@ -40,13 +37,9 @@ import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.plumillonforge.android.chipview.ChipView;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.paulvarry.intra42.R.string.error;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -403,75 +396,6 @@ public class UserOverviewFragment
 
         if (state == -1)
             imageButtonFriends.setColorFilter(Color.argb(200, 150, 150, 150));
-    }
-
-    void seeLastLocation() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
-        // ...Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.alert_last_location, null);
-        dialogBuilder.setView(dialogView);
-
-        final LinearLayout linearLayoutLoadingData = dialogView.findViewById(R.id.layoutGetData);
-        final LinearLayout linearLayoutLocation = dialogView.findViewById(R.id.layoutLocation);
-        final TextView textViewLocation = dialogView.findViewById(R.id.textViewLocation);
-        final TextView textViewDate = dialogView.findViewById(R.id.textViewDate);
-
-        linearLayoutLoadingData.setVisibility(View.VISIBLE);
-        linearLayoutLocation.setVisibility(View.GONE);
-
-        String lastLocationOf = "Last location of " + user.login;
-        dialogBuilder.setTitle(lastLocationOf);
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.show();
-
-        if (activity == null)
-            return;
-        activity.app.getApiService().getLastLocations(user.login).enqueue(new Callback<List<Locations>>() {
-            @Override
-            public void onResponse(Call<List<Locations>> call, Response<List<Locations>> response) {
-                if (response.isSuccessful() && response.body().size() > 0) {
-                    Locations location = response.body().get(0);
-                    linearLayoutLoadingData.setVisibility(View.GONE);
-                    linearLayoutLocation.setVisibility(View.VISIBLE);
-
-                    Campus campus;
-                    String host;
-
-                    campus = CacheCampus.get(app.cacheSQLiteHelper, location.campus);
-                    host = location.host;
-                    if (campus != null)
-                        host += " • " + campus.name;
-                    textViewLocation.setText(host);
-                    if (location.endAt != null || location.beginAt != null) {
-                        String date = "";
-                        if (location.beginAt != null)
-                            date += DateTool.getDateTimeLong(location.beginAt);
-                        else
-                            date += "?";
-                        date += " to ";
-                        if (location.endAt != null)
-                            date += DateTool.getDateTimeLong(location.endAt);
-                        else
-                            date += "?";
-                        textViewDate.setText(date);
-                    } else
-                        textViewDate.setVisibility(View.GONE);
-                } else if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), R.string.info_nothing_to_show, Toast.LENGTH_SHORT).show();
-                    alertDialog.cancel();
-                } else {
-                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-                    alertDialog.cancel();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Locations>> call, Throwable t) {
-
-            }
-        });
     }
 
     /**

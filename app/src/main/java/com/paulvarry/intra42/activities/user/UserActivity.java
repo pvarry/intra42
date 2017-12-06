@@ -101,13 +101,16 @@ public class UserActivity extends BasicTabActivity
                 return true;
             }
 
-            final ProgressDialog dialog = ProgressDialog.show(context, "", context.getString(R.string.info_loading_please_wait), true);
-            dialog.setCanceledOnTouchOutside(true);
             final ApiService api = app.getApiService();
             final Call<Users> callUser = api.getUser(login);
             final Call<List<Coalitions>> callCoalition = api.getUsersCoalitions(login);
             final Handler mainHandler = new Handler(context.getMainLooper());
 
+            final ProgressDialog dialog = new ProgressDialog(context);
+            dialog.setTitle("");
+            dialog.setMessage(context.getString(R.string.info_loading_please_wait));
+            dialog.setIndeterminate(true);
+            dialog.setCancelable(true);
             dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
@@ -115,6 +118,7 @@ public class UserActivity extends BasicTabActivity
                     callCoalition.cancel();
                 }
             });
+            dialog.show();
 
             new Thread(new Runnable() {
                 @Override
