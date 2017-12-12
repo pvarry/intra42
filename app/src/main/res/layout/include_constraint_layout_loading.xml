@@ -10,8 +10,9 @@
         android:id="@+id/textViewLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/info_loading"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/progressBarLoading"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -37,6 +38,7 @@
         android:id="@+id/textViewStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="New Text"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"

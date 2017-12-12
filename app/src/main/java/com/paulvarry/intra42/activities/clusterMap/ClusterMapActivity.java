@@ -123,8 +123,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             return;
         }
 
-        setLoadingInfo(getString(R.string.info_loading_locations));
-        setLoadingProgress(0, -1);
+        setLoadingProgress(R.string.info_loading_locations, 0, -1);
 
         int page = 1;
         int pageSize = 100;
@@ -152,8 +151,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             locations.put(l.host, l.user);
         }
 
-        setLoadingInfo(getString(R.string.info_loading_friends));
-        setLoadingProgress(pageMax, pageMax + 1);
+        setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
 
         ApiService42Tools api = app.getApiService42Tools();
 

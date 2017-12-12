@@ -134,13 +134,11 @@ public class SearchableActivity
             @Override
             public boolean onQueryTextSubmit(String s) {
                 searchView.clearFocus();
-                if (SuperSearch.open(SearchableActivity.this, s)) {
-                    return true;
-                } else {
+                if (!SuperSearch.open(SearchableActivity.this, s)) {
                     query = s;
                     refresh();
-                    return true;
                 }
+                return true;
             }
 
             @Override
@@ -277,10 +275,10 @@ public class SearchableActivity
             }
         } else {
             responseUsersLogin = execUsers(callUsersLogin, 1, 6);
-            responseUsersFirstName = execUsers(callUsersFirstName, 1, 6);
-            responseUsersLastName = execUsers(callUsersLastName, 1, 6);
-            responseProjects = execProjects(callProjects, 1, 6);
-            responseTopics = execTopics(callTopics, 1, 6);
+            responseUsersFirstName = execUsers(callUsersFirstName, 2, 6);
+            responseUsersLastName = execUsers(callUsersLastName, 3, 6);
+            responseProjects = execProjects(callProjects, 4, 6);
+            responseTopics = execTopics(callTopics, 5, 6);
         }
         setLoadingProgress(getString(R.string.info_api_finishing), 1, 1);
 

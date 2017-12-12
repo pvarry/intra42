@@ -18,7 +18,9 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.utils.mImage;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ListAdapterCoalitionsBlocs extends BaseAdapter {
 
@@ -93,7 +95,10 @@ public class ListAdapterCoalitionsBlocs extends BaseAdapter {
         final Coalitions item = getItem(position);
 
         holder.textViewCoalitions.setText(item.name);
-        holder.textViewScore.setText(String.valueOf(item.score));
+
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
+        holder.textViewScore.setText(numberFormat.format(item.score));
+
         holder.imageView.setVisibility(View.VISIBLE);
         switch (item.slug) {
             case "the-federation":

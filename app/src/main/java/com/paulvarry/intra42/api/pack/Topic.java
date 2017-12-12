@@ -2,6 +2,7 @@ package com.paulvarry.intra42.api.pack;
 
 import android.support.annotation.Nullable;
 
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Messages;
@@ -27,23 +28,22 @@ public class Topic {
         Call<Topics> callTopic = service.getTopic(id);
         Call<List<Messages>> callMessages = service.getTopicMessages(id);
 
-        String info = "Loading topic";//TODO: hardcoded text
+        String info = activity.getString(R.string.info_loading_topic);
         if (AppSettings.Advanced.getAllowAdvancedData(activity))
             info += " n°" + String.valueOf(id);
         info += " …";
-        activity.setLoadingInfo(info);
 
-        activity.setLoadingProgress("loading topic 1/2 …", 0, 2);
+        activity.setLoadingProgress(info, 1, 3);
         retrofit2.Response<Topics> retTopic = callTopic.execute();
         if (!Tools.apiIsSuccessful(retTopic))
             return null;
 
-        activity.setLoadingProgress("loading reply 2/2 …", 1, 2);
+        activity.setLoadingProgress(R.string.info_loading_topic_reply, 2, 3);
         retrofit2.Response<List<Messages>> retMessages = callMessages.execute();
         if (!Tools.apiIsSuccessful(retMessages))
             return null;
 
-        activity.setLoadingProgress("finishing", 2, 2);
+        activity.setLoadingProgress(3, 3);
         topic.topic = retTopic.body();
         topic.messages = retMessages.body();
 
@@ -60,7 +60,7 @@ public class Topic {
             if (AppSettings.Advanced.getAllowAdvancedData(activity))
                 info += " n°" + String.valueOf(topics.id);
             info += " …";
-            activity.setLoadingInfo(info);
+            activity.setLoadingProgress(info);
             activity.setLoadingProgress("loading reply …");
             retrofit2.Response<List<Messages>> retMessages = callMessages.execute();
             activity.setLoadingProgress("finishing");

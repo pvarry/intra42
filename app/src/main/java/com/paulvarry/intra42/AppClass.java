@@ -29,7 +29,6 @@ import com.paulvarry.intra42.api.tools42.AccessToken;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheSQLiteHelper;
-import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.notifications.NotificationsJobService;
@@ -274,16 +273,16 @@ public class AppClass extends Application {
 
         if (cacheLastCheckPref == null || cacheLastCheck.before(lastValidCache.getTime())) {
             if (mainActivity != null)
-                mainActivity.updateViewState(null, getString(R.string.cursus), 1, 6);
+                mainActivity.updateViewState(null, getString(R.string.cursus), 1, 3);
             CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
             if (mainActivity != null)
-                mainActivity.updateViewState(null, getString(R.string.campus), 2, 6);
+                mainActivity.updateViewState(null, getString(R.string.campus), 2, 3);
             CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
+//            if (mainActivity != null) //remove tag caching
+//                mainActivity.updateViewState(null, getString(R.string.tags), 3, 6);
+//            CacheTags.refreshCache(cacheSQLiteHelper, this, cacheLastCheck, now);
             if (mainActivity != null)
-                mainActivity.updateViewState(null, getString(R.string.tags), 3, 6);
-            CacheTags.refreshCache(cacheSQLiteHelper, this, cacheLastCheck, now);
-            if (mainActivity != null)
-                mainActivity.updateViewState(null, getString(R.string.info_api_finishing), 6, 6);
+                mainActivity.updateViewState(null, getString(R.string.info_api_finishing), 3, 3);
             //TODO: add integration to force use API with a cache manager in the UI !!
             editor.putString(PREFS_CACHE_LAST_CHECK, ISO8601Utils.format(now));
         }

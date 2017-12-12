@@ -12,6 +12,7 @@ import android.provider.BaseColumns;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -48,6 +49,8 @@ import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
+import java.util.Locale;
+
 public abstract class BasicActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public AppClass app;
@@ -65,7 +68,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private SimpleCursorAdapter searchAdapter;
     private ConstraintLayout constraintLayoutLoading;
     private ConstraintLayout constraintOnError;
-    private TextView textViewLoading;
+    private TextView textViewLoadingInfo;
     private TextView textViewLoadingStatus;
     private Button buttonForceRefresh;
     private int drawerSelectedItemPosition = -1;
@@ -91,7 +94,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         constraintLayoutLoading = findViewById(R.id.constraintLayoutLoading);
         constraintOnError = findViewById(R.id.constraintOnError);
 
-        textViewLoading = findViewById(R.id.textViewLoading);
+        textViewLoadingInfo = findViewById(R.id.textViewLoading);
         textViewLoadingStatus = findViewById(R.id.textViewStatus);
         progressBarLoading = findViewById(R.id.progressBarLoading);
         buttonForceRefresh = findViewById(R.id.buttonRefresh);
@@ -373,29 +376,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     }
 
     /**
-     * Set information about current loading page, for example "Loading user ...".
-     *
-     * @param loadingInfo Text to display.
-     * @return Boolean if the info is well display.
-     */
-    public void setLoadingInfo(final String loadingInfo) {
-        if (textViewLoading != null) {
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (loadingInfo != null) {
-                        textViewLoading.setVisibility(View.VISIBLE);
-                        textViewLoading.setText(loadingInfo);
-                    } else
-                        textViewLoading.setVisibility(View.GONE);
-                }
-            });
-
-        }
-    }
-
-    /**
      * Set the current progress when loading data. Set the progress bar to indeterminate.
      *
      * @param progressStatus Text to display under the progress bar with progress information.
@@ -407,17 +387,21 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    setViewState(StatusCode.LOADING);
-                    if (progressStatus != null) {
-                        progressBarLoading.setIndeterminate(true);
-                        textViewLoadingStatus.setVisibility(View.VISIBLE);
-                        textViewLoadingStatus.setText(progressStatus);
-                    } else
-                        textViewLoadingStatus.setVisibility(View.GONE);
+                    setLoading(progressStatus, 0, 0);
                 }
             });
 
         }
+    }
+
+    /**
+     * Set the current progress when loading data. Set the progress bar to indeterminate.
+     *
+     * @param resId Text to display under the progress bar with progress information.
+     * @return Boolean if the progress is well display.
+     */
+    public void setLoadingProgress(@StringRes int resId) {
+        setLoadingProgress(getString(resId));
     }
 
     /**
@@ -425,47 +409,82 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      *
      * @param progressStatus  Text to display under the progress bar with progress information.
      * @param currentProgress The current progress to display.
-     * @param max             Progress when loading is supposedly finish.
+     * @param max             Progress when loading is supposedly finish (-1 : indeterminate;
+     *                        0 : calculating page number)
      * @return Boolean if the progress is well display.
      */
-    public void setLoadingProgress(final String progressStatus, final int currentProgress, final int max) {
-        if (textViewLoadingStatus != null) {
+    public void setLoadingProgress(@Nullable final String progressStatus, final int currentProgress, final int max) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setLoading(progressStatus, currentProgress, max);
+            }
+        });
+    }
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setViewState(StatusCode.LOADING);
-                    if (progressStatus != null) {
-                        progressBarLoading.setIndeterminate(false);
-                        progressBarLoading.setMax(max);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            progressBarLoading.setProgress(currentProgress, true);
-                        } else {
-                            progressBarLoading.setProgress(currentProgress);
-                        }
-                        textViewLoadingStatus.setVisibility(View.VISIBLE);
-                        textViewLoadingStatus.setText(progressStatus);
-                    } else
-                        textViewLoadingStatus.setVisibility(View.GONE);
-                }
-            });
-
-        }
+    /**
+     * Set the current progress when loading data.
+     *
+     * @param resId           Text to display under the progress bar with progress information.
+     * @param currentProgress The current progress to display.
+     * @param max             Progress when loading is supposedly finish (-1 : indeterminate;
+     *                        0 : calculating page number)
+     * @return Boolean if the progress is well display.
+     */
+    public void setLoadingProgress(@StringRes int resId, final int currentProgress, final int max) {
+        setLoadingProgress(getString(resId), currentProgress, max);
     }
 
     /**
      * Set the current progress when loading data.
      *
      * @param currentProgress The current progress to display.
-     * @param max             Progress when loading is supposedly finish.
+     * @param max             Progress when loading is supposedly finish (-1 : indeterminate;
+     *                        0 : calculating page number)
      */
-    public void setLoadingProgress(final int currentProgress, final int max) { //TODO:hardcoded text
-        String progress = "Loading page " + String.valueOf(currentProgress);
-        if (max >= 0)
-            progress += " " + "on" + " " + String.valueOf(max);
+    public void setLoadingProgress(final int currentProgress, final int max) {
+        setLoadingProgress(null, currentProgress, max);
+    }
+
+    private String makeLoadingProgressText(final int currentProgress, final int max) {
+        String out = null;
+        if (max > 0)
+            out = String.format(Locale.getDefault(), getString(R.string.info_loading_page_on), currentProgress, max);
+        else if (max == 0)
+            out = getString(R.string.info_loading_resolve_number_page);
+        return out;
+    }
+
+    private void setLoading(final String progressStatus, final int currentProgress, final int max) {
+        setViewState(StatusCode.LOADING);
+
+        textViewLoadingInfo.setVisibility(View.VISIBLE);
+        textViewLoadingInfo.setText(R.string.info_loading_please_wait);
+
+        if (max <= 0) {
+            progressBarLoading.setIndeterminate(true);
+        } else {
+            progressBarLoading.setIndeterminate(false);
+            progressBarLoading.setMax(max);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                progressBarLoading.setProgress(currentProgress, true);
+            else
+                progressBarLoading.setProgress(currentProgress);
+        }
+
+        textViewLoadingStatus.setVisibility(View.VISIBLE);
+        if (currentProgress == max)
+            textViewLoadingStatus.setText(getString(R.string.info_loading_processing_data));
+        else if (max > 0)
+            textViewLoadingStatus.setText(progressStatus);
+        else if (max == 0 && progressStatus != null)
+            textViewLoadingStatus.setText(R.string.info_loading_resolve_number_page);
+        else if (max == 0)
+            textViewLoadingStatus.setText(makeLoadingProgressText(currentProgress, max));
         else
-            progress += " " + "on" + " " + "undetermined";
-        setLoadingProgress(progress, currentProgress, max);
+            textViewLoadingStatus.setVisibility(View.GONE);
+
     }
 
     /**

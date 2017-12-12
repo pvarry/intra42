@@ -206,8 +206,7 @@ public class FriendsActivity
         };
 
         setViewState(StatusCode.LOADING);
-        setLoadingInfo(getString(R.string.friends_info_database_update));
-        setLoadingProgress(getString(R.string.info_loading_calculating), 0, -1);
+        setLoadingProgress(R.string.friends_info_database_update, 0, -1);
 
         if (app.firebaseRefFriends != null) {
             app.firebaseRefFriends.addListenerForSingleValueEvent(friendsEventListener);

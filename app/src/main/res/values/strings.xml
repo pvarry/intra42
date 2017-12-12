@@ -410,5 +410,10 @@
     <string name="info_attachment_no_app_video">There are no applications installed to open this, you can install VLC</string>
     <string name="info_attachment_no_app_pdf">There are no applications installed to open this, you can install a pdfviewer</string>
     <string name="info_attachment_no_app">There are no applications installed to open this</string>
+    <string name="info_loading_page_on">Loading page %d on %d</string>
+    <string name="info_loading_resolve_number_page">Resolve number of page</string>
+    <string name="info_loading_topic">Loading topic</string>
+    <string name="info_loading_topic_reply">loading reply</string>
+    <string name="info_loading_processing_data">Processing data</string>
 
 </resources>
