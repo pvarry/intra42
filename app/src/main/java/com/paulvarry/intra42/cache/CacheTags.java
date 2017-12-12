@@ -277,4 +277,8 @@ public class CacheTags {
         return tagsList;
     }
 
+    public static void refreshCache(CacheSQLiteHelper base, AppClass app, Date updateAtStart, Date updateAtEnd) {
+        List<Tags> tagsFromApi = Tags.getTagsUpdate(app.getApiService(), updateAtStart, updateAtEnd);
+        put(base, tagsFromApi);
+    }
 }

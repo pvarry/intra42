@@ -3,13 +3,16 @@ package com.paulvarry.intra42.api.model;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Tools;
 import com.plumillonforge.android.chipview.Chip;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Response;
@@ -44,6 +47,32 @@ public class Tags implements Chip, Serializable {
         }
         if (list.isEmpty())
             return null;
+        return list;
+    }
+
+    @Nullable
+    public static List<Tags> getTagsUpdate(ApiService api, Date updateAtStart, Date updateAtEnd) {
+        List<Tags> list = new ArrayList<>();
+        int pageSize = 100;
+        String range = ISO8601Utils.format(updateAtStart) + "," + ISO8601Utils.format(updateAtEnd);
+
+        try {
+            Response<List<Tags>> response = api.getTags(range, pageSize, Pagination.getPage(list, pageSize)).execute();
+            if (!Tools.apiIsSuccessfulNoThrow(response))
+                return null;
+
+            int total = Integer.decode(response.headers().get("X-Total"));
+            list.addAll(response.body());
+
+            while (list.size() < total) {
+                response = api.getTags(range, pageSize, Pagination.getPage(list, pageSize)).execute();
+                if (!Tools.apiIsSuccessfulNoThrow(response))
+                    return null;
+                list.addAll(response.body());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return list;
     }
 

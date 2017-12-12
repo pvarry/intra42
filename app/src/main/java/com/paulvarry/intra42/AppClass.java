@@ -40,8 +40,12 @@ import com.paulvarry.intra42.utils.Token;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -50,6 +54,7 @@ public class AppClass extends Application {
 
     public static final String PREFS_APP_VERSION = "prefs_app_version";
     public static final String PREFS_NAME = "intra_prefs";
+    public static final String PREFS_CACHE_LAST_CHECK = "cache_last_check";
     public static final String PREFS_API_TOKEN = "api_token";
     public static final String API_ME_LOGIN = "me_login";
 
@@ -121,13 +126,35 @@ public class AppClass extends Application {
     public void onCreate() {
         super.onCreate();
 
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-
         ServiceGenerator.init(this);
         cacheSQLiteHelper = new CacheSQLiteHelper(this);
         sInstance = this;
 
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(AppClass.PREFS_NAME, MODE_PRIVATE);
+        int appVersion = sharedPreferences.getInt(AppClass.PREFS_APP_VERSION, 0);
+        if (appVersion == 0 || appVersion != BuildConfig.VERSION_CODE) {
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
+
+            if (appVersion <= 20171113) {
+                SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
+                pref.putBoolean("should_sync_friends", true);
+                pref.apply();
+            }
+            if (appVersion <= 20171126) {
+                if (cacheSQLiteHelper != null) {
+                    cacheSQLiteHelper.getWritableDatabase().execSQL("DELETE FROM users;");
+                }
+            }
+            if (appVersion <= 20171208) {
+                Date now = new Date();
+                edit.putString(AppClass.PREFS_CACHE_LAST_CHECK, ISO8601Utils.format(now));
+            }
+            edit.apply();
+        }
+
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
 
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
@@ -212,7 +239,7 @@ public class AppClass extends Application {
 
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
         if (mainActivity != null)
-            mainActivity.updateViewSate(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
+            mainActivity.updateViewState(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
 
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = Users.me(api);
@@ -229,18 +256,37 @@ public class AppClass extends Application {
         cursus = me.cursusUsers;
         initFirebase();
 
-        if (mainActivity != null)
-            mainActivity.updateViewSate(null, getString(R.string.cursus), 1, 6);
-        CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
-        if (mainActivity != null)
-            mainActivity.updateViewSate(null, getString(R.string.campus), 2, 6);
-        CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
-        if (mainActivity != null)
-            mainActivity.updateViewSate(null, getString(R.string.tags), 3, 6);
-        CacheTags.getAllowInternet(cacheSQLiteHelper, this);
-        if (mainActivity != null)
-            mainActivity.updateViewSate(null, getString(R.string.info_api_finishing), 6, 6);
-        //TODO: add integration to force use API with a cache manager in the UI !!
+        String cacheLastCheckPref = sharedPreferences.getString(PREFS_CACHE_LAST_CHECK, null);
+        Date cacheLastCheck = null;
+        Calendar lastValidCache = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Date now = lastValidCache.getTime();
+
+        lastValidCache.add(Calendar.DAY_OF_YEAR, -30);
+
+        if (cacheLastCheckPref != null)
+            try {
+                cacheLastCheck = ISO8601Utils.parse(cacheLastCheckPref, new ParsePosition(0));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        if (cacheLastCheck == null)
+            cacheLastCheck = new Date(0);
+
+        if (cacheLastCheckPref == null || cacheLastCheck.before(lastValidCache.getTime())) {
+            if (mainActivity != null)
+                mainActivity.updateViewState(null, getString(R.string.cursus), 1, 6);
+            CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
+            if (mainActivity != null)
+                mainActivity.updateViewState(null, getString(R.string.campus), 2, 6);
+            CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
+            if (mainActivity != null)
+                mainActivity.updateViewState(null, getString(R.string.tags), 3, 6);
+            CacheTags.refreshCache(cacheSQLiteHelper, this, cacheLastCheck, now);
+            if (mainActivity != null)
+                mainActivity.updateViewState(null, getString(R.string.info_api_finishing), 6, 6);
+            //TODO: add integration to force use API with a cache manager in the UI !!
+            editor.putString(PREFS_CACHE_LAST_CHECK, ISO8601Utils.format(now));
+        }
         editor.apply();
 
         if (!ServiceGenerator.have42ToolsToken() && ServiceGenerator.have42Token()) {

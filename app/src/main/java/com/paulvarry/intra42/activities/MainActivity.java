@@ -2,7 +2,6 @@ package com.paulvarry.intra42.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
@@ -25,7 +23,6 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
-import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Token;
 
@@ -61,25 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(AppClass.PREFS_NAME, 0);
-        int appVersion = sharedPreferences.getInt(AppClass.PREFS_APP_VERSION, 0);
-        if (appVersion == 0 || appVersion != BuildConfig.VERSION_CODE) {
-            SharedPreferences.Editor edit = sharedPreferences.edit();
-            edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
-            edit.apply();
-
-            if (appVersion <= 20171113) {
-                SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
-                pref.putBoolean("should_sync_friends", true);
-                pref.apply();
-            }
-            if (appVersion <= 20171126) {
-                if (app != null && app.cacheSQLiteHelper != null) {
-                    app.cacheSQLiteHelper.getWritableDatabase().execSQL("DELETE FROM users;");
-                }
-            }
-        }
 
         AppClass.scheduleAlarm(this);
 
@@ -249,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void updateViewSate(final String info, final String status, final int progress, final int progressMax) {
+    public void updateViewState(final String info, final String status, final int progress, final int progressMax) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

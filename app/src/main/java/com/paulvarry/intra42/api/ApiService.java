@@ -332,6 +332,9 @@ public interface ApiService {
     @GET("/v2/tags")
     Call<List<Tags>> getTags(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
 
+    @GET("/v2/tags")
+    Call<List<Tags>> getTags(@Query("range[updated_at]") String rangeUpdatedAt, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+
     @GET("/v2/tags/{id}")
     Call<Tags> getTag(@Path("id") int id);
 
