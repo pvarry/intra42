@@ -26,7 +26,9 @@ import com.paulvarry.intra42.api.model.Announcements;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.DateTool;
@@ -359,6 +361,16 @@ public class NotificationsUtils {
 
         if (app != null && app.userIsLogged(false)) {
 
+            ApiService api = app.getApiServiceDisableRedirectActivity();
+
+            if (app.me == null) { // just get current user if cache reset
+                app.me = Users.me(api);
+                if (app.me != null)
+                    CacheUsers.put(app.cacheSQLiteHelper, app.me);
+                else
+                    return;
+            }
+
             SharedPreferences settings;
             settings = PreferenceManager.getDefaultSharedPreferences(context);
             String dateFilter = NotificationsUtils.getDateSince(settings);
@@ -459,6 +471,9 @@ public class NotificationsUtils {
 
     private static boolean syncCalendarApiCall(AppClass app, ApiService apiService, String dateFilter) {
         boolean success = true;
+
+        if (app == null || app.me == null)
+            return false;
 
         ArrayList<Integer> eventsOnCal = Calendar.getEventList(app);
 

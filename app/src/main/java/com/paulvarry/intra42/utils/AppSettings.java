@@ -131,7 +131,6 @@ public class AppSettings {
 
         // advanced data
         public static boolean getAllowAdvancedData(SharedPreferences settings) {
-            boolean mDefault = false;
             return getAllowAdvanced(settings) && settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_DATA, false);
         }
 
