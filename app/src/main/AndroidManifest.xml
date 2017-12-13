@@ -64,7 +64,7 @@
             android:name=".activities.user.UserActivity"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter android:label="Intra42 user login">
+            <intent-filter android:label="Open 42 login">
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
