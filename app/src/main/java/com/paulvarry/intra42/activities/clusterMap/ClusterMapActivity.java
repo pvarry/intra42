@@ -43,6 +43,8 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     int campusId;
     String locationHighlight;
 
+    DataWrapper dataWrapper;
+
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapActivity.class);
         context.startActivity(intent);
@@ -56,6 +58,14 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
+        if (dataWrapper != null) {
+            friends = dataWrapper.friends;
+            locations = dataWrapper.locations;
+            locationHighlight = dataWrapper.locationHighlight;
+            dataWrapper = null;
+        }
 
         Intent i = getIntent();
         if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT))
@@ -178,6 +188,9 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
             }
         }
 
+        if (friends != null && locations != null)
+            return ThreadStatusCode.FINISH;
+
         return ThreadStatusCode.CONTINUE;
     }
 
@@ -199,5 +212,20 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public final Object onRetainCustomNonConfigurationInstance() {
+        DataWrapper data = new DataWrapper();
+        data.friends = friends;
+        data.locations = locations;
+        data.locationHighlight = locationHighlight;
+        return data;
+    }
+
+    private class DataWrapper {
+        HashMap<String, UsersLTE> locations;
+        SparseArray<FriendsSmall> friends;
+        String locationHighlight;
     }
 }

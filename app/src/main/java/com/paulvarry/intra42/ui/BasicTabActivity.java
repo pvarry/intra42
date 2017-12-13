@@ -10,6 +10,8 @@ import com.paulvarry.intra42.R;
 
 public abstract class BasicTabActivity extends BasicThreadActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final String SAVED_STATE_TAB_SELECTED = "tab_selected";
+
     public TabLayout tabLayout;
     public CustomViewPager viewPager;
 
@@ -21,7 +23,7 @@ public abstract class BasicTabActivity extends BasicThreadActivity implements Na
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null)
-            onRestartPosition = savedInstanceState.getInt("selected");
+            onRestartPosition = savedInstanceState.getInt(SAVED_STATE_TAB_SELECTED);
     }
 
     protected void setViewContent() {
@@ -43,8 +45,7 @@ public abstract class BasicTabActivity extends BasicThreadActivity implements Na
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
         if (tabLayout != null)
-            savedInstanceState.putInt("selected", tabLayout.getSelectedTabPosition());
-
+            savedInstanceState.putInt(SAVED_STATE_TAB_SELECTED, tabLayout.getSelectedTabPosition());
     }
 
     /**

@@ -476,13 +476,19 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         textViewLoadingStatus.setVisibility(View.VISIBLE);
         if (currentProgress == max)
             textViewLoadingStatus.setText(getString(R.string.info_loading_processing_data));
-        else if (max > 0)
-            textViewLoadingStatus.setText(progressStatus);
         else if (max == 0 && progressStatus != null)
             textViewLoadingStatus.setText(R.string.info_loading_resolve_number_page);
-        else if (max == 0)
-            textViewLoadingStatus.setText(makeLoadingProgressText(currentProgress, max));
-        else
+        else if (max >= 0) {
+            if (progressStatus != null)
+                textViewLoadingStatus.setText(progressStatus);
+            else {
+                String str = makeLoadingProgressText(currentProgress, max);
+                if (str != null)
+                    textViewLoadingStatus.setText(str);
+                else
+                    textViewLoadingStatus.setVisibility(View.GONE);
+            }
+        } else
             textViewLoadingStatus.setVisibility(View.GONE);
 
     }
