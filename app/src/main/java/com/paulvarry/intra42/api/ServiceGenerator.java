@@ -166,8 +166,8 @@ public class ServiceGenerator {
                 synchronized (accessTokenIntra42) {
                     // We need a new client, since we don't want to make another call using our client with access token
                     ApiService tokenClient = createService(ApiService.class);
-                    Call<AccessToken> call = tokenClient.getRefreshAccessToken(accessTokenIntra42.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
                     try {
+                        Call<AccessToken> call = tokenClient.getRefreshAccessToken(accessTokenIntra42.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
                         retrofit2.Response<AccessToken> tokenResponse = call.execute();
                         if (tokenResponse.code() == 200) {
                             AccessToken newToken = tokenResponse.body();

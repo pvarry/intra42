@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -36,6 +37,7 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
 
     private ViewGroup layoutLoading;
     private ViewGroup layoutOnError;
+    private EventFragment eventFragment;
 
     public static Intent getIntent(Context context, Events event) {
         Intent intent = new Intent(context, EventActivity.class);
@@ -100,9 +102,14 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
         collapsingToolbarLayout.setTitle(event.name);
         appBar.setBackgroundColor(Tag.getTagColor(event));
 
-        EventFragment fragment = EventFragment.newInstance(event);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, fragment).commit();
+        FragmentManager manager = getSupportFragmentManager();
+
+        if (eventFragment != null)
+            manager.beginTransaction().remove(eventFragment).commitNow();
+
+        eventFragment = EventFragment.newInstance(event);
+        manager.beginTransaction()
+                .add(R.id.fragment_container, eventFragment).commit();
     }
 
     public Events getData() {

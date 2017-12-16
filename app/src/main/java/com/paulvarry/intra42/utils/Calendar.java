@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
@@ -140,7 +141,11 @@ public class Calendar {
         values.put(CalendarContract.Events.CUSTOM_APP_PACKAGE, BuildConfig.APPLICATION_ID);
         values.put(CalendarContract.Events.CUSTOM_APP_URI, getEventUri(event.id));
 
-        cr.insert(CalendarContract.Events.CONTENT_URI, values);
+        try {
+            cr.insert(CalendarContract.Events.CONTENT_URI, values);
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void removeEventFromCalendar(Context context, int event) {
