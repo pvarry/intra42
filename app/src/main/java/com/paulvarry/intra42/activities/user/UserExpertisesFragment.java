@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.activities.user;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -67,7 +66,7 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, Li
             if (app.me != null && app.me.equals(activity.user)) {
                 fabBasicFragmentCall.setVisibility(View.VISIBLE);
                 fabBasicFragmentCall.setOnClickListener(this);
-                fabBasicFragmentCall.setImageResource(R.drawable.ic_mode_edit_black_24dp);
+                fabBasicFragmentCall.setImageResource(R.drawable.ic_add_black_24dp);
             } else
                 fabBasicFragmentCall.setVisibility(View.GONE);
         }
@@ -84,7 +83,7 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, Li
 
     @Override
     public void onItemClick(ExpertiseUsers item) {
-
+        ExpertiseEditActivity.open(getContext(), item);
     }
 
     @Override
@@ -131,8 +130,7 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, Li
     @Override
     public void onClick(View v) {
         if (v == fabBasicFragmentCall) {
-            Intent intent = new Intent(getContext(), ExpertiseEditActivity.class);
-            startActivity(intent);
+            ExpertiseEditActivity.open(getContext());
         }
     }
 
