@@ -37,10 +37,6 @@ import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -51,11 +47,12 @@ import butterknife.OnClick;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    @BindView(R.id.linearLayoutCantinaMenu)
-    LinearLayout linearLayoutCantinaMenu;
-
     private LinearLayout linearLayoutContent;
+    private LinearLayout linearLayoutFriends;
+    private LinearLayout linearLayoutCantinaMenu;
     private LinearLayout linearLayoutCoalitions;
+    private LinearLayout linearLayoutClusterMap;
+    private LinearLayout linearLayoutTimeOnCampus;
     private TextView textViewStatus;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewWallet;
@@ -100,9 +97,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
@@ -110,6 +105,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         super.onViewCreated(view, savedInstanceState);
 
         linearLayoutContent = view.findViewById(R.id.linearLayoutContent);
+        linearLayoutFriends = view.findViewById(R.id.linearLayoutFriends);
+        linearLayoutCantinaMenu = view.findViewById(R.id.linearLayoutCantinaMenu);
+        linearLayoutTimeOnCampus = view.findViewById(R.id.linearLayoutTimeOnCampus);
+        linearLayoutClusterMap = view.findViewById(R.id.linearLayoutClusterMap);
         textViewStatus = view.findViewById(R.id.textViewStatus);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
@@ -163,6 +162,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public void onClick(View v) {
         if (v == imageButtonOpenProfile)
             UserActivity.openIt(activity, app.me);
+        else if (v == linearLayoutFriends)
+            FriendsActivity.openIt(getContext());
+        else if (v == linearLayoutTimeOnCampus)
+            TimeActivity.openIt(getContext());
+        else if (v == linearLayoutClusterMap)
+            ClusterMapActivity.openIt(getContext());
+        else if (v == linearLayoutCantinaMenu)
+            MarvinMealsActivity.openIt(getContext());
+        else if (v == linearLayoutCoalitions)
+            CoalitionsActivity.openIt(getContext());
     }
 
     public void getData(boolean forceApi) {
@@ -177,6 +186,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         } else {
             linearLayoutContent.setVisibility(View.VISIBLE);
             textViewStatus.setVisibility(View.GONE);
+
+            linearLayoutFriends.setOnClickListener(this);
+            linearLayoutTimeOnCampus.setOnClickListener(this);
+            linearLayoutClusterMap.setOnClickListener(this);
+            linearLayoutCantinaMenu.setOnClickListener(this);
+            linearLayoutCoalitions.setOnClickListener(this);
+
             imageButtonOpenProfile.setOnClickListener(fragment);
             textViewName.setText(app.me.displayName);
             textViewWallet.setText(String.valueOf(app.me.wallet));
@@ -212,9 +228,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                 textViewLevel.setVisibility(View.GONE);
             }
 
-            RequestCreator p = UserImage.getPicassoCorned(app, app.me);
-            if (p != null)
-                p.into(imageViewProfile);
+            RequestCreator picassoCorned = UserImage.getPicassoCorned(app, app.me);
+            if (picassoCorned != null)
+                picassoCorned.into(imageViewProfile);
 
             if (AppSettings.getPOEditorActivated(getContext())) {
                 cardViewPOEditor.setVisibility(View.VISIBLE);
@@ -276,32 +292,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                 cardViewCalendarSync.setVisibility(View.GONE);
         }
         swipeRefreshLayout.setRefreshing(false);
-        linearLayoutContent.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.linearLayoutFriends)
-    void openFriend() {
-        FriendsActivity.openIt(getContext());
-    }
-
-    @OnClick(R.id.linearLayoutTimeOnCampus)
-    void openTimeOnCursus() {
-        TimeActivity.openIt(getContext());
-    }
-
-    @OnClick(R.id.linearLayoutClusterMap)
-    void openClusterMap() {
-        ClusterMapActivity.openIt(getContext());
-    }
-
-    @OnClick(R.id.linearLayoutCantinaMenu)
-    void openCantinaMenu() {
-        MarvinMealsActivity.openIt(getContext());
-    }
-
-    @OnClick(R.id.linearLayoutCoalitions)
-    void openCoalitions() {
-        CoalitionsActivity.openIt(getContext());
     }
 
     @Override
