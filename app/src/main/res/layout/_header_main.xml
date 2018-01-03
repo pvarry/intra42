@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/back_home_42_16_9"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:background="@drawable/back_home_42_16_9">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="70dp">
-
-        <ImageView
-            android:id="@+id/imageViewNav"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/user_profile_image"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/textViewNavName"
+    <ImageView
+        android:id="@+id/imageViewNavBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/navigation_place_holder_login"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/textViewNavEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/navigation_place_holder_email" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_header_height"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-</LinearLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:id="@+id/imageViewNav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/user_profile_image"
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                app:srcCompat="@android:drawable/sym_def_app_icon" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textViewNavName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="@string/navigation_place_holder_login"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/textViewNavEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/navigation_place_holder_email" />
+
+    </LinearLayout>
+</FrameLayout>

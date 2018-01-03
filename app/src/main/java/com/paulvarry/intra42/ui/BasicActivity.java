@@ -40,6 +40,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.SearchableActivity;
 import com.paulvarry.intra42.activities.SettingsActivity;
+import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Share;
@@ -534,15 +535,45 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
             View headerLayout = navigationView.getHeaderView(0);
             ImageView imageView = headerLayout.findViewById(R.id.imageViewNav);
+            ImageView imageViewNavBackground = headerLayout.findViewById(R.id.imageViewNavBackground);
             TextView name = headerLayout.findViewById(R.id.textViewNavName);
             TextView email = headerLayout.findViewById(R.id.textViewNavEmail);
 
             if (app.me != null) {
-                name.setText(app.me.login);
+                name.setText(app.me.displayName);
                 email.setText(app.me.email);
-                RequestCreator p = UserImage.getPicassoRounded(this, app.me);
-                if (p != null)
-                    p.into(imageView);
+                RequestCreator picassoRounded = UserImage.getPicassoRounded(this, app.me);
+                if (picassoRounded != null)
+                    picassoRounded.into(imageView);
+
+                AppSettings.Theme.EnumTheme coalition = Theme.getThemeFromCoalition(app.me.coalitions);
+                if (coalition != null) {
+                    switch (coalition) {
+                        case INTRA_FEDERATION:
+                            imageViewNavBackground.setImageResource(R.drawable.federation_background);
+                            break;
+                        case INTRA_ALLIANCE:
+                            imageViewNavBackground.setImageResource(R.drawable.alliance_background);
+                            break;
+                        case INTRA_ASSEMBLY:
+                            imageViewNavBackground.setImageResource(R.drawable.assembly_background);
+                            break;
+                        case INTRA_ORDER:
+                            imageViewNavBackground.setImageResource(R.drawable.order_background);
+                            break;
+                        default:
+                            imageViewNavBackground.setVisibility(View.GONE);
+                    }
+                }
+
+                headerLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (app.me != null)
+                            UserActivity.openIt(BasicActivity.this, app.me);
+                    }
+                });
+
             }
 
             if (drawerSelectedItemPosition != -1) {
