@@ -133,9 +133,14 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Locations location = ((Locations) adapter.getItem(position).item);
+
+        if (location == null)
+            return;
+
         if (host != null)
-            UserActivity.openIt(this, ((Locations) adapter.getItem(position).item).user, app);
+            UserActivity.openIt(this, location.user, app);
         else
-            ClusterMapActivity.openIt(this, ((Locations) adapter.getItem(position).item).host);
+            ClusterMapActivity.openIt(this, location.host);
     }
 }
