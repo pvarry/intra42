@@ -169,8 +169,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
             viewDelete.setVisibility(View.GONE);
         }
 
-        DateFormat timeFormatter =
-                DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.LONG, Locale.getDefault());
+        DateFormat timeFormatter = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.MEDIUM, Locale.getDefault());
 
         textViewCreated.setText(timeFormatter.format(message.createdAt));
         textViewUpdated.setText(timeFormatter.format(message.updatedAt));
