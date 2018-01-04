@@ -3,10 +3,7 @@ package com.paulvarry.intra42.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,20 +53,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
     Call<List<EventsUsers>> listCallEventsUsers;
     private Events event;
     private EventsUsers eventsUsers;
-    private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
-
-        @Override
-        public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                //dismiss();
-            }
-
-        }
-
-        @Override
-        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-        }
-    };
 
     private Callback<List<EventsUsers>> callback = new Callback<List<EventsUsers>>() {
         @Override
@@ -215,6 +198,9 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
 
+        if (!appClass.userIsLogged())
+            return;
+
         TextView textViewTitle = contentView.findViewById(R.id.textViewTitle);
         TagView tagViewKind = contentView.findViewById(R.id.tagViewKind);
         TextView textViewDate = contentView.findViewById(R.id.textViewDate);
@@ -262,15 +248,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         textViewPeople.setText(people);
 
         Tools.setMarkdown(getContext(), textViewDescription, event.description);
-
-        if (false) {
-            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
-            CoordinatorLayout.Behavior behavior = params.getBehavior();
-
-            if (behavior != null && behavior instanceof BottomSheetBehavior) {
-                ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
-            }
-        }
 
         progressBarButton.setVisibility(View.GONE);
         buttonSubscribe.setEnabled(false);

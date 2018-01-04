@@ -28,25 +28,26 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999"
+        app:layout_constraintVertical_bias="0.15"
         app:srcCompat="@drawable/logo_42" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewSummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
         android:layout_alignRight="@+id/imageView"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:gravity="center"
-        android:text="@string/login_unofficial_intra"
+        android:text="@string/login_summary"
         android:textColor="@color/textColorPrimary"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintRight_toRightOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textViewLoadingInfo"
@@ -137,5 +138,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutNeedLogin"
         app:layout_constraintVertical_bias="1.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="556dp" />
 
 </android.support.constraint.ConstraintLayout>

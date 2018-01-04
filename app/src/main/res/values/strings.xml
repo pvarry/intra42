@@ -100,12 +100,12 @@
 
     <string name="shortcut_friends">Friends</string>
     <string name="shortcut_long_friends">Friends list</string>
-    <string name="shortcut_cluster_map">Cluster map</string>
+    <string name="shortcut_cluster_map">Clusters</string>
     <string name="shortcut_long_cluster_map">Clusters map</string>
     <string name="shortcut_galaxy">Galaxy</string>
-    <string name="shortcut_long_galaxy">Galaxy</string>
+    <string name="shortcut_long_galaxy">Galaxy (projects)</string>
 
-    <string name="about_content">Access your intra with a native app.\nContact me on Slack or mail (pvarry)</string>
+    <string name="about_content">Access your intra with a native app.\n\nContact me on Slack or mail (pvarry)\n\nDisclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app. Use it at your own risk.</string>
     <string name="about_version">Version</string>
     <string name="cantina_menu_fremont_only">Cantina Menu</string>
     <string name="elearning_select_file_to_open">Select file to open</string>
@@ -173,7 +173,7 @@
     <string name="language_ukrainian">Ukrainian</string>
     <string name="login_open_browser">Open Web browser</string>
     <string name="login_open_browser_to_login">You need to sign in</string>
-    <string name="login_unofficial_intra">Unofficial intra</string>
+    <string name="login_summary">Intranet</string>
     <string name="login_view_sources">View sources</string>
     <string name="menu_action_filter">filter</string>
     <string name="menu_action_open_intra">Show web version</string>
@@ -419,5 +419,6 @@
     <string name="edit_unsaved_changes_content">Do you want to save your changes to this group ?</string>
     <string name="continue_editing">continue editing</string>
     <string name="discard">discard</string>
+    <string name="about_app_summary">Unofficial, free and open-source App</string>
 
 </resources>

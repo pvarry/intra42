@@ -6,8 +6,8 @@
         android:enabled="true"
         android:icon="@drawable/ic_shortcut_grain"
         android:shortcutId="galaxy"
-        android:shortcutLongLabel="@string/shortcut_galaxy"
-        android:shortcutShortLabel="@string/shortcut_long_galaxy">
+        android:shortcutLongLabel="@string/shortcut_long_galaxy"
+        android:shortcutShortLabel="@string/shortcut_galaxy">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="com.paulvarry.intra42.activities.MainActivity"
