@@ -62,7 +62,7 @@ public class NotificationsUtils {
             return;
 
         NotificationCompat.Builder summaryNotification = getBaseNotification(context)
-                .setAutoCancel(false)
+                .setAutoCancel(true)
                 .setSubText(context.getString(R.string.notifications_events_sub_text))
                 .setGroup(context.getString(R.string.notifications_events_unique_id))
                 .setChannelId(context.getString(R.string.notifications_events_unique_id))
@@ -76,7 +76,7 @@ public class NotificationsUtils {
             return;
 
         NotificationCompat.Builder summaryNotification = getBaseNotification(context)
-                .setAutoCancel(false)
+                .setAutoCancel(true)
                 .setSubText(context.getString(R.string.notifications_bookings_sub_text))
                 .setGroup(context.getString(R.string.notifications_bookings_unique_id))
                 .setChannelId(context.getString(R.string.notifications_bookings_unique_id))
