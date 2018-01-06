@@ -343,7 +343,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
 
             if (activity != null) { //TODO: hardcoded string
                 ApiService api = activity.app.getApiService();
-                Call<Projects> call = api.createProjectRegister(project.id);
+                Call<Projects> call = api.createProjectRegister(project.id, activity.app.me.id);
                 call.enqueue(new Callback<Projects>() {
                     @Override
                     public void onResponse(Call<Projects> call, Response<Projects> response) {

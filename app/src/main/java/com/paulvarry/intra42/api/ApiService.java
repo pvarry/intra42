@@ -255,7 +255,7 @@ public interface ApiService {
     Call<List<UsersLTE>> getProjectUsers(@Path("project_id") String projectSlug, @Query("page") int page);
 
     @POST("/v2/projects/{project_id}/register")
-    Call<Projects> createProjectRegister(@Path("project_id") int projectId);
+    Call<Projects> createProjectRegister(@Path("project_id") int projectId, @Query("projects_user[user_id]") int userId);
 
     /* Projects Users */
     @GET("/v2/projects_users/{id}")

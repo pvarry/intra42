@@ -48,7 +48,6 @@ public abstract class BasicThreadActivity extends BasicActivity implements Navig
                     } catch (ErrorServerException e) {
                         e.printStackTrace();
                         setViewStateThread(StatusCode.API_DATA_ERROR);
-
                     } catch (RuntimeException e) {
                         e.printStackTrace();
                         setViewStateThread(StatusCode.API_DATA_ERROR);
