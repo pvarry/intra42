@@ -64,10 +64,8 @@
 <string name="tags">"Tags"</string>
 <string name="shortcut_friends">"Friends"</string>
 <string name="shortcut_long_friends">"Friends list"</string>
-<string name="shortcut_cluster_map">"Cluster map"</string>
 <string name="shortcut_long_cluster_map">"Clusters map"</string>
 <string name="shortcut_galaxy">"Galaxy"</string>
-<string name="shortcut_long_galaxy">"Galaxy"</string>
 <string name="about_content">"Access your intra with a native app.
 Contact me on Slack or mail (pvarry)"</string>
 <string name="about_version">"Version"</string>
@@ -138,7 +136,6 @@ You will lose a correction point"</string>
 <string name="language_ukrainian">"Ukrainian"</string>
 <string name="login_open_browser">"Open Web browser"</string>
 <string name="login_open_browser_to_login">"You need to sign in"</string>
-<string name="login_unofficial_intra">"Unofficial intra"</string>
 <string name="login_view_sources">"View sources"</string>
 <string name="menu_action_filter">"filter"</string>
 <string name="menu_action_open_intra">"Show web version"</string>
@@ -370,4 +367,142 @@ You will lose a correction point"</string>
 <string name="refreshing">"Refreshing"</string>
 <string name="info_data_cached_long_time_ago">"Data cached long time ago"</string>
 <string name="title_tab_user_apps">"Apps"</string>
+
+<!-- Format warning -->
+<string name="format__user_profile">"%s's profile"</string>
+<string name="cluster_map_dialog_action">"Action for this location"</string>
+<string name="cluster_map_not_in_campus">"Cluster map is not available in your campus"</string>
+<string name="project_team_status_closed">"closed"</string>
+<string name="project_team_status_locked">"locked"</string>
+<string name="title_tab_forum_unread">"Unread"</string>
+<string name="title_tab_forum_last_topics">"Last topics"</string>
+<string name="title_tab_forum_tag">"Tags"</string>
+<string name="title_activity_friends_groups">"Friends groups"</string>
+<string name="friends_group_edit_name_dialog">"Edit name"</string>
+<string name="project_solo">"solo"</string>
+<string name="project_group">"group"</string>
+<string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
+<string name="event_kind_conf">"conf"</string>
+<string name="event_kind_other">"other"</string>
+<string name="event_kind_extern">"extern"</string>
+<string name="event_kind_atelier">"atelier"</string>
+<string name="event_kind_meet_up">"meet up"</string>
+<string name="event_kind_hackathon">"hackathon"</string>
+<string name="event_kind_workshop">"workshop"</string>
+<string name="event_kind_association">"association"</string>
+<string name="event_kind_partnership">"partnership"</string>
+<string name="event_kind_unknown">"unknown"</string>
+<string name="user_achievement_bronze">"bronze"</string>
+<string name="user_achievement_silver">"silver"</string>
+<string name="user_achievement_gold">"gold"</string>
+<string name="user_achievements_platinum">"platinum"</string>
+<string name="event_kind_event">"event"</string>
+<string name="event_kind_challenge">"challenge"</string>
+<string name="info_attachment_no_app_video">"There are no applications installed to open this, you can install VLC"</string>
+<string name="info_attachment_no_app_pdf">"There are no applications installed to open this, you can install a pdfviewer"</string>
+<string name="info_attachment_no_app">"There are no applications installed to open this"</string>
+<string name="info_loading_page_on">"Loading page %d on %d"</string>
+<string name="info_loading_resolve_number_page">"Resolve number of page"</string>
+<string name="info_loading_topic">"Loading topic"</string>
+<string name="info_loading_topic_reply">"loading reply"</string>
+<string name="info_loading_processing_data">"Processing data"</string>
+<string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
+<string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
+<string name="continue_editing">"continue editing"</string>
+<string name="discard">"discard"</string>
+<string name="login_summary">"Intranet"</string>
+<string name="about_app_summary">"Unofficial, free and open-source App"</string>
+<string name="_super_store_title">"Intra 42"</string>
+<string name="_super_store_short_description">"Unofficial, free and open-source 42's intranet App."</string>
+<string name="_super_store_full_description">"Only for 42's students (www.42.fr)
+
+This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+
+Features :
+- Keep informed on events and sync your calendar
+- Be notified on events and graduations
+- View project and graduations
+- View users profile and project
+- Comment on forum
+- Watch video on e-learning
+- All feature requests and contributions are welcome!
+
+More informations : https://forum.intra.42.fr/topics/9650/messages/last
+
+Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
+<string name="_super_forum">"FRENCH VERSION | VERSION FRANÇAISE : [topic](https://forum.intra.42.fr/topics/9650)
+
+Only for 42's students (www.42.fr)
+
+This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+
+Dowload this app : [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+
+Sources : [github](https://github.com/pvarry/intra42)
+
+## Features :
+- Keep informed on events and sync your calendar
+- Be notified on events and graduations
+- View project and graduations
+- View users profile and project
+- Comment on forum
+- Watch video on e-learning
+
+All feature requests and contributions are welcome!
+If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
+
+Useful tools :
+
+&gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
+
+&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing video.
+
+## Changelog
+
+#### v0.8.x
+
+- Theme integration with Coalitions
+- Automatically sync your calendar
+- Change friends system
+- Speed up app starting
+- Add user location history
+- fix minor bug
+
+#### v0.7.x
+
+- Add Galaxy
+- Update Notification for Andorid O
+- Add action on notification for events
+- Update icon for Android O
+
+#### v0.6.0
+
+- add Cluster Map (Paris and Fremont)
+- add subscription for events (on events list only)
+- add Cantina menu
+- bug fix
+
+#### v0.5.7
+
+- add SuperSearch
+- add friends
+- fix bugs
+
+## Screenshot
+
+![home](https://lh3.googleusercontent.com/kVno0ZG2ZQHiG3NXgKsN6pZ7Bx2L18wT54_OCfLJejKYPecyllImXpNQ0KWXRXMFJpE=h310-rw)
+
+![Galaxy](https://lh3.googleusercontent.com/8sl1WUfwK0buyA1BN1uxH0OmhJOfByZfXtJ_u1sVFBPjYPeCQgqin0DnrnNhNwfkW3ot=h310-rw)
+
+![Cluster Map](https://lh3.googleusercontent.com/o5xlA1lXr1qoYWC81RUAg_e4jaWpFg9LoU5kStmR9PuXatqKnUvY8QJ3a2L4M41RKtxd=h310-rw)
+
+![Event](https://lh3.googleusercontent.com/EvbKktad0gKoUU4KBIo4x9eglSHSLlSIfOMgFbIZfIE3Pp6N2ZkguYLYM27nFZOwfg=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/WWOLxkqUmtg51B5DC0UlJzj1jD-9ju1bDTPcuLd88YW-wFcuHlUDrRcloiOIKpQURZk=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/9vEGqxY4duq8rK4VeDFgB8rU6JC_8E3kzX1Cl0-jrc3amrPoqFjHwZLTLKpSRdShXkXT=h310-rw)
+
+Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
+<string name="shortcut_cluster_map">"Clusters"</string>
+<string name="shortcut_long_galaxy">"Galaxy (projects)"</string>
 </resources>
