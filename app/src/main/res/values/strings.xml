@@ -420,5 +420,62 @@
     <string name="continue_editing">continue editing</string>
     <string name="discard">discard</string>
     <string name="about_app_summary">Unofficial, free and open-source App</string>
+    <string name="_super_store_title">Intra 42</string>
+    <string name="_super_store_short_description">Unofficial, free and open-source 42\'s intranet App.</string>
+    <string name="_super_store_full_description">Only for 42\'s students (www.42.fr)\n\nThis app is an unofficial Intra 42 client for Android platforms. It\'s built in JAVA and use official Android SDK.\n\nFeatures :\nKeep informed on events and sync your calendar\nBe notified on events and graduations\nView project and graduations\nView users profile and project\nComment on forum Watch video on e-learning\nAll feature requests and contributions are welcome!\n\nMore informations : https://forum.intra.42.fr/topics/9650/messages/last\n\nDisclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app.</string>
+    <string name="_super_forum">FRENCH VERSION | VERSION FRANÇAISE : [topic](https://forum.intra.42.fr/topics/9650)
 
+Hi,
+
+I created a fully featured app, native to Android. With [intra Android](https://play.google.com/store/apps/details?id=com.paulvarry.intra42), you can:
+
+- Keep informed on events
+- View project and graduations
+- Stalk users and their project
+- Comment on forum
+- Watch video on e-learning
+- And you can soon do every more stuff with this app (like full corrections flow)
+
+Sources : [github](https://github.com/pvarry/intra42)
+
+Useful tools :
+
+> [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
+
+> [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing video.
+
+If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
+
+## Changelog
+
+### v0.7.x
+
+- Add Galaxy
+- Update Notification for Andorid O
+- Add action on notification for events
+- Update icon for Android O
+
+### v0.6.0
+
+- add Cluster Map (Paris and Fremont)
+- add subscription for events (on events list only)
+- add Cantina menu
+- bug fix
+
+### v0.5.7
+
+- add SuperSearch
+- add friends
+- fix bugs
+
+## Screenshot
+
+![home](https://lh3.googleusercontent.com/oEZUTrpy_U8j09j9CSnwSLCWJAO1eD0ZYmC4MdppWHHqJd26YWhtuPwnsRpZn-F-Wg=h900-rw)
+
+![home](https://lh3.googleusercontent.com/ua622DZW1lwd5IQx9mnK9r4ovqujJPmeZo5hP4q1dHSBC3QcHuOywk-gGprQJwhDIA=h900-rw)
+
+![home](https://lh3.googleusercontent.com/0R7_bfLN51J-8k4NLZc7E-TVwd_fPc4--mSo-cNWp8vzWWG7SX5TU_QWyi10JCbkR4tg=h900-rw)
+
+PS:
+Some features are missing, i'm working with bocal dev-team to have more features on API</string>
 </resources>
