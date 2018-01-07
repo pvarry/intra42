@@ -3,13 +3,13 @@
 <string name="app_name">"Intra 42"</string>
 <string name="pref_advanced_dont_force">"Disable (don't force)"</string>
 <string name="pref_force_content_location">"Force content location"</string>
-<string name="pref_title_beta_allow">"Allow advanced preferences"</string>
+<string name="pref_title_beta_allow">"Дозволити розширені налаштування"</string>
 <string name="pref_unactivated">"Неактивований"</string>
 <string name="pref_activated">"Активований"</string>
 <string name="pref_value_all">"Всі"</string>
 <string name="pref_header_notifications">"Сповіщення"</string>
-<string name="pref_title_notifications_events">"Notify events"</string>
-<string name="pref_title_notifications_scales">"Notify corrections (beta)"</string>
+<string name="pref_title_notifications_events">"Повідомляти про події"</string>
+<string name="pref_title_notifications_scales">"Повідомляти про перевірки"</string>
 <string name="pref_title_notifications_frequency">"Частота синхронізації"</string>
 <string name="pref_header_network">"Мережа"</string>
 <string name="pref_title_network_over_cellular_slow">"Через повільну стільникову мережу"</string>
@@ -20,9 +20,9 @@
 <string name="notifications_events_channel_description">"Сповіщення для подій"</string>
 <string name="notifications_bookings_sub_text">"запис"</string>
 <string name="notifications_bookings_channel_name">"Записи"</string>
-<string name="notifications_bookings_channel_description">"Notifications for correction bookings"</string>
-<string name="notifications_announcements_channel_name">"Announcements"</string>
-<string name="notifications_announcements_channel_description">"Notifications announcements"</string>
+<string name="notifications_bookings_channel_description">"Повідомлення про призначені перевірки"</string>
+<string name="notifications_announcements_channel_name">"Анонси"</string>
+<string name="notifications_announcements_channel_description">"Повідомлення про анонси"</string>
 
 <!-- Format warning -->
 <!-- Fuzzy -->
@@ -41,10 +41,10 @@
 <string name="bookings_correct_somebody">"Ти перевіриш чийсь код at _date_."</string>
 
 <!-- Format warning -->
-<string name="format_dont_have_any_expertise_yet">"%s don't have any expertise yet"</string>
+<string name="format_dont_have_any_expertise_yet">"%s ще немає жодних навичків."</string>
 
 <!-- Format warning -->
-<string name="format__dont_have_write_topic">"%s don't have write any topic yet"</string>
+<string name="format__dont_have_write_topic">"%s ще не створив жодого обговорення."</string>
 
 <!-- Format warning -->
 <!-- Fuzzy -->
@@ -66,22 +66,20 @@
 <string name="today">"Сьогодні"</string>
 <string name="tomorrow">"Завтра"</string>
 <string name="value">"Значення"</string>
-<string name="tags">"Tags"</string>
+<string name="tags">"Теги"</string>
 <string name="shortcut_friends">"Друзі"</string>
 <string name="shortcut_long_friends">"Список друзів"</string>
-<string name="shortcut_cluster_map">"Карта кластера"</string>
 <string name="shortcut_long_cluster_map">"Карта кластерів"</string>
-<string name="shortcut_galaxy">"Галактика"</string>
-<string name="shortcut_long_galaxy">"Галактика"</string>
-<string name="about_content">"Access your intra with a native app.
-Contact me on Slack or mail (pvarry)"</string>
+<string name="shortcut_galaxy">"Дерево проектів"</string>
+<string name="about_content">"Доступ до твоєї інтри за допомогою нативного додатку.
+Зв'яжіться зі мною в Slack або поштою (pvarry)"</string>
 <string name="about_version">"Версія"</string>
 <string name="cantina_menu_fremont_only">"Cantina Menu"</string>
-<string name="elearning_select_file_to_open">"Select file to open"</string>
-<string name="elearning_title">"Elearning"</string>
+<string name="elearning_select_file_to_open">"Виберіть файл для відкриття"</string>
+<string name="elearning_title">"Електронне навчання"</string>
 <string name="evaluation_correct_someone">"Corrects"</string>
-<string name="evaluation_corrected_by">"Corrected by"</string>
-<string name="evaluation_on_project">"on"</string>
+<string name="evaluation_corrected_by">"Перевірено"</string>
+<string name="evaluation_on_project">"увімкнути"</string>
 <string name="evaluation_slot_begin_at">"Починається о"</string>
 <string name="evaluation_slot_create">"Створити"</string>
 <string name="evaluation_slot_delete_button">"Видалити цей слот"</string>
@@ -89,16 +87,16 @@ Contact me on Slack or mail (pvarry)"</string>
 <string name="evaluation_slot_end_at">"Закінчується о"</string>
 <string name="evaluation_slot_modify">"Змінити слот"</string>
 <string name="evaluation_slot_new">"Новий слот"</string>
-<string name="evaluation_slot_start_before_end">"In this space-time, start must be before end"</string>
+<string name="evaluation_slot_start_before_end">"У цьому часовому просторі початок повинен бути до кінця"</string>
 <string name="evaluation_slot_success">"успішно"</string>
 <string name="evaluation_someone">"кимось"</string>
 <string name="evaluation_with">"With"</string>
-<string name="evaluations_booked_slot">"Booked slot"</string>
-<string name="evaluations_confirmation_delete_booked_slot">"Are you sure to delete this slot with a booked scale ?
-You will lose a correction point"</string>
-<string name="event_check_registration">"Checking your registration"</string>
-<string name="event_full">"Full"</string>
-<string name="event_nothing_found_for_your_campus_cursus">"No event found for your campus/cursus"</string>
+<string name="evaluations_booked_slot">"Заброньований слот"</string>
+<string name="evaluations_confirmation_delete_booked_slot">"Ви впевнені, що хочете видалити цей слот зі шкали бронювання?
+Ви втратите один бал перевірки"</string>
+<string name="event_check_registration">"Перевірка реєстрації"</string>
+<string name="event_full">"Заповнено"</string>
+<string name="event_nothing_found_for_your_campus_cursus">"Для вашого навчального закладу / курсу не знайдено жодної події"</string>
 <string name="event_subscribe">"Підписатись"</string>
 <string name="event_subscribed">"Підписано"</string>
 <string name="event_subscription_unavailable">"Підписка недоступна"</string>
@@ -113,21 +111,21 @@ You will lose a correction point"</string>
 <string name="forum_message_hint">"Повідомлення"</string>
 <string name="forum_readings">"Readings"</string>
 <string name="forum_reply">"Відповісти"</string>
-<string name="forum_tags">"Tags"</string>
-<string name="forum_topic_content">"Content"</string>
+<string name="forum_tags">"Теги"</string>
+<string name="forum_topic_content">"Вміст"</string>
 <string name="forum_topic_edit_button">"Редагувати Обговорення"</string>
 <string name="forum_topic_error_empty">"пусто"</string>
-<string name="forum_topics_kind_announce">"Announce"</string>
+<string name="forum_topics_kind_announce">"Анонс"</string>
 <string name="forum_topics_kind_question">"Запитання"</string>
-<string name="forum_updated_at">"Оновлено о"</string>
+<string name="forum_updated_at">"Оновлено в"</string>
 <string name="forum_you">"ти"</string>
 <string name="galaxy_available">"Доступний"</string>
-<string name="galaxy_failed">"Failed"</string>
+<string name="galaxy_failed">"Невдача"</string>
 <string name="galaxy_in_progress">"В процесі"</string>
 <string name="galaxy_not_found">"Немає доступних галактик"</string>
-<string name="galaxy_succeeded">"Succeeded"</string>
+<string name="galaxy_succeeded">"Успішно завершено"</string>
 <string name="galaxy_unavailable">"Недоступно"</string>
-<string name="galaxy_unknown_state">"Unknown state"</string>
+<string name="galaxy_unknown_state">"Невідомий стан"</string>
 <string name="info_api_request_users_1_1">"calling users 1/1"</string>
 <string name="info_api_requesting">"calling …"</string>
 <string name="info_error_on_loading_this_page">"Помилка при завантаженні сторінки"</string>
@@ -143,10 +141,9 @@ You will lose a correction point"</string>
 <string name="language_ukrainian">"Українська"</string>
 <string name="login_open_browser">"Відкрити в Браузері"</string>
 <string name="login_open_browser_to_login">"Тобі потрібно увійти"</string>
-<string name="login_unofficial_intra">"Неофіційна інтра"</string>
-<string name="login_view_sources">"View sources"</string>
-<string name="menu_action_filter">"filter"</string>
-<string name="menu_action_open_intra">"Show web version"</string>
+<string name="login_view_sources">"Переглянути джерела"</string>
+<string name="menu_action_filter">"фільтр"</string>
+<string name="menu_action_open_intra">"Показати веб-версію"</string>
 <string name="menu_action_search">"Пошук"</string>
 <string name="menu_action_settings">"Налаштування"</string>
 <string name="menu_action_share">"Поширити"</string>
@@ -162,7 +159,7 @@ You will lose a correction point"</string>
 <string name="navigation_place_holder_login">"Логін"</string>
 <string name="navigation_settings">"Налаштування"</string>
 <string name="navigation_share">"Поширити"</string>
-<string name="navigation_time_on_campus">"Time on campus"</string>
+<string name="navigation_time_on_campus">"Час проведений в кампусі"</string>
 <string name="notification_auto_clear">"auto close in 5s"</string>
 <string name="notification_bookings_title_imminent">"Imminent evaluation"</string>
 <string name="notification_bookings_title_new">"You have a new booking"</string>
@@ -375,4 +372,142 @@ You will lose a correction point"</string>
 <string name="refreshing">"Refreshing"</string>
 <string name="info_data_cached_long_time_ago">"Data cached long time ago"</string>
 <string name="title_tab_user_apps">"Apps"</string>
+
+<!-- Format warning -->
+<string name="format__user_profile">"%s's profile"</string>
+<string name="cluster_map_dialog_action">"Action for this location"</string>
+<string name="cluster_map_not_in_campus">"Cluster map is not available in your campus"</string>
+<string name="project_team_status_closed">"closed"</string>
+<string name="project_team_status_locked">"locked"</string>
+<string name="title_tab_forum_unread">"Unread"</string>
+<string name="title_tab_forum_last_topics">"Last topics"</string>
+<string name="title_tab_forum_tag">"Tags"</string>
+<string name="title_activity_friends_groups">"Friends groups"</string>
+<string name="friends_group_edit_name_dialog">"Edit name"</string>
+<string name="project_solo">"solo"</string>
+<string name="project_group">"group"</string>
+<string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
+<string name="event_kind_conf">"conf"</string>
+<string name="event_kind_other">"other"</string>
+<string name="event_kind_extern">"extern"</string>
+<string name="event_kind_atelier">"atelier"</string>
+<string name="event_kind_meet_up">"meet up"</string>
+<string name="event_kind_hackathon">"hackathon"</string>
+<string name="event_kind_workshop">"workshop"</string>
+<string name="event_kind_association">"association"</string>
+<string name="event_kind_partnership">"partnership"</string>
+<string name="event_kind_unknown">"unknown"</string>
+<string name="user_achievement_bronze">"bronze"</string>
+<string name="user_achievement_silver">"silver"</string>
+<string name="user_achievement_gold">"gold"</string>
+<string name="user_achievements_platinum">"platinum"</string>
+<string name="event_kind_event">"event"</string>
+<string name="event_kind_challenge">"challenge"</string>
+<string name="info_attachment_no_app_video">"There are no applications installed to open this, you can install VLC"</string>
+<string name="info_attachment_no_app_pdf">"There are no applications installed to open this, you can install a pdfviewer"</string>
+<string name="info_attachment_no_app">"There are no applications installed to open this"</string>
+<string name="info_loading_page_on">"Loading page %d on %d"</string>
+<string name="info_loading_resolve_number_page">"Resolve number of page"</string>
+<string name="info_loading_topic">"Loading topic"</string>
+<string name="info_loading_topic_reply">"loading reply"</string>
+<string name="info_loading_processing_data">"Processing data"</string>
+<string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
+<string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
+<string name="continue_editing">"continue editing"</string>
+<string name="discard">"discard"</string>
+<string name="login_summary">"Intranet"</string>
+<string name="about_app_summary">"Unofficial, free and open-source App"</string>
+<string name="_super_store_title">"Intra 42"</string>
+<string name="_super_store_short_description">"Unofficial, free and open-source 42's intranet App."</string>
+<string name="_super_store_full_description">"Only for 42's students (www.42.fr)
+
+This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+
+Features :
+- Keep informed on events and sync your calendar
+- Be notified on events and graduations
+- View project and graduations
+- View users profile and project
+- Comment on forum
+- Watch video on e-learning
+- All feature requests and contributions are welcome!
+
+More informations : https://forum.intra.42.fr/topics/9650/messages/last
+
+Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
+<string name="_super_forum">"FRENCH VERSION | VERSION FRANÇAISE : [topic](https://forum.intra.42.fr/topics/9650)
+
+Only for 42's students (www.42.fr)
+
+This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+
+Dowload this app : [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+
+Sources : [github](https://github.com/pvarry/intra42)
+
+## Features :
+- Keep informed on events and sync your calendar
+- Be notified on events and graduations
+- View project and graduations
+- View users profile and project
+- Comment on forum
+- Watch video on e-learning
+
+All feature requests and contributions are welcome!
+If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
+
+Useful tools :
+
+&gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
+
+&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing video.
+
+## Changelog
+
+#### v0.8.x
+
+- Theme integration with Coalitions
+- Automatically sync your calendar
+- Change friends system
+- Speed up app starting
+- Add user location history
+- fix minor bug
+
+#### v0.7.x
+
+- Add Galaxy
+- Update Notification for Andorid O
+- Add action on notification for events
+- Update icon for Android O
+
+#### v0.6.0
+
+- add Cluster Map (Paris and Fremont)
+- add subscription for events (on events list only)
+- add Cantina menu
+- bug fix
+
+#### v0.5.7
+
+- add SuperSearch
+- add friends
+- fix bugs
+
+## Screenshot
+
+![home](https://lh3.googleusercontent.com/kVno0ZG2ZQHiG3NXgKsN6pZ7Bx2L18wT54_OCfLJejKYPecyllImXpNQ0KWXRXMFJpE=h310-rw)
+
+![Galaxy](https://lh3.googleusercontent.com/8sl1WUfwK0buyA1BN1uxH0OmhJOfByZfXtJ_u1sVFBPjYPeCQgqin0DnrnNhNwfkW3ot=h310-rw)
+
+![Cluster Map](https://lh3.googleusercontent.com/o5xlA1lXr1qoYWC81RUAg_e4jaWpFg9LoU5kStmR9PuXatqKnUvY8QJ3a2L4M41RKtxd=h310-rw)
+
+![Event](https://lh3.googleusercontent.com/EvbKktad0gKoUU4KBIo4x9eglSHSLlSIfOMgFbIZfIE3Pp6N2ZkguYLYM27nFZOwfg=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/WWOLxkqUmtg51B5DC0UlJzj1jD-9ju1bDTPcuLd88YW-wFcuHlUDrRcloiOIKpQURZk=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/9vEGqxY4duq8rK4VeDFgB8rU6JC_8E3kzX1Cl0-jrc3amrPoqFjHwZLTLKpSRdShXkXT=h310-rw)
+
+Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
+<string name="shortcut_cluster_map">"Clusters"</string>
+<string name="shortcut_long_galaxy">"Galaxy (projects)"</string>
 </resources>
