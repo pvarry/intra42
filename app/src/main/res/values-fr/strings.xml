@@ -64,10 +64,8 @@
 <string name="tags">"Balises"</string>
 <string name="shortcut_friends">"Amis"</string>
 <string name="shortcut_long_friends">"Liste d'amis"</string>
-<string name="shortcut_cluster_map">"Map des Clusters"</string>
 <string name="shortcut_long_cluster_map">"Map des clusters"</string>
 <string name="shortcut_galaxy">"Galaxy"</string>
-<string name="shortcut_long_galaxy">"Galaxy des projets de 42"</string>
 <string name="about_content">"Accede a ton intra avec cette application native.
 Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="about_version">"Version"</string>
@@ -101,23 +99,23 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="forum_about_this_message">"A propos du message"</string>
 <string name="forum_confirmation_delete_message">"Êtes-vous sûr de vouloir supprimer ce message ?"</string>
 <string name="forum_created_at">"Créé à"</string>
-<string name="forum_delete_message">" Supprimer le message"</string>
-<string name="forum_delete_topic">" Supprimer le topic"</string>
+<string name="forum_delete_message">"Supprimer le message"</string>
+<string name="forum_delete_topic">"Supprimer le topic"</string>
 <string name="forum_message_edit">"Modifier le message"</string>
 <string name="forum_message_hint">"Message"</string>
-<string name="forum_readings">" Lectures"</string>
+<string name="forum_readings">"Lectures"</string>
 <string name="forum_reply">"Répondre"</string>
 <string name="forum_tags">"Tags"</string>
 <string name="forum_topic_content">"Contenu"</string>
 <string name="forum_topic_edit_button">"Modifier le topic"</string>
 <string name="forum_topic_error_empty">"vide"</string>
-<string name="forum_topics_kind_announce">" Annonce"</string>
+<string name="forum_topics_kind_announce">"Annonce"</string>
 <string name="forum_topics_kind_question">"Question"</string>
 <string name="forum_updated_at">"Mis à jour à"</string>
 <string name="forum_you">"tu"</string>
 <string name="galaxy_available">"Disponible"</string>
 <string name="galaxy_failed">"Échoué"</string>
-<string name="galaxy_in_progress">" en cours"</string>
+<string name="galaxy_in_progress">"en cours"</string>
 <string name="galaxy_not_found">"Pas de Galaxy disponible"</string>
 <string name="galaxy_succeeded">"Réussi"</string>
 <string name="galaxy_unavailable">"Indisponible"</string>
@@ -128,7 +126,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="info_initializing">"Initialisation"</string>
 <string name="info_loading">"chargement …"</string>
 <string name="info_loading_please_wait">"Chargement, veuillez patienter…"</string>
-<string name="info_network_error">" Erreur de réseau"</string>
+<string name="info_network_error">"Erreur de réseau"</string>
 <string name="info_network_no_internet">"Pas d'internet"</string>
 <string name="info_nothing_to_show">"Rien à afficher"</string>
 <string name="language_english">"Anglais"</string>
@@ -137,7 +135,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="language_ukrainian">"Ukrainien"</string>
 <string name="login_open_browser">"Ouvrir le navigateur"</string>
 <string name="login_open_browser_to_login">"Vous devez vous identifier"</string>
-<string name="login_unofficial_intra">"Intra non-officiel"</string>
 <string name="login_view_sources">"Voir les sources"</string>
 <string name="menu_action_filter">"filtre"</string>
 <string name="menu_action_open_intra">"Afficher la version Web"</string>
@@ -179,7 +176,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="project_past_session">"Session précédente"</string>
 <string name="project_peer_corrections">"Corrections par des pairs"</string>
 <string name="project_register">"S'inscrire"</string>
-<string name="project_session">" Session"</string>
+<string name="project_session">"Session"</string>
 <string name="project_show_mine">"Voir le mien"</string>
 <string name="project_skills">"Compétences"</string>
 <string name="project_sub_projects">"Sous-projets"</string>
@@ -248,7 +245,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="title_tab_user_projects">"Projects"</string>
 <string name="title_tab_user_skills">"Compétences"</string>
 <string name="title_tab_users_all">"Tout"</string>
-<string name="topics_kind_survey">" Enquête"</string>
+<string name="topics_kind_survey">"Enquête"</string>
 <string name="user_app_official">"Application officielle"</string>
 <string name="user_correction_points">"Points de correction"</string>
 <string name="user_cursus_date">"Date"</string>
@@ -282,8 +279,8 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="pref_notifications_frequency_titles_3hour">"3 heures"</string>
 <string name="pref_notifications_frequency_titles_6hour">"6 heures"</string>
 <string name="pref_notifications_frequency_titles_never">"Jamais"</string>
-<string name="list_preference_network_titles_large">"Large (583×700)"</string>
-<string name="list_preference_network_titles_medium">"Medium (292×350)"</string>
+<string name="list_preference_network_titles_large">"Grand (583×700)"</string>
+<string name="list_preference_network_titles_medium">"Moyen (292×350)"</string>
 <string name="list_preference_network_titles_default">"Défaut (200x240)"</string>
 <string name="list_preference_network_titles_small">"Petit (146x175)"</string>
 <string name="list_preference_network_titles_none">"Aucun"</string>
@@ -332,13 +329,13 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="friends_summary_no_friends">"No friend"</string>
 
 <!-- Format warning -->
-<string name="friends_summary_format_friend">"%d friend"</string>
+<string name="friends_summary_format_friend">"%d ami"</string>
 
 <!-- Format warning -->
-<string name="friends_summary_format_friends">"%d friends"</string>
+<string name="friends_summary_format_friends">"%d amis"</string>
 <string name="friends_add_to_group">"Ajouter au group"</string>
 <string name="friends_remove_from_group">"Remove from group"</string>
-<string name="friends_delete_friends_title">"Do want to delete those friends ?"</string>
+<string name="friends_delete_friends_title">"Voulez-vous supprimer ces amis ?"</string>
 <string name="friends_groups_nothing">"You have to create groups first"</string>
 <string name="info_loading_locations">"Chargement des emplacements ..."</string>
 <string name="info_loading_friends">"Chargement des amis ..."</string>
@@ -366,7 +363,153 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="friends_removing_from_group">"Removing friends from group"</string>
 <string name="galaxy_no_live_data">"Unable to get live data for Galaxy"</string>
 <string name="coalition_score">"Score"</string>
-<string name="refreshing">"Refreshing"</string>
-<string name="info_data_cached_long_time_ago">"Data cached long time ago"</string>
+<string name="refreshing">"Mise a jour"</string>
+<string name="info_data_cached_long_time_ago">"Donnees mise en cache il y a long temps"</string>
 <string name="title_tab_user_apps">"Applications"</string>
+
+<!-- Format warning -->
+<string name="format__user_profile">"Profile de %s"</string>
+<string name="cluster_map_dialog_action">"Action for this location"</string>
+<string name="cluster_map_not_in_campus">"La carte des Clusters n'est pas disponnible pour votre campus"</string>
+<string name="project_team_status_closed">"fermé"</string>
+<string name="project_team_status_locked">"verrouillé"</string>
+<string name="title_tab_forum_unread">"Unread"</string>
+<string name="title_tab_forum_last_topics">"Last topics"</string>
+<string name="title_tab_forum_tag">"Tags"</string>
+<string name="title_activity_friends_groups">"Friends groups"</string>
+<string name="friends_group_edit_name_dialog">"Changer le nom"</string>
+<string name="project_solo">"seul"</string>
+<string name="project_group">"group"</string>
+<string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
+<string name="event_kind_conf">"conf"</string>
+<string name="event_kind_other">"autre"</string>
+<string name="event_kind_extern">"externe"</string>
+<string name="event_kind_atelier">"atelier"</string>
+<string name="event_kind_meet_up">"meet up"</string>
+<string name="event_kind_hackathon">"hackathon"</string>
+<string name="event_kind_workshop">"workshop"</string>
+<string name="event_kind_association">"association"</string>
+<string name="event_kind_partnership">"partenariat"</string>
+<string name="event_kind_unknown">"inconnu"</string>
+<string name="user_achievement_bronze">"bronze"</string>
+<string name="user_achievement_silver">"argent"</string>
+<string name="user_achievement_gold">"or"</string>
+<string name="user_achievements_platinum">"platine"</string>
+<string name="event_kind_event">"event"</string>
+<string name="event_kind_challenge">"défi"</string>
+<string name="info_attachment_no_app_video">"Aucune application n'est installée pour ouvrir ceci, vous pouvez installer VLC"</string>
+<string name="info_attachment_no_app_pdf">"Aucune application n'est installée pour ouvrir ceci, vous pouvez installer un pdfviewer"</string>
+<string name="info_attachment_no_app">"Aucune application n'est installée pour ouvrir ceci"</string>
+<string name="info_loading_page_on">"Chargement de la page %d sur %d"</string>
+<string name="info_loading_resolve_number_page">"Détermination nombre de pages"</string>
+<string name="info_loading_topic">"Chargement du sujet"</string>
+<string name="info_loading_topic_reply">"Chargement des responses"</string>
+<string name="info_loading_processing_data">"Praitement des données"</string>
+<string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
+<string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
+<string name="continue_editing">"reprendre l'édition"</string>
+<string name="discard">"annuler"</string>
+<string name="login_summary">"intranet"</string>
+<string name="about_app_summary">"Application non officiel, gratuite et open-source pour l'intra de 42"</string>
+<string name="_super_store_title">"Intra 42"</string>
+<string name="_super_store_short_description">"Application non officiel, gratuite et open-source pour l'intra de 42"</string>
+<string name="_super_store_full_description">"Pour les étudiants de 42 (www.42.fr)
+Application non officiel de l'intranet de 42 pour Android. Cet application est conçu en JAVA et utilise le SDK Android.
+
+Fonctionnalites : 
+- Rester informé sur les événements et synchroniser votre calendrier
+- Etre notifier sur les evenements et les corrections
+- Voire les projet et les corrections
+- Voire les profiles des etudients
+- Consulter le forum
+- Regarder les video
+D'autres fonctionnalites et contributions sont bienvenue !
+
+Plus d'information :
+https://forum.intra.42.fr/topics/9650/messages/last
+
+Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu ou approuvé par 42. Cet application Android est indépendante et non officielle."</string>
+<string name="_super_forum">"ENGLISH VERSION | VERSION ANGLAISE : [topic](https://forum.intra.42.fr/topics/15837/messages)
+
+Application de l'intranet de 42 pour Android. Cet application est conçu en JAVA et utilise le SDK Android.
+
+Page du store : [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+
+Sources : [github](https://github.com/pvarry/intra42)
+
+## Fonctionnalites :
+
+- Rester informé sur les événements et synchroniser votre calendrier
+- Etre notifier sur les evenements et les corrections
+- Voire les projet et les corrections
+- Voire les profiles des etudients
+- Consulter le forum
+- Regarder les video
+- ...
+
+D'autres fonctionnalites et contributions sont bienvenue !
+
+Si vous trouvez des erreurs dans le texte ou si vous voulez participer à la traduction, vous pouvez le faire via le projet sur [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
+
+N'oubliez pas d'avoir un pdf viewer et un lecteur multimédia installer, je vous conseille :
+
+&gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
+
+&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc)
+
+## Changelog
+
+#### v0.8.x
+
+- Ajout des theme des Coalitions
+- Synchronization des evenements avec le calendrier du telephone
+- Changement du systeme d'amie
+- Ajout de l'historique des clusters
+- Acceleration de l'ouverture de l'application
+
+#### v0.7.x
+
+- Ajout des donnes en live pour la Galaxy
+- Mise a jour des notifications pour Andorid O
+- Action dans les notification pour les events
+- Mise a jour de l'icon de l'app pour Android O
+
+#### v0.6.2
+
+- Add Galaxy 
+- Add users location on friends view.
+
+#### v0.6.1
+
+- Bug fix
+
+#### v0.6.0
+
+- ajout Cluster Map (Paris et Fremont)
+- ajout s'enregistrer aux evenements (depuis la liste seulement)
+- ajout du menu de la cantine a Fremont
+
+#### v0.5.7
+
+- ajout SuperSearch
+- ajout friends
+- fix bugs
+
+## Capture d'écran
+
+![home](https://lh3.googleusercontent.com/GqPvpfJ_Lpa_dj47PaLE6yfoBW6-hPkhufasM3xRRE4-jegMfxGHFJ5zucqFA8dlVNJ0=h310-rw)
+
+![Galaxy](https://lh3.googleusercontent.com/7I1dIaRD2YX4E4y5ZPF5cLDWmt6lWL2kCtZQi0-c9S_P4CbXnoHawfOa_00vuXbPccg=h310-rw)
+
+![Cluster Map](https://lh3.googleusercontent.com/zRV8iueiwW-M0BPs4ZtX_uEQET5l4mcypeoepFPRz3F5Mgc-bH86fgecIAhhpHG1-g=h310-rw)
+
+![Event](https://lh3.googleusercontent.com/Y0fHrbvmhY-UbMued4drwjHG5E61O-T47CP99iR2hAmHrXCFDJbruZSyD4z7we1_1w=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/6zlpEaOxBIYr24SR5fZp0Z2pcEDJNRdtz994Xvm5q7NnRSvWoW_3Nj2VQlkHv_Lkvb4=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/ntWpXFyhKyT4Gog7pfGmv23NwmCPkL2afqV4vD0pfbI9aERCu2YUm6n-mBflzgRjbA=h310-rw)
+
+Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu ou approuvé par 42. Cet application Android est indépendante et non officielle."</string>
+<string name="shortcut_cluster_map">"Clusters"</string>
+<string name="shortcut_long_galaxy">"Galaxy (projets)"</string>
 </resources>
