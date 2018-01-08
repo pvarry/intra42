@@ -4,35 +4,39 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterSubnotions;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.api.model.Notions;
 import com.paulvarry.intra42.api.model.Subnotions;
+import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Pagination;
 import com.paulvarry.intra42.utils.Tools;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SubnotionListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
+public class SubnotionListActivity extends BasicThreadActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread {
 
     private final static String INTENT_ID = "intent_subnotion_id";
     private final static String INTENT_SLUG = "intent_subnotion_slug";
@@ -42,33 +46,10 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
 
     private ListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView textView;
 
-    private AppClass app;
     private ListAdapterSubnotions adapter;
+
     private Call<List<Subnotions>> call;
-
-    private Callback<List<Subnotions>> callback = new Callback<List<Subnotions>>() {
-
-        @Override
-        public void onResponse(Call<List<Subnotions>> call, Response<List<Subnotions>> response) {
-            List<Subnotions> list = response.body();
-            if (subnotionsList != null && list != null)
-                subnotionsList.addAll(list);
-            else
-                subnotionsList = list;
-
-            setView();
-        }
-
-        @Override
-        public void onFailure(Call<List<Subnotions>> call, Throwable t) {
-            if (!call.isCanceled())
-                Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show();
-            t.printStackTrace();
-            setView();
-        }
-    };
 
     public static void openIt(Context context, String notionSlug) {
         Intent intent = new Intent(context, SubnotionListActivity.class);
@@ -92,31 +73,17 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subnotion);
-        Intent i = getIntent();
 
-        app = (AppClass) getApplication();
-        if (i.hasExtra(INTENT_NAME))
-            setTitle(i.getStringExtra(INTENT_NAME));
-        else if (i.hasExtra(INTENT_SLUG))
-            setTitle(i.getStringExtra(INTENT_SLUG));
-        else if (i.hasExtra(INTENT_ID))
-            setTitle(i.getStringExtra(INTENT_ID));
+        registerGetDataOnOtherThread(this);
+        setContentView(R.layout.activity_subnotion);
+        super.onCreate(savedInstanceState);
+
         activity = this;
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-        }
 
         listView = findViewById(R.id.listView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        textView = findViewById(R.id.textView);
 
         swipeRefreshLayout.setOnRefreshListener(this);
-        textView.setVisibility(View.GONE);
-        onRefresh();
     }
 
     @Override
@@ -129,6 +96,49 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
         return super.onOptionsItemSelected(item);
     }
 
+    @Nullable
+    @Override
+    public String getUrlIntra() {
+        return null;
+    }
+
+    @Override
+    public String getToolbarName() {
+        Intent i = getIntent();
+
+        if (i.hasExtra(INTENT_NAME))
+            return (i.getStringExtra(INTENT_NAME));
+        else if (i.hasExtra(INTENT_SLUG))
+            return (i.getStringExtra(INTENT_SLUG));
+        else if (i.hasExtra(INTENT_ID))
+            return (i.getStringExtra(INTENT_ID));
+
+        return null;
+    }
+
+    @Override
+    protected void setViewContent() {
+        if (subnotionsList == null || subnotionsList.isEmpty()) {
+            listView.setAdapter(null);
+            setViewState(StatusCode.EMPTY);
+        } else {
+            if (adapter == null) {
+                adapter = new ListAdapterSubnotions(this, subnotionsList);
+                listView.setAdapter(adapter);
+            }
+            adapter.notifyDataSetChanged();
+        }
+        swipeRefreshLayout.setRefreshing(false);
+
+        listView.setOnItemClickListener(this);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public String getEmptyText() {
+        return null;
+    }
+
     @Override
     public void onRefresh() {
         swipeRefreshLayout.post(new Runnable() {
@@ -137,42 +147,6 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
                 swipeRefreshLayout.setRefreshing(true);
             }
         });
-
-        ApiService apiService = app.getApiService();
-        Intent i = getIntent();
-
-        Call<List<Subnotions>> call;
-
-        if (i.hasExtra(INTENT_SLUG))
-            call = apiService.getSubnotions(i.getStringExtra(INTENT_SLUG), Pagination.getPage(null));
-        else
-            call = apiService.getSubnotions(i.getIntExtra(INTENT_ID, 0), Pagination.getPage(null));
-
-        adapter = null;
-        subnotionsList = null;
-
-        this.call = call;
-        call.enqueue(callback);
-    }
-
-    private void setView() {
-
-        if (subnotionsList == null || subnotionsList.isEmpty()) {
-            listView.setAdapter(null);
-            textView.setVisibility(View.VISIBLE);
-        } else {
-            if (adapter == null) {
-                adapter = new ListAdapterSubnotions(this, subnotionsList);
-                listView.setAdapter(adapter);
-            }
-            adapter.notifyDataSetChanged();
-            textView.setVisibility(View.GONE);
-//            flag_loading = false;
-        }
-        swipeRefreshLayout.setRefreshing(false);
-
-        listView.setOnItemClickListener(this);
-        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -183,7 +157,6 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
     }
 
     @Override
-
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         if (subnotionsList != null &&
                 subnotionsList.size() > position &&
@@ -193,23 +166,50 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
 
             final Subnotions subnotion = subnotionsList.get(position);
 
-            List<String> list = new ArrayList<>();
+            SpannableString iconPdf = getSpannableIcon(R.drawable.ic_picture_as_pdf_black_24dp, "[PDF]");
+            SpannableString iconVideo = getSpannableIcon(R.drawable.ic_videocam_black_24dp, "[Video]");
+            SpannableString iconHd = getSpannableIcon(R.drawable.ic_hd_black_24dp, "[HD]");
+
+            List<CharSequence> list = new ArrayList<>();
             final List<String> list_urls = new ArrayList<>();
+            SpannableStringBuilder stringBuilder;
             for (Attachments attachments : subnotion.attachments) {
+
                 if (attachments.urls != null) {
+
                     list_urls.add(attachments.urls.url);
-                    list.add((attachments.language != null ? "[" + attachments.language.identifier + "]" : "") + "[VIDEO][Full] " + attachments.urls.url.substring(attachments.urls.url.lastIndexOf('/') + 1));
+                    stringBuilder = new SpannableStringBuilder();
+                    stringBuilder.append(iconVideo).append(" ");
+                    stringBuilder.append(iconHd).append(" ");
+                    if (attachments.language != null)
+                        stringBuilder.append(attachments.language.getFlag()).append(" ");
+                    stringBuilder.append("― ");
+                    stringBuilder.append(attachments.name);
+                    list.add(stringBuilder);
+
                     list_urls.add(attachments.urls.low_d);
-                    list.add((attachments.language != null ? "[" + attachments.language.identifier + "]" : "") + "[VIDEO][Low] " + attachments.urls.low_d.substring(attachments.urls.low_d.lastIndexOf('/') + 1));
+                    stringBuilder = new SpannableStringBuilder();
+                    stringBuilder.append(iconVideo).append(" ");
+                    if (attachments.language != null)
+                        stringBuilder.append(attachments.language.getFlag()).append(" ");
+                    stringBuilder.append("― ");
+                    stringBuilder.append(attachments.name);
+                    list.add(stringBuilder);
                 } else if (attachments.url != null) {
                     list_urls.add(attachments.url);
-                    list.add((attachments.language != null ? "[" + attachments.language.identifier + "]" : "") + "[PDF] " + attachments.url.substring(attachments.url.lastIndexOf('/') + 1));
+                    stringBuilder = new SpannableStringBuilder();
+                    stringBuilder.append(iconPdf).append(" ");
+                    if (attachments.language != null)
+                        stringBuilder.append(attachments.language.getFlag()).append(" ");
+                    stringBuilder.append("― ");
+                    stringBuilder.append(attachments.name);
+                    list.add(stringBuilder);
                 }
             }
 
             final CharSequence[] items = new CharSequence[list.size()];
             int i = 0;
-            for (String s : list) {
+            for (CharSequence s : list) {
                 items[i] = s;
                 ++i;
             }
@@ -225,6 +225,38 @@ public class SubnotionListActivity extends AppCompatActivity implements SwipeRef
             });
             AlertDialog alert = builder.create();
             alert.show();
+        }
+    }
+
+    private SpannableString getSpannableIcon(int icon, String replacement) {
+        SpannableString spannableIcon;
+        try {
+            Drawable image = ContextCompat.getDrawable(getApplicationContext(), icon);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            spannableIcon = new SpannableString(replacement);
+            spannableIcon.setSpan(imageSpan, 0, replacement.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } catch (Resources.NotFoundException e) {
+            spannableIcon = new SpannableString(replacement);
+        }
+        return spannableIcon;
+    }
+
+    @Override
+    public void getDataOnOtherThread() throws IOException, RuntimeException {
+        ApiService apiService = app.getApiService();
+        Intent i = getIntent();
+
+        if (i.hasExtra(INTENT_SLUG))
+            call = apiService.getSubnotions(i.getStringExtra(INTENT_SLUG), Pagination.getPage(null));
+        else
+            call = apiService.getSubnotions(i.getIntExtra(INTENT_ID, 0), Pagination.getPage(null));
+
+        Response<List<Subnotions>> response = call.execute();
+        if (Tools.apiIsSuccessful(response)) {
+            adapter = null;
+            subnotionsList = response.body();
         }
     }
 }

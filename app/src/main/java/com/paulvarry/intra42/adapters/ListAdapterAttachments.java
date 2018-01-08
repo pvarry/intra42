@@ -80,7 +80,11 @@ public class ListAdapterAttachments extends BaseAdapter {
 
         final Attachments attachments = getItem(position);
 
-        holder.textViewName.setText(attachments.name);
+        String name = "";
+        name += attachments.name;
+        if (attachments.language != null)
+            name += " " + attachments.language.getFlag();
+        holder.textViewName.setText(name);
         holder.textViewSub.setText(attachments.url);
 
         return convertView;
