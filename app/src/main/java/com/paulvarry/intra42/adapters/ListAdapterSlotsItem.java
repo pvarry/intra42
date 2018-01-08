@@ -61,7 +61,7 @@ public class ListAdapterSlotsItem extends BaseAdapter {
 
         String date = DateTool.getTimeShort(item.beginAt) + " - " + DateTool.getTimeShort(item.endAt);
         holder.textViewDate.setText(date);
-        if (item.scaleTeam == null && item.isBooked)
+        if (item.scaleTeam != null || item.isBooked)
             holder.textViewDate.setTextColor(ContextCompat.getColor(activity, R.color.colorFail));
         else
             holder.textViewDate.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark));

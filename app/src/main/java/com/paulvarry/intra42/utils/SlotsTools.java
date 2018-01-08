@@ -69,7 +69,7 @@ public class SlotsTools {
             endAt = s.endAt;
             group = new ArrayList<>();
             group.add(s);
-            scaleTeam = null;
+            scaleTeam = s.scaleTeam;
             isBooked = s.isBooked;
         }
 
