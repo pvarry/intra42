@@ -505,4 +505,5 @@ Useful tools :
 Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
 <string name="shortcut_cluster_map">"Clusters"</string>
 <string name="shortcut_long_galaxy">"Galaxy (projects)"</string>
+    <string name="bookings_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
 </resources>

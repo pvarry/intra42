@@ -190,7 +190,14 @@ public class NotificationsUtils {
             if (scaleTeams.correcteds == null || scaleTeams.correcteds.size() == 0)
                 text = app.getString(R.string.bookings_correct_somebody)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt));
-            else {
+            else if (scaleTeams.scale != null) {
+                userAction = scaleTeams.correcteds.get(0);
+                notificationIntent = UserActivity.getIntent(app, userAction);
+                text = app.getString(R.string.bookings_correct_login_project)
+                        .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt))
+                        .replace("_project_", scaleTeams.scale.name)
+                        .replace("_login_", userAction.login);
+            } else {
                 userAction = scaleTeams.correcteds.get(0);
                 notificationIntent = UserActivity.getIntent(app, userAction);
                 text = app.getString(R.string.bookings_correct_login)
@@ -228,7 +235,8 @@ public class NotificationsUtils {
                 .setContentText(text)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setContentIntent(pendingIntentOpen)
-                .setWhen(scaleTeams.beginAt.getTime());
+                .setWhen(scaleTeams.beginAt.getTime())
+                .setGroup(app.getString(R.string.notifications_bookings_unique_id));
 
         if (userAction != null) {
             Intent intentUserAction = UserActivity.getIntent(app, userAction);
@@ -269,13 +277,12 @@ public class NotificationsUtils {
         PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
-                .setChannelId(context.getString(R.string.notifications_events_unique_id))
+                .setChannelId(context.getString(R.string.notifications_announcements_unique_id))
                 .setContentTitle(announcements.title)
                 .setContentText(announcements.text.replace('\n', ' '))
                 .setSubText(context.getString(R.string.notifications_announcements_sub_text) + " • " + announcements.author)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(announcements.text))
-                .setGroup(context.getString(R.string.notifications_events_unique_id))
-                .setGroupSummary(true)
+                .setGroup(context.getString(R.string.notifications_announcements_unique_id))
                 .setContentIntent(intent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
