@@ -138,6 +138,7 @@ public class ProjectActivity extends BasicTabActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         //handle just logged users.
         Intent intent = getIntent();
@@ -174,8 +175,9 @@ public class ProjectActivity extends BasicTabActivity
 
         registerGetDataOnOtherThread(this);
 
-        super.onCreate(savedInstanceState);
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
+        super.setActionBarToggle(ActionBarToggle.ARROW);
+        super.onCreateFinished();
     }
 
     @Nullable

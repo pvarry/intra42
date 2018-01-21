@@ -54,7 +54,10 @@ public class ExpertiseEditActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         super.setContentView(R.layout.activity_expertise_edit);
+        super.setActionBarToggle(ActionBarToggle.ARROW);
 
         String extra = getIntent().getStringExtra(PARAM);
         if (extra != null)
@@ -62,7 +65,7 @@ public class ExpertiseEditActivity
 
         registerGetDataOnOtherThread(this);
 
-        super.onCreate(savedInstanceState);
+        super.onCreateFinished();
     }
 
     @Nullable

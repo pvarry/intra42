@@ -40,15 +40,17 @@ public class TimeActivity extends BasicThreadActivity implements BasicThreadActi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         super.setContentView(R.layout.activity_content_time);
         super.activeHamburger();
 
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
 
-        super.onCreate(savedInstanceState);
-
         navigationView.getMenu().getItem(5).getSubMenu().getItem(1).setChecked(true);
+
+        super.onCreateFinished();
     }
 
     @Override

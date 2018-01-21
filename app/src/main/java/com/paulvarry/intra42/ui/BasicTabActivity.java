@@ -19,8 +19,8 @@ public abstract class BasicTabActivity extends BasicThreadActivity implements Na
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.setContentView(R.layout.activity__basic_tab);
         super.onCreate(savedInstanceState);
+        super.setContentView(R.layout.activity__basic_tab);
 
         if (savedInstanceState != null)
             onRestartPosition = savedInstanceState.getInt(SAVED_STATE_TAB_SELECTED);

@@ -59,19 +59,21 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         host = getIntent().getStringExtra(INTENT_LOCATION);
         login = getIntent().getStringExtra(INTENT_USER);
 
         super.registerGetDataOnOtherThread(this);
         super.setContentView(R.layout.activity_location_history);
-        super.onCreate(savedInstanceState);
 
         if (host == null && login == null)
             finish();
 
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
+
+        super.onCreateFinished();
     }
 
     @Nullable

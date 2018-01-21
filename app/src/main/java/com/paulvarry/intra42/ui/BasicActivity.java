@@ -72,16 +72,16 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     private TextView textViewLoadingInfo;
     private TextView textViewLoadingStatus;
     private Button buttonForceRefresh;
-    private int drawerSelectedItemPosition = -1;
     @LayoutRes
     private int resContentId;
-    private boolean activeHamburger = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         app = (AppClass) getApplication();
+        app.userIsLogged(true);
+
         Theme.setTheme(this, app);
 
         super.setContentView(R.layout.activity__basic);
@@ -104,25 +104,8 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         fabBaseActivity.setVisibility(View.GONE);
 
         setViewNavigation(); // set drawer menu
-
-        // add content view programmatically
-
-        if (resContentId == 0)
-            throw new RuntimeException("ContentView must be set");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewContent = inflater.inflate(resContentId, coordinatorLayout, false);
-        coordinatorLayout.addView(viewContent);
-        // CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) viewContent.getLayoutParams();
-        // params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-        viewContent.requestLayout();
-
         setSupportActionBar(toolbar);
         Theme.setActionBar(actionBar, app);
-
-        if (activeHamburger)
-            setToggle();
-        else
-            setToggleNoHamburger();
 
         String toolbarName = getToolbarName();
         if (toolbarName != null) {
@@ -131,25 +114,42 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    /**
+     * Need to be executed at the end of {@link #onCreate(Bundle) (only when custom content set or Hamburger)}
+     */
+    protected void onCreateFinished() {
+        // add content view programmatically
 
-        refresh();
+        if (resContentId == 0)
+            throw new RuntimeException("ContentView must be set");
+
+        setViewState(StatusCode.CONTENT);
     }
 
     /**
-     * Use this method to set the content of the view. This method must be used on the {@link #onCreate(Bundle)}
+     * Use this method to set the content of the view. Must be used before {@link #onCreate(Bundle)}
      *
      * @param layoutResID The resource if of the content
      */
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         this.resContentId = layoutResID;
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflater == null)
+            return;
+        viewContent = inflater.inflate(resContentId, coordinatorLayout, false);
+        coordinatorLayout.addView(viewContent);
+        viewContent.requestLayout();
     }
 
+    /**
+     * Used to initialise the data on this view
+     * <p>
+     * Executed once after {@link #onCreate(Bundle)}
+     */
     protected void refresh() {
-        setViewState(StatusCode.CONTENT);
+
     }
 
     @Override
@@ -309,8 +309,10 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         setViewHide();
 
         String toolbarName = getToolbarName();
-        if (toolbarName != null)
+        if (toolbarName != null) {
+            setTitle(toolbarName);
             toolbar.setTitle(toolbarName);
+        }
 
         switch (state) {
             case CONTENT:
@@ -497,33 +499,44 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     /**
      * Set the toggle (is the icon on the left on toolbar)
      */
-    private void setToggle() {
+    protected void setActionBarToggle(ActionBarToggle toggleEnum) {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.accessibility_navigation_drawer_open, R.string.accessibility_navigation_drawer_close);
-        if (drawer != null) {
-            drawer.addDrawerListener(toggle);
-        }
-        toggle.syncState();
-    }
 
-    private void setToggleNoHamburger() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.accessibility_navigation_drawer_open, R.string.accessibility_navigation_drawer_close);
-        toggle.setDrawerIndicatorEnabled(false);
-
-        setNoHamburger(toolbar);
-    }
-
-    private void setNoHamburger(Toolbar toolbar) {
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
+        switch (toggleEnum) {
+            case ARROW: {
+                toggle.setDrawerIndicatorEnabled(false);
+                toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
             }
-        });
+            case HAMBURGER: {
+                if (drawer != null) {
+                    drawer.addDrawerListener(toggle);
+                }
+                toggle.syncState();
+            }
+        }
     }
 
-    public void setSelectedMenu(int position) {
-        drawerSelectedItemPosition = position;
+    protected void setSelectedMenu() {
+        int size = navigationView.getMenu().size();
+        for (int i = 0; i < size; i++) {
+            navigationView.getMenu().getItem(i).setChecked(false);
+        }
+    }
+
+    protected void setSelectedMenu(int position) {
+        setSelectedMenu();
+        navigationView.getMenu().getItem(position).setChecked(true);
+    }
+
+    protected void setSelectedMenu(int position, int positionSub) {
+        setSelectedMenu();
+        navigationView.getMenu().getItem(position).getSubMenu().getItem(positionSub).setChecked(true);
     }
 
     /**
@@ -576,14 +589,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
             }
 
-            if (drawerSelectedItemPosition != -1) {
-                int size = navigationView.getMenu().size();
-                for (int i = 0; i < size; i++) {
-                    navigationView.getMenu().getItem(i).setChecked(false);
-                }
-                navigationView.getMenu().getItem(drawerSelectedItemPosition).setChecked(true);
-            }
-
             if (app.me != null && AppSettings.getAppCampus(app) != 7)
                 navigationView.getMenu().getItem(5).getSubMenu().getItem(3).setVisible(false);
         }
@@ -592,8 +597,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     /**
      * If you went a hamburger menu.
      */
+    @Deprecated
     protected void activeHamburger() {
-        activeHamburger = true;
+        setActionBarToggle(ActionBarToggle.HAMBURGER);
     }
 
     /**
@@ -631,5 +637,10 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         EMPTY,
         LOADING,
         CONTENT
+    }
+
+    protected enum ActionBarToggle {
+        ARROW,
+        HAMBURGER
     }
 }

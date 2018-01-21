@@ -240,6 +240,7 @@ public class UserActivity extends BasicTabActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         //handle just logged users.
         Intent intent = getIntent();
@@ -274,12 +275,14 @@ public class UserActivity extends BasicTabActivity
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
 
+        super.setActionBarToggle(ActionBarToggle.ARROW);
         super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
 
-        super.onCreate(savedInstanceState);
         Theme.setActionBar(actionBar, AppSettings.Theme.EnumTheme.INTRA);
         if (user == null && login == null)
             finish();
+
+        super.onCreateFinished();
     }
 
     private String handleSendText(Intent intent) {

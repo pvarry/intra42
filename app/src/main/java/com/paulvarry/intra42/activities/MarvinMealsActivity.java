@@ -29,16 +29,18 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         super.setContentView(R.layout.activity_marvin_meal);
-        super.activeHamburger();
+        super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
         registerGetDataOnOtherThread(this);
-
-        super.onCreate(savedInstanceState);
 
         MenuItem menuItem = navigationView.getMenu().getItem(5).getSubMenu().getItem(3);
         if (menuItem != null)
             menuItem.setChecked(true);
+
+        super.onCreateFinished();
     }
 
     /**

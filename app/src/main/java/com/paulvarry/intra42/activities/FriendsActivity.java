@@ -79,18 +79,14 @@ public class FriendsActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_friends);
-        activeHamburger();
-
         super.onCreate(savedInstanceState);
 
-        if (!app.userIsLogged())
-            finish();
+        super.setContentView(R.layout.activity_friends);
+        super.setSelectedMenu(5, 0);
+        super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
         registerGetDataOnMainTread(this);
         registerGetDataOnOtherThread(this);
-
-        navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
 
         spinner = findViewById(R.id.spinner);
         linearLayoutHeader = findViewById(R.id.linearLayoutHeader);
@@ -108,13 +104,8 @@ public class FriendsActivity
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVED_STATE_SPINNER_GROUP_SELECTED))
             spinnerGroupSelected = savedInstanceState.getInt(SAVED_STATE_SPINNER_GROUP_SELECTED);
-    }
-
-    @Override
-    protected void refresh() {
 
         setViewState(StatusCode.LOADING);
-        swipeRefreshLayout.setRefreshing(false);
 
         SharedPreferences pref = AppSettings.getSharedPreferences(this);
         if (pref.getBoolean("should_sync_friends", false) && app.firebaseRefFriends != null) {
@@ -124,7 +115,7 @@ public class FriendsActivity
 
         } else {
             needUpdateFriends = false;
-            super.refresh();
+            onCreateFinished();
         }
     }
 
@@ -223,7 +214,7 @@ public class FriendsActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                FriendsActivity.super.refresh();
+                onCreateFinished();
             }
         });
     }
@@ -345,6 +336,7 @@ public class FriendsActivity
 
     @Override
     public void setViewContent() {
+        swipeRefreshLayout.setRefreshing(false);
         if (list == null)
             setViewState(StatusCode.EMPTY);
         else if (!list.isEmpty()) {

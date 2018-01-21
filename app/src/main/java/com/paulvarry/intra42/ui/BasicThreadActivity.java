@@ -16,7 +16,8 @@ public abstract class BasicThreadActivity extends BasicActivity implements Navig
     }
 
     @Override
-    protected void refresh() {
+    protected void onCreateFinished() {
+
         ThreadStatusCode statusDataOnMain = null;
         if (getDataOnMain != null) {
             statusDataOnMain = getDataOnMain.getDataOnMainThread();

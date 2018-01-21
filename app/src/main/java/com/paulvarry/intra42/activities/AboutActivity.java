@@ -24,10 +24,11 @@ public class AboutActivity extends BasicThreadActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_about);
         super.activeHamburger();
-        super.onCreate(savedInstanceState);
         navigationView.getMenu().getItem(6).getSubMenu().getItem(0).setChecked(true);
+        super.onCreateFinished();
     }
 
     @Nullable

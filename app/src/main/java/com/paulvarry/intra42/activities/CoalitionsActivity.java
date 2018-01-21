@@ -37,13 +37,17 @@ public class CoalitionsActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_coalitions);
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_coalitions);
+        super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
         registerGetDataOnOtherThread(this);
         Theme.setActionBar(actionBar, AppSettings.Theme.EnumTheme.INTRA);
 
         listview = findViewById(R.id.listView);
+
+        super.onCreateFinished();
     }
 
     @Nullable

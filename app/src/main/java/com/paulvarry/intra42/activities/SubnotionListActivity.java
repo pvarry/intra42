@@ -73,10 +73,11 @@ public class SubnotionListActivity extends BasicThreadActivity implements SwipeR
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         registerGetDataOnOtherThread(this);
         setContentView(R.layout.activity_subnotion);
-        super.onCreate(savedInstanceState);
+        setActionBarToggle(ActionBarToggle.ARROW);
 
         activity = this;
 
@@ -84,6 +85,8 @@ public class SubnotionListActivity extends BasicThreadActivity implements SwipeR
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        super.onCreateFinished();
     }
 
     @Override

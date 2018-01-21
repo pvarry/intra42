@@ -28,8 +28,9 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_friends_groups);
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_friends_groups);
 
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
@@ -42,6 +43,8 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
 
         fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(this);
+
+        super.onCreateFinished();
     }
 
     @Nullable

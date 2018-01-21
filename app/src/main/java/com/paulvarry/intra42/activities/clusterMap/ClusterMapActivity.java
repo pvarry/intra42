@@ -58,6 +58,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null) {
@@ -76,13 +77,10 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
 
-        super.onCreate(savedInstanceState);
-
-        if (!app.userIsLogged())
-            finish();
-
         campusId = AppSettings.getAppCampus(app);
         navigationView.getMenu().getItem(5).getSubMenu().getItem(2).setChecked(true);
+
+        super.onCreateFinished();
     }
 
     @Override

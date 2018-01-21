@@ -65,8 +65,10 @@ public class SearchableActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.setContentView(R.layout.activity_searchable);
         super.onCreate(savedInstanceState);
+
+        super.setContentView(R.layout.activity_searchable);
+
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
@@ -96,6 +98,8 @@ public class SearchableActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        super.onCreateFinished();
     }
 
     @Override

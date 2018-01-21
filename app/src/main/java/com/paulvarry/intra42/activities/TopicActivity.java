@@ -68,16 +68,17 @@ public class TopicActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         super.setContentView(R.layout.activity_content_topic);
-
-//        topics = Parcels.unwrap(getIntent().getParcelableExtra("lol"));
-        id = getIntent().getIntExtra(INTENT_ID, 0);
-
         super.setSelectedMenu(Navigation.MENU_SELECTED_FORUM);
+        super.setActionBarToggle(ActionBarToggle.ARROW);
+
+        id = getIntent().getIntExtra(INTENT_ID, 0);
 
         registerGetDataOnOtherThread(this);
 
-        super.onCreate(savedInstanceState);
+        super.onCreateFinished();
     }
 
     @Nullable

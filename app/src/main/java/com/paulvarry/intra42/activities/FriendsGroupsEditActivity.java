@@ -65,8 +65,9 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_friends_groups_edit);
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_friends_groups_edit);
 
         groupId = getIntent().getIntExtra(PARAM, -1);
 
@@ -89,6 +90,8 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
                 onBackPressed();
             }
         });
+
+        super.onCreateFinished();
     }
 
     @Override

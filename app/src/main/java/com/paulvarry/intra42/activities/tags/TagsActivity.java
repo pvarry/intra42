@@ -50,7 +50,7 @@ public class TagsActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        app = (AppClass) getApplication();
+        super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_TAG_ID))
@@ -63,7 +63,7 @@ public class TagsActivity
 
         registerGetDataOnOtherThread(this);
 
-        super.onCreate(savedInstanceState);
+        super.onCreateFinished();
     }
 
     @Override
