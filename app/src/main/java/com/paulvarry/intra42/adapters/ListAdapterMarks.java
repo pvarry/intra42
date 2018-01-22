@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ProjectUserStatus;
 
 import java.util.List;
@@ -16,12 +19,18 @@ import java.util.List;
 public class ListAdapterMarks extends BaseAdapter {
 
     private final Context context;
-    List<ProjectsUsers> projectsList;
+    private List<ProjectsUsers> projectsUsersList;
+    private SparseArray<ProjectsLTE> projects;
 
     public ListAdapterMarks(Context context, List<ProjectsUsers> projectsList) {
 
         this.context = context;
-        this.projectsList = projectsList;
+        this.projectsUsersList = projectsList;
+
+        this.projects = new SparseArray<>();
+        for (ProjectsUsers p : projectsUsersList) {
+            projects.append(p.project.id, p.project);
+        }
     }
 
     /**
@@ -31,7 +40,7 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return projectsList.size();
+        return projectsUsersList.size();
     }
 
     /**
@@ -43,7 +52,7 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public ProjectsUsers getItem(int position) {
-        return projectsList.get(position);
+        return projectsUsersList.get(position);
     }
 
     /**
@@ -54,7 +63,7 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return projectsList.get(position).id;
+        return projectsUsersList.get(position).id;
     }
 
     @Override
@@ -66,6 +75,8 @@ public class ListAdapterMarks extends BaseAdapter {
             holder = new ViewHolder();
 
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (vi == null)
+                return null;
             convertView = vi.inflate(R.layout.list_view_marks, parent, false);
 
             holder.textViewProjectName = convertView.findViewById(R.id.textViewProjectName);
@@ -79,11 +90,17 @@ public class ListAdapterMarks extends BaseAdapter {
 
         ProjectsUsers item = getItem(position);
 
-        holder.textViewProjectName.setText(item.project.name);
+        String title = item.project.name;
+        if (item.project.parentId != null && projects.get(item.project.parentId) != null)
+            title = projects.get(item.project.parentId).name + " - " + title;
+        holder.textViewProjectName.setText(title);
         holder.textViewProjectSlug.setText(item.project.slug);
         ProjectUserStatus.setMark(context, item, holder.textViewProjectMark);
 
-//        holder.textViewProjectSlug.setVisibility(View.GONE);
+        if (AppSettings.Advanced.getAllowAdvancedData(context))
+            holder.textViewProjectSlug.setVisibility(View.VISIBLE);
+        else
+            holder.textViewProjectSlug.setVisibility(View.GONE);
 
         return convertView;
     }

@@ -158,4 +158,15 @@
         <item name="android:spinnerItemStyle">@android:style/Widget.TextView.SpinnerItem</item>
     </style>
 
+    <style name="AppTheme.TextView"></style>
+
+    <style name="AppTheme.TextView.Title" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextView.Summary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
 </resources>

@@ -3,30 +3,30 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="switch_preference_advanced_allow_beta"
-        android:summary="default false"
-        android:title="@string/pref_title_beta_allow" />
+        android:summary="@string/pref_summary_advanced_data_enable_beta"
+        android:title="@string/pref_title_advanced_data_allow_beta" />
 
     <PreferenceCategory
         android:dependency="switch_preference_advanced_allow_beta"
-        android:title="Advanced features">
+        android:title="@string/pref_title_advanced_section_features">
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="switch_preference_advanced_allow_advanced_data"
-            android:summary="Like id"
-            android:title="Show advanced data" />
+            android:summary="@string/pref_summary_advanced_data_print_ids"
+            android:title="@string/pref_title_advanced_data_print_ids" />
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="switch_preference_advanced_allow_markdown_renderer"
-            android:summary="For forum and events (default true)"
-            android:title="Use markdown renderer" />
+            android:summary="@string/pref_summary_advanced_data_markdown_render"
+            android:title="@string/pref_title_advanced_data_markdown_render" />
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="switch_preference_advanced_allow_save_logs_on_file"
-            android:summary='Also print API call on logs, private data can be save on External Storage. You can read the logs on \"Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. (default false)'
-            android:title="Active save logs on disk" />
+            android:summary="@string/pref_summary_advanced_data_save_logs"
+            android:title="@string/pref_title_advanced_data_save_logs" />
 
     </PreferenceCategory>
 
@@ -54,13 +54,13 @@
 
     <PreferenceCategory
         android:dependency="switch_preference_advanced_allow_beta"
-        android:title="Others features">
+        android:title="@string/pref_title_advanced_section_other">
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="switch_preference_advanced_allow_past_events"
-            android:summary="Specially for pixels"
-            android:title="Past events" />
+            android:summary="@string/pref_summary_advanced_data_past_events"
+            android:title="@string/pref_title_advanced_data_past_events" />
 
     </PreferenceCategory>
 

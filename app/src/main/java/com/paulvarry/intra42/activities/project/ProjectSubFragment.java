@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.paulvarry.intra42.adapters.ListAdapterProjectsLTE;
+import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.ui.BasicFragment;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * Use the {@link ProjectSubFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectSubFragment extends BasicFragment<ProjectsLTE, ListAdapterProjectsLTE> {
+public class ProjectSubFragment extends BasicFragment<ProjectsLTE, BaseListAdapterSlug<ProjectsLTE>> {
 
     private ProjectActivity activity;
 
@@ -87,8 +87,8 @@ public class ProjectSubFragment extends BasicFragment<ProjectsLTE, ListAdapterPr
     }
 
     @Override
-    public ListAdapterProjectsLTE generateAdapter(List<ProjectsLTE> list) {
-        return new ListAdapterProjectsLTE(activity, list);
+    public BaseListAdapterSlug<ProjectsLTE> generateAdapter(List<ProjectsLTE> list) {
+        return new BaseListAdapterSlug<>(activity, list);
     }
 
     /**

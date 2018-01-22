@@ -10,7 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ListAdapterPartnerships;
+import com.paulvarry.intra42.adapters.BaseListAdapterSlugDetail;
+import com.paulvarry.intra42.api.model.Partnerships;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +67,7 @@ public class UserPartnershipsFragment extends Fragment {
                 activity.user != null &&
                 activity.user.partnerships != null &&
                 activity.user.partnerships.size() != 0) {
-            ListAdapterPartnerships adapterPartnerships = new ListAdapterPartnerships(activity, activity.user.partnerships);
+            BaseListAdapterSlugDetail<Partnerships> adapterPartnerships = new BaseListAdapterSlugDetail<>(activity, activity.user.partnerships);
             listView.setVisibility(View.VISIBLE);
             listView.setAdapter(adapterPartnerships);
 

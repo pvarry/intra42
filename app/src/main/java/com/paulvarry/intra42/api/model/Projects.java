@@ -5,11 +5,15 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.BaseItemDetail;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class Projects extends ProjectsLTE implements BaseItem {
+public class Projects extends ProjectsLTE implements BaseItemDetail {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -76,5 +80,23 @@ public class Projects extends ProjectsLTE implements BaseItem {
     public boolean openIt(Context context) {
         ProjectActivity.openIt(context, this);
         return true;
+    }
+
+    @Override
+    public String getDetail(Context context) {
+        ProjectsSessions sessions = ProjectsSessions.getSessionSubscribable(sessionsList);
+        String time = null;
+
+        if (sessions != null) {
+            PrettyTime p = new PrettyTime(Locale.getDefault());
+            time = p.formatDuration(new Date(System.currentTimeMillis() - sessions.estimateTime * 1000));
+        }
+
+        String ret = "";
+        if (time != null)
+            ret += time + " ";
+        ret += "T" + String.valueOf(tier);
+
+        return ret;
     }
 }

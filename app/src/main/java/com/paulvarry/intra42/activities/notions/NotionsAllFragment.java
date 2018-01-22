@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.activities.SubnotionListActivity;
-import com.paulvarry.intra42.adapters.ListAdapterNotions;
+import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Notions;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
@@ -26,7 +26,7 @@ import retrofit2.Call;
  * Use the {@link NotionsAllFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotionsAllFragment extends BasicFragmentCall<Notions, ListAdapterNotions> {
+public class NotionsAllFragment extends BasicFragmentCall<Notions, BaseListAdapterSlug<Notions>> {
 
     private OnFragmentInteractionListener mListener;
 
@@ -83,8 +83,8 @@ public class NotionsAllFragment extends BasicFragmentCall<Notions, ListAdapterNo
     }
 
     @Override
-    public ListAdapterNotions generateAdapter(List<Notions> list) {
-        return new ListAdapterNotions(getContext(), list);
+    public BaseListAdapterSlug<Notions> generateAdapter(List<Notions> list) {
+        return new BaseListAdapterSlug<>(getContext(), list);
     }
 
     @Override

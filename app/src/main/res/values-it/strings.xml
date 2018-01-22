@@ -3,7 +3,7 @@
 <string name="app_name">"Intra 42"</string>
 <string name="pref_advanced_dont_force">"Disabilita (non forzare)"</string>
 <string name="pref_force_content_location">"Forza posizione contenuto"</string>
-<string name="pref_title_beta_allow">"Abilita impostazioni avanzate"</string>
+    <string name="pref_title_advanced_data_allow_beta">"Abilita impostazioni avanzate"</string>
 <string name="pref_unactivated">"Disattivo"</string>
 <string name="pref_activated">"Attivo"</string>
 <string name="pref_value_all">"Tutto"</string>

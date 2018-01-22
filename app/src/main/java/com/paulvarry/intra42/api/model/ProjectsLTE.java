@@ -1,8 +1,11 @@
 package com.paulvarry.intra42.api.model;
 
-import com.google.gson.annotations.SerializedName;
+import android.content.Context;
 
-public class ProjectsLTE {
+import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.api.BaseItem;
+
+public class ProjectsLTE implements BaseItem {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -15,4 +18,18 @@ public class ProjectsLTE {
     @SerializedName(API_SLUG)
     public String slug;
 
+    @Override
+    public String getName(Context context) {
+        return name;
+    }
+
+    @Override
+    public String getSub(Context context) {
+        return slug;
+    }
+
+    @Override
+    public boolean openIt(Context context) {
+        return false;
+    }
 }

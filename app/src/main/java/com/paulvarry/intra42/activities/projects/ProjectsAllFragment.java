@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.paulvarry.intra42.activities.project.ProjectActivity;
-import com.paulvarry.intra42.adapters.ListAdapterProjects;
+import com.paulvarry.intra42.adapters.BaseListAdapterSlugDetail;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
@@ -26,7 +26,7 @@ import retrofit2.Call;
  * Use the {@link ProjectsAllFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectsAllFragment extends BasicFragmentCall<Projects, ListAdapterProjects> {
+public class ProjectsAllFragment extends BasicFragmentCall<Projects, BaseListAdapterSlugDetail<Projects>> {
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,8 +85,8 @@ public class ProjectsAllFragment extends BasicFragmentCall<Projects, ListAdapter
     }
 
     @Override
-    public ListAdapterProjects generateAdapter(List<Projects> list) {
-        return new ListAdapterProjects(getContext(), list);
+    public BaseListAdapterSlugDetail<Projects> generateAdapter(List<Projects> list) {
+        return new BaseListAdapterSlugDetail<>(getContext(), list);
     }
 
     @Override

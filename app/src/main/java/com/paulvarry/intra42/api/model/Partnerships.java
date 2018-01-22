@@ -1,6 +1,9 @@
 package com.paulvarry.intra42.api.model;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.api.BaseItemDetail;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,7 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Partnerships {
+public class Partnerships implements BaseItemDetail {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -64,5 +67,25 @@ public class Partnerships {
         }
 
         return partnerships;
+    }
+
+    @Override
+    public String getName(Context context) {
+        return name;
+    }
+
+    @Override
+    public String getSub(Context context) {
+        return slug;
+    }
+
+    @Override
+    public boolean openIt(Context context) {
+        return false;
+    }
+
+    @Override
+    public String getDetail(Context context) {
+        return "T" + String.valueOf(this.tier);
     }
 }

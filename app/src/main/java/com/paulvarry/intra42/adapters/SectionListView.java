@@ -62,7 +62,7 @@ public class SectionListView extends BaseAdapter
 
             if (vi == null)
                 return null;
-            convertView = vi.inflate(R.layout.list_view__, parent, false);
+            convertView = vi.inflate(R.layout.list_view__photo_summary, parent, false);
 
             holder.linearLayoutTitle = convertView.findViewById(R.id.linearLayoutTitle);
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);

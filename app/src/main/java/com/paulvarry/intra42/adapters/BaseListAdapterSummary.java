@@ -12,12 +12,12 @@ import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.List;
 
-public class BaseListAdapterName<T extends BaseItem> extends BaseAdapter {
+public class BaseListAdapterSummary<T extends BaseItem> extends BaseAdapter {
 
     private final Context context;
     private List<T> itemList;
 
-    public BaseListAdapterName(Context context, List<T> items) {
+    public BaseListAdapterSummary(Context context, List<T> items) {
 
         this.context = context;
         this.itemList = items;
@@ -70,10 +70,10 @@ public class BaseListAdapterName<T extends BaseItem> extends BaseAdapter {
 
             if (vi == null)
                 return null;
-            convertView = vi.inflate(R.layout.list_view_, parent, false);
+            convertView = vi.inflate(R.layout.list_view__summary, parent, false);
 
-            holder.textViewName = convertView.findViewById(R.id.textViewName);
-            holder.textViewSub = convertView.findViewById(R.id.textViewSub);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
 
             convertView.setTag(holder);
         } else {
@@ -84,19 +84,24 @@ public class BaseListAdapterName<T extends BaseItem> extends BaseAdapter {
 
         String name = item.getName(context);
         if (name != null && !name.isEmpty()) {
-            holder.textViewName.setVisibility(View.VISIBLE);
-            holder.textViewName.setText(name);
+            holder.textViewTitle.setVisibility(View.VISIBLE);
+            holder.textViewTitle.setText(name);
         } else
-            holder.textViewName.setVisibility(View.GONE);
+            holder.textViewTitle.setVisibility(View.GONE);
 
-        holder.textViewSub.setVisibility(View.GONE);
+        String summary = item.getName(context);
+        if (name != null && !name.isEmpty()) {
+            holder.textViewSummary.setVisibility(View.VISIBLE);
+            holder.textViewSummary.setText(summary);
+        } else
+            holder.textViewSummary.setVisibility(View.GONE);
 
         return convertView;
     }
 
     private static class ViewHolder {
 
-        private TextView textViewName;
-        private TextView textViewSub;
+        private TextView textViewTitle;
+        private TextView textViewSummary;
     }
 }

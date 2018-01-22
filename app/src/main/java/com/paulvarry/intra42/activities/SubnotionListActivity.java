@@ -20,7 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.BaseListAdapterName;
+import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.api.model.Notions;
@@ -47,7 +47,7 @@ public class SubnotionListActivity extends BasicThreadActivity implements SwipeR
     private ListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private BaseListAdapterName<Subnotions> adapter;
+    private BaseListAdapterSlug<Subnotions> adapter;
 
     private Call<List<Subnotions>> call;
 
@@ -126,7 +126,7 @@ public class SubnotionListActivity extends BasicThreadActivity implements SwipeR
             setViewState(StatusCode.EMPTY);
         } else {
             if (adapter == null) {
-                adapter = new BaseListAdapterName<>(this, subnotionsList);
+                adapter = new BaseListAdapterSlug<>(this, subnotionsList);
                 listView.setAdapter(adapter);
             }
             adapter.notifyDataSetChanged();

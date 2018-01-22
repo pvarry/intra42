@@ -3,7 +3,7 @@
 <string name="app_name">"Intra 42"</string>
 <string name="pref_advanced_dont_force">"Disable (don't force)"</string>
 <string name="pref_force_content_location">"Force content location"</string>
-<string name="pref_title_beta_allow">"Allow advanced preferences"</string>
+    <string name="pref_title_advanced_data_allow_beta">"Allow advanced preferences"</string>
 <string name="pref_unactivated">"Unactivated"</string>
 <string name="pref_activated">"Activated"</string>
 <string name="pref_value_all">"All"</string>
@@ -506,4 +506,15 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
 <string name="shortcut_cluster_map">"Clusters"</string>
 <string name="shortcut_long_galaxy">"Galaxy (projects)"</string>
     <string name="bookings_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
+    <string name="pref_summary_advanced_data_print_ids">Enable this to show ids and slugs in list and item view</string>
+    <string name="pref_title_advanced_data_print_ids">Show advanced data (ids, slugs ...)</string>
+    <string name="pref_summary_advanced_data_markdown_render">For forum and events (default true)</string>
+    <string name="pref_title_advanced_data_markdown_render">Use markdown renderer</string>
+    <string name="pref_summary_advanced_data_save_logs">Also print API call on logs, private data can be save on External Storage. You can read the logs on \"Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. (default false)</string>
+    <string name="pref_title_advanced_data_save_logs">Active save logs on disk</string>
+    <string name="pref_summary_advanced_data_past_events">Specially for pixels</string>
+    <string name="pref_title_advanced_data_past_events">Past events</string>
+    <string name="pref_title_advanced_section_other">Others features</string>
+    <string name="pref_title_advanced_section_features">Advanced features</string>
+    <string name="pref_summary_advanced_data_enable_beta">default false</string>
 </resources>

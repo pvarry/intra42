@@ -1,11 +1,14 @@
 package com.paulvarry.intra42.api.model;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.Date;
 import java.util.List;
 
-public class Notions {
+public class Notions implements BaseItem {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -29,6 +32,21 @@ public class Notions {
     public List<Tags> tags;
     @SerializedName(API_CURSUS)
     public List<Campus> cursus;
+
+    @Override
+    public String getName(Context context) {
+        return name;
+    }
+
+    @Override
+    public String getSub(Context context) {
+        return slug;
+    }
+
+    @Override
+    public boolean openIt(Context context) {
+        return false;
+    }
 
     static class Subnotions {
 

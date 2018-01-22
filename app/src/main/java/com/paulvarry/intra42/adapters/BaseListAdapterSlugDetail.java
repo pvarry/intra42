@@ -8,16 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.BaseItemDetail;
+import com.paulvarry.intra42.utils.AppSettings;
 
 import java.util.List;
 
-public class BaseListAdapterSub<T extends BaseItem> extends BaseAdapter {
+public class BaseListAdapterSlugDetail<T extends BaseItemDetail> extends BaseAdapter {
 
     private final Context context;
     private List<T> itemList;
 
-    public BaseListAdapterSub(Context context, List<T> items) {
+    public BaseListAdapterSlugDetail(Context context, List<T> items) {
 
         this.context = context;
         this.itemList = items;
@@ -43,7 +44,7 @@ public class BaseListAdapterSub<T extends BaseItem> extends BaseAdapter {
      * @return The data at the specified position.
      */
     @Override
-    public BaseItem getItem(int position) {
+    public T getItem(int position) {
         return itemList.get(position);
     }
 
@@ -70,38 +71,48 @@ public class BaseListAdapterSub<T extends BaseItem> extends BaseAdapter {
 
             if (vi == null)
                 return null;
-            convertView = vi.inflate(R.layout.list_view_, parent, false);
+            convertView = vi.inflate(R.layout.list_view__detail_summary, parent, false);
 
-            holder.textViewName = convertView.findViewById(R.id.textViewName);
-            holder.textViewSub = convertView.findViewById(R.id.textViewSub);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
+            holder.textViewDetail = convertView.findViewById(R.id.textViewDetail);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final BaseItem item = getItem(position);
+        final T item = getItem(position);
 
         String name = item.getName(context);
         if (name != null && !name.isEmpty()) {
-            holder.textViewName.setVisibility(View.VISIBLE);
-            holder.textViewName.setText(name);
+            holder.textViewTitle.setVisibility(View.VISIBLE);
+            holder.textViewTitle.setText(name);
         } else
-            holder.textViewName.setVisibility(View.GONE);
+            holder.textViewTitle.setVisibility(View.GONE);
 
         String description = item.getSub(context);
-        if (description != null && !description.isEmpty()) {
-            holder.textViewSub.setVisibility(View.VISIBLE);
-            holder.textViewSub.setText(description);
+        if (AppSettings.Advanced.getAllowAdvancedData(context) && description != null && !description.isEmpty()) {
+            holder.textViewSummary.setVisibility(View.VISIBLE);
+            holder.textViewSummary.setText(description);
         } else
-            holder.textViewSub.setVisibility(View.GONE);
+            holder.textViewSummary.setVisibility(View.GONE);
+
+        String detail = item.getDetail(context);
+        if (description != null && !description.isEmpty()) {
+            holder.textViewDetail.setVisibility(View.VISIBLE);
+            holder.textViewDetail.setText(detail);
+        } else
+            holder.textViewDetail.setVisibility(View.GONE);
 
         return convertView;
     }
 
     private static class ViewHolder {
 
-        private TextView textViewName;
-        private TextView textViewSub;
+        private TextView textViewTitle;
+        private TextView textViewSummary;
+        private TextView textViewDetail;
+
     }
 }
