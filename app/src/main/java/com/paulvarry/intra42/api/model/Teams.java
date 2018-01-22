@@ -70,4 +70,14 @@ public class Teams {
     @SerializedName(API_SCALE_TEAMS)
     public List<ScaleTeams> scaleTeams;
 
+    public TeamsUsers getLeader() {
+        if (users == null || users.isEmpty())
+            return null;
+        for (TeamsUsers user : users) {
+            if (user.leader)
+                return user;
+        }
+        return users.get(0);
+    }
+
 }

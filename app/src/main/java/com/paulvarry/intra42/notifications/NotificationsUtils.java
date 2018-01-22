@@ -187,18 +187,21 @@ public class NotificationsUtils {
         String text = "";
         if (scaleTeams.corrector != null && scaleTeams.corrector.equals(app.me)) { // i'm the corrector
 
-            if (scaleTeams.correcteds == null || scaleTeams.correcteds.size() == 0)
+            if (scaleTeams.teams != null && scaleTeams.teams.users != null && !scaleTeams.teams.users.isEmpty())
+                userAction = scaleTeams.teams.getLeader();
+            else if (scaleTeams.correcteds != null && !scaleTeams.correcteds.isEmpty())
+                userAction = scaleTeams.correcteds.get(0);
+
+            if (userAction == null)
                 text = app.getString(R.string.bookings_correct_somebody)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt));
             else if (scaleTeams.scale != null) {
-                userAction = scaleTeams.correcteds.get(0);
                 notificationIntent = UserActivity.getIntent(app, userAction);
                 text = app.getString(R.string.bookings_correct_login_project)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt))
                         .replace("_project_", scaleTeams.scale.name)
                         .replace("_login_", userAction.login);
             } else {
-                userAction = scaleTeams.correcteds.get(0);
                 notificationIntent = UserActivity.getIntent(app, userAction);
                 text = app.getString(R.string.bookings_correct_login)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt))

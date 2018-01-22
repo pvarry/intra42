@@ -115,27 +115,6 @@ public class ScaleTeams {
         }
     }
 
-//    static public class DateTimeSerializer implements JsonSerializer<Slots> {
-//
-//        @Override
-//        public JsonElement serialize(Slots src, Type typeOfSrc, JsonSerializationContext context) {
-//
-//            Gson gson = Token.getGson();
-//
-//            JsonObject object = new JsonObject();
-//            object.addProperty(API_ID, src.id);
-//            object.add(API_BEGIN_AT, gson.toJsonTree(src.beginAt));
-//            object.add(API_END_AT, gson.toJsonTree(src.endAt));
-//            if (src.isBooked && src.scaleTeam == null)
-//                object.addProperty(API_SCALE_TEAM, "invisible");
-//            else
-//                object.add(API_SCALE_TEAM, gson.toJsonTree(src.scaleTeam));
-//
-//            object.add(API_USER, gson.toJsonTree(src.user));
-//            return object;
-//        }
-//    }
-
     public static class ScaleTeamsFlag {
 
         static final String API_ID = "id";
