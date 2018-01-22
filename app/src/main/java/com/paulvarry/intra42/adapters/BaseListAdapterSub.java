@@ -12,12 +12,12 @@ import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.List;
 
-public class ListAdapterBase<T extends BaseItem> extends BaseAdapter {
+public class BaseListAdapterSub<T extends BaseItem> extends BaseAdapter {
 
     private final Context context;
     private List<T> itemList;
 
-    public ListAdapterBase(Context context, List<T> items) {
+    public BaseListAdapterSub(Context context, List<T> items) {
 
         this.context = context;
         this.itemList = items;
@@ -95,7 +95,6 @@ public class ListAdapterBase<T extends BaseItem> extends BaseAdapter {
             holder.textViewSub.setText(description);
         } else
             holder.textViewSub.setVisibility(View.GONE);
-
 
         return convertView;
     }

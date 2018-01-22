@@ -61,20 +61,20 @@ public interface ApiService {
             @Field("grant_type") String grantType);
 
 
-    @GET("/v2/notions")
+    @GET("/v2/notions?page[size]=100")
     Call<List<Notions>> getNotions(@Query("page") Integer page);
 
     @GET("/v2/tags/{tag_id}/notions?sort=name")
     Call<List<Notions>> getNotionsTag(@Path("tag_id") int tagId, @Query("page") Integer page);
 
-    @GET("/v2/cursus/{cursus_id}/notions?sort=name")
+    @GET("/v2/cursus/{cursus_id}/notions?sort=name&page[size]=100")
     Call<List<Notions>> getNotionsCursus(@Path("cursus_id") int cursusId, @Query("page") Integer page);
 
     /* Subnotions */
-    @GET("/v2/notions/{id}/subnotions")
+    @GET("/v2/notions/{id}/subnotions?sort=position&page[size]=100")
     Call<List<Subnotions>> getSubnotions(@Path("id") int notionId, @Query("page") Integer page);
 
-    @GET("/v2/notions/{slug}/subnotions")
+    @GET("/v2/notions/{slug}/subnotions?sort=position&page[size]=100")
     Call<List<Subnotions>> getSubnotions(@Path("slug") String notionSlug, @Query("page") Integer page);
 
     /* Topics */

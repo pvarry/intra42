@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ListAdapterBase;
+import com.paulvarry.intra42.adapters.BaseListAdapterSub;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.tools42.Group;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
@@ -60,7 +60,7 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
 
     @Override
     protected void setViewContent() {
-        ListAdapterBase<Group> adapter = new ListAdapterBase<>(this, groups);
+        BaseListAdapterSub<Group> adapter = new BaseListAdapterSub<>(this, groups);
         listView.setAdapter(adapter);
     }
 

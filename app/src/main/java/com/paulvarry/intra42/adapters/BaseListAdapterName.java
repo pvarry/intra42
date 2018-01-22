@@ -8,19 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.model.Subnotions;
+import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.List;
 
-public class ListAdapterSubnotions extends BaseAdapter {
+public class BaseListAdapterName<T extends BaseItem> extends BaseAdapter {
 
     private final Context context;
-    private List<Subnotions> subnotionsList;
+    private List<T> itemList;
 
-    public ListAdapterSubnotions(Context context, List<Subnotions> subnotionsList) {
+    public BaseListAdapterName(Context context, List<T> items) {
 
         this.context = context;
-        this.subnotionsList = subnotionsList;
+        this.itemList = items;
     }
 
     /**
@@ -30,19 +30,21 @@ public class ListAdapterSubnotions extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return subnotionsList.size();
+        if (itemList == null)
+            return 0;
+        return itemList.size();
     }
 
     /**
-     * Get the data projectsList associated with the specified position in the data set.
+     * Get the data BaseItem associated with the specified position in the data set.
      *
      * @param position Position of the projectsList whose data we want within the adapter's
      *                 data set.
      * @return The data at the specified position.
      */
     @Override
-    public Subnotions getItem(int position) {
-        return subnotionsList.get(position);
+    public BaseItem getItem(int position) {
+        return itemList.get(position);
     }
 
     /**
@@ -53,7 +55,7 @@ public class ListAdapterSubnotions extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return subnotionsList.get(position).id;
+        return position;
     }
 
     @Override
@@ -65,9 +67,12 @@ public class ListAdapterSubnotions extends BaseAdapter {
             holder = new ViewHolder();
 
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = vi.inflate(R.layout.list_view_notions, parent, false);
 
-            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            if (vi == null)
+                return null;
+            convertView = vi.inflate(R.layout.list_view_, parent, false);
+
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
             holder.textViewSub = convertView.findViewById(R.id.textViewSub);
 
             convertView.setTag(holder);
@@ -75,16 +80,23 @@ public class ListAdapterSubnotions extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Subnotions notions = getItem(position);
+        final BaseItem item = getItem(position);
 
-        holder.textViewTitle.setText(notions.name);
-        holder.textViewSub.setText(notions.slug);
+        String name = item.getName(context);
+        if (name != null && !name.isEmpty()) {
+            holder.textViewName.setVisibility(View.VISIBLE);
+            holder.textViewName.setText(name);
+        } else
+            holder.textViewName.setVisibility(View.GONE);
+
+        holder.textViewSub.setVisibility(View.GONE);
 
         return convertView;
     }
 
     private static class ViewHolder {
-        private TextView textViewTitle;
+
+        private TextView textViewName;
         private TextView textViewSub;
     }
 }
