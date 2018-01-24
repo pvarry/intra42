@@ -26,10 +26,6 @@ import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.paulvarry.intra42.utils.clusterMap.ClusterMap;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMapFremontE1Z1;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMapFremontE1Z2;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMapFremontE1Z3;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMapParis;
 import com.paulvarry.intra42.utils.clusterMap.LocationItem;
 
 import java.util.HashMap;
@@ -108,20 +104,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         baseItemHeight = Tools.dpToPx(getContext(), 42);
         baseItemWidth = Tools.dpToPx(getContext(), 35);
 
-        final LocationItem[][] clusterMap;
-
-        if (activity.campusId == 1)
-            clusterMap = ClusterMapParis.getParisCluster(clusterName);
-        else if (activity.campusId == 7) {
-            if (clusterName.contentEquals("e1z1"))
-                clusterMap = ClusterMapFremontE1Z1.getFremontCluster1Zone1();
-            else if (clusterName.contentEquals("e1z2"))
-                clusterMap = ClusterMapFremontE1Z2.getFremontCluster1Zone2();
-            else if (clusterName.contentEquals("e1z3"))
-                clusterMap = ClusterMapFremontE1Z3.getFremontCluster1Zone3();
-            else
-                clusterMap = ClusterMap.getFremontCluster(clusterName);
-        } else
+        final LocationItem[][] clusterMap = ClusterMap.getClusterMap(activity.campusId, clusterName);
+        if (clusterMap == null)
             return;
 
         gridLayout.removeAllViews();

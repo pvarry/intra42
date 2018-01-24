@@ -28,6 +28,13 @@
         <item>@string/spinner_user_projects_in_progress</item>
     </string-array>
 
+    <string-array name="spinner_cluster_map_info_main">
+        <item>Friends</item>
+        <item>Projects</item>
+        <item>User</item>
+        <item>Coalitions</item>
+    </string-array>
+
     <!-- Settings for Network -->
 
     <string-array name="list_preference_network_titles">

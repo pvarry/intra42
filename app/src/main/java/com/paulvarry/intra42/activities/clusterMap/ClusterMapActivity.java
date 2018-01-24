@@ -20,6 +20,8 @@ import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Tools;
+import com.paulvarry.intra42.utils.clusterMap.ClusterMap;
+import com.paulvarry.intra42.utils.clusterMap.LocationItem;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +31,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
+public class ClusterMapActivity
+        extends BasicTabActivity
+        implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread, ClusterMapInfoFragment.OnFragmentInteractionListener {
 
     final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
     /**
@@ -40,6 +44,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     HashMap<String, UsersLTE> locations;
     SparseArray<FriendsSmall> friends;
     List<Campus> campus = new ArrayList<>();
+    List<ClusterInfo> clusterInfoList;
     int campusId;
     String locationHighlight;
 
@@ -72,7 +77,7 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT))
             locationHighlight = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
 
-        super.activeHamburger();
+        super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
@@ -87,15 +92,10 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     public void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        if (campusId == 1) { //Paris
-            adapter.addFragment(ClusterMapFragment.newInstance("e1"), "E1");
-            adapter.addFragment(ClusterMapFragment.newInstance("e2"), "E2");
-            adapter.addFragment(ClusterMapFragment.newInstance("e3"), "E3");
-        } else if (campusId == 7) { // Fremont
-            adapter.addFragment(ClusterMapFragment.newInstance("e1z1"), "E1Z1");
-            adapter.addFragment(ClusterMapFragment.newInstance("e1z2"), "E1Z2");
-            adapter.addFragment(ClusterMapFragment.newInstance("e1z3"), "E1Z3");
-            adapter.addFragment(ClusterMapFragment.newInstance("e1z4"), "E1Z4");
+        adapter.addFragment(ClusterMapInfoFragment.newInstance(), "Info");
+
+        for (ClusterInfo i : clusterInfoList) {
+            adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.name);
         }
 
         viewPager.setAdapter(adapter);
@@ -125,8 +125,19 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
     public void getDataOnOtherThread() throws IOException {
 
         final List<Locations> locationsTmp = new ArrayList<>();
+
         campusId = AppSettings.getAppCampus(app);
-        if (!(campusId == 1 || campusId == 7)) {
+        clusterInfoList = new ArrayList<>();
+        if (campusId == 1) { //Paris
+            clusterInfoList.add(new ClusterInfo(campusId, "E1", "e1"));
+            clusterInfoList.add(new ClusterInfo(campusId, "E2", "e2"));
+            clusterInfoList.add(new ClusterInfo(campusId, "E3", "e3"));
+        } else if (campusId == 7) { // Fremont
+            clusterInfoList.add(new ClusterInfo(campusId, "E1Z1", "e1z1"));
+            clusterInfoList.add(new ClusterInfo(campusId, "E1Z2", "e1z2"));
+            clusterInfoList.add(new ClusterInfo(campusId, "E1Z3", "e1z3"));
+            clusterInfoList.add(new ClusterInfo(campusId, "E1Z4", "e1z4"));
+        } else {
             setViewStateThread(StatusCode.EMPTY);
             return;
         }
@@ -157,6 +168,17 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         locations = new HashMap<>();
         for (Locations l : locationsTmp) {
             locations.put(l.host, l.user);
+        }
+
+        for (ClusterInfo info : clusterInfoList) {
+            for (LocationItem[] row : info.map)
+                for (LocationItem post : row) {
+                    if (post.kind == 0) {
+                        info.postes++;
+                        if (!locations.containsKey(post.locationName))
+                            info.freeSpots++;
+                    }
+                }
         }
 
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
@@ -225,5 +247,23 @@ public class ClusterMapActivity extends BasicTabActivity implements ClusterMapFr
         HashMap<String, UsersLTE> locations;
         SparseArray<FriendsSmall> friends;
         String locationHighlight;
+    }
+
+    public class ClusterInfo {
+        public int campusId;
+        public String name;
+        public String hostPrefix;
+        public int freeSpots;
+        public int postes;
+
+        LocationItem[][] map;
+
+        ClusterInfo(int campusId, String name, String hostPrefix) {
+            this.campusId = campusId;
+            this.name = name;
+            this.hostPrefix = hostPrefix;
+
+            map = ClusterMap.getClusterMap(campusId, hostPrefix);
+        }
     }
 }

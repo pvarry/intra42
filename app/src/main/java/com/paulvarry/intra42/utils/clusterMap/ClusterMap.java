@@ -65,5 +65,20 @@ public class ClusterMap {
         map[r + 1][p] = new LocationItem(locationName, locationKindBottom);
     }
 
+    public static LocationItem[][] getClusterMap(int campusId, String clusterPrefix) {
+        if (campusId == 1)
+            return ClusterMapParis.getParisCluster(clusterPrefix);
+        else if (campusId == 7) {
+            if (clusterPrefix.contentEquals("e1z1"))
+                return ClusterMapFremontE1Z1.getFremontCluster1Zone1();
+            else if (clusterPrefix.contentEquals("e1z2"))
+                return ClusterMapFremontE1Z2.getFremontCluster1Zone2();
+            else if (clusterPrefix.contentEquals("e1z3"))
+                return ClusterMapFremontE1Z3.getFremontCluster1Zone3();
+            else
+                return ClusterMap.getFremontCluster(clusterPrefix);
+        } else
+            return null;
+    }
 
 }
