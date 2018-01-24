@@ -5,22 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ListAdapterMarvinMeal;
+import com.paulvarry.intra42.adapters.SectionListView;
 import com.paulvarry.intra42.api.cantina.MarvinMeals;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import de.halfbit.pinnedsection.PinnedSectionListView;
 import retrofit2.Response;
 
 public class MarvinMealsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread {
 
     List<MarvinMeals> marvinMealList;
+    List<SectionListView.Item> items;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, MarvinMealsActivity.class);
@@ -65,6 +70,22 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
         Response<List<MarvinMeals>> response = app.getApiServiceCantina().getMeals().execute();
         if (Tools.apiIsSuccessful(response)) {
             marvinMealList = response.body();
+            Collections.sort(marvinMealList, new Comparator<MarvinMeals>() {
+                @Override
+                public int compare(MarvinMeals o1, MarvinMeals o2) {
+                    return o1.beginAt.after(o2.beginAt) ? 1 : -1;
+                }
+            });
+
+            items = new ArrayList<>();
+
+            MarvinMeals last = null;
+            for (MarvinMeals m : marvinMealList) {
+                if (last == null || !DateTool.sameDayOf(m.beginAt, last.beginAt))
+                    items.add(new SectionListView.Item<>(SectionListView.Item.SECTION, null, DateTool.getDateLong(m.beginAt)));
+                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, m, m.getName(this)));
+                last = m;
+            }
         }
     }
 
@@ -84,14 +105,13 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
     @Override
     public void setViewContent() {
 
-        if (marvinMealList == null || marvinMealList.isEmpty()) {
+        if (items == null || items.isEmpty()) {
             setViewState(StatusCode.EMPTY);
             return;
         }
 
-
-        ListView listView = findViewById(R.id.listView);
-        ListAdapterMarvinMeal adapterMarvinMeal = new ListAdapterMarvinMeal(this, marvinMealList);
+        PinnedSectionListView listView = findViewById(R.id.listView);
+        SectionListView adapterMarvinMeal = new SectionListView(this, items);
         listView.setAdapter(adapterMarvinMeal);
     }
 

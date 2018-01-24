@@ -1,10 +1,14 @@
 package com.paulvarry.intra42.api.cantina;
 
+import android.content.Context;
+import android.text.format.DateUtils;
+
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.api.BaseItem;
 
 import java.util.Date;
 
-public class MarvinMeals {
+public class MarvinMeals implements BaseItem {
 
     static final String API_ID = "id";
     static final String API_MENU = "menu";
@@ -29,4 +33,21 @@ public class MarvinMeals {
     @SerializedName(API_UPDATED_AT)
     public Date updatedAt;
 
+    @Override
+    public String getName(Context context) {
+        return menu.replace("\r", "").trim();
+    }
+
+    @Override
+    public String getSub(Context context) {
+        String summary;
+        summary = DateUtils.formatDateRange(context, beginAt.getTime(), endAt.getTime(), DateUtils.FORMAT_SHOW_TIME);
+        summary += " • $" + String.valueOf(price);
+        return summary;
+    }
+
+    @Override
+    public boolean openIt(Context context) {
+        return false;
+    }
 }

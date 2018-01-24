@@ -14,15 +14,19 @@ import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.List;
 
-public class ListAdapterMarvinMeal extends BaseAdapter {
+import de.halfbit.pinnedsection.PinnedSectionListView;
+
+public class ListAdapterMarvinMeal
+        extends BaseAdapter
+        implements PinnedSectionListView.PinnedSectionListAdapter {
 
     private final Context context;
-    private List<MarvinMeals> mealList;
+    private List<Item> mealList;
 
-    public ListAdapterMarvinMeal(Context context, List<MarvinMeals> mealList) {
+    public ListAdapterMarvinMeal(Context context, List<Item> list) {
 
         this.context = context;
-        this.mealList = mealList;
+        this.mealList = list;
     }
 
     /**
@@ -44,7 +48,7 @@ public class ListAdapterMarvinMeal extends BaseAdapter {
      */
     @Override
     public MarvinMeals getItem(int position) {
-        return mealList.get(position);
+        return mealList.get(position).item;
     }
 
     /**
@@ -55,7 +59,7 @@ public class ListAdapterMarvinMeal extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return mealList.get(position).id;
+        return 0;
     }
 
     @Override
@@ -64,71 +68,81 @@ public class ListAdapterMarvinMeal extends BaseAdapter {
         final ViewHolder holder;
 
         if (convertView == null) {
-            holder = new ViewHolder();
-
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (vi == null)
+                return null;
+
+            holder = new ViewHolder();
             convertView = vi.inflate(R.layout.list_view_marvin_meal, parent, false);
 
             holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
             holder.textViewDateMonth = convertView.findViewById(R.id.textViewDateMonth);
-            holder.textViewName = convertView.findViewById(R.id.textViewName);
-            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
-            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
+            holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
 
             convertView.setTag(holder);
 
-        } else {
+        } else
             holder = (ViewHolder) convertView.getTag();
-            holder.textViewName = convertView.findViewById(R.id.textViewName);
-        }
 
         MarvinMeals item = getItem(position);
-        String mealKind;
+        if (item == null)
+            return null;
         String menu;
 
         holder.textViewDateDay.setText(DateTool.getDay(item.beginAt));
         holder.textViewDateMonth.setText(DateTool.getMonthMedium(item.beginAt));
 
-        menu = item.menu.replace("\r", "");
-        boolean removeFirstWord = true;
-        if (menu.startsWith("Breakfast"))
-            mealKind = "Breakfast";
-        else if (menu.startsWith("Brunch"))
-            mealKind = "Brunch";
-        else if (menu.startsWith("Lunch"))
-            mealKind = "Lunch";
-        else if (menu.startsWith("Dinner"))
-            mealKind = "Dinner";
-        else {
-            mealKind = "Meal";
-            removeFirstWord = false;
-        }
-        if (removeFirstWord) {
-            menu = menu.replace(mealKind, "");
-            if (menu.startsWith(" "))
-                menu = menu.replaceFirst(" ", "");
-            if (menu.startsWith("\n"))
-                menu = menu.replaceFirst("\n", "");
-        }
+        menu = item.menu.replace("\r", "").trim();
 
-        holder.textViewName.setText(mealKind);
-        holder.textViewDescription.setText(menu);
+        holder.textViewTitle.setText(menu);
 
         String summary;
         summary = DateUtils.formatDateRange(context, item.beginAt.getTime(), item.endAt.getTime(), DateUtils.FORMAT_SHOW_TIME);
         summary += " • $" + String.valueOf(item.price);
-        holder.textViewTime.setText(summary);
+        holder.textViewSummary.setText(summary);
 
         return convertView;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mealList.get(position).type;
+    }
+
+    @Override
+    public boolean isItemViewTypePinned(int viewType) {
+        return viewType == Item.SECTION;
     }
 
     private static class ViewHolder {
 
         TextView textViewDateDay;
         TextView textViewDateMonth;
-        TextView textViewName;
-        TextView textViewDescription;
-        TextView textViewTime;
+        TextView textViewTitle;
+        TextView textViewSummary;
+    }
+
+    public static class Item {
+
+        public static final int ITEM = 0;
+        public static final int SECTION = 1;
+
+        public final int type;
+        public final MarvinMeals item;
+        public final String title;
+
+        public Item(int type, MarvinMeals item, String defaultTitle) {
+            this.type = type;
+            this.item = item;
+            this.title = defaultTitle;
+        }
+
     }
 
 }

@@ -55,7 +55,7 @@ public class SectionListView extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
 
-        if (convertView == null) {
+        if (convertView == null || true) {
             holder = new ViewHolder();
 
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -107,6 +107,8 @@ public class SectionListView extends BaseAdapter
                 holder.textViewSub.setVisibility(View.VISIBLE);
             } else
                 holder.textViewSub.setVisibility(View.GONE);
+
+            convertView.requestLayout();
         }
 
 
