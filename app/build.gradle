@@ -18,7 +18,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode getVersionCodeTimestamp()
-        versionName "0.8.4-beta1"
+        versionName "0.8.4-beta2"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
