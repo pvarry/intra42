@@ -25,7 +25,7 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMap;
+import com.paulvarry.intra42.utils.clusterMap.ClusterMapGenerator;
 import com.paulvarry.intra42.utils.clusterMap.LocationItem;
 
 import java.util.HashMap;
@@ -94,7 +94,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        locations = activity.locations;
+        locations = activity.clusters.locations;
         makeMap();
     }
 
@@ -104,7 +104,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         baseItemHeight = Tools.dpToPx(getContext(), 42);
         baseItemWidth = Tools.dpToPx(getContext(), 35);
 
-        final LocationItem[][] clusterMap = ClusterMap.getClusterMap(activity.campusId, clusterName);
+        final LocationItem[][] clusterMap = ClusterMapGenerator.getClusterMap(activity.campusId, clusterName);
         if (clusterMap == null)
             return;
 
@@ -127,8 +127,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     }
 
     private View makeMapItem(final LocationItem[][] cluster, int r, int p) {
-        boolean highlightOpen = false;
-        boolean highlightFriend = false;
+        boolean highlight = false;
 
         final LocationItem locationItem = cluster[r][p];
         View view;
@@ -138,23 +137,16 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         GridLayout.LayoutParams paramsGridLayout;
         UsersLTE user = null;
 
-        if (locationItem.kind == LocationItem.KIND_USER && locationItem.locationName != null) {
-            if (activity != null &&
-                    activity.locationHighlight != null &&
-                    activity.locationHighlight.contentEquals(locationItem.locationName))
-                highlightOpen = true;
-
-            if (locations != null) {
-                user = locations.get(locationItem.locationName);
-                if (activity != null && activity.friends != null && user != null && activity.friends.get(user.id) != null)
-                    highlightFriend = true;
-            }
-        }
-
         if (vi == null)
             return null;
 
-        if (highlightOpen || highlightFriend)
+        if (locationItem.kind == LocationItem.KIND_USER && locationItem.locationName != null && locations != null) {
+
+            user = locations.get(locationItem.locationName);
+            highlight = locationItem.getHighlightPosts(activity.clusters, user);
+        }
+
+        if (highlight)
             view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
         else
             view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
@@ -191,7 +183,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         imageViewContent.setPadding(padding, padding, padding, padding);
         view.setLayoutParams(paramsGridLayout);
 
-        if (highlightOpen || highlightFriend) {
+        if (highlight) {
             padding = Tools.dpToPx(getContext(), 3);
             FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
             paramsFrameLayout.height = (int) (baseItemHeight * locationItem.sizeY);
@@ -202,10 +194,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             view.setPadding(padding, padding, padding, padding);
 
             imageViewContent.setBackgroundResource(R.color.windowBackground);
-            if (highlightOpen)
-                view.setBackgroundColor(Theme.getColorPrimary(getContext()));
-            else
-                view.setBackgroundColor(Theme.getColorAccent(getContext()));
+            view.setBackgroundColor(Theme.getColorAccent(getContext()));
         }
 
         return view;

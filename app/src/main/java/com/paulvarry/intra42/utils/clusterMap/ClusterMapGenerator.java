@@ -1,6 +1,6 @@
 package com.paulvarry.intra42.utils.clusterMap;
 
-public class ClusterMap {
+public class ClusterMapGenerator {
 
     public static LocationItem[][] getFremontCluster(String clusterName) {
 
@@ -76,7 +76,7 @@ public class ClusterMap {
             else if (clusterPrefix.contentEquals("e1z3"))
                 return ClusterMapFremontE1Z3.getFremontCluster1Zone3();
             else
-                return ClusterMap.getFremontCluster(clusterPrefix);
+                return ClusterMapGenerator.getFremontCluster(clusterPrefix);
         } else
             return null;
     }

@@ -29,10 +29,19 @@
     </string-array>
 
     <string-array name="spinner_cluster_map_info_main">
-        <item>Friends</item>
-        <item>Projects</item>
-        <item>User</item>
-        <item>Coalitions</item>
+        <item>@string/cluster_map_info_layer_spinner_main_friends</item>
+        <item>@string/cluster_map_info_layer_spinner_main_login</item>
+        <item>@string/cluster_map_info_layer_spinner_main_coalitions</item>
+        <item>@string/cluster_map_info_layer_spinner_main_project</item>
+    </string-array>
+
+    <string-array name="spinner_cluster_map_info_projects_kind">
+        <item>@string/project_user_status_creating_group</item>
+        <item>@string/project_user_status_searching_a_group</item>
+        <item>@string/project_user_status_waiting_to_start</item>
+        <item>@string/project_user_status_in_progress</item>
+        <item>@string/project_user_status_finished</item>
+        <item>@string/project_user_status_waiting_for_correction</item>
     </string-array>
 
     <!-- Settings for Network -->

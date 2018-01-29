@@ -517,4 +517,15 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="pref_title_advanced_section_other">Others features</string>
     <string name="pref_title_advanced_section_features">Advanced features</string>
     <string name="pref_summary_advanced_data_enable_beta">default false</string>
+    <string name="title_tab_cluster_map_info">Info</string>
+    <string name="cluster_map_info_button_update">update</string>
+    <string name="cluster_map_info_button_update_disabled">no need to update</string>
+    <string name="cluster_map_info_layer_input_login">login</string>
+    <string name="cluster_map_info_layer_input_project">project</string>
+    <string name="cluster_map_info_clusters">Clusters</string>
+    <string name="cluster_map_info_data_layer">Data layer</string>
+    <string name="cluster_map_info_layer_spinner_main_friends">Friends</string>
+    <string name="cluster_map_info_layer_spinner_main_login">User highlights</string>
+    <string name="cluster_map_info_layer_spinner_main_coalitions">Coalitions</string>
+    <string name="cluster_map_info_layer_spinner_main_project">Project</string>
 </resources>

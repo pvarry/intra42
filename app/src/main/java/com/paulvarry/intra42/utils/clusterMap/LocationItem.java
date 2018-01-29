@@ -1,5 +1,8 @@
 package com.paulvarry.intra42.utils.clusterMap;
 
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.api.model.UsersLTE;
+
 public class LocationItem {
 
     public final static int KIND_USER = 0;
@@ -48,5 +51,19 @@ public class LocationItem {
         this.sizeY = sizeY;
         this.kind = kind;
         this.angle = angle;
+    }
+
+    public boolean getHighlightPosts(ClusterStatus cluster, UsersLTE user) {
+        if (cluster == null || user == null)
+            return false;
+
+        if (cluster.layerStatus == ClusterMapActivity.LayerStatus.FRIENDS) {
+            if (cluster.friends != null && cluster.friends.get(user.id) != null)
+                return true;
+        } else if (cluster.layerStatus == ClusterMapActivity.LayerStatus.USER_HIGHLIGHT) {
+            if (cluster.layerLogin.contentEquals(user.login))
+                return true;
+        }
+        return false;
     }
 }

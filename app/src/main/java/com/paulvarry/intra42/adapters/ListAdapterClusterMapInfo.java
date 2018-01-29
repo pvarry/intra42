@@ -9,16 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.utils.clusterMap.ClusterItem;
 
 import java.util.List;
 
 public class ListAdapterClusterMapInfo extends BaseAdapter {
 
     private final Context context;
-    private List<ClusterMapActivity.ClusterInfo> clusterInfo;
+    private List<ClusterItem> clusterInfo;
 
-    public ListAdapterClusterMapInfo(Context context, List<ClusterMapActivity.ClusterInfo> list) {
+    public ListAdapterClusterMapInfo(Context context, List<ClusterItem> list) {
 
         this.context = context;
         this.clusterInfo = list;
@@ -42,7 +42,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
      * @return The data at the specified position.
      */
     @Override
-    public ClusterMapActivity.ClusterInfo getItem(int position) {
+    public ClusterItem getItem(int position) {
         return clusterInfo.get(position);
     }
 
@@ -68,7 +68,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (inflater == null)
                 return null;
-            convertView = inflater.inflate(R.layout.list_view__summary, parent, false);
+            convertView = inflater.inflate(R.layout.list_view_cluster_info, parent, false);
 
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
             holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
@@ -79,10 +79,10 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ClusterMapActivity.ClusterInfo info = getItem(position);
+        ClusterItem info = getItem(position);
 
         holder.textViewTitle.setText(info.name);
-        String summary = String.valueOf(info.freeSpots) + " free spots";
+        String summary = String.valueOf(info.highlightPosts) + " highlight posts - " + String.valueOf(info.freePosts) + " vacant posts";
         holder.textViewSummary.setText(summary);
 
         return convertView;

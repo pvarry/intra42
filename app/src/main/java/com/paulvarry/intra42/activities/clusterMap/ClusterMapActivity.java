@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ViewPagerAdapter;
+import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Locations;
@@ -20,8 +20,8 @@ import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Tools;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMap;
-import com.paulvarry.intra42.utils.clusterMap.LocationItem;
+import com.paulvarry.intra42.utils.clusterMap.ClusterItem;
+import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,19 +36,18 @@ public class ClusterMapActivity
         implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread, ClusterMapInfoFragment.OnFragmentInteractionListener {
 
     final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
-    /**
-     * key : Location name
-     * <p>
-     * Value : User on this location
-     */
-    HashMap<String, UsersLTE> locations;
-    SparseArray<FriendsSmall> friends;
+
     List<Campus> campus = new ArrayList<>();
-    List<ClusterInfo> clusterInfoList;
     int campusId;
-    String locationHighlight;
+
+    ClusterStatus clusters;
+
 
     DataWrapper dataWrapper;
+
+    ClusterMapActivity.LayerStatus layerTmpStatus;
+    String layerTmpLogin;
+    String layerTmpProjectSlug;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapActivity.class);
@@ -65,17 +64,23 @@ public class ClusterMapActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        clusters = new ClusterStatus();
+
+        clusters.layerStatus = LayerStatus.FRIENDS;
+
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null) {
-            friends = dataWrapper.friends;
-            locations = dataWrapper.locations;
-            locationHighlight = dataWrapper.locationHighlight;
+            clusters.friends = dataWrapper.friends;
+            clusters.locations = dataWrapper.locations;
+            clusters.locationHighlight = dataWrapper.locationHighlight;
             dataWrapper = null;
         }
 
         Intent i = getIntent();
-        if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT))
-            locationHighlight = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
+        if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT)) {
+            clusters.locationHighlight = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
+            clusters.layerStatus = LayerStatus.USER_HIGHLIGHT;
+        }
 
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
@@ -90,11 +95,11 @@ public class ClusterMapActivity
 
     @Override
     public void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(ClusterMapInfoFragment.newInstance(), "Info");
+        adapter.addFragment(ClusterMapInfoFragment.newInstance(), getString(R.string.title_tab_cluster_map_info));
 
-        for (ClusterInfo i : clusterInfoList) {
+        for (ClusterItem i : clusters.clusterInfoList) {
             adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.name);
         }
 
@@ -103,13 +108,13 @@ public class ClusterMapActivity
         viewPager.setPageMargin(20);
         viewPager.setPageMarginDrawable(R.color.textColorBlackPrimary);
 
-        if (locationHighlight != null) {
+        if (clusters.locationHighlight != null) {
             if (campusId == 1) {
-                if (locationHighlight.contains("e1"))
+                if (clusters.locationHighlight.contains("e1"))
                     viewPager.setCurrentItem(0);
-                else if (locationHighlight.contains("e2"))
+                else if (clusters.locationHighlight.contains("e2"))
                     viewPager.setCurrentItem(1);
-                else if (locationHighlight.contains("e3"))
+                else if (clusters.locationHighlight.contains("e3"))
                     viewPager.setCurrentItem(2);
             }
         }
@@ -127,16 +132,16 @@ public class ClusterMapActivity
         final List<Locations> locationsTmp = new ArrayList<>();
 
         campusId = AppSettings.getAppCampus(app);
-        clusterInfoList = new ArrayList<>();
+        clusters.clusterInfoList = new ArrayList<>();
         if (campusId == 1) { //Paris
-            clusterInfoList.add(new ClusterInfo(campusId, "E1", "e1"));
-            clusterInfoList.add(new ClusterInfo(campusId, "E2", "e2"));
-            clusterInfoList.add(new ClusterInfo(campusId, "E3", "e3"));
+            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1", "e1"));
+            clusters.clusterInfoList.add(new ClusterItem(campusId, "E2", "e2"));
+            clusters.clusterInfoList.add(new ClusterItem(campusId, "E3", "e3"));
         } else if (campusId == 7) { // Fremont
-            clusterInfoList.add(new ClusterInfo(campusId, "E1Z1", "e1z1"));
-            clusterInfoList.add(new ClusterInfo(campusId, "E1Z2", "e1z2"));
-            clusterInfoList.add(new ClusterInfo(campusId, "E1Z3", "e1z3"));
-            clusterInfoList.add(new ClusterInfo(campusId, "E1Z4", "e1z4"));
+            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z1", "e1z1"));
+            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z2", "e1z2"));
+            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z3", "e1z3"));
+            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z4", "e1z4"));
         } else {
             setViewStateThread(StatusCode.EMPTY);
             return;
@@ -165,21 +170,12 @@ public class ClusterMapActivity
             }
         }
 
-        locations = new HashMap<>();
+        clusters.locations = new HashMap<>();
         for (Locations l : locationsTmp) {
-            locations.put(l.host, l.user);
+            clusters.locations.put(l.host, l.user);
         }
 
-        for (ClusterInfo info : clusterInfoList) {
-            for (LocationItem[] row : info.map)
-                for (LocationItem post : row) {
-                    if (post.kind == 0) {
-                        info.postes++;
-                        if (!locations.containsKey(post.locationName))
-                            info.freeSpots++;
-                    }
-                }
-        }
+        clusters.computeFreeSpots();
 
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
 
@@ -188,9 +184,9 @@ public class ClusterMapActivity
         Call<List<FriendsSmall>> call = api.getFriends();
         Response<List<FriendsSmall>> ret = call.execute();
         if (Tools.apiIsSuccessful(ret)) {
-            friends = new SparseArray<>();
+            clusters.friends = new SparseArray<>();
             for (FriendsSmall f : ret.body()) {
-                friends.put(f.id, f);
+                clusters.friends.put(f.id, f);
             }
         }
 
@@ -208,10 +204,25 @@ public class ClusterMapActivity
             }
         }
 
-        if (friends != null && locations != null)
+        if (clusters.friends != null && clusters.locations != null)
             return ThreadStatusCode.FINISH;
 
         return ThreadStatusCode.CONTINUE;
+    }
+
+    void applyLayerUser(String login) {
+        clusters.layerLogin = login;
+        clusters.layerStatus = LayerStatus.USER_HIGHLIGHT;
+
+        viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.invalidate();
+    }
+
+    void applyLayerFriends() {
+        clusters.layerStatus = LayerStatus.FRIENDS;
+
+        viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.invalidate();
     }
 
     @Override
@@ -237,10 +248,14 @@ public class ClusterMapActivity
     @Override
     public final Object onRetainCustomNonConfigurationInstance() {
         DataWrapper data = new DataWrapper();
-        data.friends = friends;
-        data.locations = locations;
-        data.locationHighlight = locationHighlight;
+        data.friends = clusters.friends;
+        data.locations = clusters.locations;
+        data.locationHighlight = clusters.locationHighlight;
         return data;
+    }
+
+    public enum LayerStatus {
+        FRIENDS, PROJECT, USER_HIGHLIGHT, COALITIONS
     }
 
     private class DataWrapper {
@@ -249,21 +264,5 @@ public class ClusterMapActivity
         String locationHighlight;
     }
 
-    public class ClusterInfo {
-        public int campusId;
-        public String name;
-        public String hostPrefix;
-        public int freeSpots;
-        public int postes;
 
-        LocationItem[][] map;
-
-        ClusterInfo(int campusId, String name, String hostPrefix) {
-            this.campusId = campusId;
-            this.name = name;
-            this.hostPrefix = hostPrefix;
-
-            map = ClusterMap.getClusterMap(campusId, hostPrefix);
-        }
-    }
 }

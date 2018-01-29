@@ -16,49 +16,49 @@ public class ClusterMapFremontE1Z1 {
         createFremont1z1r1(map, clusterID, r, realR);
 
         r++;
-        ClusterMap.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+        ClusterMapGenerator.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
 
         r++;
         realR++;
         createFremont1z1r2(map, clusterID, r, realR);
 
         r += 2;
-        ClusterMap.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+        ClusterMapGenerator.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
 
         r++;
         realR++;
         createFremont1z1r3(map, clusterID, r, realR);
 
         r += 2;
-        ClusterMap.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+        ClusterMapGenerator.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
 
         r++;
         realR++;
         createFremont1z1r4(map, clusterID, r, realR);
 
         r += 2;
-        ClusterMap.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+        ClusterMapGenerator.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
 
         r++;
         realR++;
         createFremont1z1r5(map, clusterID, r, realR);
 
         r += 2;
-        ClusterMap.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+        ClusterMapGenerator.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
 
         r++;
         realR++;
         createFremont1z1r6(map, clusterID, r, realR);
 
         r += 2;
-        ClusterMap.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+        ClusterMapGenerator.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
 
         r++;
         realR++;
         createFremont1z1r7(map, clusterID, r, realR);
 
         r += 2;
-        ClusterMap.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
+        ClusterMapGenerator.addEmptyRow(map[r], LocationItem.KIND_CORRIDOR);
 
         r++;
         realR++;
@@ -98,11 +98,11 @@ public class ClusterMapFremontE1Z1 {
                     map[r][p] = new LocationItem(null, locationKind);
                     map[r + 1][p] = new LocationItem(null, locationKind);
                 } else {
-                    ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     realP += 2;
                 }
             } else
-                ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
         }
         map[r][12] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
         map[r][13] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
@@ -120,15 +120,15 @@ public class ClusterMapFremontE1Z1 {
                     map[r][p] = new LocationItem(null, locationKind);
                     map[r + 1][p] = new LocationItem(null, locationKind);
                 } else {
-                    ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     realP += 2;
                 }
             } else
-                ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
 
         }
         realP++;
-        ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_USER, LocationItem.KIND_CORRIDOR, r, 0, realP, realR);
+        ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_USER, LocationItem.KIND_CORRIDOR, r, 0, realP, realR);
     }
 
     private static void createFremont1z1r4(LocationItem[][] map, String clusterID, int r, int realR) {
@@ -148,9 +148,9 @@ public class ClusterMapFremontE1Z1 {
                     map[r + 1][p] = new LocationItem(null, locationKind);
                 } else {
                     if (p > 18)
-                        ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                        ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     else if (p < 18)
-                        ClusterMap.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                        ClusterMapGenerator.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     else {
                         locationName = clusterID + "r" + String.valueOf(realR) + "p" + String.valueOf(realP + 1);
                         map[r][p] = new LocationItem(locationName, LocationItem.KIND_USER);
@@ -160,7 +160,7 @@ public class ClusterMapFremontE1Z1 {
                     realP += 2;
                 }
             } else
-                ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
         }
     }
 
@@ -171,13 +171,13 @@ public class ClusterMapFremontE1Z1 {
 
             if (p >= 8 && p < 33) {
                 if (p == 28 || p == 14)
-                    ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
                 else {
-                    ClusterMap.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     realP += 2;
                 }
             } else
-                ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
         }
     }
 
@@ -188,13 +188,13 @@ public class ClusterMapFremontE1Z1 {
 
             if (p >= 10 && p < 33) {
                 if (p == 27 || p == 13)
-                    ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
                 else {
-                    ClusterMap.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     realP += 2;
                 }
             } else
-                ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
         }
         map[r + 1][10] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
     }
@@ -210,13 +210,13 @@ public class ClusterMapFremontE1Z1 {
 
             if (p >= 13 && p < 33) {
                 if (p == 26 || p == 12)
-                    ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
                 else {
-                    ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     realP += 2;
                 }
             } else
-                ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
         }
         map[r + 1][13] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
         map[r + 1][14] = new LocationItem(null, LocationItem.KIND_CORRIDOR);
@@ -229,13 +229,13 @@ public class ClusterMapFremontE1Z1 {
 
             if (p >= 17 && p < 33) {
                 if (p == 25 || p == 11)
-                    ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
                 else {
-                    ClusterMap.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
+                    ClusterMapGenerator.addDoublePostFromDown(map, clusterID, LocationItem.KIND_USER, r, p, realP, realR);
                     realP += 2;
                 }
             } else
-                ClusterMap.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
+                ClusterMapGenerator.addDoublePost(map, clusterID, LocationItem.KIND_CORRIDOR, r, p, realP, realR);
         }
         for (int i = 0; i < 8; i++) {
             map[r + 1][17 + i] = new LocationItem(null, LocationItem.KIND_CORRIDOR);

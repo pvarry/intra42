@@ -149,7 +149,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      * Executed once after {@link #onCreate(Bundle)}
      */
     protected void refresh() {
-
+        onCreateFinished();
     }
 
     @Override
