@@ -488,40 +488,44 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS);
-            if (listPreferenceCursus != null && cursusCache != null) {
-                CharSequence entries[] = new String[cursusCache.size() + 2];
-                CharSequence entryValues[] = new String[cursusCache.size() + 2];
+            if (listPreferenceCursus != null) {
+                int cursusSize = cursusCache != null ? cursusCache.size() : 0;
+                CharSequence entries[] = new String[cursusSize + 2];
+                CharSequence entryValues[] = new String[cursusSize + 2];
 
                 entries[0] = app.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";
                 entries[1] = app.getString(R.string.pref_value_all);
                 entryValues[1] = "0";
                 int i = 2;
-                for (Cursus cursus : cursusCache) {
-                    entries[i] = cursus.name;
-                    entryValues[i] = String.valueOf(cursus.id);
-                    i++;
-                }
+                if (cursusCache != null)
+                    for (Cursus cursus : cursusCache) {
+                        entries[i] = cursus.name;
+                        entryValues[i] = String.valueOf(cursus.id);
+                        i++;
+                    }
                 listPreferenceCursus.setEntries(entries);
                 listPreferenceCursus.setEntryValues(entryValues);
             }
 
             List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCampus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CAMPUS);
-            if (listPreferenceCampus != null && campusCache != null) {
-                CharSequence entries[] = new String[campusCache.size() + 2];
-                CharSequence entryValues[] = new String[campusCache.size() + 2];
+            if (listPreferenceCampus != null) {
+                int campusSize = campusCache != null ? campusCache.size() : 0;
+                CharSequence entries[] = new String[campusSize + 2];
+                CharSequence entryValues[] = new String[campusSize + 2];
 
                 entries[0] = app.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";
                 entries[1] = app.getString(R.string.pref_value_all);
                 entryValues[1] = "0";
                 int i = 2;
-                for (Campus campus : campusCache) {
-                    entries[i] = campus.name;
-                    entryValues[i] = String.valueOf(campus.id);
-                    i++;
-                }
+                if (campusCache != null)
+                    for (Campus campus : campusCache) {
+                        entries[i] = campus.name;
+                        entryValues[i] = String.valueOf(campus.id);
+                        i++;
+                    }
                 listPreferenceCampus.setEntries(entries);
                 listPreferenceCampus.setEntryValues(entryValues);
             }

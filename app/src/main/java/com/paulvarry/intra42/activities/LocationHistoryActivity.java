@@ -64,6 +64,7 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
         host = getIntent().getStringExtra(INTENT_LOCATION);
         login = getIntent().getStringExtra(INTENT_USER);
 
+        super.setActionBarToggle(ActionBarToggle.ARROW);
         super.registerGetDataOnOtherThread(this);
         super.setContentView(R.layout.activity_location_history);
 
