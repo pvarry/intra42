@@ -82,8 +82,15 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
         ClusterItem info = getItem(position);
 
         holder.textViewTitle.setText(info.name);
-        String summary = String.valueOf(info.highlightPosts) + " highlight posts - " + String.valueOf(info.freePosts) + " vacant posts";
-        holder.textViewSummary.setText(summary);
+        StringBuilder builder = new StringBuilder();
+        if (info.highlightPosts > 0)
+            builder.append(info.highlightPosts);
+        else
+            builder.append("no");
+        builder.append(" highlight - ");
+        builder.append(info.freePosts);
+        builder.append(" vacant posts");
+        holder.textViewSummary.setText(builder);
 
         return convertView;
     }

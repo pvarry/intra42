@@ -267,7 +267,7 @@ public class ProjectActivity extends BasicTabActivity
 
         static ProjectUser getWithProject(ApiService api, int projectId, int userId) throws IOException, UnauthorizedException, ErrorServerException {
             Call<Projects> callProject = api.getProject(projectId);
-            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectId, userId);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectId, userId, 1, 1);
             Call<List<Teams>> callTeams = api.getTeams(userId, projectId, 1);
 
             return getWithProject(callProject, callProjectUsers, callTeams);
@@ -275,7 +275,7 @@ public class ProjectActivity extends BasicTabActivity
 
         static ProjectUser getWithProject(ApiService api, int projectId, String login) throws IOException, UnauthorizedException, ErrorServerException {
             Call<Projects> callProject = api.getProject(projectId);
-            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectId, login);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectId, login, 1, 1);
             Call<List<Teams>> callTeams = api.getTeams(login, projectId, 1);
 
             return getWithProject(callProject, callProjectUsers, callTeams);
@@ -286,7 +286,7 @@ public class ProjectActivity extends BasicTabActivity
             if (!Tools.apiIsSuccessful(response))
                 return null;
             Call<Projects> callProject = api.getProject(projectSlug);
-            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectSlug, response.body().id);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectSlug, response.body().id, 1, 1);
             Call<List<Teams>> callTeams = api.getTeams(userLogin, projectSlug, 1);
 
             return getWithProject(callProject, callProjectUsers, callTeams);
@@ -294,7 +294,7 @@ public class ProjectActivity extends BasicTabActivity
 
         static ProjectUser getWithProject(ApiService api, String projectSlug, int userId) throws IOException, UnauthorizedException, ErrorServerException {
             Call<Projects> callProject = api.getProject(projectSlug);
-            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectSlug, userId);
+            Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectSlug, userId, 1, 1);
             Call<List<Teams>> callTeams = api.getTeams(userId, projectSlug, 1);
 
             return getWithProject(callProject, callProjectUsers, callTeams);

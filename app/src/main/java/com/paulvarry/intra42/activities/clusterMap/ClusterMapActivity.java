@@ -13,7 +13,7 @@ import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Locations;
-import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicTabActivity;
@@ -69,9 +69,7 @@ public class ClusterMapActivity
 
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null) {
-            clusters.friends = dataWrapper.friends;
-            clusters.locations = dataWrapper.locations;
-            clusters.locationHighlight = dataWrapper.locationHighlight;
+            clusters = dataWrapper.clusters;
             dataWrapper = null;
         }
 
@@ -106,17 +104,6 @@ public class ClusterMapActivity
 
         viewPager.setPageMargin(20);
         viewPager.setPageMarginDrawable(R.color.textColorBlackPrimary);
-
-        if (clusters.locationHighlight != null) {
-            if (campusId == 1) {
-                if (clusters.locationHighlight.contains("e1"))
-                    viewPager.setCurrentItem(0);
-                else if (clusters.locationHighlight.contains("e2"))
-                    viewPager.setCurrentItem(1);
-                else if (clusters.locationHighlight.contains("e3"))
-                    viewPager.setCurrentItem(2);
-            }
-        }
     }
 
     @Nullable
@@ -215,6 +202,7 @@ public class ClusterMapActivity
         clusters.layerLogin = login;
         clusters.layerStatus = LayerStatus.USER_HIGHLIGHT;
 
+        clusters.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
     }
@@ -222,6 +210,26 @@ public class ClusterMapActivity
     void applyLayerFriends() {
         clusters.layerStatus = LayerStatus.FRIENDS;
 
+        clusters.computeHighlightPosts();
+        viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.invalidate();
+    }
+
+    void applyLayerProject(List<ProjectsUsers> projectsUsers, String slug) {
+        clusters.layerStatus = LayerStatus.PROJECT;
+        clusters.layerProjectSlug = slug;
+
+        if (projectsUsers == null)
+            return;
+        clusters.projectsUsers = new SparseArray<>();
+
+        for (ProjectsUsers p : projectsUsers) {
+            if (p.user != null) {
+                clusters.projectsUsers.append(p.user.id, p);
+            }
+        }
+
+        clusters.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
     }
@@ -249,9 +257,7 @@ public class ClusterMapActivity
     @Override
     public final Object onRetainCustomNonConfigurationInstance() {
         DataWrapper data = new DataWrapper();
-        data.friends = clusters.friends;
-        data.locations = clusters.locations;
-        data.locationHighlight = clusters.locationHighlight;
+        data.clusters = clusters;
         return data;
     }
 
@@ -270,9 +276,7 @@ public class ClusterMapActivity
     }
 
     private class DataWrapper {
-        HashMap<String, UsersLTE> locations;
-        SparseArray<FriendsSmall> friends;
-        String locationHighlight;
+        ClusterStatus clusters;
     }
 
 

@@ -54,4 +54,8 @@ public class ViewStatePagerAdapter extends FragmentStatePagerAdapter {
     public List<String> getPageTitle() {
         return mFragmentTitleList;
     }
+
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
 }

@@ -2,7 +2,6 @@ package com.paulvarry.intra42.utils.clusterMap;
 
 import android.support.annotation.Nullable;
 
-import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.api.model.UsersLTE;
 
 public class LocationItem extends LocationItemBase {
@@ -26,12 +25,19 @@ public class LocationItem extends LocationItemBase {
         boolean highlight = false;
 
         if (cluster != null && user != null)
-            if (cluster.layerStatus == ClusterMapActivity.LayerStatus.FRIENDS) {
-                if (cluster.friends != null && cluster.friends.get(user.id) != null)
-                    highlight = true;
-            } else if (cluster.layerStatus == ClusterMapActivity.LayerStatus.USER_HIGHLIGHT) {
-                if (cluster.layerLogin.contentEquals(user.login))
-                    highlight = true;
+            switch (cluster.layerStatus) {
+                case FRIENDS:
+                    if (cluster.friends != null && cluster.friends.get(user.id) != null)
+                        highlight = true;
+                    break;
+                case USER_HIGHLIGHT:
+                    if (cluster.layerLogin.contentEquals(user.login))
+                        highlight = true;
+                    break;
+                case PROJECT:
+                    if (cluster.projectsUsers.get(user.id) != null)
+                        highlight = true;
+                    break;
             }
 
         this.highlight = highlight;

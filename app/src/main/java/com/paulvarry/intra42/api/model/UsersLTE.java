@@ -23,6 +23,7 @@ import org.parceler.Parcel;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 @Parcel
 public class UsersLTE
@@ -43,6 +44,35 @@ public class UsersLTE
     public static Type getListType() {
         return new TypeToken<List<UsersLTE>>() {
         }.getType();
+    }
+
+    public static String concatIds(List<UsersLTE> list) {
+        if (list != null)
+            return concatIds(list, 0, list.size());
+        return null;
+    }
+
+    public static String concatIds(List<UsersLTE> list, int start, int size) {
+        String eventsId;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            StringJoiner join = new StringJoiner(",");
+            for (int i = 0; i < size; i++) {
+                if (list.size() > start + i)
+                    join.add(String.valueOf(list.get(start + i).id));
+            }
+            eventsId = join.toString();
+        } else {
+            StringBuilder builder = new StringBuilder();
+            String join = "";
+            for (int i = 0; i < size; i++) {
+                if (list.size() > start + i)
+                    builder.append(join).append(String.valueOf(list.get(start + i).id));
+                join = ",";
+            }
+            eventsId = builder.toString();
+        }
+
+        return eventsId;
     }
 
     public boolean equals(UsersLTE user) {

@@ -1,6 +1,8 @@
 package com.paulvarry.intra42.activities.clusterMap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,9 +21,18 @@ import android.widget.TextView;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterClusterMapInfo;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.Projects;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.Tools;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -185,7 +196,8 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
      */
     boolean isLayerChanged() {
         return activity.clusters.layerStatus != activity.layerTmpStatus ||
-                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.USER_HIGHLIGHT && !activity.clusters.layerLogin.contentEquals(activity.layerTmpLogin));
+                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.USER_HIGHLIGHT && !activity.clusters.layerLogin.contentEquals(activity.layerTmpLogin)) ||
+                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.PROJECT && !activity.clusters.layerProjectSlug.contentEquals(activity.layerTmpProjectSlug));
     }
 
     @Override
@@ -217,28 +229,150 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         layoutLoading.setVisibility(View.VISIBLE);
 
         spinnerMain.setEnabled(false);
+        spinnerSecondary.setEnabled(false);
         editText.setEnabled(false);
         buttonUpdate.setClickable(false);
+        buttonUpdate.setEnabled(false);
 
-
-        // compute data
-
-
-        if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.USER_HIGHLIGHT)
-            activity.applyLayerUser(activity.layerTmpLogin);
-        else if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.FRIENDS) {
-            activity.applyLayerFriends();
+        switch (activity.layerTmpStatus) {
+            case USER_HIGHLIGHT:
+                activity.applyLayerUser(activity.layerTmpLogin);
+                end();
+                break;
+            case FRIENDS:
+                activity.applyLayerFriends();
+                end();
+                break;
+            case PROJECT:
+                findProject();
+                break;
         }
-        activity.clusters.computeHighlightPosts();
+    }
 
+    void findProject() {
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    List<Projects> projects = null;
+                    final ApiService api = activity.app.getApiService();
+                    Response<List<Projects>> response = api.getProjectsSearch(editText.getText().toString()).execute();
+                    if (Tools.apiIsSuccessfulNoThrow(response))
+                        projects = response.body();
+
+                    final List<Projects> finalProjects = projects;
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            selectDialog(finalProjects);
+                        }
+                    });
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    void selectDialog(final List<Projects> projects) {
+
+        if (projects == null || projects.size() == 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Not found");
+            builder.setMessage("No project found for: " + editText.getText().toString());
+            builder.setPositiveButton(R.string.ok, null);
+            AlertDialog alert = builder.create();
+            alert.show();
+            end();
+            return;
+        } else if (projects.size() == 1) {
+            editText.setText(projects.get(0).slug);
+            buttonProject(projects.get(0).slug);
+            return;
+        }
+
+        final CharSequence[] items = new CharSequence[projects.size()];
+        int i = 0;
+        for (Projects project : projects) {
+            items[i] = project.name;
+            ++i;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Select");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                // Do something with the selection
+
+                buttonProject(projects.get(item).slug);
+            }
+        });
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                end();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    void buttonProject(final String slug) {
+        final List<ProjectsUsers> list = new ArrayList<>();
+        final int pageSize = 30;
+
+        editText.setText(slug);
+        activity.layerTmpProjectSlug = slug;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    int id = 0;
+
+                    while (id < activity.clusters.locations.size()) {
+                        String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusters.locations.values()), id, pageSize);
+                        final ApiService api = activity.app.getApiService();
+                        Response<List<ProjectsUsers>> response = api.getProjectsUsers(slug, ids, pageSize, 1).execute();
+                        if (!Tools.apiIsSuccessfulNoThrow(response))
+                            return;
+                        list.addAll(response.body());
+//                        try {
+//                            Thread.sleep(500);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+                        id += pageSize;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.applyLayerProject(list, slug);
+                        end();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    void end() {
         layoutLoading.setVisibility(View.GONE);
         listView.invalidate();
         adapter.notifyDataSetChanged();
 
         spinnerMain.setEnabled(true);
+        spinnerSecondary.setEnabled(true);
         editText.setEnabled(true);
         buttonUpdate.setClickable(true);
+        buttonUpdate.setEnabled(true);
 
         updateButton();
     }

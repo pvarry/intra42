@@ -261,18 +261,18 @@ public interface ApiService {
     @GET("/v2/projects_users/{id}")
     Call<ProjectsUsers> getProjectsUsers(@Path("id") int projectUser);
 
-    @GET("/v2/projects_users?page[size]=1")
-    Call<List<ProjectsUsers>> getProjectsUsers(@Query("filter[project_id]") int projectId, @Query("filter[user_id]") int userId);
+    @GET("/v2/projects_users")
+    Call<List<ProjectsUsers>> getProjectsUsers(@Query("filter[project_id]") int projectId, @Query("filter[user_id]") int userId, @Query("page[size]") int pageSize, @Query("page") int page);
 
-    @GET("/v2/projects/{project_id}/projects_users?page[size]=1")
-    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") int userId);
+    @GET("/v2/projects/{project_id}/projects_users")
+    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") int userId, @Query("page[size]") int pageSize, @Query("page") int page);
 
-    @GET("/v2/projects/{project_id}/projects_users?page[size]=1")
+    @GET("/v2/projects/{project_id}/projects_users")
     @Deprecated
-    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") String login);
+    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") String user, @Query("page[size]") int pageSize, @Query("page") int page);
 
-    @GET("/v2/projects/{project_id}/projects_users?page[size]=1")
-    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") int project_id, @Query("filter[user_id]") String login);
+    @GET("/v2/projects/{project_id}/projects_users")
+    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") int project_id, @Query("filter[user_id]") String user, @Query("page[size]") int pageSize, @Query("page") int page);
 
     /* Teams */
     @GET("/v2/users/{user_id}/projects/{project_id}/teams?sort=-created_at")

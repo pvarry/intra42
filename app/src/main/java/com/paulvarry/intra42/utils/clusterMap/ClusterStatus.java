@@ -3,6 +3,7 @@ package com.paulvarry.intra42.utils.clusterMap;
 import android.util.SparseArray;
 
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 
@@ -23,6 +24,9 @@ public class ClusterStatus {
     public ClusterMapActivity.LayerStatus layerStatus = ClusterMapActivity.LayerStatus.FRIENDS;
     public String locationHighlight;
     public String layerLogin;
+
+    public SparseArray<ProjectsUsers> projectsUsers;
+    public String layerProjectSlug;
 
     public ClusterStatus() {
 
