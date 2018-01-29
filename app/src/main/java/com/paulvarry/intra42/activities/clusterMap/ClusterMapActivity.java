@@ -42,7 +42,6 @@ public class ClusterMapActivity
 
     ClusterStatus clusters;
 
-
     DataWrapper dataWrapper;
 
     ClusterMapActivity.LayerStatus layerTmpStatus;
@@ -99,7 +98,7 @@ public class ClusterMapActivity
 
         adapter.addFragment(ClusterMapInfoFragment.newInstance(), getString(R.string.title_tab_cluster_map_info));
 
-        for (ClusterItem i : clusters.clusterInfoList) {
+        for (ClusterItem i : clusters.clusterInfoList.values()) {
             adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.name);
         }
 
@@ -132,16 +131,16 @@ public class ClusterMapActivity
         final List<Locations> locationsTmp = new ArrayList<>();
 
         campusId = AppSettings.getAppCampus(app);
-        clusters.clusterInfoList = new ArrayList<>();
+        clusters.clusterInfoList = new HashMap<>();
         if (campusId == 1) { //Paris
-            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1", "e1"));
-            clusters.clusterInfoList.add(new ClusterItem(campusId, "E2", "e2"));
-            clusters.clusterInfoList.add(new ClusterItem(campusId, "E3", "e3"));
+            clusters.addCluster(new ClusterItem(campusId, "E1", "e1"));
+            clusters.addCluster(new ClusterItem(campusId, "E2", "e2"));
+            clusters.addCluster(new ClusterItem(campusId, "E3", "e3"));
         } else if (campusId == 7) { // Fremont
-            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z1", "e1z1"));
-            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z2", "e1z2"));
-            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z3", "e1z3"));
-            clusters.clusterInfoList.add(new ClusterItem(campusId, "E1Z4", "e1z4"));
+            clusters.addCluster(new ClusterItem(campusId, "E1Z1", "e1z1"));
+            clusters.addCluster(new ClusterItem(campusId, "E1Z2", "e1z2"));
+            clusters.addCluster(new ClusterItem(campusId, "E1Z3", "e1z3"));
+            clusters.addCluster(new ClusterItem(campusId, "E1Z4", "e1z4"));
         } else {
             setViewStateThread(StatusCode.EMPTY);
             return;
@@ -175,7 +174,7 @@ public class ClusterMapActivity
             clusters.locations.put(l.host, l.user);
         }
 
-        clusters.computeFreeSpots();
+        clusters.computeFreePosts();
 
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
 
@@ -189,6 +188,8 @@ public class ClusterMapActivity
                 clusters.friends.put(f.id, f);
             }
         }
+
+        clusters.computeHighlightPosts();
 
         setViewStateThread(StatusCode.CONTENT);
     }
@@ -255,7 +256,17 @@ public class ClusterMapActivity
     }
 
     public enum LayerStatus {
-        FRIENDS, PROJECT, USER_HIGHLIGHT, COALITIONS
+        FRIENDS(0), PROJECT(1), USER_HIGHLIGHT(2), COALITIONS(3), LOCATION_HIGHLIGHT(4);
+
+        private final int id;
+
+        LayerStatus(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
     }
 
     private class DataWrapper {

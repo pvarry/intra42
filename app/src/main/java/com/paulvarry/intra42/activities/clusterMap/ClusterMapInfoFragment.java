@@ -21,6 +21,8 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterClusterMapInfo;
 import com.paulvarry.intra42.utils.Theme;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -90,7 +92,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        adapter = new ListAdapterClusterMapInfo(getContext(), activity.clusters.clusterInfoList);
+        adapter = new ListAdapterClusterMapInfo(getContext(), new ArrayList<>(activity.clusters.clusterInfoList.values()));
         listView.setAdapter(adapter);
         listView.setExpanded(true);
 
@@ -101,21 +103,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         buttonUpdate.setOnClickListener(this);
         listView.setOnItemClickListener(this);
 
-        int layerSelection = 0;
-        switch (activity.clusters.layerStatus) {
-            case FRIENDS:
-                layerSelection = 0;
-                break;
-            case COALITIONS:
-                layerSelection = 1;
-                break;
-            case USER_HIGHLIGHT:
-                layerSelection = 2;
-                break;
-            case PROJECT:
-                layerSelection = 3;
-                break;
-        }
+        int layerSelection = activity.clusters.layerStatus.getId();
         spinnerMain.setSelection(layerSelection);
         spinnerMain.setOnItemSelectedListener(this);
         activity.layerTmpStatus = activity.clusters.layerStatus;
@@ -241,7 +229,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         else if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.FRIENDS) {
             activity.applyLayerFriends();
         }
-        activity.clusters.computeHighlightSpots();
+        activity.clusters.computeHighlightPosts();
 
 
         layoutLoading.setVisibility(View.GONE);

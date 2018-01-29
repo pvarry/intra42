@@ -13,7 +13,7 @@ public class ClusterItem {
     public int highlightPosts;
     public int posts;
 
-    LocationItem[][] map;
+    public LocationItem[][] map;
 
     public ClusterItem(int campusId, String name, String hostPrefix) {
         this.campusId = campusId;
@@ -41,7 +41,7 @@ public class ClusterItem {
         for (LocationItem[] row : map)
             for (LocationItem post : row) {
                 user = clusters.locations.get(post.locationName);
-                if (post.getHighlightPosts(clusters, user)) {
+                if (post.computeHighlightPosts(clusters, user)) {
                     highlightPosts++;
                 }
             }

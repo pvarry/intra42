@@ -25,10 +25,9 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMapGenerator;
+import com.paulvarry.intra42.utils.clusterMap.ClusterItem;
+import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 import com.paulvarry.intra42.utils.clusterMap.LocationItem;
-
-import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,13 +38,14 @@ import java.util.HashMap;
  * create an instance of this fragment.
  */
 public class ClusterMapFragment extends Fragment implements View.OnClickListener {
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_HOST_PREFIX = "hostPrefix";
     float baseItemWidth;
     float baseItemHeight;
 
     private String clusterName;
     private ClusterMapActivity activity;
-    private HashMap<String, UsersLTE> locations;
+    private ClusterStatus clusters;
+    private ClusterItem clusterInfo;
     private GridLayout gridLayout;
 
     private OnFragmentInteractionListener mListener;
@@ -64,7 +64,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     public static ClusterMapFragment newInstance(String param1) {
         ClusterMapFragment fragment = new ClusterMapFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_HOST_PREFIX, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,7 +73,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            clusterName = getArguments().getString(ARG_PARAM1);
+            clusterName = getArguments().getString(ARG_HOST_PREFIX);
         }
         activity = (ClusterMapActivity) getActivity();
     }
@@ -94,7 +94,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        locations = activity.clusters.locations;
+        clusters = activity.clusters;
+        clusterInfo = activity.clusters.clusterInfoList.get(clusterName);
         makeMap();
     }
 
@@ -104,30 +105,28 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         baseItemHeight = Tools.dpToPx(getContext(), 42);
         baseItemWidth = Tools.dpToPx(getContext(), 35);
 
-        final LocationItem[][] clusterMap = ClusterMapGenerator.getClusterMap(activity.campusId, clusterName);
-        if (clusterMap == null)
+        if (clusterInfo == null || clusterInfo.map == null)
             return;
 
         gridLayout.removeAllViews();
         gridLayout.removeAllViewsInLayout();
-        gridLayout.setRowCount(clusterMap.length);
+        gridLayout.setRowCount(clusterInfo.map.length);
 
-        for (int r = 0; r < clusterMap.length; r++) {
+        for (int r = 0; r < clusterInfo.map.length; r++) {
 
-            gridLayout.setColumnCount(clusterMap[r].length);
-            for (int p = 0; p < clusterMap[r].length; p++) {
+            gridLayout.setColumnCount(clusterInfo.map[r].length);
+            for (int p = 0; p < clusterInfo.map[r].length; p++) {
 
-                if (clusterMap[r][p] == null)
+                if (clusterInfo.map[r][p] == null)
                     break;
 
-                View view = makeMapItem(clusterMap, r, p);
+                View view = makeMapItem(clusterInfo.map, r, p);
                 gridLayout.addView(view);
             }
         }
     }
 
     private View makeMapItem(final LocationItem[][] cluster, int r, int p) {
-        boolean highlight = false;
 
         final LocationItem locationItem = cluster[r][p];
         View view;
@@ -135,18 +134,14 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         ImageView imageViewContent;
         int padding = Tools.dpToPx(getContext(), 2);
         GridLayout.LayoutParams paramsGridLayout;
-        UsersLTE user = null;
+        UsersLTE user;
 
         if (vi == null)
             return null;
 
-        if (locationItem.kind == LocationItem.KIND_USER && locationItem.locationName != null && locations != null) {
+        user = clusters.getUserInLocation(locationItem);
 
-            user = locations.get(locationItem.locationName);
-            highlight = locationItem.getHighlightPosts(activity.clusters, user);
-        }
-
-        if (highlight)
+        if (locationItem.highlight == null || locationItem.highlight)
             view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
         else
             view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
@@ -183,7 +178,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         imageViewContent.setPadding(padding, padding, padding, padding);
         view.setLayoutParams(paramsGridLayout);
 
-        if (highlight) {
+        if (locationItem.highlight == null || locationItem.highlight) {
             padding = Tools.dpToPx(getContext(), 3);
             FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
             paramsFrameLayout.height = (int) (baseItemHeight * locationItem.sizeY);
@@ -194,7 +189,11 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             view.setPadding(padding, padding, padding, padding);
 
             imageViewContent.setBackgroundResource(R.color.windowBackground);
-            view.setBackgroundColor(Theme.getColorAccent(getContext()));
+
+            if (locationItem.highlight == null)
+                view.setBackgroundColor(Theme.getColorPrimary(getContext()));
+            else
+                view.setBackgroundColor(Theme.getColorAccent(getContext()));
         }
 
         return view;
@@ -233,8 +232,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         if (locationItem == null || locationItem.kind != LocationItem.KIND_USER)
             return;
 
-        if (locations != null)
-            user = locations.get(locationItem.locationName);
+        if (clusters.locations != null)
+            user = clusters.locations.get(locationItem.locationName);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.cluster_map_dialog_action);

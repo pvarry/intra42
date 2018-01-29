@@ -7,11 +7,10 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class ClusterStatus {
 
-    public List<ClusterItem> clusterInfoList;
+    public HashMap<String, ClusterItem> clusterInfoList;
 
     /**
      * key : Location name
@@ -29,19 +28,29 @@ public class ClusterStatus {
 
     }
 
-    public void computeFreeSpots() {
+    public void addCluster(ClusterItem clusterItem) {
+        clusterInfoList.put(clusterItem.hostPrefix, clusterItem);
+    }
+
+    public void computeFreePosts() {
         if (clusterInfoList == null)
             return;
-        for (ClusterItem cluster : clusterInfoList) {
+        for (ClusterItem cluster : clusterInfoList.values()) {
             cluster.computeFreePosts(locations);
         }
     }
 
-    public void computeHighlightSpots() {
+    public void computeHighlightPosts() {
         if (clusterInfoList == null)
             return;
-        for (ClusterItem cluster : clusterInfoList) {
+        for (ClusterItem cluster : clusterInfoList.values()) {
             cluster.computeHighlightPosts(this);
         }
+    }
+
+    public UsersLTE getUserInLocation(LocationItem locationItem) {
+        if (locationItem.kind == LocationItem.KIND_USER && locationItem.locationName != null && locations != null)
+            return locations.get(locationItem.locationName);
+        return null;
     }
 }
