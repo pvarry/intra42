@@ -359,6 +359,44 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         anim.start();
     }
 
+    public void loadingViewStartCircularHide() {
+
+        layoutLoading.setVisibility(View.GONE);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            return;
+
+        layoutLoading.setVisibility(View.VISIBLE);
+        final View view = layoutLoading;
+        final View startView = buttonUpdate;
+        int cx = (startView.getLeft() + startView.getRight()) / 2;
+        int cy = (startView.getTop() + startView.getBottom()) / 2;
+        int finalRadius = Math.max(Math.max(cy, view.getHeight() - cy), Math.max(cx, view.getWidth() - cx));
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, finalRadius, 0);
+        anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        anim.setDuration(200);
+        anim.start();
+    }
+
     void layerProjectFindSlug() {
 
         if (activity.layerTmpProjectSlug != null &&
@@ -503,7 +541,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
      * Called when all data are set and this view is ready to be updated
      */
     void finishApplyLayer() {
-        layoutLoading.setVisibility(View.GONE);
+        loadingViewStartCircularHide();
         listView.invalidate();
         adapter.notifyDataSetChanged();
 

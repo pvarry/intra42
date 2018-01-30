@@ -92,7 +92,7 @@ public class ClusterMapActivity
         registerGetDataOnMainTread(this);
 
         campusId = AppSettings.getAppCampus(app);
-        navigationView.getMenu().getItem(5).getSubMenu().getItem(2).setChecked(true);
+        super.setSelectedMenu(5, 2);
 
         super.onCreateFinished();
     }

@@ -81,6 +81,7 @@
                     android:ems="10"
                     android:hint="@string/cluster_map_info_layer_input_project"
                     android:inputType="text"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerSecondary" />
@@ -95,6 +96,7 @@
                     android:entries="@array/spinner_cluster_map_info_projects_kind"
                     android:paddingBottom="4dp"
                     android:paddingTop="4dp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerMain" />
 
