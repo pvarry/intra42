@@ -1,9 +1,11 @@
 package com.paulvarry.intra42.activities.clusterMap;
 
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +13,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -56,6 +60,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     private EditText editText;
     private Button buttonUpdate;
     private ViewGroup layoutLoading;
+    private ProgressBar progressBar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -97,6 +102,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         editText = view.findViewById(R.id.editText);
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         layoutLoading = view.findViewById(R.id.layoutLoading);
+        progressBar = view.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -275,13 +281,14 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
 
     @Override
     public void onClick(View v) {
-        layoutLoading.setVisibility(View.VISIBLE);
-
         spinnerMain.setEnabled(false);
         spinnerSecondary.setEnabled(false);
         editText.setEnabled(false);
         buttonUpdate.setClickable(false);
         buttonUpdate.setEnabled(false);
+        spinnerMain.setOnItemSelectedListener(null);
+        spinnerSecondary.setOnItemSelectedListener(null);
+        editText.removeTextChangedListener(this);
 
         switch (activity.layerTmpStatus) {
             case USER_HIGHLIGHT:
@@ -293,9 +300,48 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                 finishApplyLayer();
                 break;
             case PROJECT:
+                loadingViewStartCircularReveal();
                 layerProjectFindSlug();
                 break;
         }
+    }
+
+    public void loadingViewStartCircularReveal() {
+
+        layoutLoading.setVisibility(View.VISIBLE);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            return;
+
+        final View view = layoutLoading;
+        final View startView = buttonUpdate;
+        int cx = (startView.getLeft() + startView.getRight()) / 2;
+        int cy = (startView.getTop() + startView.getBottom()) / 2;
+        int finalRadius = Math.max(Math.max(cy, view.getHeight() - cy), Math.max(cx, view.getWidth() - cx));
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        anim.setDuration(200);
+        view.setVisibility(View.VISIBLE);
+        anim.start();
     }
 
     void layerProjectFindSlug() {
@@ -366,6 +412,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                 layerProjectApplySlug(projects.get(item).slug);
             }
         });
+        builder.setCancelable(true);
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
@@ -383,6 +430,10 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         editText.setText(slug);
         activity.layerTmpProjectSlug = slug;
 
+        progressBar.setRotation(0);
+        progressBar.setMax((int) Math.ceil((float) activity.clusters.locations.size() / (float) pageSize));
+        progressBar.setIndeterminate(false);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -391,6 +442,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                     int id = 0;
 
                     while (id < activity.clusters.locations.size()) {
+                        loadingViewUpdateProgress((int) Math.ceil((float) id / (float) pageSize));
                         String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusters.locations.values()), id, pageSize);
                         final ApiService api = activity.app.getApiService();
                         Response<List<ProjectsUsers>> response = api.getProjectsUsers(slug, ids, pageSize, 1).execute();
@@ -419,6 +471,19 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         }).start();
     }
 
+    void loadingViewUpdateProgress(final int progress) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    progressBar.setProgress(progress, true);
+                else
+                    progressBar.setProgress(progress);
+
+            }
+        });
+    }
+
     /**
      * Called when all data are set and this view is ready to be updated
      */
@@ -432,6 +497,9 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         editText.setEnabled(true);
         buttonUpdate.setClickable(true);
         buttonUpdate.setEnabled(true);
+        editText.addTextChangedListener(this);
+        spinnerMain.setOnItemSelectedListener(this);
+        spinnerSecondary.setOnItemSelectedListener(this);
 
         updateButton();
     }
