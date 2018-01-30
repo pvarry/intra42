@@ -502,11 +502,6 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                         if (!Tools.apiIsSuccessfulNoThrow(response))
                             return;
                         list.addAll(response.body());
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         id += pageSize;
                     }
                 } catch (IOException e) {

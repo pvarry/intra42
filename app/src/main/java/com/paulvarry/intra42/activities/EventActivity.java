@@ -108,8 +108,7 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
             manager.beginTransaction().remove(eventFragment).commitNow();
 
         eventFragment = EventFragment.newInstance(event);
-        manager.beginTransaction()
-                .add(R.id.fragment_container, eventFragment).commit();
+        manager.beginTransaction().replace(R.id.fragment_container, eventFragment).commit();
     }
 
     public Events getData() {

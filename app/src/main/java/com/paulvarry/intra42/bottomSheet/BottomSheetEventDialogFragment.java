@@ -2,6 +2,7 @@ package com.paulvarry.intra42.bottomSheet;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,15 +68,14 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
             listCallEventsUsers.cancel();
     }
 
-
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_sheet_event, container, false);
 
         EventFragment fragment = EventFragment.newInstance(json);
-        getChildFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
         appClass = (AppClass) getActivity().getApplication();
         api = appClass.getApiService();
@@ -91,6 +91,5 @@ public class BottomSheetEventDialogFragment extends ListenedBottomSheetDialogFra
         textViewTitle.setBackgroundColor(tagViewKind.getTagColor());
 
         return view;
-
     }
 }

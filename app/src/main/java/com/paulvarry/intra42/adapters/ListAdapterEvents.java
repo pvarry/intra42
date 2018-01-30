@@ -72,6 +72,8 @@ public class ListAdapterEvents extends BaseAdapter {
             holder = new ViewHolder();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (inflater == null)
+                return null;
             convertView = inflater.inflate(R.layout.list_view_event, parent, false);
 
             holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
