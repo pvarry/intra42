@@ -528,4 +528,9 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_info_layer_spinner_main_login">User highlights</string>
     <string name="cluster_map_info_layer_spinner_main_coalitions">Coalitions</string>
     <string name="cluster_map_info_layer_spinner_main_project">Project</string>
+    <string name="cluster_map_info_layer_input_location">eXrXpX</string>
+    <string name="select">Select</string>
+    <string name="cluster_map_info_project_dialog_not_found">Not found</string>
+    <string name="cluster_map_info_project_dialog_not_found_content_format">No project found for: %s</string>
+    <string name="cluster_map_info_layer_spinner_main_location">Post highlights</string>
 </resources>

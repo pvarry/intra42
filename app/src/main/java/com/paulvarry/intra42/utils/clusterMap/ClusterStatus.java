@@ -22,12 +22,12 @@ public class ClusterStatus {
     public SparseArray<FriendsSmall> friends;
 
     public ClusterMapActivity.LayerStatus layerStatus = ClusterMapActivity.LayerStatus.FRIENDS;
-    public String locationHighlight;
-    public String layerLogin;
+    public String layerUserLogin = "";
 
     public SparseArray<ProjectsUsers> projectsUsers;
-    public String layerProjectSlug;
-    public ProjectsUsers.Status layerProjectStatus;
+    public String layerProjectSlug = "";
+    public ProjectsUsers.Status layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+    public String layerLocationPost = "";
 
     public ClusterStatus() {
 

@@ -31,14 +31,17 @@ public class LocationItem extends LocationItemBase {
                     if (cluster.friends != null && cluster.friends.get(user.id) != null)
                         highlight = true;
                     break;
-                case USER_HIGHLIGHT:
-                    if (cluster.layerLogin.contentEquals(user.login))
+                case USER:
+                    if (cluster.layerUserLogin.contentEquals(user.login))
                         highlight = true;
                     break;
                 case PROJECT:
                     ProjectsUsers projectsUsers;
                     if ((projectsUsers = cluster.projectsUsers.get(user.id)) != null && projectsUsers.status == cluster.layerProjectStatus)
                         highlight = true;
+                    break;
+                case LOCATION:
+                    highlight = (cluster.layerLocationPost.contentEquals(locationName));
                     break;
             }
 

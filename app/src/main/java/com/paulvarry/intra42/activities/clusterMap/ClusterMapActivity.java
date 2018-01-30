@@ -45,8 +45,9 @@ public class ClusterMapActivity
     DataWrapper dataWrapper;
 
     ClusterMapActivity.LayerStatus layerTmpStatus;
-    String layerTmpLogin;
-    String layerTmpProjectSlug;
+    String layerTmpLogin = "";
+    String layerTmpProjectSlug = "";
+    String layerTmpLocation = "";
 
     ProjectsUsers.Status layerTmpProjectStatus;
 
@@ -66,9 +67,16 @@ public class ClusterMapActivity
         super.onCreate(savedInstanceState);
 
         clusters = new ClusterStatus();
-
         clusters.layerStatus = LayerStatus.FRIENDS;
         clusters.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+
+        Intent i = getIntent();
+        if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT)) {
+            clusters.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
+            clusters.layerStatus = LayerStatus.LOCATION;
+        }
+
+        layerTmpLocation = clusters.layerLocationPost;
         layerTmpStatus = clusters.layerStatus;
         layerTmpProjectStatus = clusters.layerProjectStatus;
 
@@ -76,12 +84,6 @@ public class ClusterMapActivity
         if (dataWrapper != null) {
             clusters = dataWrapper.clusters;
             dataWrapper = null;
-        }
-
-        Intent i = getIntent();
-        if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT)) {
-            clusters.locationHighlight = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
-            clusters.layerStatus = LayerStatus.USER_HIGHLIGHT;
         }
 
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
@@ -204,8 +206,8 @@ public class ClusterMapActivity
     }
 
     void applyLayerUser(String login) {
-        clusters.layerLogin = login;
-        clusters.layerStatus = LayerStatus.USER_HIGHLIGHT;
+        clusters.layerUserLogin = login;
+        clusters.layerStatus = LayerStatus.USER;
 
         clusters.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
@@ -249,6 +251,15 @@ public class ClusterMapActivity
         viewPager.invalidate();
     }
 
+    void applyLayerLocation(String location) {
+        clusters.layerStatus = LayerStatus.LOCATION;
+        clusters.layerLocationPost = location;
+
+        clusters.computeHighlightPosts();
+        viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.invalidate();
+    }
+
     @Override
     public String getToolbarName() {
         return null;
@@ -277,7 +288,7 @@ public class ClusterMapActivity
     }
 
     public enum LayerStatus {
-        FRIENDS(0), PROJECT(1), USER_HIGHLIGHT(2), COALITIONS(3), LOCATION_HIGHLIGHT(4);
+        FRIENDS(0), PROJECT(1), USER(2), LOCATION(3);
 
         private final int id;
 
