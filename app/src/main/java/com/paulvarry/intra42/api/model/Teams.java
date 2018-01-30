@@ -47,7 +47,7 @@ public class Teams {
     @SerializedName(API_UPDATED_AT)
     public Date updated_at;
     @SerializedName(API_STATUS)
-    public String status;
+    public ProjectsUsers.Status status;
     @SerializedName(API_USERS)
     public List<TeamsUsers> users;
     @SerializedName(API_LOCKED)

@@ -67,16 +67,16 @@ public class GalaxyUtils {
                     continue;
                 }
                 p.finalMark = projectsUsers.finalMark;
-                if (projectsUsers.status.equals(ProjectUserStatus.FINISHED)) {
+                if (projectsUsers.status == ProjectsUsers.Status.FINISHED) {
                     if (projectsUsers.validated != null && projectsUsers.validated)
                         p.state = ProjectDataIntra.State.DONE;
                     else
                         p.state = ProjectDataIntra.State.FAIL;
-                } else if (projectsUsers.status.contentEquals(ProjectUserStatus.CREATING_GROUP) ||
-                        projectsUsers.status.contentEquals(ProjectUserStatus.IN_PROGRESS) ||
-                        projectsUsers.status.contentEquals(ProjectUserStatus.SEARCHING_A_GROUP) ||
-                        projectsUsers.status.contentEquals(ProjectUserStatus.WAITING_FOR_CORRECTION) ||
-                        projectsUsers.status.contentEquals(ProjectUserStatus.WAITING_TO_START))
+                } else if (projectsUsers.status == ProjectsUsers.Status.CREATING_GROUP ||
+                        projectsUsers.status == ProjectsUsers.Status.IN_PROGRESS ||
+                        projectsUsers.status == ProjectsUsers.Status.SEARCHING_A_GROUP ||
+                        projectsUsers.status == ProjectsUsers.Status.WAITING_FOR_CORRECTION ||
+                        projectsUsers.status == ProjectsUsers.Status.WAITING_TO_START)
                     p.state = ProjectDataIntra.State.IN_PROGRESS;
                 else
                     p.state = ProjectDataIntra.State.IN_PROGRESS;

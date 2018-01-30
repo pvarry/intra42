@@ -24,7 +24,6 @@ import com.paulvarry.intra42.api.model.ProjectsSessions;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.Skills;
 import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.ProjectUserStatus;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -164,7 +163,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 frameLayoutRegister.setVisibility(View.VISIBLE);
                 buttonRegister.setOnClickListener(this);
             }
-        } else if (projectUser.status.equals(ProjectUserStatus.FINISHED) && projectUser.validated != null && projectUser.finalMark != null) {
+        } else if (projectUser.status == ProjectsUsers.Status.FINISHED && projectUser.validated != null && projectUser.finalMark != null) {
             linearLayoutMark.setVisibility(View.VISIBLE);
             textViewFinalMark.setText(String.valueOf(projectUser.finalMark));
 
@@ -172,14 +171,14 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 textViewFinalMark.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCheck));
             else
                 textViewFinalMark.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
-        } else if (projectUser.status.equals(ProjectUserStatus.FINISHED)) {
+        } else if (projectUser.status == ProjectsUsers.Status.FINISHED) {
             linearLayoutStatus.setVisibility(View.VISIBLE);
             textViewStatus.setText(R.string.project_no_scale);
-        } else if (projectUser.status.equals(ProjectUserStatus.PARENT)) {
+        } else if (projectUser.status == ProjectsUsers.Status.PARENT) {
             frameLayoutStatus.setVisibility(View.GONE);
         } else {
             linearLayoutStatus.setVisibility(View.VISIBLE);
-            textViewStatus.setText(ProjectUserStatus.getProjectStatus(getContext(), projectUser.status));
+            textViewStatus.setText(projectUser.status.getRes());
         }
 
         if (session == null && project.sessionsList != null && project.sessionsList.size() != 0) {
@@ -299,7 +298,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             buttonParent.setVisibility(View.GONE);
 
         if (projectUser != null &&
-                !projectUser.status.equals(ProjectUserStatus.PARENT) &&
+                projectUser.status != ProjectsUsers.Status.PARENT &&
                 projectUser.user != null &&
                 activity != null &&
                 !projectUser.user.equals(activity.app.me)) {

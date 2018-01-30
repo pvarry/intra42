@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ExpandableListAdapterTeams;
-import com.paulvarry.intra42.utils.ProjectUserStatus;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,7 +72,7 @@ public class ProjectUserFragment extends Fragment {
         } else {
             listView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
-            if (activity.projectUser != null && activity.projectUser.user.status.equals(ProjectUserStatus.PARENT)) {
+            if (activity.projectUser != null && activity.projectUser.user.status == ProjectsUsers.Status.PARENT) {
                 textView.setText(R.string.project_you_cant_have_mark_for_this_project);
             }
         }

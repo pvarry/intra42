@@ -1,9 +1,10 @@
 package com.paulvarry.intra42.api.model;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.utils.ProjectUserStatus;
+import com.paulvarry.intra42.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class ProjectsUsers {
     @SerializedName(API_FINAL_MARK)
     public Integer finalMark;
     @SerializedName(API_STATUS)
-    public String status;
+    public Status status;
     @Nullable
     @SerializedName(API_VALIDATED)
     public Boolean validated;
@@ -51,7 +52,7 @@ public class ProjectsUsers {
         List<ProjectsUsers> ret = new ArrayList<>();
 
         for (ProjectsUsers p : projects) {
-            if (!p.status.equals(ProjectUserStatus.FINISHED))
+            if (p.status != Status.FINISHED)
                 ret.add(p);
         }
         return ret;
@@ -62,7 +63,7 @@ public class ProjectsUsers {
 
         if (projects != null && !projects.isEmpty()) {
             for (ProjectsUsers p : projects) {
-                if (!p.status.equals(ProjectUserStatus.FINISHED) &&
+                if (p.status != Status.FINISHED &&
                         ((userCursus != null && p.cursusIds != null && p.cursusIds.contains(userCursus.cursusId)) || userCursus == null || p.cursusIds == null))
                     ret.add(p);
             }
@@ -89,6 +90,29 @@ public class ProjectsUsers {
                 ret.add(p);
         }
         return ret;
+    }
+
+    public enum Status {
+
+        @SerializedName("searching_a_group")SEARCHING_A_GROUP(R.string.project_user_status_searching_a_group),
+        @SerializedName("finished")FINISHED(R.string.project_user_status_finished),
+        @SerializedName("in_progress")IN_PROGRESS(R.string.project_user_status_in_progress),
+        @SerializedName("waiting_for_correction")WAITING_FOR_CORRECTION(R.string.project_user_status_waiting_for_correction),
+        @SerializedName("waiting_to_start")WAITING_TO_START(R.string.project_user_status_waiting_to_start),
+        @SerializedName("creating_group")CREATING_GROUP(R.string.project_user_status_creating_group),
+        @SerializedName("parent")PARENT(R.string.project_user_status_parent),
+        @SerializedName("unknown")unknown(R.string.project_user_status_unknown);
+
+        private final int res;
+
+        Status(@StringRes int res) {
+            this.res = res;
+        }
+
+        public int getRes() {
+            return res;
+        }
+
     }
 
     public class ProjectsLTE extends com.paulvarry.intra42.api.model.ProjectsLTE {
