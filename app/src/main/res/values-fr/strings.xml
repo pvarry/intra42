@@ -3,7 +3,6 @@
 <string name="app_name">"Intra 42"</string>
 <string name="pref_advanced_dont_force">"Désactiver (ne pas forcer)"</string>
 <string name="pref_force_content_location">"Forcer la localisation du contenu"</string>
-    <string name="pref_title_advanced_data_allow_beta">"Activer les préférences avancées"</string>
 <string name="pref_unactivated">"Désactivé"</string>
 <string name="pref_activated">"Activé"</string>
 <string name="pref_value_all">"Tout"</string>
@@ -312,7 +311,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="pref_summary_calendar_after_subscription">"Insérer l'évènement juste après l'avoir suivi"</string>
 <string name="pref_title_calendar">"Synchronisation des évènements"</string>
 <string name="friends_nothing_found">"Vous pouvez ajouter des amis depuis leur profil"</string>
-<string name="friends_loading_locations">"Locations"</string>
+<string name="friends_loading_locations">"Position"</string>
 <string name="friend_group_name">"Nom du groupe"</string>
 <string name="friends">"Amis"</string>
 <string name="friends_group_edit_in_group">"Amis dans le groupe"</string>
@@ -325,8 +324,8 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="friends_groups_edit_unsaved_changes_content">"Voulez-vous enregistrer les modifications sur ce groupe"</string>
 <string name="friends_groups_new">"Nouveau groupe d'amis"</string>
 <string name="friends_groups_edit">"Éditer le groupe d'amis"</string>
-<string name="location_undetermined">"undetermined"</string>
-<string name="friends_summary_no_friends">"No friend"</string>
+<string name="location_undetermined">"Non déterminé"</string>
+<string name="friends_summary_no_friends">"Aucun ami"</string>
 
 <!-- Format warning -->
 <string name="friends_summary_format_friend">"%d ami"</string>
@@ -334,15 +333,15 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <!-- Format warning -->
 <string name="friends_summary_format_friends">"%d amis"</string>
 <string name="friends_add_to_group">"Ajouter au group"</string>
-<string name="friends_remove_from_group">"Remove from group"</string>
+<string name="friends_remove_from_group">"Enlever du groupe"</string>
 <string name="friends_delete_friends_title">"Voulez-vous supprimer ces amis ?"</string>
-<string name="friends_groups_nothing">"You have to create groups first"</string>
+<string name="friends_groups_nothing">"Vous devez d'abord créer un groupe"</string>
 <string name="info_loading_locations">"Chargement des emplacements ..."</string>
 <string name="info_loading_friends">"Chargement des amis ..."</string>
 <string name="friend_group_list">"Groupe"</string>
-<string name="info_loading_calculating">"calculating"</string>
-<string name="friends_info_api_try_again">"Friends API is currently getting new users, please try again in 2min"</string>
-<string name="friends_info_database_update">"Friends database update"</string>
+<string name="info_loading_calculating">"Calcul en cours"</string>
+<string name="friends_info_api_try_again">"L'API gérant les amis est en train de se mettre à jour, essayez dans 2 minutes s'il vous plaît"</string>
+<string name="friends_info_database_update">"Mise à jour de la base de données des amis"</string>
 <string name="pref_theme_title_change_theme">"Choix du theme"</string>
 <string name="pref_header_theme">"Theme"</string>
 <string name="pref_theme_list_titles_intra">"Intra (choix de la coalition auto)"</string>
@@ -359,9 +358,9 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="search_section_users_last_name">"utilisateur ― nom"</string>
 <string name="title_activity_coalitions">"Coalitions"</string>
 <string name="coalitions_nothing_selected_cursus_campus">"Aucune coalition pour le cursus/campus"</string>
-<string name="friends_adding_to_group">"Adding friends to group"</string>
-<string name="friends_removing_from_group">"Removing friends from group"</string>
-<string name="galaxy_no_live_data">"Unable to get live data for Galaxy"</string>
+<string name="friends_adding_to_group">"Ajouter un ami à un groupe"</string>
+<string name="friends_removing_from_group">"Enlever des amis de ce groupe"</string>
+<string name="galaxy_no_live_data">"Impossible de récupérer les données de la galaxie"</string>
 <string name="coalition_score">"Score"</string>
 <string name="refreshing">"Mise a jour"</string>
 <string name="info_data_cached_long_time_ago">"Donnees mise en cache il y a long temps"</string>
@@ -369,18 +368,18 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 
 <!-- Format warning -->
 <string name="format__user_profile">"Profile de %s"</string>
-<string name="cluster_map_dialog_action">"Action for this location"</string>
+<string name="cluster_map_dialog_action">"Action pour ce endroit"</string>
 <string name="cluster_map_not_in_campus">"La carte des Clusters n'est pas disponnible pour votre campus"</string>
 <string name="project_team_status_closed">"fermé"</string>
 <string name="project_team_status_locked">"verrouillé"</string>
-<string name="title_tab_forum_unread">"Unread"</string>
-<string name="title_tab_forum_last_topics">"Last topics"</string>
-<string name="title_tab_forum_tag">"Tags"</string>
-<string name="title_activity_friends_groups">"Friends groups"</string>
+<string name="title_tab_forum_unread">"Non lu"</string>
+<string name="title_tab_forum_last_topics">"Derniers"</string>
+<string name="title_tab_forum_tag">"Libellés"</string>
+<string name="title_activity_friends_groups">"Groupes d'amis"</string>
 <string name="friends_group_edit_name_dialog">"Changer le nom"</string>
 <string name="project_solo">"seul"</string>
 <string name="project_group">"group"</string>
-<string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
+<string name="pref_theme_info_need_restart">"Vous devez redémarrer l'application pour changer le thème"</string>
 <string name="event_kind_conf">"conf"</string>
 <string name="event_kind_other">"autre"</string>
 <string name="event_kind_extern">"externe"</string>
@@ -403,16 +402,16 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="info_loading_page_on">"Chargement de la page %d sur %d"</string>
 <string name="info_loading_resolve_number_page">"Détermination nombre de pages"</string>
 <string name="info_loading_topic">"Chargement du sujet"</string>
-<string name="info_loading_topic_reply">"Chargement des responses"</string>
-<string name="info_loading_processing_data">"Praitement des données"</string>
-<string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
-<string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
+<string name="info_loading_topic_reply">"Chargement des réponses"</string>
+<string name="info_loading_processing_data">"Traitement des données"</string>
+<string name="edit_unsaved_changes_title">"Vous avez des modifications non enregistrées"</string>
+<string name="edit_unsaved_changes_content">"Voulez vous sauvegarder les changements de ce groupe ?"</string>
 <string name="continue_editing">"reprendre l'édition"</string>
 <string name="discard">"annuler"</string>
-<string name="login_summary">"intranet"</string>
-<string name="about_app_summary">"Application non officiel, gratuite et open-source pour l'intra de 42"</string>
+<string name="login_summary">"Intranet"</string>
+<string name="about_app_summary">"Application non officielle, gratuite et open-source pour l'intra de 42"</string>
 <string name="_super_store_title">"Intra 42"</string>
-<string name="_super_store_short_description">"Application non officiel, gratuite et open-source pour l'intra de 42"</string>
+<string name="_super_store_short_description">"Application non officielle, gratuite et open-source pour l'intra de 42"</string>
 <string name="_super_store_full_description">"Pour les étudiants de 42 (www.42.fr)
 Application non officiel de l'intranet de 42 pour Android. Cet application est conçu en JAVA et utilise le SDK Android.
 
@@ -512,4 +511,43 @@ N'oubliez pas d'avoir un pdf viewer et un lecteur multimédia installer, je vous
 Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu ou approuvé par 42. Cet application Android est indépendante et non officielle."</string>
 <string name="shortcut_cluster_map">"Clusters"</string>
 <string name="shortcut_long_galaxy">"Galaxy (projets)"</string>
+<string name="bookings_correct_login_project">"Vous allez corriger _login_ sur _project_ le _date_"</string>
+
+<!-- Fuzzy -->
+<string name="pref_title_advanced_data_allow_beta">"Activer les paramètres avancés"</string>
+
+<!-- Fuzzy -->
+<string name="pref_summary_advanced_data_print_ids">"Activer ceci pour afficher les ids et les slugs dans l'application"</string>
+<string name="pref_title_advanced_data_print_ids">"Montrer plus de données"</string>
+<string name="pref_summary_advanced_data_markdown_render">"Pour forum et événements (activé par défaut)"</string>
+
+<!-- Fuzzy -->
+<string name="pref_title_advanced_data_markdown_render">"Interpréter le markdown"</string>
+
+<!-- Fuzzy -->
+<string name="pref_summary_advanced_data_save_logs">"En activant cette fonctionnalité, les journaux de l'application serons sauvegarder dans un ficher a l'adresse \"~Android/com.paulvarry.intra42/files/logs\". Vous devez redémarrer l'application pour que cela fasse effet. Attention : des informations privées (comme des numéros de téléphone) peuvent être sauvegardées sur le stockage de l'appareil. (désactivé par défaut)"</string>
+
+<!-- Fuzzy -->
+<string name="pref_title_advanced_data_save_logs">"Activer la journalisation"</string>
+<string name="pref_summary_advanced_data_past_events">"Spécialement pour les pixels"</string>
+<string name="pref_title_advanced_data_past_events">"Événements passés"</string>
+<string name="pref_title_advanced_section_other">"Autres fonctionnalités"</string>
+<string name="pref_title_advanced_section_features">"Fonctionnalités avancées"</string>
+<string name="pref_summary_advanced_data_enable_beta">"Désactivé par défaut"</string>
+<string name="title_tab_cluster_map_info">"Info"</string>
+<string name="cluster_map_info_button_update">"update"</string>
+<string name="cluster_map_info_button_update_disabled">"no need to update"</string>
+<string name="cluster_map_info_layer_input_login">"login"</string>
+<string name="cluster_map_info_layer_input_project">"project"</string>
+<string name="cluster_map_info_clusters">"Clusters"</string>
+<string name="cluster_map_info_data_layer">"Data layer"</string>
+<string name="cluster_map_info_layer_spinner_main_friends">"Friends"</string>
+<string name="cluster_map_info_layer_spinner_main_login">"User highlights"</string>
+<string name="cluster_map_info_layer_spinner_main_coalitions">"Coalitions"</string>
+<string name="cluster_map_info_layer_spinner_main_project">"Project"</string>
+<string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
+<string name="select">"Select"</string>
+<string name="cluster_map_info_project_dialog_not_found">"Not found"</string>
+<string name="cluster_map_info_project_dialog_not_found_content_format">"No project found for: %s"</string>
+<string name="cluster_map_info_layer_spinner_main_location">"Post highlights"</string>
 </resources>
