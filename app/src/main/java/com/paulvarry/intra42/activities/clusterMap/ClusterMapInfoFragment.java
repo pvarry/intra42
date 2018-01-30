@@ -114,12 +114,31 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         buttonUpdate.setOnClickListener(this);
         listView.setOnItemClickListener(this);
 
-        int layerSelection = activity.clusters.layerStatus.getId();
-        spinnerMain.setSelection(layerSelection);
+        int statusLayerSelection = activity.clusters.layerStatus.getId();
+        int projectStatusSelection = getProjectSelectionPosition();
+        spinnerMain.setSelection(statusLayerSelection);
         spinnerMain.setOnItemSelectedListener(this);
-        activity.layerTmpStatus = activity.clusters.layerStatus;
+        spinnerSecondary.setOnItemSelectedListener(this);
+        spinnerSecondary.setSelection(projectStatusSelection);
+    }
 
-        setMainLayerTmpSelection(layerSelection);
+    private int getProjectSelectionPosition() {
+        switch (activity.layerTmpProjectStatus) {
+            case CREATING_GROUP:
+                return 0;
+            case SEARCHING_A_GROUP:
+                return 1;
+            case WAITING_TO_START:
+                return 2;
+            case IN_PROGRESS:
+                return 3;
+            case WAITING_FOR_CORRECTION:
+                return 4;
+            case FINISHED:
+                return 5;
+            default:
+                return 3;
+        }
     }
 
     public void onButtonPressed(Uri uri) {
@@ -157,12 +176,14 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent == spinnerMain) {
-            setMainLayerTmpSelection(position);
+            setLayerSelectionTmpMain(position);
+        } else if (parent == spinnerSecondary) {
+            setLayerSelectionTmpSecondary(position);
         }
 
     }
 
-    void setMainLayerTmpSelection(int position) {
+    private void setLayerSelectionTmpMain(int position) {
         spinnerSecondary.setVisibility(View.GONE);
         editText.setVisibility(View.GONE);
         switch (position) {
@@ -189,6 +210,31 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         updateButton();
     }
 
+    private void setLayerSelectionTmpSecondary(int position) {
+        switch (position) {
+            case 0:
+                activity.layerTmpProjectStatus = ProjectsUsers.Status.CREATING_GROUP;
+                break;
+            case 1:
+                activity.layerTmpProjectStatus = ProjectsUsers.Status.SEARCHING_A_GROUP;
+                break;
+            case 2:
+                activity.layerTmpProjectStatus = ProjectsUsers.Status.WAITING_TO_START;
+                break;
+            case 3:
+                activity.layerTmpProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+                break;
+            case 4:
+                activity.layerTmpProjectStatus = ProjectsUsers.Status.WAITING_FOR_CORRECTION;
+                break;
+            case 5:
+                activity.layerTmpProjectStatus = ProjectsUsers.Status.FINISHED;
+                break;
+
+        }
+        updateButton();
+    }
+
     /**
      * Return true if the layer settings have changed
      *
@@ -196,8 +242,11 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
      */
     boolean isLayerChanged() {
         return activity.clusters.layerStatus != activity.layerTmpStatus ||
-                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.USER_HIGHLIGHT && !activity.clusters.layerLogin.contentEquals(activity.layerTmpLogin)) ||
-                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.PROJECT && !activity.clusters.layerProjectSlug.contentEquals(activity.layerTmpProjectSlug));
+                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.USER_HIGHLIGHT &&
+                        !activity.clusters.layerLogin.contentEquals(activity.layerTmpLogin)) ||
+                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.PROJECT &&
+                        (!activity.clusters.layerProjectSlug.contentEquals(activity.layerTmpProjectSlug) ||
+                                activity.clusters.layerProjectStatus != activity.layerTmpProjectStatus));
     }
 
     @Override
@@ -237,19 +286,26 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         switch (activity.layerTmpStatus) {
             case USER_HIGHLIGHT:
                 activity.applyLayerUser(activity.layerTmpLogin);
-                end();
+                finishApplyLayer();
                 break;
             case FRIENDS:
                 activity.applyLayerFriends();
-                end();
+                finishApplyLayer();
                 break;
             case PROJECT:
-                findProject();
+                layerProjectFindSlug();
                 break;
         }
     }
 
-    void findProject() {
+    void layerProjectFindSlug() {
+
+        if (activity.layerTmpProjectSlug != null &&
+                activity.clusters.layerProjectSlug != null &&
+                activity.layerTmpProjectSlug.contentEquals(activity.clusters.layerProjectSlug)) {
+            activity.applyLayerProject(activity.layerTmpProjectStatus);
+            return;
+        }
 
         new Thread(new Runnable() {
             @Override
@@ -266,7 +322,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            selectDialog(finalProjects);
+                            layerProjectSelectRightProject(finalProjects);
                         }
                     });
 
@@ -277,7 +333,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         }).start();
     }
 
-    void selectDialog(final List<Projects> projects) {
+    void layerProjectSelectRightProject(final List<Projects> projects) {
 
         if (projects == null || projects.size() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -286,11 +342,11 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
             builder.setPositiveButton(R.string.ok, null);
             AlertDialog alert = builder.create();
             alert.show();
-            end();
+            finishApplyLayer();
             return;
         } else if (projects.size() == 1) {
             editText.setText(projects.get(0).slug);
-            buttonProject(projects.get(0).slug);
+            layerProjectApplySlug(projects.get(0).slug);
             return;
         }
 
@@ -307,22 +363,22 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
             public void onClick(DialogInterface dialog, int item) {
                 // Do something with the selection
 
-                buttonProject(projects.get(item).slug);
+                layerProjectApplySlug(projects.get(item).slug);
             }
         });
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                end();
+                finishApplyLayer();
             }
         });
         AlertDialog alert = builder.create();
         alert.show();
     }
 
-    void buttonProject(final String slug) {
+    void layerProjectApplySlug(final String slug) {
         final List<ProjectsUsers> list = new ArrayList<>();
-        final int pageSize = 30;
+        final int pageSize = 100;
 
         editText.setText(slug);
         activity.layerTmpProjectSlug = slug;
@@ -341,11 +397,11 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                         if (!Tools.apiIsSuccessfulNoThrow(response))
                             return;
                         list.addAll(response.body());
-//                        try {
-//                            Thread.sleep(500);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         id += pageSize;
                     }
                 } catch (IOException e) {
@@ -355,15 +411,18 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        activity.applyLayerProject(list, slug);
-                        end();
+                        activity.applyLayerProject(list, slug, activity.layerTmpProjectStatus);
+                        finishApplyLayer();
                     }
                 });
             }
         }).start();
     }
 
-    void end() {
+    /**
+     * Called when all data are set and this view is ready to be updated
+     */
+    void finishApplyLayer() {
         layoutLoading.setVisibility(View.GONE);
         listView.invalidate();
         adapter.notifyDataSetChanged();

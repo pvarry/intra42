@@ -2,6 +2,7 @@ package com.paulvarry.intra42.utils.clusterMap;
 
 import android.support.annotation.Nullable;
 
+import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 
 public class LocationItem extends LocationItemBase {
@@ -35,7 +36,8 @@ public class LocationItem extends LocationItemBase {
                         highlight = true;
                     break;
                 case PROJECT:
-                    if (cluster.projectsUsers.get(user.id) != null)
+                    ProjectsUsers projectsUsers;
+                    if ((projectsUsers = cluster.projectsUsers.get(user.id)) != null && projectsUsers.status == cluster.layerProjectStatus)
                         highlight = true;
                     break;
             }

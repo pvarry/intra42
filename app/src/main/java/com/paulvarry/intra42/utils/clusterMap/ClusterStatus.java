@@ -27,6 +27,7 @@ public class ClusterStatus {
 
     public SparseArray<ProjectsUsers> projectsUsers;
     public String layerProjectSlug;
+    public ProjectsUsers.Status layerProjectStatus;
 
     public ClusterStatus() {
 

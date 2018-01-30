@@ -40,8 +40,8 @@
         <item>@string/project_user_status_searching_a_group</item>
         <item>@string/project_user_status_waiting_to_start</item>
         <item>@string/project_user_status_in_progress</item>
-        <item>@string/project_user_status_finished</item>
         <item>@string/project_user_status_waiting_for_correction</item>
+        <item>@string/project_user_status_finished</item>
     </string-array>
 
     <!-- Settings for Network -->

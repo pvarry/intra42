@@ -48,6 +48,8 @@ public class ClusterMapActivity
     String layerTmpLogin;
     String layerTmpProjectSlug;
 
+    ProjectsUsers.Status layerTmpProjectStatus;
+
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapActivity.class);
         context.startActivity(intent);
@@ -66,6 +68,9 @@ public class ClusterMapActivity
         clusters = new ClusterStatus();
 
         clusters.layerStatus = LayerStatus.FRIENDS;
+        clusters.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+        layerTmpStatus = clusters.layerStatus;
+        layerTmpProjectStatus = clusters.layerProjectStatus;
 
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null) {
@@ -215,9 +220,10 @@ public class ClusterMapActivity
         viewPager.invalidate();
     }
 
-    void applyLayerProject(List<ProjectsUsers> projectsUsers, String slug) {
+    void applyLayerProject(List<ProjectsUsers> projectsUsers, String slug, ProjectsUsers.Status layerProjectStatus) {
         clusters.layerStatus = LayerStatus.PROJECT;
         clusters.layerProjectSlug = slug;
+        clusters.layerProjectStatus = layerProjectStatus;
 
         if (projectsUsers == null)
             return;
@@ -228,6 +234,15 @@ public class ClusterMapActivity
                 clusters.projectsUsers.append(p.user.id, p);
             }
         }
+
+        clusters.computeHighlightPosts();
+        viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.invalidate();
+    }
+
+    void applyLayerProject(ProjectsUsers.Status layerProjectStatus) {
+        clusters.layerStatus = LayerStatus.PROJECT;
+        clusters.layerProjectStatus = layerProjectStatus;
 
         clusters.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
