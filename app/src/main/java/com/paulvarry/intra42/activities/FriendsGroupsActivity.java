@@ -31,6 +31,7 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_friends_groups);
+        setActionBarToggle(ActionBarToggle.ARROW);
 
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
