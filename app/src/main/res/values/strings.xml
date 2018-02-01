@@ -538,4 +538,6 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_info_contribute_description">YOU can add and update the Cluster Map of YOUR campus.</string>
     <string name="cluster_map_info_contribute_title">Contribute to Cluster Map</string>
     <string name="cluster_map_info_no_map">No cluster map available</string>
+    <string name="title_activity_cluster_map_contribute">Contribute to Cluster Map</string>
+    <string name="title_activity_cluster_map_contribute_edit">Create cluster map</string>
 </resources>

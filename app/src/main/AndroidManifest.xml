@@ -223,6 +223,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.paulvarry.intra42.activities.home.HomeActivity" />
         </activity>
+        <activity
+            android:name=".activities.ClusterMapContributeActivity"
+            android:label="@string/title_activity_cluster_map_contribute" />
+        <activity
+            android:name=".activities.ClusterMapContributeEditActivity"
+            android:label="@string/title_activity_cluster_map_contribute_edit" />
     </application>
 
 </manifest>

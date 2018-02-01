@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.ClusterMapContributeActivity;
 import com.paulvarry.intra42.adapters.ListAdapterClusterMapInfo;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Projects;
@@ -329,7 +330,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     public void onClick(View v) {
 
         if (v == buttonContribute) {
-
+            ClusterMapContributeActivity.openIt(getContext());
             return;
         }
 
