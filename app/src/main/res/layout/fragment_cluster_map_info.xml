@@ -155,7 +155,7 @@
             android:text="@string/cluster_map_info_no_map" />
 
         <TextView
-            android:id="@+id/textViewContribute"
+            android:id="@+id/textViewContributeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -166,6 +166,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/textViewContributeDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
