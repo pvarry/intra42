@@ -35,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewClusters" />
 
         <TextView
-            android:id="@+id/textViewLayer"
+            android:id="@+id/textViewLayerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -49,8 +49,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listView" />
 
+        <TextView
+            android:id="@+id/textViewLayerDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/cluster_map_info_data_layer_description" />
 
         <FrameLayout
+            android:id="@+id/layoutLayerContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -132,6 +142,48 @@
             </FrameLayout>
 
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/textViewNoClusterMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="@string/cluster_map_info_no_map" />
+
+        <TextView
+            android:id="@+id/textViewContribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/cluster_map_info_contribute_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/cluster_map_info_contribute_description" />
+
+        <Button
+            android:id="@+id/buttonContribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Contribute" />
 
     </LinearLayout>
 </ScrollView>

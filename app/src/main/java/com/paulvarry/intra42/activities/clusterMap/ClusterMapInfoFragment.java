@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.paulvarry.intra42.R;
@@ -54,7 +55,9 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     private ListAdapterClusterMapInfo adapter;
 
     private TextView textViewClusters;
-    private TextView textViewLayer;
+    private TextView textViewLayerTitle;
+    private TextView textViewLayerDescription;
+    private ViewGroup layoutLayerContent;
     private Spinner spinnerMain;
     private Spinner spinnerSecondary;
     private ExpandableHeightListView listView;
@@ -62,6 +65,8 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     private Button buttonUpdate;
     private ViewGroup layoutLoading;
     private ProgressBar progressBar;
+    private TextView textViewContribute;
+    private TextView textViewNoClusterMap;
 
     private OnFragmentInteractionListener mListener;
 
@@ -99,23 +104,43 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         spinnerMain = view.findViewById(R.id.spinnerMain);
         spinnerSecondary = view.findViewById(R.id.spinnerSecondary);
         textViewClusters = view.findViewById(R.id.textViewClusters);
-        textViewLayer = view.findViewById(R.id.textViewLayer);
+        textViewLayerTitle = view.findViewById(R.id.textViewLayerTitle);
+        textViewLayerDescription = view.findViewById(R.id.textViewLayerDescription);
+        layoutLayerContent = view.findViewById(R.id.layoutLayerContent);
         editText = view.findViewById(R.id.editText);
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         layoutLoading = view.findViewById(R.id.layoutLoading);
         progressBar = view.findViewById(R.id.progressBar);
+        textViewContribute = view.findViewById(R.id.textViewContribute);
+        textViewNoClusterMap = view.findViewById(R.id.textViewNoClusterMap);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        textViewClusters.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.VISIBLE);
+        textViewLayerTitle.setVisibility(View.VISIBLE);
+        textViewLayerDescription.setVisibility(View.VISIBLE);
+        layoutLayerContent.setVisibility(View.VISIBLE);
+        textViewNoClusterMap.setVisibility(View.GONE);
+        if (activity.clusters.clusterInfoList == null || activity.clusters.clusterInfoList.size() == 0) {
+            textViewNoClusterMap.setVisibility(View.VISIBLE);
+            textViewClusters.setVisibility(View.GONE);
+            listView.setVisibility(View.GONE);
+            textViewLayerTitle.setVisibility(View.GONE);
+            textViewLayerDescription.setVisibility(View.GONE);
+            layoutLayerContent.setVisibility(View.GONE);
+        }
+
         adapter = new ListAdapterClusterMapInfo(getContext(), new ArrayList<>(activity.clusters.clusterInfoList.values()));
         listView.setAdapter(adapter);
         listView.setExpanded(true);
 
         textViewClusters.setTextColor(Theme.getColorAccent(getContext()));
-        textViewLayer.setTextColor(Theme.getColorAccent(getContext()));
+        textViewLayerTitle.setTextColor(Theme.getColorAccent(getContext()));
+        textViewContribute.setTextColor(Theme.getColorAccent(getContext()));
 
         editText.addTextChangedListener(this);
         buttonUpdate.setOnClickListener(this);
@@ -426,6 +451,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                     });
 
                 } catch (IOException e) {
+                    finishApplyLayerOnThread(false);
                     e.printStackTrace();
                 }
             }
@@ -477,7 +503,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     }
 
     void layerProjectApplySlug(final String slug) {
-        final List<ProjectsUsers> list = new ArrayList<>();
+        final List<ProjectsUsers> projectsUsersList = new ArrayList<>();
         final int pageSize = 100;
 
         editText.setText(slug);
@@ -499,19 +525,22 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                         String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusters.locations.values()), id, pageSize);
                         final ApiService api = activity.app.getApiService();
                         Response<List<ProjectsUsers>> response = api.getProjectsUsers(slug, ids, pageSize, 1).execute();
-                        if (!Tools.apiIsSuccessfulNoThrow(response))
+                        if (!Tools.apiIsSuccessfulNoThrow(response)) {
+                            finishApplyLayerOnThread(false);
                             return;
-                        list.addAll(response.body());
+                        }
+                        projectsUsersList.addAll(response.body());
                         id += pageSize;
                     }
                 } catch (IOException e) {
+                    finishApplyLayerOnThread(false);
                     e.printStackTrace();
                 }
 
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        activity.applyLayerProject(list, slug, activity.layerTmpProjectStatus);
+                        activity.applyLayerProject(projectsUsersList, slug, activity.layerTmpProjectStatus);
                         finishApplyLayer();
                     }
                 });
@@ -535,7 +564,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     /**
      * Called when all data are set and this view is ready to be updated
      */
-    void finishApplyLayer() {
+    void finishApplyLayer(final boolean successful) {
         loadingViewStartCircularHide();
         listView.invalidate();
         adapter.notifyDataSetChanged();
@@ -550,6 +579,28 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         spinnerSecondary.setOnItemSelectedListener(this);
 
         updateButton();
+
+        if (!successful)
+            Toast.makeText(activity, R.string.cluster_map_info_data_layer_error, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Called when all data are set and this view is ready to be updated
+     */
+    void finishApplyLayer() {
+        finishApplyLayer(true);
+    }
+
+    /**
+     * Called when all data are set and this view is ready to be updated
+     */
+    void finishApplyLayerOnThread(final boolean successful) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                finishApplyLayer(successful);
+            }
+        });
     }
 
     @Override

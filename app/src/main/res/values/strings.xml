@@ -533,4 +533,9 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
 <string name="cluster_map_info_project_dialog_not_found">"Not found"</string>
 <string name="cluster_map_info_project_dialog_not_found_content_format">"No project found for: %s"</string>
 <string name="cluster_map_info_layer_spinner_main_location">"Post highlights"</string>
+    <string name="cluster_map_info_data_layer_description">With this feature you can change the highlighted posts (color round the user image profile) on the cluster map, you just have to select the data layer you want and click on \"update\".</string>
+    <string name="cluster_map_info_data_layer_error">error on loading and/or applying layer</string>
+    <string name="cluster_map_info_contribute_description">YOU can add and update the Cluster Map of YOUR campus.</string>
+    <string name="cluster_map_info_contribute_title">Contribute to Cluster Map</string>
+    <string name="cluster_map_info_no_map">No cluster map available</string>
 </resources>
