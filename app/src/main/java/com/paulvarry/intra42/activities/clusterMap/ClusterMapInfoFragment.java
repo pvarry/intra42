@@ -65,8 +65,10 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     private Button buttonUpdate;
     private ViewGroup layoutLoading;
     private ProgressBar progressBar;
-    private TextView textViewContribute;
+    private TextView textViewContributeTitle;
+    private TextView textViewContributeDescription;
     private TextView textViewNoClusterMap;
+    private Button buttonContribute;
 
     private OnFragmentInteractionListener mListener;
 
@@ -111,8 +113,15 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         layoutLoading = view.findViewById(R.id.layoutLoading);
         progressBar = view.findViewById(R.id.progressBar);
-        textViewContribute = view.findViewById(R.id.textViewContribute);
+        textViewContributeTitle = view.findViewById(R.id.textViewContributeTitle);
+        textViewContributeDescription = view.findViewById(R.id.textViewContributeDescription);
         textViewNoClusterMap = view.findViewById(R.id.textViewNoClusterMap);
+        buttonContribute = view.findViewById(R.id.buttonContribute);
+
+        buttonContribute.setOnClickListener(this);
+        buttonContribute.setVisibility(View.GONE);
+        textViewContributeTitle.setVisibility(View.GONE);
+        textViewContributeDescription.setVisibility(View.GONE);
     }
 
     @Override
@@ -140,7 +149,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
 
         textViewClusters.setTextColor(Theme.getColorAccent(getContext()));
         textViewLayerTitle.setTextColor(Theme.getColorAccent(getContext()));
-        textViewContribute.setTextColor(Theme.getColorAccent(getContext()));
+        textViewContributeTitle.setTextColor(Theme.getColorAccent(getContext()));
 
         editText.addTextChangedListener(this);
         buttonUpdate.setOnClickListener(this);
@@ -318,6 +327,12 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
 
     @Override
     public void onClick(View v) {
+
+        if (v == buttonContribute) {
+
+            return;
+        }
+
         spinnerMain.setEnabled(false);
         spinnerSecondary.setEnabled(false);
         editText.setEnabled(false);
