@@ -93,6 +93,7 @@ public class ProjectsGraphFragment extends Fragment implements Galaxy.OnProjectC
 
             @Override
             public void onFailure(Call<List<ProjectDataIntra>> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(activity, R.string.galaxy_no_live_data, Toast.LENGTH_SHORT).show();
                 List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), AppSettings.getUserCursus(app), AppSettings.getUserCampus(app), app.me);
                 galaxy.setData(list);
