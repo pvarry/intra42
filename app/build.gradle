@@ -81,7 +81,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.pnikosis:materialish-progress:1.7'
     implementation 'com.splitwise:tokenautocomplete:2.0.8'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -93,7 +93,6 @@ dependencies {
     implementation 'org.mapsforge:svg-android:0.4.3'
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
     implementation 'org.parceler:parceler-api:1.1.6'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
