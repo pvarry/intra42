@@ -24,6 +24,11 @@ Useful tools :
 
 You can Contribute to this project by fixing bugs or add missing features.
 
+#### Source code
+
+You have to use Android Studio as IDE.
+You alse have to create a application on https://profile.intra.42.fr/oauth/applications, duplique file on `app/src/debug/java/com/paulvarry/intra42/Credential.java.sample` and fill up credantials.
+
 #### Strings ressources
 
 If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
