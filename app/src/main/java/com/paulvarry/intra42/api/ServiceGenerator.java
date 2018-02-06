@@ -2,6 +2,7 @@ package com.paulvarry.intra42.api;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -47,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
     public static final String API_BASE_URL = "https://api.intra.42.fr";
-    public static final String API_BASE_URL_42TOOLS = "https://api.42.tools/v1/";
+    private static final String API_BASE_URL_42TOOLS = "https://api.42.tools/v1/";
     private static OkHttpClient.Builder httpClient;
     private static AccessToken accessTokenIntra42;
     private static com.paulvarry.intra42.api.tools42.AccessToken accessToken42Tools;
@@ -113,6 +114,7 @@ public class ServiceGenerator {
             else if (allowRedirectWrongAuth)
                 MainActivity.openActivity(app);
             httpClient.authenticator(getAuthenticatorIntra42(app));
+            httpClient.addInterceptor(getRateLimitInterceptor());
         } else if (serviceClass == ApiService42Tools.class) {
             httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
             httpClient.authenticator(getAuthenticator42Tools(app));
@@ -124,6 +126,54 @@ public class ServiceGenerator {
         Retrofit retrofit = builder.client(client).build();
 
         return retrofit.create(serviceClass);
+    }
+
+    private static Interceptor getRateLimitInterceptor() {
+
+        return new Interceptor() {
+            @Override
+            public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
+
+                Request request = chain.request();
+
+                //Build new request
+                Request.Builder builder = request.newBuilder();
+
+                request = builder.build(); //overwrite old request
+                Response response = chain.proceed(request); //perform request, here original request will be executed
+
+                if (isRateLimitException(response)) {
+
+                    int i = 1;
+                    while (i < 10) {
+
+                        Log.i("API Rate-Limit", "Exceeded, try again " + String.valueOf(i));
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        request = builder.build();
+                        Response ret = chain.proceed(request);
+                        if (!isRateLimitException(ret)) {
+                            Log.i("API Rate-Limit", "success");
+                            return ret;
+                        }
+                        i++;
+                        Log.i("API Rate-Limit", "failed");
+                    }
+                }
+
+                return response;
+            }
+        };
+
+    }
+
+    private static boolean isRateLimitException(Response ret) {
+        return ret.code() == 403 && ret.header("Retry-After") != null;
     }
 
     private static int responseCount(Response response) {
@@ -150,7 +200,7 @@ public class ServiceGenerator {
     private static Authenticator getAuthenticatorIntra42(final Context context) {
         return new Authenticator() {
             @Override
-            public Request authenticate(Route route, Response response) throws IOException {
+            public Request authenticate(@NonNull Route route, @NonNull Response response) throws IOException {
 
                 if (responseCount(response) >= 2) {
                     // If both the original call and the call with refreshed token failed,
@@ -199,7 +249,7 @@ public class ServiceGenerator {
     private static Authenticator getAuthenticator42Tools(final Context context) {
         return new Authenticator() {
             @Override
-            public Request authenticate(Route route, Response response) throws IOException {
+            public Request authenticate(@NonNull Route route, @NonNull Response response) throws IOException {
 
                 if (responseCount(response) >= 2) {
                     // If both the original call and the call with refreshed token failed,
@@ -245,7 +295,7 @@ public class ServiceGenerator {
     private static Interceptor getHeaderInterceptor(final AccessToken accessToken) {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder()
                         .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
@@ -264,7 +314,7 @@ public class ServiceGenerator {
     private static Interceptor getHeaderInterceptor(final com.paulvarry.intra42.api.tools42.AccessToken accessToken) {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder()
                         .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
@@ -283,7 +333,7 @@ public class ServiceGenerator {
     private static Interceptor getHeaderInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
+            public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()
@@ -365,17 +415,17 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(AccessToken token) {
-        ServiceGenerator.accessTokenIntra42 = token;
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
+        ServiceGenerator.accessToken42Tools = tokenTools;
     }
 
-    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken token) {
-        ServiceGenerator.accessToken42Tools = token;
+    public static void setToken(AccessToken tokenIntra) {
+        ServiceGenerator.accessTokenIntra42 = tokenIntra;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {
         @Override
-        public Response intercept(Chain chain) throws IOException {
+        public Response intercept(@NonNull Chain chain) throws IOException {
 
             Response response = chain.proceed(chain.request());
             if (response.code() == 401 && chain.request().url().encodedPath().contains("/oauth/token") && app != null)
