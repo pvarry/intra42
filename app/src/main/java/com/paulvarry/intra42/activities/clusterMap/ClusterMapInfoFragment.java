@@ -120,9 +120,6 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         buttonContribute = view.findViewById(R.id.buttonContribute);
 
         buttonContribute.setOnClickListener(this);
-        buttonContribute.setVisibility(View.GONE);
-        textViewContributeTitle.setVisibility(View.GONE);
-        textViewContributeDescription.setVisibility(View.GONE);
     }
 
     @Override

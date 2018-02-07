@@ -4,22 +4,35 @@ import android.support.annotation.Nullable;
 
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.clusterMap.Firebase.Location;
 
-public class LocationItem extends LocationItemBase {
+public class LocationItem extends Location {
+
+    public final static int KIND_USER = 0;
+    public final static int KIND_CORRIDOR = 1;
+    public final static int KIND_WALL = 2;
 
     @Nullable
     public Boolean highlight;
+    public String locationName;
+    public int kind;
 
     public LocationItem(String locationName, int kind, float angle) {
         super(locationName, kind, angle);
+        this.kind = kind;
+        this.locationName = locationName;
     }
 
     public LocationItem(String locationName, int kind) {
         super(locationName, kind);
+        this.kind = kind;
+        this.locationName = locationName;
     }
 
     public LocationItem(String locationName, int sizeX, int sizeY, int kind, float angle) {
         super(locationName, sizeX, sizeY, kind, angle);
+        this.kind = kind;
+        this.locationName = locationName;
     }
 
     public boolean computeHighlightPosts(ClusterStatus cluster, UsersLTE user) {

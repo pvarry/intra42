@@ -1,14 +1,12 @@
 package com.paulvarry.intra42.utils.clusterMap;
 
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.clusterMap.Firebase.Cluster;
 
 import java.util.HashMap;
 
-public class ClusterItem {
+public class ClusterItem extends Cluster {
 
-    public int campusId;
-    public String name;
-    public String hostPrefix;
     public int freePosts;
     public int highlightPosts;
     public int posts;
@@ -16,9 +14,7 @@ public class ClusterItem {
     public LocationItem[][] map;
 
     public ClusterItem(int campusId, String name, String hostPrefix) {
-        this.campusId = campusId;
-        this.name = name;
-        this.hostPrefix = hostPrefix;
+        super(campusId, name, hostPrefix);
 
         map = ClusterMapGenerator.getClusterMap(campusId, hostPrefix);
     }

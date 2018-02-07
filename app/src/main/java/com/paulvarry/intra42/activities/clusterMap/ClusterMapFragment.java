@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -79,14 +80,14 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cluster_map, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         gridLayout = view.findViewById(R.id.gridLayout);
     }
@@ -151,7 +152,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             view.setTag(locationItem);
             view.setOnClickListener(this);
 
-            if (locationItem.locationName.contentEquals("null") || locationItem.locationName.contentEquals("TBD"))
+            if (locationItem.locationName == null || locationItem.locationName.contentEquals("null") || locationItem.locationName.contentEquals("TBD"))
                 imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
             else {
                 if (user != null)
