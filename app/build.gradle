@@ -1,9 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.bq.poeditor'
 
 task update_galaxy_data(type: Exec) {
     workingDir "${buildDir}/../scripts"
     commandLine 'ruby', 'update_galaxy_data.rb'
 }
+
+//task syncTranslations() {
+//    println "Start sync translations"
+//    importPoEditorStrings.execute()
+//}
 
 android {
     signingConfigs {
@@ -32,6 +38,10 @@ android {
             signingConfig signingConfigs.config
             buildConfigField "Boolean", "REPORT_CRASH", 'true'
             zipAlignEnabled true
+
+//            loadPoeditor()
+//            preBuild.dependsOn(importPoEditorStrings)
+//            preBuild.dependsOn(syncTranslations) //run task syncTranslations
         }
         beta {
             minifyEnabled false
@@ -113,5 +123,18 @@ static def getVersionCodeTimestamp() {
     return code
 }
 
+def loadPoeditor() {
+    Properties props = new Properties()
+    def file = new File('secrets.properties')
+    println "Load PoEditor secrets from file: " + file.absolutePath
+    props.load(new FileInputStream(file))
+    print props
+
+
+    poEditorPlugin.api_token = props['API_TOKEN']
+    poEditorPlugin.project_id = props['PROJECT_ID']
+    poEditorPlugin.default_lang = "en"
+    poEditorPlugin.res_dir_path = "${project.rootDir}/app/src/main/res"
+}
 
 apply plugin: 'com.google.gms.google-services'
