@@ -101,7 +101,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.listView);
         spinnerMain = view.findViewById(R.id.spinnerMain);
@@ -407,35 +407,37 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
             return;
 
         layoutLoading.setVisibility(View.VISIBLE);
-        final View view = layoutLoading;
-        final View startView = buttonUpdate;
-        int cx = (startView.getLeft() + startView.getRight()) / 2;
-        int cy = (startView.getTop() + startView.getBottom()) / 2;
-        int finalRadius = Math.max(Math.max(cy, view.getHeight() - cy), Math.max(cx, view.getWidth() - cx));
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, finalRadius, 0);
-        anim.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
+        try {
+            int cx = (buttonUpdate.getLeft() + buttonUpdate.getRight()) / 2;
+            int cy = (buttonUpdate.getTop() + buttonUpdate.getBottom()) / 2;
+            int finalRadius = Math.max(Math.max(cy, layoutLoading.getHeight() - cy), Math.max(cx, layoutLoading.getWidth() - cx));
+            Animator anim = ViewAnimationUtils.createCircularReveal(layoutLoading, cx, cy, finalRadius, 0);
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
 
-            }
+                }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                view.setVisibility(View.GONE);
-            }
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    layoutLoading.setVisibility(View.GONE);
+                }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                view.setVisibility(View.GONE);
-            }
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    layoutLoading.setVisibility(View.GONE);
+                }
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+                @Override
+                public void onAnimationRepeat(Animator animation) {
 
-            }
-        });
-        anim.setDuration(200);
-        anim.start();
+                }
+            });
+            anim.setDuration(200);
+            anim.start();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     void layerProjectFindSlug() {

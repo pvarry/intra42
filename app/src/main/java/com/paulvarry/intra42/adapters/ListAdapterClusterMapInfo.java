@@ -86,9 +86,9 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
         if (info.highlightPosts == 0)
             builder.append(context.getString(R.string.cluster_map_info_highlight_nothing));
         else if (info.highlightPosts == 1)
-            builder.append(context.getString(R.string.cluster_map_info_highlight_singular, info.freePosts));
+            builder.append(context.getString(R.string.cluster_map_info_highlight_singular, info.highlightPosts));
         else
-            builder.append(context.getString(R.string.cluster_map_info_highlight_plural, info.freePosts));
+            builder.append(context.getString(R.string.cluster_map_info_highlight_plural, info.highlightPosts));
         builder.append(" - ");
         if (info.freePosts == 0)
             builder.append(context.getString(R.string.cluster_map_info_vacant_posts_nothing));
