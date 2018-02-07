@@ -15,28 +15,25 @@ import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ProjectUserStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ListAdapterMarks extends BaseAdapter {
+public class ListAdapterProjectsMarks extends BaseAdapter {
 
     private final Context context;
     private SparseArray<ProjectsUsers> projectsUsers; // index by project id
-    private SparseArray<ProjectsLTE> projects; // index by project id
-    private List<ProjectsLTE> mainIndex;
+    private List<ProjectsLTE> projects;
 
-    public ListAdapterMarks(Context context, List<ProjectsUsers> projectsList) {
+    public ListAdapterProjectsMarks(Context context, List<ProjectsLTE> projectsList) {
 
         this.context = context;
+        projects = projectsList;
+    }
 
-        this.projects = new SparseArray<>();
-        this.projectsUsers = new SparseArray<>();
-        this.mainIndex = new ArrayList<>();
-
-        for (ProjectsUsers p : projectsList) {
-            projects.append(p.project.id, p.project);
-            projectsUsers.append(p.project.id, p);
-            mainIndex.add(p.project);
+    public void setProjectUser(List<ProjectsUsers> projectsUsers) {
+        if (this.projectsUsers == null)
+            this.projectsUsers = new SparseArray<>();
+        for (ProjectsUsers p : projectsUsers) {
+            this.projectsUsers.append(p.project.id, p);
         }
     }
 
@@ -47,7 +44,7 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return mainIndex.size();
+        return projects.size();
     }
 
     /**
@@ -59,9 +56,14 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public ProjectsLTE getItem(int position) {
-        if (position >= mainIndex.size())
-            return null;
-        return mainIndex.get(position);
+        return projects.get(position);
+    }
+
+    @Nullable
+    public ProjectsUsers getProjectUser(ProjectsLTE project) {
+        if (projectsUsers != null)
+            return projectsUsers.get(project.id);
+        return null;
     }
 
     /**
@@ -72,7 +74,7 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return mainIndex.get(position).id;
+        return getItem(position).id;
     }
 
     @Override
@@ -99,10 +101,7 @@ public class ListAdapterMarks extends BaseAdapter {
 
         ProjectsLTE project = getItem(position);
         @Nullable
-        ProjectsUsers projectUser = null;
-
-        if (projectsUsers != null)
-            projectUser = projectsUsers.get(project.id);
+        ProjectsUsers projectUser = getProjectUser(project);
 
         String title = project.name;
 
