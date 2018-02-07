@@ -3,9 +3,11 @@ package com.paulvarry.intra42.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatDrawableManager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
@@ -21,7 +23,13 @@ public class ProjectUserStatus {
             textView.setText(teams.status.getRes());
     }
 
-    static public void setMark(Context context, ProjectsUsers projects, TextView textView) {
+    static public void setMark(Context context, @Nullable ProjectsUsers projects, TextView textView) {
+
+        if (projects == null) {
+            textView.setVisibility(View.GONE);
+            return;
+        } else
+            textView.setVisibility(View.VISIBLE);
 
         textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         if (projects.status == ProjectsUsers.Status.FINISHED) {

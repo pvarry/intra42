@@ -129,6 +129,7 @@ public class UserProjectsFragment
 
                 @Override
                 public void onFailure(Call<List<ProjectDataIntra>> call, Throwable t) {
+                    t.printStackTrace();
                     setGalaxyNoData();
                 }
             });

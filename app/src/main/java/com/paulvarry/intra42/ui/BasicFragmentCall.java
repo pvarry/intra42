@@ -1,8 +1,8 @@
 package com.paulvarry.intra42.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -68,14 +68,14 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment__basic, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         listView = view.findViewById(R.id.listView);
@@ -150,7 +150,6 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     @Nullable
     public abstract Call<List<T>> getCall(ApiService apiService, @Nullable List<T> list);
 
-    @SuppressLint("SetTextI18n")
     public void setView() {
         if (!isAdded())
             return;

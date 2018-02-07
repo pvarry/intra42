@@ -1,8 +1,11 @@
 package com.paulvarry.intra42.api.model;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.R;
 
 import java.util.Date;
 import java.util.List;
@@ -46,17 +49,31 @@ public class Events {
     public List<Integer> cursus;
 
     public enum EventKind {
-        @SerializedName("conference")CONFERENCE,
-        @SerializedName("meet_up")MEET_UP,
-        @SerializedName("extern")EXTERN,
-        @SerializedName("hackathon")HACKATHON,
-        @SerializedName("workshop")WORKSHOP,
-        @SerializedName("event")EVENT,
-        @SerializedName("atelier")ATELIER,
-        @SerializedName("other")OTHER,
-        @SerializedName("association")ASSOCIATION,
-        @SerializedName("partnership")PARTNERSHIP,
-        @SerializedName("challenge")CHALLENGE
+        @SerializedName("conference")CONFERENCE(R.string.event_kind_conf),
+        @SerializedName("meet_up")MEET_UP(R.string.event_kind_meet_up),
+        @SerializedName("extern")EXTERN(R.string.event_kind_extern),
+        @SerializedName("hackathon")HACKATHON(R.string.event_kind_hackathon),
+        @SerializedName("workshop")WORKSHOP(R.string.event_kind_workshop),
+        @SerializedName("event")EVENT(R.string.event_kind_event),
+        @SerializedName("atelier")ATELIER(R.string.event_kind_atelier),
+        @SerializedName("other")OTHER(R.string.event_kind_other),
+        @SerializedName("association")ASSOCIATION(R.string.event_kind_association),
+        @SerializedName("partnership")PARTNERSHIP(R.string.event_kind_partnership),
+        @SerializedName("challenge")CHALLENGE(R.string.event_kind_challenge);
+
+        private final int res;
+
+        EventKind(@StringRes int res) {
+            this.res = res;
+        }
+
+        public int getRes() {
+            return res;
+        }
+
+        public String getString(Context context) {
+            return context.getString(res);
+        }
     }
 
 }

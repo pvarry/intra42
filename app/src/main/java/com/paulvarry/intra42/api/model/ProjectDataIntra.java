@@ -86,7 +86,7 @@ public class ProjectDataIntra {
         @SerializedName("parent_id")
         public int parentId;
         @SerializedName("points")
-        public List<List<Integer>> points = null;
+        public List<List<Float>> points = null;
 
     }
 

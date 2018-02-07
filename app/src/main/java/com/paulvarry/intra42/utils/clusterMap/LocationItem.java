@@ -37,7 +37,7 @@ public class LocationItem extends LocationItemBase {
                     break;
                 case PROJECT:
                     ProjectsUsers projectsUsers;
-                    if ((projectsUsers = cluster.projectsUsers.get(user.id)) != null && projectsUsers.status == cluster.layerProjectStatus)
+                    if (cluster.projectsUsers != null && (projectsUsers = cluster.projectsUsers.get(user.id)) != null && projectsUsers.status == cluster.layerProjectStatus)
                         highlight = true;
                     break;
                 case LOCATION:

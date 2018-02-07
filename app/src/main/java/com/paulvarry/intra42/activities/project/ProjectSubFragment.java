@@ -3,13 +3,21 @@ package com.paulvarry.intra42.activities.project;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.AdapterView;
 
-import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
+import com.paulvarry.intra42.adapters.ListAdapterMarks;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
-import com.paulvarry.intra42.ui.BasicFragment;
+import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.ui.BasicFragmentCall;
 
 import java.util.List;
+
+import retrofit2.Call;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,9 +27,10 @@ import java.util.List;
  * Use the {@link ProjectSubFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectSubFragment extends BasicFragment<ProjectsLTE, BaseListAdapterSlug<ProjectsLTE>> {
+public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAdapterMarks> {
 
     private ProjectActivity activity;
+    private ListAdapterMarks listAdapterMarks;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,26 +78,61 @@ public class ProjectSubFragment extends BasicFragment<ProjectsLTE, BaseListAdapt
         mListener = null;
     }
 
+    @Nullable
     @Override
-    public List<ProjectsLTE> getData() {
-        if (activity != null && activity.projectUser != null && activity.projectUser.project != null)
-            return activity.projectUser.project.children;
+    public Call<List<ProjectsUsers>> getCall(ApiService apiService, @Nullable List<ProjectsUsers> list) {
+        if (activity.projectUser.user.user == null)
+            return null;
+
+        int start = 0;
+        if (list != null)
+            start = list.size();
+        String filter = Projects.concatIds(activity.projectUser.project.children, start, 100);
+        return apiService.getProjectsUsers(filter, activity.projectUser.user.user.id, 100, 1);
+    }
+
+    @Override
+    public String getEmptyMessage() {
         return null;
     }
 
     @Override
-    public void onItemClick(ProjectsLTE item) {
-        if (activity.projectUser != null) {
-            if (activity.projectUser.user != null && activity.projectUser.user.user != null)
-                ProjectActivity.openIt(getContext(), item, activity.projectUser.user.user.id);
+    public void onItemClick(ProjectsUsers item) {
+        ProjectActivity.openIt(getContext(), item);
+    }
+
+    /**
+     * Callback method to be invoked when an item in this AdapterView has
+     * been clicked.
+     * <p/>
+     * Implementers can call getItemAtPosition(position) if they need
+     * to access the data associated with the selected item.
+     *
+     * @param parent   The AdapterView where the click happened.
+     * @param view     The view within the AdapterView that was clicked (this
+     *                 will be a view provided by the adapter)
+     * @param position The position of the view in the adapter.
+     * @param id       The row id of the item that was clicked.
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (listAdapterMarks != null) {
+
+            ProjectsLTE project = listAdapterMarks.getItem(position);
+            ProjectsUsers projectsUser = listAdapterMarks.getProjectUser(project);
+
+            if (projectsUser != null)
+                ProjectActivity.openIt(getContext(), projectsUser);
             else
-                ProjectActivity.openIt(getContext(), item);
+                ProjectActivity.openIt(getContext(), project);
         }
     }
 
     @Override
-    public BaseListAdapterSlug<ProjectsLTE> generateAdapter(List<ProjectsLTE> list) {
-        return new BaseListAdapterSlug<>(activity, list);
+    public ListAdapterMarks generateAdapter(List<ProjectsUsers> list) {
+        listAdapterMarks = new ListAdapterMarks(activity, list);
+        listAdapterMarks.setProjects(activity.projectUser.project.children);
+        return listAdapterMarks;
     }
 
     /**

@@ -19,7 +19,7 @@ public class ProjectsActivity extends BasicTabActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activeHamburger();
+        super.setActionBarToggle(ActionBarToggle.HAMBURGER);
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
 
         super.onCreateFinished();

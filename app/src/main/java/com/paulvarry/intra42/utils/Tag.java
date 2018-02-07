@@ -24,47 +24,10 @@ public class Tag {
         String str;
         Context context = tagView.getContext();
 
-        if (event.kind != null) {
-            switch (event.kind) {
-                case CONFERENCE:
-                    str = context.getString(R.string.event_kind_conf);
-                    break;
-                case OTHER:
-                    str = context.getString(R.string.event_kind_other);
-                    break;
-                case EXTERN:
-                    str = context.getString(R.string.event_kind_extern);
-                    break;
-                case ATELIER:
-                    str = context.getString(R.string.event_kind_atelier);
-                    break;
-                case MEET_UP:
-                    str = context.getString(R.string.event_kind_meet_up);
-                    break;
-                case HACKATHON:
-                    str = context.getString(R.string.event_kind_hackathon);
-                    break;
-                case WORKSHOP:
-                    str = context.getString(R.string.event_kind_workshop);
-                    break;
-                case ASSOCIATION:
-                    str = context.getString(R.string.event_kind_association);
-                    break;
-                case PARTNERSHIP:
-                    str = context.getString(R.string.event_kind_partnership);
-                    break;
-                case EVENT:
-                    str = context.getString(R.string.event_kind_event);
-                    break;
-                case CHALLENGE:
-                    str = context.getString(R.string.event_kind_challenge);
-                    break;
-                default:
-                    str = String.valueOf(event.kind);
-            }
-        } else {
+        if (event.kind != null)
+            str = context.getString(event.kind.getRes());
+        else
             str = context.getString(R.string.event_kind_unknown);
-        }
 
         tagView.setText(str);
         tagView.setTagColor(getTagColor(event));

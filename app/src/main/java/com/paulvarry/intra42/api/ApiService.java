@@ -230,13 +230,13 @@ public interface ApiService {
     Call<List<ScaleTeams>> getScaleTeamsMeBegin(@Query("range[begin_at]") String rangeCreated, @Query("page") int page);
 
     /* Projects */
-    @GET("/v2/projects?sort=name")
+    @GET("/v2/projects?sort=name&filter[visible]=true")
     Call<List<Projects>> getProjects();
 
-    @GET("/v2/projects?sort=name")
+    @GET("/v2/projects?sort=name&filter[visible]=true")
     Call<List<Projects>> getProjects(@Query("page") int page);
 
-    @GET("/v2/projects?sort=name")
+    @GET("/v2/projects?sort=name&filter[visible]=true")
     Call<List<Projects>> getProjectsSearch(@Query("search[name]") String slug);
 
     @GET("v2/cursus/{cursus_id}/projects?sort=name")
@@ -264,15 +264,21 @@ public interface ApiService {
     @GET("/v2/projects_users")
     Call<List<ProjectsUsers>> getProjectsUsers(@Query("filter[project_id]") int projectId, @Query("filter[user_id]") int userId, @Query("page[size]") int pageSize, @Query("page") int page);
 
+    @GET("/v2/projects_users")
+    Call<List<ProjectsUsers>> getProjectsUsers(@Query("filter[project_id]") String filterProjects, @Query("filter[user_id]") String filterUsers, @Query("page[size]") int pageSize, @Query("page") int page);
+
+    @GET("/v2/projects_users?sort=created_at")
+    Call<List<ProjectsUsers>> getProjectsUsers(@Query("filter[project_id]") String filterProjects, @Query("filter[user_id]") int userId, @Query("page[size]") int pageSize, @Query("page") int page);
+
     @GET("/v2/projects/{project_id}/projects_users")
-    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") int userId, @Query("page[size]") int pageSize, @Query("page") int page);
+    Call<List<ProjectsUsers>> getProjectIDProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") int userId, @Query("page[size]") int pageSize, @Query("page") int page);
 
     @GET("/v2/projects/{project_id}/projects_users")
     @Deprecated
-    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") String user, @Query("per_page") int pageSize, @Query("page") int page);
+    Call<List<ProjectsUsers>> getProjectIDProjectsUsers(@Path("project_id") String projectSlug, @Query("filter[user_id]") String user, @Query("per_page") int pageSize, @Query("page") int page);
 
     @GET("/v2/projects/{project_id}/projects_users")
-    Call<List<ProjectsUsers>> getProjectsUsers(@Path("project_id") int project_id, @Query("filter[user_id]") String user, @Query("page[size]") int pageSize, @Query("page") int page);
+    Call<List<ProjectsUsers>> getProjectIDProjectsUsers(@Path("project_id") int project_id, @Query("filter[user_id]") String user, @Query("page[size]") int pageSize, @Query("page") int page);
 
     /* Teams */
     @GET("/v2/users/{user_id}/projects/{project_id}/teams?sort=-created_at")

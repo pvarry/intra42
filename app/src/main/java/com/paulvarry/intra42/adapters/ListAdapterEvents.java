@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Events;
+import com.paulvarry.intra42.ui.TagSpanGenerator;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
-import com.veinhorn.tagview.TagView;
 
 import java.util.List;
 
@@ -79,7 +79,6 @@ public class ListAdapterEvents extends BaseAdapter {
             holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
             holder.textViewDateMonth = convertView.findViewById(R.id.textViewDateMonth);
             holder.textViewName = convertView.findViewById(R.id.textViewName);
-            holder.tagViewKind = convertView.findViewById(R.id.tagViewKind);
             holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
             holder.textViewTime = convertView.findViewById(R.id.textViewTime);
             holder.textViewPlace = convertView.findViewById(R.id.textViewPlace);
@@ -96,6 +95,11 @@ public class ListAdapterEvents extends BaseAdapter {
         holder.textViewDateDay.setText(DateTool.getDay(item.beginAt));
         holder.textViewDateMonth.setText(DateTool.getMonthMedium(item.beginAt));
         holder.textViewName.setText(item.name);
+        TagSpanGenerator span = new TagSpanGenerator.Builder(context).setTextSize(holder.textViewName.getTextSize()).build();
+        if (item.kind != null)
+            span.addTag(item.kind.getString(context), Tag.getTagColor(item));
+        span.addText(item.name);
+        holder.textViewName.setText(span.getString());
 
         String content = item.description;
         content = content.replace("\r\n\r\n", " ");
@@ -115,8 +119,6 @@ public class ListAdapterEvents extends BaseAdapter {
         holder.textViewTime.setText(time);
         holder.textViewPlace.setText(item.location);
 
-        Tag.setTagEvent(item, holder.tagViewKind);
-
         if (item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0) {
             holder.textViewFull.setVisibility(View.VISIBLE);
         } else
@@ -130,7 +132,6 @@ public class ListAdapterEvents extends BaseAdapter {
         TextView textViewDateDay;
         TextView textViewDateMonth;
         TextView textViewName;
-        TagView tagViewKind;
         TextView textViewDescription;
         TextView textViewTime;
         TextView textViewPlace;

@@ -139,6 +139,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         if (inflater == null)
             return;
         viewContent = inflater.inflate(resContentId, coordinatorLayout, false);
+        viewContent.setFitsSystemWindows(true);
         coordinatorLayout.addView(viewContent);
         viewContent.requestLayout();
     }

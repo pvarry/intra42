@@ -26,7 +26,12 @@ public class LinearLayoutAppBarLayout extends LinearLayout {
     public WindowInsets onApplyWindowInsets(WindowInsets insets) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            int insetBottom = insets.getSystemWindowInsetBottom();
+
             insets = insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(), insets.getSystemWindowInsetRight(), 0);
+
+            WindowInsets used = super.onApplyWindowInsets(insets);
+            return insets.replaceSystemWindowInsets(used.getSystemWindowInsetLeft(), used.getSystemWindowInsetTop(), used.getSystemWindowInsetRight(), insetBottom);
         }
         return super.onApplyWindowInsets(insets);
     }
