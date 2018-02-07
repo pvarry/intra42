@@ -4,8 +4,10 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.api.BaseItemDetail;
+import com.paulvarry.intra42.utils.AppSettings;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -28,6 +30,7 @@ public class Projects extends ProjectsLTE implements BaseItemDetail {
     private static final String API_TEAMS_URL = "teams_url";
     private static final String API_TIER = "tier";
     private static final String API_CURSUS = "cursus";
+    private static final String API_CAMPUS = "campus";
     private static final String API_ATTACHMENTS = "attachments";
     private static final String API_SKILLS = "skills";
     private static final String API_TAGS = "tags";
@@ -53,6 +56,8 @@ public class Projects extends ProjectsLTE implements BaseItemDetail {
     public Integer tier;
     @SerializedName(API_CURSUS)
     public List<Cursus> cursusList;
+    @SerializedName(API_CAMPUS)
+    public List<Campus> campusList;
     @SerializedName(API_ATTACHMENTS)
     public List<Attachments> attachments;
     @SerializedName(API_SKILLS)
@@ -98,5 +103,37 @@ public class Projects extends ProjectsLTE implements BaseItemDetail {
         ret += "T" + String.valueOf(tier);
 
         return ret;
+    }
+
+    public boolean shouldDisplayOnApp(AppClass app) {
+        int campus = AppSettings.getAppCampus(app);
+        int cursus = AppSettings.getAppCursus(app);
+        return shouldDisplayOnApp(cursus, campus);
+    }
+
+    public boolean shouldDisplayOnApp(int cursus, int campus) {
+        boolean cursusOk = false;
+        boolean campusOk = false;
+
+        if (cursus <= 0 && campus <= 0)
+            return true;
+
+        if (cursus > 0) {
+            for (Cursus c : cursusList) {
+                if (c.id == cursus) {
+                    cursusOk = true;
+                    break;
+                }
+            }
+        }
+        if (campus > 0) {
+            for (Campus c : campusList) {
+                if (c.id == campus) {
+                    campusOk = true;
+                    break;
+                }
+            }
+        }
+        return campusOk && cursusOk;
     }
 }

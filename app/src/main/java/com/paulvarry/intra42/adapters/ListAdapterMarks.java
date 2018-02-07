@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,22 +15,50 @@ import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ProjectUserStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapterMarks extends BaseAdapter {
 
     private final Context context;
-    private List<ProjectsUsers> projectsUsersList;
-    private SparseArray<ProjectsLTE> projects;
+    private SparseArray<ProjectsUsers> projectsUsers; // index by project id
+    private SparseArray<ProjectsLTE> projects; // index by project id
+    private List<ProjectsLTE> mainIndex;
+
+    private List<ProjectsUsers> originalList;
 
     public ListAdapterMarks(Context context, List<ProjectsUsers> projectsList) {
 
         this.context = context;
-        this.projectsUsersList = projectsList;
+        originalList = projectsList;
 
         this.projects = new SparseArray<>();
-        for (ProjectsUsers p : projectsUsersList) {
+        this.projectsUsers = new SparseArray<>();
+        this.mainIndex = new ArrayList<>();
+
+        for (ProjectsUsers p : originalList) {
             projects.append(p.project.id, p.project);
+            projectsUsers.append(p.project.id, p);
+            mainIndex.add(p.project);
+        }
+    }
+
+    public void setProjects(List<ProjectsLTE> projects) {
+        mainIndex = projects;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+
+        this.projects = new SparseArray<>();
+        this.projectsUsers = new SparseArray<>();
+        this.mainIndex = new ArrayList<>();
+
+        for (ProjectsUsers p : originalList) {
+            projects.append(p.project.id, p.project);
+            projectsUsers.append(p.project.id, p);
+            mainIndex.add(p.project);
         }
     }
 
@@ -40,7 +69,7 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return projectsUsersList.size();
+        return mainIndex.size();
     }
 
     /**
@@ -51,8 +80,15 @@ public class ListAdapterMarks extends BaseAdapter {
      * @return The data at the specified position.
      */
     @Override
-    public ProjectsUsers getItem(int position) {
-        return projectsUsersList.get(position);
+    public ProjectsLTE getItem(int position) {
+        if (position >= mainIndex.size())
+            return null;
+        return mainIndex.get(position);
+    }
+
+    @Nullable
+    public ProjectsUsers getProjectUser(ProjectsLTE project) {
+        return projectsUsers.get(project.id);
     }
 
     /**
@@ -63,7 +99,7 @@ public class ListAdapterMarks extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return projectsUsersList.get(position).id;
+        return mainIndex.get(position).id;
     }
 
     @Override
@@ -88,14 +124,23 @@ public class ListAdapterMarks extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ProjectsUsers item = getItem(position);
+        ProjectsLTE project = getItem(position);
+        @Nullable
+        ProjectsUsers projectUser = null;
 
-        String title = item.project.name;
-        if (item.project.parentId != null && projects.get(item.project.parentId) != null)
-            title = projects.get(item.project.parentId).name + " - " + title;
+        if (projectsUsers != null)
+            projectUser = projectsUsers.get(project.id);
+
+        String title = project.name;
+
+        if (project instanceof ProjectsUsers.ProjectsLTE) {
+            ProjectsUsers.ProjectsLTE tmp = (ProjectsUsers.ProjectsLTE) project;
+            if (tmp.parentId != null && projects.get(tmp.parentId) != null)
+                title = projects.get(tmp.parentId).name + " - " + title;
+        }
         holder.textViewProjectName.setText(title);
-        holder.textViewProjectSlug.setText(item.project.slug);
-        ProjectUserStatus.setMark(context, item, holder.textViewProjectMark);
+        holder.textViewProjectSlug.setText(project.slug);
+        ProjectUserStatus.setMark(context, projectUser, holder.textViewProjectMark);
 
         if (AppSettings.Advanced.getAllowAdvancedData(context))
             holder.textViewProjectSlug.setVisibility(View.VISIBLE);

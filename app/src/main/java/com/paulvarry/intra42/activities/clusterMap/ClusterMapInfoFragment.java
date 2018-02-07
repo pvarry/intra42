@@ -539,7 +539,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
                         loadingViewUpdateProgress((int) Math.ceil((float) id / (float) pageSize));
                         String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusters.locations.values()), id, pageSize);
                         final ApiService api = activity.app.getApiService();
-                        Response<List<ProjectsUsers>> response = api.getProjectsUsers(slug, ids, pageSize, 1).execute();
+                        Response<List<ProjectsUsers>> response = api.getProjectIDProjectsUsers(slug, ids, pageSize, 1).execute();
                         if (!Tools.apiIsSuccessfulNoThrow(response)) {
                             finishApplyLayerOnThread(false);
                             return;

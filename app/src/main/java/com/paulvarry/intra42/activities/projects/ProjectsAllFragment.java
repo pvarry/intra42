@@ -11,8 +11,10 @@ import com.paulvarry.intra42.adapters.BaseListAdapterSlugDetail;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
+import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Pagination;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -86,7 +88,21 @@ public class ProjectsAllFragment extends BasicFragmentCall<Projects, BaseListAda
 
     @Override
     public BaseListAdapterSlugDetail<Projects> generateAdapter(List<Projects> list) {
-        return new BaseListAdapterSlugDetail<>(getContext(), list);
+        ProjectsActivity activity = (ProjectsActivity) getActivity();
+
+        if (activity == null || true) // TODO: fix filter
+            return new BaseListAdapterSlugDetail<>(getContext(), list);
+
+        int campus = AppSettings.getAppCampus(activity.app);
+        int cursus = AppSettings.getAppCursus(activity.app);
+
+        List<Projects> tmp = new ArrayList<>();
+        for (Projects p : list) {
+            if (p.shouldDisplayOnApp(cursus, campus))
+                tmp.add(p);
+        }
+
+        return new BaseListAdapterSlugDetail<>(getContext(), tmp);
     }
 
     @Override
