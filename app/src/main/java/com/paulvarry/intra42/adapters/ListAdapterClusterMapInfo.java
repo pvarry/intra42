@@ -83,13 +83,19 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
 
         holder.textViewTitle.setText(info.name);
         StringBuilder builder = new StringBuilder();
-        if (info.highlightPosts > 0)
-            builder.append(info.highlightPosts);
+        if (info.highlightPosts == 0)
+            builder.append(context.getString(R.string.cluster_map_info_highlight_nothing));
+        else if (info.highlightPosts == 1)
+            builder.append(context.getString(R.string.cluster_map_info_highlight_singular, info.freePosts));
         else
-            builder.append("no");
-        builder.append(" highlight - ");
-        builder.append(info.freePosts);
-        builder.append(" vacant posts");
+            builder.append(context.getString(R.string.cluster_map_info_highlight_plural, info.freePosts));
+        builder.append(" - ");
+        if (info.freePosts == 0)
+            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_nothing));
+        else if (info.freePosts == 1)
+            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_singular, info.freePosts));
+        else
+            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_plural, info.freePosts));
         holder.textViewSummary.setText(builder);
 
         return convertView;
