@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cluster location prefix is the beaning of all the host name on this cluster." />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutPrefix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/editTextPrefix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="location prefix"
+            android:inputType="textVisiblePassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutCampus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/editTextCampus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="cluster id"
+            android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

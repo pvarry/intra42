@@ -1,19 +1,25 @@
 package com.paulvarry.intra42.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.ui.BasicEditActivity;
@@ -38,6 +44,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     private String hostPrefix;
     private GridLayout gridLayout;
 
+    private SparseArray<SparseArray<Location>> allLocations;
+
     public static void openIt(Context context, Cluster cluster) {
         Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
 
@@ -45,6 +53,15 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             intent.putExtra(INTENT_CAMPUS, cluster.campusId);
             intent.putExtra(INTENT_HOST_PREFIX, cluster.hostPrefix);
         }
+        context.startActivity(intent);
+    }
+
+    public static void openIt(Context context, String prefix, int campus) {
+        Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
+
+        intent.putExtra(INTENT_CAMPUS, campus);
+        intent.putExtra(INTENT_HOST_PREFIX, prefix);
+
         context.startActivity(intent);
     }
 
@@ -63,10 +80,39 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             cluster.map = ClusterMapGenerator.getClusterMap(tmpCampus, tmpPrefix);
         } else
             super.registerGetDataOnOtherThread(this);
-        onCreateFinished();
 
         gridLayout = findViewById(R.id.gridLayout);
+
+        allLocations = new SparseArray<>();
+        if (cluster.map != null) {
+            for (int r = 0; r < cluster.map.length; r++) {
+
+                for (int p = 0; p < cluster.map[r].length; p++) {
+
+                    setLocation(cluster.map[r][p], p, r);
+                    if (p > cluster.sizeX)
+                        cluster.sizeX = p;
+                }
+                if (r > cluster.sizeY)
+                    cluster.sizeY = r;
+            }
+            cluster.sizeX++;
+            cluster.sizeY++;
+        } else {
+            cluster.sizeX = 10;
+            cluster.sizeY = 10;
+        }
         makeMap();
+
+        fabBaseActivity.setVisibility(View.VISIBLE);
+        fabBaseActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickOnFab();
+            }
+        });
+
+        onCreateFinished();
     }
 
     @Nullable
@@ -124,30 +170,28 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         baseItemHeight = Tools.dpToPx(this, 42);
         baseItemWidth = Tools.dpToPx(this, 35);
 
-        if (cluster == null || cluster.map == null)
+        if (cluster == null)
             return;
 
         gridLayout.removeAllViews();
         gridLayout.removeAllViewsInLayout();
-        gridLayout.setRowCount(cluster.map.length);
+        gridLayout.setRowCount(cluster.sizeY);
+        gridLayout.setColumnCount(cluster.sizeX);
 
-        for (int r = 0; r < cluster.map.length; r++) {
+        for (int x = 0; x < cluster.sizeX; x++) {
 
-            gridLayout.setColumnCount(cluster.map[r].length);
-            for (int p = 0; p < cluster.map[r].length; p++) {
+            for (int y = 0; y < cluster.sizeY; y++) {
 
-                if (cluster.map[r][p] == null)
-                    break;
-
-                View view = makeMapItem(cluster.map, r, p);
+                View view = makeMapItem(x, y);
                 gridLayout.addView(view);
             }
         }
     }
 
-    private View makeMapItem(final Location[][] cluster, int r, int p) {
+    private View makeMapItem(int x, int y) {
+        @Nullable
+        Location location = getLocation(x, y);
 
-        final Location location = cluster[r][p];
         View view;
         LayoutInflater vi = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView imageViewContent;
@@ -159,50 +203,203 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             return null;
 
         view = vi.inflate(R.layout.grid_layout_cluster_map_edit, gridLayout, false);
+        view.setTag(new LocationWrapper(x, y, location));
         imageViewContent = view.findViewById(R.id.imageView);
         textView = view.findViewById(R.id.textView);
+        view.setOnClickListener(this);
 
         textView.setVisibility(View.GONE);
-        if (location.locationKind == Location.Kind.USER) {
-            view.setTag(location);
-            view.setOnClickListener(this);
+        if (location != null)
+            if (location.locationKind == Location.Kind.USER) {
+                if (location.host == null ||
+                        location.host.isEmpty() ||
+                        location.host.contentEquals("null") ||
+                        location.host.contentEquals("TBD"))
+                    imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
+                else {
+                    textView.setVisibility(View.VISIBLE);
+                    textView.setText(location.host);
+                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_desktop_mac_black_custom));
+                }
 
-            textView.setVisibility(View.VISIBLE);
-            textView.setText(location.host);
-            if (location.host == null || location.host.contentEquals("null") || location.host.contentEquals("TBD"))
-                imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
-            else
-                imageViewContent.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_desktop_mac_black_custom));
-
-        } else if (location.locationKind == Location.Kind.WALL)
-            imageViewContent.setImageResource(R.color.colorClusterMapWall);
-        else {
-            imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
-            imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
-        }
+            } else if (location.locationKind == Location.Kind.WALL)
+                imageViewContent.setImageResource(R.color.colorClusterMapWall);
+            else {
+                imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
+                imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
+            }
 
         paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
-        paramsGridLayout.columnSpec = GridLayout.spec(p);
-        paramsGridLayout.rowSpec = GridLayout.spec(r);
+        paramsGridLayout.columnSpec = GridLayout.spec(x);
+        paramsGridLayout.rowSpec = GridLayout.spec(y);
         paramsGridLayout.setGravity(Gravity.FILL);
         paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
         paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
-        paramsGridLayout.height = (int) (baseItemHeight * location.sizeY);
-        paramsGridLayout.width = (int) (baseItemWidth * location.sizeX);
+        float sizeX = 1;
+        float sizeY = 1;
+        if (location != null) {
+            sizeX = location.sizeX;
+            sizeY = location.sizeY;
+        }
+        paramsGridLayout.height = (int) (baseItemHeight * sizeY);
+        paramsGridLayout.width = (int) (baseItemWidth * sizeX);
         imageViewContent.setPadding(padding, padding, padding, padding);
         view.setLayoutParams(paramsGridLayout);
 
         return view;
     }
 
+    /**
+     * item location clicked
+     *
+     * @param v View
+     */
     @Override
-    public void onClick(View v) {
-        Location location = null;
+    public void onClick(final View v) {
+        LocationWrapper location = null;
 
-        if (v.getTag() instanceof Location)
-            location = (Location) v.getTag();
+        if (v.getTag() instanceof LocationWrapper)
+            location = (LocationWrapper) v.getTag();
 
-        if (location != null)
-            Toast.makeText(app, location.host, Toast.LENGTH_SHORT).show();
+        if (location == null)
+            return;
+
+        final LayoutInflater inflater = getLayoutInflater();
+        final View view = inflater.inflate(R.layout.list_view_cluster_map_contribute_location, null);
+        final EditText editText = view.findViewById(R.id.editTextHost);
+        final TextInputLayout textInputLayoutHost = view.findViewById(R.id.textInputLayoutHost);
+        final RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
+        final RadioButton radioButtonUser = view.findViewById(R.id.radioButtonUser);
+        final RadioButton radioButtonCorridor = view.findViewById(R.id.radioButtonCorridor);
+        final RadioButton radioButtonWall = view.findViewById(R.id.radioButtonWall);
+//        Spinner spinnerLocationKind = view.findViewById(R.id.spinnerLocationKind);
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        textInputLayoutHost.setVisibility(View.GONE);
+        String title = "Edit: " + location.x + "," + location.y;
+        if (location.location != null) {
+            if (location.location.host != null)
+                title += " (" + location.location.host + ")";
+
+            editText.setText(location.location.host);
+            if (location.location.locationKind == Location.Kind.USER) {
+                radioButtonUser.setChecked(true);
+                textInputLayoutHost.setVisibility(View.VISIBLE);
+            } else if (location.location.locationKind == Location.Kind.CORRIDOR)
+                radioButtonCorridor.setChecked(true);
+            else if (location.location.locationKind == Location.Kind.WALL)
+                radioButtonWall.setChecked(true);
+        }
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioButtonUser:
+                        textInputLayoutHost.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        textInputLayoutHost.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        alert.setTitle(title);
+        alert.setView(view);
+        final LocationWrapper finalLocation = location;
+        alert.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Location locationEdit = getLocation(finalLocation.x, finalLocation.y);
+                if (locationEdit == null)
+                    locationEdit = new Location();
+                locationEdit.host = null;
+                if (radioButtonUser.isChecked()) {
+                    locationEdit.locationKind = Location.Kind.USER;
+                    locationEdit.host = editText.getText().toString();
+                } else if (radioButtonCorridor.isChecked())
+                    locationEdit.locationKind = Location.Kind.CORRIDOR;
+                else if (radioButtonWall.isChecked())
+                    locationEdit.locationKind = Location.Kind.WALL;
+                else return;
+
+                setLocation(locationEdit, finalLocation.x, finalLocation.y);
+                gridLayout.removeView(v);
+                View view = makeMapItem(finalLocation.x, finalLocation.y);
+                gridLayout.addView(view);
+            }
+        });
+        alert.setNegativeButton(R.string.discard, null);
+        alert.show();
+    }
+
+    private void clickOnFab() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ClusterMapContributeEditActivity.this);
+        String[] item = new String[]{"Add row on top", "Add row on bottom", "Add column on left", "Add column on right"};
+        builder.setItems(item, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    cluster.sizeY++;
+                    for (int i = 0; i < cluster.sizeX; i++) {
+                        SparseArray<Location> row = allLocations.get(i);
+                        if (row != null) {
+                            for (int j = cluster.sizeY; j > 0; j--) {
+                                row.put(j, row.get(j - 1));
+                            }
+                            row.remove(0);
+                        }
+                    }
+                    makeMap();
+                } else if (which == 1) {
+                    cluster.sizeY++;
+                    makeMap();
+                } else if (which == 2) {
+                    cluster.sizeX++;
+                    for (int i = cluster.sizeX; i > 0; i--) {
+                        allLocations.put(i, allLocations.get(i - 1));
+                    }
+                    allLocations.remove(0);
+                    makeMap();
+                } else if (which == 3) {
+                    cluster.sizeX++;
+                    makeMap();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    @Nullable
+    private Location getLocation(int x, int y) {
+        SparseArray<Location> col = allLocations.get(x);
+        if (col != null)
+            return col.get(y);
+        return null;
+    }
+
+    private void setLocation(Location location, int x, int y) {
+        SparseArray<Location> col = allLocations.get(x);
+        if (col == null) {
+            allLocations.append(x, new SparseArray<Location>());
+            col = allLocations.get(x);
+        }
+        col.put(y, location);
+    }
+
+    private class LocationWrapper {
+        int x;
+        int y;
+        @Nullable
+        Location location;
+
+        LocationWrapper(int x, int y, @Nullable Location location) {
+            this.x = x;
+            this.y = y;
+            this.location = location;
+        }
     }
 }

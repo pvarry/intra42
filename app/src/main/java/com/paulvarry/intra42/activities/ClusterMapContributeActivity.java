@@ -1,11 +1,15 @@
 package com.paulvarry.intra42.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.paulvarry.intra42.R;
@@ -76,7 +80,23 @@ public class ClusterMapContributeActivity extends BasicActivity implements View.
 
     @Override
     public void onClick(View v) {
-        ClusterMapContributeEditActivity.openIt(this, null);
+        final LayoutInflater inflater = getLayoutInflater();
+        final View view = inflater.inflate(R.layout.list_view_cluster_map_contribute_cluster, null);
+        final EditText editTextPrefix = view.findViewById(R.id.editTextPrefix);
+        final EditText editTextCampus = view.findViewById(R.id.editTextCampus);
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+
+        alert.setTitle("Create cluster");
+        alert.setView(view);
+        alert.setPositiveButton("create", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ClusterMapContributeEditActivity.openIt(ClusterMapContributeActivity.this, editTextPrefix.getText().toString(), Integer.decode(editTextCampus.getText().toString()));
+            }
+        });
+        alert.show();
     }
 
     @Override

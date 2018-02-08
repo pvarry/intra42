@@ -1,11 +1,15 @@
 package com.paulvarry.intra42.utils.clusterMap.Firebase;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.utils.clusterMap.LocationItem;
 
 public class Location {
 
+    @Nullable
     public String host;
+    @Nullable
     public Kind locationKind;
     /**
      * between 0 and 1
@@ -48,6 +52,11 @@ public class Location {
         this.sizeY = sizeY;
         this.locationKind = getKind(kind);
         this.angle = angle;
+    }
+
+    public Location() {
+        sizeX = 1;
+        sizeY = 1;
     }
 
     @Deprecated
