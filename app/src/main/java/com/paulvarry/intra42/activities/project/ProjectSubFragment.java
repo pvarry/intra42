@@ -81,7 +81,7 @@ public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAda
     @Nullable
     @Override
     public Call<List<ProjectsUsers>> getCall(ApiService apiService, @Nullable List<ProjectsUsers> list) {
-        if (activity.projectUser.user.user == null)
+        if (activity == null || activity.projectUser == null || activity.projectUser.user == null || activity.projectUser.user.user == null)
             return null;
 
         int start = 0;
