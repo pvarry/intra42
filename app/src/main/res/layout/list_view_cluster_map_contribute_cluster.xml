@@ -37,7 +37,7 @@
             android:id="@+id/editTextCampus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="cluster id"
+            android:hint="campus id"
             android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 

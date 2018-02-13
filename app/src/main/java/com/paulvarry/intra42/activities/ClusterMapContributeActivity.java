@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
+import com.paulvarry.intra42.adapters.ListAdapterClusterMapContribute;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.utils.clusterMap.Firebase.Cluster;
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ClusterMapContributeActivity extends BasicActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ListView listView;
+    private ExpandableListView listView;
 
     private List<Cluster> clusters;
 
@@ -48,11 +48,11 @@ public class ClusterMapContributeActivity extends BasicActivity implements View.
         clusters.add(new Cluster(7, "Fremont - E1Z3", "e1z3"));
         clusters.add(new Cluster(7, "Fremont - E1Z4", "e1z4"));
 
-        listView.setOnItemClickListener(this);
+        // listView.setOnItemClickListener(this);
         fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(this);
 
-        listView.setAdapter(new BaseListAdapterSlug<>(this, clusters));
+        listView.setAdapter(new ListAdapterClusterMapContribute(this, clusters));
 
         super.onCreateFinished();
     }
