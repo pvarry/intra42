@@ -118,12 +118,21 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      * Need to be executed at the end of {@link #onCreate(Bundle) (only when custom content set or Hamburger)}
      */
     protected void onCreateFinished() {
-        // add content view programmatically
+        onCreateFinished(true);
+    }
+
+    /**
+     * Need to be executed at the end of {@link #onCreate(Bundle) (only when custom content set or Hamburger)}
+     *
+     * @param setContent If the content must be set.
+     */
+    protected void onCreateFinished(boolean setContent) {
 
         if (resContentId == 0)
             throw new RuntimeException("ContentView must be set");
 
-        setViewState(StatusCode.CONTENT);
+        if (setContent)
+            setViewState(StatusCode.CONTENT);
     }
 
     /**
@@ -386,16 +395,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
      * @return Boolean if the progress is well display.
      */
     public void setLoadingProgress(final String progressStatus) {
-        if (textViewLoadingStatus != null) {
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setLoading(progressStatus, 0, 0);
-                }
-            });
-
-        }
+        setLoadingProgress(progressStatus, 0, -1);
     }
 
     /**
@@ -466,8 +466,10 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         textViewLoadingInfo.setText(R.string.info_loading_please_wait);
 
         if (max <= 0) {
+            progressBarLoading.setRotation(180);
             progressBarLoading.setIndeterminate(true);
         } else {
+            progressBarLoading.setRotation(0);
             progressBarLoading.setIndeterminate(false);
             progressBarLoading.setMax(max);
 
@@ -480,8 +482,10 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         textViewLoadingStatus.setVisibility(View.VISIBLE);
         if (currentProgress == max)
             textViewLoadingStatus.setText(getString(R.string.info_loading_processing_data));
-        else if (max == 0 && progressStatus != null)
+        else if (max == -1 && progressStatus == null)
             textViewLoadingStatus.setText(R.string.info_loading_resolve_number_page);
+        else if (max == -1)
+            textViewLoadingStatus.setText(progressStatus);
         else if (max >= 0) {
             if (progressStatus != null)
                 textViewLoadingStatus.setText(progressStatus);

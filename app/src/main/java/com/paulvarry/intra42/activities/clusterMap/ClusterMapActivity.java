@@ -83,7 +83,6 @@ public class ClusterMapActivity
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null) {
             clusters = dataWrapper.clusters;
-            dataWrapper = null;
         }
 
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
@@ -140,14 +139,13 @@ public class ClusterMapActivity
             return;
         }
 
-        setLoadingProgress(R.string.info_loading_locations, 0, -1);
+        setLoadingProgress(0, -1);
 
         int page = 1;
         int pageSize = 100;
         int pageMax = 0;
 
         while (true) {
-
             Response<List<Locations>> r = app.getApiService().getLocations(campusId, pageSize, page).execute();
             if (Tools.apiIsSuccessful(r)) {
                 locationsTmp.addAll(r.body());
@@ -168,22 +166,20 @@ public class ClusterMapActivity
             clusters.locations.put(l.host, l.user);
         }
 
-        clusters.computeFreePosts();
-
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
 
         ApiService42Tools api = app.getApiService42Tools();
 
         Call<List<FriendsSmall>> call = api.getFriends();
         Response<List<FriendsSmall>> ret = call.execute();
+        setLoadingProgress(pageMax + 1, pageMax + 1);
         if (Tools.apiIsSuccessful(ret)) {
             clusters.friends = new SparseArray<>();
             for (FriendsSmall f : ret.body()) {
                 clusters.friends.put(f.id, f);
             }
         }
-
-        clusters.computeHighlightPosts();
+        clusters.computeHighlightAndFreePosts();
 
         setViewStateThread(StatusCode.CONTENT);
     }
@@ -199,8 +195,11 @@ public class ClusterMapActivity
             }
         }
 
-        if (clusters.friends != null && clusters.locations != null)
-            return ThreadStatusCode.FINISH;
+        if (dataWrapper != null) {
+            dataWrapper = null;
+            if (clusters.friends != null && clusters.locations != null)
+                return ThreadStatusCode.FINISH;
+        }
 
         return ThreadStatusCode.CONTINUE;
     }
@@ -287,6 +286,10 @@ public class ClusterMapActivity
         return data;
     }
 
+    void refreshCluster() {
+        onCreateFinished();
+    }
+
     public enum LayerStatus {
         FRIENDS(0), PROJECT(1), USER(2), LOCATION(3);
 
@@ -304,6 +307,4 @@ public class ClusterMapActivity
     private class DataWrapper {
         ClusterStatus clusters;
     }
-
-
 }

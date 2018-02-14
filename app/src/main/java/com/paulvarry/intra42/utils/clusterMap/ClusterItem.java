@@ -24,9 +24,10 @@ public class ClusterItem {
     }
 
     public void computeFreePosts(HashMap<String, UsersLTE> locations) {
+        freePosts = 0;
         for (LocationItem[] row : map)
             for (LocationItem post : row) {
-                if (post.kind == 0) {
+                if (post.kind == LocationItem.KIND_USER) {
                     posts++;
                     if (!locations.containsKey(post.locationName))
                         freePosts++;
@@ -43,6 +44,25 @@ public class ClusterItem {
                 user = clusters.locations.get(post.locationName);
                 if (post.computeHighlightPosts(clusters, user)) {
                     highlightPosts++;
+                }
+            }
+    }
+
+    public void computeHighlightAndFreePosts(ClusterStatus clusters, HashMap<String, UsersLTE> locations) {
+        UsersLTE user;
+
+        highlightPosts = 0;
+        freePosts = 0;
+        for (LocationItem[] row : map)
+            for (LocationItem post : row) {
+                user = clusters.locations.get(post.locationName);
+                if (post.computeHighlightPosts(clusters, user)) {
+                    highlightPosts++;
+                }
+                if (post.kind == LocationItem.KIND_USER) {
+                    posts++;
+                    if (!locations.containsKey(post.locationName))
+                        freePosts++;
                 }
             }
     }

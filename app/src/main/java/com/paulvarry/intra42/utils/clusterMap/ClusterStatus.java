@@ -53,6 +53,14 @@ public class ClusterStatus {
         }
     }
 
+    public void computeHighlightAndFreePosts() {
+        if (clusterInfoList == null)
+            return;
+        for (ClusterItem cluster : clusterInfoList.values()) {
+            cluster.computeHighlightAndFreePosts(this, locations);
+        }
+    }
+
     public UsersLTE getUserInLocation(LocationItem locationItem) {
         if (locationItem.kind == LocationItem.KIND_USER && locationItem.locationName != null && locations != null)
             return locations.get(locationItem.locationName);

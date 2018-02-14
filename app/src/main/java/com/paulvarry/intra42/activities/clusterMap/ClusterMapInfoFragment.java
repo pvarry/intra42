@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -49,12 +50,13 @@ import retrofit2.Response;
  * Use the {@link ClusterMapInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
+public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ClusterMapActivity activity;
 
     private ListAdapterClusterMapInfo adapter;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewClusters;
     private TextView textViewLayerTitle;
     private TextView textViewLayerDescription;
@@ -103,6 +105,8 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        swipeRefreshLayout = view.findViewById(R.id.layoutParent);
         listView = view.findViewById(R.id.listView);
         spinnerMain = view.findViewById(R.id.spinnerMain);
         spinnerSecondary = view.findViewById(R.id.spinnerSecondary);
@@ -162,6 +166,8 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         spinnerMain.setOnItemSelectedListener(this);
         spinnerSecondary.setOnItemSelectedListener(this);
         spinnerSecondary.setSelection(projectStatusSelection);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private int getProjectSelectionPosition() {
@@ -342,6 +348,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         spinnerMain.setOnItemSelectedListener(null);
         spinnerSecondary.setOnItemSelectedListener(null);
         editText.removeTextChangedListener(this);
+        swipeRefreshLayout.setEnabled(false);
 
         switch (activity.layerTmpStatus) {
             case USER:
@@ -595,6 +602,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         editText.addTextChangedListener(this);
         spinnerMain.setOnItemSelectedListener(this);
         spinnerSecondary.setOnItemSelectedListener(this);
+        swipeRefreshLayout.setEnabled(true);
 
         updateButton();
 
@@ -626,6 +634,14 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         activity.viewPager.setCurrentItem(position + 1, true);
     }
 
+    /**
+     * Called when a swipe gesture triggers a refresh.
+     */
+    @Override
+    public void onRefresh() {
+        if (activity != null)
+            activity.refreshCluster();
+    }
 
     /**
      * This interface must be implemented by activities that contain this
