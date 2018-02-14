@@ -1,4 +1,4 @@
-package com.paulvarry.intra42.utils.clusterMap.Firebase;
+package com.paulvarry.intra42.api.cluster_map_contribute;
 
 import android.content.Context;
 
@@ -8,6 +8,7 @@ import com.paulvarry.intra42.api.BaseItem;
 public class Cluster implements BaseItem {
 
     public String name;
+    public String nameShort;
     public String slug;
     @SerializedName("host_prefix")
     public String hostPrefix;

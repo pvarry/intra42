@@ -1,7 +1,7 @@
 package com.paulvarry.intra42.utils.clusterMap;
 
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.clusterMap.Firebase.Cluster;
 
 import java.util.HashMap;
 

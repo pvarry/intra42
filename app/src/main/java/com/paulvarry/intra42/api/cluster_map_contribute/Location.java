@@ -1,4 +1,4 @@
-package com.paulvarry.intra42.utils.clusterMap.Firebase;
+package com.paulvarry.intra42.api.cluster_map_contribute;
 
 import android.support.annotation.Nullable;
 
@@ -10,6 +10,7 @@ public class Location {
     @Nullable
     public String host;
     @Nullable
+    @SerializedName("newKind")
     public Kind locationKind;
     /**
      * between 0 and 1

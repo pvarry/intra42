@@ -14,8 +14,8 @@ import android.widget.ExpandableListView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterClusterMapContribute;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.ui.BasicActivity;
-import com.paulvarry.intra42.utils.clusterMap.Firebase.Cluster;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,9 +84,10 @@ public class ClusterMapContributeActivity extends BasicActivity implements View.
         final View view = inflater.inflate(R.layout.list_view_cluster_map_contribute_cluster, null);
         final EditText editTextPrefix = view.findViewById(R.id.editTextPrefix);
         final EditText editTextCampus = view.findViewById(R.id.editTextCampus);
+        final EditText editTextName = view.findViewById(R.id.editTextName);
+        final EditText editTextNameShort = view.findViewById(R.id.editTextNameShort);
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
 
         alert.setTitle("Create cluster");
         alert.setView(view);

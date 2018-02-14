@@ -2,9 +2,9 @@ package com.paulvarry.intra42.utils.clusterMap;
 
 import android.support.annotation.Nullable;
 
+import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.clusterMap.Firebase.Location;
 
 public class LocationItem extends Location {
 

@@ -3,6 +3,7 @@ package com.paulvarry.intra42.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.ClusterMapContributeEditActivity;
-import com.paulvarry.intra42.utils.clusterMap.Firebase.Cluster;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 
 import java.util.List;
 
@@ -213,8 +214,14 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
         holder.buttonEditLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(context, "Opening in progress", Toast.LENGTH_SHORT).show();
-                ClusterMapContributeEditActivity.openIt(context, item.hostPrefix, item.campusId);
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ClusterMapContributeEditActivity.openIt(context, item.hostPrefix, item.campusId);
+                    }
+                });
             }
         });
 
@@ -225,10 +232,14 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
                 final View view = inflater.inflate(R.layout.list_view_cluster_map_contribute_cluster, null);
                 final EditText editTextPrefix = view.findViewById(R.id.editTextPrefix);
                 final EditText editTextCampus = view.findViewById(R.id.editTextCampus);
+                final EditText editTextName = view.findViewById(R.id.editTextName);
+                final EditText editTextNameShort = view.findViewById(R.id.editTextNameShort);
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 editTextPrefix.setText(item.hostPrefix);
                 editTextCampus.setText(String.valueOf(item.campusId));
+                editTextNameShort.setText(item.nameShort);
+                editTextName.setText(item.name);
 
                 alert.setTitle("Edit cluster metadata");
                 alert.setView(view);

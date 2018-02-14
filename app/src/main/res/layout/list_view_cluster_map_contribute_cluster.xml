@@ -8,22 +8,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="16dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cluster location prefix is the beaning of all the host name on this cluster." />
-
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayoutPrefix"
+        android:id="@+id/textInputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp">
 
         <EditText
-            android:id="@+id/editTextPrefix"
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="location prefix"
+            android:hint="full name"
+            android:inputType="textVisiblePassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputNameShort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/editTextNameShort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="name short"
             android:inputType="textVisiblePassword" />
     </android.support.design.widget.TextInputLayout>
 
@@ -40,5 +49,25 @@
             android:hint="campus id"
             android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutPrefix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/editTextPrefix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="location prefix"
+            android:inputType="textVisiblePassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Cluster location prefix is the beginning of all the host name on this cluster." />
 
 </LinearLayout>
