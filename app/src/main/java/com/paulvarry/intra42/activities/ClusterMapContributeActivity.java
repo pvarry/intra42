@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,8 +18,12 @@ import com.paulvarry.intra42.adapters.ListAdapterClusterMapContribute;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.ui.BasicActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class ClusterMapContributeActivity extends BasicActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -55,6 +60,22 @@ public class ClusterMapContributeActivity extends BasicActivity implements View.
         listView.setAdapter(new ListAdapterClusterMapContribute(this, clusters));
 
         super.onCreateFinished();
+
+        final Call<List<Cluster>> call = app.getApiServiceClusterMapContribute().getClusters();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                long start = System.nanoTime();
+                try {
+                    Response<List<Cluster>> res = call.execute();
+                    long end = System.nanoTime();
+                    long diff = end - start;
+                    Log.d("cluster", String.valueOf(diff));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Nullable

@@ -22,6 +22,7 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ApiServiceCantina;
+import com.paulvarry.intra42.api.ApiServiceClusterMapContribute;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Users;
@@ -215,6 +216,10 @@ public class AppClass extends Application {
 
     public ApiServiceAuthServer getApiServiceAuthServer() {
         return ServiceGenerator.createService(ApiServiceAuthServer.class, this, false);
+    }
+
+    public ApiServiceClusterMapContribute getApiServiceClusterMapContribute() {
+        return ServiceGenerator.createService(ApiServiceClusterMapContribute.class, this, false);
     }
 
     /**

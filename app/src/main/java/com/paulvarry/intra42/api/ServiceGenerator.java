@@ -19,6 +19,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.activities.MainActivity;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Slots;
@@ -36,9 +37,11 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -119,6 +122,9 @@ public class ServiceGenerator {
             httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
             httpClient.authenticator(getAuthenticator42Tools(app));
             builder.baseUrl(API_BASE_URL_42TOOLS);
+        } else if (serviceClass == ApiServiceClusterMapContribute.class) {
+            // httpClient.addInterceptor(getHeaderInterceptor());
+            httpClient.addInterceptor(getClusterMapContributeInterceptor());
         } else
             httpClient.addInterceptor(getHeaderInterceptor());
 
@@ -167,6 +173,31 @@ public class ServiceGenerator {
                 }
 
                 return response;
+            }
+        };
+
+    }
+
+    private static Interceptor getClusterMapContributeInterceptor() {
+
+        return new Interceptor() {
+            @Override
+            public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
+
+                Request request = chain.request();
+                Response response = chain.proceed(request);
+
+                String content = response.body().string();
+
+                int start = content.indexOf(">");
+                int end = content.lastIndexOf("<");
+
+                content = content.substring(start + 1, end);
+                content = Cluster.HtmlEntities.decode(content);
+
+                MediaType contentType = response.body().contentType();
+                ResponseBody body = ResponseBody.create(contentType, content);
+                return response.newBuilder().body(body).build();
             }
         };
 
