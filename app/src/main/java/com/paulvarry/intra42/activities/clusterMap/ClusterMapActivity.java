@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -124,7 +125,7 @@ public class ClusterMapActivity
         final List<Locations> locationsTmp = new ArrayList<>();
 
         campusId = AppSettings.getAppCampus(app);
-        clusters.clusterInfoList = new HashMap<>();
+        clusters.clusterInfoList = new TreeMap<>();
         if (campusId == 1) { //Paris
             clusters.addCluster(new ClusterItem(campusId, "E1", "e1"));
             clusters.addCluster(new ClusterItem(campusId, "E2", "e2"));

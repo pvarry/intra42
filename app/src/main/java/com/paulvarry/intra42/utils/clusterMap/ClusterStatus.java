@@ -8,10 +8,11 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ClusterStatus {
 
-    public HashMap<String, ClusterItem> clusterInfoList;
+    public Map<String, ClusterItem> clusterInfoList;
 
     /**
      * key : Location name
