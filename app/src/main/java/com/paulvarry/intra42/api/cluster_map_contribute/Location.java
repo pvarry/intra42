@@ -10,20 +10,21 @@ public class Location {
     @Nullable
     public String host;
     @Nullable
-    @SerializedName("newKind")
+    @SerializedName("kind")
     public Kind locationKind;
     /**
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("size_x")
+    @SerializedName("scaleX")
     public float sizeX;
     /**
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("size_y")
+    @SerializedName("scaleY")
     public float sizeY;
+    @SerializedName("rot")
     public float angle;
 
     @Deprecated

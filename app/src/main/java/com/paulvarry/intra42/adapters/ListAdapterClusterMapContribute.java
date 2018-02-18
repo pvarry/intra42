@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.adapters;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -9,25 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.ClusterMapContributeEditActivity;
-import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 
 import java.util.List;
 
 public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
 
     private final Context context;
-    private List<Cluster> clusterList;
+    private List<Master> masterList;
+    private OnEditClickListener listener;
 
-    public ListAdapterClusterMapContribute(Context context, List<Cluster> clusterList) {
+    public ListAdapterClusterMapContribute(Context context, List<Master> clusterList) {
 
         this.context = context;
-        this.clusterList = clusterList;
+        this.masterList = clusterList;
+    }
+
+    public void setOnEditListener(OnEditClickListener listener) {
+        this.listener = listener;
     }
 
     /**
@@ -37,7 +39,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
      */
     @Override
     public int getGroupCount() {
-        return clusterList.size();
+        return masterList.size();
     }
 
     /**
@@ -59,8 +61,8 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
      * @return the data child for the specified group
      */
     @Override
-    public Cluster getGroup(int groupPosition) {
-        return clusterList.get(groupPosition);
+    public Master getGroup(int groupPosition) {
+        return masterList.get(groupPosition);
     }
 
     /**
@@ -72,7 +74,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
      * @return the data of the child
      */
     @Override
-    public Cluster getChild(int groupPosition, int childPosition) {
+    public Master getChild(int groupPosition, int childPosition) {
         return getGroup(groupPosition);
     }
 
@@ -87,7 +89,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
      */
     @Override
     public long getGroupId(int groupPosition) {
-        return getGroup(groupPosition).campusId;
+        return -1;
     }
 
     /**
@@ -153,7 +155,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
             holder = (ViewHolderGroup) convertView.getTag();
         }
 
-        Cluster item = getGroup(groupPosition);
+        Master item = getGroup(groupPosition);
 
         holder.textViewTitle.setText(item.name);
 
@@ -179,7 +181,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
      * @return the View corresponding to the child at the specified position
      */
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final ViewHolderChild holder;
 
         if (convertView == null) {
@@ -198,9 +200,9 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
             holder = (ViewHolderChild) convertView.getTag();
         }
 
-        final Cluster item = getGroup(groupPosition);
+        final Master item = getGroup(groupPosition);
 
-        if (item.hostPrefix.contentEquals("e1")) { // just for testing
+        if (item.locked_at != null || item.locked_by != null) {
             holder.buttonEditLayout.setEnabled(false);
             holder.buttonEditMetadata.setEnabled(false);
             holder.textViewLocked.setVisibility(View.VISIBLE);
@@ -219,7 +221,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        ClusterMapContributeEditActivity.openIt(context, item.hostPrefix, item.campusId);
+                        // ClusterMapContributeEditActivity.openIt(context, item.hostPrefix, item.campusId);
                     }
                 });
             }
@@ -228,23 +230,10 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
         holder.buttonEditMetadata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LayoutInflater inflater = LayoutInflater.from(context);
-                final View view = inflater.inflate(R.layout.list_view_cluster_map_contribute_cluster, null);
-                final EditText editTextPrefix = view.findViewById(R.id.editTextPrefix);
-                final EditText editTextCampus = view.findViewById(R.id.editTextCampus);
-                final EditText editTextName = view.findViewById(R.id.editTextName);
-                final EditText editTextNameShort = view.findViewById(R.id.editTextNameShort);
 
-                final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                editTextPrefix.setText(item.hostPrefix);
-                editTextCampus.setText(String.valueOf(item.campusId));
-                editTextNameShort.setText(item.nameShort);
-                editTextName.setText(item.name);
-
-                alert.setTitle("Edit cluster metadata");
-                alert.setView(view);
-                alert.setPositiveButton("save", null);
-                alert.show();
+                if (listener != null) {
+                    listener.onClickEditMetadata(v, groupPosition, item);
+                }
             }
         });
 
@@ -263,6 +252,12 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
         return false;
     }
 
+    public interface OnEditClickListener {
+
+        void onClickEditLayout();
+
+        void onClickEditMetadata(View finalConvertView, int groupPosition, Master item);
+    }
 
     private static class ViewHolderGroup {
 

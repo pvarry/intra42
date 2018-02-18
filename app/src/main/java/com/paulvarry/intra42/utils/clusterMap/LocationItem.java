@@ -2,6 +2,7 @@ package com.paulvarry.intra42.utils.clusterMap;
 
 import android.support.annotation.Nullable;
 
+import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
@@ -13,9 +14,10 @@ public class LocationItem extends Location {
     public final static int KIND_WALL = 2;
 
     @Nullable
-    public Boolean highlight;
-    public String locationName;
-    public int kind;
+    public transient Boolean highlight;
+    public transient String locationName;
+    @SerializedName("old_kind")
+    public transient int kind;
 
     public LocationItem(String locationName, int kind, float angle) {
         super(locationName, kind, angle);

@@ -183,17 +183,18 @@ public class ServiceGenerator {
         return new Interceptor() {
             @Override
             public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
-
                 Request request = chain.request();
                 Response response = chain.proceed(request);
 
                 String content = response.body().string();
 
-                int start = content.indexOf(">");
-                int end = content.lastIndexOf("<");
+                if (content != null && !content.isEmpty()) {
+                    int start = content.indexOf(">");
+                    int end = content.lastIndexOf("<");
 
-                content = content.substring(start + 1, end);
-                content = Cluster.HtmlEntities.decode(content);
+                    content = content.substring(start + 1, end);
+                    content = Cluster.HtmlEntities.decode(content);
+                }
 
                 MediaType contentType = response.body().contentType();
                 ResponseBody body = ResponseBody.create(contentType, content);
@@ -446,12 +447,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
-        ServiceGenerator.accessToken42Tools = tokenTools;
-    }
-
     public static void setToken(AccessToken tokenIntra) {
         ServiceGenerator.accessTokenIntra42 = tokenIntra;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
+        ServiceGenerator.accessToken42Tools = tokenTools;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

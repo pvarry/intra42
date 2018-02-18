@@ -225,13 +225,7 @@
         </activity>
         <activity
             android:name=".activities.ClusterMapContributeActivity"
-            android:label="@string/title_activity_cluster_map_contribute">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_cluster_map_contribute" />
         <activity
             android:name=".activities.ClusterMapContributeEditActivity"
             android:label="@string/title_activity_cluster_map_contribute_edit" />

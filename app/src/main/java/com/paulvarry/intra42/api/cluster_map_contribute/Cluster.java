@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.utils.clusterMap.ClusterMapGenerator;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -23,16 +24,26 @@ public class Cluster implements BaseItem {
     public int campusId;
     @SerializedName("position")
     public int clusterPosition;
-    @SerializedName("size_x")
+    @SerializedName("width")
     public int sizeX;
-    @SerializedName("size_y")
+    @SerializedName("height")
     public int sizeY;
     public Location map[][];
 
     public Cluster(int campusId, String name, String hostPrefix) {
         this.campusId = campusId;
         this.name = name;
+        this.nameShort = name;
         this.hostPrefix = hostPrefix;
+    }
+
+    public Cluster(int campusId, String name, String hostPrefix, boolean generateMap) {
+        this.campusId = campusId;
+        this.name = name;
+        this.nameShort = name;
+        this.hostPrefix = hostPrefix;
+        if (generateMap)
+            map = ClusterMapGenerator.getClusterMap(campusId, hostPrefix);
     }
 
     @Override
