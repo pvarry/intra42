@@ -16,7 +16,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center"
-        android:text="File locked by %s, 10 min ago\nYou will be able to edit this cluster on 11h10 PM (in 3min 30s)"
+        android:text="New Text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

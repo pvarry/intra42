@@ -1,30 +1,31 @@
 package com.paulvarry.intra42.adapters;
 
 
-import android.content.Context;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.cluster_map_contribute.Master;
+import com.paulvarry.intra42.utils.DateTool;
+import com.paulvarry.intra42.utils.cluster_map_contribute.Utils;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
 
-    private final Context context;
+    private final AppClass app;
     private List<Master> masterList;
     private OnEditClickListener listener;
 
-    public ListAdapterClusterMapContribute(Context context, List<Master> clusterList) {
+    public ListAdapterClusterMapContribute(AppClass app, List<Master> clusterList) {
 
-        this.context = context;
+        this.app = app;
         this.masterList = clusterList;
     }
 
@@ -144,7 +145,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
         if (convertView == null) {
             holder = new ViewHolderGroup();
 
-            LayoutInflater inflater = LayoutInflater.from(context);
+            LayoutInflater inflater = LayoutInflater.from(app);
             convertView = inflater.inflate(R.layout.list_view_cluster_map_contribute_list_group, parent, false);
 
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
@@ -187,7 +188,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
         if (convertView == null) {
             holder = new ViewHolderChild();
 
-            LayoutInflater inflater = LayoutInflater.from(context);
+            LayoutInflater inflater = LayoutInflater.from(app);
             convertView = inflater.inflate(R.layout.list_view_cluster_map_contribute_list_child, parent, false);
 
             holder.textViewLocked = convertView.findViewById(R.id.textViewLocked);
@@ -202,28 +203,31 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
 
         final Master item = getGroup(groupPosition);
 
-        if (item.locked_at != null || item.locked_by != null) {
-            holder.buttonEditLayout.setEnabled(false);
-            holder.buttonEditMetadata.setEnabled(false);
-            holder.textViewLocked.setVisibility(View.VISIBLE);
-        } else {
+        if (Utils.canIEdit(item, app)) {
             holder.buttonEditLayout.setEnabled(true);
             holder.buttonEditMetadata.setEnabled(true);
             holder.textViewLocked.setVisibility(View.GONE);
+        } else {
+            holder.buttonEditLayout.setEnabled(false);
+            holder.buttonEditMetadata.setEnabled(false);
+
+            String lockString = "Cluster locked by __user__ at __time__\nYou will be able to edit this cluster on __time_future__";
+            Calendar c = Calendar.getInstance();
+            c.setTime(item.locked_at);
+            c.add(Calendar.MINUTE, Utils.MINUTE_LOCK);
+            lockString = lockString.replace("__user__", item.locked_by);
+            lockString = lockString.replace("__time__", DateTool.getTimeShort(item.locked_at));
+            lockString = lockString.replace("__time_future__", DateTool.getTimeShort(c.getTime()));
+
+            holder.textViewLocked.setText(lockString);
+            holder.textViewLocked.setVisibility(View.VISIBLE);
         }
 
         // holder.textViewLocked.setText();
         holder.buttonEditLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                Toast.makeText(context, "Opening in progress", Toast.LENGTH_SHORT).show();
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // ClusterMapContributeEditActivity.openIt(context, item.hostPrefix, item.campusId);
-                    }
-                });
+            public void onClick(final View v) {
+                listener.onClickEditLayout(v, groupPosition, item);
             }
         });
 
@@ -254,9 +258,9 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
 
     public interface OnEditClickListener {
 
-        void onClickEditLayout();
+        void onClickEditLayout(View finalConvertView, int groupPosition, final Master master);
 
-        void onClickEditMetadata(View finalConvertView, int groupPosition, Master item);
+        void onClickEditMetadata(View finalConvertView, int groupPosition, final Master master);
     }
 
     private static class ViewHolderGroup {

@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.BaseItem;
 import com.paulvarry.intra42.utils.clusterMap.ClusterMapGenerator;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Cluster implements BaseItem {
+public class Cluster implements BaseItem, Serializable {
 
     public String name;
     public String nameShort;

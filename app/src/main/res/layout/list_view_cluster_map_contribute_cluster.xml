@@ -1,87 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="16dp">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp">
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="16dp">
 
-        <EditText
-            android:id="@+id/editTextName"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="full name"
-            android:inputType="textVisiblePassword" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:counterEnabled="true"
+            app:counterMaxLength="40"
+            app:counterOverflowTextAppearance="@style/CounterOverflow"
+            app:errorTextAppearance="@style/CounterOverflow">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputNameShort"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full name"
+                android:inputType="textVisiblePassword" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextNameShort"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputNameShort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="name short"
-            android:inputType="textVisiblePassword" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="4dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="6"
+            app:counterOverflowTextAppearance="@style/CounterOverflow"
+            app:errorTextAppearance="@style/CounterOverflow">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputPosition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextNameShort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Short name"
+                android:inputType="textVisiblePassword" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextPosition"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="position"
-            android:inputType="textVisiblePassword" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="4dp">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayoutCampus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp">
+            <EditText
+                android:id="@+id/editTextPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Position"
+                android:inputType="textVisiblePassword" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextCampus"
+        <TextView
+            style="@style/TextAppearance.Design.Hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="campus id"
-            android:inputType="number" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/campus"
+            android:textColor="#9B9B9B" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayoutPrefix"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp">
-
-        <EditText
-            android:id="@+id/editTextPrefix"
+        <Spinner
+            android:id="@+id/spinnerCampus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="location prefix"
-            android:inputType="textVisiblePassword" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginLeft="-4dp"
+            android:layout_marginStart="-4dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="Cluster location prefix is the beginning of all the host name on this cluster." />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutPrefix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/editTextPrefix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Location prefix"
+                android:inputType="textVisiblePassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Cluster location prefix is the beginning of all the host name on this cluster." />
+
+    </LinearLayout>
+</ScrollView>

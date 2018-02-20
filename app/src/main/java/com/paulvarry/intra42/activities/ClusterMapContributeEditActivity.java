@@ -24,44 +24,47 @@ import android.widget.TextView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
+import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import com.paulvarry.intra42.ui.BasicEditActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tools;
-import com.paulvarry.intra42.utils.clusterMap.ClusterMapGenerator;
+import com.paulvarry.intra42.utils.cluster_map_contribute.Utils;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 public class ClusterMapContributeEditActivity extends BasicEditActivity implements BasicThreadActivity.GetDataOnThread, View.OnClickListener {
 
-    private static final String INTENT_CAMPUS = "intent_campus";
-    private static final String INTENT_HOST_PREFIX = "intent_topic";
+    private static final String INTENT_CLUSTER = "cluster";
+    private static final String INTENT_MASTER = "master";
+
     float baseItemWidth;
     float baseItemHeight;
     private Cluster cluster;
+    private Master master;
     private boolean createCluster = false;
     private boolean unsavedData = false;
-    private int campus;
-    private String hostPrefix;
     private GridLayout gridLayout;
 
     private SparseArray<SparseArray<Location>> allLocations;
+
+    public static void openIt(Context context, Cluster cluster, Master master) {
+        Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
+
+        if (cluster != null) {
+            intent.putExtra(INTENT_CLUSTER, cluster);
+            intent.putExtra(INTENT_MASTER, master);
+        }
+        context.startActivity(intent);
+    }
 
     public static void openIt(Context context, Cluster cluster) {
         Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
 
         if (cluster != null) {
-            intent.putExtra(INTENT_CAMPUS, cluster.campusId);
-            intent.putExtra(INTENT_HOST_PREFIX, cluster.hostPrefix);
+            intent.putExtra(INTENT_CLUSTER, cluster);
         }
-        context.startActivity(intent);
-    }
-
-    public static void openIt(Context context, String prefix, int campus) {
-        Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
-
-        intent.putExtra(INTENT_CAMPUS, campus);
-        intent.putExtra(INTENT_HOST_PREFIX, prefix);
-
         context.startActivity(intent);
     }
 
@@ -72,29 +75,34 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         setActionBarToggle(ActionBarToggle.ARROW);
 
         Intent intent = getIntent();
-        int tmpCampus = intent.getIntExtra(INTENT_CAMPUS, 0);
-        String tmpPrefix = intent.getStringExtra(INTENT_HOST_PREFIX);
-        if (tmpPrefix != null && !tmpPrefix.isEmpty() && tmpCampus != 0) {
-            createCluster = true;
-            cluster = new Cluster(tmpCampus, null, tmpPrefix);
-            cluster.map = ClusterMapGenerator.getClusterMap(tmpCampus, tmpPrefix);
-        } else
-            super.registerGetDataOnOtherThread(this);
+
+        if (intent.hasExtra(INTENT_MASTER)) {
+            cluster = (Cluster) intent.getSerializableExtra(INTENT_CLUSTER);
+            master = (Master) intent.getSerializableExtra(INTENT_MASTER);
+
+            if (master.locked_at != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(master.locked_at);
+                cal.add(Calendar.MINUTE, Utils.MINUTE_LOCK);
+
+                toolbar.setSubtitle("Cluster lock until: " + DateTool.getTimeShort(cal.getTime()));
+            }
+        }
 
         gridLayout = findViewById(R.id.gridLayout);
 
         allLocations = new SparseArray<>();
         if (cluster.map != null) {
-            for (int r = 0; r < cluster.map.length; r++) {
+            for (int x = 0; x < cluster.map.length; x++) {
 
-                for (int p = 0; p < cluster.map[r].length; p++) {
+                for (int y = 0; y < cluster.map[x].length; y++) {
 
-                    setLocation(cluster.map[r][p], p, r);
-                    if (p > cluster.sizeX)
-                        cluster.sizeX = p;
+                    setLocation(cluster.map[x][y], x, y);
+//                    if (y > cluster.sizeX)
+//                        cluster.sizeY = y;
                 }
-                if (r > cluster.sizeY)
-                    cluster.sizeY = r;
+//                if (x > cluster.sizeY)
+//                    cluster.sizeX = x;
             }
             cluster.sizeX++;
             cluster.sizeY++;
@@ -125,8 +133,10 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     public String getToolbarName() {
         if (createCluster)
             return getString(R.string.title_activity_cluster_map_contribute_edit);
+        else if (master != null)
+            return master.name;
         else
-            return hostPrefix;
+            return null;
     }
 
     @Override
@@ -150,8 +160,38 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     @Override
-    protected void onSave(Callback callBack) {
+    protected void onSave(final Callback callBack) {
 
+        int height;
+        int width;
+
+        Location[][] tmp = new Location[allLocations.size()][];
+        for (int i = 0; i < allLocations.size(); i++) {
+            int keyI = allLocations.keyAt(i);
+            SparseArray<Location> col = allLocations.get(keyI);
+            tmp[i] = new Location[col.size()];
+
+            for (int j = 0; j < col.size(); j++) {
+                int keyJ = allLocations.keyAt(j);
+                Location cell = col.get(keyJ);
+
+                tmp[i][j] = cell;
+                //height
+            }
+        }
+        cluster.map = tmp;
+
+        Utils.saveClusterMap(this, app, master, cluster, new Utils.SaveClusterMapCallback() {
+            @Override
+            public void finish() {
+                callBack.succeed();
+            }
+
+            @Override
+            public void error(String error) {
+                callBack.message(error);
+            }
+        });
     }
 
     @Override

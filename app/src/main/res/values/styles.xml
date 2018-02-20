@@ -158,7 +158,11 @@
         <item name="android:spinnerItemStyle">@android:style/Widget.TextView.SpinnerItem</item>
     </style>
 
-    <style name="AppTheme.TextView"></style>
+    <style name="CounterOverflow" parent="TextAppearance.Design.Counter.Overflow">
+        <item name="android:textColor">#D30915</item>
+    </style>
+
+    <style name="AppTheme.TextView" />
 
     <style name="AppTheme.TextView.Title" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">?android:attr/textColorPrimary</item>

@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.utils.clusterMap.LocationItem;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
 
     @Nullable
     public String host;
@@ -75,7 +77,7 @@ public class Location {
         }
     }
 
-    public enum Kind {
+    public enum Kind implements Serializable {
         @SerializedName("user")USER, @SerializedName("corridor")CORRIDOR, @SerializedName("wall")WALL
     }
 }

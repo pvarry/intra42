@@ -2,9 +2,10 @@ package com.paulvarry.intra42.api.cluster_map_contribute;
 
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Master {
+public class Master implements Serializable {
 
     public String name;
     @Nullable
