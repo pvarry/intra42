@@ -130,18 +130,34 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         }
 
 
-        /*
-        List<Cluster> list = new ArrayList<>();
+//        Gson gson = ServiceGenerator.getGson();
+//        List<Cluster> list = new ArrayList<>();
 
-        list.add(new Cluster(1, "E1", "e1", true));
-        list.add(new Cluster(1, "E2", "e2", true));
-        list.add(new Cluster(1, "E3", "e3", true));
-        list.add(new Cluster(7, "E1Z1", "e1z1", true));
-        list.add(new Cluster(7, "E1Z2", "e1z2", true));
-        list.add(new Cluster(7, "E1Z3", "e1z3", true));
-        list.add(new Cluster(7, "E1Z4", "e1z4", true));
+//        list.add(new Cluster(1, "E1", "e1", true));
+//        list.add(new Cluster(1, "E2", "e2", true));
+//        list.add(new Cluster(1, "E3", "e3", true));
+//        list.add(new Cluster(7, "E1Z1", "e1z1", true));
+//        list.add(new Cluster(7, "E1Z2", "e1z2", true));
+//        list.add(new Cluster(7, "E1Z3", "e1z3", true));
+//        list.add(new Cluster(7, "E1Z4", "e1z4", true));
 
-        */
+//        Cluster c = new Cluster(1, "E1", "e1", true);
+//        int x = c.map[0].length;
+//        int y = c.map.length;
+//        Location[][] tmp = new Location[x][];
+//        Location l;
+//        for (int i = 0; i < c.map.length; i++) {
+//            for (int j = 0; j < c.map[0].length; j++) {
+//                if (tmp[j] == null)
+//                    tmp[j] = new Location[y];
+//                l = c.map[i][j];
+//                tmp[j][i] = l;
+//                if (l != null && l.host != null && l.host.startsWith(c.hostPrefix))
+//                    l.host = l.host.replaceFirst(c.hostPrefix, "");
+//            }
+//        }
+//        Log.d("map", "finish");
+
 
 /*
         List<Master> listMaster = new ArrayList<>();

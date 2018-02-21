@@ -18,13 +18,13 @@ public class Location implements Serializable {
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("scaleX")
+    @SerializedName("scale_x")
     public float sizeX;
     /**
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("scaleY")
+    @SerializedName("scale_y")
     public float sizeY;
     @SerializedName("rot")
     public float angle;
