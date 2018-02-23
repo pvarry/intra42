@@ -14,7 +14,12 @@
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingEnd="75dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="75dp"
+            android:paddingStart="0dp">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -25,10 +30,8 @@
                     android:id="@+id/gridLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#000"
-                    android:columnCount="22"
-                    android:padding="1px"
-                    android:rowCount="3" />
+                    android:background="#212121"
+                    android:padding="1px" />
 
             </FrameLayout>
 

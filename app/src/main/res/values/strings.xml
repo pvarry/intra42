@@ -540,4 +540,6 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_info_no_map">No cluster map available</string>
     <string name="title_activity_cluster_map_contribute">Contribute to Cluster Map</string>
     <string name="title_activity_cluster_map_contribute_edit">Create cluster map</string>
+    <string name="cluster_map_dialog_action_row">Action for this row</string>
+    <string name="cluster_map_dialog_action_col">Action for this column</string>
 </resources>

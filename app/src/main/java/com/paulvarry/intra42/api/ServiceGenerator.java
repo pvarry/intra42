@@ -3,6 +3,7 @@ package com.paulvarry.intra42.api;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -19,7 +20,6 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.activities.MainActivity;
-import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Slots;
@@ -189,11 +189,11 @@ public class ServiceGenerator {
                 String content = response.body().string();
 
                 if (content != null && !content.isEmpty()) {
+                    content = Html.toHtml(Html.fromHtml(content));
+
                     int start = content.indexOf(">");
                     int end = content.lastIndexOf("<");
-
                     content = content.substring(start + 1, end);
-                    content = Cluster.HtmlEntities.decode(content);
                 }
 
                 MediaType contentType = response.body().contentType();
@@ -447,12 +447,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(AccessToken tokenIntra) {
-        ServiceGenerator.accessTokenIntra42 = tokenIntra;
-    }
-
     public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
         ServiceGenerator.accessToken42Tools = tokenTools;
+    }
+
+    public static void setToken(AccessToken tokenIntra) {
+        ServiceGenerator.accessTokenIntra42 = tokenIntra;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

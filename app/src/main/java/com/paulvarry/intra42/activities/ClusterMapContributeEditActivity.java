@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -49,6 +52,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     private Date lockEnd;
     private boolean saveChangesDisplayed;
+    private Timer timerRefreshActionBar;
 
     private SparseArray<SparseArray<Location>> allLocations;
 
@@ -119,7 +123,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             cluster.sizeX = 10;
             cluster.sizeY = 10;
         }
-        makeMap();
+        buildMap();
 
         fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(new View.OnClickListener() {
@@ -129,10 +133,23 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             }
         });
 
-        Timer timer = new Timer();
-        timer.schedule(new RefreshActionBar(), new Date(), 500);
+        timerRefreshActionBar = new Timer();
 
         onCreateFinished();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        timerRefreshActionBar.schedule(new RefreshActionBar(), new Date(), 500);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        timerRefreshActionBar.cancel();
+        timerRefreshActionBar.purge();
     }
 
     @Nullable
@@ -234,7 +251,9 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         toolbar.setSubtitle("Cluster lock for: " + String.valueOf(m) + " m and " + String.valueOf(s) + " s");
     }
 
-    void makeMap() {
+    void buildMap() {
+
+        long start = System.nanoTime();
 
         // set base item size
         baseItemHeight = Tools.dpToPx(this, 42);
@@ -264,6 +283,10 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             View view = inflateClusterMapController(cluster.sizeX, y);
             gridLayout.addView(view);
         }
+
+        long end = System.nanoTime();
+        long duration = end - start;
+        Log.d("map building took", String.valueOf(duration) + " nano seconds ; " + String.valueOf(duration / 1000000000.0d) + " seconds");
     }
 
     private View inflateClusterMapItem(int x, int y) {
@@ -337,9 +360,26 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         if (x == cluster.sizeX && y == cluster.sizeY)
             location = null;
         else if (x == cluster.sizeX)
-            location = cluster.map[0][y];
+            location = getLocation(0, y);
         else if (y == cluster.sizeY)
-            location = cluster.map[x][0];
+            location = getLocation(x, 0);
+
+        float sizeX = 1;
+        float sizeY = 1;
+        if (location != null) {
+            sizeX = location.sizeX;
+            sizeY = location.sizeY;
+
+            final LocationWrapper wrapper = new LocationWrapper(x, y, location);
+            view.setTag(wrapper);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickController(wrapper);
+                }
+            });
+
+        }
 
         paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
         paramsGridLayout.columnSpec = GridLayout.spec(x);
@@ -347,12 +387,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         paramsGridLayout.setGravity(Gravity.FILL);
         paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
         paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
-        float sizeX = 1;
-        float sizeY = 1;
-        if (location != null) {
-            sizeX = location.sizeX;
-            sizeY = location.sizeY;
-        }
         paramsGridLayout.height = (int) (baseItemHeight * sizeY);
         paramsGridLayout.width = (int) (baseItemWidth * sizeX);
 
@@ -381,7 +415,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             return;
 
         final LayoutInflater inflater = getLayoutInflater();
-        final View view = inflater.inflate(R.layout.list_view_cluster_map_contribute_location, null);
+        final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_location, null);
         final EditText editText = view.findViewById(R.id.editTextHost);
         final TextInputLayout textInputLayoutHost = view.findViewById(R.id.textInputLayoutHost);
         final RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
@@ -452,6 +486,129 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         alert.show();
     }
 
+    public void onClickController(final LocationWrapper wrapper) {
+        boolean isRow = false;
+
+        if (wrapper.x == cluster.sizeX && wrapper.y == cluster.sizeY)
+            return;
+        else if (wrapper.x == cluster.sizeX)
+            isRow = true;
+        else if (wrapper.y == cluster.sizeY)
+            isRow = false;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        String[] action;
+        if (isRow) {
+            builder.setTitle(R.string.cluster_map_dialog_action_row);
+            action = new String[]{"Set row size", "Delete this row"};
+        } else {
+            builder.setTitle(R.string.cluster_map_dialog_action_col);
+            action = new String[]{"Set column size", "Delete this column"};
+        }
+
+        final boolean finalIsRow = isRow;
+        builder.setItems(action, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("click", String.valueOf(which));
+                if (which == 0)
+                    onClickControllerSizeRowCol(finalIsRow, wrapper);
+                else if (which == 1) {
+                    if (finalIsRow)
+                        deleteRow(wrapper.y);
+                    else
+                        deleteColumn(wrapper.x);
+                    buildMap();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public void onClickControllerSizeRowCol(final boolean finalIsRow, final LocationWrapper wrapper) {
+
+        if (wrapper == null)
+            return;
+
+        final LayoutInflater inflater = getLayoutInflater();
+        final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_size, null);
+        final EditText editTextScale = view.findViewById(R.id.editTextScale);
+        final TextInputLayout textInputLayoutScale = view.findViewById(R.id.textInputLayoutScale);
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        float baseValue = 1.0f;
+        if (wrapper.location != null) {
+            if (finalIsRow)
+                baseValue = wrapper.location.sizeY;
+            else
+                baseValue = wrapper.location.sizeX;
+        }
+
+        editTextScale.setText(String.valueOf(baseValue));
+
+        final DialogFinalWrapper dialog = new DialogFinalWrapper();
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (dialog.dialog != null) {
+                    boolean disable = false;
+                    String content = editTextScale.getText().toString();
+
+                    textInputLayoutScale.setError(null);
+                    if (!content.isEmpty()) {
+                        float scale = Float.valueOf(content);
+                        if (scale < 0.1) {
+                            textInputLayoutScale.setError("scale too small");
+                            disable = true;
+                        } else if (scale > 6) {
+                            textInputLayoutScale.setError("scale too big");
+                            disable = true;
+                        }
+                    } else {
+                        textInputLayoutScale.setError("value must be set");
+                        disable = true;
+                    }
+                    dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!disable);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+        editTextScale.addTextChangedListener(textWatcher);
+
+        alert.setTitle("Edit scale of this row/column");
+        alert.setView(view);
+        alert.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String content = editTextScale.getText().toString();
+                if (content.isEmpty())
+                    return;
+                float scale = Float.valueOf(content);
+                if (scale <= 0)
+                    return;
+                if (finalIsRow)
+                    setRowScale(wrapper.y, scale);
+                else
+                    setColumnScale(wrapper.x, scale);
+                buildMap();
+            }
+        });
+        alert.setNegativeButton(R.string.discard, null);
+
+        dialog.dialog = alert.show();
+    }
+
     private void clickOnFab() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ClusterMapContributeEditActivity.this);
         String[] item = new String[]{"Add row on top", "Add row on bottom", "Add column on left", "Add column on right"};
@@ -469,20 +626,20 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                             row.remove(0);
                         }
                     }
-                    makeMap();
+                    buildMap();
                 } else if (which == 1) {
                     cluster.sizeY++;
-                    makeMap();
+                    buildMap();
                 } else if (which == 2) {
                     cluster.sizeX++;
                     for (int i = cluster.sizeX; i > 0; i--) {
                         allLocations.put(i, allLocations.get(i - 1));
                     }
                     allLocations.remove(0);
-                    makeMap();
+                    buildMap();
                 } else if (which == 3) {
                     cluster.sizeX++;
-                    makeMap();
+                    buildMap();
                 }
             }
         });
@@ -504,6 +661,52 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             col = allLocations.get(x);
         }
         col.put(y, location);
+    }
+
+    private void setRowScale(int y, float scale) {
+        for (int i = 0; i < allLocations.size(); i++) {
+            SparseArray<Location> col;
+            Location cel;
+            if ((col = allLocations.get(i)) != null && ((cel = col.get(y)) != null)) {
+                cel.sizeY = scale;
+            }
+        }
+    }
+
+    private void setColumnScale(int x, float scale) {
+        SparseArray<Location> col;
+        if ((col = allLocations.get(x)) != null) {
+            for (int i = 0; i < col.size(); i++) {
+                Location cel;
+                if ((cel = col.get(i)) != null)
+                    cel.sizeX = scale;
+            }
+        }
+    }
+
+    private void deleteColumn(int x) {
+        for (int i = x; i < allLocations.size() - 1; i++) {
+            allLocations.setValueAt(i, allLocations.valueAt(i + 1));
+        }
+        allLocations.setValueAt(allLocations.size() - 1, null);
+        cluster.sizeX--;
+    }
+
+    private void deleteRow(int y) {
+        for (int i = 0; i < allLocations.size(); i++) {
+            SparseArray<Location> col;
+            if ((col = allLocations.get(i)) != null) {
+                for (int j = y; j < col.size() - 1; j++) {
+                    col.setValueAt(j, col.valueAt(j + 1));
+                }
+                col.setValueAt(col.size() - 1, null);
+            }
+        }
+        cluster.sizeY--;
+    }
+
+    private class DialogFinalWrapper {
+        AlertDialog dialog;
     }
 
     class RefreshActionBar extends TimerTask {

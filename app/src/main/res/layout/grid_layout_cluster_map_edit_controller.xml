@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:contentDescription="@string/icon"
-        android:tint="@color/gray"
+        android:tint="@color/silver"
         app:srcCompat="@drawable/ic_settings_black_24dp" />
 
 </FrameLayout>

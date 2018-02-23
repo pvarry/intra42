@@ -214,7 +214,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
 
     void openEditMetadataDialog(final Master master, final Cluster cluster) {
         final LayoutInflater inflater = LayoutInflater.from(ClusterMapContributeActivity.this);
-        final View view = inflater.inflate(R.layout.list_view_cluster_map_contribute_cluster, null);
+        final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_cluster, null);
         final TextInputLayout textInputName = view.findViewById(R.id.textInputName);
         final TextInputLayout textInputNameShort = view.findViewById(R.id.textInputNameShort);
         final EditText editTextPrefix = view.findViewById(R.id.editTextPrefix);
@@ -237,13 +237,14 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
                     if (editTextName.getText().toString().length() > textInputName.getCounterMaxLength()) {
                         textInputName.setError("text too long");
                         disable = true;
-                    }
+                    } else
+                        textInputName.setError(null);
                     if (editTextNameShort.getText().toString().length() > textInputNameShort.getCounterMaxLength()) {
                         textInputNameShort.setError("text too long");
                         disable = true;
-                    }
-                    if (disable)
-                        dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    } else
+                        textInputNameShort.setError(null);
+                    dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!disable);
                 }
             }
 
@@ -321,8 +322,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
                 textInputNameShort.setError("text too long");
                 disable = true;
             }
-            if (disable)
-                dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!disable);
         }
     }
 
