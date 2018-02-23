@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.cluster_map_contribute.Master;
+import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.cluster_map_contribute.Utils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -203,7 +203,7 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
 
         final Master item = getGroup(groupPosition);
 
-        if (Utils.canIEdit(item, app)) {
+        if (ClusterMapContributeUtils.canIEdit(item, app)) {
             holder.buttonEditLayout.setEnabled(true);
             holder.buttonEditMetadata.setEnabled(true);
             holder.textViewLocked.setVisibility(View.GONE);
@@ -211,13 +211,13 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
             holder.buttonEditLayout.setEnabled(false);
             holder.buttonEditMetadata.setEnabled(false);
 
-            String lockString = "Cluster locked by __user__ at __time__\nYou will be able to edit this cluster on __time_future__";
+            String lockString = app.getString(R.string.cluster_map_contribute_locked_indicator);
             Calendar c = Calendar.getInstance();
             c.setTime(item.locked_at);
-            c.add(Calendar.MINUTE, Utils.MINUTE_LOCK);
-            lockString = lockString.replace("__user__", item.locked_by);
-            lockString = lockString.replace("__time__", DateTool.getTimeShort(item.locked_at));
-            lockString = lockString.replace("__time_future__", DateTool.getTimeShort(c.getTime()));
+            c.add(Calendar.MINUTE, ClusterMapContributeUtils.MINUTE_LOCK);
+            lockString = lockString.replace("_user_", item.locked_by);
+            lockString = lockString.replace("_time_", DateTool.getTimeShort(item.locked_at));
+            lockString = lockString.replace("_time_future_", DateTool.getTimeShort(c.getTime()));
 
             holder.textViewLocked.setText(lockString);
             holder.textViewLocked.setVisibility(View.VISIBLE);

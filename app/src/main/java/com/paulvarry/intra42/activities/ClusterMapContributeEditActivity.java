@@ -29,8 +29,8 @@ import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import com.paulvarry.intra42.ui.BasicEditActivity;
+import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.Tools;
-import com.paulvarry.intra42.utils.cluster_map_contribute.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +51,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     private GridLayout gridLayout;
 
     private Date lockEnd;
-    private boolean saveChangesDisplayed;
+    private boolean isTimeUpDialogDisplayed;
     private Timer timerRefreshActionBar;
 
     private SparseArray<SparseArray<Location>> allLocations;
@@ -90,7 +90,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             if (master.locked_at != null) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(master.locked_at);
-                cal.add(Calendar.MINUTE, Utils.MINUTE_LOCK);
+                cal.add(Calendar.MINUTE, ClusterMapContributeUtils.MINUTE_LOCK);
                 lockEnd = cal.getTime();
 
                 updateActionBar();
@@ -123,7 +123,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             cluster.sizeX = 10;
             cluster.sizeY = 10;
         }
-        buildMap();
 
         fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +169,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     @Override
     protected void setViewContent() {
-
+        buildMap();
     }
 
     @Override
@@ -207,7 +206,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         }
         cluster.map = tmp;
 
-        Utils.saveClusterMap(this, app, master, cluster, new Utils.SaveClusterMapCallback() {
+        ClusterMapContributeUtils.saveClusterMap(this, app, master, cluster, new ClusterMapContributeUtils.SaveClusterMapCallback() {
             @Override
             public void finish() {
                 callBack.succeed();
@@ -229,18 +228,17 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         Calendar calendar = Calendar.getInstance();
         long duration = lockEnd.getTime() - new Date().getTime();
 
-        if (!saveChangesDisplayed && duration < 30 * 1000) { // 10 seconds
+        if (!isTimeUpDialogDisplayed && duration < 30 * 1000) { // 10 seconds
+            isTimeUpDialogDisplayed = true;
 
             AlertDialog.Builder b = new AlertDialog.Builder(this);
-            b.setTitle("Time up");
-            b.setMessage("Lock will soon time up, you may consider saves your changes before someone else lock this cluster.");
+            b.setTitle(R.string.cluster_map_contribute_dialog_time_up_title);
+            b.setMessage(R.string.cluster_map_contribute_dialog_time_up_message);
             b.setPositiveButton(R.string.ok, null);
             b.show();
-
-            saveChangesDisplayed = true;
         }
         if (duration < 0) {
-            toolbar.setSubtitle("Save your changes asap");
+            toolbar.setSubtitle(R.string.cluster_map_contribute_toolbar_info_save_your_changes);
             return;
         }
         calendar.setTimeInMillis(duration);
@@ -248,7 +246,15 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         calendar.add(Calendar.MINUTE, -m);
         int s = calendar.get(Calendar.SECOND);
 
-        toolbar.setSubtitle("Cluster lock for: " + String.valueOf(m) + " m and " + String.valueOf(s) + " s");
+        if (m != 0)
+            toolbar.setSubtitle(
+                    getString(R.string.cluster_map_contribute_toolbar_info_minute_second)
+                            .replace("_minute_", String.valueOf(m))
+                            .replace("_second_", String.valueOf(s)));
+        else
+            toolbar.setSubtitle(
+                    getString(R.string.cluster_map_contribute_toolbar_info_second)
+                            .replace("_second_", String.valueOf(s)));
     }
 
     void buildMap() {
@@ -427,11 +433,19 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         textInputLayoutHost.setVisibility(View.GONE);
-        String title = "Edit: " + location.x + "," + location.y;
-        if (location.location != null) {
-            if (location.location.host != null)
-                title += " (" + location.location.host + ")";
 
+        String title;
+        if (location.location != null && location.location.host != null)
+            title = getString(R.string.cluster_map_contribute_dialog_location_title_host)
+                    .replace("_x_", String.valueOf(location.x))
+                    .replace("_y_", String.valueOf(location.y))
+                    .replace("_host_", location.location.host);
+        else
+            title = getString(R.string.cluster_map_contribute_dialog_location_title)
+                    .replace("_x_", String.valueOf(location.x))
+                    .replace("_y_", String.valueOf(location.y));
+
+        if (location.location != null) {
             editText.setText(location.location.host);
             if (location.location.locationKind == Location.Kind.USER) {
                 radioButtonUser.setChecked(true);
@@ -500,20 +514,21 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         String[] action;
         if (isRow) {
-            builder.setTitle(R.string.cluster_map_dialog_action_row);
-            action = new String[]{"Set row size", "Delete this row"};
+            builder.setTitle(R.string.cluster_map_contribute_dialog_controller_title_row);
+            action = new String[]{getString(R.string.cluster_map_contribute_dialog_controller_action_scale_row),
+                    getString(R.string.cluster_map_contribute_dialog_controller_action_delete_row)};
         } else {
-            builder.setTitle(R.string.cluster_map_dialog_action_col);
-            action = new String[]{"Set column size", "Delete this column"};
+            builder.setTitle(R.string.cluster_map_contribute_dialog_controller_action_column);
+            action = new String[]{getString(R.string.cluster_map_contribute_dialog_controller_action_scale_column),
+                    getString(R.string.cluster_map_contribute_dialog_controller_action_delete_column)};
         }
 
         final boolean finalIsRow = isRow;
         builder.setItems(action, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.d("click", String.valueOf(which));
                 if (which == 0)
-                    onClickControllerSizeRowCol(finalIsRow, wrapper);
+                    onClickControllerScaleRowCol(finalIsRow, wrapper);
                 else if (which == 1) {
                     if (finalIsRow)
                         deleteRow(wrapper.y);
@@ -526,13 +541,13 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         builder.show();
     }
 
-    public void onClickControllerSizeRowCol(final boolean finalIsRow, final LocationWrapper wrapper) {
+    public void onClickControllerScaleRowCol(final boolean finalIsRow, final LocationWrapper wrapper) {
 
         if (wrapper == null)
             return;
 
         final LayoutInflater inflater = getLayoutInflater();
-        final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_size, null);
+        final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_scale, null);
         final EditText editTextScale = view.findViewById(R.id.editTextScale);
         final TextInputLayout textInputLayoutScale = view.findViewById(R.id.textInputLayoutScale);
 
@@ -565,14 +580,14 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     if (!content.isEmpty()) {
                         float scale = Float.valueOf(content);
                         if (scale < 0.1) {
-                            textInputLayoutScale.setError("scale too small");
+                            textInputLayoutScale.setError(getString(R.string.error_scale_is_too_small));
                             disable = true;
                         } else if (scale > 6) {
-                            textInputLayoutScale.setError("scale too big");
+                            textInputLayoutScale.setError(getString(R.string.error_scale_is_too_big));
                             disable = true;
                         }
                     } else {
-                        textInputLayoutScale.setError("value must be set");
+                        textInputLayoutScale.setError(getString(R.string.error_value_must_be_set));
                         disable = true;
                     }
                     dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!disable);
@@ -586,7 +601,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         };
         editTextScale.addTextChangedListener(textWatcher);
 
-        alert.setTitle("Edit scale of this row/column");
+        alert.setTitle(R.string.cluster_map_contribute_dialog_scale_title);
         alert.setView(view);
         alert.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
@@ -611,8 +626,11 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     private void clickOnFab() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ClusterMapContributeEditActivity.this);
-        String[] item = new String[]{"Add row on top", "Add row on bottom", "Add column on left", "Add column on right"};
-        builder.setItems(item, new DialogInterface.OnClickListener() {
+        String[] actions = new String[]{getString(R.string.cluster_map_contribute_dialog_add_action_row_top),
+                getString(R.string.cluster_map_contribute_dialog_add_action_row_bottom),
+                getString(R.string.cluster_map_contribute_dialog_add_action_column_left),
+                getString(R.string.cluster_map_contribute_dialog_add_action_column_right)};
+        builder.setItems(actions, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {

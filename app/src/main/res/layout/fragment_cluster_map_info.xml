@@ -185,7 +185,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:text="Contribute" />
+            android:text="@string/cluster_map_info_button_contribute" />
 
     </LinearLayout>
 </ScrollView>

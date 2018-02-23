@@ -28,7 +28,7 @@
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Full name"
+                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_full_name"
                 android:inputType="textVisiblePassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -46,7 +46,7 @@
                 android:id="@+id/editTextNameShort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Short name"
+                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_short_name"
                 android:inputType="textVisiblePassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -60,7 +60,7 @@
                 android:id="@+id/editTextPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Position"
+                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_position"
                 android:inputType="textVisiblePassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -91,7 +91,7 @@
                 android:id="@+id/editTextPrefix"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Location prefix"
+                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix"
                 android:inputType="textVisiblePassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="Cluster location prefix is the beginning of all the host name on this cluster." />
+            android:text="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix_info" />
 
     </LinearLayout>
 </ScrollView>

@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="By setting a scale on a row or a column, you will reduce or increase his size." />
+        android:text="@string/cluster_map_contribute_dialog_scale_layout_info" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayoutScale"
@@ -25,7 +25,7 @@
             android:id="@+id/editTextScale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="scale"
+            android:hint="@string/cluster_map_contribute_dialog_scale_layout_scale_hint"
             android:inputType="numberDecimal|numberSigned" />
     </android.support.design.widget.TextInputLayout>
 

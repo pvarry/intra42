@@ -141,7 +141,7 @@ public class UserActivity extends BasicTabActivity
                             Runnable myRunnable = new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(context, "Users not found", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Users not found", Toast.LENGTH_SHORT).show(); //TODO: hardcoded string
                                 }
                             };
                             mainHandler.post(myRunnable);

@@ -27,7 +27,7 @@ import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
-import com.paulvarry.intra42.utils.cluster_map_contribute.Utils;
+import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -177,10 +177,10 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
     @Override
     public void onClickEditLayout(View finalConvertView, int groupPosition, final Master master) {
 
-        Utils.loadClusterMapAndLock(this, this.app, master, new Utils.LoadClusterMapCallback() {
+        ClusterMapContributeUtils.loadClusterMapAndLock(this, this.app, master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
             @Override
             public void finish(final Master master, final Cluster cluster, String cookie) {
-                Toast.makeText(app, "Opening in progress", Toast.LENGTH_SHORT).show();
+                Toast.makeText(app, R.string.opening_in_progress, Toast.LENGTH_SHORT).show();
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
@@ -199,7 +199,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
     @Override
     public void onClickEditMetadata(View finalConvertView, int groupPosition, final Master master) {
 
-        Utils.loadClusterMap(this, app.getApiServiceClusterMapContribute(), master, new Utils.LoadClusterMapCallback() {
+        ClusterMapContributeUtils.loadClusterMap(this, app.getApiServiceClusterMapContribute(), master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
             @Override
             public void finish(final Master master, final Cluster cluster, String cookie) {
                 openEditMetadataDialog(master, cluster);
@@ -235,12 +235,12 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
                 if (dialog.dialog != null) {
                     boolean disable = false;
                     if (editTextName.getText().toString().length() > textInputName.getCounterMaxLength()) {
-                        textInputName.setError("text too long");
+                        textInputName.setError(getString(R.string.error_text_is_too_long));
                         disable = true;
                     } else
                         textInputName.setError(null);
                     if (editTextNameShort.getText().toString().length() > textInputNameShort.getCounterMaxLength()) {
-                        textInputNameShort.setError("text too long");
+                        textInputNameShort.setError(getString(R.string.error_text_is_too_long));
                         disable = true;
                     } else
                         textInputNameShort.setError(null);
@@ -280,9 +280,9 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         editTextPosition.setText(String.valueOf(cluster.clusterPosition));
         spinnerCampus.setSelection(selection, false);
 
-        builder.setTitle("Edit cluster metadata");
+        builder.setTitle(R.string.cluster_map_contribute_dialog_metadata_title);
         builder.setView(view);
-        builder.setPositiveButton("save", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 cluster.name = editTextName.getText().toString();
@@ -297,7 +297,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
                     cluster.campusId = c.id;
                 }
 
-                Utils.saveClusterMap(ClusterMapContributeActivity.this, app, master, cluster, new Utils.SaveClusterMapCallback() {
+                ClusterMapContributeUtils.saveClusterMap(ClusterMapContributeActivity.this, app, master, cluster, new ClusterMapContributeUtils.SaveClusterMapCallback() {
                     @Override
                     public void finish() {
                         refresh();
@@ -315,11 +315,11 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         if (dialog.dialog != null) {
             boolean disable = false;
             if (editTextName.getText().toString().length() > textInputName.getCounterMaxLength()) {
-                textInputName.setError("text too long");
+                textInputName.setError(getString(R.string.error_text_is_too_long));
                 disable = true;
             }
             if (editTextNameShort.getText().toString().length() > textInputNameShort.getCounterMaxLength()) {
-                textInputNameShort.setError("text too long");
+                textInputNameShort.setError(getString(R.string.error_text_is_too_long));
                 disable = true;
             }
             dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!disable);

@@ -18,19 +18,19 @@
             android:id="@+id/radioButtonUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="user" />
+            android:text="@string/cluster_map_contribute_dialog_location_layout_user" />
 
         <RadioButton
             android:id="@+id/radioButtonWall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="wall" />
+            android:text="@string/cluster_map_contribute_dialog_location_layout_wall" />
 
         <RadioButton
             android:id="@+id/radioButtonCorridor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="corridor" />
+            android:text="@string/cluster_map_contribute_dialog_location_layout_corridor" />
     </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
@@ -43,7 +43,7 @@
             android:id="@+id/editTextHost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="host"
+            android:hint="@string/cluster_map_contribute_dialog_location_layout_host_hint"
             android:inputType="textVisiblePassword" />
     </android.support.design.widget.TextInputLayout>
 

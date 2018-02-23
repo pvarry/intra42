@@ -86,7 +86,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
         if (info.highlightPosts > 0)
             builder.append(info.highlightPosts);
         else
-            builder.append("no");
+            builder.append("no");//TODO: hardcoded string
         builder.append(" highlight - ");
         builder.append(info.freePosts);
         builder.append(" vacant posts");

@@ -1,4 +1,4 @@
-package com.paulvarry.intra42.utils.cluster_map_contribute;
+package com.paulvarry.intra42.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -25,14 +25,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Utils {
+public class ClusterMapContributeUtils {
 
     public static final int MINUTE_LOCK = 5;
+    private static final String KEY_POST_KEY = "key";
+    private static final String KEY_POST_PAD = "pad";
+    private static final String KEY_POST_MONOSPACE = "monospace";
 
-    static public void loadClusterMap(Context context, ApiServiceClusterMapContribute api, final Master master, final LoadClusterMapCallback callback) {
+    static public void loadClusterMap(final Context context, ApiServiceClusterMapContribute api, final Master master, final LoadClusterMapCallback callback) {
 
         final ProgressDialog dialog = ProgressDialog.show(context, null,
-                "Loading. Please wait...", true);
+                context.getString(R.string.info_loading_please_wait), true);
         dialog.show();
 
         Call<Cluster> call = api.getCluster(master.key);
@@ -41,11 +44,10 @@ public class Utils {
             public void onResponse(Call<Cluster> call, Response<Cluster> response) {
                 dialog.cancel();
                 Cluster body;
-                if ((body = response.body()) != null) {
-                    String setCookie = response.headers().get("set-cookie");
-                    callback.finish(master, body, setCookie.substring(0, setCookie.indexOf(';')));
-                } else
-                    callback.error("failed to parse content");
+                if ((body = response.body()) != null)
+                    callback.finish(master, body, cookieRetriever(response));
+                else
+                    callback.error(context.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response));
             }
 
             @Override
@@ -77,42 +79,35 @@ public class Utils {
                     Response<List<Master>> responseMaster = api.getMasters().execute();
                     List<Master> bodyMaster;
                     if (!responseMaster.isSuccessful() || (bodyMaster = responseMaster.body()) == null) {
-                        returnError(activity, "error", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
-                    String setCookieMaster = responseMaster.headers().get("set-cookie");
-                    cookieMaster = setCookieMaster.substring(0, setCookieMaster.indexOf(';'));
+                    cookieMaster = cookieRetriever(responseMaster);
                     for (Master m : bodyMaster)
                         if (m.key.contentEquals(master.key) && m.url.contentEquals(master.url))
                             apiMaster = m;
-                    if (!canIEdit(master, app)) {
-                        returnError(activity, "data locked", dialog, callback);
+                    if (!canIEdit(apiMaster, app)) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, callback);
                         return;
                     }
 
                     // lock
                     apiMaster.locked_at = new Date();
                     apiMaster.locked_by = app.me.login;
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("key", "q79vdcc1t");
-                    map.put("pad", ServiceGenerator.getGson().toJson(bodyMaster));
-                    map.put("monospace", "1");
 
-                    Response<Void> responseSaveMaster = api.save(map, cookieMaster).execute();
+                    Response<Void> responseSaveMaster = api.save(getBody(bodyMaster), cookieMaster).execute();
                     if (!responseSaveMaster.isSuccessful()) {
-                        returnError(activity, "error", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
 
                     // get cluster
                     final Response<Cluster> responseCluster = api.getCluster(master.key).execute();
                     if (!responseCluster.isSuccessful() || responseCluster.body() == null) {
-                        returnError(activity, "error", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
-                    String setCookieCluster = responseCluster.headers().get("set-cookie");
-                    final String cookieCluster = setCookieCluster.substring(0, setCookieCluster.indexOf(';'));
-
+                    final String cookieCluster = cookieRetriever(responseCluster);
                     final Master finalApiMaster = apiMaster;
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -159,38 +154,31 @@ public class Utils {
                     Response<List<Master>> responseMaster = api.getMasters().execute();
                     List<Master> bodyMaster;
                     if (!responseMaster.isSuccessful() || (bodyMaster = responseMaster.body()) == null) {
-                        returnError(activity, "error", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
-                    String setCookieMaster = responseMaster.headers().get("set-cookie");
-                    cookieMaster = setCookieMaster.substring(0, setCookieMaster.indexOf(';'));
+                    cookieMaster = cookieRetriever(responseMaster);
                     for (Master m : bodyMaster)
                         if (m.key.contentEquals(master.key) && m.url.contentEquals(master.url))
                             apiMaster = m;
 
                     if (!canIEdit(apiMaster, app)) {
-                        returnError(activity, "data locked", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, callback);
                         return;
                     }
 
                     Response<Cluster> responseCluster = api.getCluster(apiMaster.key).execute();
                     if (!responseCluster.isSuccessful() || responseCluster.body() == null) {
-                        returnError(activity, "error", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
-                    String setCookieCluster = responseCluster.headers().get("set-cookie");
-                    cookieCluster = setCookieCluster.substring(0, setCookieCluster.indexOf(';'));
+                    cookieCluster = cookieRetriever(responseCluster);
 
                     //save
 
-                    HashMap<String, String> mapCluster = new HashMap<>();
-                    mapCluster.put("key", apiMaster.key);
-                    mapCluster.put("pad", ServiceGenerator.getGson().toJson(cluster));
-                    mapCluster.put("monospace", "1");
-
-                    Response<Void> responseSaveMap = api.save(mapCluster, cookieCluster).execute();
+                    Response<Void> responseSaveMap = api.save(getBody(apiMaster, cluster), cookieCluster).execute();
                     if (!responseSaveMap.isSuccessful()) {
-                        returnError(activity, "error", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
 
@@ -205,14 +193,9 @@ public class Utils {
                                 apiMaster.name = c.name + " - " + cluster.name;
                     }
 
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("key", "q79vdcc1t");
-                    map.put("pad", ServiceGenerator.getGson().toJson(bodyMaster));
-                    map.put("monospace", "1");
-
-                    Response<Void> responseSaveMaster = api.save(map, cookieMaster).execute();
+                    Response<Void> responseSaveMaster = api.save(getBody(bodyMaster), cookieMaster).execute();
                     if (!responseSaveMaster.isSuccessful()) {
-                        returnError(activity, "error", dialog, callback);
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
 
@@ -273,6 +256,32 @@ public class Utils {
 
         // in case of over du || date is still in lock time
         return master.locked_at.before(c.getTime()) || master.locked_by.contentEquals(app.me.login);
+    }
+
+    static private HashMap<String, String> getBody(Master master, Object data) {
+        HashMap<String, String> mapCluster = new HashMap<>();
+        mapCluster.put(KEY_POST_KEY, master.key);
+        mapCluster.put(KEY_POST_PAD, ServiceGenerator.getGson().toJson(data));
+        mapCluster.put(KEY_POST_MONOSPACE, "1");
+        return mapCluster;
+    }
+
+    static private HashMap<String, String> getBody(Object data) {
+        HashMap<String, String> mapCluster = new HashMap<>();
+        mapCluster.put(KEY_POST_KEY, "q79vdcc1t");
+        mapCluster.put(KEY_POST_PAD, ServiceGenerator.getGson().toJson(data));
+        mapCluster.put(KEY_POST_MONOSPACE, "1");
+        return mapCluster;
+    }
+
+    static private String cookieRetriever(Response response) {
+        if (response == null)
+            return null;
+        String cookie = response.headers().get("set-cookie");
+        if (cookie == null)
+            return null;
+        return cookie.substring(0, cookie.indexOf(';'));
+
     }
 
     public interface LoadClusterMapCallback {
