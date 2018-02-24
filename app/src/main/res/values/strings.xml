@@ -581,4 +581,7 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_contribute_dialog_scale_layout_scale_hint">scale</string>
     <string name="cluster_map_contribute_dialog_scale_layout_info">By setting a scale on a row or a column, you will reduce or increase his size.</string>
     <string name="cluster_map_info_button_contribute">Contribute</string>
+    <string name="cluster_map_contribute_dialog_delete_title">Are you sure to delete this row/column ?</string>
+    <string name="cluster_map_contribute_dialog_delete_message_row">You are going to delete row on y=%d, this action can\'t be undo</string>
+    <string name="cluster_map_contribute_dialog_delete_message_col">You are going to delete column on x=%d, this action can\'t be undo</string>
 </resources>

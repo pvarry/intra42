@@ -99,29 +99,36 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         gridLayout = findViewById(R.id.gridLayout);
 
-        allLocations = new SparseArray<>();
-        int sizeX = 0;
-        int sizeY = 0;
-        if (cluster.map != null) {
-            for (int x = 0; x < cluster.map.length; x++) {
-
-                for (int y = 0; y < cluster.map[x].length; y++) {
-
-                    setLocation(cluster.map[x][y], x, y);
-                    if (y > sizeY)
-                        sizeY = y;
-                }
-                if (x > sizeX)
-                    sizeX = x;
-            }
-
-            if (cluster.sizeX <= 0)
-                cluster.sizeX = sizeX + 1;
-            if (cluster.sizeY <= 0)
-                cluster.sizeY = sizeY + 1;
+        DataWrapper dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
+        if (dataWrapper != null) {
+            isTimeUpDialogDisplayed = dataWrapper.isTimeUpDialogDisplayed;
+            allLocations = dataWrapper.allLocations;
+            cluster = dataWrapper.cluster;
         } else {
-            cluster.sizeX = 10;
-            cluster.sizeY = 10;
+            allLocations = new SparseArray<>();
+            int sizeX = 0;
+            int sizeY = 0;
+            if (cluster.map != null) {
+                for (int x = 0; x < cluster.map.length; x++) {
+
+                    for (int y = 0; y < cluster.map[x].length; y++) {
+
+                        setLocation(cluster.map[x][y], x, y);
+                        if (y > sizeY)
+                            sizeY = y;
+                    }
+                    if (x > sizeX)
+                        sizeX = x;
+                }
+
+                if (cluster.sizeX <= 0)
+                    cluster.sizeX = sizeX + 1;
+                if (cluster.sizeY <= 0)
+                    cluster.sizeY = sizeY + 1;
+            } else {
+                cluster.sizeX = 10;
+                cluster.sizeY = 10;
+            }
         }
 
         fabBaseActivity.setVisibility(View.VISIBLE);
@@ -360,21 +367,25 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         LayoutInflater vi = LayoutInflater.from(this);
         GridLayout.LayoutParams paramsGridLayout;
         Location location = null;
+        boolean isCorner = false;
 
         View view = vi.inflate(R.layout.grid_layout_cluster_map_edit_controller, gridLayout, false);
 
-        if (x == cluster.sizeX && y == cluster.sizeY)
+        if (x == cluster.sizeX && y == cluster.sizeY) {
             location = null;
-        else if (x == cluster.sizeX)
+            isCorner = true;
+        } else if (x == cluster.sizeX)
             location = getLocation(0, y);
         else if (y == cluster.sizeY)
             location = getLocation(x, 0);
 
         float sizeX = 1;
         float sizeY = 1;
-        if (location != null) {
-            sizeX = location.sizeX;
-            sizeY = location.sizeY;
+        if (!isCorner) {
+            if (location != null) {
+                sizeX = location.sizeX;
+                sizeY = location.sizeY;
+            }
 
             final LocationWrapper wrapper = new LocationWrapper(x, y, location);
             view.setTag(wrapper);
@@ -384,7 +395,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     onClickController(wrapper);
                 }
             });
-
         }
 
         paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
@@ -397,7 +407,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         paramsGridLayout.width = (int) (baseItemWidth * sizeX);
 
         ImageView imageView = view.findViewById(R.id.imageView);
-        if (location == null)
+        if (isCorner)
             imageView.setImageDrawable(null);
 //            imageView.setImageResource(R.drawable.ic_add_black_24dp);
 
@@ -530,11 +540,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                 if (which == 0)
                     onClickControllerScaleRowCol(finalIsRow, wrapper);
                 else if (which == 1) {
-                    if (finalIsRow)
-                        deleteRow(wrapper.y);
-                    else
-                        deleteColumn(wrapper.x);
-                    buildMap();
+                    onClickControllerDeleteRowCol(finalIsRow, wrapper);
                 }
             }
         });
@@ -624,6 +630,32 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         dialog.dialog = alert.show();
     }
 
+    public void onClickControllerDeleteRowCol(final boolean finalIsRow, final LocationWrapper wrapper) {
+
+        if (wrapper == null)
+            return;
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle(R.string.cluster_map_contribute_dialog_delete_title);
+        if (finalIsRow)
+            alert.setMessage(app.getString(R.string.cluster_map_contribute_dialog_delete_message_row, wrapper.y));
+        else
+            alert.setMessage(app.getString(R.string.cluster_map_contribute_dialog_delete_message_col, wrapper.x));
+        alert.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (finalIsRow)
+                    deleteRow(wrapper.y);
+                else
+                    deleteColumn(wrapper.x);
+                buildMap();
+            }
+        });
+        alert.setNegativeButton(R.string.cancel, null);
+        alert.show();
+    }
+
     private void clickOnFab() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ClusterMapContributeEditActivity.this);
         String[] actions = new String[]{getString(R.string.cluster_map_contribute_dialog_add_action_row_top),
@@ -683,23 +715,36 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     private void setRowScale(int y, float scale) {
         for (int i = 0; i < allLocations.size(); i++) {
-            SparseArray<Location> col;
-            Location cel;
-            if ((col = allLocations.get(i)) != null && ((cel = col.get(y)) != null)) {
-                cel.sizeY = scale;
+            SparseArray<Location> col = allLocations.get(i);
+            if (col == null) {
+                col = new SparseArray<>();
+                allLocations.append(i, col);
             }
+
+            Location cel = col.get(y);
+            if (cel == null) {
+                cel = new Location();
+                col.append(y, cel);
+            }
+            cel.sizeY = scale;
         }
     }
 
     private void setColumnScale(int x, float scale) {
-        SparseArray<Location> col;
-        if ((col = allLocations.get(x)) != null) {
-            for (int i = 0; i < col.size(); i++) {
-                Location cel;
-                if ((cel = col.get(i)) != null)
-                    cel.sizeX = scale;
-            }
+        SparseArray<Location> col = allLocations.get(x);
+        if (col == null) {
+            col = new SparseArray<>();
+            allLocations.append(x, col);
         }
+        for (int i = 0; i < cluster.sizeY; i++) {
+            Location cel = col.get(i);
+            if (cel == null) {
+                cel = new Location();
+                col.append(i, cel);
+            }
+            cel.sizeX = scale;
+        }
+
     }
 
     private void deleteColumn(int x) {
@@ -721,6 +766,15 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             }
         }
         cluster.sizeY--;
+    }
+
+    @Override
+    public final Object onRetainCustomNonConfigurationInstance() {
+        DataWrapper d = new DataWrapper();
+        d.cluster = cluster;
+        d.isTimeUpDialogDisplayed = isTimeUpDialogDisplayed;
+        d.allLocations = allLocations;
+        return d;
     }
 
     private class DialogFinalWrapper {
@@ -749,5 +803,12 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             this.y = y;
             this.location = location;
         }
+    }
+
+    private class DataWrapper {
+
+        Cluster cluster;
+        boolean isTimeUpDialogDisplayed;
+        SparseArray<SparseArray<Location>> allLocations;
     }
 }
