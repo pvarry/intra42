@@ -6,6 +6,7 @@ import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -23,9 +24,18 @@ public interface ApiServiceClusterMapContribute {
     @GET("https://notepad.pw/raw/{key}")
     Call<Cluster> getCluster(@Path("key") String key);
 
+    @GET("https://notepad.pw/raw/{key}")
+    Call<Void> getClusterEmpty(@Path("key") String key);
+
     @FormUrlEncoded
     @Headers("x-requested-with: XMLHttpRequest")
     @POST("https://notepad.pw/save")
     Call<Void> save(@FieldMap(encoded = false) Map<String, String> data, @Header("Cookie") String cookie);
+
+    @GET("https://notepad.pw")
+    Call<ResponseBody> getMainPage();
+
+    @GET("https://notepad.pw/{url}")
+    Call<ResponseBody> getPage(@Path("url") String key);
 
 }

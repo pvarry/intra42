@@ -20,7 +20,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +55,32 @@ public class ClusterMapContributeUtils {
 
             @Override
             public void onFailure(Call<Cluster> call, Throwable t) {
+                dialog.cancel();
+                callback.error(t.getMessage());
+            }
+        });
+    }
+
+    static public void loadMaster(final Context context, ApiServiceClusterMapContribute api, final LoadMasterCallback callback) {
+
+        final ProgressDialog dialog = ProgressDialog.show(context, null,
+                context.getString(R.string.info_loading_please_wait), true);
+        dialog.show();
+
+        Call<List<Master>> call = api.getMasters();
+        call.enqueue(new Callback<List<Master>>() {
+            @Override
+            public void onResponse(Call<List<Master>> call, Response<List<Master>> response) {
+                dialog.cancel();
+                List<Master> body;
+                if ((body = response.body()) != null)
+                    callback.finish(body);
+                else
+                    callback.error(context.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response));
+            }
+
+            @Override
+            public void onFailure(Call<List<Master>> call, Throwable t) {
                 dialog.cancel();
                 callback.error(t.getMessage());
             }
@@ -134,6 +163,10 @@ public class ClusterMapContributeUtils {
     }
 
     static public void saveClusterMap(final Activity activity, final AppClass app, final Master master, final Cluster cluster, final SaveClusterMapCallback callback) {
+        saveClusterMap(activity, app, master, cluster, false, callback);
+    }
+
+    static public void saveClusterMap(final Activity activity, final AppClass app, final Master master, final Cluster cluster, final boolean createCluster, final SaveClusterMapCallback callback) {
 
         final ProgressDialog dialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), true);
         dialog.show();
@@ -158,30 +191,39 @@ public class ClusterMapContributeUtils {
                         return;
                     }
                     cookieMaster = cookieRetriever(responseMaster);
+                    //if (!createCluster) {
                     for (Master m : bodyMaster)
                         if (m.key.contentEquals(master.key) && m.url.contentEquals(master.url))
                             apiMaster = m;
+                    //} else {
+                    //    bodyMaster.add(master);
+                    //    apiMaster = master;
+                    //}
 
+                    if (apiMaster == null) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+                        return;
+                    }
                     if (!canIEdit(apiMaster, app)) {
                         returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, callback);
                         return;
                     }
 
-                    Response<Cluster> responseCluster = api.getCluster(apiMaster.key).execute();
-                    if (!responseCluster.isSuccessful() || responseCluster.body() == null) {
+                    Response responseCluster = api.getClusterEmpty(apiMaster.key).execute();
+                    if (!responseCluster.isSuccessful()) {
                         returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
                     cookieCluster = cookieRetriever(responseCluster);
 
-                    //save
-
+                    //save cluster
                     Response<Void> responseSaveMap = api.save(getBody(apiMaster, cluster), cookieCluster).execute();
                     if (!responseSaveMap.isSuccessful()) {
                         returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
                         return;
                     }
 
+                    //save master
                     apiMaster.locked_by = null;
                     apiMaster.locked_at = null;
 
@@ -218,6 +260,86 @@ public class ClusterMapContributeUtils {
                     });
                 }
 
+            }
+        }).start();
+
+    }
+
+    public static void createCluster(final AppClass app, final Activity activity, final CreateClusterMapCallback callback) {
+        final ProgressDialog dialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), true);
+        dialog.show();
+
+        final ApiServiceClusterMapContribute api = app.getApiServiceClusterMapContribute();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final String regex = "pad_key\\s+=\\s+'([^']+)?';\\s*url_key\\s+=\\s+'([^']+)?';"; // with name "pad_key\s+=\s+'(?<padkey>[^']+)?';\s*url_key\s+=\s+'(?<urlkey>[^']+)?';"
+
+                try {
+
+                    Response<ResponseBody> responseFirst = api.getMainPage().execute();
+                    if (!responseFirst.isSuccessful()) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+                        return;
+                    }
+                    String bodyFirst = responseFirst.body().string();
+
+                    final Pattern patternFirst = Pattern.compile(regex);
+                    final Matcher matcherFirst = patternFirst.matcher(bodyFirst);
+
+                    if (!matcherFirst.find())
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+
+                    final Master newMaster = new Master(null, matcherFirst.group(1), matcherFirst.group(2));
+
+                    //save cluster
+                    String cookie = cookieRetriever(responseFirst);
+                    Response<Void> responseSaveMap = api.save(getBody(newMaster, "{}"), cookie).execute();
+                    if (!responseSaveMap.isSuccessful()) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+                        return;
+                    }
+
+
+                    // -------
+
+
+                    Response<ResponseBody> response = api.getMainPage().execute();
+                    if (!response.isSuccessful()) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+                        return;
+                    }
+                    String body = response.body().string();
+
+                    final Pattern pattern = Pattern.compile(regex);
+                    final Matcher matcher = pattern.matcher(body);
+
+                    if (!matcher.find())
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+
+                    newMaster.key = matcher.group(1);
+                    newMaster.url = matcher.group(2);
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                            callback.finish(newMaster);
+                        }
+                    });
+
+                } catch (final IOException e) {
+                    e.printStackTrace();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                            callback.error(e.getLocalizedMessage());
+                        }
+                    });
+                }
 
             }
         }).start();
@@ -235,6 +357,16 @@ public class ClusterMapContributeUtils {
     }
 
     private static void returnError(@NonNull Activity activity, final String error, final Dialog dialog, final LoadClusterMapCallback callback) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                callback.error(error);
+            }
+        });
+    }
+
+    private static void returnError(@NonNull Activity activity, final String error, final Dialog dialog, final CreateClusterMapCallback callback) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -294,6 +426,22 @@ public class ClusterMapContributeUtils {
     public interface SaveClusterMapCallback {
 
         void finish();
+
+        void error(String error);
+
+    }
+
+    public interface CreateClusterMapCallback {
+
+        void finish(final Master masters);
+
+        void error(String error);
+
+    }
+
+    public interface LoadMasterCallback {
+
+        void finish(final List<Master> masters);
 
         void error(String error);
 

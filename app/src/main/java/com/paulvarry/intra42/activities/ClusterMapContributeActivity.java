@@ -45,6 +45,8 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
     private List<Cluster> clusters;
     private List<Master> masters;
 
+    private Master newMaster;
+
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapContributeActivity.class);
         context.startActivity(intent);
@@ -77,7 +79,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
     @Override
     protected void setViewContent() {
 
-//        fabBaseActivity.setVisibility(View.VISIBLE);
+        fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(this);
 
         ListAdapterClusterMapContribute adapter = new ListAdapterClusterMapContribute(app, masters);
@@ -93,7 +95,22 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
     @Override
     public void onClick(View v) {
         if (v == fabBaseActivity) {
-            openEditMetadataDialog(null, null);
+            ClusterMapContributeUtils.loadMaster(this, app.getApiServiceClusterMapContribute(), new ClusterMapContributeUtils.LoadMasterCallback() {
+                @Override
+                public void finish(List<Master> masters) {
+                    for (Master m : masters)
+                        if (m.name == null) {
+                            openEditMetadataDialog(m, null);
+                            return;
+                        }
+                }
+
+                @Override
+                public void error(String error) {
+                    Toast.makeText(app, error, Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
     }
 
@@ -122,9 +139,18 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
             long end = System.nanoTime();
             long diff = end - start;
 
-            this.masters = response.body();
-
             Log.d("cluster", String.valueOf(diff));
+
+            List<Master> tmpMaster = response.body();
+            masters = new ArrayList<>();
+            for (Master m : tmpMaster) {
+
+                if (newMaster == null && m.name == null)
+                    newMaster = m;
+
+                if (m.name != null)
+                    masters.add(m);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -212,7 +238,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         });
     }
 
-    void openEditMetadataDialog(final Master master, final Cluster cluster) {
+    void openEditMetadataDialog(final Master master, @Nullable final Cluster cluster) {
         final LayoutInflater inflater = LayoutInflater.from(ClusterMapContributeActivity.this);
         final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_cluster, null);
         final TextInputLayout textInputName = view.findViewById(R.id.textInputName);
@@ -222,6 +248,8 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         final EditText editTextNameShort = view.findViewById(R.id.editTextNameShort);
         final EditText editTextPosition = view.findViewById(R.id.editTextPosition);
         final Spinner spinnerCampus = view.findViewById(R.id.spinnerCampus);
+
+        final boolean isCreate = cluster == null;
 
         final FinalWrapper dialog = new FinalWrapper();
         TextWatcher textWatcher = new TextWatcher() {
@@ -255,14 +283,14 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         };
 
         int selection = 0;
-        List<String> listCampusString;
         if (listCampus != null) {
+            List<String> listCampusString;
             listCampusString = new ArrayList<>();
             Campus c;
             for (int i = 0; i < listCampus.size(); i++) {
                 c = listCampus.get(i);
                 listCampusString.add(c.name + " (id: " + String.valueOf(c.id) + ")");
-                if (c.id == cluster.campusId)
+                if (cluster != null && c.id == cluster.campusId)
                     selection = i;
             }
 
@@ -274,10 +302,12 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         editTextNameShort.addTextChangedListener(textWatcher);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(ClusterMapContributeActivity.this);
-        editTextPrefix.setText(cluster.hostPrefix);
-        editTextNameShort.setText(cluster.nameShort);
-        editTextName.setText(cluster.name);
-        editTextPosition.setText(String.valueOf(cluster.clusterPosition));
+        if (cluster != null) {
+            editTextPrefix.setText(cluster.hostPrefix);
+            editTextNameShort.setText(cluster.nameShort);
+            editTextName.setText(cluster.name);
+            editTextPosition.setText(String.valueOf(cluster.clusterPosition));
+        }
         spinnerCampus.setSelection(selection, false);
 
         builder.setTitle(R.string.cluster_map_contribute_dialog_metadata_title);
@@ -285,19 +315,26 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                cluster.name = editTextName.getText().toString();
-                cluster.nameShort = editTextNameShort.getText().toString();
-                cluster.clusterPosition = Integer.decode(editTextPosition.getText().toString());
-                cluster.hostPrefix = editTextPrefix.getText().toString();
 
-                cluster.campusId = 1;
+                Cluster newCluster = cluster;
+                if (newCluster == null)
+                    newCluster = new Cluster(0, null, null);
+
+                newCluster.name = editTextName.getText().toString();
+                newCluster.nameShort = editTextNameShort.getText().toString();
+                String stringPosition = editTextPosition.getText().toString();
+                if (!stringPosition.isEmpty())
+                    newCluster.clusterPosition = Integer.decode(stringPosition);
+                newCluster.hostPrefix = editTextPrefix.getText().toString();
+
+                newCluster.campusId = 1;
                 int pos = spinnerCampus.getSelectedItemPosition();
                 if (pos < listCampus.size()) {
                     Campus c = listCampus.get(pos);
-                    cluster.campusId = c.id;
+                    newCluster.campusId = c.id;
                 }
 
-                ClusterMapContributeUtils.saveClusterMap(ClusterMapContributeActivity.this, app, master, cluster, new ClusterMapContributeUtils.SaveClusterMapCallback() {
+                ClusterMapContributeUtils.saveClusterMap(ClusterMapContributeActivity.this, app, master, newCluster, isCreate, new ClusterMapContributeUtils.SaveClusterMapCallback() {
                     @Override
                     public void finish() {
                         refresh();

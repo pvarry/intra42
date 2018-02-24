@@ -32,6 +32,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -188,7 +189,12 @@ public class ServiceGenerator {
 
                 String content = response.body().string();
 
-                if (content != null && !content.isEmpty()) {
+                List<String> pathSegments = response.request().url().pathSegments();
+                if (content != null &&
+                        !content.isEmpty() &&
+                        pathSegments != null &&
+                        pathSegments.size() > 0 &&
+                        pathSegments.get(0).contentEquals("raw")) {
                     content = Html.toHtml(Html.fromHtml(content));
 
                     int start = content.indexOf(">");
@@ -447,12 +453,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
-        ServiceGenerator.accessToken42Tools = tokenTools;
-    }
-
     public static void setToken(AccessToken tokenIntra) {
         ServiceGenerator.accessTokenIntra42 = tokenIntra;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
+        ServiceGenerator.accessToken42Tools = tokenTools;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {
