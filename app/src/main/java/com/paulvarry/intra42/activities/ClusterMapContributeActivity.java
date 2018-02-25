@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterClusterMapContribute;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
@@ -31,17 +33,18 @@ import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ClusterMapContributeActivity extends BasicThreadActivity implements View.OnClickListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread, ListAdapterClusterMapContribute.OnEditClickListener {
+public class ClusterMapContributeActivity extends BasicThreadActivity implements View.OnClickListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread, ListAdapterClusterMapContribute.OnEditClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ExpandableListView listView;
 
     private List<Campus> listCampus;
-
     private List<Cluster> clusters;
     private List<Master> masters;
 
@@ -59,6 +62,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         setActionBarToggle(ActionBarToggle.ARROW);
 
         listView = findViewById(R.id.listView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
         registerGetDataOnOtherThread(this);
 
@@ -78,6 +82,9 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
 
     @Override
     protected void setViewContent() {
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setRefreshing(false);
 
         fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(this);
@@ -139,7 +146,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
             long end = System.nanoTime();
             long diff = end - start;
 
-            Log.d("cluster", String.valueOf(diff));
+            Log.d("cluster call time", String.valueOf(diff));
 
             List<Master> tmpMaster = response.body();
             masters = new ArrayList<>();
@@ -151,38 +158,23 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
                 if (m.name != null)
                     masters.add(m);
             }
+            Collections.sort(masters);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-//        Gson gson = ServiceGenerator.getGson();
-//        List<Cluster> list = new ArrayList<>();
+/*        Gson gson = ServiceGenerator.getGson();
+        List<Cluster> list = new ArrayList<>();
 
-//        list.add(new Cluster(1, "E1", "e1", true));
-//        list.add(new Cluster(1, "E2", "e2", true));
-//        list.add(new Cluster(1, "E3", "e3", true));
-//        list.add(new Cluster(7, "E1Z1", "e1z1", true));
-//        list.add(new Cluster(7, "E1Z2", "e1z2", true));
-//        list.add(new Cluster(7, "E1Z3", "e1z3", true));
-//        list.add(new Cluster(7, "E1Z4", "e1z4", true));
-
-//        Cluster c = new Cluster(1, "E1", "e1", true);
-//        int x = c.map[0].length;
-//        int y = c.map.length;
-//        Location[][] tmp = new Location[x][];
-//        Location l;
-//        for (int i = 0; i < c.map.length; i++) {
-//            for (int j = 0; j < c.map[0].length; j++) {
-//                if (tmp[j] == null)
-//                    tmp[j] = new Location[y];
-//                l = c.map[i][j];
-//                tmp[j][i] = l;
-//                if (l != null && l.host != null && l.host.startsWith(c.hostPrefix))
-//                    l.host = l.host.replaceFirst(c.hostPrefix, "");
-//            }
-//        }
-//        Log.d("map", "finish");
+        list.add(exportCluster(new Cluster(1, "E1", "e1", true)));
+        list.add(exportCluster(new Cluster(1, "E2", "e2", true)));
+        list.add(exportCluster(new Cluster(1, "E3", "e3", true)));
+        list.add(exportCluster(new Cluster(7, "E1Z1", "e1z1", true)));
+        list.add(exportCluster(new Cluster(7, "E1Z2", "e1z2", true)));
+        list.add(exportCluster(new Cluster(7, "E1Z3", "e1z3", true)));
+        list.add(exportCluster(new Cluster(7, "E1Z4", "e1z4", true)));
+        Log.d("export", "finished");*/
 
 
 /*
@@ -198,6 +190,25 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
 
         Response<Void> ret = app.getApiServiceClusterMapContribute().save(map, cookie).execute();
 */
+    }
+
+    Cluster exportCluster(Cluster c) {
+        int x = c.map[0].length;
+        int y = c.map.length;
+        Location[][] tmp = new Location[x][];
+        Location l;
+        for (int i = 0; i < c.map.length; i++) {
+            for (int j = 0; j < c.map[0].length; j++) {
+                if (tmp[j] == null)
+                    tmp[j] = new Location[y];
+                l = c.map[i][j];
+                tmp[j][i] = l;
+                if (l != null && l.host != null && l.host.startsWith(c.hostPrefix))
+                    l.host = l.host.replaceFirst(c.hostPrefix, "");
+            }
+        }
+        c.map = tmp;
+        return c;
     }
 
     @Override
@@ -248,6 +259,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
         final EditText editTextNameShort = view.findViewById(R.id.editTextNameShort);
         final EditText editTextPosition = view.findViewById(R.id.editTextPosition);
         final Spinner spinnerCampus = view.findViewById(R.id.spinnerCampus);
+        final EditText editTextComment = view.findViewById(R.id.editTextComment);
 
         final boolean isCreate = cluster == null;
 
@@ -306,7 +318,9 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
             editTextPrefix.setText(cluster.hostPrefix);
             editTextNameShort.setText(cluster.nameShort);
             editTextName.setText(cluster.name);
-            editTextPosition.setText(String.valueOf(cluster.clusterPosition));
+            if (cluster.clusterPosition > 0)
+                editTextPosition.setText(String.valueOf(cluster.clusterPosition));
+            editTextComment.setText(cluster.comment);
         }
         spinnerCampus.setSelection(selection, false);
 
@@ -326,6 +340,7 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
                 if (!stringPosition.isEmpty())
                     newCluster.clusterPosition = Integer.decode(stringPosition);
                 newCluster.hostPrefix = editTextPrefix.getText().toString();
+                newCluster.comment = editTextComment.getText().toString();
 
                 newCluster.campusId = 1;
                 int pos = spinnerCampus.getSelectedItemPosition();
@@ -361,6 +376,14 @@ public class ClusterMapContributeActivity extends BasicThreadActivity implements
             }
             dialog.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!disable);
         }
+    }
+
+    /**
+     * Called when a swipe gesture triggers a refresh.
+     */
+    @Override
+    public void onRefresh() {
+        refresh();
     }
 
     private class FinalWrapper {

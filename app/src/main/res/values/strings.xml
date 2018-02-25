@@ -571,9 +571,9 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_contribute_error_fail_to_retrieve_data_response">Operation can\'t be finished, failed to retrieve data</string>
     <string name="cluster_map_contribute_dialog_metadata_layout_full_name">Full name</string>
     <string name="cluster_map_contribute_dialog_metadata_layout_short_name">Short name</string>
-    <string name="cluster_map_contribute_dialog_metadata_layout_position">Position</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_position">Position of this cluster on the list</string>
     <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix">Location prefix</string>
-    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">Cluster location prefix is the beginning of all the host name on this cluster.</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">Info: Location prefix is the beginning of all the host name on this cluster.</string>
     <string name="cluster_map_contribute_dialog_location_layout_user">user</string>
     <string name="cluster_map_contribute_dialog_location_layout_wall">wall</string>
     <string name="cluster_map_contribute_dialog_location_layout_corridor">corridor</string>
@@ -584,4 +584,6 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_contribute_dialog_delete_title">Are you sure to delete this row/column ?</string>
     <string name="cluster_map_contribute_dialog_delete_message_row">You are going to delete row on y=%d, this action can\'t be undo</string>
     <string name="cluster_map_contribute_dialog_delete_message_col">You are going to delete column on x=%d, this action can\'t be undo</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_comment">Comment</string>
+    <string name="cluster_map_contribute_explanations">Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be lock for 5 min and only can edit it.</string>
 </resources>

@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/cluster_map_contribute_dialog_metadata_layout_position"
-                android:inputType="textVisiblePassword" />
+                android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -69,8 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="@string/campus"
             android:textColor="#9B9B9B" />
 
@@ -99,7 +99,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:text="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix_info" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+
+            <EditText
+                android:id="@+id/editTextComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_comment"
+                android:inputType="textMultiLine" />
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 </ScrollView>

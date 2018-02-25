@@ -24,6 +24,7 @@ public class Cluster implements BaseItem, Serializable {
     @SerializedName("height")
     public int sizeY;
     public Location map[][];
+    public String comment;
 
     public Cluster(int campusId, String name, String hostPrefix) {
         this.campusId = campusId;
