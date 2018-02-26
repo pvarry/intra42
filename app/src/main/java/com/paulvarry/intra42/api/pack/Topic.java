@@ -8,7 +8,6 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
-import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
@@ -28,12 +27,7 @@ public class Topic {
         Call<Topics> callTopic = service.getTopic(id);
         Call<List<Messages>> callMessages = service.getTopicMessages(id);
 
-        String info = activity.getString(R.string.info_loading_topic);
-        if (AppSettings.Advanced.getAllowAdvancedData(activity))
-            info += " n°" + String.valueOf(id);
-        info += " …";
-
-        activity.setLoadingProgress(info, 1, 3);
+        activity.setLoadingProgress(activity.getString(R.string.info_loading_topic), 1, 3);
         retrofit2.Response<Topics> retTopic = callTopic.execute();
         if (!Tools.apiIsSuccessful(retTopic))
             return null;
@@ -56,14 +50,8 @@ public class Topic {
 
         Call<List<Messages>> callMessages = service.getTopicMessages(topics.id);
         try {
-            String info = "Loading topic"; //TODO: hardcoded string
-            if (AppSettings.Advanced.getAllowAdvancedData(activity))
-                info += " n°" + String.valueOf(topics.id);
-            info += " …";
-            activity.setLoadingProgress(info);
-            activity.setLoadingProgress("loading reply …");
+            activity.setLoadingProgress(R.string.info_loading_topic_reply);
             retrofit2.Response<List<Messages>> retMessages = callMessages.execute();
-            activity.setLoadingProgress("finishing");
             if (!(retMessages.code() == 200))
                 return null;
             topic.topic = topics;

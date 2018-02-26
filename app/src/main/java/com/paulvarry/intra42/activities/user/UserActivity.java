@@ -141,7 +141,7 @@ public class UserActivity extends BasicTabActivity
                             Runnable myRunnable = new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(context, "Users not found", Toast.LENGTH_SHORT).show(); //TODO: hardcoded string
+                                    Toast.makeText(context, R.string.user_open_it_not_found, Toast.LENGTH_SHORT).show();
                                 }
                             };
                             mainHandler.post(myRunnable);
@@ -194,10 +194,8 @@ public class UserActivity extends BasicTabActivity
             @Override
             public void onResponse(Call<List<Locations>> call, final Response<List<Locations>> response) {
 
-                if (!response.isSuccessful() && response.code() != 404)
-                    Toast.makeText(context, "Error on get", Toast.LENGTH_SHORT).show();
-                else if (response.body() == null || response.code() == 404)
-                    Toast.makeText(context, "not found", Toast.LENGTH_SHORT).show();
+                if (!response.isSuccessful() || response.body() == null || response.code() == 404)
+                    Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show();
                 else {
 
                     AlertDialog.Builder d = new AlertDialog.Builder(context);
@@ -252,7 +250,8 @@ public class UserActivity extends BasicTabActivity
                 login = handleSendText(intent); // Handle text being sent
             }
         } else if (Intent.ACTION_VIEW.equals(action)) {
-            if (intent.getData().getHost().equals("profile.intra.42.fr")) {
+            Uri uri;
+            if ((uri = intent.getData()) != null && uri.getHost().equals("profile.intra.42.fr")) {
                 List<String> tmp = intent.getData().getPathSegments();
                 if (tmp.size() == 2)
                     login = tmp.get(1);

@@ -94,14 +94,19 @@ public class TopicActivity
     public void getDataOnOtherThread() throws ErrorServerException, IOException, UnauthorizedException {
         String json = getIntent().getStringExtra(INTENT_TOPIC_JSON);
 
+        activity.setLoadingProgress(R.string.info_loading_topic);
+        boolean done = false;
+
         if (json != null) {
             Topics topics = ServiceGenerator.getGson().fromJson(json, Topics.class);
             if (topics != null && topics.id != 0) {
                 topic = Topic.get(this, app.getApiService(), topics);
+                done = true;
             }
         }
 
-        topic = Topic.get(this, app.getApiService(), id);
+        if (!done)
+            topic = Topic.get(this, app.getApiService(), id);
     }
 
     @Override
