@@ -1,6 +1,9 @@
+#!/usr/bin/ruby
+
 require 'net/https'
 require 'cgi'
 require 'json'
+require 'fileutils'
 
 INTRA_42_SESSION_FILE = File.join(__dir__, '._intra_42_session_key')
 OUTPUT_PATH = File.join(__dir__, '..', 'app', 'src', 'main', 'res', 'raw')
@@ -10,14 +13,20 @@ unless File.exist?(INTRA_42_SESSION_FILE)
   exit(1)
 end
 
+old_files = Dir.entries(OUTPUT_PATH)
+               .select { |name| name.match(%r(project_data_cursus_\d+_campus_\d+\.json)) }
+               .map{|i| File.join(OUTPUT_PATH, i)}
+File.delete(*old_files) if old_files.any?
+
 INTRA_42_SESSION_KEY = File.read(INTRA_42_SESSION_FILE)
 
 conn = Net::HTTP.new('projects.intra.42.fr', 443)
 conn.use_ssl = true
 conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-(1..17).each do |cursus_id|
-  (1..10).each do |campus_id|
+
+(1..18).each do |cursus_id|
+  (1..15).each do |campus_id|
 
     print "Calling cursus: #{cursus_id}, campus: #{campus_id} ...  "
 
@@ -35,8 +44,8 @@ conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
     json = JSON(res.body)
 
     json.each do  |x|
-      x["state"] = nil
-      x["final_mark"] = nil
+      x.delete("state")
+      x.delete("final_mark")
     end
 
     sorted = json.sort_by { |k| k["id"] }
@@ -46,3 +55,5 @@ conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
     puts "done"
   end
 end
+
+FileUtils.cp(File.join(OUTPUT_PATH, 'project_data_cursus_1_campus_1.json'), File.join(OUTPUT_PATH, 'project_data.json'))
