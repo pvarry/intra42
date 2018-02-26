@@ -58,6 +58,7 @@ public abstract class BasicThreadActivity extends BasicActivity implements Navig
         }
         if (getDataOnMain == null && getDataOnTread == null)
             setViewState(StatusCode.CONTENT);
+        super.onCreateFinished(false);
     }
 
     public void registerGetDataOnMainTread(GetDataOnMain getDataOnMain) {

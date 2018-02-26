@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -49,12 +51,13 @@ import retrofit2.Response;
  * Use the {@link ClusterMapInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
+public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ClusterMapActivity activity;
 
     private ListAdapterClusterMapInfo adapter;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewClusters;
     private TextView textViewLayerTitle;
     private TextView textViewLayerDescription;
@@ -94,15 +97,17 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cluster_map_info, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        swipeRefreshLayout = view.findViewById(R.id.layoutParent);
         listView = view.findViewById(R.id.listView);
         spinnerMain = view.findViewById(R.id.spinnerMain);
         spinnerSecondary = view.findViewById(R.id.spinnerSecondary);
@@ -159,6 +164,8 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         spinnerMain.setOnItemSelectedListener(this);
         spinnerSecondary.setOnItemSelectedListener(this);
         spinnerSecondary.setSelection(projectStatusSelection);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private int getProjectSelectionPosition() {
@@ -339,6 +346,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         spinnerMain.setOnItemSelectedListener(null);
         spinnerSecondary.setOnItemSelectedListener(null);
         editText.removeTextChangedListener(this);
+        swipeRefreshLayout.setEnabled(false);
 
         switch (activity.layerTmpStatus) {
             case USER:
@@ -404,35 +412,37 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
             return;
 
         layoutLoading.setVisibility(View.VISIBLE);
-        final View view = layoutLoading;
-        final View startView = buttonUpdate;
-        int cx = (startView.getLeft() + startView.getRight()) / 2;
-        int cy = (startView.getTop() + startView.getBottom()) / 2;
-        int finalRadius = Math.max(Math.max(cy, view.getHeight() - cy), Math.max(cx, view.getWidth() - cx));
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, finalRadius, 0);
-        anim.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
+        try {
+            int cx = (buttonUpdate.getLeft() + buttonUpdate.getRight()) / 2;
+            int cy = (buttonUpdate.getTop() + buttonUpdate.getBottom()) / 2;
+            int finalRadius = Math.max(Math.max(cy, layoutLoading.getHeight() - cy), Math.max(cx, layoutLoading.getWidth() - cx));
+            Animator anim = ViewAnimationUtils.createCircularReveal(layoutLoading, cx, cy, finalRadius, 0);
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
 
-            }
+                }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                view.setVisibility(View.GONE);
-            }
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    layoutLoading.setVisibility(View.GONE);
+                }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                view.setVisibility(View.GONE);
-            }
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    layoutLoading.setVisibility(View.GONE);
+                }
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+                @Override
+                public void onAnimationRepeat(Animator animation) {
 
-            }
-        });
-        anim.setDuration(200);
-        anim.start();
+                }
+            });
+            anim.setDuration(200);
+            anim.start();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     void layerProjectFindSlug() {
@@ -590,6 +600,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         editText.addTextChangedListener(this);
         spinnerMain.setOnItemSelectedListener(this);
         spinnerSecondary.setOnItemSelectedListener(this);
+        swipeRefreshLayout.setEnabled(true);
 
         updateButton();
 
@@ -621,6 +632,14 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         activity.viewPager.setCurrentItem(position + 1, true);
     }
 
+    /**
+     * Called when a swipe gesture triggers a refresh.
+     */
+    @Override
+    public void onRefresh() {
+        if (activity != null)
+            activity.refreshCluster();
+    }
 
     /**
      * This interface must be implemented by activities that contain this

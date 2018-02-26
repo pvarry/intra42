@@ -156,7 +156,8 @@ public class SubnotionListActivity extends BasicThreadActivity implements SwipeR
     protected void onStop() {
         super.onStop();
 
-        call.cancel();
+        if (call != null)
+            call.cancel();
     }
 
     @Override
@@ -232,16 +233,16 @@ public class SubnotionListActivity extends BasicThreadActivity implements SwipeR
     }
 
     private SpannableString getSpannableIcon(int icon, String replacement) {
-        SpannableString spannableIcon;
+        SpannableString spannableIcon = new SpannableString(replacement);
         try {
-            Drawable image = ContextCompat.getDrawable(getApplicationContext(), icon);
-            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-
-            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-            spannableIcon = new SpannableString(replacement);
-            spannableIcon.setSpan(imageSpan, 0, replacement.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            Drawable image = ContextCompat.getDrawable(this, icon);
+            if (image != null) {
+                image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+                ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+                spannableIcon.setSpan(imageSpan, 0, replacement.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
         } catch (Resources.NotFoundException e) {
-            spannableIcon = new SpannableString(replacement);
+            e.printStackTrace();
         }
         return spannableIcon;
     }

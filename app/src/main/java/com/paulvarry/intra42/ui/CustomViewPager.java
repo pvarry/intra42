@@ -30,7 +30,12 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return canSwipe() && super.onTouchEvent(event);
+        try {
+            return canSwipe() && super.onTouchEvent(event);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return canSwipe();
+        }
     }
 
     public void setPagingEnabled(boolean enabled) {

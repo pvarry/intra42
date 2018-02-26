@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">"Intra 42"</string>
+<string name="pref_advanced_dont_force">"Dezaktywuj (nie wymuszaj)"</string>
+<string name="pref_force_content_location">"Wymuś zawartość lokalizacji"</string>
+<string name="pref_unactivated">"Nieaktywny"</string>
+<string name="pref_activated">"Aktywny"</string>
+<string name="pref_value_all">"Wszystko"</string>
+<string name="pref_header_notifications">"Powiadomienia"</string>
+<string name="pref_title_notifications_events">"Powiadamiaj o eventach"</string>
+<string name="pref_title_notifications_scales">"Powiadamiaj o korekcjach (beta)"</string>
+<string name="pref_title_notifications_frequency">"Częstotliwość synchronizacji"</string>
+<string name="pref_header_network">"Sieć"</string>
+<string name="pref_title_network_over_cellular_slow">"Przez wolną sieć komórkową"</string>
+<string name="pref_title_network_over_cellular_fast">"Przez szybką sieć komórkową"</string>
+<string name="pref_title_network_over_wifi">"Przez wifi"</string>
+<string name="notifications_events_sub_text">"Event"</string>
+<string name="notifications_events_channel_name">"Eventy"</string>
+<string name="notifications_events_channel_description">"Powiadomienia o eventach"</string>
+<string name="notifications_bookings_sub_text">"Rezerwacja"</string>
+<string name="notifications_bookings_channel_name">"Rezerwacje"</string>
+<string name="notifications_bookings_channel_description">"Powiadomienia o zarezerwowanych korekcjach"</string>
+<string name="notifications_announcements_channel_name">"Wydarzenia"</string>
+<string name="notifications_announcements_channel_description">"Powiadomienia wydarzeń"</string>
+
+<!-- Format warning -->
+<string name="bookings_corrected_by">"Twój _project_ będzie oceniany _date_."</string>
+
+<!-- Format warning -->
+<string name="bookings_corrected_by_login">"Twój _project_ będzie oceniany _date_  przez _login_."</string>
+
+<!-- Format warning -->
+<string name="bookings_correct_login">"_date_ będziesz oceniać projekt _login_."</string>
+
+<!-- Format warning -->
+<string name="bookings_correct_somebody">"_date_ będziesz oceniać czyiś kod źródłowy.
+"</string>
+
+<!-- Format warning -->
+<string name="format_dont_have_any_expertise_yet">"%s nie ma jeszcze żadnych kompetencji"</string>
+
+<!-- Format warning -->
+<string name="format__dont_have_write_topic">"%s nie napisał(a) jeszcze żadnego wątku"</string>
+
+<!-- Format warning -->
+<string name="format__host_s_history">"Historia %s"</string>
+<string name="campus">"Kampus"</string>
+<string name="cursus">"Program nauczania"</string>
+<string name="cancel">"Anuluj"</string>
+<string name="copied">"Skopiowany"</string>
+<string name="copy">"Kopiuj"</string>
+<string name="delete">"Usuń"</string>
+<string name="done">"Zrobione"</string>
+<string name="error">"Błąd"</string>
+<string name="ok">"OK"</string>
+<string name="open_this">"Otwórz"</string>
+<string name="save">"Zapisz"</string>
+<string name="soon">"Wkrótce"</string>
+<string name="sort_by">"Sortuj przez"</string>
+<string name="refresh">"Odśwież"</string>
+<string name="today">"Dzisiaj"</string>
+<string name="tomorrow">"Jutro"</string>
+<string name="value">"Wartość"</string>
+<string name="tags">"Tagi"</string>
+<string name="shortcut_friends">"Przyjaciele"</string>
+<string name="shortcut_long_friends">"Lista przyjaciół"</string>
+<string name="shortcut_long_cluster_map">"Mapa klastrów"</string>
+<string name="shortcut_galaxy">"Galaktyka"</string>
+<string name="about_content">"Uaktywnij swoje intra z ojczystą aplikacją. Skontaktuj się ze mną na Slaku lub mailowo (pvarry)."</string>
+<string name="about_version">"Wersja"</string>
+<string name="cantina_menu_fremont_only">"Menu stołówki"</string>
+<string name="elearning_select_file_to_open">"Wybierz plik do otworzenia"</string>
+<string name="elearning_title">"E-nauczanie"</string>
+<string name="evaluation_correct_someone">"Korekcje"</string>
+<string name="evaluation_corrected_by">"Korektowany przez"</string>
+<string name="evaluation_on_project">"Włączony"</string>
+<string name="evaluation_slot_begin_at">"Początek"</string>
+<string name="evaluation_slot_create">"Utwórz"</string>
+<string name="evaluation_slot_delete_button">"Usuń ten slot"</string>
+<string name="evaluation_slot_deleted">"Usunięto"</string>
+<string name="evaluation_slot_end_at">"Koniec"</string>
+<string name="evaluation_slot_modify">"Modyfikuj slot"</string>
+<string name="evaluation_slot_new">"Nowy slot"</string>
+<string name="evaluation_slot_start_before_end">"W tym czasie, początek musi być przed końcem"</string>
+<string name="evaluation_slot_success">"Pomyślny"</string>
+<string name="evaluation_someone">"Ktoś"</string>
+<string name="evaluation_with">"Z"</string>
+<string name="evaluations_booked_slot">"Zarezerwowany Slot"</string>
+<string name="evaluations_confirmation_delete_booked_slot">"Czy jesteś pewny że chcesz usunąć slot z rezerwacją?
+Stracisz punkt korekcyjny."</string>
+<string name="event_check_registration">"Sprawdzanie Twojego zgłoszenia"</string>
+<string name="event_full">"Pełny"</string>
+<string name="event_nothing_found_for_your_campus_cursus">"Nie znaleziono żadnego eventu w Twoim kampusie/programie nauczania"</string>
+<string name="event_subscribe">"Subskrybuj"</string>
+<string name="event_subscribed">"Zasubskrybowano"</string>
+<string name="event_subscription_unavailable">"Subskrybcja niedostępna"</string>
+<string name="event_unsubscribe">"Zrezygnuj z subskrybcji"</string>
+<string name="event_unsubscribed">"Zrezygnowano z subskrybcji"</string>
+<string name="forum_about_this_message">"O wiadomości"</string>
+<string name="forum_confirmation_delete_message">"Czy jesteś pewny, że chcesz usunąć tą wiadomość?"</string>
+<string name="forum_created_at">"Stworzono"</string>
+<string name="forum_delete_message">"Usuń wiadomość"</string>
+<string name="forum_delete_topic">"Usuń wątek"</string>
+<string name="forum_message_edit">"Edytuj wiadomość"</string>
+<string name="forum_message_hint">"Wiadomość"</string>
+<string name="forum_readings">"Readings"</string>
+<string name="forum_reply">"Odpowiedz"</string>
+<string name="forum_tags">"Tagi"</string>
+<string name="forum_topic_content">"Zawartość"</string>
+<string name="forum_topic_edit_button">"Edytuj wątek"</string>
+<string name="forum_topic_error_empty">"Pusty"</string>
+<string name="forum_topics_kind_announce">"Ogłaszać"</string>
+<string name="forum_topics_kind_question">"Pytanie"</string>
+<string name="forum_updated_at">"Zaktualizowano"</string>
+<string name="forum_you">"Ty"</string>
+<string name="galaxy_available">"Dostępny"</string>
+<string name="galaxy_failed">"Nie zdany"</string>
+<string name="galaxy_in_progress">"W trakcje realizacji"</string>
+<string name="galaxy_not_found">"Galaktyka niedostępna"</string>
+<string name="galaxy_succeeded">"Zaliczony"</string>
+<string name="galaxy_unavailable">"Niedostępny"</string>
+<string name="galaxy_unknown_state">"Nieznany status"</string>
+<string name="info_api_request_users_1_1">"Łączenie z użytkownikiem 1/1"</string>
+<string name="info_api_requesting">"Łączenie..."</string>
+<string name="info_error_on_loading_this_page">"Wystąpił błąd podczas ładowania tej strony"</string>
+<string name="info_initializing">"Inicjalizowanie"</string>
+<string name="info_loading">"Ładowanie..."</string>
+<string name="info_loading_please_wait">"Ładowanie. Proszę czekać..."</string>
+<string name="info_network_error">"Błąd sieci"</string>
+<string name="info_network_no_internet">"Nie można połączyć się z internetem"</string>
+<string name="info_nothing_to_show">"Nic do pokazania"</string>
+<string name="language_english">"Angielski"</string>
+<string name="language_french">"Francuski"</string>
+<string name="language_romanian">"Rumuński"</string>
+<string name="language_ukrainian">"Ukraiński"</string>
+<string name="login_open_browser">"Otwórz przeglądarkę internetową"</string>
+<string name="login_open_browser_to_login">"Musisz się zarejestrować"</string>
+<string name="login_view_sources">"Wyświetl źródła"</string>
+<string name="menu_action_filter">"Filtr"</string>
+<string name="menu_action_open_intra">"Pokaż wersję na komputer"</string>
+<string name="menu_action_search">"Szukaj"</string>
+<string name="menu_action_settings">"Ustawienia"</string>
+<string name="menu_action_share">"Udostępnij"</string>
+<string name="menu_action_user_add_to_home">"Dodaj do ekranu głównego"</string>
+<string name="navigation_cluster_map">"Mapa w"</string>
+<string name="navigation_forum">"Forum"</string>
+<string name="navigation_header_action">"Działania"</string>
+<string name="navigation_header_info">"Informacje"</string>
+<string name="navigation_header_tools">"Narzędzia"</string>
+<string name="navigation_home">"Strona główna"</string>
+<string name="navigation_logout">"Wyloguj"</string>
+<string name="navigation_place_holder_email">"login@student.42.us.org"</string>
+<string name="navigation_place_holder_login">"Login"</string>
+<string name="navigation_settings">"Ustawienia"</string>
+<string name="navigation_share">"Udostępnij"</string>
+<string name="navigation_time_on_campus">"Czas w kampusie"</string>
+<string name="notification_auto_clear">"Automatyczne zamknięcie za 5 sekund"</string>
+<string name="notification_bookings_title_imminent">"Nadchodząca ewaluacja"</string>
+<string name="notification_bookings_title_new">"Masz nową rezerwację"</string>
+<string name="notification_see_project">"Zobacz projekt"</string>
+<string name="notification_see_user">"Zobacz użytkownika"</string>
+<string name="notifications_announcements_sub_text">"Wydarzenia"</string>
+<string name="profile_apps_private">"Prywatny"</string>
+<string name="project_automatic_correction">"Automatyczna ewaluacja"</string>
+<string name="project_automatic_corrections">"Automatyczne ewaluacje"</string>
+<string name="project_description">"Opis"</string>
+<string name="project_evaluation">"Ewaluacja"</string>
+<string name="project_evaluation_plural">"Ewaluacje"</string>
+<string name="project_forbidden_to_open">"Zabroniony"</string>
+<string name="project_git_repository">"Repozytorium git dla tego teamu"</string>
+<string name="project_list_user_team">"Użytkownicy w tej drużynie"</string>
+<string name="project_moulinette">"Moulinette"</string>
+<string name="project_no_scale">"Brak skali"</string>
+<string name="project_no_session_found_for_this_cursus_campus">"Nie znaleziono sesji dla wybranego programu nauczania/kampusu"</string>
+<string name="project_objectives">"Cele"</string>
+<string name="project_past_session">"Ostatnia sesja"</string>
+<string name="project_peer_corrections">"Ewaluacje rówieśników"</string>
+<string name="project_register">"Zarejestruj się"</string>
+<string name="project_session">"Sesja"</string>
+<string name="project_show_mine">"Idź do mojego"</string>
+<string name="project_skills">"Umiejętności"</string>
+<string name="project_sub_projects">"Pod"</string>
+<string name="project_user_status_creating_group">"Tworzenie grupy"</string>
+<string name="project_user_status_finished">"Ukończono"</string>
+<string name="project_user_status_in_progress">"W trakcie realizacji"</string>
+<string name="project_user_status_parent">"Rodzic"</string>
+<string name="project_user_status_searching_a_group">"Szukanie grupy"</string>
+<string name="project_user_status_unknown">"NIeznany"</string>
+<string name="project_user_status_waiting_for_correction">"Oczekiwanie na ewaluację"</string>
+<string name="project_user_status_waiting_to_start">"Oczekiwanie na rozpoczęcie"</string>
+<string name="project_you_cant_have_mark_for_this_project">"Nie możesz zaznaczyć tego projektu"</string>
+<string name="search_by">"Wyszukuj przez"</string>
+<string name="search_error_on_open_this_element">"Błąd przy otwieraniu tego elementu"</string>
+<string name="search_hint">"Wskazówka"</string>
+<string name="search_on_projects">"Wyszukiwanie w projektach"</string>
+<string name="search_on_topics">"Wyszukiwanie w wątkach"</string>
+<string name="search_on_users">"Wyszukiwanie w użytkownikach"</string>
+<string name="search_section_projects">"Projekty"</string>
+<string name="search_section_topics">"Wątki"</string>
+<string name="search_section_users">"Użytkownicy"</string>
+<string name="searching">"Wyszukiwanie..."</string>
+<string name="share_using">"Share using"</string>
+<string name="time_zone_error">"Błąd strefy czasowej"</string>
+<string name="title">"Tytuł"</string>
+<string name="title_activity_about">"O nas"</string>
+<string name="title_activity_cantina_menu">"Menu stołówki (Fremont)"</string>
+<string name="title_activity_cluster_map">"Mapa klastra"</string>
+<string name="title_activity_elearning">"E-nauczanie"</string>
+<string name="title_activity_event">"Event"</string>
+<string name="title_activity_forum_new_topic">"Nowy wątek"</string>
+<string name="title_activity_friends">"Przyjaciele"</string>
+<string name="title_activity_library_list">"Lista biblioteki"</string>
+<string name="title_activity_project">"Projekt"</string>
+<string name="title_activity_projects">"Projekty"</string>
+<string name="title_activity_search">"Wyszukaj"</string>
+<string name="title_activity_settings">"Ustawienia"</string>
+<string name="title_activity_sub_notion">"Pod pojęcie"</string>
+<string name="title_activity_tag">"Tag"</string>
+<string name="title_activity_time">"Czas"</string>
+<string name="title_activity_topic">"Wątek"</string>
+<string name="title_activity_user">"Użytkownik"</string>
+<string name="title_activity_user_location_history">"Historia lokalizacji"</string>
+<string name="title_activity_users">"Użytkownicy"</string>
+<string name="title_tab_elearning_all">"Wszystko"</string>
+<string name="title_tab_elearning_tags">"Tagi"</string>
+<string name="title_tab_home_agenda">"Kalendarz"</string>
+<string name="title_tab_home_evaluation">"Ewaluacje"</string>
+<string name="title_tab_home_home">"Strona główna"</string>
+<string name="title_tab_home_past_events">"Przeszłe eventy"</string>
+<string name="title_tab_home_slots">"Sloty"</string>
+<string name="title_tab_project_attachments">"Załączniki"</string>
+<string name="title_tab_project_me">"Ja"</string>
+<string name="title_tab_project_overview">"Overview"</string>
+<string name="title_tab_project_users">"Użytkownicy"</string>
+<string name="title_tab_projects_all">"Wszystko"</string>
+<string name="title_tab_projects_doing">"Doing"</string>
+<string name="title_tab_projects_graphic">"Galaktyka"</string>
+<string name="title_tab_tags_forum">"Forum"</string>
+<string name="title_tab_tags_notions">"Notions"</string>
+<string name="title_tab_user_achievements">"Osiągnięcia"</string>
+<string name="title_tab_user_expertises">"Kompetencje"</string>
+<string name="title_tab_user_forum">"Forum"</string>
+<string name="title_tab_user_overview">"Overview"</string>
+<string name="title_tab_user_partnerships">"Partnerships"</string>
+<string name="title_tab_user_projects">"Projekty"</string>
+<string name="title_tab_user_skills">"Umiejętności"</string>
+<string name="title_tab_users_all">"Wszystko"</string>
+<string name="topics_kind_survey">"Survey"</string>
+<string name="user_app_official">"Oficjalna aplikacja"</string>
+<string name="user_correction_points">"Punkty korekcyjne"</string>
+<string name="user_cursus_date">"Data"</string>
+<string name="user_email">"Email"</string>
+<string name="user_expertise_deleted">"Usunięto"</string>
+<string name="user_expertise_discard">"Nie zapisuj"</string>
+<string name="user_expertise_edit">"Edytuj kompetencję"</string>
+<string name="user_expertise_edit_plural">"Edytuj kompetencje"</string>
+<string name="user_expertise_interested">"Zainteresowany(a):"</string>
+<string name="user_expertise_new">"Dodaj nową kompetencję"</string>
+<string name="user_grade">"Tytuł"</string>
+<string name="user_level">"Level"</string>
+<string name="user_location">"Lokalizacja"</string>
+<string name="user_mobile_phone">"Mobilny"</string>
+<string name="user_name">"Imię"</string>
+<string name="user_no_achievements">"Brak osiągnieć"</string>
+<string name="user_no_cursus_available">"Program nauczania niedostępny"</string>
+<string name="user_overview_cursus_date_not_finished">"Jeszcze nie skończono"</string>
+<string name="user_overview_cursus_date_not_start">"Jeszcze nie zaczęto"</string>
+<string name="user_overview_cursus_date_not_start_not_finised">"Nie zaczęto i nie skończono jeszcze"</string>
+<string name="user_pool">"Piscine"</string>
+<string name="user_unavailable">"Niedostępny"</string>
+<string name="user_you_dont_have_any_expertise_yet">"Nie masz jeszcze żadnych kompetencji"</string>
+<string name="info_loading_cache">"Zdobądź cache..."</string>
+<string name="info_loading_current_user">"Obecny użytkownik"</string>
+<string name="evaluation_user_nothing">"Nie masz korekcji"</string>
+<string name="home_help_POEditor">"Jeżeli znalazłeś(aś) błąd gramatyczny lub chcesz przetłumaczyć tą aplikację, możesz to zrobić z POEditor. Kliknij tutaj"</string>
+<string name="pref_notifications_frequency_titles_15min">"15 minut"</string>
+<string name="pref_notifications_frequency_titles_30min">"30 minut"</string>
+<string name="pref_notifications_frequency_titles_1hour">"1 godzina (standardowo)"</string>
+<string name="pref_notifications_frequency_titles_3hour">"3 godziny"</string>
+<string name="pref_notifications_frequency_titles_6hour">"6 godzin"</string>
+<string name="pref_notifications_frequency_titles_never">"Nigdy"</string>
+<string name="list_preference_network_titles_large">"Duże (583×700)"</string>
+<string name="list_preference_network_titles_medium">"Średnie (292×350)"</string>
+<string name="list_preference_network_titles_default">"Standardowe (200×240)"</string>
+<string name="list_preference_network_titles_small">"Małe (146×175)"</string>
+<string name="list_preference_network_titles_none">"Żadne"</string>
+<string name="spinner_user_projects_galaxy">"Galaktyka"</string>
+<string name="spinner_user_projects_all">"Wszystko"</string>
+<string name="spinner_user_projects_in_progress">"W toku"</string>
+<string name="accessibility_navigation_drawer_close">"Zamknij okno nawigacji"</string>
+<string name="accessibility_navigation_drawer_open">"Otwórz okno nawigacji"</string>
+<string name="user_wallet_money">"Portfel"</string>
+<string name="about_view_source">"Wyświetl źródło"</string>
+<string name="about_on_github">"Na Githubie"</string>
+<string name="about_report_bug">"Zgłoś błąd"</string>
+<string name="about_library_list">"Lista bibliotek"</string>
+<string name="about_poeditor">"Projekt w POEditor"</string>
+<string name="info_api_unauthorized">"Nie jesteś upoważniony"</string>
+<string name="pref_title_notifications_sync_allow">"Aktywuj powiadomienia i synchronizacje"</string>
+<string name="pref_title_notifications_sync_calendar">"Synchronizuj kalendarz"</string>
+<string name="pref_title_calendar_list">"Choose calendar to insert events"</string>
+<string name="pref_category_notifications">"Powiadomienia"</string>
+<string name="pref_summary_notifications_events">"Powiadamiaj o nowych eventach publikowanych na 42 intra"</string>
+<string name="pref_summary_notifications_scales">"Przypominaj o ewaluacjach"</string>
+<string name="pref_summary_notifications_sync_calendar">"Automatycznie sprawdź subskrybcje eventów i wtedy dodaj "</string>
+<string name="home_help_calendar_sync">"Synchronizuj kalendarz telefonu z zasubskrybowanymi eventami"</string>
+<string name="home_help_calendar_hide">"Schowaj"</string>
+<string name="home_help_calendar_enable">"Uaktywnij"</string>
+<string name="pref_title_calendar_enable">"Enable calendar edition"</string>
+<string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
+<string name="pref_title_calendar_after_subscription">"Wprowadź do kalendarza"</string>
+<string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
+<string name="pref_title_calendar">"Synchronizacja eventów"</string>
+<string name="friends_nothing_found">"You can add friends from their profile"</string>
+<string name="friends_loading_locations">"Locations"</string>
+<string name="friend_group_name">"Group name"</string>
+<string name="friends">"Friends"</string>
+<string name="friends_group_edit_in_group">"Friends in group"</string>
+<string name="friends_group_edit_discard">"Discard"</string>
+<string name="friends_groups_edit_no_empty_name">"Can't be empty"</string>
+<string name="friends_groups_edit_no_name_set">"No name set"</string>
+<string name="friends_select_group">"Select Group"</string>
+<string name="friends_groups_all">"All"</string>
+<string name="friends_groups_edit_unsaved_changes_title">"You have unsaved changes"</string>
+<string name="friends_groups_edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
+<string name="friends_groups_new">"New Friends Group"</string>
+<string name="friends_groups_edit">"Edit Friends Group"</string>
+<string name="location_undetermined">"undetermined"</string>
+<string name="friends_summary_no_friends">"No friend"</string>
+
+<!-- Format warning -->
+<string name="friends_summary_format_friend">"%d friend"</string>
+
+<!-- Format warning -->
+<string name="friends_summary_format_friends">"%d friends"</string>
+<string name="friends_add_to_group">"Add to group"</string>
+<string name="friends_remove_from_group">"Remove from group"</string>
+<string name="friends_delete_friends_title">"Do want to delete those friends ?"</string>
+<string name="friends_groups_nothing">"You have to create groups first"</string>
+<string name="info_loading_locations">"Loading locations …"</string>
+<string name="info_loading_friends">"Loading friends …"</string>
+<string name="friend_group_list">"Group"</string>
+<string name="info_loading_calculating">"calculating"</string>
+<string name="friends_info_api_try_again">"Friends API is currently getting new users, please try again in 2min"</string>
+<string name="friends_info_database_update">"Friends database update"</string>
+<string name="pref_theme_title_change_theme">"Set theme"</string>
+<string name="pref_header_theme">"Theme"</string>
+<string name="pref_theme_list_titles_intra">"Intra (Auto coalition)"</string>
+<string name="pref_theme_list_titles_intra_the_alliance">"The Alliance"</string>
+<string name="pref_theme_list_titles_intra_the_federation">"The Federation"</string>
+<string name="pref_theme_list_titles_intra_the_assembly">"The Assembly"</string>
+<string name="pref_theme_list_titles_intra_the_order">"The Order"</string>
+<string name="pref_theme_list_titles_dark">"Dark"</string>
+<string name="pref_theme_list_titles_android_dark">"Android Dark"</string>
+<string name="pref_theme_list_titles_old">"Original (Old)"</string>
+<string name="info_api_finishing">"finishing"</string>
+<string name="search_section_users_login">"user ― login"</string>
+<string name="search_section_users_first_name">"user ― first name"</string>
+<string name="search_section_users_last_name">"user ― last name"</string>
+<string name="title_activity_coalitions">"Coalitions"</string>
+<string name="coalitions_nothing_selected_cursus_campus">"No coalition found for selected cursus/campus"</string>
+<string name="friends_adding_to_group">"Adding friends to group"</string>
+<string name="friends_removing_from_group">"Removing friends from group"</string>
+<string name="galaxy_no_live_data">"Unable to get live data for Galaxy"</string>
+<string name="coalition_score">"Score"</string>
+<string name="refreshing">"Refreshing"</string>
+<string name="info_data_cached_long_time_ago">"Data cached long time ago"</string>
+<string name="title_tab_user_apps">"Apps"</string>
+
+<!-- Format warning -->
+<string name="format__user_profile">"%s's profile"</string>
+<string name="cluster_map_dialog_action">"Action for this location"</string>
+<string name="cluster_map_not_in_campus">"Cluster map is not available in your campus"</string>
+<string name="project_team_status_closed">"closed"</string>
+<string name="project_team_status_locked">"locked"</string>
+<string name="title_tab_forum_unread">"Unread"</string>
+<string name="title_tab_forum_last_topics">"Last topics"</string>
+<string name="title_tab_forum_tag">"Tags"</string>
+<string name="title_activity_friends_groups">"Friends groups"</string>
+<string name="friends_group_edit_name_dialog">"Edit name"</string>
+<string name="project_solo">"solo"</string>
+<string name="project_group">"group"</string>
+<string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
+<string name="event_kind_conf">"conf"</string>
+<string name="event_kind_other">"other"</string>
+<string name="event_kind_extern">"extern"</string>
+<string name="event_kind_atelier">"atelier"</string>
+<string name="event_kind_meet_up">"meet up"</string>
+<string name="event_kind_hackathon">"hackathon"</string>
+<string name="event_kind_workshop">"workshop"</string>
+<string name="event_kind_association">"association"</string>
+<string name="event_kind_partnership">"partnership"</string>
+<string name="event_kind_unknown">"unknown"</string>
+<string name="user_achievement_bronze">"bronze"</string>
+<string name="user_achievement_silver">"silver"</string>
+<string name="user_achievement_gold">"gold"</string>
+<string name="user_achievements_platinum">"platinum"</string>
+<string name="event_kind_event">"event"</string>
+<string name="event_kind_challenge">"challenge"</string>
+<string name="info_attachment_no_app_video">"There are no applications installed to open this, you can install VLC"</string>
+<string name="info_attachment_no_app_pdf">"There are no applications installed to open this, you can install a pdfviewer"</string>
+<string name="info_attachment_no_app">"There are no applications installed to open this"</string>
+<string name="info_loading_page_on">"Loading page %d of %d"</string>
+<string name="info_loading_resolve_number_page">"Resolve number of page"</string>
+<string name="info_loading_topic">"Loading topic"</string>
+<string name="info_loading_topic_reply">"loading reply"</string>
+<string name="info_loading_processing_data">"Processing data"</string>
+<string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
+<string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
+<string name="continue_editing">"continue editing"</string>
+<string name="discard">"discard"</string>
+<string name="login_summary">"Intranet"</string>
+<string name="about_app_summary">"Unofficial, free and open-source App"</string>
+<string name="_super_store_title">"Intra 42"</string>
+<string name="_super_store_short_description">"Unofficial, free and open-source 42's intranet App."</string>
+<string name="_super_store_full_description">"Only for 42's students (www.42.fr)
+
+This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+
+Features :
+- Keep informed on events and sync your calendar
+- Be notified on events and graduations
+- View project and graduations
+- View users profile and project
+- Comment on forum
+- Watch video on e-learning
+- All feature requests and contributions are welcome!
+
+More informations : https://forum.intra.42.fr/topics/9650/messages/last
+
+Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
+<string name="_super_forum">"FRENCH VERSION | VERSION FRANÇAISE : [topic](https://forum.intra.42.fr/topics/9650)
+
+Only for 42's students (www.42.fr)
+
+This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+
+Dowload this app : [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+
+Sources : [github](https://github.com/pvarry/intra42)
+
+## Features :
+- Keep informed on events and sync your calendar
+- Be notified on events and graduations
+- View project and graduations
+- View users profile and project
+- Comment on forum
+- Watch video on e-learning
+
+All feature requests and contributions are welcome!
+If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
+
+Useful tools :
+
+&gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
+
+&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing video.
+
+## Changelog
+
+#### v0.8.x
+
+- Theme integration with Coalitions
+- Automatically sync your calendar
+- Change friends system
+- Speed up app starting
+- Add user location history
+- fix minor bug
+
+#### v0.7.x
+
+- Add Galaxy
+- Update Notification for Andorid O
+- Add action on notification for events
+- Update icon for Android O
+
+#### v0.6.0
+
+- add Cluster Map (Paris and Fremont)
+- add subscription for events (on events list only)
+- add Cantina menu
+- bug fix
+
+#### v0.5.7
+
+- add SuperSearch
+- add friends
+- fix bugs
+
+## Screenshot
+
+![home](https://lh3.googleusercontent.com/kVno0ZG2ZQHiG3NXgKsN6pZ7Bx2L18wT54_OCfLJejKYPecyllImXpNQ0KWXRXMFJpE=h310-rw)
+
+![Galaxy](https://lh3.googleusercontent.com/8sl1WUfwK0buyA1BN1uxH0OmhJOfByZfXtJ_u1sVFBPjYPeCQgqin0DnrnNhNwfkW3ot=h310-rw)
+
+![Cluster Map](https://lh3.googleusercontent.com/o5xlA1lXr1qoYWC81RUAg_e4jaWpFg9LoU5kStmR9PuXatqKnUvY8QJ3a2L4M41RKtxd=h310-rw)
+
+![Event](https://lh3.googleusercontent.com/EvbKktad0gKoUU4KBIo4x9eglSHSLlSIfOMgFbIZfIE3Pp6N2ZkguYLYM27nFZOwfg=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/WWOLxkqUmtg51B5DC0UlJzj1jD-9ju1bDTPcuLd88YW-wFcuHlUDrRcloiOIKpQURZk=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/9vEGqxY4duq8rK4VeDFgB8rU6JC_8E3kzX1Cl0-jrc3amrPoqFjHwZLTLKpSRdShXkXT=h310-rw)
+
+Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
+<string name="shortcut_cluster_map">"Clusters"</string>
+<string name="shortcut_long_galaxy">"Galaxy (projects)"</string>
+<string name="bookings_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
+<string name="pref_title_advanced_data_allow_beta">"Enable advanced preferences"</string>
+<string name="pref_summary_advanced_data_print_ids">"Enable this to show ids and slugs in the app"</string>
+<string name="pref_title_advanced_data_print_ids">"Show advanced data (ids, slugs ...)"</string>
+<string name="pref_summary_advanced_data_markdown_render">"For forum and events (default true)"</string>
+<string name="pref_title_advanced_data_markdown_render">"Render markdown"</string>
+<string name="pref_summary_advanced_data_save_logs">"On enabling this feature, extra logs will be generated and logs will be saved on \"~/Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. Warning: private information (like phone number) will be saved on device storage. (default false)"</string>
+<string name="pref_title_advanced_data_save_logs">"Save logs on disk"</string>
+<string name="pref_summary_advanced_data_past_events">"Specially for pixels"</string>
+<string name="pref_title_advanced_data_past_events">"Past events"</string>
+<string name="pref_title_advanced_section_other">"Others features"</string>
+<string name="pref_title_advanced_section_features">"Advanced features"</string>
+<string name="pref_summary_advanced_data_enable_beta">"default false"</string>
+<string name="title_tab_cluster_map_info">"Info"</string>
+<string name="cluster_map_info_button_update">"update"</string>
+<string name="cluster_map_info_button_update_disabled">"no need to update"</string>
+<string name="cluster_map_info_layer_input_login">"login"</string>
+<string name="cluster_map_info_layer_input_project">"project"</string>
+<string name="cluster_map_info_clusters">"Clusters"</string>
+<string name="cluster_map_info_data_layer">"Data layer"</string>
+<string name="cluster_map_info_layer_spinner_main_friends">"Friends"</string>
+<string name="cluster_map_info_layer_spinner_main_login">"User"</string>
+<string name="cluster_map_info_layer_spinner_main_coalitions">"Coalitions"</string>
+<string name="cluster_map_info_layer_spinner_main_project">"Project"</string>
+<string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
+<string name="select">"Select"</string>
+<string name="cluster_map_info_project_dialog_not_found">"Not found"</string>
+<string name="cluster_map_info_project_dialog_not_found_content_format">"No project found for: %s"</string>
+<string name="cluster_map_info_layer_spinner_main_location">"Computer"</string>
+<string name="cluster_map_info_data_layer_description">"With this feature you can change the highlighted posts (color around the user image profile) on the cluster map, you just have to select the data layer you want and click on \"update\"."</string>
+<string name="cluster_map_info_data_layer_error">"error on loading and/or applying layer"</string>
+<string name="cluster_map_info_contribute_description">"YOU can add and update the Cluster Map of YOUR campus."</string>
+<string name="cluster_map_info_contribute_title">"Contribute to Cluster Map"</string>
+<string name="cluster_map_info_no_map">"No cluster map available (soon you will be able to add your cluster)"</string>
+<string name="cluster_map_info_vacant_posts_plural">"%d vacant posts"</string>
+<string name="cluster_map_info_vacant_posts_singular">"%d vacant post"</string>
+<string name="cluster_map_info_vacant_posts_nothing">"no vacant post"</string>
+<string name="cluster_map_info_highlight_nothing">"no highlight"</string>
+<string name="cluster_map_info_highlight_singular">"%d highlight"</string>
+<string name="cluster_map_info_highlight_plural">"%d highlight"</string>
+</resources>

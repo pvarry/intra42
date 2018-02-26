@@ -11,10 +11,12 @@ import com.paulvarry.intra42.api.tools42.FriendsSmall;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClusterStatus {
 
     public HashMap<String, Cluster> clusterInfoList;
+    public Map<String, ClusterItem> clusterInfoList;
 
     /**
      * key : Location name
@@ -69,5 +71,13 @@ public class ClusterStatus {
                 locations != null)
             return locations.get(locationItem.host);
         return null;
+    }
+
+    public void computeHighlightAndFreePosts() {
+        if (clusterInfoList == null)
+            return;
+        for (Cluster cluster : clusterInfoList.values()) {
+            cluster.computeHighlightAndFreePosts(this, locations);
+        }
     }
 }

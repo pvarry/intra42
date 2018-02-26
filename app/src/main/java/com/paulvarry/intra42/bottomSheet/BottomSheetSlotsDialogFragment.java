@@ -45,6 +45,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private static final String ARG_SLOTS = "arg_slots";
     private SlotsTools.SlotsGroup slotsGroup;
     private AppClass app;
+    private Activity activity;
     private BottomSheetSlotsDialogFragment dialogFragment;
 
     private boolean isNew = true;
@@ -98,7 +99,9 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             }
         }
 
-        app = (AppClass) getActivity().getApplication();
+        activity = getActivity();
+        if (activity != null)
+            app = (AppClass) activity.getApplication();
     }
 
     @Override
@@ -137,7 +140,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         } else if (slotsGroup.scaleTeam != null || slotsGroup.isBooked) {
             textViewTitle.setText(R.string.evaluations_booked_slot);
             buttonSave.setVisibility(View.GONE);
-            textViewTitle.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorFail));
+            textViewTitle.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorFail));
         } else {
             textViewTitle.setText(R.string.evaluation_slot_modify);
         }
@@ -218,9 +221,18 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             @Override
             public void onClick(View v) {
 
+                long minDate = System.currentTimeMillis() + 1800 * 1000;
+                long maxDate = System.currentTimeMillis() + 1209600 * 1000;
+                final long currentDate = date.getTime();
+
+                if (currentDate < minDate)
+                    minDate = currentDate;
+                else if (currentDate > maxDate)
+                    maxDate = currentDate;
+
                 Calendar calendar = Calendar.getInstance(Locale.getDefault());
                 calendar.setTime(date);
-                DatePickerDialog pickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog pickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
@@ -233,8 +245,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + 1800 * 1000);
-                pickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + 1209600 * 1000);
+                pickerDialog.getDatePicker().setMinDate(minDate);
+                pickerDialog.getDatePicker().setMaxDate(maxDate);
                 pickerDialog.setTitle("");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     pickerDialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);
@@ -266,7 +278,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
 
                 timePickerDialog.setTimeInterval(1, 15);
-                timePickerDialog.show(getActivity().getFragmentManager(), "");
+                timePickerDialog.show(activity.getFragmentManager(), "");
 
             }
         });
@@ -275,7 +287,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private void saveSlot() {
         final ApiService api = app.getApiService();
         final List<Response<?>> responseList = new ArrayList<>();
-        final ProgressDialog progressDialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.info_loading_please_wait), true);
+        final ProgressDialog progressDialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), true);
 
         new Thread(new Runnable() {
             @Override
@@ -343,7 +355,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                 }
 
                 final boolean finalIsSuccess = isSuccess;
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progressDialog.dismiss();
@@ -378,35 +390,33 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         call.enqueue(new Callback<List<Slots>>() {
             @Override
             public void onResponse(Call<List<Slots>> call, retrofit2.Response<List<Slots>> response) {
-                Activity a = getActivity();
-                if (a == null)
+                if (activity == null || !isAdded())
                     return;
                 if (response.isSuccessful()) {
-                    Toast.makeText(a, R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
                     dialogFragment.dismiss();
                 } else
-                    Toast.makeText(a, response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<List<Slots>> call, Throwable t) {
-                Activity a = getActivity();
-                if (a == null)
+                if (activity == null || !isAdded())
                     return;
-                Toast.makeText(a, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void deleteSlotFull() {
-        final ProgressDialog dialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.info_loading_please_wait), false);
+        final ProgressDialog dialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), false);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                if (deleteSlot(dialog)) {
-                    getActivity().runOnUiThread(new Runnable() {
+                if (deleteSlot(dialog) && activity != null && isAdded()) {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getContext(), R.string.evaluation_slot_deleted, Toast.LENGTH_SHORT).show();

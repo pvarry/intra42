@@ -24,11 +24,20 @@ public abstract class BasicTabActivity extends BasicThreadActivity implements Na
 
         if (savedInstanceState != null)
             onRestartPosition = savedInstanceState.getInt(SAVED_STATE_TAB_SELECTED);
+
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tabs);
+    }
+
+    @Override
+    protected void onCreateFinished() {
+        viewPager.setVisibility(View.GONE);
+        tabLayout.setVisibility(View.GONE);
+
+        super.onCreateFinished();
     }
 
     protected void setViewContent() {
-        viewPager = findViewById(R.id.viewpager);
-        tabLayout = findViewById(R.id.tabs);
 
         viewPager.setVisibility(View.VISIBLE);
         tabLayout.setVisibility(View.VISIBLE);

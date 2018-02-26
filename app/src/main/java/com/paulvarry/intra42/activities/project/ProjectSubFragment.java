@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.paulvarry.intra42.adapters.ListAdapterMarks;
+import com.paulvarry.intra42.adapters.ListAdapterProjectsMarks;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
@@ -27,10 +27,10 @@ import retrofit2.Call;
  * Use the {@link ProjectSubFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAdapterMarks> {
+public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAdapterProjectsMarks> {
 
     private ProjectActivity activity;
-    private ListAdapterMarks listAdapterMarks;
+    private ListAdapterProjectsMarks listAdapterMarks;
 
     private OnFragmentInteractionListener mListener;
 
@@ -81,7 +81,7 @@ public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAda
     @Nullable
     @Override
     public Call<List<ProjectsUsers>> getCall(ApiService apiService, @Nullable List<ProjectsUsers> list) {
-        if (activity.projectUser.user.user == null)
+        if (activity == null || activity.projectUser == null || activity.projectUser.user == null || activity.projectUser.user.user == null)
             return null;
 
         int start = 0;
@@ -129,9 +129,9 @@ public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAda
     }
 
     @Override
-    public ListAdapterMarks generateAdapter(List<ProjectsUsers> list) {
-        listAdapterMarks = new ListAdapterMarks(activity, list);
-        listAdapterMarks.setProjects(activity.projectUser.project.children);
+    public ListAdapterProjectsMarks generateAdapter(List<ProjectsUsers> list) {
+        listAdapterMarks = new ListAdapterProjectsMarks(activity, activity.projectUser.project.children);
+        listAdapterMarks.setProjectUser(list);
         return listAdapterMarks;
     }
 
