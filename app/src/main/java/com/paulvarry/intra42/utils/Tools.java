@@ -20,6 +20,9 @@ import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -199,5 +202,22 @@ public class Tools {
         }
 
         return eventsId;
+    }
+
+    public static String readTextFile(InputStream inputStream) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        byte buf[] = new byte[1024];
+        int len;
+        try {
+            while ((len = inputStream.read(buf)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return outputStream.toString();
     }
 }

@@ -324,7 +324,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         textView.setVisibility(View.GONE);
         if (location != null)
-            if (location.locationKind == Location.Kind.USER) {
+            if (location.kind == Location.Kind.USER) {
                 if (location.host == null ||
                         location.host.isEmpty() ||
                         location.host.contentEquals("null") ||
@@ -336,7 +336,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_desktop_mac_black_custom));
                 }
 
-            } else if (location.locationKind == Location.Kind.WALL)
+            } else if (location.kind == Location.Kind.WALL)
                 imageViewContent.setImageResource(R.color.colorClusterMapWall);
             else {
                 imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
@@ -457,12 +457,12 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         if (location.location != null) {
             editText.setText(location.location.host);
-            if (location.location.locationKind == Location.Kind.USER) {
+            if (location.location.kind == Location.Kind.USER) {
                 radioButtonUser.setChecked(true);
                 textInputLayoutHost.setVisibility(View.VISIBLE);
-            } else if (location.location.locationKind == Location.Kind.CORRIDOR)
+            } else if (location.location.kind == Location.Kind.CORRIDOR)
                 radioButtonCorridor.setChecked(true);
-            else if (location.location.locationKind == Location.Kind.WALL)
+            else if (location.location.kind == Location.Kind.WALL)
                 radioButtonWall.setChecked(true);
         }
 
@@ -492,12 +492,12 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     locationEdit = new Location();
                 locationEdit.host = null;
                 if (radioButtonUser.isChecked()) {
-                    locationEdit.locationKind = Location.Kind.USER;
+                    locationEdit.kind = Location.Kind.USER;
                     locationEdit.host = editText.getText().toString();
                 } else if (radioButtonCorridor.isChecked())
-                    locationEdit.locationKind = Location.Kind.CORRIDOR;
+                    locationEdit.kind = Location.Kind.CORRIDOR;
                 else if (radioButtonWall.isChecked())
-                    locationEdit.locationKind = Location.Kind.WALL;
+                    locationEdit.kind = Location.Kind.WALL;
                 else return;
 
                 setLocation(locationEdit, finalLocation.x, finalLocation.y);

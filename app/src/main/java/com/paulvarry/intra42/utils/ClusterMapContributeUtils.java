@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import com.paulvarry.intra42.AppClass;
@@ -414,6 +415,16 @@ public class ClusterMapContributeUtils {
             return null;
         return cookie.substring(0, cookie.indexOf(';'));
 
+    }
+
+    public static int getResId(Context context, int campus) {
+
+        if (context == null)
+            return 0;
+        Resources resources = context.getResources();
+        if (resources == null)
+            return 0;
+        return resources.getIdentifier("cluster_map_campus_" + campus, "raw", context.getPackageName());
     }
 
     public interface LoadClusterMapCallback {

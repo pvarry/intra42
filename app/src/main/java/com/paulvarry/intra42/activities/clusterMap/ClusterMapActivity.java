@@ -8,9 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService42Tools;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
@@ -19,11 +23,13 @@ import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.Tools;
-import com.paulvarry.intra42.utils.clusterMap.ClusterItem;
 import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,8 +109,8 @@ public class ClusterMapActivity
 
         adapter.addFragment(ClusterMapInfoFragment.newInstance(), getString(R.string.title_tab_cluster_map_info));
 
-        for (ClusterItem i : clusters.clusterInfoList.values()) {
-            adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.name);
+        for (Cluster i : clusters.clusterInfoList.values()) {
+            adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.nameShort);
         }
 
         viewPager.setAdapter(adapter);
@@ -123,22 +129,24 @@ public class ClusterMapActivity
     public void getDataOnOtherThread() throws IOException {
 
         final List<Locations> locationsTmp = new ArrayList<>();
+        Gson gson = ServiceGenerator.getGson();
+        Type listType = new TypeToken<ArrayList<Cluster>>() {
+        }.getType();
 
         campusId = AppSettings.getAppCampus(app);
         clusters.clusterInfoList = new HashMap<>();
-        if (campusId == 1) { //Paris
-            clusters.addCluster(new ClusterItem(campusId, "E1", "e1"));
-            clusters.addCluster(new ClusterItem(campusId, "E2", "e2"));
-            clusters.addCluster(new ClusterItem(campusId, "E3", "e3"));
-        } else if (campusId == 7) { // Fremont
-            clusters.addCluster(new ClusterItem(campusId, "E1Z1", "e1z1"));
-            clusters.addCluster(new ClusterItem(campusId, "E1Z2", "e1z2"));
-            clusters.addCluster(new ClusterItem(campusId, "E1Z3", "e1z3"));
-            clusters.addCluster(new ClusterItem(campusId, "E1Z4", "e1z4"));
-        } else {
+
+        int resId = ClusterMapContributeUtils.getResId(this, campusId);
+
+        if (resId == 0) {
             setViewStateThread(StatusCode.EMPTY);
             return;
         }
+
+        InputStream ins = getResources().openRawResource(resId);
+        String data = Tools.readTextFile(ins);
+        List<Cluster> d = gson.fromJson(data, listType);
+        clusters.addCluster(d);
 
         setLoadingProgress(R.string.info_loading_locations, 0, -1);
 

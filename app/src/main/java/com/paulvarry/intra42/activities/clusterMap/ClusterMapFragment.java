@@ -22,13 +22,13 @@ import android.widget.ImageView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.LocationHistoryActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
-import com.paulvarry.intra42.utils.clusterMap.ClusterItem;
 import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
-import com.paulvarry.intra42.utils.clusterMap.LocationItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +46,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     private String clusterName;
     private ClusterMapActivity activity;
     private ClusterStatus clusters;
-    private ClusterItem clusterInfo;
+    private Cluster clusterInfo;
     private GridLayout gridLayout;
 
     private OnFragmentInteractionListener mListener;
@@ -111,25 +111,31 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
 
         gridLayout.removeAllViews();
         gridLayout.removeAllViewsInLayout();
-        gridLayout.setRowCount(clusterInfo.map.length);
+        gridLayout.setColumnCount(clusterInfo.map.length);
+        /*
+          gridLayout.setRowCount(clusterInfo.sizeY);
+        gridLayout.setColumnCount(clusterInfo.sizeX);
+         */
 
-        for (int r = 0; r < clusterInfo.map.length; r++) {
+        Location locationItem;
+        for (int x = 0; x < clusterInfo.map.length; x++) {
 
-            gridLayout.setColumnCount(clusterInfo.map[r].length);
-            for (int p = 0; p < clusterInfo.map[r].length; p++) {
+            gridLayout.setRowCount(clusterInfo.map[x].length);
+            for (int y = 0; y < clusterInfo.map[x].length; y++) {
 
-                if (clusterInfo.map[r][p] == null)
+                locationItem = clusterInfo.map[x][y];
+                if (locationItem == null)
                     break;
 
-                View view = makeMapItem(clusterInfo.map, r, p);
+                View view = makeMapItem(clusterInfo.map, x, y);
                 gridLayout.addView(view);
             }
         }
     }
 
-    private View makeMapItem(final LocationItem[][] cluster, int r, int p) {
+    private View makeMapItem(final Location[][] cluster, int x, int y) {
 
-        final LocationItem locationItem = cluster[r][p];
+        final Location locationItem = cluster[x][y];
         View view;
         LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView imageViewContent;
@@ -148,11 +154,11 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
 
         imageViewContent = view.findViewById(R.id.imageView);
-        if (locationItem.kind == LocationItem.KIND_USER) {
+        if (locationItem.kind == Location.Kind.USER) {
             view.setTag(locationItem);
             view.setOnClickListener(this);
 
-            if (locationItem.locationName == null || locationItem.locationName.contentEquals("null") || locationItem.locationName.contentEquals("TBD"))
+            if (locationItem.host == null)
                 imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
             else {
                 if (user != null)
@@ -161,7 +167,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_custom));
             }
 
-        } else if (locationItem.kind == LocationItem.KIND_WALL)
+        } else if (locationItem.kind == Location.Kind.WALL)
             imageViewContent.setImageResource(R.color.colorClusterMapWall);
         else {
             imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
@@ -169,8 +175,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         }
 
         paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
-        paramsGridLayout.columnSpec = GridLayout.spec(p);
-        paramsGridLayout.rowSpec = GridLayout.spec(r);
+        paramsGridLayout.columnSpec = GridLayout.spec(x);
+        paramsGridLayout.rowSpec = GridLayout.spec(y);
         paramsGridLayout.setGravity(Gravity.FILL);
         paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
         paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
@@ -225,32 +231,32 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        LocationItem locationItem = null;
+        Location location = null;
         UsersLTE user = null;
 
-        if (v.getTag() instanceof LocationItem)
-            locationItem = (LocationItem) v.getTag();
-        if (locationItem == null || locationItem.kind != LocationItem.KIND_USER)
+        if (v.getTag() instanceof Location)
+            location = (Location) v.getTag();
+        if (location == null || location.kind != Location.Kind.USER)
             return;
 
         if (clusters.locations != null)
-            user = clusters.locations.get(locationItem.locationName);
+            user = clusters.locations.get(location.host);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.cluster_map_dialog_action);
         String[] actions;
         if (user != null)
-            actions = new String[]{String.format(getString(R.string.format__host_s_history), locationItem.locationName), String.format(getString(R.string.format__user_profile), user.login)};
+            actions = new String[]{String.format(getString(R.string.format__host_s_history), location.host), String.format(getString(R.string.format__user_profile), user.login)};
         else
-            actions = new String[]{String.format(getString(R.string.format__host_s_history), locationItem.locationName)};
+            actions = new String[]{String.format(getString(R.string.format__host_s_history), location.host)};
 
         final UsersLTE finalUser = user;
-        final String location = locationItem.locationName;
+        final String locationName = location.host;
         builder.setItems(actions, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    LocationHistoryActivity.openItWithLocation(activity, location);
+                    LocationHistoryActivity.openItWithLocation(activity, locationName);
                 } else if (which == 1) {
                     UserActivity.openIt(activity, finalUser);
                 }

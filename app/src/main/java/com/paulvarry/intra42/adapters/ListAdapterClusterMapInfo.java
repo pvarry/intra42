@@ -9,16 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.utils.clusterMap.ClusterItem;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 
 import java.util.List;
 
 public class ListAdapterClusterMapInfo extends BaseAdapter {
 
     private final Context context;
-    private List<ClusterItem> clusterInfo;
+    private List<Cluster> clusterInfo;
 
-    public ListAdapterClusterMapInfo(Context context, List<ClusterItem> list) {
+    public ListAdapterClusterMapInfo(Context context, List<Cluster> list) {
 
         this.context = context;
         this.clusterInfo = list;
@@ -42,7 +42,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
      * @return The data at the specified position.
      */
     @Override
-    public ClusterItem getItem(int position) {
+    public Cluster getItem(int position) {
         return clusterInfo.get(position);
     }
 
@@ -79,7 +79,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ClusterItem info = getItem(position);
+        Cluster info = getItem(position);
 
         holder.textViewTitle.setText(info.name);
         StringBuilder builder = new StringBuilder();

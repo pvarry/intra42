@@ -13,8 +13,6 @@ import com.paulvarry.intra42.api.model.ProjectDataIntra;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.Users;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -49,7 +47,7 @@ public class GalaxyUtils {
             return null;
 
         InputStream ins = context.getResources().openRawResource(resId);
-        String data = readTextFile(ins);
+        String data = Tools.readTextFile(ins);
         list = gson.fromJson(data, listType);
 
         if (user != null) {
@@ -84,22 +82,5 @@ public class GalaxyUtils {
             }
         }
         return list;
-    }
-
-    private static String readTextFile(InputStream inputStream) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        byte buf[] = new byte[1024];
-        int len;
-        try {
-            while ((len = inputStream.read(buf)) != -1) {
-                outputStream.write(buf, 0, len);
-            }
-            outputStream.close();
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return outputStream.toString();
     }
 }

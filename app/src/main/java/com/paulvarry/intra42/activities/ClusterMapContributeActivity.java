@@ -39,7 +39,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ClusterMapContributeActivity extends BasicThreadActivity implements View.OnClickListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread, ListAdapterClusterMapContribute.OnEditClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class ClusterMapContributeActivity
+        extends BasicThreadActivity
+        implements View.OnClickListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread, ListAdapterClusterMapContribute.OnEditClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ExpandableListView listView;
