@@ -14,10 +14,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,8 +47,9 @@ public class ClusterMapContributeActivity
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ExpandableListView listView;
-    private ImageButton imageButtonHelp;
+    private ImageView imageViewExpand;
     private TextView textViewExplanations;
+    private ViewGroup linearLayoutExplanations;
 
     private List<Campus> listCampus;
     private List<Master> masters;
@@ -65,10 +68,24 @@ public class ClusterMapContributeActivity
 
         listView = findViewById(R.id.listView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        imageButtonHelp = findViewById(R.id.imageButtonHelp);
+        imageViewExpand = findViewById(R.id.imageViewExpand);
         textViewExplanations = findViewById(R.id.textViewExplanations);
+        linearLayoutExplanations = findViewById(R.id.linearLayoutExplanations);
 
-        imageButtonHelp.setOnClickListener(this);
+        linearLayoutExplanations.setOnClickListener(this);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ?
+                        0 : listView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled((topRowVerticalPosition >= 0));
+            }
+        });
 
         registerGetDataOnOtherThread(this);
 
@@ -124,13 +141,13 @@ public class ClusterMapContributeActivity
                 }
             });
 
-        } else if (v == imageButtonHelp) {
+        } else if (v == linearLayoutExplanations) {
             if (textViewExplanations.getVisibility() == View.VISIBLE) {
                 textViewExplanations.setVisibility(View.GONE);
-                imageButtonHelp.setImageResource(R.drawable.ic_expand_more_black_24dp);
+                imageViewExpand.setImageResource(R.drawable.ic_expand_more_black_24dp);
             } else {
                 textViewExplanations.setVisibility(View.VISIBLE);
-                imageButtonHelp.setImageResource(R.drawable.ic_expand_less_black_24dp);
+                imageViewExpand.setImageResource(R.drawable.ic_expand_less_black_24dp);
             }
         }
     }

@@ -1,79 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.paulvarry.intra42.activities.ClusterMapContributeActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
 
         <ExpandableListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
             android:childDivider="#00000000"
             android:clipToPadding="false"
             android:paddingBottom="75dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="?attr/colorSecondary"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/linearLayoutExplanations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="?attr/colorSecondary"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/readme"
-                    android:textColor="@color/textColorSecondary" />
-
-                <ImageButton
-                    android:id="@+id/imageButtonHelp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="#00ffffff"
-                    android:contentDescription="@string/icon"
-                    android:padding="6dp"
-                    android:tint="@color/textColorSecondary"
-                    app:srcCompat="@drawable/ic_expand_more_black_24dp" />
-            </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewExplanations"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_margin="8dp"
+                android:text="@string/readme"
+                android:textColor="@color/textColorSecondary" />
+
+            <ImageView
+                android:id="@+id/imageViewExpand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="2dp"
-                android:text="@string/cluster_map_contribute_explanations"
-                android:textColor="@color/textColorSecondary"
-                android:visibility="gone" />
+                android:layout_marginRight="8dp"
+                android:background="#00ffffff"
+                android:contentDescription="@string/icon"
+                android:padding="6dp"
+                android:tint="@color/textColorSecondary"
+                app:srcCompat="@drawable/ic_expand_more_black_24dp" />
+        </FrameLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGrayLight" />
-        </LinearLayout>
-    </FrameLayout>
+        <TextView
+            android:id="@+id/textViewExplanations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/cluster_map_contribute_explanations"
+            android:textColor="@color/textColorSecondary"
+            android:visibility="gone" />
 
-</android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</FrameLayout>
