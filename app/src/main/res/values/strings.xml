@@ -591,6 +591,11 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_contribute_dialog_delete_message_row">You are going to delete row on y=%d, this action can\'t be undo</string>
     <string name="cluster_map_contribute_dialog_delete_message_col">You are going to delete column on x=%d, this action can\'t be undo</string>
     <string name="cluster_map_contribute_dialog_metadata_layout_comment">Comment</string>
-    <string name="cluster_map_contribute_explanations">Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be lock for 5 min and only can edit it.</string>
+    <string name="cluster_map_contribute_explanations">"Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be lock for 5 min and only you can edit it.
+
+Guideline: Cluster orientation
+    - All clusters of a Building must have the same orientation.
+    - The north is not necessarily on the top, is preferable to have the entrance of the Cluster on the bottom."</string>
     <string name="cluster_map_no_layout">No layout available for this cluster</string>
+    <string name="readme">Readme</string>
 </resources>

@@ -58,7 +58,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     private LayoutInflater vi;
     private int paddingItem2dp;
-    private int paddingItem3dp;
 
     public static void openIt(Context context, Cluster cluster, Master master) {
         Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
@@ -146,7 +145,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         timerRefreshActionBar = new Timer();
 
         paddingItem2dp = Tools.dpToPx(this, 2);
-        paddingItem3dp = Tools.dpToPx(this, 3);
         vi = LayoutInflater.from(this);
 
         onCreateFinished();
@@ -756,7 +754,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         for (int i = x; i < allLocations.size() - 1; i++) {
             allLocations.setValueAt(i, allLocations.valueAt(i + 1));
         }
-        allLocations.setValueAt(allLocations.size() - 1, null);
+        allLocations.removeAt(allLocations.size() - 1);
         cluster.sizeX--;
     }
 
@@ -767,7 +765,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                 for (int j = y; j < col.size() - 1; j++) {
                     col.setValueAt(j, col.valueAt(j + 1));
                 }
-                col.setValueAt(col.size() - 1, null);
+                col.removeAt(col.size() - 1);
             }
         }
         cluster.sizeY--;

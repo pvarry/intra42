@@ -14,17 +14,17 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterClusterMapContribute;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
@@ -41,15 +41,15 @@ import retrofit2.Response;
 
 public class ClusterMapContributeActivity
         extends BasicThreadActivity
-        implements View.OnClickListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread, ListAdapterClusterMapContribute.OnEditClickListener, SwipeRefreshLayout.OnRefreshListener {
+        implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, ListAdapterClusterMapContribute.OnEditClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ExpandableListView listView;
+    private ImageButton imageButtonHelp;
+    private TextView textViewExplanations;
 
     private List<Campus> listCampus;
-    private List<Cluster> clusters;
     private List<Master> masters;
-
     private Master newMaster;
 
     public static void openIt(Context context) {
@@ -65,6 +65,10 @@ public class ClusterMapContributeActivity
 
         listView = findViewById(R.id.listView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        imageButtonHelp = findViewById(R.id.imageButtonHelp);
+        textViewExplanations = findViewById(R.id.textViewExplanations);
+
+        imageButtonHelp.setOnClickListener(this);
 
         registerGetDataOnOtherThread(this);
 
@@ -120,12 +124,15 @@ public class ClusterMapContributeActivity
                 }
             });
 
+        } else if (v == imageButtonHelp) {
+            if (textViewExplanations.getVisibility() == View.VISIBLE) {
+                textViewExplanations.setVisibility(View.GONE);
+                imageButtonHelp.setImageResource(R.drawable.ic_expand_more_black_24dp);
+            } else {
+                textViewExplanations.setVisibility(View.VISIBLE);
+                imageButtonHelp.setImageResource(R.drawable.ic_expand_less_black_24dp);
+            }
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ClusterMapContributeEditActivity.openIt(this, clusters.get(position));
     }
 
     /**
@@ -164,53 +171,6 @@ public class ClusterMapContributeActivity
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-/*        Gson gson = ServiceGenerator.getGson();
-        List<Cluster> list = new ArrayList<>();
-
-        list.add(exportCluster(new Cluster(1, "E1", "e1", true)));
-        list.add(exportCluster(new Cluster(1, "E2", "e2", true)));
-        list.add(exportCluster(new Cluster(1, "E3", "e3", true)));
-        list.add(exportCluster(new Cluster(7, "E1Z1", "e1z1", true)));
-        list.add(exportCluster(new Cluster(7, "E1Z2", "e1z2", true)));
-        list.add(exportCluster(new Cluster(7, "E1Z3", "e1z3", true)));
-        list.add(exportCluster(new Cluster(7, "E1Z4", "e1z4", true)));
-        Log.d("export", "finished");*/
-
-
-/*
-        List<Master> listMaster = new ArrayList<>();
-        listMaster.add(new Master("Paris - E1", "66i0i1atv", "so144wxi"));
-
-        String content = ServiceGenerator.getGson().toJson(listMaster);
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("key", "q79vdcc1t");
-        map.put("pad", content);
-        map.put("monospace", "1");
-
-        Response<Void> ret = app.getApiServiceClusterMapContribute().save(map, cookie).execute();
-*/
-    }
-
-    Cluster exportCluster(Cluster c) {
-        int x = c.map[0].length;
-        int y = c.map.length;
-        Location[][] tmp = new Location[x][];
-        Location l;
-        for (int i = 0; i < c.map.length; i++) {
-            for (int j = 0; j < c.map[0].length; j++) {
-                if (tmp[j] == null)
-                    tmp[j] = new Location[y];
-                l = c.map[i][j];
-                tmp[j][i] = l;
-                if (l != null && l.host != null && l.host.startsWith(c.hostPrefix))
-                    l.host = l.host.replaceFirst(c.hostPrefix, "");
-            }
-        }
-        c.map = tmp;
-        return c;
     }
 
     @Override
