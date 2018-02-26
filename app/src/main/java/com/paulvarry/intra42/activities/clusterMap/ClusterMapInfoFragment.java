@@ -137,18 +137,20 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         textViewLayerDescription.setVisibility(View.VISIBLE);
         layoutLayerContent.setVisibility(View.VISIBLE);
         textViewNoClusterMap.setVisibility(View.GONE);
-        if (activity.clusters.clusterInfoList == null || activity.clusters.clusterInfoList.size() == 0) {
+
+        if (activity.clusterStatus.clusters == null || activity.clusterStatus.clusters.size() == 0) {
             textViewNoClusterMap.setVisibility(View.VISIBLE);
             textViewClusters.setVisibility(View.GONE);
             listView.setVisibility(View.GONE);
             textViewLayerTitle.setVisibility(View.GONE);
             textViewLayerDescription.setVisibility(View.GONE);
             layoutLayerContent.setVisibility(View.GONE);
+        } else {
+            textViewNoClusterMap.setVisibility(View.GONE);
+            adapter = new ListAdapterClusterMapInfo(getContext(), activity.clusterStatus.clusters);
+            listView.setAdapter(adapter);
+            listView.setExpanded(true);
         }
-
-        adapter = new ListAdapterClusterMapInfo(getContext(), new ArrayList<>(activity.clusters.clusterInfoList.values()));
-        listView.setAdapter(adapter);
-        listView.setExpanded(true);
 
         textViewClusters.setTextColor(Theme.getColorAccent(getContext()));
         textViewLayerTitle.setTextColor(Theme.getColorAccent(getContext()));
@@ -158,7 +160,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         buttonUpdate.setOnClickListener(this);
         listView.setOnItemClickListener(this);
 
-        int statusLayerSelection = activity.clusters.layerStatus.getId();
+        int statusLayerSelection = activity.clusterStatus.layerStatus.getId();
         int projectStatusSelection = getProjectSelectionPosition();
         spinnerMain.setSelection(statusLayerSelection);
         spinnerMain.setOnItemSelectedListener(this);
@@ -290,14 +292,14 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
      * @return layer settings changed
      */
     boolean isLayerChanged() {
-        return activity.clusters.layerStatus != activity.layerTmpStatus ||
-                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.USER &&
-                        !activity.clusters.layerUserLogin.contentEquals(activity.layerTmpLogin)) ||
-                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.PROJECT &&
-                        (!activity.clusters.layerProjectSlug.contentEquals(activity.layerTmpProjectSlug) ||
-                                activity.clusters.layerProjectStatus != activity.layerTmpProjectStatus)) ||
-                (activity.clusters.layerStatus == ClusterMapActivity.LayerStatus.LOCATION &&
-                        !activity.clusters.layerLocationPost.contentEquals(activity.layerTmpLocation));
+        return activity.clusterStatus.layerStatus != activity.layerTmpStatus ||
+                (activity.clusterStatus.layerStatus == ClusterMapActivity.LayerStatus.USER &&
+                        !activity.clusterStatus.layerUserLogin.contentEquals(activity.layerTmpLogin)) ||
+                (activity.clusterStatus.layerStatus == ClusterMapActivity.LayerStatus.PROJECT &&
+                        (!activity.clusterStatus.layerProjectSlug.contentEquals(activity.layerTmpProjectSlug) ||
+                                activity.clusterStatus.layerProjectStatus != activity.layerTmpProjectStatus)) ||
+                (activity.clusterStatus.layerStatus == ClusterMapActivity.LayerStatus.LOCATION &&
+                        !activity.clusterStatus.layerLocationPost.contentEquals(activity.layerTmpLocation));
     }
 
     @Override
@@ -448,8 +450,8 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     void layerProjectFindSlug() {
 
         if (activity.layerTmpProjectSlug != null &&
-                activity.clusters.layerProjectSlug != null &&
-                activity.layerTmpProjectSlug.contentEquals(activity.clusters.layerProjectSlug)) {
+                activity.clusterStatus.layerProjectSlug != null &&
+                activity.layerTmpProjectSlug.contentEquals(activity.clusterStatus.layerProjectSlug)) {
             activity.applyLayerProject(activity.layerTmpProjectStatus);
             return;
         }
@@ -533,7 +535,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         activity.layerTmpProjectSlug = slug;
 
         progressBar.setRotation(0);
-        progressBar.setMax((int) Math.ceil((float) activity.clusters.locations.size() / (float) pageSize));
+        progressBar.setMax((int) Math.ceil((float) activity.clusterStatus.locations.size() / (float) pageSize));
         progressBar.setIndeterminate(false);
 
         new Thread(new Runnable() {
@@ -543,9 +545,9 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
 
                     int id = 0;
 
-                    while (id < activity.clusters.locations.size()) {
+                    while (id < activity.clusterStatus.locations.size()) {
                         loadingViewUpdateProgress((int) Math.ceil((float) id / (float) pageSize));
-                        String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusters.locations.values()), id, pageSize);
+                        String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusterStatus.locations.values()), id, pageSize);
                         final ApiService api = activity.app.getApiService();
                         Response<List<ProjectsUsers>> response = api.getProjectIDProjectsUsers(slug, ids, pageSize, 1).execute();
                         if (!Tools.apiIsSuccessfulNoThrow(response)) {

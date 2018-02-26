@@ -56,6 +56,10 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     private SparseArray<SparseArray<Location>> allLocations;
 
+    private LayoutInflater vi;
+    private int paddingItem2dp;
+    private int paddingItem3dp;
+
     public static void openIt(Context context, Cluster cluster, Master master) {
         Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
 
@@ -141,6 +145,10 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         timerRefreshActionBar = new Timer();
 
+        paddingItem2dp = Tools.dpToPx(this, 2);
+        paddingItem3dp = Tools.dpToPx(this, 3);
+        vi = LayoutInflater.from(this);
+
         onCreateFinished();
     }
 
@@ -204,7 +212,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             tmp[i] = new Location[col.size()];
 
             for (int j = 0; j < col.size(); j++) {
-                int keyJ = allLocations.keyAt(j);
+                int keyJ = col.keyAt(j);
                 Location cell = col.get(keyJ);
 
                 tmp[i][j] = cell;
@@ -307,10 +315,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         Location location = getLocation(x, y);
 
         View view;
-        LayoutInflater vi = LayoutInflater.from(this);
         ImageView imageViewContent;
         TextView textView;
-        int padding = Tools.dpToPx(this, 2);
         GridLayout.LayoutParams paramsGridLayout;
 
         if (vi == null)
@@ -329,7 +335,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                         location.host.isEmpty() ||
                         location.host.contentEquals("null") ||
                         location.host.contentEquals("TBD"))
-                    imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
+                    imageViewContent.setImageResource(R.drawable.ic_missing_black_25dp);
                 else {
                     textView.setVisibility(View.VISIBLE);
                     textView.setText(location.host);
@@ -357,14 +363,13 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         }
         paramsGridLayout.height = (int) (baseItemHeight * sizeY);
         paramsGridLayout.width = (int) (baseItemWidth * sizeX);
-        imageViewContent.setPadding(padding, padding, padding, padding);
+        imageViewContent.setPadding(paddingItem2dp, paddingItem2dp, paddingItem2dp, paddingItem2dp);
         view.setLayoutParams(paramsGridLayout);
 
         return view;
     }
 
     private View inflateClusterMapController(int x, int y) {
-        LayoutInflater vi = LayoutInflater.from(this);
         GridLayout.LayoutParams paramsGridLayout;
         Location location = null;
         boolean isCorner = false;

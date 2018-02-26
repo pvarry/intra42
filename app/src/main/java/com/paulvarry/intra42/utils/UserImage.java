@@ -6,12 +6,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.widget.ImageView;
-import com.paulvarry.intra42.BuildConfig;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Transformation;
+
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -71,8 +72,8 @@ public class UserImage {
         Picasso picasso = Picasso.with(context);
         RequestCreator requestCreator;
 
-        if (BuildConfig.DEBUG)
-            picasso.setLoggingEnabled(true);
+//        if (BuildConfig.DEBUG)
+//            picasso.setLoggingEnabled(true);
 
         switch (type) {
             case "large":

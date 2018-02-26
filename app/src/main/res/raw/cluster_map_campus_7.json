@@ -4743,8 +4743,8 @@
     ],
     "name": "E1Z1",
     "nameShort": "E1Z1",
-    "width": 0,
-    "height": 0
+    "width": 33,
+    "height": 22
   },
   {
     "campus_id": 7,
@@ -5352,7 +5352,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -5427,7 +5426,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -5733,7 +5731,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -5746,7 +5743,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -5812,7 +5808,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -5825,14 +5820,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -6131,7 +6124,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -6206,7 +6198,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -6517,7 +6508,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -6592,7 +6582,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -6903,7 +6892,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -6978,7 +6966,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7003,7 +6990,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7287,7 +7273,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7300,7 +7285,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7365,7 +7349,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7378,21 +7361,18 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7405,7 +7385,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7687,7 +7666,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7762,7 +7740,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -7787,7 +7764,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -8365,7 +8341,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -8752,7 +8727,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -8765,7 +8739,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -8910,7 +8883,6 @@
         },
         {
           "rot": 0.0,
-          "host": "null",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -9312,7 +9284,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -13363,7 +13334,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -13774,7 +13744,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -13787,7 +13756,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14176,7 +14144,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14577,8 +14544,8 @@
     ],
     "name": "E1Z2",
     "nameShort": "E1Z2",
-    "width": 0,
-    "height": 0
+    "width": 25,
+    "height": 63
   },
   {
     "campus_id": 7,
@@ -14782,7 +14749,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14810,7 +14776,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14823,35 +14788,30 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14871,14 +14831,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14892,7 +14850,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14905,28 +14862,24 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -14953,21 +14906,18 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15002,7 +14952,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15015,7 +14964,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15062,7 +15010,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15122,7 +15069,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15135,34 +15081,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "kind": "corridor",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15175,7 +15099,24 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "corridor",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15203,14 +15144,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15223,7 +15162,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15250,7 +15188,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15270,7 +15207,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15283,7 +15219,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15323,14 +15258,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15343,7 +15276,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15363,14 +15295,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15383,14 +15313,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15417,7 +15345,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15430,7 +15357,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15477,7 +15403,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15537,7 +15462,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15550,7 +15474,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15570,14 +15493,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15590,7 +15511,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15624,7 +15544,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15637,7 +15556,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15697,7 +15615,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15724,7 +15641,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15737,34 +15653,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "kind": "corridor",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15777,14 +15671,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -15797,7 +15689,24 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "corridor",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16071,7 +15980,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16091,7 +15999,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16111,7 +16018,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16138,7 +16044,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16151,34 +16056,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "kind": "corridor",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16191,14 +16074,30 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "corridor",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16237,14 +16136,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16297,14 +16194,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16317,7 +16212,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16344,7 +16238,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16364,7 +16257,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16384,7 +16276,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16397,14 +16288,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16443,7 +16332,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16483,7 +16371,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16503,14 +16390,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16550,7 +16435,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16583,14 +16467,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16603,14 +16485,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16715,7 +16595,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16728,7 +16607,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16755,7 +16633,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16768,34 +16645,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "kind": "corridor",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
-          "kind": "user",
-          "scale_x": 1.0,
-          "scale_y": 1.0
-        },
-        {
-          "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16808,14 +16663,30 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "corridor",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
+          "kind": "user",
+          "scale_x": 1.0,
+          "scale_y": 1.0
+        },
+        {
+          "rot": 0.0,
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16860,7 +16731,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16894,7 +16764,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16956,14 +16825,12 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -16983,7 +16850,6 @@
         },
         {
           "rot": 0.0,
-          "host": "TBD",
           "kind": "user",
           "scale_x": 1.0,
           "scale_y": 1.0
@@ -17225,15 +17091,16 @@
     ],
     "name": "E1Z3",
     "nameShort": "E1Z3",
-    "width": 0,
-    "height": 0
+    "width": 13,
+    "height": 31
   },
   {
     "campus_id": 7,
     "position": 4,
+    "comment": "",
     "host_prefix": "e1z4",
     "name": "E1Z4",
-    "nameShort": "Z4",
+    "nameShort": "E1Z4",
     "width": 11,
     "height": 11
   }

@@ -592,4 +592,5 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_contribute_dialog_delete_message_col">You are going to delete column on x=%d, this action can\'t be undo</string>
     <string name="cluster_map_contribute_dialog_metadata_layout_comment">Comment</string>
     <string name="cluster_map_contribute_explanations">Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be lock for 5 min and only can edit it.</string>
+    <string name="cluster_map_no_layout">No layout available for this cluster</string>
 </resources>

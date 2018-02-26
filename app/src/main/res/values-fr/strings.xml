@@ -555,9 +555,9 @@ Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu
 <string name="cluster_map_info_contribute_description">"YOU can add and update the Cluster Map of YOUR campus."</string>
 <string name="cluster_map_info_contribute_title">"Contribute to Cluster Map"</string>
 <string name="cluster_map_info_no_map">"Pas de cluster disponible (bientot vous pourrez ajouter un cluster)"</string>
-<string name="cluster_map_info_vacant_posts_plural">"%d postes vacants"</string>
-<string name="cluster_map_info_vacant_posts_singular">"%d poste vacant"</string>
-<string name="cluster_map_info_vacant_posts_nothing">"aucun poste vacant"</string>
+    <string name="cluster_map_info_vacant_posts_plural">"%d p. vacants"</string>
+    <string name="cluster_map_info_vacant_posts_singular">"%d p. vacant"</string>
+    <string name="cluster_map_info_vacant_posts_nothing">"aucun p. vacant"</string>
 <string name="cluster_map_info_highlight_nothing">"rien en surbrillance"</string>
 <string name="cluster_map_info_highlight_singular">"%d en surbrillance"</string>
 <string name="cluster_map_info_highlight_plural">"%d en surbrillance"</string>

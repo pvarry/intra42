@@ -9,14 +9,13 @@ import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ClusterStatus {
 
-    public HashMap<String, Cluster> clusterInfoList;
-    public Map<String, ClusterItem> clusterInfoList;
+    public List<Cluster> clusters;
 
     /**
      * key : Location name
@@ -38,28 +37,24 @@ public class ClusterStatus {
 
     }
 
-    public void addCluster(Cluster clusterItem) {
-        clusterInfoList.put(clusterItem.hostPrefix, clusterItem);
-    }
-
-    public void addCluster(List<Cluster> cluster) {
+    public void initClusterList(List<Cluster> cluster) {
         if (cluster == null) return;
-        for (Cluster i : cluster)
-            addCluster(i);
+        this.clusters = cluster;
+        Collections.sort(cluster);
     }
 
     public void computeFreePosts() {
-        if (clusterInfoList == null)
+        if (clusters == null)
             return;
-        for (Cluster cluster : clusterInfoList.values()) {
+        for (Cluster cluster : clusters) {
             cluster.computeFreePosts(locations);
         }
     }
 
     public void computeHighlightPosts() {
-        if (clusterInfoList == null)
+        if (clusters == null)
             return;
-        for (Cluster cluster : clusterInfoList.values()) {
+        for (Cluster cluster : clusters) {
             cluster.computeHighlightPosts(this);
         }
     }
@@ -74,10 +69,18 @@ public class ClusterStatus {
     }
 
     public void computeHighlightAndFreePosts() {
-        if (clusterInfoList == null)
+        if (clusters == null)
             return;
-        for (Cluster cluster : clusterInfoList.values()) {
+        for (Cluster cluster : clusters) {
             cluster.computeHighlightAndFreePosts(this, locations);
         }
+    }
+
+    public Cluster getCluster(String prefix) {
+        for (Cluster c : clusters) {
+            if (c.hostPrefix.contentEquals(prefix))
+                return c;
+        }
+        return null;
     }
 }

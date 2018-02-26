@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 require 'net/https'
 require 'cgi'
 require 'json'
@@ -35,7 +37,11 @@ end.compact
 maps.each do |cluster_map|
   cluster_map['map'].each do |col| 
     col.each do |cel|
-      cel['host'] = cluster_map['host_prefix'] + cel['host'] if !cel['host'].nil? && cel['host'] != 'TBD' && cel['host'] != 'null'
+      if cel['host'] == 'TBD' || cel['host'] == 'null'
+        cel.delete('host')
+      elsif cel['host'] != nil
+        cel['host'] = cluster_map['host_prefix'] + cel['host']
+      end
     end
   end unless cluster_map['map'].nil?
 end

@@ -33,7 +33,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -47,7 +46,7 @@ public class ClusterMapActivity
     List<Campus> campus = new ArrayList<>();
     int campusId;
 
-    ClusterStatus clusters;
+    ClusterStatus clusterStatus;
 
     DataWrapper dataWrapper;
 
@@ -73,23 +72,23 @@ public class ClusterMapActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        clusters = new ClusterStatus();
-        clusters.layerStatus = LayerStatus.FRIENDS;
-        clusters.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+        clusterStatus = new ClusterStatus();
+        clusterStatus.layerStatus = LayerStatus.FRIENDS;
+        clusterStatus.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
 
         Intent i = getIntent();
         if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT)) {
-            clusters.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
-            clusters.layerStatus = LayerStatus.LOCATION;
+            clusterStatus.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
+            clusterStatus.layerStatus = LayerStatus.LOCATION;
         }
 
-        layerTmpLocation = clusters.layerLocationPost;
-        layerTmpStatus = clusters.layerStatus;
-        layerTmpProjectStatus = clusters.layerProjectStatus;
+        layerTmpLocation = clusterStatus.layerLocationPost;
+        layerTmpStatus = clusterStatus.layerStatus;
+        layerTmpProjectStatus = clusterStatus.layerProjectStatus;
 
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null) {
-            clusters = dataWrapper.clusters;
+            clusterStatus = dataWrapper.clusters;
             dataWrapper = null;
         }
 
@@ -110,9 +109,10 @@ public class ClusterMapActivity
 
         adapter.addFragment(ClusterMapInfoFragment.newInstance(), getString(R.string.title_tab_cluster_map_info));
 
-        for (Cluster i : clusters.clusterInfoList.values()) {
-            adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.nameShort);
-        }
+        if (clusterStatus.clusters != null)
+            for (Cluster i : clusterStatus.clusters) {
+                adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.nameShort);
+            }
 
         viewPager.setAdapter(adapter);
 
@@ -135,7 +135,6 @@ public class ClusterMapActivity
         }.getType();
 
         campusId = AppSettings.getAppCampus(app);
-        clusters.clusterInfoList = new HashMap<>();
 
         int resId = ClusterMapContributeUtils.getResId(this, campusId);
 
@@ -148,7 +147,7 @@ public class ClusterMapActivity
         InputStream ins = getResources().openRawResource(resId);
         String data = Tools.readTextFile(ins);
         List<Cluster> d = gson.fromJson(data, listType);
-        clusters.addCluster(d);
+        clusterStatus.initClusterList(d);
 
         setLoadingProgress(R.string.info_loading_locations, 0, -1);
 
@@ -172,9 +171,9 @@ public class ClusterMapActivity
             }
         }
 
-        clusters.locations = new HashMap<>();
+        clusterStatus.locations = new HashMap<>();
         for (Locations l : locationsTmp) {
-            clusters.locations.put(l.host, l.user);
+            clusterStatus.locations.put(l.host, l.user);
         }
 
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
@@ -185,12 +184,12 @@ public class ClusterMapActivity
         Response<List<FriendsSmall>> ret = call.execute();
         setLoadingProgress(pageMax + 1, pageMax + 1);
         if (Tools.apiIsSuccessful(ret)) {
-            clusters.friends = new SparseArray<>();
+            clusterStatus.friends = new SparseArray<>();
             for (FriendsSmall f : ret.body()) {
-                clusters.friends.put(f.id, f);
+                clusterStatus.friends.put(f.id, f);
             }
         }
-        clusters.computeHighlightAndFreePosts();
+        clusterStatus.computeHighlightAndFreePosts();
 
         setViewStateThread(StatusCode.CONTENT);
     }
@@ -208,7 +207,7 @@ public class ClusterMapActivity
 
         if (dataWrapper != null) {
             dataWrapper = null;
-            if (clusters.friends != null && clusters.locations != null)
+            if (clusterStatus.friends != null && clusterStatus.locations != null)
                 return ThreadStatusCode.FINISH;
         }
 
@@ -216,56 +215,56 @@ public class ClusterMapActivity
     }
 
     void applyLayerUser(String login) {
-        clusters.layerUserLogin = login;
-        clusters.layerStatus = LayerStatus.USER;
+        clusterStatus.layerUserLogin = login;
+        clusterStatus.layerStatus = LayerStatus.USER;
 
-        clusters.computeHighlightPosts();
+        clusterStatus.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
     }
 
     void applyLayerFriends() {
-        clusters.layerStatus = LayerStatus.FRIENDS;
+        clusterStatus.layerStatus = LayerStatus.FRIENDS;
 
-        clusters.computeHighlightPosts();
+        clusterStatus.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
     }
 
     void applyLayerProject(List<ProjectsUsers> projectsUsers, String slug, ProjectsUsers.Status layerProjectStatus) {
-        clusters.layerStatus = LayerStatus.PROJECT;
-        clusters.layerProjectSlug = slug;
-        clusters.layerProjectStatus = layerProjectStatus;
+        clusterStatus.layerStatus = LayerStatus.PROJECT;
+        clusterStatus.layerProjectSlug = slug;
+        clusterStatus.layerProjectStatus = layerProjectStatus;
 
         if (projectsUsers == null)
             return;
-        clusters.projectsUsers = new SparseArray<>();
+        clusterStatus.projectsUsers = new SparseArray<>();
 
         for (ProjectsUsers p : projectsUsers) {
             if (p.user != null) {
-                clusters.projectsUsers.append(p.user.id, p);
+                clusterStatus.projectsUsers.append(p.user.id, p);
             }
         }
 
-        clusters.computeHighlightPosts();
+        clusterStatus.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
     }
 
     void applyLayerProject(ProjectsUsers.Status layerProjectStatus) {
-        clusters.layerStatus = LayerStatus.PROJECT;
-        clusters.layerProjectStatus = layerProjectStatus;
+        clusterStatus.layerStatus = LayerStatus.PROJECT;
+        clusterStatus.layerProjectStatus = layerProjectStatus;
 
-        clusters.computeHighlightPosts();
+        clusterStatus.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
     }
 
     void applyLayerLocation(String location) {
-        clusters.layerStatus = LayerStatus.LOCATION;
-        clusters.layerLocationPost = location;
+        clusterStatus.layerStatus = LayerStatus.LOCATION;
+        clusterStatus.layerLocationPost = location;
 
-        clusters.computeHighlightPosts();
+        clusterStatus.computeHighlightPosts();
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
     }
@@ -293,7 +292,7 @@ public class ClusterMapActivity
     @Override
     public final Object onRetainCustomNonConfigurationInstance() {
         DataWrapper data = new DataWrapper();
-        data.clusters = clusters;
+        data.clusters = clusterStatus;
         return data;
     }
 

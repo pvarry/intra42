@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.LocationHistoryActivity;
@@ -47,7 +48,14 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     private ClusterMapActivity activity;
     private ClusterStatus clusters;
     private Cluster clusterInfo;
+
+    private ViewGroup viewGroupMain;
     private GridLayout gridLayout;
+    private TextView textViewEmpty;
+
+    private LayoutInflater vi;
+    private int itemPadding2dp;
+    private int itemPadding3dp;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,6 +85,9 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             clusterName = getArguments().getString(ARG_HOST_PREFIX);
         }
         activity = (ClusterMapActivity) getActivity();
+        vi = LayoutInflater.from(activity);
+        itemPadding2dp = Tools.dpToPx(getContext(), 2);
+        itemPadding3dp = Tools.dpToPx(getContext(), 3);
     }
 
     @Override
@@ -89,15 +100,25 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewGroupMain = view.findViewById(R.id.viewGroupMain);
         gridLayout = view.findViewById(R.id.gridLayout);
+        textViewEmpty = view.findViewById(R.id.textViewEmpty);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        clusters = activity.clusters;
-        clusterInfo = activity.clusters.clusterInfoList.get(clusterName);
-        makeMap();
+        clusters = activity.clusterStatus;
+        clusterInfo = activity.clusterStatus.getCluster(clusterName);
+
+        if (clusterInfo == null || clusterInfo.map == null || clusterInfo.map.length == 0 || clusterInfo.sizeY == 0 || clusterInfo.sizeX == 0) {
+            viewGroupMain.setVisibility(View.GONE);
+            textViewEmpty.setVisibility(View.VISIBLE);
+        } else {
+            viewGroupMain.setVisibility(View.VISIBLE);
+            textViewEmpty.setVisibility(View.GONE);
+            makeMap();
+        }
     }
 
     void makeMap() {
@@ -112,62 +133,61 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         gridLayout.removeAllViews();
         gridLayout.removeAllViewsInLayout();
         gridLayout.setColumnCount(clusterInfo.map.length);
-        /*
-          gridLayout.setRowCount(clusterInfo.sizeY);
+
+        gridLayout.setRowCount(clusterInfo.sizeY);
         gridLayout.setColumnCount(clusterInfo.sizeX);
-         */
 
         Location locationItem;
-        for (int x = 0; x < clusterInfo.map.length; x++) {
-
-            gridLayout.setRowCount(clusterInfo.map[x].length);
-            for (int y = 0; y < clusterInfo.map[x].length; y++) {
+        for (int y = 0; y < clusterInfo.sizeY; y++) {
+            for (int x = 0; x < clusterInfo.sizeX; x++) {
 
                 locationItem = clusterInfo.map[x][y];
                 if (locationItem == null)
                     break;
 
-                View view = makeMapItem(clusterInfo.map, x, y);
+                View view = makeMapItem(clusterInfo.map[x][y], x, y);
                 gridLayout.addView(view);
             }
         }
     }
 
-    private View makeMapItem(final Location[][] cluster, int x, int y) {
+    private View makeMapItem(Location location, int x, int y) {
 
-        final Location locationItem = cluster[x][y];
         View view;
-        LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView imageViewContent;
-        int padding = Tools.dpToPx(getContext(), 2);
         GridLayout.LayoutParams paramsGridLayout;
         UsersLTE user;
 
         if (vi == null)
             return null;
 
-        user = clusters.getUserInLocation(locationItem);
+        user = clusters.getUserInLocation(location);
 
-        if (locationItem.highlight == null || locationItem.highlight)
+        if (location.highlight == null || location.highlight) {
             view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
-        else
-            view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
+            imageViewContent = view.findViewById(R.id.imageView);
+        } else {
+//            view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
+            view = new ImageView(activity);
+            view.setLayoutParams(new GridLayout.LayoutParams());
+            imageViewContent = (ImageView) view;
+            imageViewContent.setAdjustViewBounds(true);
+        }
 
-        imageViewContent = view.findViewById(R.id.imageView);
-        if (locationItem.kind == Location.Kind.USER) {
-            view.setTag(locationItem);
+        if (location.kind == Location.Kind.USER) {
+            view.setTag(location);
             view.setOnClickListener(this);
 
-            if (locationItem.host == null)
-                imageViewContent.setImageResource(R.drawable.ic_close_black_24dp);
+            if (location.host == null)
+                imageViewContent.setImageResource(R.drawable.ic_missing_black_25dp);
             else {
                 if (user != null)
-                    UserImage.setImageSmall(getContext(), user, imageViewContent);
+                    UserImage.setImageSmall(activity, user, imageViewContent);
                 else
-                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_desktop_mac_black_custom));
+                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_desktop_mac_black_custom));
             }
 
-        } else if (locationItem.kind == Location.Kind.WALL)
+        } else if (location.kind == Location.Kind.WALL)
             imageViewContent.setImageResource(R.color.colorClusterMapWall);
         else {
             imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
@@ -180,24 +200,23 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         paramsGridLayout.setGravity(Gravity.FILL);
         paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
         paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
-        paramsGridLayout.height = (int) (baseItemHeight * locationItem.sizeY);
-        paramsGridLayout.width = (int) (baseItemWidth * locationItem.sizeX);
-        imageViewContent.setPadding(padding, padding, padding, padding);
+        paramsGridLayout.height = (int) (baseItemHeight * location.sizeY);
+        paramsGridLayout.width = (int) (baseItemWidth * location.sizeX);
+        imageViewContent.setPadding(itemPadding2dp, itemPadding2dp, itemPadding2dp, itemPadding2dp);
         view.setLayoutParams(paramsGridLayout);
 
-        if (locationItem.highlight == null || locationItem.highlight) {
-            padding = Tools.dpToPx(getContext(), 3);
+        if (location.highlight == null || location.highlight) {
             FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
-            paramsFrameLayout.height = (int) (baseItemHeight * locationItem.sizeY);
-            paramsFrameLayout.width = (int) (baseItemWidth * locationItem.sizeX);
+            paramsFrameLayout.height = (int) (baseItemHeight * location.sizeY);
+            paramsFrameLayout.width = (int) (baseItemWidth * location.sizeX);
             imageViewContent.setLayoutParams(paramsFrameLayout);
 
             imageViewContent.setPadding(0, 0, 0, 0);
-            view.setPadding(padding, padding, padding, padding);
+            view.setPadding(itemPadding3dp, itemPadding3dp, itemPadding3dp, itemPadding3dp);
 
             imageViewContent.setBackgroundResource(R.color.windowBackground);
 
-            if (locationItem.highlight == null)
+            if (location.highlight == null)
                 view.setBackgroundColor(Theme.getColorPrimary(getContext()));
             else
                 view.setBackgroundColor(Theme.getColorAccent(getContext()));

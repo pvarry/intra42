@@ -5,6 +5,7 @@
     tools:context=".activities.clusterMap.ClusterMapFragment">
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/viewGroupMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,5 +33,17 @@
 
         <!--</com.paulvarry.intra42.ui.ZoomLayout>-->
     </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/textViewEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="32dp"
+        android:gravity="center"
+        android:text="@string/cluster_map_no_layout"
+        android:textAllCaps="true"
+        android:textColor="@color/colorGray"
+        android:textSize="20sp" />
 
 </FrameLayout>

@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.api.cluster_map_contribute;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.BaseItem;
@@ -10,7 +11,7 @@ import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Cluster implements BaseItem, Serializable {
+public class Cluster implements BaseItem, Serializable, Comparable<Cluster> {
 
     public String name;
     public String nameShort;
@@ -39,15 +40,6 @@ public class Cluster implements BaseItem, Serializable {
         this.hostPrefix = hostPrefix;
     }
 
-    public Cluster(int campusId, String name, String hostPrefix, boolean generateMap) {
-        this.campusId = campusId;
-        this.name = name;
-        this.nameShort = name;
-        this.hostPrefix = hostPrefix;
-//        if (generateMap)
-//            map = ClusterMapGenerator.getClusterMap(campusId, hostPrefix);
-    }
-
     public void computeFreePosts(HashMap<String, UsersLTE> locations) {
         for (Location[] row : map)
             for (Location post : row) {
@@ -73,6 +65,29 @@ public class Cluster implements BaseItem, Serializable {
             }
     }
 
+    public void computeHighlightAndFreePosts(ClusterStatus clusters, HashMap<String, UsersLTE> locations) {
+        UsersLTE user;
+
+        highlightPosts = 0;
+        freePosts = 0;
+        if (map == null)
+            return;
+        for (Location[] row : map)
+            for (Location post : row) {
+                if (post == null)
+                    break;
+                user = clusters.locations.get(post.host);
+                if (post.computeHighlightPosts(clusters, user)) {
+                    highlightPosts++;
+                }
+                if (post.kind == Location.Kind.USER) {
+                    posts++;
+                    if (!locations.containsKey(post.host))
+                        freePosts++;
+                }
+            }
+    }
+
     @Override
     public String getName(Context context) {
         return name;
@@ -86,5 +101,17 @@ public class Cluster implements BaseItem, Serializable {
     @Override
     public boolean openIt(Context context) {
         return false;
+    }
+
+    @Override
+    public int compareTo(@NonNull Cluster o) {
+        if (clusterPosition != o.clusterPosition) {
+            if (clusterPosition > o.clusterPosition)
+                return 1;
+            else
+                return -1;
+        }
+        return name.compareTo(o.name);
+
     }
 }
