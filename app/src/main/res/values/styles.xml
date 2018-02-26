@@ -34,7 +34,12 @@
         <item name="colorAccent">#cc0000</item>
     </style>
 
-    <style name="ThemeDarkAndroid" parent="AppTheme.NoActionBar" />
+    <style name="ThemeDarkAndroid" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">@color/primary_material_dark</item>
+        <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
+        <item name="colorSecondary">@color/material_blue_grey_800</item>
+        <item name="colorAccent">@color/mdtp_accent_color</item>
+    </style>
 
     <style name="ThemeOld" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">#3F51B5</item>

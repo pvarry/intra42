@@ -221,6 +221,15 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             @Override
             public void onClick(View v) {
 
+                long minDate = System.currentTimeMillis() + 1800 * 1000;
+                long maxDate = System.currentTimeMillis() + 1209600 * 1000;
+                final long currentDate = date.getTime();
+
+                if (currentDate < minDate)
+                    minDate = currentDate;
+                else if (currentDate > maxDate)
+                    maxDate = currentDate;
+
                 Calendar calendar = Calendar.getInstance(Locale.getDefault());
                 calendar.setTime(date);
                 DatePickerDialog pickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
@@ -236,8 +245,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + 1800 * 1000);
-                pickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + 1209600 * 1000);
+                pickerDialog.getDatePicker().setMinDate(minDate);
+                pickerDialog.getDatePicker().setMaxDate(maxDate);
                 pickerDialog.setTitle("");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     pickerDialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -100,7 +101,9 @@ public class HomeEventsFragment extends BasicFragmentCall<Events, ListAdapterEve
     @Override
     public void onItemClick(Events item) {
         BottomSheetEventDialogFragment bottomSheetDialogFragment = BottomSheetEventDialogFragment.newInstance(item);
-        bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+        FragmentActivity activity = getActivity();
+        if (activity != null)
+            bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
     @Override
