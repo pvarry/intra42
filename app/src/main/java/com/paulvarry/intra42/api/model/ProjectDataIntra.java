@@ -60,14 +60,38 @@ public class ProjectDataIntra {
     public String slug;
 
     public enum Kind {
-        @SerializedName("project")PROJECT,
-        @SerializedName("big_project")BIG_PROJECT,
-        @SerializedName("piscine")PISCINE,
-        @SerializedName("rush")RUSH,
-        @SerializedName("part_time")PART_TIME,
-        @SerializedName("first_internship")FIRST_INTERNSHIP,
-        @SerializedName("second_internship")SECOND_INTERNSHIP,
-        @SerializedName("exam")EXAM
+        @SerializedName("project")PROJECT(110),
+        @SerializedName("big_project")BIG_PROJECT(150),
+        @SerializedName("piscine")PISCINE(60, 250),
+        @SerializedName("rush")RUSH(60, 180),
+        @SerializedName("part_time")PART_TIME(300),
+        @SerializedName("first_internship")FIRST_INTERNSHIP(200),
+        @SerializedName("second_internship")SECOND_INTERNSHIP(200),
+        @SerializedName("exam")EXAM(170);
+
+        int width;
+        int height;
+
+        Kind(int size) {
+            this.width = size;
+        }
+
+        Kind(int height, int width) {
+            this.width = width;
+            this.height = height;
+        }
+
+        public float getHeight(float scale) {
+            return height * scale;
+        }
+
+        public float getWidth(float scale) {
+            return width * scale;
+        }
+
+        public float getRadius(float scale) {
+            return (width / 2) * scale;
+        }
     }
 
     /**

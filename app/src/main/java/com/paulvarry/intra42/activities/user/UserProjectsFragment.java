@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -80,15 +81,17 @@ public class UserProjectsFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_projects, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        activity = (UserActivity) getActivity();
 
         listView = view.findViewById(R.id.listView);
         listViewAll = view.findViewById(R.id.listViewAll);
@@ -96,7 +99,7 @@ public class UserProjectsFragment
         galaxy = view.findViewById(R.id.galaxy);
         spinnerContent = view.findViewById(R.id.spinnerContent);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.spinner_user_projects, R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.spinner_user_projects, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerContent.setAdapter(adapter);
         spinnerContent.setOnItemSelectedListener(this);
@@ -108,7 +111,6 @@ public class UserProjectsFragment
         listView.setOnItemClickListener(this);
         listViewAll.setOnItemClickListener(this);
 
-        activity = (UserActivity) getActivity();
         if (activity != null && activity.user != null) {
             if (activity.selectedCursus == null)
                 activity.selectedCursus = activity.user.getCursusUsersToDisplay(getContext());
@@ -116,8 +118,8 @@ public class UserProjectsFragment
                 return;
 
             ApiServiceAuthServer client = activity.app.getApiServiceAuthServer();
-            Call<List<ProjectDataIntra>> l = client.getGalaxy(activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user.login);
-            l.enqueue(new Callback<List<ProjectDataIntra>>() {
+            Call<List<ProjectDataIntra>> call = client.getGalaxy(activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user.login);
+            call.enqueue(new Callback<List<ProjectDataIntra>>() {
                 @Override
                 public void onResponse(Call<List<ProjectDataIntra>> call, Response<List<ProjectDataIntra>> response) {
                     if (response.isSuccessful())
@@ -140,7 +142,7 @@ public class UserProjectsFragment
     void setGalaxyNoData() {
         if (!isAdded() || isDetached()) return;
         Toast.makeText(activity, R.string.galaxy_no_live_data, Toast.LENGTH_SHORT).show();
-        List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+        List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(activity, activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
         galaxy.setData(list);
     }
 
@@ -221,7 +223,7 @@ public class UserProjectsFragment
             return;
         spinnerSelected = position;
         if (position == 0) {
-            List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(getContext(), activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+            List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(activity, activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
             galaxy.setData(list);
             animate(spinnerContent, galaxy);
         } else {
