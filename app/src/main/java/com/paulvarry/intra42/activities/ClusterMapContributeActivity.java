@@ -330,7 +330,7 @@ public class ClusterMapContributeActivity
                 if (isCreate)
                     ClusterMapContributeUtils.createCluster(app, ClusterMapContributeActivity.this, newCluster, callback);
                 else
-                    ClusterMapContributeUtils.saveClusterMap(ClusterMapContributeActivity.this, app, master, newCluster, callback);
+                    ClusterMapContributeUtils.saveClusterMapMetadata(ClusterMapContributeActivity.this, app, master, newCluster, callback);
             }
         });
         dialog.dialog = builder.show();

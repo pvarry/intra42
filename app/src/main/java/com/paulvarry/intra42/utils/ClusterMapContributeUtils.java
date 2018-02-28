@@ -36,43 +36,55 @@ public class ClusterMapContributeUtils {
         final ProgressDialog dialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), true);
         dialog.show();
 
-        Response<Cluster> responseCluster;
-        Response<List<Master>> responseMaster;
-        ApiServiceClusterMapContribute api = app.getApiServiceClusterMapContribute();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response<Cluster> responseCluster;
+                Response<List<Master>> responseMaster;
+                ApiServiceClusterMapContribute api = app.getApiServiceClusterMapContribute();
 
-        try {
-            responseMaster = api.getMasters().execute();
+                try {
+                    responseMaster = api.getMasters().execute();
 
-            List<Master> bodyMaster;
-            if (!responseMaster.isSuccessful() || (bodyMaster = responseMaster.body()) == null) {
-                returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
-                return;
+                    List<Master> bodyMaster;
+                    if (!responseMaster.isSuccessful() || (bodyMaster = responseMaster.body()) == null) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+                        return;
+                    }
+                    Master apiMaster = null;
+                    for (Master m : bodyMaster)
+                        if (m.key.contentEquals(master.key))
+                            apiMaster = m;
+
+                    if (apiMaster == null) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, callback);
+                        return;
+                    }
+                    if (!canIEdit(apiMaster, app)) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, callback);
+                        return;
+                    }
+
+                    responseCluster = api.getCluster(master.key).execute();
+
+                    final Cluster body;
+                    if ((body = responseCluster.body()) != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.finish(master, body);
+                                dialog.cancel();
+                            }
+                        });
+                    } else
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, callback);
+                }
             }
-            Master apiMaster = null;
-            for (Master m : bodyMaster)
-                if (m.key.contentEquals(master.key))
-                    apiMaster = m;
-
-            if (apiMaster == null) {
-                returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, callback);
-                return;
-            }
-            if (!canIEdit(apiMaster, app)) {
-                returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, callback);
-                return;
-            }
-
-            responseCluster = api.getCluster(master.key).execute();
-
-            Cluster body;
-            if ((body = responseCluster.body()) != null) {
-                callback.finish(master, body);
-            } else
-                callback.error(activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     static public void loadMaster(final Context context, ApiServiceClusterMapContribute api, final LoadMasterCallback callback) {
@@ -419,18 +431,20 @@ public class ClusterMapContributeUtils {
         return master.locked_at.before(c.getTime()) || master.locked_by.contentEquals(app.me.login);
     }
 
-    static public boolean canISaveMap(Master master, AppClass app) {
+    private static boolean canISaveMap(Master master, AppClass app) {
         if (master == null || app == null || app.me == null)
             return false;
 
         if (master.locked_by == null || master.locked_at == null)
             return false;
 
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.MINUTE, -MINUTE_LOCK);
-        c.add(Calendar.SECOND, -5); // add 5s extra
+        Calendar lockMustBeMadeAfter = Calendar.getInstance();
+        lockMustBeMadeAfter.add(Calendar.MINUTE, -MINUTE_LOCK);
+        lockMustBeMadeAfter.add(Calendar.SECOND, -5); // add 5s extra
 
-        return master.locked_at.before(c.getTime()) && master.locked_by.contentEquals(app.me.login);
+        return master.locked_at.after(lockMustBeMadeAfter.getTime()) &&
+                master.locked_at.before(new Date()) &&
+                master.locked_by.contentEquals(app.me.login);
     }
 
     static private String buildMasterName(AppClass app, Cluster cluster) {

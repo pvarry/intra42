@@ -772,10 +772,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     private void deleteColumn(int x) {
-        for (int i = x; i < allLocations.size() - 1; i++) {
-            allLocations.setValueAt(i, allLocations.valueAt(i + 1));
-        }
-        allLocations.removeAt(allLocations.size() - 1);
+        allLocations.removeAt(x);
         cluster.sizeX--;
     }
 
@@ -783,10 +780,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         for (int i = 0; i < allLocations.size(); i++) {
             SparseArray<Location> col;
             if ((col = allLocations.get(i)) != null) {
-                for (int j = y; j < col.size() - 1; j++) {
-                    col.setValueAt(j, col.valueAt(j + 1));
-                }
-                col.removeAt(col.size() - 1);
+                col.removeAt(y);
             }
         }
         cluster.sizeY--;
