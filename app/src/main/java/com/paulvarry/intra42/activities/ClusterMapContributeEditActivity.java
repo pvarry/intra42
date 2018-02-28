@@ -16,6 +16,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -34,6 +35,7 @@ import com.paulvarry.intra42.utils.Tools;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -151,6 +153,22 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean b = super.onCreateOptionsMenu(menu);
+        if (menuItemDelete != null)
+            menuItemDelete.setVisible(false);
+        return b;
+    }
+
+    @Override
+    public void onBackPressed() {
+        long duration = lockEnd.getTime() - new Date().getTime();
+        if (duration < 0)
+            return;
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         timerRefreshActionBar.schedule(new RefreshActionBar(), new Date(), 500);
@@ -182,6 +200,9 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     @Override
     protected void setViewContent() {
+        // set base item size
+        baseItemHeight = Tools.dpToPx(this, 42);
+        baseItemWidth = Tools.dpToPx(this, 35);
         buildMap();
     }
 
@@ -192,7 +213,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     @Override
     protected boolean isCreate() {
-        return true;
+        return createCluster;
     }
 
     @Override
@@ -219,9 +240,9 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         }
         cluster.map = tmp;
 
-        ClusterMapContributeUtils.saveClusterMap(this, app, master, cluster, new ClusterMapContributeUtils.SaveClusterMapCallback() {
+        ClusterMapContributeUtils.saveClusterMap(this, app, master, cluster, new ClusterMapContributeUtils.CreateSaveClusterMapCallback() {
             @Override
-            public void finish() {
+            public void finish(List<Master> masters) {
                 callBack.succeed();
             }
 
@@ -241,7 +262,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         Calendar calendar = Calendar.getInstance();
         long duration = lockEnd.getTime() - new Date().getTime();
 
-        if (!isTimeUpDialogDisplayed && duration < 30 * 1000) { // 10 seconds
+        if (!isTimeUpDialogDisplayed && duration < 30 * 1000 && duration > 0) { // 10 seconds
             isTimeUpDialogDisplayed = true;
 
             AlertDialog.Builder b = new AlertDialog.Builder(this);
@@ -251,7 +272,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             b.show();
         }
         if (duration < 0) {
-            toolbar.setSubtitle(R.string.cluster_map_contribute_toolbar_info_save_your_changes);
+            toolbar.setSubtitle(R.string.cluster_map_contribute_toolbar_info_too_late);
+            super.menuItemSave.setVisible(false);
             return;
         }
         calendar.setTimeInMillis(duration);
@@ -270,13 +292,14 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                             .replace("_second_", String.valueOf(s)));
     }
 
+    void refreshMap() {
+        unsavedData = true;
+        buildMap();
+    }
+
     void buildMap() {
 
         long start = System.nanoTime();
-
-        // set base item size
-        baseItemHeight = Tools.dpToPx(this, 42);
-        baseItemWidth = Tools.dpToPx(this, 35);
 
         if (cluster == null)
             return;
@@ -509,7 +532,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                 gridLayout.addView(view);
             }
         });
-        alert.setNegativeButton(R.string.discard, null);
+        alert.setNegativeButton(R.string.discard_changes, null);
         alert.show();
     }
 
@@ -625,10 +648,10 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     setRowScale(wrapper.y, scale);
                 else
                     setColumnScale(wrapper.x, scale);
-                buildMap();
+                refreshMap();
             }
         });
-        alert.setNegativeButton(R.string.discard, null);
+        alert.setNegativeButton(R.string.discard_changes, null);
 
         dialog.dialog = alert.show();
     }
@@ -652,7 +675,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     deleteRow(wrapper.y);
                 else
                     deleteColumn(wrapper.x);
-                buildMap();
+                refreshMap();
             }
         });
         alert.setNegativeButton(R.string.cancel, null);
@@ -679,21 +702,19 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                             row.remove(0);
                         }
                     }
-                    buildMap();
-                } else if (which == 1) {
+                } else if (which == 1)
                     cluster.sizeY++;
-                    buildMap();
-                } else if (which == 2) {
+                else if (which == 2) {
                     cluster.sizeX++;
                     for (int i = cluster.sizeX; i > 0; i--) {
                         allLocations.put(i, allLocations.get(i - 1));
                     }
                     allLocations.remove(0);
-                    buildMap();
-                } else if (which == 3) {
+                } else if (which == 3)
                     cluster.sizeX++;
-                    buildMap();
-                }
+                else
+                    return;
+                refreshMap();
             }
         });
         builder.show();

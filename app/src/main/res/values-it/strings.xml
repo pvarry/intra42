@@ -419,7 +419,7 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
 <string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
 <string name="continue_editing">"continue editing"</string>
-<string name="discard">"discard"</string>
+<string name="discard_changes">"discard"</string>
 <string name="login_summary">"Intranet"</string>
 <string name="about_app_summary">"Unofficial, free and open-source App"</string>
 <string name="_super_store_title">"Intra 42"</string>

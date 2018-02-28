@@ -3,7 +3,6 @@ package com.paulvarry.intra42.api;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.text.Html;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -32,17 +31,14 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -123,9 +119,6 @@ public class ServiceGenerator {
             httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
             httpClient.authenticator(getAuthenticator42Tools(app));
             builder.baseUrl(API_BASE_URL_42TOOLS);
-        } else if (serviceClass == ApiServiceClusterMapContribute.class) {
-            // httpClient.addInterceptor(getHeaderInterceptor());
-            httpClient.addInterceptor(getClusterMapContributeInterceptor());
         } else
             httpClient.addInterceptor(getHeaderInterceptor());
 
@@ -174,37 +167,6 @@ public class ServiceGenerator {
                 }
 
                 return response;
-            }
-        };
-
-    }
-
-    private static Interceptor getClusterMapContributeInterceptor() {
-
-        return new Interceptor() {
-            @Override
-            public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response = chain.proceed(request);
-
-                String content = response.body().string();
-
-                List<String> pathSegments = response.request().url().pathSegments();
-                if (content != null &&
-                        !content.isEmpty() &&
-                        pathSegments != null &&
-                        pathSegments.size() > 0 &&
-                        pathSegments.get(0).contentEquals("raw")) {
-                    content = Html.toHtml(Html.fromHtml(content));
-
-                    int start = content.indexOf(">");
-                    int end = content.lastIndexOf("<");
-                    content = content.substring(start + 1, end);
-                }
-
-                MediaType contentType = response.body().contentType();
-                ResponseBody body = ResponseBody.create(contentType, content);
-                return response.newBuilder().body(body).build();
             }
         };
 
@@ -453,12 +415,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(AccessToken tokenIntra) {
-        ServiceGenerator.accessTokenIntra42 = tokenIntra;
-    }
-
     public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
         ServiceGenerator.accessToken42Tools = tokenTools;
+    }
+
+    public static void setToken(AccessToken tokenIntra) {
+        ServiceGenerator.accessTokenIntra42 = tokenIntra;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

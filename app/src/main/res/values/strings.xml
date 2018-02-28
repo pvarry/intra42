@@ -408,7 +408,7 @@ You will lose a correction point"</string>
 <string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
 <string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
 <string name="continue_editing">"continue editing"</string>
-<string name="discard">"discard"</string>
+<string name="discard_changes">"discard"</string>
 <string name="login_summary">"Intranet"</string>
 <string name="about_app_summary">"Unofficial, free and open-source App"</string>
 <string name="_super_store_title">"Intra 42"</string>
@@ -551,7 +551,8 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="opening_in_progress">Opening in progress</string>
     <string name="error_text_is_too_long">Text is too long</string>
     <string name="cluster_map_contribute_dialog_metadata_title">Edit cluster metadata</string>
-    <string name="cluster_map_contribute_locked_indicator">Cluster locked by _user_ at _time_ You will be able to edit this cluster on _time_future_</string>
+    <string name="cluster_map_contribute_locked_indicator">"Cluster locked by _user_ at _time_.
+You will be able to edit this cluster at _timeFuture_."</string>
     <string name="cluster_map_contribute_button_edit_metadata">edit metadata</string>
     <string name="cluster_map_contribute_button_edit_layout">edit layout</string>
     <string name="cluster_map_contribute_dialog_location_title">"Edit: _x_,_y_"</string>
@@ -570,7 +571,7 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="cluster_map_contribute_dialog_add_action_column_right">Add column on right</string>
     <string name="cluster_map_contribute_dialog_time_up_title">Time up</string>
     <string name="cluster_map_contribute_dialog_time_up_message">Lock will soon time up, you may consider saves your changes before someone else lock this cluster.</string>
-    <string name="cluster_map_contribute_toolbar_info_save_your_changes">Save your changes asap</string>
+    <string name="cluster_map_contribute_toolbar_info_too_late">Too late, you can\'t save your changes</string>
     <string name="cluster_map_contribute_toolbar_info_minute_second">Cluster lock for: _minute_ m and _second_ s</string>
     <string name="cluster_map_contribute_toolbar_info_second">Cluster lock for: _second_ s</string>
     <string name="cluster_map_contribute_error_data_locked">Operation can\'t be finished, data locked</string>

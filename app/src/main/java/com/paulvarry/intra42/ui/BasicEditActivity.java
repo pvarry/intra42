@@ -10,6 +10,9 @@ import com.paulvarry.intra42.R;
 
 public abstract class BasicEditActivity extends BasicThreadActivity {
 
+    protected MenuItem menuItemSave;
+    protected MenuItem menuItemDelete;
+
     Callback callBackDelete = new Callback() {
         @Override
         public void succeed() {
@@ -77,7 +80,7 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
                     onSave(callBackSave);
                 }
             });
-            builder.setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.discard_changes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     BasicEditActivity.super.onBackPressed();
@@ -97,8 +100,8 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
 
         getMenuInflater().inflate(R.menu.menu_edit_activity, menu);
 
-        MenuItem menuItemSave = menu.findItem(R.id.actionSave);
-        MenuItem menuItemDelete = menu.findItem(R.id.actionDelete);
+        menuItemSave = menu.findItem(R.id.actionSave);
+        menuItemDelete = menu.findItem(R.id.actionDelete);
 
         if (isCreate()) {
             menuItemDelete.setVisible(false);

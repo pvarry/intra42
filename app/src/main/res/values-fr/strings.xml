@@ -407,7 +407,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="edit_unsaved_changes_title">"Vous avez des modifications non enregistrées"</string>
 <string name="edit_unsaved_changes_content">"Voulez vous sauvegarder les changements de ce groupe ?"</string>
 <string name="continue_editing">"reprendre l'édition"</string>
-<string name="discard">"annuler"</string>
+<string name="discard_changes">"annuler"</string>
 <string name="login_summary">"Intranet"</string>
 <string name="about_app_summary">"Application non officielle, gratuite et open-source pour l'intra de 42"</string>
 <string name="_super_store_title">"Intra 42"</string>

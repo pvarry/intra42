@@ -13,13 +13,11 @@ public class Master implements Serializable, Comparable<Master> {
     public String locked_by;
     @Nullable
     public Date locked_at;
-    public String url;
     public String key;
 
-    public Master(String name, String key, String url) {
+    public Master(String name, String key) {
         this.name = name;
         this.key = key;
-        this.url = url;
     }
 
     /**

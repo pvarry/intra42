@@ -125,22 +125,7 @@ public class ClusterMapContributeActivity
     @Override
     public void onClick(View v) {
         if (v == fabBaseActivity) {
-            ClusterMapContributeUtils.loadMaster(this, app.getApiServiceClusterMapContribute(), new ClusterMapContributeUtils.LoadMasterCallback() {
-                @Override
-                public void finish(List<Master> masters) {
-                    for (Master m : masters)
-                        if (m.name == null) {
-                            openEditMetadataDialog(m, null);
-                            return;
-                        }
-                }
-
-                @Override
-                public void error(String error) {
-                    Toast.makeText(app, error, Toast.LENGTH_SHORT).show();
-                }
-            });
-
+            openEditMetadataDialog(null, null);
         } else if (v == linearLayoutExplanations) {
             if (textViewExplanations.getVisibility() == View.VISIBLE) {
                 textViewExplanations.setVisibility(View.GONE);
@@ -195,7 +180,7 @@ public class ClusterMapContributeActivity
 
         ClusterMapContributeUtils.loadClusterMapAndLock(this, this.app, master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
             @Override
-            public void finish(final Master master, final Cluster cluster, String cookie) {
+            public void finish(final Master master, final Cluster cluster) {
                 Toast.makeText(app, R.string.opening_in_progress, Toast.LENGTH_SHORT).show();
                 new Handler().post(new Runnable() {
                     @Override
@@ -208,6 +193,7 @@ public class ClusterMapContributeActivity
             @Override
             public void error(String error) {
                 Toast.makeText(app, error, Toast.LENGTH_SHORT).show();
+                refresh();
             }
         });
     }
@@ -215,9 +201,9 @@ public class ClusterMapContributeActivity
     @Override
     public void onClickEditMetadata(View finalConvertView, int groupPosition, final Master master) {
 
-        ClusterMapContributeUtils.loadClusterMap(this, app.getApiServiceClusterMapContribute(), master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
+        ClusterMapContributeUtils.loadClusterMap(ClusterMapContributeActivity.this, app, master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
             @Override
-            public void finish(final Master master, final Cluster cluster, String cookie) {
+            public void finish(final Master master, final Cluster cluster) {
                 openEditMetadataDialog(master, cluster);
             }
 
@@ -228,7 +214,7 @@ public class ClusterMapContributeActivity
         });
     }
 
-    void openEditMetadataDialog(final Master master, @Nullable final Cluster cluster) {
+    void openEditMetadataDialog(@Nullable final Master master, @Nullable final Cluster cluster) {
         final LayoutInflater inflater = LayoutInflater.from(ClusterMapContributeActivity.this);
         final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_cluster, null);
         final TextInputLayout textInputName = view.findViewById(R.id.textInputName);
@@ -328,17 +314,23 @@ public class ClusterMapContributeActivity
                     newCluster.campusId = c.id;
                 }
 
-                ClusterMapContributeUtils.saveClusterMap(ClusterMapContributeActivity.this, app, master, newCluster, isCreate, new ClusterMapContributeUtils.SaveClusterMapCallback() {
+                ClusterMapContributeUtils.CreateSaveClusterMapCallback callback = new ClusterMapContributeUtils.CreateSaveClusterMapCallback() {
                     @Override
-                    public void finish() {
+                    public void finish(List<Master> masters) {
                         refresh();
                     }
 
                     @Override
                     public void error(String error) {
                         Toast.makeText(app, error, Toast.LENGTH_SHORT).show();
+                        refresh();
                     }
-                });
+                };
+
+                if (isCreate)
+                    ClusterMapContributeUtils.createCluster(app, ClusterMapContributeActivity.this, newCluster, callback);
+                else
+                    ClusterMapContributeUtils.saveClusterMap(ClusterMapContributeActivity.this, app, master, newCluster, callback);
             }
         });
         dialog.dialog = builder.show();
