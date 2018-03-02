@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService42Tools;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.utils.Tools;
 
@@ -15,7 +15,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GroupSmall implements BaseItem {
+public class GroupSmall implements IBaseItem {
 
     @SerializedName("id")
     public int id;

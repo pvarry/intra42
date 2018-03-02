@@ -54,7 +54,7 @@ public class ScaleTeams {
     public String feedback;
     @Nullable
     @SerializedName(API_FEEDBACK_RATING)
-    public String feedback_rating;
+    public int feedback_rating;
     @Nullable
     @SerializedName(API_FINAL_MARK)
     public Integer finalMark;
@@ -155,11 +155,18 @@ public class ScaleTeams {
         @SerializedName(API_RATE)
         public int rate;
         @SerializedName(API_KIND)
-        public String kind;
+        public Kind kind;
         @SerializedName(API_CREATED_AT)
         public Date createdAt;
         @SerializedName(API_UPDATED_AT)
         public Date updatedAt;
+
+        public enum Kind {
+            @SerializedName("nice")NICE,
+            @SerializedName("rigorous")RIGOROUS,
+            @SerializedName("interested")INTERESTED,
+            @SerializedName("punctuality")PUNCTUALITY
+        }
 
     }
 

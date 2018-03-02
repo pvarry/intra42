@@ -3,12 +3,12 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 
 import java.util.Date;
 import java.util.List;
 
-public class Notions implements BaseItem {
+public class Notions implements IBaseItem {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";

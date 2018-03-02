@@ -6,7 +6,7 @@ import android.content.Context;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
-import com.paulvarry.intra42.api.BaseItemDetail;
+import com.paulvarry.intra42.api.IBaseItemDetail;
 import com.paulvarry.intra42.utils.AppSettings;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Projects extends ProjectsLTE implements BaseItemDetail {
+public class Projects extends ProjectsLTE implements IBaseItemDetail {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";

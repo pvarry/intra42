@@ -18,7 +18,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class UserImage {
 
-    private static final String BASE_URL = "http://cdn.intra.42.fr/users/";
+    public static final String BASE_URL = "http://cdn.intra.42.fr/users/";
 
     private static RequestCreator getImageLarge(Picasso picasso, String login) {
 

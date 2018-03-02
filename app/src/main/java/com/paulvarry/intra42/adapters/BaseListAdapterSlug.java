@@ -8,12 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 import com.paulvarry.intra42.utils.AppSettings;
 
 import java.util.List;
 
-public class BaseListAdapterSlug<T extends BaseItem> extends BaseAdapter {
+public class BaseListAdapterSlug<T extends IBaseItem> extends BaseAdapter {
 
     private final Context context;
     private List<T> itemList;

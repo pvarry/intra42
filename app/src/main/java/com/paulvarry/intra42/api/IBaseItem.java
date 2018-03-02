@@ -2,7 +2,7 @@ package com.paulvarry.intra42.api;
 
 import android.content.Context;
 
-public interface BaseItem {
+public interface IBaseItem {
 
     /**
      * Usual use like primary text on a listView

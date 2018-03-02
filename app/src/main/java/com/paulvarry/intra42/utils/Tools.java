@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.ItemWithId;
 import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.squareup.picasso.Picasso;
@@ -183,6 +184,29 @@ public class Tools {
         }
     }
 
+
+    public static <T extends ItemWithId> String concatListIds(List<T> list) {
+        String eventsId;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            StringJoiner join = new StringJoiner(",");
+            for (T item : list) {
+                join.add(String.valueOf(item.id));
+            }
+            eventsId = join.toString();
+        } else {
+            StringBuilder builder = new StringBuilder();
+            String join = "";
+            for (T item : list) {
+                builder.append(join).append(String.valueOf(item.id));
+                join = ",";
+            }
+            eventsId = builder.toString();
+        }
+
+        return eventsId;
+    }
+
+    @Deprecated
     public static String concatIds(List<Integer> integerList) {
         String eventsId;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {

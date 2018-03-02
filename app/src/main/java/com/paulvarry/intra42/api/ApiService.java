@@ -229,6 +229,9 @@ public interface ApiService {
     @GET("/v2/me/scale_teams?sort=begin_at")
     Call<List<ScaleTeams>> getScaleTeamsMeBegin(@Query("range[begin_at]") String rangeCreated, @Query("page") int page);
 
+    @GET("/v2/scale_teams?sort=team_id&per_page=100")
+    Call<List<ScaleTeams>> getScaleTeams(@Query("filter[team_id]") String filterTeam);
+
     /* Projects */
     @GET("/v2/projects?sort=name&filter[visible]=true")
     Call<List<Projects>> getProjects();

@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -592,9 +591,6 @@ public class Galaxy extends View {
 
             float projectWidth = projectData.kind.getWidth(scale); // size of the preferable draw space
             float textWidth = paintText.measureText(projectData.name); // size of the entire text
-
-            if (projectData.name.contains("linear"))
-                Log.d("dd", "dd");
 
             List<String> textToDraw = new ArrayList<>();
 

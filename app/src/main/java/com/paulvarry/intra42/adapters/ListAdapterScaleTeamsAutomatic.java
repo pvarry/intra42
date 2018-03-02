@@ -1,25 +1,27 @@
 package com.paulvarry.intra42.adapters;
 
 import android.app.Activity;
-import android.content.Context;
+import android.support.constraint.Group;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.TeamsUploads;
+import com.paulvarry.intra42.utils.UserImage;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 
 public class ListAdapterScaleTeamsAutomatic extends BaseAdapter {
 
     private final Activity context;
-    List<TeamsUploads> list;
-    int flag;
+    private List<TeamsUploads> list;
 
     ListAdapterScaleTeamsAutomatic(Activity context, List<TeamsUploads> list) {
 
@@ -67,23 +69,23 @@ public class ListAdapterScaleTeamsAutomatic extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(context);
             convertView = vi.inflate(R.layout.list_view_scale_teams, parent, false);
 
             holder.imageViewUser = convertView.findViewById(R.id.imageView);
             holder.textViewCorrector = convertView.findViewById(R.id.textViewCorrector);
             holder.textViewScale = convertView.findViewById(R.id.textViewScale);
             holder.textViewComment = convertView.findViewById(R.id.textViewComment);
-
             holder.imageViewIconStatus = convertView.findViewById(R.id.imageViewIconStatus);
-            holder.linearLayoutFeedback = convertView.findViewById(R.id.linearLayoutFeedback);
-            holder.linearLayoutFeedbackMark = convertView.findViewById(R.id.linearLayoutFeedbackMark);
-            holder.textViewFeedbackInterested = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewFeedbackInterested = convertView.findViewById(R.id.textViewFeedbackInterested);
             holder.textViewFeedbackNice = convertView.findViewById(R.id.textViewFeedbackNice);
             holder.textViewFeedbackPunctuality = convertView.findViewById(R.id.textViewFeedbackPunctuality);
             holder.textViewFeedbackRigorous = convertView.findViewById(R.id.textViewFeedbackRigorous);
             holder.textViewFeedback = convertView.findViewById(R.id.textViewFeedback);
-            holder.textViewFeedbackStars = convertView.findViewById(R.id.textViewFeedbackStars);
+            holder.ratingBarFeedback = convertView.findViewById(R.id.ratingBarFeedback);
+            holder.groupFeedback = convertView.findViewById(R.id.groupFeedback);
+            holder.textViewUserFeedback = convertView.findViewById(R.id.textViewUserFeedback);
+            holder.viewSeparatorFeedback = convertView.findViewById(R.id.viewSeparatorFeedback);
 
             convertView.setTag(holder);
         } else {
@@ -92,28 +94,36 @@ public class ListAdapterScaleTeamsAutomatic extends BaseAdapter {
 
         TeamsUploads item = getItem(position);
 
+        Picasso picasso = Picasso.with(context);
+        RequestCreator requestCreator;
+        String url = UserImage.BASE_URL + "moulinette.jpg";
+        requestCreator = picasso.load(url).resize(200, 240);
+        requestCreator.into(holder.imageViewUser);
+
         holder.textViewCorrector.setText(R.string.project_moulinette);
         holder.textViewScale.setText(String.valueOf(item.finalMark));
         holder.textViewComment.setText(item.comment);
-        holder.linearLayoutFeedback.setVisibility(View.GONE);
+        holder.groupFeedback.setVisibility(View.GONE);
+        holder.textViewUserFeedback.setVisibility(View.GONE);
 
         return convertView;
     }
 
     private static class ViewHolder {
 
+        private ImageView imageViewUser;
+        private TextView textViewCorrector;
+        private TextView textViewScale;
         private TextView textViewComment;
         private ImageView imageViewIconStatus;
-        private LinearLayout linearLayoutFeedback;
-        private LinearLayout linearLayoutFeedbackMark;
+        private TextView textViewUserFeedback;
+        private Group groupFeedback;
         private TextView textViewFeedbackInterested;
         private TextView textViewFeedbackNice;
         private TextView textViewFeedbackPunctuality;
         private TextView textViewFeedbackRigorous;
         private TextView textViewFeedback;
-        private TextView textViewFeedbackStars;
-        private ImageView imageViewUser;
-        private TextView textViewCorrector;
-        private TextView textViewScale;
+        private RatingBar ratingBarFeedback;
+        private View viewSeparatorFeedback;
     }
 }

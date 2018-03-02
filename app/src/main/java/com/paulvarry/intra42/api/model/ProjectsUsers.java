@@ -46,7 +46,7 @@ public class ProjectsUsers {
     public UsersLTE user;
     @Nullable
     @SerializedName(API_TEAMS)
-    public transient List<Teams> teams;
+    public List<Teams> teams;
 
     static public List<ProjectsUsers> getListDoing(List<ProjectsUsers> projects) {
         List<ProjectsUsers> ret = new ArrayList<>();

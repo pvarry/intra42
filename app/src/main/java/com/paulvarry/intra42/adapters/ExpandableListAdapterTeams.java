@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -151,8 +150,8 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
         if (convertView == null) {
             holder = new ViewHolderGroup();
 
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_group, null);
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_group, parent, false);
 
             holder.textViewNameGroup = convertView.findViewById(R.id.textViewNameGroup);
             holder.textViewMark = convertView.findViewById(R.id.textViewMark);
@@ -191,21 +190,19 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             holder = new ViewHolderChild();
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (layoutInflater == null)
-                return null;
-            convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_item, null);
+            LayoutInflater layoutInflater = LayoutInflater.from(this.context);
+            convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_item, parent, false);
 
             holder.textViewStatus = convertView.findViewById(R.id.textViewStatus);
-            holder.linearLayoutGit = convertView.findViewById(R.id.linearLayoutGit);
-            holder.linearLayoutAutomaticCorrections = convertView.findViewById(R.id.linearLayoutAutomaticCorrections);
-            holder.linearLayoutPeerCorrections = convertView.findViewById(R.id.linearLayoutPeerCorrections);
+            holder.textViewCaptionGitRepository = convertView.findViewById(R.id.textViewCaptionGitRepository);
+            holder.textViewCaptionAutomaticEvaluations = convertView.findViewById(R.id.textViewCaptionAutomaticEvaluations);
             holder.textViewGit = convertView.findViewById(R.id.textViewGit);
             holder.imageButtonCopyGit = convertView.findViewById(R.id.imageButtonCopyGit);
             holder.expandableHeightGridViewUsers = convertView.findViewById(R.id.expandableHeightGridViewUsers);
             holder.expandableHeightListViewPeerCorrections = convertView.findViewById(R.id.expandableHeightListViewPeerCorrections);
-            holder.textViewPeerCorrection = convertView.findViewById(R.id.textViewPeerCorrection);
+            holder.textViewCaptionPeerCorrection = convertView.findViewById(R.id.textViewCaptionPeerCorrection);
             holder.expandableHeightListViewAutomaticCorrections = convertView.findViewById(R.id.expandableHeightListViewAutomaticCorrections);
+            holder.viewGroupGitRepository = convertView.findViewById(R.id.viewGroupGitRepository);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolderChild) convertView.getTag();
@@ -225,14 +222,19 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
         holder.textViewStatus.setText(str);
 
         if (team.repoUrl == null) {
-            holder.linearLayoutGit.setVisibility(View.GONE);
+            holder.textViewCaptionGitRepository.setVisibility(View.GONE);
+            holder.viewGroupGitRepository.setVisibility(View.GONE);
         } else {
-            holder.linearLayoutGit.setVisibility(View.VISIBLE);
+            holder.textViewCaptionGitRepository.setVisibility(View.VISIBLE);
+            holder.viewGroupGitRepository.setVisibility(View.VISIBLE);
+
             holder.textViewGit.setText(team.repoUrl);
             holder.imageButtonCopyGit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    if (clipboard == null)
+                        return;
                     ClipData clip = ClipData.newPlainText("label", team.repoUrl);
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(context, R.string.copied, Toast.LENGTH_SHORT).show();
@@ -261,30 +263,39 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             }
         });
 
-        String peer_corrections = context.getResources().getString(R.string.project_peer_corrections);
-        if (team.scaleTeams != null && team.scaleTeams.size() != 0 && team.scaleTeams.get(0) != null && team.scaleTeams.get(0).scale != null)
-            peer_corrections += " (" + String.valueOf(team.scaleTeams.size()) + "/" + team.scaleTeams.get(0).scale.correctionNumber + ")";
-        holder.textViewPeerCorrection.setText(peer_corrections);
+        if (team.teamsUploads == null || team.teamsUploads.isEmpty()) {
+            holder.textViewCaptionAutomaticEvaluations.setVisibility(View.GONE);
+            holder.expandableHeightListViewAutomaticCorrections.setVisibility(View.GONE);
+        } else {
+            holder.textViewCaptionAutomaticEvaluations.setVisibility(View.VISIBLE);
+            holder.expandableHeightListViewAutomaticCorrections.setVisibility(View.VISIBLE);
 
-        if (team.teamsUploads == null || team.teamsUploads.isEmpty())
-            holder.linearLayoutAutomaticCorrections.setVisibility(View.GONE);
-        else {
-            holder.linearLayoutAutomaticCorrections.setVisibility(View.VISIBLE);
             ListAdapterScaleTeamsAutomatic adapterAutoScale = new ListAdapterScaleTeamsAutomatic(context, team.teamsUploads);
             holder.expandableHeightListViewAutomaticCorrections.setExpanded(true);
             holder.expandableHeightListViewAutomaticCorrections.setAdapter(adapterAutoScale);
         }
 
+        // set-up valid scale team
+        String peer_corrections = context.getResources().getString(R.string.project_peer_corrections);
         final List<ScaleTeams> tmpScaleTeams = new ArrayList<>();
-        if (team.scaleTeams != null && !team.scaleTeams.isEmpty())
+        if (team.scaleTeams != null && !team.scaleTeams.isEmpty()) {
             for (ScaleTeams s : team.scaleTeams) {
                 if (s.corrector != null && s.beginAt != null && DateTool.isInPast(s.beginAt) && s.comment != null)
                     tmpScaleTeams.add(s);
             }
-        if (team.scaleTeams == null || team.scaleTeams.isEmpty() || tmpScaleTeams.isEmpty())
-            holder.linearLayoutPeerCorrections.setVisibility(View.GONE);
-        else {
-            holder.linearLayoutPeerCorrections.setVisibility(View.VISIBLE);
+        }
+
+        if (team.scaleTeams == null || team.scaleTeams.isEmpty() || tmpScaleTeams.isEmpty()) {
+            holder.textViewCaptionPeerCorrection.setVisibility(View.GONE);
+            holder.expandableHeightListViewPeerCorrections.setVisibility(View.GONE);
+        } else {
+            holder.textViewCaptionPeerCorrection.setVisibility(View.VISIBLE);
+            holder.expandableHeightListViewPeerCorrections.setVisibility(View.VISIBLE);
+
+            ScaleTeams scaleTeamsForScale = team.scaleTeams.get(0);
+            if (scaleTeamsForScale != null && scaleTeamsForScale.scale != null)
+                peer_corrections += " (" + String.valueOf(tmpScaleTeams.size()) + "/" + scaleTeamsForScale.scale.correctionNumber + ")";
+            holder.textViewCaptionPeerCorrection.setText(peer_corrections);
 
             ListAdapterScaleTeams adapterScaleTeams = new ListAdapterScaleTeams(context, tmpScaleTeams);
             holder.expandableHeightListViewPeerCorrections.setExpanded(true);
@@ -318,16 +329,16 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
 
     private static class ViewHolderChild {
 
-        TextView textViewPeerCorrection;
+        private TextView textViewCaptionPeerCorrection;
         private TextView textViewStatus;
-        private LinearLayout linearLayoutGit;
-        private LinearLayout linearLayoutAutomaticCorrections;
-        private LinearLayout linearLayoutPeerCorrections;
+        private TextView textViewCaptionGitRepository;
+        private TextView textViewCaptionAutomaticEvaluations;
         private TextView textViewGit;
         private ImageButton imageButtonCopyGit;
         private ExpandableHeightGridView expandableHeightGridViewUsers;
         private ExpandableHeightListView expandableHeightListViewAutomaticCorrections;
         private ExpandableHeightListView expandableHeightListViewPeerCorrections;
+        private ViewGroup viewGroupGitRepository;
 
     }
 

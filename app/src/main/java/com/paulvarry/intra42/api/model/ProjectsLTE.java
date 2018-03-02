@@ -3,12 +3,12 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 
 import java.util.List;
 import java.util.StringJoiner;
 
-public class ProjectsLTE implements BaseItem {
+public class ProjectsLTE implements IBaseItem {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";

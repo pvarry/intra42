@@ -2,14 +2,15 @@ package com.paulvarry.intra42.adapters;
 
 
 import android.app.Activity;
-import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.constraint.Group;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
@@ -22,8 +23,7 @@ import java.util.List;
 public class ListAdapterScaleTeams extends BaseAdapter {
 
     private final Activity context;
-    List<ScaleTeams> list;
-    int flag;
+    private List<ScaleTeams> list;
 
     ListAdapterScaleTeams(Activity context, List<ScaleTeams> list) {
 
@@ -74,23 +74,23 @@ public class ListAdapterScaleTeams extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(context);
             convertView = vi.inflate(R.layout.list_view_scale_teams, parent, false);
 
             holder.imageViewUser = convertView.findViewById(R.id.imageView);
             holder.textViewCorrector = convertView.findViewById(R.id.textViewCorrector);
             holder.textViewScale = convertView.findViewById(R.id.textViewScale);
             holder.textViewComment = convertView.findViewById(R.id.textViewComment);
-
             holder.imageViewIconStatus = convertView.findViewById(R.id.imageViewIconStatus);
-            holder.linearLayoutFeedback = convertView.findViewById(R.id.linearLayoutFeedback);
-            holder.linearLayoutFeedbackMark = convertView.findViewById(R.id.linearLayoutFeedbackMark);
-            holder.textViewFeedbackInterested = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewFeedbackInterested = convertView.findViewById(R.id.textViewFeedbackInterested);
             holder.textViewFeedbackNice = convertView.findViewById(R.id.textViewFeedbackNice);
             holder.textViewFeedbackPunctuality = convertView.findViewById(R.id.textViewFeedbackPunctuality);
             holder.textViewFeedbackRigorous = convertView.findViewById(R.id.textViewFeedbackRigorous);
             holder.textViewFeedback = convertView.findViewById(R.id.textViewFeedback);
-            holder.textViewFeedbackStars = convertView.findViewById(R.id.textViewFeedbackStars);
+            holder.ratingBarFeedback = convertView.findViewById(R.id.ratingBarFeedback);
+            holder.groupFeedback = convertView.findViewById(R.id.groupFeedback);
+            holder.textViewUserFeedback = convertView.findViewById(R.id.textViewUserFeedback);
+            holder.viewSeparatorFeedback = convertView.findViewById(R.id.viewSeparatorFeedback);
 
             convertView.setTag(holder);
         } else {
@@ -111,14 +111,6 @@ public class ListAdapterScaleTeams extends BaseAdapter {
         holder.textViewScale.setText(String.valueOf(item.finalMark));
         holder.textViewComment.setText(item.comment);
 
-        if (item.feedback == null) {
-            holder.linearLayoutFeedback.setVisibility(View.GONE);
-        } else {
-            holder.linearLayoutFeedback.setVisibility(View.VISIBLE);
-            holder.textViewFeedback.setText(item.feedback);
-            holder.textViewFeedbackStars.setText(item.feedback_rating);
-        }
-
         if (item.flag.positive) {
             holder.imageViewIconStatus.setImageResource(R.drawable.ic_check_black_24dp);
             holder.imageViewIconStatus.setColorFilter(ContextCompat.getColor(context, R.color.colorTintCheck));
@@ -127,24 +119,71 @@ public class ListAdapterScaleTeams extends BaseAdapter {
             holder.imageViewIconStatus.setColorFilter(ContextCompat.getColor(context, R.color.colorTintCross));
         }
 
-        if (item.feedbacks != null) {
-            holder.linearLayoutFeedbackMark.setVisibility(View.VISIBLE);
-            for (ScaleTeams.Feedback f : item.feedbacks) {
-                switch (f.kind) {
-                    case "nice":
-                        holder.textViewFeedbackNice.setText(String.valueOf(f.rate));
-                        break;
-                    case "rigorous":
-                        holder.textViewFeedbackRigorous.setText(String.valueOf(f.rate));
-                        break;
-                    case "interested":
-                        holder.textViewFeedbackInterested.setText(String.valueOf(f.rate));
-                        break;
-                    case "punctuality":
-                        holder.textViewFeedbackPunctuality.setText(String.valueOf(f.rate));
-                        break;
-                    default:
-                        break;
+        holder.groupFeedback.setVisibility(View.VISIBLE);
+        holder.textViewUserFeedback.setVisibility(View.VISIBLE);
+        if ((item.feedback == null || item.feedback.isEmpty()) && (item.feedbacks == null || item.feedbacks.size() == 0)) {
+            holder.groupFeedback.setVisibility(View.GONE);
+            holder.textViewUserFeedback.setVisibility(View.GONE);
+        } else {
+
+            if (item.feedback != null) {
+                holder.textViewFeedback.setText(item.feedback);
+            }
+
+            holder.ratingBarFeedback.setRating(item.feedback_rating);
+
+            // re initialise feedback
+            holder.textViewFeedbackPunctuality.setVisibility(View.GONE);
+            holder.textViewFeedbackRigorous.setVisibility(View.GONE);
+            holder.textViewFeedbackInterested.setVisibility(View.GONE);
+            holder.textViewFeedbackNice.setVisibility(View.GONE);
+            holder.textViewFeedbackNice.setText(null);
+            holder.textViewFeedbackRigorous.setText(null);
+            holder.textViewFeedbackInterested.setText(null);
+            holder.textViewFeedbackPunctuality.setText(null);
+            holder.textViewFeedbackNice.setCompoundDrawables(null, null, null, null);
+            holder.textViewFeedbackRigorous.setCompoundDrawables(null, null, null, null);
+            holder.textViewFeedbackInterested.setCompoundDrawables(null, null, null, null);
+            holder.textViewFeedbackPunctuality.setCompoundDrawables(null, null, null, null);
+            if (item.feedbacks != null && item.feedbacks.size() != 0) {
+                holder.textViewFeedbackPunctuality.setVisibility(View.VISIBLE);
+                holder.textViewFeedbackRigorous.setVisibility(View.VISIBLE);
+                holder.textViewFeedbackInterested.setVisibility(View.VISIBLE);
+                holder.textViewFeedbackNice.setVisibility(View.VISIBLE);
+                holder.viewSeparatorFeedback.setVisibility(View.VISIBLE);
+
+                Drawable drawableInterested = context.getResources().getDrawable(R.drawable.ic_chat_bubble_outline_black_24dp);
+                Drawable drawableNice = context.getResources().getDrawable(R.drawable.ic_nice_black_24px);
+                Drawable drawablePunctuality = context.getResources().getDrawable(R.drawable.ic_timer_black_24px);
+                Drawable drawableRigorous = context.getResources().getDrawable(R.drawable.ic_build_black_24dp);
+                drawableInterested.setBounds(0, 0, 42, 42);
+                drawableNice.setBounds(0, 0, 42, 42);
+                drawablePunctuality.setBounds(0, 0, 42, 42);
+                drawableRigorous.setBounds(0, 0, 42, 42);
+                holder.textViewFeedbackInterested.setCompoundDrawables(drawableInterested, null, null, null);
+                holder.textViewFeedbackNice.setCompoundDrawables(drawableNice, null, null, null);
+                holder.textViewFeedbackPunctuality.setCompoundDrawables(drawablePunctuality, null, null, null);
+                holder.textViewFeedbackRigorous.setCompoundDrawables(drawableRigorous, null, null, null);
+
+                String str;
+                for (ScaleTeams.Feedback f : item.feedbacks) {
+                    str = String.valueOf(f.rate) + "/4";
+                    switch (f.kind) {
+                        case NICE:
+                            holder.textViewFeedbackNice.setText(str);
+                            break;
+                        case RIGOROUS:
+                            holder.textViewFeedbackRigorous.setText(str);
+                            break;
+                        case INTERESTED:
+                            holder.textViewFeedbackInterested.setText(str);
+                            break;
+                        case PUNCTUALITY:
+                            holder.textViewFeedbackPunctuality.setText(str);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -159,13 +198,14 @@ public class ListAdapterScaleTeams extends BaseAdapter {
         private TextView textViewScale;
         private TextView textViewComment;
         private ImageView imageViewIconStatus;
-        private LinearLayout linearLayoutFeedback;
-        private LinearLayout linearLayoutFeedbackMark;
+        private TextView textViewUserFeedback;
+        private Group groupFeedback;
         private TextView textViewFeedbackInterested;
         private TextView textViewFeedbackNice;
         private TextView textViewFeedbackPunctuality;
         private TextView textViewFeedbackRigorous;
         private TextView textViewFeedback;
-        private TextView textViewFeedbackStars;
+        private RatingBar ratingBarFeedback;
+        private View viewSeparatorFeedback;
     }
 }

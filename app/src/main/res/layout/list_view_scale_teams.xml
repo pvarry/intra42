@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="56dp" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -14,205 +20,209 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/user_profile_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_person_black_24dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textViewCorrector"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="New Text"
+        android:textColor="@color/textColorBlackSecondary"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewIconStatus"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewIconStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:contentDescription="@string/icon_status"
+        android:tint="@color/colorTintCheck"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewScale"
+        app:layout_constraintEnd_toStartOf="@+id/textViewScale"
+        app:srcCompat="@drawable/ic_check_black_24dp" />
+
+    <TextView
+        android:id="@+id/textViewScale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="New Text"
+        android:textColor="@color/textColorBlackSecondary"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCorrector"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/shape_scale_teams_feedback"
+        android:padding="8dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/textColorBlackPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCorrector" />
+
+    <TextView
+        android:id="@+id/textViewUserFeedback"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/project_scale_feedback"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewComment" />
+
+    <android.support.constraint.Group
+        android:id="@+id/groupFeedback"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/shape_scale_teams_feedback"
+        app:constraint_referenced_ids="textViewFeedback,viewSeparatorFeedback,ratingBarFeedback,textViewFeedbackRigorous,textViewFeedbackInterested,textViewFeedbackNice,textViewFeedbackPunctuality"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUserFeedback" />
+
+    <TextView
+        android:id="@+id/textViewFeedback"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="New Text"
+        android:textColor="@color/textColorBlackSecondary"
+        app:layout_constraintEnd_toEndOf="@+id/groupFeedback"
+        app:layout_constraintStart_toStartOf="@+id/groupFeedback"
+        app:layout_constraintTop_toTopOf="@+id/groupFeedback" />
+
+    <View
+        android:id="@+id/viewSeparatorFeedback"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="#1e000000"
+        app:layout_constraintEnd_toEndOf="@+id/groupFeedback"
+        app:layout_constraintStart_toStartOf="@+id/groupFeedback"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFeedback" />
+
+    <RatingBar
+        android:id="@+id/ratingBarFeedback"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
-        android:orientation="vertical">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:numStars="5"
+        android:rating="4"
+        android:stepSize="1"
+        app:layout_constraintBottom_toBottomOf="@+id/groupFeedback"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFeedbackInterested"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/groupFeedback"
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparatorFeedback" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/textViewFeedbackInterested"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="2dp"
+        android:text="/4"
+        app:layout_constraintBottom_toBottomOf="@+id/groupFeedback"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFeedbackNice"
+        app:layout_constraintStart_toEndOf="@+id/ratingBarFeedback"
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparatorFeedback"
+        tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/textViewCorrector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:textColor="@color/textColorBlackSecondary" />
+    <TextView
+        android:id="@+id/textViewFeedbackNice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="2dp"
+        android:text="/4"
+        app:layout_constraintBottom_toBottomOf="@+id/groupFeedback"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFeedbackPunctuality"
+        app:layout_constraintStart_toEndOf="@+id/textViewFeedbackInterested"
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparatorFeedback"
+        tools:ignore="HardcodedText" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                tools:ignore="UseCompoundDrawables">
+    <TextView
+        android:id="@+id/textViewFeedbackPunctuality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="2dp"
+        android:text="/4"
+        app:layout_constraintBottom_toBottomOf="@+id/groupFeedback"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFeedbackRigorous"
+        app:layout_constraintStart_toEndOf="@+id/textViewFeedbackNice"
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparatorFeedback"
+        tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:id="@+id/textViewScale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:textColor="@color/textColorBlackSecondary" />
+    <TextView
+        android:id="@+id/textViewFeedbackRigorous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="2dp"
+        android:text="/4"
+        app:layout_constraintBottom_toBottomOf="@+id/groupFeedback"
+        app:layout_constraintEnd_toEndOf="@+id/groupFeedback"
+        app:layout_constraintStart_toEndOf="@+id/textViewFeedbackPunctuality"
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparatorFeedback"
+        tools:ignore="HardcodedText" />
 
-                <ImageView
-                    android:id="@+id/imageViewIconStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/icon_status"
-                    android:tint="@color/colorTintCheck"
-                    app:srcCompat="@drawable/ic_check_black_24dp" />
-
-            </LinearLayout>
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/textViewComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/textColorBlackPrimary" />
-
-        <LinearLayout
-            android:id="@+id/linearLayoutFeedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_scale_teams_feedback"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <LinearLayout
-                android:id="@+id/linearLayoutFeedbackMark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/imageViewFeedbackInterested"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/icon_feedback_interested"
-                        android:tint="@color/colorGrayTint" />
-
-                    <TextView
-                        android:id="@+id/textViewFeedbackInterested"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/imageViewFeedbackNice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/icon_feedback_nice"
-                        android:tint="@color/colorGrayTint"
-                        app:srcCompat="@drawable/ic_nice_black_24px" />
-
-                    <TextView
-                        android:id="@+id/textViewFeedbackNice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/imageViewFeedbackPunctuality"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/icon_feedback_punctuality"
-                        android:tint="@color/colorGrayTint"
-                        app:srcCompat="@drawable/ic_timer_black_24px" />
-
-                    <TextView
-                        android:id="@+id/textViewFeedbackPunctuality"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/imageViewFeedbackRigorous"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/icon_feedback_rigorous"
-                        android:tint="@color/colorGrayTint"
-                        app:srcCompat="@drawable/ic_build_black_24dp" />
-
-                    <TextView
-                        android:id="@+id/textViewFeedbackRigorous"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textViewFeedback"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@+id/textViewFeedbackStars"
-                    android:layout_toStartOf="@+id/textViewFeedbackStars"
-                    android:text="New Text"
-                    android:textColor="@color/textColorBlackDisabled" />
-
-                <TextView
-                    android:id="@+id/textViewFeedbackStars"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="end"
-                    android:text="New Text"
-                    android:textColor="@color/textColorBlackDisabled" />
-            </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

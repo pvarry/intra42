@@ -3,7 +3,7 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.BaseItemDetail;
+import com.paulvarry.intra42.api.IBaseItemDetail;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Partnerships implements BaseItemDetail {
+public class Partnerships implements IBaseItemDetail {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Cluster implements BaseItem, Serializable, Comparable<Cluster> {
+public class Cluster implements IBaseItem, Serializable, Comparable<Cluster> {
 
     public String name;
     public String nameShort;

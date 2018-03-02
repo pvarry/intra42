@@ -125,6 +125,9 @@ public class ServiceGenerator {
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
 
+        if (BuildConfig.DEBUG && accessTokenIntra42 != null)
+            Log.d("token", accessTokenIntra42.accessToken);
+
         return retrofit.create(serviceClass);
     }
 

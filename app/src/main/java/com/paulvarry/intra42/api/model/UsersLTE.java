@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.cache.BaseCacheData;
 
@@ -28,7 +28,7 @@ import java.util.StringJoiner;
 @Parcel
 public class UsersLTE
         extends BaseCacheData
-        implements BaseItem, Comparable<UsersLTE> {
+        implements IBaseItem, Comparable<UsersLTE> {
 
     final static String API_ID = "id";
     final static String API_LOGIN = "login";

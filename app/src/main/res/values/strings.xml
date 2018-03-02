@@ -600,4 +600,5 @@ Guideline: Cluster orientation
     <string name="cluster_map_no_layout">No layout available for this cluster</string>
     <string name="readme">Readme</string>
     <string name="user_open_it_not_found">Users not found</string>
+    <string name="project_scale_feedback">Feedback</string>
 </resources>

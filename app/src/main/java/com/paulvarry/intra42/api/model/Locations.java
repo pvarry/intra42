@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.Date;
 
-public class Locations implements BaseItem {
+public class Locations implements IBaseItem {
 
     private static final String API_ID = "id";
     private static final String API_BEGIN_AT = "begin_at";

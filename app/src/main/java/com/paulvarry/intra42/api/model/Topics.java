@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.TopicActivity;
-import com.paulvarry.intra42.api.BaseItem;
+import com.paulvarry.intra42.api.IBaseItem;
 import com.paulvarry.intra42.api.ServiceGenerator;
 
 import org.ocpsoft.prettytime.Duration;
@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Topics implements BaseItem {
+public class Topics implements IBaseItem {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
