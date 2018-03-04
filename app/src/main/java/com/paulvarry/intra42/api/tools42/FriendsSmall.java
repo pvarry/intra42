@@ -7,6 +7,7 @@ import com.paulvarry.intra42.ui.BasicActivity;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,6 +41,29 @@ public class FriendsSmall extends UsersLTE {
                     activity.runOnUiThread(callback);
             }
         }).start();
+    }
+
+    public static List<FriendsSmall> getFriends(ApiService42Tools api) throws IOException {
+        final List<FriendsSmall> friendsTmp = new ArrayList<>();
+
+        int page = 1;
+        int pageSize = 100;
+
+        while (true) {
+            Response<List<FriendsSmall>> r = api.getFriends(pageSize, page).execute();
+            if (Tools.apiIsSuccessful(r)) {
+                friendsTmp.addAll(r.body());
+                double total = Double.parseDouble(r.headers().get("X-Total"));
+                if (r.body().size() == pageSize) {
+                    page++;
+                } else
+                    break;
+                if (friendsTmp.size() == total)
+                    return friendsTmp;
+            }
+        }
+
+        return friendsTmp;
     }
 
 }

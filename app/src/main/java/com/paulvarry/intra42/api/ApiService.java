@@ -42,6 +42,8 @@ import retrofit2.http.Url;
 
 public interface ApiService {
 
+    String API_BASE_URL = "https://api.intra.42.fr";
+
     @FormUrlEncoded
     @POST("/oauth/token")
     Call<AccessToken> getNewAccessToken(

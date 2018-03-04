@@ -258,9 +258,6 @@ public class FriendsActivity
         }
         dataWrapper = null;
 
-        if (listFriends != null)
-            return ThreadStatusCode.FINISH;
-
         return ThreadStatusCode.CONTINUE;
     }
 
@@ -273,12 +270,8 @@ public class FriendsActivity
         String separator = "";
         HashMap<String, FriendsSmall> tmp = new HashMap<>();
 
-        Call<List<FriendsSmall>> call = api.getFriends();
-
-        Response<List<FriendsSmall>> responseFriends = call.execute();
-        if (Tools.apiIsSuccessful(responseFriends)) {
-            List<FriendsSmall> data = responseFriends.body();
-
+        List<FriendsSmall> data = Friends.getFriends(api);
+        if (data != null) {
             listFriends = new SparseArray<>(data.size());
             for (FriendsSmall f : data) {
                 listFriends.put(f.id, f);

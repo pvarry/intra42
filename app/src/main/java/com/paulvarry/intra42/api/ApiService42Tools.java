@@ -18,16 +18,18 @@ import retrofit2.http.Query;
 
 public interface ApiService42Tools {
 
+    String API_BASE_URL = "https://api.42.tools/v1/";
+
     /* Auth */
     @POST("auth")
     Call<AccessToken> getAccessToken(@Query("access_token") String access_token);
 
     /* Friends */
     @GET("friends")
-    Call<List<FriendsSmall>> getFriends();
+    Call<List<FriendsSmall>> getFriends(@Query("per_page") int per_page, @Query("page") int page);
 
     @GET("friends/{id}")
-    Call<Friends> getFriends(@Path("id") int userId);
+    Call<Friends> getFriend(@Path("id") int userId);
 
     @POST("friends")
     Call<Friends> addFriend(@Query("user_id") int userId);

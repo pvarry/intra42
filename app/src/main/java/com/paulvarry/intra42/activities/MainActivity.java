@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open(View view) {
-        Uri u = Uri.parse(ServiceGenerator.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
+        Uri u = Uri.parse(ApiService.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
         Intent intent = new Intent(Intent.ACTION_VIEW, u);
         // This flag is set to prevent the browser with the login form from showing in the history stack
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

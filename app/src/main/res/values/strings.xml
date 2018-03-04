@@ -601,4 +601,5 @@ Guideline: Cluster orientation
     <string name="readme">Readme</string>
     <string name="user_open_it_not_found">Users not found</string>
     <string name="project_scale_feedback">Feedback</string>
+    <string name="friends_info_api_data_processing">Friends API is currently processing new data, your friends will be added shortly</string>
 </resources>

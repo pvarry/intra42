@@ -18,6 +18,7 @@ import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicTabActivity;
@@ -34,7 +35,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.Response;
 
 public class ClusterMapActivity
@@ -179,16 +179,13 @@ public class ClusterMapActivity
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
 
         ApiService42Tools api = app.getApiService42Tools();
-
-        Call<List<FriendsSmall>> call = api.getFriends();
-        Response<List<FriendsSmall>> ret = call.execute();
+        final List<FriendsSmall> friendsTmp = Friends.getFriends(api);
         setLoadingProgress(pageMax + 1, pageMax + 1);
-        if (Tools.apiIsSuccessful(ret)) {
-            clusterStatus.friends = new SparseArray<>();
-            for (FriendsSmall f : ret.body()) {
-                clusterStatus.friends.put(f.id, f);
-            }
+        clusterStatus.friends = new SparseArray<>();
+        for (FriendsSmall f : friendsTmp) {
+            clusterStatus.friends.put(f.id, f);
         }
+
         clusterStatus.computeHighlightAndFreePosts();
 
         setViewStateThread(StatusCode.CONTENT);

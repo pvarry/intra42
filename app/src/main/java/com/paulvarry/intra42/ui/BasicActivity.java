@@ -21,7 +21,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -324,25 +323,49 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             toolbar.setTitle(toolbarName);
         }
 
-        switch (state) {
-            case CONTENT:
-                setViewStateContent();
-                return;
-            case LOADING:
-                setViewStateLoading();
-                return;
-            case EMPTY:
-                setViewStateEmpty();
-                return;
-            case API_DATA_ERROR:
-                setViewStateApiError();
-                return;
-            case NETWORK_ERROR:
-                setViewStateNetworkError();
-                return;
-            case API_UNAUTHORIZED:
-                setViewStateUnauthorized();
+        if (state == StatusCode.CONTENT) {
+            setViewStateContent();
+            return;
+        } else if (state == StatusCode.LOADING) {
+            setViewStateLoading();
+            return;
         }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                refresh();
+            }
+        };
+
+        int str;
+        int drawable = 0;
+
+        switch (state) {
+            case EMPTY:
+                String empty = getEmptyText();
+                if (empty != null && !empty.isEmpty()) {
+                    Tools.setLayoutOnError(constraintOnError, drawable, empty, runnable);
+                    return;
+                }
+                str = R.string.info_nothing_to_show;
+                break;
+            case API_DATA_ERROR:
+                drawable = R.drawable.ic_server_broken_black;
+                str = R.string.info_error_on_loading_this_page;
+                break;
+            case NETWORK_ERROR:
+                drawable = R.drawable.ic_cloud_off_black_24dp;
+                str = R.string.info_network_no_internet;
+                break;
+            case API_UNAUTHORIZED:
+                drawable = R.drawable.ic_block_black_24dp;
+                str = R.string.info_api_unauthorized;
+                break;
+            default:
+                return;
+        }
+        Tools.setLayoutOnError(constraintOnError, drawable, str, runnable);
     }
 
     private void setViewStateContent() {
@@ -353,39 +376,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
     private void setViewStateLoading() {
         constraintLayoutLoading.setVisibility(View.VISIBLE);
-    }
-
-    private void setViewStateEmpty() {
-        constraintOnError.setVisibility(View.VISIBLE);
-
-        String empty = getEmptyText();
-        if (empty == null || empty.isEmpty())
-            empty = getString(R.string.info_nothing_to_show);
-
-        TextView textViewError = constraintOnError.findViewById(R.id.textViewError);
-        textViewError.setText(empty);
-    }
-
-    private void setViewStateApiError() {
-        Tools.setLayoutOnError(constraintOnError, R.drawable.ic_server_broken_black, R.string.info_error_on_loading_this_page, new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
-    }
-
-    private void setViewStateNetworkError() {
-        Tools.setLayoutOnError(constraintOnError, R.drawable.ic_cloud_off_black_24dp, R.string.info_network_no_internet, new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
-    }
-
-    private void setViewStateUnauthorized() {
-        Tools.setLayoutOnError(constraintOnError, R.drawable.ic_block_black_24dp, R.string.info_api_unauthorized, null);
     }
 
     /**

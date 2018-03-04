@@ -47,8 +47,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "https://api.intra.42.fr";
-    private static final String API_BASE_URL_42TOOLS = "https://api.42.tools/v1/";
     private static OkHttpClient.Builder httpClient;
     private static AccessToken accessTokenIntra42;
     private static com.paulvarry.intra42.api.tools42.AccessToken accessToken42Tools;
@@ -83,11 +81,11 @@ public class ServiceGenerator {
 
         Retrofit.Builder builder;
         builder = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
+                .baseUrl(ApiService.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         if (serviceClass == ApiService42Tools.class)
-            builder.baseUrl(API_BASE_URL_42TOOLS);
+            builder.baseUrl(ApiService42Tools.API_BASE_URL);
 
         httpClient = getBaseClient(true);
         httpClient.addInterceptor(getHeaderInterceptor());
@@ -103,7 +101,7 @@ public class ServiceGenerator {
         Retrofit.Builder builder;
 
         builder = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
+                .baseUrl(ApiService.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         httpClient = getBaseClient(allowRedirectWrongAuth);
@@ -118,7 +116,7 @@ public class ServiceGenerator {
         } else if (serviceClass == ApiService42Tools.class) {
             httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
             httpClient.authenticator(getAuthenticator42Tools(app));
-            builder.baseUrl(API_BASE_URL_42TOOLS);
+            builder.baseUrl(ApiService42Tools.API_BASE_URL);
         } else
             httpClient.addInterceptor(getHeaderInterceptor());
 
@@ -212,43 +210,41 @@ public class ServiceGenerator {
                     return null;
                 }
 
-                if (accessTokenIntra42 == null)
+                AccessToken newToken = refresh42Token(context);
+                if (newToken == null)
                     return null;
-
-                //noinspection SynchronizeOnNonFinalField
-                synchronized (accessTokenIntra42) {
-                    // We need a new client, since we don't want to make another call using our client with access token
-                    ApiService tokenClient = createService(ApiService.class);
-                    try {
-                        Call<AccessToken> call = tokenClient.getRefreshAccessToken(accessTokenIntra42.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
-                        retrofit2.Response<AccessToken> tokenResponse = call.execute();
-                        if (tokenResponse.code() == 200) {
-                            AccessToken newToken = tokenResponse.body();
-                            accessTokenIntra42 = newToken;
-                            Token.save(context, accessTokenIntra42);
-                            if (app != null)
-                                accessTokenIntra42 = newToken;
-
-                            return response.request().newBuilder()
-                                    .header(HEADER_KEY_API_AUTH, newToken.tokenType + " " + newToken.accessToken)
-                                    .header(HEADER_KEY_USER_AGENT, getUserAgent())
-                                    .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
-                                    .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
-                                    .build();
-                        } else {
-                            return null;
-                        }
-                    } catch (IOException e) {
-                        return null;
-                    } catch (NullPointerException e) {
-                        return null;
-                    }
-                }
+                return response.request().newBuilder()
+                        .header(HEADER_KEY_API_AUTH, newToken.tokenType + " " + newToken.accessToken)
+                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
+                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
+                        .build();
             }
         };
     }
 
-    //TODO
+
+    private static synchronized AccessToken refresh42Token(Context context) throws IOException {
+        if (accessTokenIntra42 == null)
+            return null;
+
+        // We need a new client, since we don't want to make another call using our client with access token
+        ApiService tokenClient = createService(ApiService.class);
+
+        Call<AccessToken> call = tokenClient.getRefreshAccessToken(accessTokenIntra42.refreshToken, Credential.UID, Credential.SECRET, Credential.API_OAUTH_REDIRECT, "refresh_token");
+        retrofit2.Response<AccessToken> tokenResponse = call.execute();
+        if (tokenResponse.code() == 200) {
+            AccessToken newToken = tokenResponse.body();
+            accessTokenIntra42 = newToken;
+            Token.save(context, accessTokenIntra42);
+            if (app != null)
+                accessTokenIntra42 = newToken;
+
+            return newToken;
+        }
+        return null;
+    }
+
     private static Authenticator getAuthenticator42Tools(final Context context) {
         return new Authenticator() {
             @Override
@@ -282,9 +278,26 @@ public class ServiceGenerator {
                                     .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
                                     .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
                                     .build();
-                        } else {
+                        } else if (tokenResponse.code() == 401) {
+                            AccessToken new42Token = refresh42Token(context);
+                            if (new42Token == null)
+                                return null;
+
+                            Call<com.paulvarry.intra42.api.tools42.AccessToken> callRefreshToolsTokenAgain = tokenClient.getAccessToken(new42Token.accessToken);
+                            retrofit2.Response<com.paulvarry.intra42.api.tools42.AccessToken> repRefreshToolsTokenAgain = callRefreshToolsTokenAgain.execute();
+                            if (repRefreshToolsTokenAgain.isSuccessful() && repRefreshToolsTokenAgain.body() != null) {
+                                accessToken42Tools = repRefreshToolsTokenAgain.body();
+                                Token.save(context, repRefreshToolsTokenAgain.body());
+                                return response.request().newBuilder()
+                                        .header(HEADER_KEY_API_AUTH, "Bearer " + repRefreshToolsTokenAgain.body().accessToken)
+                                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
+                                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
+                                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
+                                        .build();
+                            }
                             return null;
-                        }
+                        } else
+                            return null;
                     } catch (IOException e) {
                         return null;
                     } catch (NullPointerException e) {
@@ -418,12 +431,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
-        ServiceGenerator.accessToken42Tools = tokenTools;
-    }
-
     public static void setToken(AccessToken tokenIntra) {
         ServiceGenerator.accessTokenIntra42 = tokenIntra;
+    }
+
+    public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
+        ServiceGenerator.accessToken42Tools = tokenTools;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {

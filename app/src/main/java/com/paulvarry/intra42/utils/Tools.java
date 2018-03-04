@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -137,7 +136,7 @@ public class Tools {
             textView.setText(content);
     }
 
-    public static boolean setLayoutOnError(View view, int image, int text, final SwipeRefreshLayout.OnRefreshListener refreshListener) {
+    public static boolean setLayoutOnError(View view, int image, String text, final Runnable refreshListener) {
         if (view == null)
             return false;
         ImageView imageView = view.findViewById(R.id.imageViewStatus);
@@ -156,12 +155,16 @@ public class Tools {
             buttonRefresh.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    refreshListener.onRefresh();
+                    refreshListener.run();
                 }
             });
         else
             buttonRefresh.setVisibility(View.GONE);
         return true;
+    }
+
+    public static boolean setLayoutOnError(View view, int image, int text, final Runnable refreshListener) {
+        return setLayoutOnError(view, image, view.getContext().getString(text), refreshListener);
     }
 
     public static boolean apiIsSuccessful(Response<?> response) throws BasicThreadActivity.UnauthorizedException, BasicThreadActivity.ErrorServerException {

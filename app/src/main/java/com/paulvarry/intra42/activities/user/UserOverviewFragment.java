@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -112,8 +113,11 @@ public class UserOverviewFragment
             if (Tools.apiIsSuccessfulNoThrow(response)) {
                 friendsRelation = response.body();
                 setButtonFriends(1);
-            } else
+            } else {
                 setButtonFriends(-1);
+                if (response.code() == 102)
+                    Toast.makeText(activity, R.string.friends_info_api_data_processing, Toast.LENGTH_LONG).show();
+            }
         }
 
         @Override
@@ -226,7 +230,7 @@ public class UserOverviewFragment
 
         setButtonFriends(0);
         ApiService42Tools api = app.getApiService42Tools();
-        api.getFriends(user.id).enqueue(checkFriend);
+        api.getFriend(user.id).enqueue(checkFriend);
 
         String name = user.displayName + " - " + user.login;
         textViewName.setText(name);
@@ -337,7 +341,7 @@ public class UserOverviewFragment
         if (v == layoutPhone) {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + user.phone));
-            getActivity().startActivity(intent);
+            startActivity(intent);
         } else if (v == imageButtonSMS) {
             Intent sendIntent = new Intent(Intent.ACTION_VIEW);
             sendIntent.setData(Uri.parse("sms:" + user.phone));
