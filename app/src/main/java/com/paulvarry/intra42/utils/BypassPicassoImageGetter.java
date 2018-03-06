@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -20,7 +20,6 @@ public class BypassPicassoImageGetter implements Bypass.ImageGetter {
 
     private final Picasso mPicasso;
     private final WeakReference<TextView> mTextView;
-    private int maxWidth = -1;
     private SourceModifier mSourceModifier;
 
     public BypassPicassoImageGetter(final TextView textView, final Picasso picasso) {
@@ -31,53 +30,54 @@ public class BypassPicassoImageGetter implements Bypass.ImageGetter {
     @Override
     public Drawable getDrawable(String source) {
 
-        final BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder();
+        final Handler handler = new Handler();
 
+        final BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder();
         final String finalSource = mSourceModifier == null ? source : mSourceModifier.modify(source);
 
-        new AsyncTask<Void, Void, Bitmap>() {
-
+        new Thread(new Runnable() {
             @Override
-            protected Bitmap doInBackground(final Void... meh) {
+            public void run() {
                 try {
-                    return mPicasso.load(finalSource).get();
-                } catch (Exception e) {
-                    return null;
-                }
-            }
+                    final Bitmap bitmap = mPicasso.load(finalSource).get();
 
-            @Override
-            protected void onPostExecute(final Bitmap bitmap) {
-                TextView textView = mTextView.get();
-                if (textView == null) {
-                    return;
-                }
-                try {
-                    if (maxWidth == -1) {
-                        int horizontalPadding = textView.getPaddingLeft() + textView.getPaddingRight();
-                        maxWidth = textView.getMeasuredWidth() - horizontalPadding;
-                        if (maxWidth == 0) {
-                            maxWidth = Integer.MAX_VALUE;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView textView = mTextView.get();
+                            if (textView == null) {
+                                return;
+                            }
+                            try {
+                                int maxWidth;
+                                int horizontalPadding = textView.getPaddingLeft() + textView.getPaddingRight();
+                                maxWidth = textView.getMeasuredWidth() - horizontalPadding;
+                                if (maxWidth == 0) {
+                                    maxWidth = Integer.MAX_VALUE;
+                                }
+
+                                final BitmapDrawable drawable = new BitmapDrawable(textView.getResources(), bitmap);
+                                final double aspectRatio = 1.0 * drawable.getIntrinsicWidth() / drawable.getIntrinsicHeight();
+                                final int width = Math.min(maxWidth, drawable.getIntrinsicWidth());
+                                final int height = (int) (width / aspectRatio);
+
+                                drawable.setBounds(0, 0, width, height);
+
+                                result.setDrawable(drawable);
+                                result.setBounds(0, 0, width, height);
+
+                                textView.setText(textView.getText()); // invalidate() doesn't work correctly...
+                            } catch (Exception e) {
+                                //do something with this?
+                            }
                         }
-                    }
 
-                    final BitmapDrawable drawable = new BitmapDrawable(textView.getResources(), bitmap);
-                    final double aspectRatio = 1.0 * drawable.getIntrinsicWidth() / drawable.getIntrinsicHeight();
-                    final int width = Math.min(maxWidth, drawable.getIntrinsicWidth());
-                    final int height = (int) (width / aspectRatio);
-
-                    drawable.setBounds(0, 0, width, height);
-
-                    result.setDrawable(drawable);
-                    result.setBounds(0, 0, width, height);
-
-                    textView.setText(textView.getText()); // invalidate() doesn't work correctly...
-                } catch (Exception e) {
-                    //do something with this?
+                    });
+                } catch (Exception | OutOfMemoryError e) {
+                    e.printStackTrace();
                 }
             }
-
-        }.execute((Void) null);
+        }).start();
 
         return result;
     }
