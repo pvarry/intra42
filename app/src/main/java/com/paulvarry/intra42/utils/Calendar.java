@@ -57,13 +57,25 @@ public class Calendar {
         String selection = CalendarContract.Events.CUSTOM_APP_PACKAGE + " = ? AND " + CalendarContract.Events.DTEND + " >= ?";
         String[] selectionArgs = {BuildConfig.APPLICATION_ID, String.valueOf((new Date()).getTime())};
 
-        Cursor cursor = context.getContentResolver()
-                .query(
-                        CalendarContract.Events.CONTENT_URI,
-                        new String[]{CalendarContract.Events.CUSTOM_APP_URI},
-                        selection,
-                        selectionArgs,
-                        null);
+        ContentResolver contentResolver = context.getContentResolver();
+        Cursor cursor;
+        try {
+            cursor = contentResolver.query(
+                    CalendarContract.Events.CONTENT_URI,
+                    new String[]{CalendarContract.Events.CUSTOM_APP_URI},
+                    selection,
+                    selectionArgs,
+                    null);
+        } catch (IllegalAccessError e) {
+            e.printStackTrace();
+            cursor = contentResolver.query(
+                    CalendarContract.Events.CONTENT_URI,
+                    null,
+                    selection,
+                    selectionArgs,
+                    null);
+        }
+
         if (cursor == null)
             return null;
 
