@@ -1,7 +1,6 @@
 #!/usr/bin/ruby
 
 require 'net/https'
-require 'cgi'
 require 'json'
 
 OUTPUT_PATH = File.join(__dir__, '..', 'app', 'src', 'main', 'res', 'raw')
@@ -15,23 +14,22 @@ File.delete(*old_files) if old_files.any?
 
 def get_pad(key)
 
-  conn = Net::HTTP.new('notepad.pw', 443)
+  conn = Net::HTTP.new('jsonblob.com', 443)
   conn.use_ssl = true
   conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-  req = Net::HTTP::Get.new("/raw/#{key}")
+  req = Net::HTTP::Get.new("/api/jsonBlob/#{key}")
   res = conn.request(req)
   
-  matches = res.body.match(%r(<pre.*?>(?<json>.*)?</pre>))
-  JSON.parse(CGI.unescapeHTML(matches[:json]))
+  JSON.parse(res.body)
 end
 
 
 
 
-masters = get_pad('q79vdcc1t')
+masters = get_pad('9d4791dc-1bd4-11e8-88aa-9d6752c34362')
 maps = masters.map do |master|
-  get_pad(master['key']) unless master["name"].nil?
+  get_pad(master['key'])
 end.compact
 
 maps.each do |cluster_map|
