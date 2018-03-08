@@ -93,6 +93,7 @@ dependencies {
     implementation 'org.mapsforge:svg-android:0.4.3'
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
     implementation 'org.parceler:parceler-api:1.1.6'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

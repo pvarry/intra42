@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.ImageViewerActivity;
 import com.paulvarry.intra42.activities.LocationHistoryActivity;
 import com.paulvarry.intra42.adapters.SpinnerAdapterCursusAccent;
 import com.paulvarry.intra42.api.ApiService42Tools;
@@ -277,6 +278,7 @@ public class UserOverviewFragment
         } else
             groupPiscine.setVisibility(View.GONE);
 
+        imageViewProfile.setOnClickListener(this);
         buttonFriend.setOnClickListener(this);
 
         layoutPhone.setOnClickListener(this);
@@ -380,6 +382,8 @@ public class UserOverviewFragment
             } else {
                 api.deleteFriend(friendsRelation.id).enqueue(removeFriend);
             }
+        } else if (v == imageViewProfile) {
+            ImageViewerActivity.openIt(getContext(), user.login);
         }
     }
 

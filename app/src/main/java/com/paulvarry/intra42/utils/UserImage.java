@@ -68,7 +68,7 @@ public class UserImage {
         return getRequestCreator(context, user, type);
     }
 
-    private static RequestCreator getRequestCreator(Context context, UsersLTE user, String type) {
+    public static RequestCreator getRequestCreator(Context context, UsersLTE user, String type) {
         Picasso picasso = Picasso.with(context);
         RequestCreator requestCreator;
 
