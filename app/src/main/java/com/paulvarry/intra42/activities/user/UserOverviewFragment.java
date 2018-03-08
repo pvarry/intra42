@@ -3,17 +3,23 @@ package com.paulvarry.intra42.activities.user;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,14 +35,15 @@ import com.paulvarry.intra42.adapters.SpinnerAdapterCursusAccent;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.CursusUsers;
+import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.tools42.Friends;
+import com.paulvarry.intra42.ui.TagSpanGenerator;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
-import com.plumillonforge.android.chipview.ChipView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,39 +63,40 @@ public class UserOverviewFragment
 
     final static private String STATE_SELECTED_CURSUS = "selected_cursus";
     @Nullable
-    UserActivity activity;
-    Users user;
-    Friends friendsRelation;
-    SwipeRefreshLayout swipeRefreshLayout;
-    ViewGroup layoutPhone;
-    ImageButton imageButtonSMS;
-    ViewGroup layoutMail;
-    ViewGroup layoutLocation;
-    ImageView imageViewProfile;
-    ImageButton imageButtonFriends;
-    ProgressBar progressBarFriends;
-    ChipView chipViewTags;
-    TextView textViewName;
-    TextView textViewMobile;
-    TextView textViewMail;
-    TextView textViewPosition;
-    TextView textViewWallet;
-    TextView textViewCorrectionPoints;
-    TextView textViewPiscine;
-    View linePool;
-    LinearLayout linearLayoutPool;
-    Spinner spinnerCursus;
-    LinearLayout linearLayoutGrade;
-    View viewSeparatorGrade;
-    TextView textViewGrade;
-    TextView textViewLvl;
-    ProgressBar progressBarLevel;
-    TextView textViewNoCursusAvailable;
-    LinearLayout linearLayoutCursus;
-    TextView textViewCursusDate;
-    AppClass app;
+    private UserActivity activity;
+    private AppClass app;
+    private Users user;
+    private Friends friendsRelation;
+    private OnFragmentInteractionListener mListener;
 
-    Callback<Friends> checkFriend = new Callback<Friends>() {
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ViewGroup layoutPhone;
+    private View separatorPhone;
+    private ImageButton imageButtonSMS;
+    private ViewGroup layoutMail;
+    private ViewGroup layoutLocation;
+    private ImageView imageViewProfile;
+    private Button buttonFriend;
+    private ProgressBar progressBarFriends;
+    private TextView textViewName;
+    private TextView textViewMobile;
+    private TextView textViewMail;
+    private TextView textViewPosition;
+    private TextView textViewWallet;
+    private TextView textViewCorrectionPoints;
+    private TextView textViewPiscine;
+    private Group groupPiscine;
+    private Spinner spinnerCursus;
+    private LinearLayout linearLayoutGrade;
+    private View viewSeparatorGrade;
+    private TextView textViewGrade;
+    private TextView textViewLvl;
+    private ProgressBar progressBarLevel;
+    private TextView textViewNoCursusAvailable;
+    private LinearLayout linearLayoutCursus;
+    private TextView textViewCursusDate;
+
+    private Callback<Friends> checkFriend = new Callback<Friends>() {
         @Override
         public void onResponse(Call<Friends> call, Response<Friends> response) {
             friendsRelation = null;
@@ -106,8 +114,7 @@ public class UserOverviewFragment
             setButtonFriends(-1);
         }
     };
-
-    Callback<Friends> addFriend = new Callback<Friends>() {
+    private Callback<Friends> addFriend = new Callback<Friends>() {
         @Override
         public void onResponse(Call<Friends> call, Response<Friends> response) {
             if (Tools.apiIsSuccessfulNoThrow(response)) {
@@ -125,8 +132,7 @@ public class UserOverviewFragment
             setButtonFriends(-1);
         }
     };
-
-    Callback<Void> removeFriend = new Callback<Void>() {
+    private Callback<Void> removeFriend = new Callback<Void>() {
         @Override
         public void onResponse(Call<Void> call, Response<Void> response) {
             if (Tools.apiIsSuccessfulNoThrow(response)) {
@@ -141,8 +147,6 @@ public class UserOverviewFragment
             setButtonFriends(-1);
         }
     };
-
-    private OnFragmentInteractionListener mListener;
 
     public UserOverviewFragment() {
         // Required empty public constructor
@@ -164,26 +168,27 @@ public class UserOverviewFragment
         super.onCreate(savedInstanceState);
 
         activity = (UserActivity) getActivity();
-        user = activity.user;
-
-        app = (AppClass) activity.getApplication();
+        if (activity != null) {
+            user = activity.user;
+            app = (AppClass) activity.getApplication();
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_overview, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         layoutPhone = view.findViewById(R.id.layoutPhone);
+        separatorPhone = view.findViewById(R.id.separatorPhone);
         imageButtonSMS = view.findViewById(R.id.imageButtonSMS);
         layoutMail = view.findViewById(R.id.layoutMail);
         layoutLocation = view.findViewById(R.id.layoutLocation);
         imageViewProfile = view.findViewById(R.id.imageViewProfile);
-        imageButtonFriends = view.findViewById(R.id.imageButtonFriends);
+        buttonFriend = view.findViewById(R.id.buttonFriend);
         progressBarFriends = view.findViewById(R.id.progressBarFriends);
-        chipViewTags = view.findViewById(R.id.chipViewTags);
 
         textViewName = view.findViewById(R.id.textViewName);
         textViewMobile = view.findViewById(R.id.textViewMobile);
@@ -191,9 +196,8 @@ public class UserOverviewFragment
         textViewPosition = view.findViewById(R.id.textViewPosition);
         textViewWallet = view.findViewById(R.id.textViewWallet);
         textViewCorrectionPoints = view.findViewById(R.id.textViewCorrectionPoints);
-        linePool = view.findViewById(R.id.viewPool);
-        linearLayoutPool = view.findViewById(R.id.linearLayoutPool);
         textViewPiscine = view.findViewById(R.id.textViewPiscine);
+        groupPiscine = view.findViewById(R.id.groupPiscine);
 
         linearLayoutCursus = view.findViewById(R.id.linearLayoutCursus);
         textViewNoCursusAvailable = view.findViewById(R.id.textViewNoCursusAvailable);
@@ -234,10 +238,14 @@ public class UserOverviewFragment
 
         String name = user.displayName + " - " + user.login;
         textViewName.setText(name);
-        if (user.phone == null || user.phone.isEmpty())
+        if (user.phone == null || user.phone.isEmpty()) {
             layoutPhone.setVisibility(View.GONE);
-        else
+            separatorPhone.setVisibility(View.GONE);
+        } else {
+            layoutPhone.setVisibility(View.VISIBLE);
+            separatorPhone.setVisibility(View.VISIBLE);
             textViewMobile.setText(user.phone);
+        }
         textViewMail.setText(user.email);
 
         StringBuilder strLocation = new StringBuilder();
@@ -254,7 +262,8 @@ public class UserOverviewFragment
             }
         }
         textViewPosition.setText(strLocation);
-        textViewWallet.setText(String.valueOf(user.wallet));
+        String wallet = String.valueOf(user.wallet) + " ₳";
+        textViewWallet.setText(wallet);
         textViewCorrectionPoints.setText(String.valueOf(user.correction_point));
 
         String pool = "";
@@ -263,13 +272,12 @@ public class UserOverviewFragment
         if (user.pool_year != null)
             pool += user.pool_year;
         if (user.pool_year != null || user.pool_month != null) {
+            groupPiscine.setVisibility(View.VISIBLE);
             textViewPiscine.setText(pool);
-            linearLayoutPool.setVisibility(View.VISIBLE);
-            linePool.setVisibility(View.VISIBLE);
-        } else {
-            linearLayoutPool.setVisibility(View.GONE);
-            linePool.setVisibility(View.GONE);
-        }
+        } else
+            groupPiscine.setVisibility(View.GONE);
+
+        buttonFriend.setOnClickListener(this);
 
         layoutPhone.setOnClickListener(this);
         imageButtonSMS.setOnClickListener(this);
@@ -299,7 +307,16 @@ public class UserOverviewFragment
         }
 
         UserImage.setImage(getContext(), user, imageViewProfile);
-        Tag.setTagUsers(getContext(), user.groups, chipViewTags);
+
+        TagSpanGenerator span = new TagSpanGenerator.Builder(getContext())
+                .setTextSize(textViewName.getTextSize())
+                .build();
+        span.addText(user.displayName + " ");
+        for (Tags tag : user.groups) {
+
+            span.addTag(tag.name, Tag.getUsersTagColor(tag));
+        }
+        textViewName.setText(span.getString());
 
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -329,7 +346,7 @@ public class UserOverviewFragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         if (spinnerCursus != null)
@@ -353,7 +370,7 @@ public class UserOverviewFragment
             startActivity(testIntent);
         } else if (v == layoutLocation) {
             LocationHistoryActivity.openItWithUser(getContext(), user);
-        } else if (v == imageButtonFriends) {
+        } else if (v == buttonFriend) {
             ApiService42Tools api = app.getApiService42Tools();
 
             setButtonFriends(0);
@@ -379,27 +396,34 @@ public class UserOverviewFragment
 
         if (state == 0) {
             progressBarFriends.setVisibility(View.VISIBLE);
-            imageButtonFriends.setVisibility(View.GONE);
+            buttonFriend.setActivated(false);
         } else {
             progressBarFriends.setVisibility(View.GONE);
-            imageButtonFriends.setVisibility(View.VISIBLE);
+            buttonFriend.setActivated(true);
         }
 
         if (state == 1) {
-            imageButtonFriends.setOnClickListener(this);
-            imageButtonFriends.setOnLongClickListener(this);
-            if (friendsRelation != null)
-                imageButtonFriends.setColorFilter(Color.argb(255, 247, 202, 24));
-            else
-                imageButtonFriends.setColorFilter(Color.argb(255, 255, 255, 255));
+            buttonFriend.setActivated(true);
+            if (friendsRelation == null) {
+                buttonFriend.setText(R.string.user_profile_add_to_friends);
+                TypedValue typedValue = new TypedValue();
+                Context context = getContext();
+                if (context == null)
+                    return;
+                Resources.Theme theme = context.getTheme();
+                theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
+                @ColorInt int color = typedValue.data;
+                buttonFriend.setTextColor(color);
+
+            } else {
+                buttonFriend.setText(R.string.user_profile_remove_from_friends);
+                buttonFriend.setTextColor(getResources().getColor(R.color.colorGray));
+            }
             return;
         }
 
-        imageButtonFriends.setOnClickListener(null);
-        imageButtonFriends.setOnLongClickListener(null);
-
         if (state == -1)
-            imageButtonFriends.setColorFilter(Color.argb(200, 150, 150, 150));
+            buttonFriend.setTextColor(Color.argb(200, 150, 150, 150));
     }
 
     /**
@@ -497,6 +521,8 @@ public class UserOverviewFragment
 
     void dialogCopyOrShare(final String string) {
         final Context context = getContext();
+        if (context == null)
+            return;
         CharSequence action[] = new CharSequence[]{
                 context.getString(R.string.copy),
                 context.getString(R.string.navigation_share)};

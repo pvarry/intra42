@@ -602,4 +602,7 @@ Guideline: Cluster orientation
     <string name="user_open_it_not_found">Users not found</string>
     <string name="project_scale_feedback">Feedback</string>
     <string name="friends_info_api_data_processing">Friends API is currently processing new data, your friends will be added shortly</string>
+    <string name="user_profile_grade_rank">Grade</string>
+    <string name="user_profile_add_to_friends">Add as friends</string>
+    <string name="user_profile_remove_from_friends">Remove from friends</string>
 </resources>
