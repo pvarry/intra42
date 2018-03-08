@@ -237,8 +237,19 @@ public class UserOverviewFragment
         ApiService42Tools api = app.getApiService42Tools();
         api.getFriend(user.id).enqueue(checkFriend);
 
-        String name = user.displayName + " - " + user.login;
-        textViewName.setText(name);
+        TagSpanGenerator span = new TagSpanGenerator.Builder(getContext())
+                .setTextSize(textViewName.getTextSize())
+                .build();
+        span.addText(user.displayName + " - " + user.login);
+        if (user.groups != null && !user.groups.isEmpty()) {
+            span.addText(" ");
+            for (Tags tag : user.groups) {
+                span.addTag(tag.name, Tag.getUsersTagColor(tag));
+            }
+        }
+        textViewName.setText(span.getString());
+
+
         if (user.phone == null || user.phone.isEmpty()) {
             layoutPhone.setVisibility(View.GONE);
             separatorPhone.setVisibility(View.GONE);
@@ -309,16 +320,6 @@ public class UserOverviewFragment
         }
 
         UserImage.setImage(getContext(), user, imageViewProfile);
-
-        TagSpanGenerator span = new TagSpanGenerator.Builder(getContext())
-                .setTextSize(textViewName.getTextSize())
-                .build();
-        span.addText(user.displayName + " ");
-        for (Tags tag : user.groups) {
-
-            span.addTag(tag.name, Tag.getUsersTagColor(tag));
-        }
-        textViewName.setText(span.getString());
 
         swipeRefreshLayout.setRefreshing(false);
     }
