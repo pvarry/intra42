@@ -150,7 +150,7 @@ public class SectionListView extends BaseAdapter
 
         public final int type;
         public final T item;
-        public final String title;
+        public String title;
 
         public Item(int type, T item, String defaultTitle) {
             this.type = type;

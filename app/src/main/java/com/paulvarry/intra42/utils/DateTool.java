@@ -4,20 +4,47 @@ import android.content.Context;
 
 import com.paulvarry.intra42.R;
 
+import org.ocpsoft.prettytime.Duration;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 public class DateTool extends java.util.Date {
 
-    static public String getDurationAgo(java.util.Date date) {
+    static public String getDurationAgo(Date date) {
         PrettyTime p = new PrettyTime(Locale.getDefault());
         return p.format(date);
+    }
+
+    static public String getDuration(Date before, Date after) {
+        if (before == null || after == null)
+            return null;
+
+        Date date = new Date();
+        date.setTime(date.getTime() - (after.getTime() - before.getTime()));
+        PrettyTime prettyTime = new PrettyTime(Locale.getDefault());
+        List<Duration> duration = prettyTime.calculatePreciseDuration(date);
+        prettyTime.formatDurationUnrounded(duration);
+
+        return prettyTime.formatDurationUnrounded(duration);
+    }
+
+
+    static public String getDuration(Date date) {
+        if (date == null)
+            return null;
+
+        PrettyTime prettyTime = new PrettyTime(Locale.getDefault());
+        List<Duration> duration = prettyTime.calculatePreciseDuration(date);
+        prettyTime.formatDurationUnrounded(duration);
+
+        return prettyTime.formatDurationUnrounded(duration);
     }
 
     static public boolean isToday(java.util.Date date) {

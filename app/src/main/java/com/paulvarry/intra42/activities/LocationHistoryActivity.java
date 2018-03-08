@@ -20,6 +20,7 @@ import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.halfbit.pinnedsection.PinnedSectionListView;
@@ -95,16 +96,72 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
     public void setViewContent() {
         items = new ArrayList<>();
         Locations curLocation;
+        boolean needNewSection;
+        String title;
+        SectionListView.Item currentSectionTitle = null;
+        List<Locations> locationInThisSection = null;
 
         for (int i = 0; i < locations.size(); i++) {
             curLocation = locations.get(i);
+            needNewSection = false;
 
+            // ***** compute section (if needed) *****
             if (i > 0 && i - 1 < locations.size()) {
-                if (!DateTool.sameDayOf(locations.get(i).beginAt, locations.get(i - 1).beginAt))
-                    items.add(new SectionListView.Item<Locations>(SectionListView.Item.SECTION, null, DateTool.getDateLong(curLocation.beginAt)));
+                if (!DateTool.sameDayOf(locations.get(i).beginAt, locations.get(i - 1).beginAt)) // add a new section ?
+                    needNewSection = true;
             } else if (i == 0)
-                items.add(new SectionListView.Item<Locations>(SectionListView.Item.SECTION, null, DateTool.getDateLong(curLocation.beginAt)));
-            items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, curLocation, (host != null ? curLocation.user.login : curLocation.host)));
+                needNewSection = true;
+
+            if (needNewSection) {
+
+                if (login != null && locationInThisSection != null) { // add duration ?
+                    Date date = new Date();
+                    boolean plusplus = false;
+                    for (Locations locationTmp : locationInThisSection) {
+                        if (locationTmp.beginAt != null && locationTmp.endAt != null)
+                            date.setTime(date.getTime() - (locationTmp.beginAt.getTime() - locationTmp.endAt.getTime()));
+                        else if (locationTmp.beginAt != null) {
+                            date.setTime(date.getTime() - (locationTmp.beginAt.getTime() - new Date().getTime()));
+                            plusplus = true;
+                        }
+                    }
+                    currentSectionTitle.title += " • " + DateTool.getDuration(date);
+                    if (plusplus)
+                        currentSectionTitle.title += " ++";
+                }
+
+                currentSectionTitle = new SectionListView.Item<Locations>(SectionListView.Item.SECTION, null, DateTool.getDateLong(curLocation.beginAt));
+                items.add(currentSectionTitle);
+                locationInThisSection = new ArrayList<>();
+            }
+
+            // ***** compute item string *****
+            title = (host != null ? curLocation.user.login : curLocation.host);
+            if (login != null) { // add duration ?
+                if (curLocation.beginAt != null && curLocation.endAt != null)
+                    title += " • " + DateTool.getDuration(curLocation.beginAt, curLocation.endAt);
+                else if (curLocation.beginAt != null)
+                    title += " • " + DateTool.getDuration(curLocation.beginAt, new Date()) + " ++";
+            }
+            locationInThisSection.add(curLocation);
+
+            items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, curLocation, title));
+        }
+
+        if (login != null && locationInThisSection != null) { // add duration for last element ?
+            Date date = new Date();
+            boolean plusplus = false;
+            for (Locations locationTmp : locationInThisSection) {
+                if (locationTmp.beginAt != null && locationTmp.endAt != null)
+                    date.setTime(date.getTime() - (locationTmp.beginAt.getTime() - locationTmp.endAt.getTime()));
+                else if (locationTmp.beginAt != null) {
+                    date.setTime(date.getTime() - (locationTmp.beginAt.getTime() - new Date().getTime()));
+                    plusplus = true;
+                }
+            }
+            currentSectionTitle.title += " • " + DateTool.getDuration(date);
+            if (plusplus)
+                currentSectionTitle.title += " ++";
         }
 
         adapter = new SectionListView(this, items);
