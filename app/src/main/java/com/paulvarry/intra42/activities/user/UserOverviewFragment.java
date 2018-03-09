@@ -63,11 +63,13 @@ public class UserOverviewFragment
         implements View.OnClickListener, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, View.OnLongClickListener {
 
     final static private String STATE_SELECTED_CURSUS = "selected_cursus";
+    final static private String STATE_FRIEND = "isFriend";
+
     @Nullable
     private UserActivity activity;
     private AppClass app;
     private Users user;
-    private Friends friendsRelation;
+    private Boolean isFriend;
     private OnFragmentInteractionListener mListener;
 
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -100,26 +102,28 @@ public class UserOverviewFragment
     private Callback<Friends> checkFriend = new Callback<Friends>() {
         @Override
         public void onResponse(Call<Friends> call, Response<Friends> response) {
-            friendsRelation = null;
+            isFriend = null;
             if (Tools.apiIsSuccessfulNoThrow(response)) {
-                friendsRelation = response.body();
+                isFriend = true;
                 setButtonFriends(1);
-            } else if (response.code() == 404)
+            } else if (response.code() == 404) {
+                isFriend = false;
                 setButtonFriends(1);
-            else
+            } else
                 setButtonFriends(-1);
         }
 
         @Override
         public void onFailure(Call<Friends> call, Throwable t) {
+            isFriend = null;
             setButtonFriends(-1);
         }
     };
     private Callback<Friends> addFriend = new Callback<Friends>() {
         @Override
         public void onResponse(Call<Friends> call, Response<Friends> response) {
-            if (Tools.apiIsSuccessfulNoThrow(response)) {
-                friendsRelation = response.body();
+            if (Tools.apiIsSuccessfulNoThrow(response) || response.code() == 404) {
+                isFriend = true;
                 setButtonFriends(1);
             } else {
                 setButtonFriends(-1);
@@ -130,6 +134,7 @@ public class UserOverviewFragment
 
         @Override
         public void onFailure(Call<Friends> call, Throwable t) {
+            isFriend = null;
             setButtonFriends(-1);
         }
     };
@@ -137,7 +142,7 @@ public class UserOverviewFragment
         @Override
         public void onResponse(Call<Void> call, Response<Void> response) {
             if (Tools.apiIsSuccessfulNoThrow(response)) {
-                friendsRelation = null;
+                isFriend = false;
                 setButtonFriends(1);
             } else
                 setButtonFriends(-1);
@@ -145,6 +150,7 @@ public class UserOverviewFragment
 
         @Override
         public void onFailure(Call<Void> call, Throwable t) {
+            isFriend = null;
             setButtonFriends(-1);
         }
     };
@@ -172,6 +178,13 @@ public class UserOverviewFragment
         if (activity != null) {
             user = activity.user;
             app = (AppClass) activity.getApplication();
+        }
+
+        if (savedInstanceState != null) {
+            if (spinnerCursus != null)
+                spinnerCursus.setSelection(savedInstanceState.getInt(STATE_SELECTED_CURSUS), false);
+            if (savedInstanceState.containsKey(STATE_FRIEND))
+                isFriend = savedInstanceState.getBoolean(STATE_FRIEND);
         }
     }
 
@@ -212,9 +225,6 @@ public class UserOverviewFragment
 
         setView();
 
-        if (savedInstanceState != null && spinnerCursus != null)
-            spinnerCursus.setSelection(savedInstanceState.getInt(STATE_SELECTED_CURSUS), false);
-
         return view;
     }
 
@@ -233,9 +243,15 @@ public class UserOverviewFragment
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        setButtonFriends(0);
-        ApiService42Tools api = app.getApiService42Tools();
-        api.getFriend(user.id).enqueue(checkFriend);
+        if (user.equals(app.me)) {
+            progressBarFriends.setVisibility(View.GONE);
+            buttonFriend.setVisibility(View.GONE);
+        } else if (isFriend == null) {
+            setButtonFriends(0);
+            ApiService42Tools api = app.getApiService42Tools();
+            api.getFriend(user.id).enqueue(checkFriend);
+        } else
+            setButtonFriends(1);
 
         TagSpanGenerator span = new TagSpanGenerator.Builder(getContext())
                 .setTextSize(textViewName.getTextSize())
@@ -354,6 +370,8 @@ public class UserOverviewFragment
 
         if (spinnerCursus != null)
             outState.putInt(STATE_SELECTED_CURSUS, spinnerCursus.getSelectedItemPosition());
+        if (isFriend != null)
+            outState.putBoolean(STATE_FRIEND, isFriend);
     }
 
     @Override
@@ -377,11 +395,13 @@ public class UserOverviewFragment
             ApiService42Tools api = app.getApiService42Tools();
 
             setButtonFriends(0);
-            if (friendsRelation == null) { //add
+            if (isFriend == null)
+                return;
+            if (!isFriend) { //add
                 Call<Friends> friendsCall = api.addFriend(user.id);
                 friendsCall.enqueue(addFriend);
             } else {
-                api.deleteFriend(friendsRelation.id).enqueue(removeFriend);
+                api.deleteFriend(user.id).enqueue(removeFriend);
             }
         } else if (v == imageViewProfile) {
             ImageViewerActivity.openIt(getContext(), user.login);
@@ -407,9 +427,9 @@ public class UserOverviewFragment
             buttonFriend.setActivated(true);
         }
 
-        if (state == 1) {
+        if (state == 1 && isFriend != null) {
             buttonFriend.setActivated(true);
-            if (friendsRelation == null) {
+            if (!isFriend) {
                 buttonFriend.setText(R.string.user_profile_add_to_friends);
                 TypedValue typedValue = new TypedValue();
                 Context context = getContext();
@@ -424,10 +444,7 @@ public class UserOverviewFragment
                 buttonFriend.setText(R.string.user_profile_remove_from_friends);
                 buttonFriend.setTextColor(getResources().getColor(R.color.colorGray));
             }
-            return;
-        }
-
-        if (state == -1)
+        } else if (state == -1 || isFriend == null)
             buttonFriend.setTextColor(Color.argb(200, 150, 150, 150));
     }
 
