@@ -18,6 +18,7 @@ import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
+import com.paulvarry.intra42.activities.intro.IntroActivity;
 import com.paulvarry.intra42.activities.projects.ProjectsActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (intent == null)
-            intent = new Intent(getApplication(), HomeActivity.class);
+            intent = new Intent(getApplication(), IntroActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

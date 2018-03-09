@@ -226,7 +226,8 @@
         <activity
             android:name=".activities.ClusterMapContributeEditActivity"
             android:label="@string/title_activity_cluster_map_contribute_edit" />
-        <activity android:name=".activities.ImageViewerActivity"></activity>
+        <activity android:name=".activities.ImageViewerActivity" />
+        <activity android:name=".activities.intro.IntroActivity" />
     </application>
 
 </manifest>
