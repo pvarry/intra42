@@ -138,6 +138,7 @@ public class UserActivity extends BasicTabActivity
 
                             UserActivity.openIt(context, user);
 
+                            user.local_cachedAt = new Date();
                             String gson = ServiceGenerator.getGson().toJson(user);
                             CacheUsers.put(app.cacheSQLiteHelper, user, gson);
                         } else {
@@ -464,7 +465,11 @@ public class UserActivity extends BasicTabActivity
                     Response<List<Coalitions>> retCoalition = service.getUsersCoalitions(user.login).execute();
                     if (Tools.apiIsSuccessful(retCoalition))
                         user.coalitions = retCoalition.body();
+                }
+                if (Tools.apiIsSuccessful(ret) && user != null) {
                     CacheUsers.put(app.cacheSQLiteHelper, user);
+                    if (app.me != null && login != null && login.contentEquals(app.me.login))
+                        app.me = user;
                 }
             }
             if (user != null && user.cursusUsers != null && !user.cursusUsers.isEmpty()) {

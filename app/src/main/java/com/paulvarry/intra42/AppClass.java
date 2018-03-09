@@ -248,6 +248,7 @@ public class AppClass extends Application {
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = Users.me(api);
             if (me != null) {
+                me.local_cachedAt = new Date();
                 CacheUsers.put(cacheSQLiteHelper, me);
                 editor.putString(API_ME_LOGIN, me.login);
             }

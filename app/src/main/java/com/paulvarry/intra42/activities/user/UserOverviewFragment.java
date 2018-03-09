@@ -514,6 +514,9 @@ public class UserOverviewFragment
 
     }
 
+    /**
+     * Called when a swipe gesture triggers a refresh.
+     */
     @Override
     public void onRefresh() {
         if (activity != null)
