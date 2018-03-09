@@ -5,9 +5,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.MatrixCursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.BaseColumns;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -23,6 +25,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -196,6 +200,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         menuItemFilter = menu.findItem(R.id.filter);
 
         menuItemSearch = menu.findItem(R.id.search);
+
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = (SearchView) menuItemSearch.getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
@@ -210,6 +215,29 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             c.addRow(new Object[]{i, SuperSearch.suggestions[i]});
         }
         searchAdapter.changeCursor(c);
+
+        menuItemSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                toolbar.setBackgroundResource(R.drawable.search);
+                Handler h = new Handler();
+                h.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        changeThemeForSearch(toolbar);
+                    }
+                });
+
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                toolbar.setBackground(null);
+                clearThemeAfterSearch(toolbar);
+                return true;
+            }
+        });
 
         // Getting selected (clicked) item suggestion
         searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
@@ -249,6 +277,37 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         });
 
         return true;
+    }
+
+    public void changeThemeForSearch(ViewGroup parent) {
+        for (int i = parent.getChildCount() - 1; i >= 0; i--) {
+            final View child = parent.getChildAt(i);
+            if (child instanceof ViewGroup)
+                changeThemeForSearch((ViewGroup) child);
+            else {
+                if (child instanceof TextView) {
+                    ((TextView) child).setTextColor(Color.rgb(44, 44, 44));
+                } else if (child instanceof AppCompatImageView && child.getId() == R.id.search_close_btn) {
+                    ((AppCompatImageView) child).setColorFilter(Color.rgb(44, 44, 44));
+                } else if (child instanceof AppCompatImageView) {
+                    ((AppCompatImageView) child).setColorFilter(Color.rgb(177, 177, 177));
+                } else if (child instanceof AppCompatImageButton) {
+                    ((AppCompatImageButton) child).setColorFilter(Color.rgb(177, 177, 177));
+                }
+            }
+        }
+    }
+
+    public void clearThemeAfterSearch(ViewGroup parent) {
+        for (int i = parent.getChildCount() - 1; i >= 0; i--) {
+            final View child = parent.getChildAt(i);
+            if (child instanceof ViewGroup)
+                clearThemeAfterSearch((ViewGroup) child);
+            else {
+                if (child instanceof AppCompatImageView)
+                    ((AppCompatImageView) child).setColorFilter(Color.rgb(255, 255, 255));
+            }
+        }
     }
 
     /**

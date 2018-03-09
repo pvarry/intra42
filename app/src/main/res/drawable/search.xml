@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Drop Shadow Stack -->
+    <item
+        android:bottom="4dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="4dp">
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <gradient android:color="#00CCCCCC" />
+
+            <corners android:radius="@dimen/cardview_default_radius" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="6dp"
+        android:left="6dp"
+        android:right="6dp"
+        android:top="6dp">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/cardview_light_background" />
+            <!--<solid android:color="#ff0000" />-->
+
+            <corners android:radius="@dimen/cardview_default_radius" />
+        </shape>
+    </item>
+</layer-list>
