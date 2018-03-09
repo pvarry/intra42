@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -47,7 +48,6 @@ import com.squareup.picasso.RequestCreator;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private LinearLayout linearLayoutContent;
     private LinearLayout linearLayoutFriends;
     private LinearLayout linearLayoutCantinaMenu;
     private LinearLayout linearLayoutCoalitions;
@@ -90,21 +90,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
 
         fragment = this;
         activity = (HomeActivity) getActivity();
-        app = (AppClass) getActivity().getApplication();
+        if (activity != null)
+            app = (AppClass) activity.getApplication();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        linearLayoutContent = view.findViewById(R.id.linearLayoutContent);
         linearLayoutFriends = view.findViewById(R.id.linearLayoutFriends);
         linearLayoutCantinaMenu = view.findViewById(R.id.linearLayoutCantinaMenu);
         linearLayoutTimeOnCampus = view.findViewById(R.id.linearLayoutTimeOnCampus);
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         imageButtonClosePOEditor = view.findViewById(R.id.imageButtonClosePOEditor);
         linearLayoutCoalitions = view.findViewById(R.id.linearLayoutCoalitions);
 
-        linearLayoutContent.setVisibility(View.GONE);
+        swipeRefreshLayout.setVisibility(View.GONE);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         if (app.me != null && AppSettings.getAppCampus(app) != 7)
@@ -181,10 +181,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
 
     public void setView() {
         if (app.me == null) {
-            linearLayoutContent.setVisibility(View.GONE);
+            swipeRefreshLayout.setVisibility(View.GONE);
             textViewStatus.setVisibility(View.VISIBLE);
         } else {
-            linearLayoutContent.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
             textViewStatus.setVisibility(View.GONE);
 
             linearLayoutFriends.setOnClickListener(this);
@@ -220,7 +220,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
 
                 progressBarLevel.setProgress((int) (mainCursus.level / 21.0 * 100.0));
                 StringBuilder lvl = new StringBuilder();
-                lvl.append(getContext().getString(R.string.user_level)).append(": ").append(mainCursus.level);
+                lvl.append(activity.getString(R.string.user_level)).append(": ").append(mainCursus.level);
                 textViewLevel.setText(lvl);
 
             } else {
@@ -278,7 +278,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED ||
                                     ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
 
-                                ActivityCompat.requestPermissions(getActivity(),
+                                ActivityCompat.requestPermissions(activity,
                                         new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR},
                                         HomeActivity.PERMISSIONS_REQUEST_CALENDAR);
                             } else {
