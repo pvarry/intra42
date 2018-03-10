@@ -1,13 +1,16 @@
 package com.paulvarry.intra42.activities.intro;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.paulvarry.intra42.R;
 
@@ -47,6 +50,20 @@ public class IntroTranslationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_intro_translation, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button buttonOpenPoeditor = view.findViewById(R.id.buttonOpenPoeditor);
+        buttonOpenPoeditor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.POEditor_link)));
+                startActivity(intent);
+            }
+        });
     }
 
     public void onButtonPressed(Uri uri) {

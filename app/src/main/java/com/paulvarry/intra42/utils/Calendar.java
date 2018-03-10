@@ -13,6 +13,7 @@ import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
 import android.util.SparseArray;
 
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
@@ -285,6 +286,10 @@ public class Calendar {
 
     public static boolean setEnableCalendarWithAutoSelect(Context context, boolean enable) {
         AppSettings.Notifications.setEnableCalendar(context, enable);
+        if (enable) {
+            AppSettings.Notifications.setNotificationsAllow(context, true);
+            AppClass.scheduleAlarm(context);
+        }
         if (enable && AppSettings.Notifications.getSelectedCalendar(context) == -1) {
             SparseArray<String> array = getCalendarListPrimary(context);
             if (array == null || array.size() == 0)

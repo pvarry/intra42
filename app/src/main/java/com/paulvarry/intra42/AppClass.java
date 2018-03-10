@@ -152,6 +152,9 @@ public class AppClass extends Application {
                 Date now = new Date();
                 edit.putString(AppClass.PREFS_CACHE_LAST_CHECK, ISO8601Utils.format(now));
             }
+            if (appVersion <= 20180310)
+                edit.remove("POEditor_activated");
+
             edit.apply();
         }
 

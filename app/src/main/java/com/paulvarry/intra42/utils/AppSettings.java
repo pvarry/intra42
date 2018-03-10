@@ -21,7 +21,7 @@ import com.paulvarry.intra42.api.model.Users;
  */
 public class AppSettings {
 
-    final static String PREFERENCE_POEDITOR_ACTIVATED = "POEditor_activated";
+    final static String PREFERENCE_INTRODUCTION_FINISHED = "introduction_finished";
 
     public static SharedPreferences getSharedPreferences(Context context) {
         if (context == null)
@@ -83,27 +83,27 @@ public class AppSettings {
         return -1;
     }
 
-    public static boolean getPOEditorActivated(Context context) {
+    public static boolean getIntroductionFinished(Context context) {
         if (context == null)
             return true;
         else
-            return getPOEditorActivated(getSharedPreferences(context));
+            return getIntroductionFinished(getSharedPreferences(context));
     }
 
-    public static boolean getPOEditorActivated(SharedPreferences settings) {
-        return settings.getBoolean(PREFERENCE_POEDITOR_ACTIVATED, true);
+    public static boolean getIntroductionFinished(SharedPreferences settings) {
+        return settings.getBoolean(PREFERENCE_INTRODUCTION_FINISHED, true);
     }
 
-    public static void setPOEditorActivated(Context context, boolean activated) {
+    public static void setIntruductionFinished(Context context, boolean activated) {
         if (context == null)
             return;
         else
-            setPOEditorActivated(getSharedPreferences(context), activated);
+            setIntruductionFinished(getSharedPreferences(context), activated);
     }
 
-    public static void setPOEditorActivated(SharedPreferences settings, boolean activated) {
+    public static void setIntruductionFinished(SharedPreferences settings, boolean activated) {
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(PREFERENCE_POEDITOR_ACTIVATED, activated);
+        editor.putBoolean(PREFERENCE_INTRODUCTION_FINISHED, activated);
         editor.apply();
     }
 

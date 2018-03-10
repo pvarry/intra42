@@ -605,4 +605,14 @@ Guideline: Cluster orientation
     <string name="user_profile_grade_rank">Grade</string>
     <string name="user_profile_add_to_friends">Add as friends</string>
     <string name="user_profile_remove_from_friends">Remove from friends</string>
+    <string name="introduction_calendar_title">Sync your calendar</string>
+    <string name="introduction_calendar_description">You can automatically insert subscribed events in your phone calendar</string>
+    <string name="introduction_calendar_action">Allow calendar</string>
+    <string name="introduction_calendar_switch">Enable Calendar sync</string>
+    <string name="introduction_calendar_image_content_description">calendar illustration</string>
+    <string name="introduction_translation_title">Join the Translate Community</string>
+    <string name="introduction_translation_description">If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor.</string>
+    <string name="introduction_translation_action">Open project</string>
+    <string name="introduction_translation_text_bottom">All the grammar Nazi are welcome</string>
+    <string name="introduction_translate_image_content_description">translate illustration</string>
 </resources>
