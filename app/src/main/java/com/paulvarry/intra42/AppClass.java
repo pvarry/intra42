@@ -74,6 +74,9 @@ public class AppClass extends Application {
 
     public static void scheduleAlarm(Context context) {
 
+        if (!ServiceGenerator.have42Token())
+            return;
+
         SharedPreferences settings = AppSettings.getSharedPreferences(context);
         if (!AppSettings.Notifications.getNotificationsAllow(settings))
             return;

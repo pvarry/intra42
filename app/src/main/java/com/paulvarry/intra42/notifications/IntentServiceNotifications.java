@@ -7,16 +7,12 @@ import com.paulvarry.intra42.AppClass;
 
 public class IntentServiceNotifications extends IntentService {
 
-
-    String dateFilter;
-
     public IntentServiceNotifications() {
         super("IntentServiceNotifications");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
         NotificationsUtils.run(this, (AppClass) getApplication());
     }
 }

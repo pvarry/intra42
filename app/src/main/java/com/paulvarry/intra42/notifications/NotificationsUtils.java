@@ -369,38 +369,39 @@ public class NotificationsUtils {
 
     public static void run(Context context, AppClass app) {
 
-        if (app != null && app.userIsLogged(false)) {
+        if (app == null || app.userIsLogged(false))
+            return;
 
-            ApiService api = app.getApiServiceDisableRedirectActivity();
+        ApiService api = app.getApiServiceDisableRedirectActivity();
 
-            if (app.me == null) { // just get current user if cache reset
-                app.me = Users.me(api);
-                if (app.me != null)
-                    CacheUsers.put(app.cacheSQLiteHelper, app.me);
-                else
-                    return;
-            }
-
-            SharedPreferences settings;
-            settings = PreferenceManager.getDefaultSharedPreferences(context);
-            String dateFilter = NotificationsUtils.getDateSince(settings);
-            if (dateFilter == null)
+        if (app.me == null) { // just get current user if cache reset
+            app.me = Users.me(api);
+            if (app.me != null)
+                CacheUsers.put(app.cacheSQLiteHelper, app.me);
+            else
                 return;
+        }
 
-            // dateFilter = "2017-07-01T00:00:00.000Z" + "," + DateTool.getNowUTC();
+        SharedPreferences settings;
+        settings = PreferenceManager.getDefaultSharedPreferences(context);
+        String dateFilter = NotificationsUtils.getDateSince(settings);
+        if (dateFilter == null)
+            return;
 
-            if (AppSettings.Notifications.getNotificationsEvents(settings))
-                notifyEventsApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
-            if (AppSettings.Notifications.getNotificationsScales(settings)) {
-                notifyScalesApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
-                notifyImminentScalesApiCall(app, app.getApiServiceDisableRedirectActivity());
-            }
-            if (AppSettings.Notifications.getCalendarSync(context)) {
-                syncCalendarApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
-            }
+        // dateFilter = "2017-07-01T00:00:00.000Z" + "," + DateTool.getNowUTC();
+
+        if (AppSettings.Notifications.getNotificationsEvents(settings))
+            notifyEventsApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
+        if (AppSettings.Notifications.getNotificationsScales(settings)) {
+            notifyScalesApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
+            notifyImminentScalesApiCall(app, app.getApiServiceDisableRedirectActivity());
+        }
+        if (AppSettings.Notifications.getCalendarSync(context)) {
+            syncCalendarApiCall(app, app.getApiServiceDisableRedirectActivity(), dateFilter);
+        }
 //            if (AppSettings.Notifications.getNotificationsAnnouncements(settings))
 //                notifyAnnouncementsApiCall(app, apiService);
-        }
+
     }
 
     private static void notifyEventsApiCall(AppClass app, ApiService apiService, String dateFilter) {

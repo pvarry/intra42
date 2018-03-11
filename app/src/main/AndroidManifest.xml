@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
@@ -20,6 +21,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
+        <!-- - - - - - Meta data - - - - - -->
         <meta-data
             android:name="asset_statements"
             android:resource="@string/asset_statements" />
@@ -27,6 +30,28 @@
             android:name="android.app.default_searchable"
             android:value=".SearchableActivity" />
 
+        <!-- - - - - - Receiver - - - - - -->
+        <receiver android:name=".notifications.AlarmReceiverNotifications" />
+
+        <receiver android:name=".notifications.AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- - - - - - Service - - - - - -->
+        <service
+            android:name=".notifications.IntentServiceNotifications"
+            android:exported="false" />
+        <service
+            android:name=".notifications.IntentEvent"
+            android:exported="false" />
+        <service
+            android:name=".notifications.NotificationsJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- - - - - - Activity - - - - - -->
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
@@ -145,19 +170,6 @@
             android:name=".activities.clusterMap.ClusterMapActivity"
             android:label="@string/title_activity_cluster_map"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <receiver android:name=".notifications.AlarmReceiverNotifications" />
-
-        <service
-            android:name=".notifications.IntentServiceNotifications"
-            android:exported="false" />
-        <service
-            android:name=".notifications.IntentEvent"
-            android:exported="false" />
-        <service
-            android:name=".notifications.NotificationsJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <activity
             android:name=".activities.EventActivity"
             android:label="@string/title_activity_event"

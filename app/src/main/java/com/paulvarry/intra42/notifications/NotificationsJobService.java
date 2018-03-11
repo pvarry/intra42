@@ -13,11 +13,30 @@ import android.support.annotation.RequiresApi;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.utils.AppSettings;
 
+import java.util.List;
+
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class NotificationsJobService extends JobService {
+
     private static final int JOB_ID = 1;
 
     public static void schedule(Context context) {
+        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        if (jobScheduler == null)
+            return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (jobScheduler.getPendingJob(JOB_ID) != null)
+                return;
+        } else {
+            List<JobInfo> allPendingJobs = jobScheduler.getAllPendingJobs();
+            if (!allPendingJobs.isEmpty()) {
+                for (JobInfo j : allPendingJobs) {
+                    if (j.getId() == JOB_ID)
+                        return;
+                }
+            }
+        }
 
         SharedPreferences settings = AppSettings.getSharedPreferences(context);
         int notificationsFrequency = AppSettings.Notifications.getNotificationsFrequency(settings);
@@ -30,7 +49,7 @@ public class NotificationsJobService extends JobService {
         else
             builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
 
-        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+
         jobScheduler.schedule(builder.build());
     }
 

@@ -156,9 +156,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     app.initCache(true, MainActivity.this);
-
-                                    final Intent intent = new Intent(getApplication(), HomeActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    AppClass.scheduleAlarm(MainActivity.this);
 
                                     runOnUiThread(new Runnable() {
                                         @Override
