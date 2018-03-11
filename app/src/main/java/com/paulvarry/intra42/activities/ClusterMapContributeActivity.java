@@ -141,13 +141,15 @@ public class ClusterMapContributeActivity
      * Triggered when the activity start.
      * <p>
      * This method is run on main Thread, so you can make api call.
-     *
-     * @return Return ThreadStatusCode of what appending {@link GetDataOnMain#getDataOnMainThread()}.
      */
     @Override
-    public void getDataOnOtherThread() throws IOException, RuntimeException {
+    public void getDataOnOtherThread() throws RuntimeException {
 
         listCampus = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
+        if (listCampus == null) {
+            super.setViewStateThread(StatusCode.API_DATA_ERROR);
+            return;
+        }
 
         final Call<List<Master>> call = app.getApiServiceClusterMapContribute().getMasters();
 
@@ -309,7 +311,7 @@ public class ClusterMapContributeActivity
 
                 newCluster.campusId = 1;
                 int pos = spinnerCampus.getSelectedItemPosition();
-                if (pos < listCampus.size()) {
+                if (listCampus != null && pos < listCampus.size()) {
                     Campus c = listCampus.get(pos);
                     newCluster.campusId = c.id;
                 }

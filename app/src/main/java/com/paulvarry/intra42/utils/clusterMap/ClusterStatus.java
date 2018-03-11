@@ -77,6 +77,8 @@ public class ClusterStatus {
     }
 
     public Cluster getCluster(String prefix) {
+        if (clusters == null)
+            return null;
         for (Cluster c : clusters) {
             if (c.hostPrefix.contentEquals(prefix))
                 return c;

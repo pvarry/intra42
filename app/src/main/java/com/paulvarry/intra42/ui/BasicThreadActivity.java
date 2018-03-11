@@ -97,8 +97,6 @@ public abstract class BasicThreadActivity extends BasicActivity implements Navig
          * Triggered when the activity start.
          * <p>
          * This method is run on main Thread, so you can make api call.
-         *
-         * @return Return ThreadStatusCode of what appending {@link BasicThreadActivity.GetDataOnMain#getDataOnMainThread()}.
          */
         void getDataOnOtherThread() throws IOException, RuntimeException;
     }

@@ -419,6 +419,9 @@ public class UserOverviewFragment
      */
     void setButtonFriends(int state) {
 
+        if (!isAdded())
+            return;
+
         if (state == 0) {
             progressBarFriends.setVisibility(View.VISIBLE);
             buttonFriend.setActivated(false);

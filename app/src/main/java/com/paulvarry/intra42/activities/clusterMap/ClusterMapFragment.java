@@ -86,8 +86,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         }
         activity = (ClusterMapActivity) getActivity();
         vi = LayoutInflater.from(activity);
-        itemPadding2dp = Tools.dpToPx(getContext(), 2);
-        itemPadding3dp = Tools.dpToPx(getContext(), 3);
+        itemPadding2dp = Tools.dpToPx(activity, 2);
+        itemPadding3dp = Tools.dpToPx(activity, 3);
     }
 
     @Override
@@ -124,8 +124,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     void makeMap() {
 
         // set base item size
-        baseItemHeight = Tools.dpToPx(getContext(), 42);
-        baseItemWidth = Tools.dpToPx(getContext(), 35);
+        baseItemHeight = Tools.dpToPx(activity, 42);
+        baseItemWidth = Tools.dpToPx(activity, 35);
 
         if (clusterInfo == null || clusterInfo.map == null)
             return;
@@ -217,9 +217,9 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             imageViewContent.setBackgroundResource(R.color.windowBackground);
 
             if (location.highlight == null)
-                view.setBackgroundColor(Theme.getColorPrimary(getContext()));
+                view.setBackgroundColor(Theme.getColorPrimary(activity));
             else
-                view.setBackgroundColor(Theme.getColorAccent(getContext()));
+                view.setBackgroundColor(Theme.getColorAccent(activity));
         }
 
         return view;
