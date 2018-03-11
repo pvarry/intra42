@@ -90,7 +90,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineAction" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineAction"
+        tools:targetApi="lollipop" />
 
     <Switch
         android:id="@+id/switchEnableCalendar"
@@ -114,6 +115,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="50dp" />
-
 
 </android.support.constraint.ConstraintLayout>

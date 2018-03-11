@@ -24,6 +24,7 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
+import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Theme;
 import com.paulvarry.intra42.utils.Token;
 
@@ -203,8 +204,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (intent == null)
-            intent = new Intent(getApplication(), IntroActivity.class);
+        if (intent == null) {
+            if (AppSettings.getIntroductionFinished(this))
+                intent = new Intent(this, HomeActivity.class);
+            else
+                intent = new Intent(this, IntroActivity.class);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

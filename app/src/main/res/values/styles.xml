@@ -189,8 +189,12 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="colorPrimary">#E75110</item>
         <item name="colorControlActivated">#E75110</item>
-        <!--<item name="android:colorControlActivated">#E75110</item>-->
         <item name="android:background">#82D3F6</item>
+    </style>
+
+    <style name="Introduction.Translation" parent="AppTheme.NoActionBar">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">#4688F1</item>
     </style>
 
 </resources>

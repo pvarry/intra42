@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4688F1"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:theme="@style/Introduction.Translation">
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineVertical"
@@ -26,6 +27,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
         android:layout_weight="3"
+        android:background="#00ffffff"
         android:gravity="center"
         android:text="@string/introduction_translation_title"
         android:textColor="@android:color/white"
@@ -80,7 +82,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/textViewBottom"

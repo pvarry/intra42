@@ -20,6 +20,7 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.model.SliderPage;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.home.HomeActivity;
+import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
 
 public class IntroActivity
@@ -39,10 +40,10 @@ public class IntroActivity
         addSlide(IntroTranslationFragment.newInstance());
 
         SliderPage sliderPage = new SliderPage();
-        sliderPage.setTitle("Cluster Map");
-        sliderPage.setDescription("Cluster Map");
-        sliderPage.setImageDrawable(R.drawable.intro_sync_calendar);
-        sliderPage.setBgColor(Color.parseColor("#1EBBD1"));
+        sliderPage.setTitle(getString(R.string.introduction_cluster_map_contribute_title));
+        sliderPage.setDescription(getString(R.string.introduction_cluster_map_contribute_description));
+        sliderPage.setImageDrawable(R.drawable.intro_cluster_map);
+        sliderPage.setBgColor(Color.parseColor("#9C27B0"));
         addSlide(AppIntroFragment.newInstance(sliderPage));
 
         // OPTIONAL METHODS
@@ -74,6 +75,7 @@ public class IntroActivity
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
 
+        AppSettings.setIntroductionFinished(this, true);
         Intent intent = HomeActivity.getIntent(this);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

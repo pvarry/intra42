@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.intro.IntroActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 
 import java.util.ArrayList;
@@ -62,6 +62,9 @@ public class AboutActivity extends BasicThreadActivity {
         item = new Item(getString(R.string.about_report_bug), getString(R.string.about_on_github));
         list.add(item);
 
+        item = new Item(getString(R.string.about_show_introduction), null);
+        list.add(item);
+
         item = new Item(getString(R.string.about_library_list), null);
         list.add(item);
 
@@ -81,9 +84,12 @@ public class AboutActivity extends BasicThreadActivity {
                             Uri.parse(getString(R.string.Github_link_issues)));
                     startActivity(browserIntent);
                 } else if (i == 4) {
-                    Intent intent = new Intent(AboutActivity.this, LibraryListActivity.class);
+                    Intent intent = new Intent(AboutActivity.this, IntroActivity.class);
                     startActivity(intent);
                 } else if (i == 5) {
+                    Intent intent = new Intent(AboutActivity.this, LibraryListActivity.class);
+                    startActivity(intent);
+                } else if (i == 6) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.POEditor_link)));
                     startActivity(intent);
                 }
@@ -137,7 +143,7 @@ public class AboutActivity extends BasicThreadActivity {
             if (view == null) {
                 holder = new ViewHolder();
 
-                LayoutInflater vi = (LayoutInflater) AboutActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater vi = LayoutInflater.from(AboutActivity.this);
 
                 view = vi.inflate(R.layout.list_view_about, viewGroup, false);
                 holder.textViewName = view.findViewById(R.id.textViewName);

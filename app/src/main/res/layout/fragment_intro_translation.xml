@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4688F1"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:theme="@style/Introduction.Translation">
 
     <ImageView
         android:id="@+id/imageView"
@@ -51,6 +52,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
+        android:background="#00ffffff"
         android:gravity="center"
         android:text="@string/introduction_translation_description"
         android:textColor="@android:color/white"
@@ -72,7 +74,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/textViewBottom"

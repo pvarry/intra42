@@ -91,17 +91,15 @@ public class AppSettings {
     }
 
     public static boolean getIntroductionFinished(SharedPreferences settings) {
-        return settings.getBoolean(PREFERENCE_INTRODUCTION_FINISHED, true);
+        return settings.getBoolean(PREFERENCE_INTRODUCTION_FINISHED, false);
     }
 
-    public static void setIntruductionFinished(Context context, boolean activated) {
-        if (context == null)
-            return;
-        else
-            setIntruductionFinished(getSharedPreferences(context), activated);
+    public static void setIntroductionFinished(Context context, boolean activated) {
+        if (context != null)
+            setIntroductionFinished(getSharedPreferences(context), activated);
     }
 
-    public static void setIntruductionFinished(SharedPreferences settings, boolean activated) {
+    public static void setIntroductionFinished(SharedPreferences settings, boolean activated) {
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(PREFERENCE_INTRODUCTION_FINISHED, activated);
         editor.apply();
