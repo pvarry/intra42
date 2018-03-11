@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activities.AboutActivity">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/icon"
         app:srcCompat="@mipmap/ic_launcher" />

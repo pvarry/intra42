@@ -617,5 +617,5 @@ Guideline: Cluster orientation
     <string name="introduction_translate_image_content_description">translate illustration</string>
     <string name="about_show_introduction">Show Introduction</string>
     <string name="introduction_cluster_map_contribute_title">Contribute to Cluster Map</string>
-    <string name="introduction_cluster_map_contribute_description">Make available the cluster map of your campus for everyone, add or edit a cluster map layout directly from the app under cluster map section</string>
+    <string name="introduction_cluster_map_contribute_description">Add the Cluster Map for your campus directly from the app</string>
 </resources>
