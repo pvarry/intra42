@@ -404,7 +404,7 @@ public class UserOverviewFragment
                 api.deleteFriend(user.id).enqueue(removeFriend);
             }
         } else if (v == imageViewProfile) {
-            ImageViewerActivity.openIt(getContext(), user.login);
+            ImageViewerActivity.openIt(getContext(), user);
         }
     }
 
