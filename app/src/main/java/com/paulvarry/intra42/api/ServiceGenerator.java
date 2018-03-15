@@ -174,7 +174,7 @@ public class ServiceGenerator {
     }
 
     private static boolean isRateLimitException(Response ret) {
-        return ret.code() == 403 && ret.header("Retry-After") != null;
+        return ret.code() == 429;
     }
 
     private static int responseCount(Response response) {
@@ -431,12 +431,12 @@ public class ServiceGenerator {
         return accessTokenIntra42;
     }
 
-    public static void setToken(AccessToken tokenIntra) {
-        ServiceGenerator.accessTokenIntra42 = tokenIntra;
-    }
-
     public static void setToken(com.paulvarry.intra42.api.tools42.AccessToken tokenTools) {
         ServiceGenerator.accessToken42Tools = tokenTools;
+    }
+
+    public static void setToken(AccessToken tokenIntra) {
+        ServiceGenerator.accessTokenIntra42 = tokenIntra;
     }
 
     private static class AuthInterceptorRedirectActivity implements Interceptor {
