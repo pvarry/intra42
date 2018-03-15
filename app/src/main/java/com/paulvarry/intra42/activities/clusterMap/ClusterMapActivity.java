@@ -15,12 +15,10 @@ import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
-import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
@@ -42,20 +40,14 @@ public class ClusterMapActivity
         implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread, ClusterMapInfoFragment.OnFragmentInteractionListener {
 
     final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
-
-    List<Campus> campus = new ArrayList<>();
-    int campusId;
-
-    ClusterStatus clusterStatus;
-
-    DataWrapper dataWrapper;
-
     ClusterMapActivity.LayerStatus layerTmpStatus;
     String layerTmpLogin = "";
     String layerTmpProjectSlug = "";
     String layerTmpLocation = "";
-
     ProjectsUsers.Status layerTmpProjectStatus;
+    ClusterStatus clusterStatus;
+    private int campusId;
+    private DataWrapper dataWrapper;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapActivity.class);
@@ -72,25 +64,25 @@ public class ClusterMapActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        clusterStatus = new ClusterStatus();
-        clusterStatus.layerStatus = LayerStatus.FRIENDS;
-        clusterStatus.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+        dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
+        if (dataWrapper != null && dataWrapper.clusters != null) {
+            clusterStatus = dataWrapper.clusters;
+        } else {
+            clusterStatus = new ClusterStatus();
+            clusterStatus.layerStatus = LayerStatus.FRIENDS;
+            clusterStatus.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+            dataWrapper = null;
 
-        Intent i = getIntent();
-        if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT)) {
-            clusterStatus.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
-            clusterStatus.layerStatus = LayerStatus.LOCATION;
+            Intent i = getIntent();
+            if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT)) {
+                clusterStatus.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
+                clusterStatus.layerStatus = LayerStatus.LOCATION;
+            }
         }
 
         layerTmpLocation = clusterStatus.layerLocationPost;
         layerTmpStatus = clusterStatus.layerStatus;
         layerTmpProjectStatus = clusterStatus.layerProjectStatus;
-
-        dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
-        if (dataWrapper != null) {
-            clusterStatus = dataWrapper.clusters;
-            dataWrapper = null;
-        }
 
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
@@ -193,14 +185,6 @@ public class ClusterMapActivity
 
     @Override
     public ThreadStatusCode getDataOnMainThread() {
-
-        List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
-        if (campusCache != null) {
-            for (Campus c : campusCache) {
-                if (c.id == 1)
-                    campus.add(c);
-            }
-        }
 
         if (dataWrapper != null) {
             dataWrapper = null;

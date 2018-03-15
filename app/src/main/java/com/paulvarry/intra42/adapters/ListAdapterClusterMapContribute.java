@@ -215,7 +215,8 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
             Calendar c = Calendar.getInstance();
             c.setTime(item.locked_at);
             c.add(Calendar.MINUTE, ClusterMapContributeUtils.MINUTE_LOCK);
-            lockString = lockString.replace("_user_", item.locked_by);
+            if (item.locked_by != null)
+                lockString = lockString.replace("_user_", item.locked_by);
             lockString = lockString.replace("_time_", DateTool.getTimeShort(item.locked_at));
             lockString = lockString.replace("_timeFuture_", DateTool.getTimeShort(c.getTime()));
 
