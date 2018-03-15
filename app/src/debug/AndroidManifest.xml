@@ -70,6 +70,16 @@
 
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.intro.IntroActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter android:label="Intra42 project">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

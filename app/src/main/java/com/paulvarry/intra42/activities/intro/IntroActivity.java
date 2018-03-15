@@ -42,7 +42,7 @@ public class IntroActivity
         SliderPage sliderPage = new SliderPage();
         sliderPage.setTitle(getString(R.string.introduction_cluster_map_contribute_title));
         sliderPage.setDescription(getString(R.string.introduction_cluster_map_contribute_description));
-        sliderPage.setImageDrawable(R.drawable.intro_cluster_map);
+        sliderPage.setImageDrawable(R.drawable.intro_cluster_map_3);
         sliderPage.setBgColor(Color.parseColor("#9C27B0"));
         addSlide(AppIntroFragment.newInstance(sliderPage));
 
