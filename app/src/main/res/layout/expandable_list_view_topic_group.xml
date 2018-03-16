@@ -1,70 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:chip="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/icon_people"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_person_black_custom" />
+
+    <TextView
+        android:id="@+id/textViewLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonOption"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toTopOf="@+id/imageViewProfile" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="New Text"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewProfile"
+        app:layout_constraintStart_toStartOf="@+id/textViewLogin"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imageButtonOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#00ffffff"
+        android:contentDescription="@string/icon_menu"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewLogin"
+        app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/df"
+        android:layout_width="8dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewDate"
+        app:layout_constraintEnd_toEndOf="@+id/textViewLogin"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewDate"
+        app:layout_constraintTop_toTopOf="@+id/textViewDate">
 
-        <ImageView
-            android:id="@+id/imageViewProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/icon_people"
-            app:srcCompat="@drawable/ic_person_black_custom" />
+        <View
+            android:id="@+id/viewUp"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@color/topic_message_up_2" />
 
-        <include layout="@layout/include_topic_message_header" />
-
+        <View
+            android:id="@+id/viewDown"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@color/topic_message_down_2" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="New Text"
         android:textColor="@color/colorGrayDark"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutInfoTopic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+    <View
+        android:id="@+id/titleBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/shape_scale_teams_feedback"
-        android:orientation="vertical"
-        android:padding="8dp">
+        app:layout_constraintBottom_toBottomOf="@+id/chipViewTags"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewTitle" />
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMessage" />
 
-        <com.plumillonforge.android.chipview.ChipView
-            android:id="@+id/chipViewTags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            chip:chip_background="@color/deep_orange"
-            chip:chip_background_res="@drawable/chip_selector"
-            chip:chip_background_selected="@color/blue_grey"
-            chip:chip_line_spacing="20dp"
-            chip:chip_padding="10dp"
-            chip:chip_side_padding="10dp"
-            chip:chip_spacing="16dp" />
+    <com.plumillonforge.android.chipview.ChipView
+        android:id="@+id/chipViewTags"
+        android:layout_width="0dp"
+        android:layout_height="11dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintVertical_bias="0.478"
+        chip:chip_background="@color/deep_orange"
+        chip:chip_background_res="@drawable/chip_selector"
+        chip:chip_background_selected="@color/blue_grey"
+        chip:chip_line_spacing="20dp"
+        chip:chip_padding="10dp"
+        chip:chip_side_padding="10dp"
+        chip:chip_spacing="16dp" />
 
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.adapters;
 
-import android.content.Context;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -28,7 +26,6 @@ import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.plumillonforge.android.chipview.ChipView;
-import com.veinhorn.tagview.TagView;
 
 import java.util.List;
 
@@ -159,22 +156,20 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
         if (convertView == null) {
             holder = new ViewHolderParent();
 
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_group, null);
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_group, parent, false);
 
             holder.imageViewProfile = convertView.findViewById(R.id.imageViewProfile);
             holder.textViewLogin = convertView.findViewById(R.id.textViewLogin);
             holder.textViewMessage = convertView.findViewById(R.id.textViewMessage);
             holder.textViewDate = convertView.findViewById(R.id.textViewDate);
-            holder.tagView1 = convertView.findViewById(R.id.tagView1);
-            holder.tagView2 = convertView.findViewById(R.id.tagView2);
             holder.viewUp = convertView.findViewById(R.id.viewUp);
             holder.viewDown = convertView.findViewById(R.id.viewDown);
             holder.imageButtonOption = convertView.findViewById(R.id.imageButtonOption);
 
-            holder.linearLayoutInfoTopic = convertView.findViewById(R.id.linearLayoutInfoTopic);
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
             holder.chipViewTags = convertView.findViewById(R.id.chipViewTags);
+            holder.titleBackground = convertView.findViewById(R.id.titleBackground);
 
             convertView.setTag(holder);
         } else
@@ -190,13 +185,18 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
         if (groupPosition == 0 &&
                 topic.topic != null &&
                 topic.topic.message != null && topic.topic.message.id == message.id) {
-            holder.linearLayoutInfoTopic.setVisibility(View.VISIBLE);
+            holder.textViewTitle.setVisibility(View.VISIBLE);
+            holder.titleBackground.setVisibility(View.VISIBLE);
+            holder.chipViewTags.setVisibility(View.VISIBLE);
             holder.textViewTitle.setText(topic.topic.name);
 
             Tag.setTagForum(context, topic.topic.tags, holder.chipViewTags);
 
-        } else
-            holder.linearLayoutInfoTopic.setVisibility(View.GONE);
+        } else {
+            holder.textViewTitle.setVisibility(View.GONE);
+            holder.titleBackground.setVisibility(View.GONE);
+            holder.chipViewTags.setVisibility(View.GONE);
+        }
 
         holder.imageButtonOption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,15 +269,13 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_item, null);
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            convertView = layoutInflater.inflate(R.layout.expandable_list_view_topic_item, parent, false);
 
             holder.imageViewProfile = convertView.findViewById(R.id.imageViewProfile);
             holder.textViewLogin = convertView.findViewById(R.id.textViewLogin);
             holder.textViewMessage = convertView.findViewById(R.id.textViewMessage);
             holder.textViewDate = convertView.findViewById(R.id.textViewDate);
-            holder.tagView1 = convertView.findViewById(R.id.tagView1);
-            holder.tagView2 = convertView.findViewById(R.id.tagView2);
             holder.viewUp = convertView.findViewById(R.id.viewUp);
             holder.viewDown = convertView.findViewById(R.id.viewDown);
             holder.imageButtonOption = convertView.findViewById(R.id.imageButtonOption);
@@ -359,21 +357,19 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
 
     private static class ViewHolder {
 
-        protected ImageView imageViewProfile;
-        protected TextView textViewLogin;
-        protected TextView textViewMessage;
-        protected TextView textViewDate;
-        protected TagView tagView1;
-        protected TagView tagView2;
-        protected View viewUp;
-        protected View viewDown;
-        protected ImageButton imageButtonOption;
+        ImageView imageViewProfile;
+        TextView textViewLogin;
+        TextView textViewMessage;
+        TextView textViewDate;
+        View viewUp;
+        View viewDown;
+        ImageButton imageButtonOption;
 
     }
 
     private static class ViewHolderParent extends ViewHolder {
-        protected LinearLayout linearLayoutInfoTopic;
-        protected TextView textViewTitle;
-        protected ChipView chipViewTags;
+        TextView textViewTitle;
+        ChipView chipViewTags;
+        View titleBackground;
     }
 }
