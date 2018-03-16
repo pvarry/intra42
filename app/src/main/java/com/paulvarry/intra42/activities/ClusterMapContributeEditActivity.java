@@ -116,12 +116,13 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             if (cluster.map != null) {
                 for (int x = 0; x < cluster.map.length; x++) {
 
-                    for (int y = 0; y < cluster.map[x].length; y++) {
+                    if (cluster.map[x] != null)
+                        for (int y = 0; y < cluster.map[x].length; y++) {
 
-                        setLocation(cluster.map[x][y], x, y);
-                        if (y > sizeY)
-                            sizeY = y;
-                    }
+                            setLocation(cluster.map[x][y], x, y);
+                            if (y > sizeY)
+                                sizeY = y;
+                        }
                     if (x > sizeX)
                         sizeX = x;
                 }
@@ -224,17 +225,17 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     @Override
     protected void onSave(final Callback callBack) {
 
-        Location[][] tmp = new Location[allLocations.size()][];
+        Location[][] tmp = new Location[cluster.sizeX][];
         for (int i = 0; i < allLocations.size(); i++) {
             int keyI = allLocations.keyAt(i);
             SparseArray<Location> col = allLocations.get(keyI);
-            tmp[i] = new Location[col.size()];
+            tmp[keyI] = new Location[cluster.sizeY];
 
             for (int j = 0; j < col.size(); j++) {
                 int keyJ = col.keyAt(j);
                 Location cell = col.get(keyJ);
 
-                tmp[i][j] = cell;
+                tmp[keyI][keyJ] = cell;
                 //height
             }
         }
