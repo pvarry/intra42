@@ -402,13 +402,12 @@ You will lose a correction point"</string>
 <string name="info_attachment_no_app">"There are no applications installed to open this"</string>
 <string name="info_loading_page_on">"Loading page %d of %d"</string>
 <string name="info_loading_resolve_number_page">"Resolve number of page"</string>
-<string name="info_loading_topic">"Loading topic"</string>
-<string name="info_loading_topic_reply">"loading reply"</string>
+<string name="info_loading_topic">"Loading topic …"</string>
+<string name="info_loading_topic_reply">"Loading reply …"</string>
 <string name="info_loading_processing_data">"Processing data"</string>
 <string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
 <string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
 <string name="continue_editing">"continue editing"</string>
-<string name="discard_changes">"discard"</string>
 <string name="login_summary">"Intranet"</string>
 <string name="about_app_summary">"Unofficial, free and open-source App"</string>
 <string name="_super_store_title">"Intra 42"</string>
@@ -535,13 +534,88 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
 <string name="cluster_map_info_layer_spinner_main_location">"Computer"</string>
 <string name="cluster_map_info_data_layer_description">"With this feature you can change the highlighted posts (color around the user image profile) on the cluster map, you just have to select the data layer you want and click on \"update\"."</string>
 <string name="cluster_map_info_data_layer_error">"error on loading and/or applying layer"</string>
-<string name="cluster_map_info_contribute_description">"YOU can add and update the Cluster Map of YOUR campus."</string>
-<string name="cluster_map_info_contribute_title">"Contribute to Cluster Map"</string>
-<string name="cluster_map_info_no_map">"No cluster map available (soon you will be able to add your cluster)"</string>
+<string name="cluster_map_info_contribute_description">"Create, modify and fulfil cluster map for your campus. Help other students to find their friends from this map"</string>
+<string name="cluster_map_info_contribute_title">"Add missing cluster"</string>
+<string name="cluster_map_info_no_map">"No cluster map available"</string>
 <string name="cluster_map_info_vacant_posts_plural">"%d vacant posts"</string>
 <string name="cluster_map_info_vacant_posts_singular">"%d vacant post"</string>
 <string name="cluster_map_info_vacant_posts_nothing">"no vacant post"</string>
 <string name="cluster_map_info_highlight_nothing">"no highlight"</string>
 <string name="cluster_map_info_highlight_singular">"%d highlight"</string>
 <string name="cluster_map_info_highlight_plural">"%d highlight"</string>
+<string name="title_activity_cluster_map_contribute">"Contribute to Cluster Map"</string>
+<string name="title_activity_cluster_map_contribute_edit">"Create cluster map"</string>
+<string name="cluster_map_contribute_dialog_controller_title_row">"Actions for this row"</string>
+<string name="cluster_map_contribute_dialog_controller_action_column">"Actions for this column"</string>
+<string name="opening_in_progress">"Opening in progress"</string>
+<string name="error_text_is_too_long">"Text is too long"</string>
+<string name="cluster_map_contribute_dialog_metadata_title">"Edit cluster metadata"</string>
+<string name="cluster_map_contribute_locked_indicator">"Cluster locked by _user_ at _time_.
+You will be able to edit this cluster at _timeFuture_."</string>
+<string name="cluster_map_contribute_button_edit_metadata">"edit metadata"</string>
+<string name="cluster_map_contribute_button_edit_layout">"edit map"</string>
+<string name="cluster_map_contribute_dialog_location_title">"Edit: _x_,_y_"</string>
+<string name="cluster_map_contribute_dialog_location_title_host">"Edit: _x_,_y_ (_host_)"</string>
+<string name="error_scale_is_too_small">"Scale is too small"</string>
+<string name="error_scale_is_too_big">"Scale is too big"</string>
+<string name="error_value_must_be_set">"A value must be set"</string>
+<string name="cluster_map_contribute_dialog_controller_action_delete_row">"Delete this row"</string>
+<string name="cluster_map_contribute_dialog_controller_action_delete_column">"Delete this column"</string>
+<string name="cluster_map_contribute_dialog_controller_action_scale_row">"Set row size"</string>
+<string name="cluster_map_contribute_dialog_controller_action_scale_column">"Set column size"</string>
+<string name="cluster_map_contribute_dialog_scale_title">"Edit scale of this row/column"</string>
+<string name="cluster_map_contribute_dialog_add_action_row_top">"Add row on top"</string>
+<string name="cluster_map_contribute_dialog_add_action_row_bottom">"Add row on bottom"</string>
+<string name="cluster_map_contribute_dialog_add_action_column_left">"Add column on left"</string>
+<string name="cluster_map_contribute_dialog_add_action_column_right">"Add column on right"</string>
+<string name="cluster_map_contribute_dialog_time_up_title">"Time up"</string>
+<string name="cluster_map_contribute_dialog_time_up_message">"Lock will soon time up, you may consider saves your changes as soon as possible."</string>
+<string name="cluster_map_contribute_toolbar_info_minute_second">"Cluster lock for: _minute_ m and _second_ s"</string>
+<string name="cluster_map_contribute_toolbar_info_second">"Cluster lock for: _second_ s"</string>
+<string name="cluster_map_contribute_error_data_locked">"Operation can't be finished, data locked"</string>
+<string name="cluster_map_contribute_error_fail_to_retrieve_data_response">"Operation can't be finished, failed to retrieve data"</string>
+<string name="cluster_map_contribute_dialog_metadata_layout_full_name">"Full name"</string>
+<string name="cluster_map_contribute_dialog_metadata_layout_short_name">"Short name"</string>
+<string name="cluster_map_contribute_dialog_metadata_layout_position">"Position of this cluster on the list"</string>
+<string name="cluster_map_contribute_dialog_metadata_layout_location_prefix">"Location prefix"</string>
+<string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">"Info: Location prefix is the beginning of all the host name on this cluster."</string>
+<string name="cluster_map_contribute_dialog_location_layout_user">"user"</string>
+<string name="cluster_map_contribute_dialog_location_layout_wall">"wall"</string>
+<string name="cluster_map_contribute_dialog_location_layout_corridor">"corridor"</string>
+<string name="cluster_map_contribute_dialog_location_layout_host_hint">"host"</string>
+<string name="cluster_map_contribute_dialog_scale_layout_scale_hint">"scale"</string>
+<string name="cluster_map_contribute_dialog_scale_layout_info">"By setting a scale on a row or a column, you will reduce or increase his size."</string>
+<string name="cluster_map_info_button_contribute">"Add missing data"</string>
+<string name="cluster_map_contribute_dialog_delete_title">"Are you sure to delete this row/column ?"</string>
+<string name="cluster_map_contribute_dialog_delete_message_row">"You are going to delete row on y=%d, this action can't be undo"</string>
+<string name="cluster_map_contribute_dialog_delete_message_col">"You are going to delete column on x=%d, this action can't be undo"</string>
+<string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comment"</string>
+<string name="cluster_map_contribute_explanations">"Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be locked up for five minutes and only you can edit it.
+
+Guideline: Cluster orientation
+    - All clusters of a Building must have the same orientation.
+    - The north is not necessarily on the top, it is preferable to have the entrance of the Cluster on the bottom."</string>
+<string name="cluster_map_no_layout">"No layout available for this cluster"</string>
+<string name="readme">"Readme"</string>
+<string name="user_open_it_not_found">"Users not found"</string>
+<string name="discard_changes">"discard"</string>
+<string name="cluster_map_contribute_toolbar_info_too_late">"Too late, you can't save your changes"</string>
+<string name="project_scale_feedback">"Feedback"</string>
+<string name="friends_info_api_data_processing">"Friends API is currently processing new data, your friends will be added shortly"</string>
+<string name="user_profile_grade_rank">"Grade"</string>
+<string name="user_profile_add_to_friends">"Add as friends"</string>
+<string name="user_profile_remove_from_friends">"Remove from friends"</string>
+<string name="introduction_calendar_title">"Sync your calendar"</string>
+<string name="introduction_calendar_description">"Subscribed events will be automatically inserted in your device calendar."</string>
+<string name="introduction_calendar_action">"Allow calendar"</string>
+<string name="introduction_calendar_switch">"Enable Calendar sync"</string>
+<string name="introduction_calendar_image_content_description">"calendar illustration"</string>
+<string name="introduction_translation_title">"Join the Translate Community"</string>
+<string name="introduction_translation_description">"If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor."</string>
+<string name="introduction_translation_action">"Open project"</string>
+<string name="introduction_translation_text_bottom">"Grammar Nazis are welcome"</string>
+<string name="introduction_translate_image_content_description">"translate illustration"</string>
+<string name="about_show_introduction">"Show Introduction"</string>
+<string name="introduction_cluster_map_contribute_title">"Create and modify clusters map for your campus"</string>
+<string name="introduction_cluster_map_contribute_description">"Make available the cluster map of your campus for everyone, add or edit a cluster map layout directly from the app under cluster map section"</string>
 </resources>
