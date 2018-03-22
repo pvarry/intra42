@@ -21,6 +21,7 @@ import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.Tools;
@@ -110,6 +111,7 @@ public class ClusterMapActivity
 
         viewPager.setPageMargin(20);
         viewPager.setPageMarginDrawable(R.color.textColorBlackPrimary);
+        ((CustomViewPager) viewPager).setPagingEnabled(false);
     }
 
     @Nullable

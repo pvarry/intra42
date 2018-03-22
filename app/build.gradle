@@ -95,6 +95,7 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.6'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.github.apl-devs:appintro:v4.2.3'
+    implementation 'com.jaredrummler:twodscrollview:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
