@@ -165,7 +165,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     public void onBackPressed() {
         long duration = lockEnd.getTime() - new Date().getTime();
         if (duration < 0)
-            return;
+            finish();
         super.onBackPressed();
     }
 
@@ -356,12 +356,15 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                 if (location.host == null ||
                         location.host.isEmpty() ||
                         location.host.contentEquals("null") ||
-                        location.host.contentEquals("TBD"))
+                        location.host.contentEquals("TBD")) {
                     imageViewContent.setImageResource(R.drawable.ic_missing_black_25dp);
-                else {
+                    view.setBackgroundColor(getResources().getColor(R.color.color_warning));
+                } else {
                     textView.setVisibility(View.VISIBLE);
                     textView.setText(location.host);
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_desktop_mac_black_custom));
+                    if (location.host.startsWith(cluster.hostPrefix)) // set warning flag because host contain cluster prefix
+                        view.setBackgroundColor(getResources().getColor(R.color.color_warning));
                 }
 
             } else if (location.kind == Location.Kind.WALL)
@@ -482,8 +485,32 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     .replace("_x_", String.valueOf(location.x))
                     .replace("_y_", String.valueOf(location.y));
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textInputLayoutHost.setErrorEnabled(true);
+                if (s.length() == 0)
+                    textInputLayoutHost.setError("Warning: host name meed to be filled");
+                else if (s.toString().startsWith(cluster.hostPrefix))
+                    textInputLayoutHost.setError("Warning: host name must not begin with cluster prefix, it will be added automatically");
+                else
+                    textInputLayoutHost.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         if (location.location != null) {
-            editText.setText(location.location.host);
+            if (location.location.host != null && !location.location.host.contentEquals("TBD") && !location.location.host.contentEquals("null"))
+                editText.setText(location.location.host);
+            else
+                editText.setText("");
             if (location.location.kind == Location.Kind.USER) {
                 radioButtonUser.setChecked(true);
                 textInputLayoutHost.setVisibility(View.VISIBLE);
@@ -492,7 +519,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             else if (location.location.kind == Location.Kind.WALL)
                 radioButtonWall.setChecked(true);
         }
-
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
