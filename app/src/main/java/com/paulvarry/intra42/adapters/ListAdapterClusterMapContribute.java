@@ -40,6 +40,8 @@ public class ListAdapterClusterMapContribute extends BaseExpandableListAdapter {
      */
     @Override
     public int getGroupCount() {
+        if (masterList == null)
+            return 0;
         return masterList.size();
     }
 

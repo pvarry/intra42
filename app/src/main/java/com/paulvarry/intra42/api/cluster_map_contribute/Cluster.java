@@ -56,13 +56,18 @@ public class Cluster implements IBaseItem, Serializable, Comparable<Cluster> {
         UsersLTE user;
 
         highlightPosts = 0;
-        for (Location[] row : map)
+        if (map == null)
+            return;
+        for (Location[] row : map) {
+            if (row == null)
+                continue;
             for (Location post : row) {
                 user = clusters.locations.get(post.host);
                 if (post.computeHighlightPosts(clusters, user)) {
                     highlightPosts++;
                 }
             }
+        }
     }
 
     public void computeHighlightAndFreePosts(ClusterStatus clusters, HashMap<String, UsersLTE> locations) {

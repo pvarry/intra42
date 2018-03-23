@@ -106,6 +106,11 @@ public class ClusterMapContributeActivity
     @Override
     protected void setViewContent() {
 
+        if (masters == null || masters.isEmpty()) {
+            setViewState(StatusCode.EMPTY);
+            return;
+        }
+
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(false);
 
