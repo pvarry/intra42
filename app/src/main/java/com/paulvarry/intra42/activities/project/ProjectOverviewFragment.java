@@ -152,14 +152,18 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
         linearLayoutMark.setVisibility(View.GONE);
         frameLayoutRegister.setVisibility(View.GONE);
 
-        if (project == null) {
+        activity = (ProjectActivity) getActivity();
+        if (project == null || activity == null)
             return;
-        }
-        if (projectUser == null) { // register
+
+        if (projectUser == null && !activity.isMine()) {
+            linearLayoutStatus.setVisibility(View.VISIBLE);
+            textViewStatus.setText(R.string.project_user_not_registered);
+        } else if (projectUser == null) { // register
             if (session != null && !session.isSubscribable) {
                 linearLayoutStatus.setVisibility(View.VISIBLE);
                 textViewStatus.setText(getString(R.string.project_forbidden_to_open));
-                textViewStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
+                textViewStatus.setTextColor(ContextCompat.getColor(activity, R.color.colorTintCross));
             } else {
                 frameLayoutRegister.setVisibility(View.VISIBLE);
                 buttonRegister.setOnClickListener(this);
@@ -169,9 +173,9 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             textViewFinalMark.setText(String.valueOf(projectUser.finalMark));
 
             if (projectUser.validated)
-                textViewFinalMark.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCheck));
+                textViewFinalMark.setTextColor(ContextCompat.getColor(activity, R.color.colorTintCheck));
             else
-                textViewFinalMark.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTintCross));
+                textViewFinalMark.setTextColor(ContextCompat.getColor(activity, R.color.colorTintCross));
         } else if (projectUser.status == ProjectsUsers.Status.FINISHED) {
             linearLayoutStatus.setVisibility(View.VISIBLE);
             textViewStatus.setText(R.string.project_no_scale);
@@ -250,9 +254,9 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
             if (scales != null) {
                 info += separator + scales.correctionNumber;
                 if (scales.correctionNumber > 1)
-                    info += " " + getContext().getString(R.string.project_evaluation_plural);
+                    info += " " + activity.getString(R.string.project_evaluation_plural);
                 else
-                    info += " " + getContext().getString(R.string.project_evaluation);
+                    info += " " + activity.getString(R.string.project_evaluation);
             }
 
             List<ProjectsSessions.Uploads> uploads = session.uploads;
@@ -260,9 +264,9 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
                 info += separator + " ";
 
                 if (uploads.size() > 1)
-                    info += getContext().getString(R.string.project_automatic_corrections);
+                    info += activity.getString(R.string.project_automatic_corrections);
                 else
-                    info += getContext().getString(R.string.project_automatic_correction);
+                    info += activity.getString(R.string.project_automatic_correction);
 
                 info += ": ";
                 StringBuilder tmp = new StringBuilder();
@@ -314,13 +318,13 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        activity = (ProjectActivity) getActivity();
         if (activity != null && activity.projectUser != null) {
-            activity = (ProjectActivity) getActivity();
             project = activity.projectUser.project;
             if (activity.projectUser.user != null)
                 projectUser = activity.projectUser.user;
             if (project.sessionsList != null && !project.sessionsList.isEmpty())
-                session = ProjectsSessions.getScaleForMe((AppClass) getActivity().getApplication(), project.sessionsList);
+                session = ProjectsSessions.getScaleForMe((AppClass) activity.getApplication(), project.sessionsList);
         }
     }
 
@@ -334,7 +338,7 @@ public class ProjectOverviewFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         if (v == buttonParent) {
             if (projectUser != null && projectUser.user != null)
-                ProjectActivity.openIt(getContext(), project.parent, projectUser.user.id);
+                ProjectActivity.openIt(getContext(), project.parent, projectUser.user);
             else
                 ProjectActivity.openIt(getContext(), project.parent);
         } else if (v == buttonMine) {

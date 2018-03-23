@@ -123,6 +123,8 @@ public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAda
 
             if (projectsUser != null)
                 ProjectActivity.openIt(getContext(), projectsUser);
+            else if (activity != null && activity.projectUser != null)
+                ProjectActivity.openIt(getContext(), project, activity.projectUser.user.user);
             else
                 ProjectActivity.openIt(getContext(), project);
         }

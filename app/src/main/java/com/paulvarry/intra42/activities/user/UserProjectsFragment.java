@@ -49,14 +49,14 @@ public class UserProjectsFragment
         implements Galaxy.OnProjectClickListener, AdapterView.OnItemSelectedListener,
         AdapterView.OnItemClickListener {
 
-    UserActivity activity;
+    private UserActivity activity;
 
-    ListView listView;
-    ListView listViewAll;
-    TextView textViewNoItem;
-    Galaxy galaxy;
-    int spinnerSelected = 0;
-    ListAdapterMarks adapterList;
+    private ListView listView;
+    private ListView listViewAll;
+    private TextView textViewNoItem;
+    private Galaxy galaxy;
+    private int spinnerSelected = 0;
+    private ListAdapterMarks adapterList;
     private Spinner spinnerContent;
     private OnFragmentInteractionListener mListener;
 
@@ -256,7 +256,7 @@ public class UserProjectsFragment
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        ProjectActivity.openIt(getContext(), adapterList.getItem(position));
+        ProjectActivity.openIt(getContext(), adapterList.getItem(position), activity.user);
     }
 
     public boolean canSwipe() {

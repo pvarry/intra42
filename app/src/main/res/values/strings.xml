@@ -618,4 +618,5 @@ Guideline: Cluster orientation
 <string name="about_show_introduction">"Show Introduction"</string>
 <string name="introduction_cluster_map_contribute_title">"Create and modify clusters map for your campus"</string>
 <string name="introduction_cluster_map_contribute_description">"Make available the cluster map of your campus for everyone, add or edit a cluster map layout directly from the app under cluster map section"</string>
+    <string name="project_user_not_registered">not registered</string>
 </resources>

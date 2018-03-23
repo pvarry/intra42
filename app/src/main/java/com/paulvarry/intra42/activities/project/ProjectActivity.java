@@ -74,13 +74,6 @@ public class ProjectActivity extends BasicTabActivity
         context.startActivity(intent);
     }
 
-    public static void openIt(Context context, Projects project) {
-        Intent intent = new Intent(context, ProjectActivity.class);
-        intent.putExtra(ProjectActivity.INTENT_ID_PROJECT, project.id);
-        intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, project.slug);
-        context.startActivity(intent);
-    }
-
     public static void openIt(Context context, ProjectsLTE project, int idUser) {
         Intent intent = new Intent(context, ProjectActivity.class);
         intent.putExtra(ProjectActivity.INTENT_ID_PROJECT, project.id);
@@ -89,11 +82,12 @@ public class ProjectActivity extends BasicTabActivity
         context.startActivity(intent);
     }
 
-    public static void openIt(Context context, Projects project, int userId) {
+    public static void openIt(Context context, ProjectsLTE project, UsersLTE user) {
         Intent intent = new Intent(context, ProjectActivity.class);
         intent.putExtra(ProjectActivity.INTENT_ID_PROJECT, project.id);
         intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, project.slug);
-        intent.putExtra(ProjectActivity.INTENT_ID_USER, userId);
+        intent.putExtra(ProjectActivity.INTENT_ID_USER, user.id);
+        intent.putExtra(ProjectActivity.INTENT_SLUG_USER, user.login);
         context.startActivity(intent);
     }
 
@@ -149,7 +143,8 @@ public class ProjectActivity extends BasicTabActivity
         app = (AppClass) getApplication();
 
         if (Intent.ACTION_VIEW.equals(action)) {
-            if (intent.getData().getHost().equals("projects.intra.42.fr")) {
+            Uri data = intent.getData();
+            if (data != null && data.getHost().equals("projects.intra.42.fr")) {
                 List<String> pathSegments = intent.getData().getPathSegments();
                 if (pathSegments.size() == 2) {
                     if (pathSegments.get(0).equals("projects"))
@@ -266,6 +261,17 @@ public class ProjectActivity extends BasicTabActivity
         return null;
     }
 
+    boolean isMine() {
+        if (app == null)
+            return false;
+        if (login != null)
+            return app.me.login.contentEquals(login);
+        else if (idUser != 0)
+            return idUser == app.me.id;
+        else
+            return false;
+    }
+
     public static class ProjectUser {
 
         public Projects project;
@@ -274,17 +280,15 @@ public class ProjectActivity extends BasicTabActivity
         static ProjectUser getWithProject(ApiService api, int projectId, int userId) throws IOException, UnauthorizedException, ErrorServerException {
             Call<Projects> callProject = api.getProject(projectId);
             Call<List<ProjectsUsers>> callProjectUsers = api.getProjectsUsers(projectId, userId, 1, 1);
-            Call<List<Teams>> callTeams = api.getTeams(userId, projectId, 1);
 
-            return getWithProject(api, callProject, callProjectUsers, callTeams);
+            return getWithProject(api, callProject, callProjectUsers);
         }
 
         static ProjectUser getWithProject(ApiService api, int projectId, String login) throws IOException, UnauthorizedException, ErrorServerException {
             Call<Projects> callProject = api.getProject(projectId);
             Call<List<ProjectsUsers>> callProjectUsers = api.getProjectIDProjectsUsers(projectId, login, 1, 1);
-            Call<List<Teams>> callTeams = api.getTeams(login, projectId, 1);
 
-            return getWithProject(api, callProject, callProjectUsers, callTeams);
+            return getWithProject(api, callProject, callProjectUsers);
         }
 
         static ProjectUser getWithProject(ApiService api, String projectSlug, String userLogin) throws IOException, UnauthorizedException, ErrorServerException {
@@ -293,38 +297,32 @@ public class ProjectActivity extends BasicTabActivity
                 return null;
             Call<Projects> callProject = api.getProject(projectSlug);
             Call<List<ProjectsUsers>> callProjectUsers = api.getProjectIDProjectsUsers(projectSlug, response.body().id, 1, 1);
-            Call<List<Teams>> callTeams = api.getTeams(userLogin, projectSlug, 1);
 
-            return getWithProject(api, callProject, callProjectUsers, callTeams);
+            return getWithProject(api, callProject, callProjectUsers);
         }
 
         static ProjectUser getWithProject(ApiService api, String projectSlug, int userId) throws IOException, UnauthorizedException, ErrorServerException {
             Call<Projects> callProject = api.getProject(projectSlug);
             Call<List<ProjectsUsers>> callProjectUsers = api.getProjectIDProjectsUsers(projectSlug, userId, 1, 1);
-            Call<List<Teams>> callTeams = api.getTeams(userId, projectSlug, 1);
 
-            return getWithProject(api, callProject, callProjectUsers, callTeams);
+            return getWithProject(api, callProject, callProjectUsers);
         }
 
-        static ProjectUser getWithProject(ApiService api, Call<Projects> callProject, Call<List<ProjectsUsers>> callProjectUsers, Call<List<Teams>> callTeams) throws IOException, UnauthorizedException, ErrorServerException {
+        static ProjectUser getWithProject(ApiService api, Call<Projects> callProject, Call<List<ProjectsUsers>> callProjectUsers) throws IOException, UnauthorizedException, ErrorServerException {
             Response<Projects> repProject;
             Response<List<ProjectsUsers>> repProjectUsers;
-            Response<List<Teams>> repTeams;
 
             repProject = callProject.execute();
             repProjectUsers = callProjectUsers.execute();
-            repTeams = callTeams.execute();
 
             ProjectUser p = new ProjectUser();
             if (Tools.apiIsSuccessful(repProject))
                 p.project = repProject.body();
 
-            if (repProjectUsers != null && repProjectUsers.code() == 200 && repProjectUsers.body().size() != 0 &&
-                    repTeams != null && repTeams.code() == 200) {
+            if (repProjectUsers != null && repProjectUsers.code() == 200 && repProjectUsers.body().size() != 0) {
                 p.user = repProjectUsers.body().get(0);
-                p.user.teams = repTeams.body();
 
-                if (p.user.teams != null) {
+                if (p.user.status != ProjectsUsers.Status.PARENT && p.user.teams != null) {
                     SparseArray<Teams> teams = new SparseArray<>();
                     for (Teams t : p.user.teams) {
                         teams.append(t.id, t);
