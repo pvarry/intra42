@@ -121,7 +121,8 @@ public class ListAdapterScaleTeams extends BaseAdapter {
 
         holder.groupFeedback.setVisibility(View.VISIBLE);
         holder.textViewUserFeedback.setVisibility(View.VISIBLE);
-        if ((item.feedback == null || item.feedback.isEmpty()) && (item.feedbacks == null || item.feedbacks.size() == 0)) {
+
+        if (true /*(item.feedback == null || item.feedback.isEmpty()) && (item.feedbacks == null || item.feedbacks.size() == 0)*/) {
             holder.groupFeedback.setVisibility(View.GONE);
             holder.textViewUserFeedback.setVisibility(View.GONE);
         } else {
