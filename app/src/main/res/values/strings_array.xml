@@ -80,12 +80,6 @@
         <item>-1</item>
     </string-array>
 
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
     <string-array name="pref_theme_list_titles">
         <item>@string/pref_theme_list_titles_intra</item>
         <item>@string/pref_theme_list_titles_intra_the_alliance</item>
