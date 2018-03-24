@@ -5,38 +5,31 @@
     android:layout_height="match_parent"
     tools:context="com.paulvarry.intra42.activities.ClusterMapContributeEditActivity">
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <com.jaredrummler.android.widget.TwoDScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingBottom="75dp"
+        android:paddingEnd="75dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="75dp"
+        android:paddingStart="0dp"
         android:scrollbarStyle="outsideOverlay">
 
-        <HorizontalScrollView
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingEnd="75dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="75dp"
-            android:paddingStart="0dp">
+            android:padding="8dp">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#212121"
+                android:padding="1px" />
 
-                <GridLayout
-                    android:id="@+id/gridLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#212121"
-                    android:padding="1px" />
+        </FrameLayout>
 
-            </FrameLayout>
 
-        </HorizontalScrollView>
-
-    </android.support.v4.widget.NestedScrollView>
+    </com.jaredrummler.android.widget.TwoDScrollView>
 
 </FrameLayout>

@@ -417,6 +417,17 @@ public class ClusterMapContributeUtils {
         });
     }
 
+    private static void returnError(@NonNull Activity activity, final String error, final Dialog dialog, final boolean showDialog, final DefaultCallback callback) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (showDialog)
+                    dialog.dismiss();
+                callback.error(error);
+            }
+        });
+    }
+
     static public boolean canIEdit(Master master, AppClass app) {
         if (master == null || app == null || app.me == null)
             return false;
@@ -475,6 +486,81 @@ public class ClusterMapContributeUtils {
         return resources.getIdentifier("cluster_map_campus_" + campus, "raw", context.getPackageName());
     }
 
+    public static void unlockCluster(final Activity activity, final AppClass app, final Master master, final boolean showDialog, final NoReturnCallback callback) {
+        final ProgressDialog dialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), true);
+        if (showDialog) {
+            dialog.show();
+        }
+
+        final ApiServiceClusterMapContribute api = app.getApiServiceClusterMapContribute();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                Master masterFromApi = null;
+
+                try {
+
+                    // get all master to verify lock
+                    Response<List<Master>> responseMaster = api.getMasters().execute();
+                    final List<Master> bodyMaster;
+                    if (!responseMaster.isSuccessful() || (bodyMaster = responseMaster.body()) == null) {
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, showDialog, callback);
+                        return;
+                    }
+                    for (Master m : bodyMaster)
+                        if (m.key.contentEquals(master.key)) {
+                            masterFromApi = m;
+                            break;
+                        }
+
+                    if (masterFromApi == null) { // master not found
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, showDialog, callback);
+                        return;
+                    }
+                    if (!canISaveMap(masterFromApi, app)) { // master locked
+
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_data_locked), dialog, showDialog, callback);
+                        return;
+                    }
+
+                    //save master
+                    masterFromApi.locked_by = null;
+                    masterFromApi.locked_at = null;
+
+                    Response<Void> responseSaveMaster = api.updateMaster(bodyMaster).execute();
+                    if (!responseSaveMaster.isSuccessful()) {
+
+                        returnError(activity, activity.getString(R.string.cluster_map_contribute_error_fail_to_retrieve_data_response), dialog, showDialog, callback);
+                        return;
+                    }
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (showDialog)
+                                dialog.dismiss();
+                            callback.finish();
+                        }
+                    });
+
+                } catch (final IOException e) {
+                    e.printStackTrace();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (showDialog)
+                                dialog.dismiss();
+                            callback.error(e.getLocalizedMessage());
+                        }
+                    });
+                }
+
+            }
+        }).start();
+    }
+
     public interface DefaultCallback {
         void error(String error);
     }
@@ -493,6 +579,12 @@ public class ClusterMapContributeUtils {
     public interface LoadMasterCallback extends DefaultCallback {
 
         void finish(final List<Master> masters);
+
+    }
+
+    public interface NoReturnCallback extends DefaultCallback {
+
+        void finish();
 
     }
 

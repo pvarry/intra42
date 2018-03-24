@@ -164,9 +164,21 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     @Override
     public void onBackPressed() {
         long duration = lockEnd.getTime() - new Date().getTime();
-        if (duration < 0)
-            finish();
-        super.onBackPressed();
+        if (duration < 0) {
+            ClusterMapContributeEditActivity.super.onBackPressed();
+            return;
+        }
+        ClusterMapContributeUtils.unlockCluster(this, app, master, true, new ClusterMapContributeUtils.NoReturnCallback() {
+            @Override
+            public void finish() {
+                ClusterMapContributeEditActivity.super.onBackPressed();
+            }
+
+            @Override
+            public void error(String error) {
+                ClusterMapContributeEditActivity.super.onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -226,18 +238,16 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     protected void onSave(final Callback callBack) {
 
         Location[][] tmp = new Location[cluster.sizeX][];
-        for (int i = 0; i < allLocations.size(); i++) {
-            int keyI = allLocations.keyAt(i);
-            SparseArray<Location> col = allLocations.get(keyI);
-            tmp[keyI] = new Location[cluster.sizeY];
+        for (int i = 0; i < cluster.sizeX; i++) {
+            SparseArray<Location> col = allLocations.get(i);
+            tmp[i] = new Location[cluster.sizeY];
 
-            for (int j = 0; j < col.size(); j++) {
-                int keyJ = col.keyAt(j);
-                Location cell = col.get(keyJ);
+            if (col != null)
+                for (int j = 0; j < cluster.sizeY; j++) {
+                    Location cell = col.get(j);
 
-                tmp[keyI][keyJ] = cell;
-                //height
-            }
+                    tmp[i][j] = cell;
+                }
         }
         cluster.map = tmp;
 
@@ -494,9 +504,9 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 textInputLayoutHost.setErrorEnabled(true);
                 if (s.length() == 0)
-                    textInputLayoutHost.setError("Warning: host name meed to be filled");
+                    textInputLayoutHost.setError(getString(R.string.cluster_map_contribute_warning_empty_host));
                 else if (s.toString().startsWith(cluster.hostPrefix))
-                    textInputLayoutHost.setError("Warning: host name must not begin with cluster prefix, it will be added automatically");
+                    textInputLayoutHost.setError(getString(R.string.cluster_map_contribute_warning_host_prefix));
                 else
                     textInputLayoutHost.setErrorEnabled(false);
             }
