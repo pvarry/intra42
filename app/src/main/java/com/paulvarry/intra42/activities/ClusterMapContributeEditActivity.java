@@ -547,7 +547,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         alert.setTitle(title);
         alert.setView(view);
         final LocationWrapper finalLocation = location;
-        alert.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Location locationEdit = getLocation(finalLocation.x, finalLocation.y);

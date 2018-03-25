@@ -77,7 +77,9 @@ public class Cluster implements IBaseItem, Serializable, Comparable<Cluster> {
         freePosts = 0;
         if (map == null)
             return;
-        for (Location[] row : map)
+        for (Location[] row : map) {
+            if (row == null)
+                continue;
             for (Location post : row) {
                 if (post == null)
                     break;
@@ -91,6 +93,7 @@ public class Cluster implements IBaseItem, Serializable, Comparable<Cluster> {
                         freePosts++;
                 }
             }
+        }
     }
 
     @Override
