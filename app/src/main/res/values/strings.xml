@@ -126,7 +126,6 @@ You will lose a correction point"</string>
 <string name="info_initializing">"Initializing"</string>
 <string name="info_loading">"loading …"</string>
 <string name="info_loading_please_wait">"Loading. Please wait…"</string>
-<string name="info_network_error">"Network error"</string>
 <string name="info_network_no_internet">"unable to connect to internet"</string>
 <string name="info_nothing_to_show">"Nothing to show"</string>
 <string name="language_english">"English"</string>
@@ -191,7 +190,7 @@ You will lose a correction point"</string>
 <string name="project_you_cant_have_mark_for_this_project">"You can't have mark for this project"</string>
 <string name="search_by">"Search by"</string>
 <string name="search_error_on_open_this_element">"Error on opening this element"</string>
-<string name="search_hint">"hint"</string>
+<string name="search_hint">"Search"</string>
 <string name="search_on_projects">"Searching on projects"</string>
 <string name="search_on_topics">"Searching on topics"</string>
 <string name="search_on_users">"Searching on users"</string>
@@ -256,7 +255,6 @@ You will lose a correction point"</string>
 <string name="user_expertise_edit_plural">"Edit Expertises"</string>
 <string name="user_expertise_interested">"Interested:"</string>
 <string name="user_expertise_new">"Add new expertise"</string>
-<string name="user_grade">"Grade"</string>
 <string name="user_level">"Level"</string>
 <string name="user_location">"Location"</string>
 <string name="user_mobile_phone">"Mobile"</string>
@@ -303,16 +301,12 @@ You will lose a correction point"</string>
 <string name="pref_summary_notifications_events">"Notify for new events published to 42 intranet"</string>
 <string name="pref_summary_notifications_scales">"Remind you about evaluations"</string>
 <string name="pref_summary_notifications_sync_calendar">"Automatically check your events subscriptions and add then"</string>
-<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
-<string name="home_help_calendar_hide">"hide"</string>
-<string name="home_help_calendar_enable">"enable"</string>
 <string name="pref_title_calendar_enable">"Enable calendar edition"</string>
 <string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
 <string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
 <string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
 <string name="pref_title_calendar">"Events sync"</string>
 <string name="friends_nothing_found">"You can add friends from their profile"</string>
-<string name="friends_loading_locations">"Locations"</string>
 <string name="friend_group_name">"Group name"</string>
 <string name="friends">"Friends"</string>
 <string name="friends_group_edit_in_group">"Friends in group"</string>
@@ -618,7 +612,13 @@ Guideline: Cluster orientation
 <string name="about_show_introduction">"Show Introduction"</string>
 <string name="introduction_cluster_map_contribute_title">"Create and modify clusters map for your campus"</string>
 <string name="introduction_cluster_map_contribute_description">"Make available the cluster map of your campus for everyone, add or edit a cluster map layout directly from the app under cluster map section"</string>
-    <string name="project_user_not_registered">not registered</string>
-    <string name="cluster_map_contribute_warning_empty_host">Warning: host name need to be filled</string>
-    <string name="cluster_map_contribute_warning_host_prefix">Warning: host name must not begin with cluster prefix, it will be added automatically</string>
+<string name="info_network_error">"Network error"</string>
+<string name="user_grade">"Grade"</string>
+<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
+<string name="home_help_calendar_hide">"hide"</string>
+<string name="home_help_calendar_enable">"enable"</string>
+<string name="friends_loading_locations">"Locations"</string>
+<string name="project_user_not_registered">"not registered"</string>
+<string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
+<string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
 </resources>

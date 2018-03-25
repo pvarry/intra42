@@ -125,7 +125,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="info_initializing">"Initialisation"</string>
 <string name="info_loading">"chargement …"</string>
 <string name="info_loading_please_wait">"Chargement, veuillez patienter…"</string>
-<string name="info_network_error">"Erreur de réseau"</string>
 <string name="info_network_no_internet">"Pas d'internet"</string>
 <string name="info_nothing_to_show">"Rien à afficher"</string>
 <string name="language_english">"Anglais"</string>
@@ -190,7 +189,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="project_you_cant_have_mark_for_this_project">"Vous ne pouvez pas avoir de note pour ce projet"</string>
 <string name="search_by">"Recherché par"</string>
 <string name="search_error_on_open_this_element">"Erreur lors de l'ouverture de l'élément"</string>
-<string name="search_hint">"Indice"</string>
+<string name="search_hint">"Recherche"</string>
 <string name="search_on_projects">"Recherche de projets"</string>
 <string name="search_on_topics">"Recherche de topics"</string>
 <string name="search_on_users">"Recherche d'utilisteurs"</string>
@@ -255,7 +254,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="user_expertise_edit_plural">"Editer les compétences"</string>
 <string name="user_expertise_interested">"Intéressé:"</string>
 <string name="user_expertise_new">"Ajouter une nouvelle compétence"</string>
-<string name="user_grade">"Note"</string>
 <string name="user_level">"Niveau"</string>
 <string name="user_location">"Emplacement"</string>
 <string name="user_mobile_phone">"Mobile"</string>
@@ -302,16 +300,12 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="pref_summary_notifications_events">"Me notifier pour tous les évènements publiés sur l'intra de 42"</string>
 <string name="pref_summary_notifications_scales">"Rappel des évaluations"</string>
 <string name="pref_summary_notifications_sync_calendar">"Automatiquement vérifier vos évènements suivis et les ajouter"</string>
-<string name="home_help_calendar_sync">"Synchroniser le calendrier de votre téléphone avec les évènements suivis"</string>
-<string name="home_help_calendar_hide">"Masquer"</string>
-<string name="home_help_calendar_enable">"Activer"</string>
 <string name="pref_title_calendar_enable">"Activer l'édition du calendrier"</string>
 <string name="pref_summary_calendar_enable">"Après vous ètre connecté a votre calendrier, cette application pourra publier les évènements sur ce dernié"</string>
 <string name="pref_title_calendar_after_subscription">"Insérer au calendrier"</string>
 <string name="pref_summary_calendar_after_subscription">"Insérer l'évènement juste après l'avoir suivi"</string>
 <string name="pref_title_calendar">"Synchronisation des évènements"</string>
 <string name="friends_nothing_found">"Vous pouvez ajouter des amis depuis leur profil"</string>
-<string name="friends_loading_locations">"Position"</string>
 <string name="friend_group_name">"Nom du groupe"</string>
 <string name="friends">"Amis"</string>
 <string name="friends_group_edit_in_group">"Amis dans le groupe"</string>
@@ -635,4 +629,13 @@ Guideline: Cluster orientation
 <string name="about_show_introduction">"Revoir l’introduction"</string>
 <string name="introduction_cluster_map_contribute_title">"Modifier la carte des clusters"</string>
 <string name="introduction_cluster_map_contribute_description">"Modifier la carte des clusters pour pouvoir trouver facilement une personne dans l’école. Vous pouvez modifier ou ajouter des données à la carte des clusters dans l’application"</string>
+<string name="info_network_error">"Network error"</string>
+<string name="user_grade">"Grade"</string>
+<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
+<string name="home_help_calendar_hide">"hide"</string>
+<string name="home_help_calendar_enable">"enable"</string>
+<string name="friends_loading_locations">"Locations"</string>
+<string name="project_user_not_registered">"not registered"</string>
+<string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
+<string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
 </resources>

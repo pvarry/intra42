@@ -134,7 +134,6 @@ Perderai un punto correzione"</string>
 <string name="info_initializing">"Inizializzazione"</string>
 <string name="info_loading">"caricamento ..."</string>
 <string name="info_loading_please_wait">"Caricamento. Attendere..."</string>
-<string name="info_network_error">"Errore di rete"</string>
 <string name="info_network_no_internet">"Impossibile collegarsi a internet"</string>
 <string name="info_nothing_to_show">"Nulla da mostrare"</string>
 <string name="language_english">"Inglese"</string>
@@ -199,7 +198,7 @@ Perderai un punto correzione"</string>
 <string name="project_you_cant_have_mark_for_this_project">"Non puoi essere corretto in questo progetto"</string>
 <string name="search_by">"Cerca per"</string>
 <string name="search_error_on_open_this_element">"Errore aprendo questo elemento"</string>
-<string name="search_hint">"suggerimento"</string>
+<string name="search_hint">"Search"</string>
 <string name="search_on_projects">"Cerca nei progetti"</string>
 <string name="search_on_topics">"Cerca nei topics"</string>
 <string name="search_on_users">"Cerca tra gli utenti"</string>
@@ -264,7 +263,6 @@ Perderai un punto correzione"</string>
 <string name="user_expertise_edit_plural">"Modifica Esperienze"</string>
 <string name="user_expertise_interested">"Interessato:"</string>
 <string name="user_expertise_new">"Aggiungi nuova esperienza"</string>
-<string name="user_grade">"Grado"</string>
 <string name="user_level">"Livello"</string>
 <string name="user_location">"Posizione"</string>
 <string name="user_mobile_phone">"Mobile"</string>
@@ -312,16 +310,12 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="pref_summary_notifications_events">"Notifica per nuovi eventi pubblicati nell'intra"</string>
 <string name="pref_summary_notifications_scales">"Ricordami delle correzioni"</string>
 <string name="pref_summary_notifications_sync_calendar">"Controlla automaticamente l'iscrizione agli eventi e aggiungili automaticamente"</string>
-<string name="home_help_calendar_sync">"Sincronizza il calendario del telefono con i tuoi eventi"</string>
-<string name="home_help_calendar_hide">"nascondi"</string>
-<string name="home_help_calendar_enable">"abilita"</string>
 <string name="pref_title_calendar_enable">"Abilita edizione calendario"</string>
 <string name="pref_summary_calendar_enable">"Dopo aver concesso l'utilizzo del calendario, questa app potrà mettere automaticamente gli eventi"</string>
 <string name="pref_title_calendar_after_subscription">"Aggiungi al calendario"</string>
 <string name="pref_summary_calendar_after_subscription">"Aggiungi l'evento appena mi sono iscritto"</string>
 <string name="pref_title_calendar">"Sincronizza eventi"</string>
 <string name="friends_nothing_found">"Puoi aggiungere gli amici dal loro profilo"</string>
-<string name="friends_loading_locations">"Posizioni"</string>
 <string name="friend_group_name">"Nome del gruppo"</string>
 <string name="friends">"Amici"</string>
 <string name="friends_group_edit_in_group">"Amici nel gruppo"</string>
@@ -629,4 +623,13 @@ Guideline: Cluster orientation
 <string name="about_show_introduction">"Show Introduction"</string>
 <string name="introduction_cluster_map_contribute_title">"Create and modify clusters map for your campus"</string>
 <string name="introduction_cluster_map_contribute_description">"Make available the cluster map of your campus for everyone, add or edit a cluster map layout directly from the app under cluster map section"</string>
+<string name="info_network_error">"Network error"</string>
+<string name="user_grade">"Grade"</string>
+<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
+<string name="home_help_calendar_hide">"hide"</string>
+<string name="home_help_calendar_enable">"enable"</string>
+<string name="friends_loading_locations">"Locations"</string>
+<string name="project_user_not_registered">"not registered"</string>
+<string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
+<string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
 </resources>
