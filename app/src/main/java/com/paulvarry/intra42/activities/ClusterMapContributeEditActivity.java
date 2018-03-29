@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,7 +39,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 
 public class ClusterMapContributeEditActivity extends BasicEditActivity implements View.OnClickListener {
 
@@ -56,7 +57,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     private boolean isTimeUpDialogDisplayed;
     private Timer timerRefreshActionBar;
 
-    private MapStore<Location> allLocations;
+    private MapStore allLocations;
 
     private LayoutInflater vi;
     private int paddingItem2dp;
@@ -110,29 +111,26 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             allLocations = dataWrapper.allLocations;
             cluster = dataWrapper.cluster;
         } else {
-            allLocations = new MapStore<>();
-            int sizeX = 0;
-            int sizeY = 0;
+            allLocations = new MapStore();
+
             if (cluster.map != null) {
+                int sizeX = cluster.map.length;
+                int sizeY = 0;
                 for (int x = 0; x < cluster.map.length; x++) {
 
                     if (cluster.map[x] != null) {
-                        Vector<Location> col = allLocations.require(x);
-                        for (int y = 0; y < cluster.map[x].length; y++) {
+                        SparseArray<Location> col = allLocations.require(x);
+                        if (cluster.map[x].length > sizeY)
+                            sizeY = cluster.map[x].length;
 
-                            col.add(y, cluster.map[x][y]);
-                            if (y > sizeY)
-                                sizeY = y;
+                        for (int y = 0; y < cluster.map[x].length; y++) {
+                            col.append(y, cluster.map[x][y]);
                         }
                     }
-                    if (x > sizeX)
-                        sizeX = x;
                 }
 
-                if (cluster.sizeX <= 0)
-                    cluster.sizeX = sizeX + 1;
-                if (cluster.sizeY <= 0)
-                    cluster.sizeY = sizeY + 1;
+                cluster.sizeX = sizeX;
+                cluster.sizeY = sizeY;
             } else {
                 cluster.sizeX = 10;
                 cluster.sizeY = 10;
@@ -241,7 +239,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         Location[][] tmp = new Location[cluster.sizeX][];
         for (int i = 0; i < cluster.sizeX; i++) {
-            List<Location> col = allLocations.get(i);
+            SparseArray<Location> col = allLocations.get(i);
             tmp[i] = new Location[cluster.sizeY];
 
             if (col != null)
@@ -545,15 +543,14 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             }
         });
 
+
         alert.setTitle(title);
         alert.setView(view);
         final LocationWrapper finalLocation = location;
         alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Location locationEdit = allLocations.get(finalLocation.x, finalLocation.y);
-                if (locationEdit == null)
-                    locationEdit = new Location();
+                Location locationEdit = allLocations.require(finalLocation.x, finalLocation.y);
                 locationEdit.host = null;
                 if (radioButtonUser.isChecked()) {
                     locationEdit.kind = Location.Kind.USER;
@@ -564,7 +561,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     locationEdit.kind = Location.Kind.WALL;
                 else return;
 
-                allLocations.add(finalLocation.x, finalLocation.y, locationEdit);
                 gridLayout.removeView(v);
                 View view = inflateClusterMapItem(finalLocation.x, finalLocation.y);
                 gridLayout.addView(view);
@@ -731,13 +727,23 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
                     cluster.sizeY++;
-                    for (int x = 0; x < cluster.sizeX; x++)
-                        allLocations.add(x, 0, null);
+                    for (int i = 0; i < cluster.sizeX; i++) {
+                        SparseArray<Location> row = allLocations.get(i);
+                        if (row != null) {
+                            for (int j = cluster.sizeY; j > 0; j--) {
+                                row.put(j, row.get(j - 1));
+                            }
+                            row.remove(0);
+                        }
+                    }
                 } else if (which == 1)
                     cluster.sizeY++;
                 else if (which == 2) {
                     cluster.sizeX++;
-                    allLocations.add(0, null);
+                    for (int i = cluster.sizeX; i > 0; i--) {
+                        allLocations.put(i, allLocations.get(i - 1));
+                    }
+                    allLocations.remove(0);
                 } else if (which == 3)
                     cluster.sizeX++;
                 else
@@ -750,40 +756,42 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     private void setRowScale(int y, float scale) {
         for (int i = 0; i < allLocations.size(); i++) {
-            Vector<Location> col = allLocations.require(i);
 
-            Location cel = col.get(y);
-            if (cel == null) {
-                cel = new Location();
-                col.add(y, cel);
-            }
+            Location cel = allLocations.require(i, y);
             cel.sizeY = scale;
         }
     }
 
     private void setColumnScale(int x, float scale) {
-        Vector<Location> col = allLocations.require(x);
+        SparseArray<Location> col = allLocations.require(x);
 
         for (int i = 0; i < cluster.sizeY; i++) {
             Location cel = col.get(i);
             if (cel == null) {
                 cel = new Location();
-                col.add(i, cel);
+                col.append(i, cel);
             }
             cel.sizeX = scale;
         }
+
     }
 
     private void deleteColumn(int x) {
-        allLocations.remove(x);
+        for (int i = x; i < allLocations.size() - 1; i++) {
+            allLocations.setValueAt(i, allLocations.valueAt(i + 1));
+        }
+        allLocations.removeAt(allLocations.size() - 1);
         cluster.sizeX--;
     }
 
     private void deleteRow(int y) {
         for (int i = 0; i < allLocations.size(); i++) {
-            List<Location> col;
+            SparseArray<Location> col;
             if ((col = allLocations.get(i)) != null) {
-                col.remove(y);
+                for (int j = y; j < col.size() - 1; j++) {
+                    col.setValueAt(j, col.valueAt(j + 1));
+                }
+                col.removeAt(col.size() - 1);
             }
         }
         cluster.sizeY--;
@@ -830,42 +838,65 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         Cluster cluster;
         boolean isTimeUpDialogDisplayed;
-        MapStore<Location> allLocations;
+        MapStore allLocations;
     }
 
-    private class MapStore<E> extends Vector<Vector<E>> {
+    private class MapStore extends SparseArray<SparseArray<Location>> {
 
-        @Override
-        public Vector<E> get(int x) {
-            if (x < 0 || x >= size())
-                return null;
-            else
-                return super.get(x);
-        }
-
-        Vector<E> require(int x) {
+        @NonNull
+        SparseArray<Location> require(int x) {
             if (x < 0)
-                return null;
-            if (x >= size() || super.get(x) == null)
-                super.set(x, new Vector<E>());
-            return super.get(x);
+                throw new ArrayIndexOutOfBoundsException("x= " + String.valueOf(x));
+
+            SparseArray<Location> col = super.get(x);
+            if (col == null) {
+                col = new SparseArray<>(cluster.sizeY);
+                super.append(x, col);
+            }
+            return col;
         }
 
-        public E get(int x, int y) {
-            if (x < 0 || y < 0 || x >= size())
+        public Location get(int x, int y) {
+            if (x < 0 || y < 0)
                 return null;
-            Vector<E> col = super.get(x);
-            if (col == null || y >= col.size())
+            SparseArray<Location> col = super.get(x);
+            if (col == null)
                 return null;
             return col.get(y);
         }
 
-        public void add(int x, int y, E item) {
+        @NonNull
+        Location require(int x, int y) {
             if (x < 0 || y < 0)
-                return;
-            if (x >= size() || super.get(x) == null)
-                super.add(x, new Vector<E>());
-            super.get(x).set(y, item);
+                throw new ArrayIndexOutOfBoundsException("x= " + String.valueOf(x) + " ; y= " + String.valueOf(y));
+
+            SparseArray<Location> col = super.get(x);
+            if (col == null) {
+                col = new SparseArray<>(cluster.sizeY);
+                super.append(x, col);
+                col.append(y, new Location());
+                return col.get(y);
+            }
+
+            Location cel = col.get(y);
+            if (cel == null) {
+                cel = new Location();
+                col.append(y, cel);
+            }
+            return cel;
+        }
+
+        public void replace(int x, int y, Location item) {
+            if (x < 0 || y < 0)
+                throw new ArrayIndexOutOfBoundsException("x= " + String.valueOf(x) + " ; y= " + String.valueOf(y));
+
+            SparseArray<Location> col = super.get(x);
+            if (col == null) {
+                col = new SparseArray<>(cluster.sizeY);
+                super.append(x, col);
+                col.append(y, item);
+            } else
+                col.append(y, item);
         }
     }
 }
