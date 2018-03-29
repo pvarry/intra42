@@ -11,6 +11,10 @@
         <item name="colorAccent">#FF6950</item>
     </style>
 
+    <style name="ThemeIntraOrder.Dark" parent="ThemeIntra.Dark">
+        <item name="colorAccent">#FF6950</item>
+    </style>
+
     <style name="ThemeIntraAssembly" parent="ThemeIntra">
         <item name="colorAccent">#A061D1</item>
     </style>
@@ -68,7 +72,7 @@
         <item name="tintColor">@color/colorGrayTint</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.DayNight">
 
         <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
 

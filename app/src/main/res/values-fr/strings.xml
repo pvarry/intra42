@@ -344,7 +344,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="pref_theme_list_titles_intra_the_assembly">"l'Assemblée"</string>
 <string name="pref_theme_list_titles_intra_the_order">"L'Ordre"</string>
 <string name="pref_theme_list_titles_dark">"Sombre"</string>
-<string name="pref_theme_list_titles_android_dark">"Android sombre"</string>
+    <string name="pref_theme_list_titles_android">"Android sombre"</string>
 <string name="pref_theme_list_titles_old">"Original (ancien)"</string>
 <string name="info_api_finishing">"finitions"</string>
 <string name="search_section_users_login">"utilisateur ― login"</string>

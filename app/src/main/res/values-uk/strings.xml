@@ -350,7 +350,7 @@
 <string name="pref_theme_list_titles_intra_the_assembly">"The Assembly"</string>
 <string name="pref_theme_list_titles_intra_the_order">"The Order"</string>
 <string name="pref_theme_list_titles_dark">"Dark"</string>
-<string name="pref_theme_list_titles_android_dark">"Android Dark"</string>
+    <string name="pref_theme_list_titles_android">"Android Dark"</string>
 <string name="pref_theme_list_titles_old">"Original (Old)"</string>
 <string name="info_api_finishing">"finishing"</string>
 <string name="search_section_users_login">"user ― login"</string>

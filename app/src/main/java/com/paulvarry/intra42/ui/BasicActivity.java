@@ -44,7 +44,7 @@ import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.SuperSearch;
-import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
@@ -81,7 +81,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         app = (AppClass) getApplication();
         app.userIsLogged(true);
 
-        Theme.setTheme(this, app);
+        setTheme(app.themeRes);
 
         super.setContentView(R.layout.activity__basic);
 
@@ -104,7 +104,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
         setViewNavigation(); // set drawer menu
         setSupportActionBar(toolbar);
-        Theme.setActionBar(actionBar, app);
+        ThemeHelper.setActionBar(actionBar, app);
 
         String toolbarName = getToolbarName();
         if (toolbarName != null) {
@@ -554,7 +554,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                 if (picassoRounded != null)
                     picassoRounded.into(imageView);
 
-                AppSettings.Theme.EnumTheme coalition = Theme.getThemeFromCoalition(app.me.coalitions);
+                AppSettings.Theme.EnumTheme coalition = app.themeSettings;
                 if (coalition != null) {
                     switch (coalition) {
                         case INTRA_FEDERATION:

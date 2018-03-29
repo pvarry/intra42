@@ -345,7 +345,7 @@ You will lose a correction point"</string>
 <string name="pref_theme_list_titles_intra_the_assembly">"The Assembly"</string>
 <string name="pref_theme_list_titles_intra_the_order">"The Order"</string>
 <string name="pref_theme_list_titles_dark">"Dark"</string>
-<string name="pref_theme_list_titles_android_dark">"Android Dark"</string>
+    <string name="pref_theme_list_titles_android">"Android Dark"</string>
 <string name="pref_theme_list_titles_old">"Original (Old)"</string>
 <string name="info_api_finishing">"finishing"</string>
 <string name="search_section_users_login">"user ― login"</string>
@@ -621,4 +621,6 @@ Guideline: Cluster orientation
 <string name="project_user_not_registered">"not registered"</string>
 <string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
 <string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
+    <string name="pref_theme_switch_action_bar_background">Display image on ActionBar background</string>
+    <string name="pref_theme_switch_dark_theme">Use dark theme</string>
 </resources>

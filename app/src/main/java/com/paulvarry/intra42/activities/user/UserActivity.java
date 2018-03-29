@@ -39,7 +39,7 @@ import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
-import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
@@ -281,7 +281,7 @@ public class UserActivity extends BasicTabActivity
         super.setActionBarToggle(ActionBarToggle.ARROW);
         super.setSelectedMenu(Navigation.MENU_SELECTED_USERS);
 
-        Theme.setActionBar(actionBar, AppSettings.Theme.EnumTheme.INTRA);
+        ThemeHelper.setActionBar(actionBar, AppSettings.Theme.EnumTheme.DEFAULT);
         if (user == null && login == null)
             finish();
 
@@ -305,8 +305,8 @@ public class UserActivity extends BasicTabActivity
             selectedCursus = user.getCursusUsersToDisplay(this);
 
             super.setViewContent();
-            Theme.setTheme(this, user);
-            Theme.setActionBar(actionBar, Theme.getThemeFromCoalition(user.coalitions));
+            ThemeHelper.setTheme(this, user);
+            ThemeHelper.setActionBar(actionBar, AppSettings.Theme.getEnumTheme(this, user));
 
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = getTheme();

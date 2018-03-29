@@ -42,7 +42,7 @@ import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
-import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.ThemeHelper;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -155,7 +155,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (value instanceof String && preference.getKey().equals(AppSettings.Theme.THEME)) {
                 AppClass app = AppClass.instance();
                 if (app != null) {
-                    Theme.setTheme(app);
+
+                    app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
+                    app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
                     Toast.makeText(app, R.string.pref_theme_info_need_restart, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -232,7 +234,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
 
         app = (AppClass) getApplication();
-        Theme.setTheme(this, app);
+        ThemeHelper.setTheme(this, app);
 
         super.onCreate(savedInstanceState);
 
@@ -242,7 +244,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         Toolbar toolbar = bar.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Theme.setActionBar(bar, app);
+        ThemeHelper.setActionBar(bar, app);
 
         setupActionBar();
     }

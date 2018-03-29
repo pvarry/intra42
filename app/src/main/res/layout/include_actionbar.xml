@@ -22,7 +22,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/icon_background"
             android:scaleType="centerCrop"
-            android:src="@drawable/order_background" />
+            android:src="@drawable/back_home_42_16_9" />
 
         <com.paulvarry.intra42.ui.LinearLayoutAppBarLayout
             android:id="@+id/linearLayoutActionBar"

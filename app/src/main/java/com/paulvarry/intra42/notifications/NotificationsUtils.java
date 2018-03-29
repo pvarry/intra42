@@ -33,7 +33,7 @@ import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
-import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class NotificationsUtils {
 
     static private NotificationCompat.Builder getBaseNotification(Context context) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "intra42")
-                .setColor(Theme.getColorAccent(context));
+                .setColor(ThemeHelper.getColorAccent(context));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             builder.setSmallIcon(R.drawable.logo_42);
         else

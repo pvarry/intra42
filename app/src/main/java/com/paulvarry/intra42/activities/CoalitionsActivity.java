@@ -13,7 +13,7 @@ import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.CoalitionsBlocs;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
-import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class CoalitionsActivity
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
         registerGetDataOnOtherThread(this);
-        Theme.setActionBar(actionBar, AppSettings.Theme.EnumTheme.INTRA);
+        ThemeHelper.setActionBar(actionBar, AppSettings.Theme.EnumTheme.DEFAULT);
 
         listview = findViewById(R.id.listView);
 

@@ -87,9 +87,7 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity
-            android:name=".activities.home.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.home.HomeActivity" />
         <activity
             android:name=".activities.user.UserActivity"
             android:label="@string/title_activity_user"

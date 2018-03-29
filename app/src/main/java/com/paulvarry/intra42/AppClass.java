@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
@@ -35,7 +36,7 @@ import com.paulvarry.intra42.notifications.AlarmReceiverNotifications;
 import com.paulvarry.intra42.notifications.NotificationsJobService;
 import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
-import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Token;
 
 import java.io.File;
@@ -67,6 +68,10 @@ public class AppClass extends Application {
     public DatabaseReference firebaseRefFriends;
     public FirebaseAnalytics mFirebaseAnalytics;
 
+    public AppSettings.Theme.EnumTheme themeSettings;
+    @StyleRes
+    public
+    int themeRes;
 
     public static AppClass instance() {
         return sInstance;
@@ -166,7 +171,9 @@ public class AppClass extends Application {
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
             me = CacheUsers.get(cacheSQLiteHelper, login);
 
-        Theme.setTheme(this);
+        themeSettings = AppSettings.Theme.getEnumTheme(this, me);
+        themeRes = ThemeHelper.getThemeResource(themeSettings);
+        setTheme(themeRes);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationsUtils.generateNotificationChannel(this);

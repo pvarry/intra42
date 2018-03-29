@@ -26,7 +26,7 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.Theme;
+import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
@@ -217,9 +217,9 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             imageViewContent.setBackgroundResource(R.color.windowBackground);
 
             if (location.highlight == null)
-                view.setBackgroundColor(Theme.getColorPrimary(activity));
+                view.setBackgroundColor(ThemeHelper.getColorPrimary(activity));
             else
-                view.setBackgroundColor(Theme.getColorAccent(activity));
+                view.setBackgroundColor(ThemeHelper.getColorAccent(activity));
         }
 
         return view;

@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.Users;
 
 /**
@@ -390,22 +392,25 @@ public class AppSettings {
 
         public static final String THEME = "list_preference_theme";
         public static final String ACTIONBAR_BACKGROUND = "switch_theme_actionbar_enable_background";
+        public static final String DARK_THEME = "switch_theme_dark_theme";
 
         public static boolean getActionBarBackgroundEnable(Context context) {
             SharedPreferences preferences = getSharedPreferences(context);
             return preferences.getBoolean(ACTIONBAR_BACKGROUND, true);
         }
 
+        public static boolean getDarkThemeEnable(Context context) {
+            SharedPreferences preferences = getSharedPreferences(context);
+            return preferences.getBoolean(DARK_THEME, true);
+        }
+
         public static EnumTheme getEnumTheme(Context context) {
             SharedPreferences settings = getSharedPreferences(context);
             String string = settings.getString(THEME, "default");
-
+            boolean darkThemeEnable = getDarkThemeEnable(context);
 
             EnumTheme enumTheme;
             switch (string) {
-                case "default":
-                    enumTheme = EnumTheme.INTRA;
-                    break;
                 case "order":
                     enumTheme = EnumTheme.INTRA_ORDER;
                     break;
@@ -418,33 +423,73 @@ public class AppSettings {
                 case "alliance":
                     enumTheme = EnumTheme.INTRA_ALLIANCE;
                     break;
-                case "dark":
-                    enumTheme = EnumTheme.DARK_INTRA;
-                    break;
                 case "android":
                     enumTheme = EnumTheme.ANDROID;
                     break;
-                case "old":
-                    enumTheme = EnumTheme.OLD;
-                    break;
                 default:
-                    enumTheme = EnumTheme.INTRA;
+                    enumTheme = EnumTheme.DEFAULT;
             }
 
+            enumTheme.setDark(darkThemeEnable);
             return enumTheme;
         }
 
+        public static EnumTheme getEnumTheme(Context context, @Nullable Users user) {
+            EnumTheme theme = getEnumTheme(context);
+
+
+            if (theme == EnumTheme.DEFAULT &&
+                    user != null && user.coalitions != null && user.coalitions.size() > 0) {
+
+                EnumTheme themeTmp = null;
+                Coalitions coalitions = user.coalitions.get(0);
+                switch (coalitions.id) {
+                    case 1:
+                        themeTmp = EnumTheme.INTRA_FEDERATION;
+                        break;
+                    case 2:
+                        themeTmp = EnumTheme.INTRA_ALLIANCE;
+                        break;
+                    case 3:
+                        themeTmp = EnumTheme.INTRA_ASSEMBLY;
+                        break;
+                    case 4:
+                        themeTmp = EnumTheme.INTRA_ORDER;
+                        break;
+                }
+                if (themeTmp != null) {
+                    themeTmp.setDark(theme.isDark);
+                    theme = themeTmp;
+                }
+            }
+
+            return theme;
+        }
+
         public enum EnumTheme {
-            DEFAULT,
-            INTRA,
-            INTRA_ORDER,
-            INTRA_ASSEMBLY,
-            INTRA_FEDERATION,
-            INTRA_ALLIANCE,
-            DARK_INTRA,
-            STUDIOS_42,
-            ANDROID,
-            OLD
+            DEFAULT("default", false),
+            INTRA_ORDER("order", false),
+            INTRA_ASSEMBLY("assembly", false),
+            INTRA_FEDERATION("federation", false),
+            INTRA_ALLIANCE("alliance", false),
+            ANDROID("android", false);
+
+            private String key;
+            private boolean isDark;
+
+            EnumTheme(String key, boolean isDark) {
+
+                this.key = key;
+                this.isDark = isDark;
+            }
+
+            public boolean isDark() {
+                return isDark;
+            }
+
+            void setDark(boolean isDark) {
+                this.isDark = isDark;
+            }
         }
 
     }

@@ -86,9 +86,7 @@
         <item>@string/pref_theme_list_titles_intra_the_federation</item>
         <item>@string/pref_theme_list_titles_intra_the_assembly</item>
         <item>@string/pref_theme_list_titles_intra_the_order</item>
-        <item>@string/pref_theme_list_titles_dark</item>
-        <item>@string/pref_theme_list_titles_android_dark</item>
-        <item>@string/pref_theme_list_titles_old</item>
+        <item>@string/pref_theme_list_titles_android</item>
     </string-array>
 
     <string-array name="pref_theme_list_values">
@@ -97,9 +95,7 @@
         <item>federation</item>
         <item>assembly</item>
         <item>order</item>
-        <item>dark</item>
         <item>android</item>
-        <item>old</item>
     </string-array>
 
     <!-- Search stuff -->

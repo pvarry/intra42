@@ -10,75 +10,27 @@ import android.widget.ImageView;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.Users;
 
-import java.util.List;
-
-public class Theme {
-
-    public static AppSettings.Theme.EnumTheme getThemeFromCoalition(Coalitions coalitions) {
-        AppSettings.Theme.EnumTheme theme = null;
-        switch (coalitions.id) {
-            case 1:
-                theme = AppSettings.Theme.EnumTheme.INTRA_FEDERATION;
-                break;
-            case 2:
-                theme = AppSettings.Theme.EnumTheme.INTRA_ALLIANCE;
-                break;
-            case 3:
-                theme = AppSettings.Theme.EnumTheme.INTRA_ASSEMBLY;
-                break;
-            case 4:
-                theme = AppSettings.Theme.EnumTheme.INTRA_ORDER;
-                break;
-        }
-        return theme;
-    }
-
-    public static AppSettings.Theme.EnumTheme getThemeFromCoalition(List<Coalitions> coalitions) {
-        if (coalitions != null && coalitions.size() > 0)
-            return getThemeFromCoalition(coalitions.get(0));
-        return null;
-    }
-
-    private static int getTheme(Context context, Users users) {
-        AppSettings.Theme.EnumTheme theme = AppSettings.Theme.getEnumTheme(context);
-
-        if (theme == AppSettings.Theme.EnumTheme.INTRA && users != null) {
-            AppSettings.Theme.EnumTheme tmp = getThemeFromCoalition(users.coalitions);
-            if (tmp != null)
-                theme = tmp;
-        }
-        return getThemeResource(theme);
-
-    }
-
-    public static void setTheme(AppClass app) {
-        app.setTheme(getTheme(app, app.me));
-    }
+public class ThemeHelper {
 
     public static void setTheme(Activity activity, AppClass app) {
-        if (app != null)
-            setTheme(activity, app.me);
+        activity.setTheme(app.themeRes);
     }
 
     public static void setTheme(Activity activity, Users user) {
         if (activity == null)
             return;
 
-        activity.setTheme(getTheme(activity, user));
+        activity.setTheme(getThemeResource(AppSettings.Theme.getEnumTheme(activity, user)));
     }
 
     public static void setActionBar(AppBarLayout appBarLayout, AppClass app) {
+        setActionBar(appBarLayout, app.themeSettings);
+    }
 
-        AppSettings.Theme.EnumTheme theme = AppSettings.Theme.getEnumTheme(app);
-        if (theme == AppSettings.Theme.EnumTheme.INTRA && app != null && app.me != null) {
-            AppSettings.Theme.EnumTheme tmp = Theme.getThemeFromCoalition(app.me.coalitions);
-            if (tmp != null)
-                theme = tmp;
-        }
-        setActionBar(appBarLayout, theme);
+    public static void setActionBar(AppBarLayout appBarLayout, Users user) {
+        setActionBar(appBarLayout, AppSettings.Theme.getEnumTheme(appBarLayout.getContext(), user));
     }
 
     public static void setActionBar(AppBarLayout appBarLayout, AppSettings.Theme.EnumTheme enumTheme) {
@@ -86,9 +38,9 @@ public class Theme {
             return;
 
         AppSettings.Theme.EnumTheme themeSettings = AppSettings.Theme.getEnumTheme(appBarLayout.getContext());
-        if (themeSettings == AppSettings.Theme.EnumTheme.INTRA) {
+        if (themeSettings == AppSettings.Theme.EnumTheme.DEFAULT) {
             themeSettings = AppSettings.Theme.getEnumTheme(appBarLayout.getContext());
-            if (themeSettings != AppSettings.Theme.EnumTheme.INTRA &&
+            if (themeSettings != AppSettings.Theme.EnumTheme.DEFAULT &&
                     themeSettings != AppSettings.Theme.EnumTheme.INTRA_FEDERATION &&
                     themeSettings != AppSettings.Theme.EnumTheme.INTRA_ASSEMBLY &&
                     themeSettings != AppSettings.Theme.EnumTheme.INTRA_ALLIANCE &&
@@ -127,23 +79,21 @@ public class Theme {
     }
 
     @StyleRes
-    public static int getThemeResource(Context context) {
-        return getThemeResource(AppSettings.Theme.getEnumTheme(context));
-    }
-
-    @StyleRes
-    private static int getThemeResource(AppSettings.Theme.EnumTheme theme) {
+    public static int getThemeResource(AppSettings.Theme.EnumTheme theme) {
         int themeRes;
 
         switch (theme) {
             case DEFAULT:
-                themeRes = R.style.ThemeIntra;
-                break;
-            case INTRA:
-                themeRes = R.style.ThemeIntra;
+                if (theme.isDark())
+                    themeRes = R.style.ThemeIntra_Dark;
+                else
+                    themeRes = R.style.ThemeIntra;
                 break;
             case INTRA_ORDER:
-                themeRes = R.style.ThemeIntraOrder;
+                if (theme.isDark())
+                    themeRes = R.style.ThemeIntraOrder_Dark;
+                else
+                    themeRes = R.style.ThemeIntraOrder;
                 break;
             case INTRA_ASSEMBLY:
                 themeRes = R.style.ThemeIntraAssembly;
@@ -154,17 +104,8 @@ public class Theme {
             case INTRA_ALLIANCE:
                 themeRes = R.style.ThemeIntraAlliance;
                 break;
-            case STUDIOS_42:
-                themeRes = R.style.ThemeStudios;
-                break;
             case ANDROID:
                 themeRes = R.style.ThemeDarkAndroid;
-                break;
-            case OLD:
-                themeRes = R.style.ThemeOld;
-                break;
-            case DARK_INTRA:
-                themeRes = R.style.ThemeIntra_Dark;
                 break;
             default:
                 themeRes = R.style.ThemeIntra;
