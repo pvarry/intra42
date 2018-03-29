@@ -22,5 +22,6 @@
     <declare-styleable name="Theme">
         <attr name="colorSecondary" format="color" />
         <attr name="themeSelectionBar" format="reference" />
+        <attr name="tintColor" format="color" />
     </declare-styleable>
 </resources>

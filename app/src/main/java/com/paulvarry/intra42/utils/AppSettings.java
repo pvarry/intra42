@@ -419,7 +419,7 @@ public class AppSettings {
                     enumTheme = EnumTheme.INTRA_ALLIANCE;
                     break;
                 case "dark":
-                    enumTheme = EnumTheme.STUDIOS_42_DARK;
+                    enumTheme = EnumTheme.DARK_INTRA;
                     break;
                 case "android":
                     enumTheme = EnumTheme.ANDROID;
@@ -441,8 +441,8 @@ public class AppSettings {
             INTRA_ASSEMBLY,
             INTRA_FEDERATION,
             INTRA_ALLIANCE,
+            DARK_INTRA,
             STUDIOS_42,
-            STUDIOS_42_DARK,
             ANDROID,
             OLD
         }

@@ -41,6 +41,13 @@
         <item name="colorAccent">@color/mdtp_accent_color</item>
     </style>
 
+    <style name="ThemeIntra.Dark" parent="AppTheme.Dark.NoActionBar">
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorSecondary">#ff37474f</item>
+        <item name="colorAccent">@color/mdtp_accent_color</item>
+    </style>
+
     <style name="ThemeOld" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryDark">#303f9f</item>
@@ -58,9 +65,28 @@
         <item name="windowNoTitle">true</item>
 
         <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
+        <item name="tintColor">@color/colorGrayTint</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+
+        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
+
+        <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
+
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
+        <item name="tintColor">@color/colorGrayLight</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Dark.NoActionBar" parent="AppTheme.Dark">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>

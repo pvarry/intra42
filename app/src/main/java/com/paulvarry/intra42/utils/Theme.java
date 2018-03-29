@@ -157,14 +157,14 @@ public class Theme {
             case STUDIOS_42:
                 themeRes = R.style.ThemeStudios;
                 break;
-            case STUDIOS_42_DARK:
-                themeRes = R.style.ThemeStudiosDark;
-                break;
             case ANDROID:
                 themeRes = R.style.ThemeDarkAndroid;
                 break;
             case OLD:
                 themeRes = R.style.ThemeOld;
+                break;
+            case DARK_INTRA:
+                themeRes = R.style.ThemeIntra_Dark;
                 break;
             default:
                 themeRes = R.style.ThemeIntra;
