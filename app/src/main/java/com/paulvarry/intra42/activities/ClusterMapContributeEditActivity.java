@@ -644,7 +644,12 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
                     textInputLayoutScale.setError(null);
                     if (!content.isEmpty()) {
-                        float scale = Float.valueOf(content);
+                        float scale = 1.0f;
+                        try {
+                            scale = Float.valueOf(content);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                         if (scale < 0.1) {
                             textInputLayoutScale.setError(getString(R.string.error_scale_is_too_small));
                             disable = true;
@@ -675,9 +680,12 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                 String content = editTextScale.getText().toString();
                 if (content.isEmpty())
                     return;
-                float scale = Float.valueOf(content);
-                if (scale <= 0)
-                    return;
+                float scale = 1.0f;
+                try {
+                    scale = Float.valueOf(content);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
                 if (finalIsRow)
                     setRowScale(wrapper.y, scale);
                 else
