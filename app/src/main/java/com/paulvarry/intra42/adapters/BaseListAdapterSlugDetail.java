@@ -67,7 +67,7 @@ public class BaseListAdapterSlugDetail<T extends IBaseItemDetail> extends BaseAd
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(context);
 
             if (vi == null)
                 return null;

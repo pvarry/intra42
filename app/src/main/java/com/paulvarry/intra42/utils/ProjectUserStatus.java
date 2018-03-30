@@ -36,7 +36,7 @@ public class ProjectUserStatus {
             setMarkText(textView, projects.finalMark, projects.validated, context);
         } else {
             textView.setText(projects.status.getRes());
-            textView.setTextColor(ContextCompat.getColor(context, R.color.textColorBlackSecondary));
+            textView.setTextColor(context.getResources().getColor(R.color.gray));
         }
     }
 

@@ -8,7 +8,9 @@
     <ListView
         android:id="@+id/listViewSkills"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="#00ffffff"
+        android:dividerHeight="0dp" />
 
     <TextView
         android:id="@+id/textViewNothingToShow"

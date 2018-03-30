@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:layout_height="wrap_content"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/textViewProjectMark"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/textViewProjectMark"
+        android:layout_toStartOf="@+id/textViewProjectMark"
         android:orientation="vertical">
 
         <TextView
@@ -17,14 +22,13 @@
             android:layout_height="wrap_content"
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/textColorBlackPrimary" />
+            android:textColor="?android:textColorPrimary" />
 
         <TextView
             android:id="@+id/textViewProjectSlug"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:textColor="@color/textColorBlackSecondary" />
+            android:text="New Text" />
 
     </LinearLayout>
 
@@ -35,7 +39,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_gravity="end"
-        android:text="New Text"
-        android:textColor="@color/textColorBlackSecondary" />
+        android:text="New Text" />
 
 </RelativeLayout>

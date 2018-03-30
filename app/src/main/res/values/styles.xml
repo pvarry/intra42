@@ -154,6 +154,14 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
+    <style name="AppTheme.BigTextBackground.Light" parent="AppTheme.BigTextBackground">
+        <item name="android:textColor">#28ff0000</item>
+    </style>
+
+    <style name="AppTheme.BigTextBackground.Dark" parent="AppTheme.BigTextBackground">
+        <item name="android:textColor">#9c1b1b</item>
+    </style>
+
     <style name="AppTheme.Galaxy">
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>

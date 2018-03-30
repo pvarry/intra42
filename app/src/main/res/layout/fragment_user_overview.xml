@@ -20,18 +20,23 @@
                 android:id="@+id/imageViewProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/user_profile_image"
-                app:layout_constraintBottom_toTopOf="@+id/barrier"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineInfoStart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_person_black_custom" />
+
+            <View
+                android:id="@+id/imageControl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
+                tools:layout_editor_absoluteX="8dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guidelineInfoStart"
@@ -49,7 +54,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/textColorBlackPrimary"
+                android:textColor="?android:textColorPrimary"
                 android:textIsSelectable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -62,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/user_wallet_money"
-                android:textColor="#333"
+                android:textColor="?android:textColorSecondary"
                 app:layout_constraintStart_toStartOf="@+id/guidelineInfoStart"
                 app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
@@ -77,6 +82,7 @@
                 android:paddingRight="0dp"
                 android:paddingStart="@dimen/user_inline_stat"
                 android:text="New Text"
+                android:textColor="?android:textColorTertiary"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textViewWalletLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -88,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/user_correction_points"
-                android:textColor="#333"
+                android:textColor="?android:textColorSecondary"
                 app:layout_constraintStart_toStartOf="@+id/guidelineInfoStart"
                 app:layout_constraintTop_toBottomOf="@+id/textViewWalletLabel" />
 
@@ -103,6 +109,7 @@
                 android:paddingRight="0dp"
                 android:paddingStart="@dimen/user_inline_stat"
                 android:text="New Text"
+                android:textColor="?android:textColorTertiary"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textViewCorrectionPointsLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -121,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/user_pool"
-                android:textColor="#333"
+                android:textColor="?android:textColorSecondary"
                 app:layout_constraintStart_toStartOf="@+id/guidelineInfoStart"
                 app:layout_constraintTop_toBottomOf="@+id/textViewCorrectionPointsLabel" />
 
@@ -136,6 +143,7 @@
                 android:paddingRight="0dp"
                 android:paddingStart="@dimen/user_inline_stat"
                 android:text="New Text"
+                android:textColor="?android:textColorTertiary"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textViewPiscineLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -152,6 +160,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/user_profile_add_to_friends"
                 android:textColor="@color/colorGray"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/barrier"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guidelineInfoStart"
@@ -170,6 +179,7 @@
                 android:layout_marginTop="8dp"
                 android:indeterminate="true"
                 android:padding="4dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/buttonFriend"
                 app:layout_constraintStart_toEndOf="@+id/buttonFriend"
                 app:layout_constraintTop_toTopOf="@+id/buttonFriend" />
@@ -179,17 +189,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="bottom"
-                app:constraint_referenced_ids="imageViewProfile" />
+                app:constraint_referenced_ids="buttonFriend,imageControl"
+                tools:layout_editor_absoluteY="160dp" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardViewContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="4dp"
                 app:cardCornerRadius="2dp"
-                app:cardElevation="2dp"
+                app:cardElevation="3dp"
                 app:cardPreventCornerOverlap="false"
                 app:contentPadding="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -220,7 +231,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:contentDescription="@string/icon_phone"
-                            android:tint="@color/colorGrayTint"
+                            android:tint="?tintColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -235,7 +246,7 @@
                             android:layout_marginStart="32dp"
                             android:layout_marginTop="16dp"
                             android:text="New Text"
-                            android:textColor="#000"
+                            android:textColor="?android:textColorPrimary"
                             app:layout_constraintLeft_toRightOf="@+id/imageViewMobile"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -264,7 +275,7 @@
                             android:contentDescription="@string/icon_sms"
                             android:focusable="true"
                             android:padding="16dp"
-                            android:tint="@color/colorGrayTint"
+                            android:tint="?tintColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -278,7 +289,7 @@
                         android:layout_height="1dp"
                         android:layout_marginLeft="72dp"
                         android:layout_marginStart="72dp"
-                        android:background="@color/colorGrayLight" />
+                        android:background="?android:listDivider" />
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/layoutMail"
@@ -298,7 +309,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:contentDescription="@string/icon_email"
-                            android:tint="@color/colorGrayTint"
+                            android:tint="?tintColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -312,7 +323,7 @@
                             android:layout_marginStart="32dp"
                             android:layout_marginTop="16dp"
                             android:text="New Text"
-                            android:textColor="@color/textColorBlackPrimary"
+                            android:textColor="?android:textColorPrimary"
                             app:layout_constraintLeft_toRightOf="@+id/imageView3"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -322,7 +333,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:text="@string/user_email"
-                            android:textColor="@color/textColorBlackSecondary"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="@+id/textViewMail"
                             app:layout_constraintTop_toBottomOf="@+id/textViewMail" />
@@ -334,7 +344,7 @@
                         android:layout_height="1dp"
                         android:layout_marginLeft="72dp"
                         android:layout_marginStart="72dp"
-                        android:background="@color/colorGrayLight" />
+                        android:background="?android:listDivider" />
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/layoutLocation"
@@ -354,7 +364,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:contentDescription="@string/icon_location"
-                            android:tint="@color/colorGrayTint"
+                            android:tint="?tintColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -368,7 +378,7 @@
                             android:layout_marginStart="32dp"
                             android:layout_marginTop="16dp"
                             android:text="New Text"
-                            android:textColor="@color/textColorBlackPrimary"
+                            android:textColor="?android:textColorPrimary"
                             app:layout_constraintLeft_toRightOf="@+id/imageViewLocation"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -377,7 +387,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:text="@string/user_location"
-                            android:textColor="@color/textColorBlackSecondary"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="@+id/textViewPosition"
                             app:layout_constraintTop_toBottomOf="@+id/textViewPosition" />
@@ -390,14 +399,13 @@
                 android:id="@+id/cardViewCursus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
                 android:visibility="visible"
                 app:cardCornerRadius="2dp"
-                app:cardElevation="2dp"
+                app:cardElevation="3dp"
                 app:cardPreventCornerOverlap="false"
                 app:contentPadding="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -425,7 +433,7 @@
                         android:id="@+id/viewSeparatorGrade"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
-                        android:background="@color/colorGrayLight" />
+                        android:background="?android:listDivider" />
 
                     <LinearLayout
                         android:id="@+id/linearLayoutGrade"
@@ -441,7 +449,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/user_profile_grade_rank"
-                            android:textColor="#333" />
+                            android:textColor="?android:textColorPrimary" />
 
                         <TextView
                             android:id="@+id/textViewGrade"
@@ -453,7 +461,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/colorGrayLight" />
+                        android:background="?android:listDivider" />
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
@@ -503,7 +511,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:text="@string/user_level"
-                            android:textColor="#333"
+                            android:textColor="?android:textColorPrimary"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textViewLvl"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -517,7 +525,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/colorGrayLight" />
+                        android:background="?android:listDivider" />
 
                     <LinearLayout
                         android:id="@+id/linearLayoutCursusDate"
@@ -533,7 +541,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/user_cursus_date"
-                            android:textColor="#333" />
+                            android:textColor="?android:textColorPrimary" />
 
                         <TextView
                             android:id="@+id/textViewCursusDate"

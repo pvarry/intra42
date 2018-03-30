@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,7 @@ public class ListAdapterCorrections extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(activity);
 
             convertView = vi.inflate(R.layout.list_view_corrections, parent, false);
             holder.textViewWith = convertView.findViewById(R.id.textViewWith);

@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.adapters;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +20,13 @@ import java.util.List;
 
 public class ListAdapterSlotsGroup extends BaseAdapter {
 
-    private final HomeSlotsFragment activity;
+    private final HomeSlotsFragment fragment;
     private SlotsTools slotsTools;
     private List<Slots> slots;
 
-    public ListAdapterSlotsGroup(HomeSlotsFragment activity, List<Slots> slots) {
+    public ListAdapterSlotsGroup(HomeSlotsFragment fragment, List<Slots> slots) {
 
-        this.activity = activity;
+        this.fragment = fragment;
         this.slots = slots;
         this.slotsTools = new SlotsTools(slots);
 
@@ -55,7 +54,7 @@ public class ListAdapterSlotsGroup extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) activity.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(fragment.getActivity());
 
             convertView = vi.inflate(R.layout.list_view_slots_group, parent, false);
             holder.textViewDate = convertView.findViewById(R.id.textViewDate);
@@ -69,18 +68,18 @@ public class ListAdapterSlotsGroup extends BaseAdapter {
         final SlotsTools.SlotsDay item = getItem(position);
 
         holder.textViewDate.setText(DateTool.getDateLong(item.day));
-        ListAdapterSlotsItem adapter = new ListAdapterSlotsItem(activity.getContext(), item.slots);
+        ListAdapterSlotsItem adapter = new ListAdapterSlotsItem(fragment.getContext(), item.slots);
         holder.listViewSlots.setAdapter(adapter);
         holder.listViewSlots.setExpanded(true);
         holder.listViewSlots.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int subPosition, long id) {
                 BottomSheetSlotsDialogFragment bottomSheetDialogFragment = BottomSheetSlotsDialogFragment.newInstance(item.slots.get(subPosition));
-                bottomSheetDialogFragment.show(activity.getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                bottomSheetDialogFragment.show(fragment.getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
                 bottomSheetDialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        activity.onRefresh();
+                        fragment.onRefresh();
                     }
                 });
             }

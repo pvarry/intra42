@@ -16,12 +16,12 @@ import java.util.List;
 
 public class ListAdapterSlotsItem extends BaseAdapter {
 
-    private final Context activity;
+    private final Context context;
     private List<SlotsTools.SlotsGroup> slots;
 
     ListAdapterSlotsItem(Context context, List<SlotsTools.SlotsGroup> slots) {
 
-        this.activity = context;
+        this.context = context;
         this.slots = slots;
     }
 
@@ -47,7 +47,7 @@ public class ListAdapterSlotsItem extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(context);
 
             convertView = vi.inflate(R.layout.list_view_slots_item, parent, false);
             holder.textViewDate = convertView.findViewById(R.id.textViewDate);
@@ -62,9 +62,9 @@ public class ListAdapterSlotsItem extends BaseAdapter {
         String date = DateTool.getTimeShort(item.beginAt) + " - " + DateTool.getTimeShort(item.endAt);
         holder.textViewDate.setText(date);
         if (item.scaleTeam != null || item.isBooked)
-            holder.textViewDate.setTextColor(ContextCompat.getColor(activity, R.color.colorFail));
+            holder.textViewDate.setTextColor(ContextCompat.getColor(context, R.color.colorFail));
         else
-            holder.textViewDate.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark));
+            holder.textViewDate.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDark));
 
         return convertView;
     }

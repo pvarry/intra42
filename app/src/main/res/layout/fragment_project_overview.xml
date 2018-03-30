@@ -14,7 +14,7 @@
             android:id="@+id/frameLayoutStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorGrayLight">
+            android:background="#20000000">
 
             <RelativeLayout
                 android:id="@+id/linearLayoutMark"
@@ -121,7 +121,7 @@
                 android:id="@+id/viewInfoLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayLight" />
+                android:background="?android:listDivider" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutDescription"
@@ -155,7 +155,7 @@
                 android:id="@+id/viewDescriptionLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayLight" />
+                android:background="?android:listDivider" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutSkills"
@@ -189,7 +189,7 @@
                 android:id="@+id/viewSkillsLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayLight" />
+                android:background="?android:listDivider" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutSession"
@@ -224,7 +224,7 @@
                 android:id="@+id/viewSessionLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayLight" />
+                android:background="?android:listDivider" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutObjectives"
@@ -259,7 +259,7 @@
                 android:id="@+id/viewObjectivesLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayLight" />
+                android:background="?android:listDivider" />
 
             <Button
                 android:id="@+id/buttonParent"

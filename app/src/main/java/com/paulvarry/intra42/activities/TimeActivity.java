@@ -43,7 +43,7 @@ public class TimeActivity extends BasicThreadActivity implements BasicThreadActi
         super.onCreate(savedInstanceState);
 
         super.setContentView(R.layout.activity_content_time);
-        super.activeHamburger();
+        super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);

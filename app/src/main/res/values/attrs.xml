@@ -23,5 +23,7 @@
         <attr name="colorSecondary" format="color" />
         <attr name="themeSelectionBar" format="reference" />
         <attr name="tintColor" format="color" />
+        <attr name="bigBackgroundTextTheme" format="reference" />
+        <attr name="backgroundOverlay" format="reference" />
     </declare-styleable>
 </resources>

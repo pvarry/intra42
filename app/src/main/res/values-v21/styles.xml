@@ -18,6 +18,15 @@
         <item name="tintColor">@color/colorGrayTint</item>
         <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <!--<item name="android:textColor">#de000000</item>-->
+        <!--<item name="android:textColorPrimary">#de000000</item>-->
+        <!--<item name="android:textColorSecondary">#8a000000</item>-->
+        <!--<item name="android:textColorTertiary">#61000000</item>-->
+
+        <item name="bigBackgroundTextTheme">@style/AppTheme.BigTextBackground.Light</item>
+        <item name="backgroundOverlay">@drawable/shape_overlay_light</item>
+
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
@@ -38,6 +47,15 @@
         <item name="tintColor">@color/colorGrayTint</item>
 
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+
+        <!--<item name="android:textColor">#ffffff</item>-->
+        <!--<item name="android:textColorPrimary">#ffffff</item>-->
+        <!--<item name="android:textColorSecondary">#b3ffffff</item>-->
+        <!--<item name="android:textColorTertiary">#7fffffff</item>-->
+
+        <item name="bigBackgroundTextTheme">@style/AppTheme.BigTextBackground.Dark</item>
+        <item name="backgroundOverlay">@drawable/shape_overlay_dark</item>
+
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme">
@@ -59,12 +77,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
 
         <item name="android:alertDialogTheme">@style/AlertDialog</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!--<item name="android:colorControlNormal">@android:color/white</item>-->
-        <!--<item name="android:textColorSecondary">@android:color/white</item>-->
-        <!--<item name="android:textColorPrimary">@android:color/white</item>-->
     </style>
 
     <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog.Alert">

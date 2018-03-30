@@ -34,19 +34,19 @@
             android:id="@+id/listViewAll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#fff" />
+            android:background="?android:windowBackground" />
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#fff" />
+            android:background="?android:windowBackground" />
 
         <TextView
             android:id="@+id/textViewNoItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#fff"
+            android:background="?android:windowBackground"
             android:gravity="center"
             android:text="@string/info_nothing_to_show"
             android:visibility="gone" />

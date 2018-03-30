@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.adapters;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +51,7 @@ public class GridAdapterAchievements extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(activity);
 
             convertView = vi.inflate(R.layout.grid_view_achievements, parent, false);
             holder.imageView = convertView.findViewById(R.id.imageView);

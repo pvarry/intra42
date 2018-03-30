@@ -46,7 +46,7 @@ public class GridAdapterUsersLittle extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(activity);
 
             convertView = vi.inflate(R.layout.grid_view_users_little, parent, false);
             holder.imageViewUsers = convertView.findViewById(R.id.imageViewUsers);

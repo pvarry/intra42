@@ -52,7 +52,7 @@ public class GridAdapterTimeTool extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(context);
 
             convertView = vi.inflate(R.layout.grid_view_time_tool, parent, false);
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);

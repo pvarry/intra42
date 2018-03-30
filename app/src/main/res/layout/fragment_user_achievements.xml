@@ -8,7 +8,6 @@
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e5e5e5"
         android:columnWidth="300dp"
         android:horizontalSpacing="1dp"
         android:numColumns="auto_fit"
