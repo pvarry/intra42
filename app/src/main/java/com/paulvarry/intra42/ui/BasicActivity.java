@@ -557,16 +557,16 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                 AppSettings.Theme.EnumTheme coalition = app.themeSettings;
                 if (coalition != null) {
                     switch (coalition) {
-                        case INTRA_FEDERATION:
+                        case BLUE:
                             imageViewNavBackground.setImageResource(R.drawable.federation_background);
                             break;
-                        case INTRA_ALLIANCE:
+                        case GREEN:
                             imageViewNavBackground.setImageResource(R.drawable.alliance_background);
                             break;
-                        case INTRA_ASSEMBLY:
+                        case PURPLE:
                             imageViewNavBackground.setImageResource(R.drawable.assembly_background);
                             break;
-                        case INTRA_ORDER:
+                        case RED:
                             imageViewNavBackground.setImageResource(R.drawable.order_background);
                             break;
                         default:

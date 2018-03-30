@@ -162,6 +162,30 @@ public class AppClass extends Application {
             }
             if (appVersion <= 20180310)
                 edit.remove("POEditor_activated");
+            if (appVersion <= 20180330) {
+                Log.d("Start param migration", "theme");
+                SharedPreferences pref = AppSettings.getSharedPreferences(this);
+
+                String string = pref.getString(AppSettings.Theme.THEME, "default");
+                SharedPreferences.Editor editor = pref.edit();
+
+                switch (string) {
+                    case "order":
+                        editor.putString(AppSettings.Theme.THEME, "red");
+                        break;
+                    case "assembly":
+                        editor.putString(AppSettings.Theme.THEME, "purple");
+                        break;
+                    case "federation":
+                        editor.putString(AppSettings.Theme.THEME, "blue");
+                        break;
+                    case "alliance":
+                        editor.putString(AppSettings.Theme.THEME, "green");
+                        break;
+                }
+
+                editor.commit();
+            }
 
             edit.apply();
         }

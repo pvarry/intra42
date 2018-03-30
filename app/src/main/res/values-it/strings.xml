@@ -350,11 +350,11 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="friends_info_database_update">"Aggiorna database amici"</string>
 <string name="pref_theme_title_change_theme">"Scegli tema"</string>
 <string name="pref_header_theme">"Tema"</string>
-<string name="pref_theme_list_titles_intra">"Intra (Auto coalition)"</string>
-<string name="pref_theme_list_titles_intra_the_alliance">"The Alliance"</string>
-<string name="pref_theme_list_titles_intra_the_federation">"The Federation"</string>
-<string name="pref_theme_list_titles_intra_the_assembly">"The Assembly"</string>
-<string name="pref_theme_list_titles_intra_the_order">"The Order"</string>
+    <string name="pref_theme_list_titles_default">"Intra (Auto coalition)"</string>
+    <string name="pref_theme_list_titles_green_the_alliance">"The Alliance"</string>
+    <string name="pref_theme_list_titles_blue_the_federation">"The Federation"</string>
+    <string name="pref_theme_list_titles_purple_the_assembly">"The Assembly"</string>
+    <string name="pref_theme_list_titles_red_the_order">"The Order"</string>
 <string name="pref_theme_list_titles_dark">"Dark"</string>
     <string name="pref_theme_list_titles_android">"Android Dark"</string>
 <string name="pref_theme_list_titles_old">"Original (Old)"</string>

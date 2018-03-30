@@ -413,17 +413,17 @@ public class AppSettings {
 
             EnumTheme enumTheme;
             switch (string) {
-                case "order":
-                    enumTheme = EnumTheme.INTRA_ORDER;
+                case "red":
+                    enumTheme = EnumTheme.RED;
                     break;
-                case "assembly":
-                    enumTheme = EnumTheme.INTRA_ASSEMBLY;
+                case "purple":
+                    enumTheme = EnumTheme.PURPLE;
                     break;
-                case "federation":
-                    enumTheme = EnumTheme.INTRA_FEDERATION;
+                case "blue":
+                    enumTheme = EnumTheme.BLUE;
                     break;
-                case "alliance":
-                    enumTheme = EnumTheme.INTRA_ALLIANCE;
+                case "green":
+                    enumTheme = EnumTheme.GREEN;
                     break;
                 case "android":
                     enumTheme = EnumTheme.ANDROID;
@@ -446,16 +446,16 @@ public class AppSettings {
                 Coalitions coalitions = user.coalitions.get(0);
                 switch (coalitions.id) {
                     case 1:
-                        themeTmp = EnumTheme.INTRA_FEDERATION;
+                        themeTmp = EnumTheme.BLUE;
                         break;
                     case 2:
-                        themeTmp = EnumTheme.INTRA_ALLIANCE;
+                        themeTmp = EnumTheme.GREEN;
                         break;
                     case 3:
-                        themeTmp = EnumTheme.INTRA_ASSEMBLY;
+                        themeTmp = EnumTheme.PURPLE;
                         break;
                     case 4:
-                        themeTmp = EnumTheme.INTRA_ORDER;
+                        themeTmp = EnumTheme.RED;
                         break;
                 }
                 if (themeTmp != null) {
@@ -468,11 +468,11 @@ public class AppSettings {
         }
 
         public enum EnumTheme {
-            DEFAULT("default", false, R.string.pref_theme_list_titles_intra),
-            INTRA_ORDER("order", false, R.string.pref_theme_list_titles_intra_the_order),
-            INTRA_ASSEMBLY("assembly", false, R.string.pref_theme_list_titles_intra_the_assembly),
-            INTRA_FEDERATION("federation", false, R.string.pref_theme_list_titles_intra_the_federation),
-            INTRA_ALLIANCE("alliance", false, R.string.pref_theme_list_titles_intra_the_alliance),
+            DEFAULT("default", false, R.string.pref_theme_list_titles_default),
+            RED("red", false, R.string.pref_theme_list_titles_red_the_order),
+            PURPLE("purple", false, R.string.pref_theme_list_titles_purple_the_assembly),
+            BLUE("blue", false, R.string.pref_theme_list_titles_blue_the_federation),
+            GREEN("green", false, R.string.pref_theme_list_titles_green_the_alliance),
             ANDROID("android", false, R.string.pref_theme_list_titles_android);
 
             private String key;

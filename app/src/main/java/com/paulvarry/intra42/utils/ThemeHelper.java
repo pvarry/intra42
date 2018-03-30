@@ -41,10 +41,10 @@ public class ThemeHelper {
         if (themeSettings == AppSettings.Theme.EnumTheme.DEFAULT) {
             themeSettings = AppSettings.Theme.getEnumTheme(appBarLayout.getContext());
             if (themeSettings != AppSettings.Theme.EnumTheme.DEFAULT &&
-                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_FEDERATION &&
-                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_ASSEMBLY &&
-                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_ALLIANCE &&
-                    themeSettings != AppSettings.Theme.EnumTheme.INTRA_ORDER)
+                    themeSettings != AppSettings.Theme.EnumTheme.BLUE &&
+                    themeSettings != AppSettings.Theme.EnumTheme.PURPLE &&
+                    themeSettings != AppSettings.Theme.EnumTheme.GREEN &&
+                    themeSettings != AppSettings.Theme.EnumTheme.RED)
                 return;
         }
 
@@ -61,16 +61,16 @@ public class ThemeHelper {
 
         imageView.setVisibility(View.VISIBLE);
         switch (enumTheme) {
-            case INTRA_ORDER:
+            case RED:
                 imageView.setImageResource(R.drawable.order_background);
                 break;
-            case INTRA_ASSEMBLY:
+            case PURPLE:
                 imageView.setImageResource(R.drawable.assembly_background);
                 break;
-            case INTRA_ALLIANCE:
+            case GREEN:
                 imageView.setImageResource(R.drawable.alliance_background);
                 break;
-            case INTRA_FEDERATION:
+            case BLUE:
                 imageView.setImageResource(R.drawable.federation_background);
                 break;
             default:
@@ -89,19 +89,19 @@ public class ThemeHelper {
                 else
                     themeRes = R.style.ThemeIntra;
                 break;
-            case INTRA_ORDER:
+            case RED:
                 if (theme.isDark())
                     themeRes = R.style.ThemeIntraOrder_Dark;
                 else
                     themeRes = R.style.ThemeIntraOrder;
                 break;
-            case INTRA_ASSEMBLY:
+            case PURPLE:
                 themeRes = R.style.ThemeIntraAssembly;
                 break;
-            case INTRA_FEDERATION:
+            case BLUE:
                 themeRes = R.style.ThemeIntraFederation;
                 break;
-            case INTRA_ALLIANCE:
+            case GREEN:
                 themeRes = R.style.ThemeIntraAlliance;
                 break;
             case ANDROID:
