@@ -61,28 +61,24 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
 
-        <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
+        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
+        <item name="tintColor">@color/colorGrayTint</item>
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.AppCompat">
 
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
 
         <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
         <item name="tintColor">@color/colorGrayTint</item>
-    </style>
 
-    <style name="AppTheme.Dark" parent="Theme.AppCompat.DayNight">
-
-        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
-
-        <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
-
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
-
-        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
-        <item name="tintColor">@color/colorGrayLight</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -112,10 +108,6 @@
 
     <style name="AppTheme.Button.Borderless" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">?colorAccent</item>
-    </style>
-
-    <style name="myDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
-        <item name="android:background">#FFF</item>
     </style>
 
     <style name="spinnerDropDownItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">

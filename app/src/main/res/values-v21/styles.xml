@@ -2,8 +2,6 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
-
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
@@ -13,18 +11,16 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
 
-        <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
-
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
         <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
         <item name="tintColor">@color/colorGrayTint</item>
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
-
-        <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -35,13 +31,13 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
 
-        <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
-
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
         <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
         <item name="tintColor">@color/colorGrayTint</item>
+
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme">
@@ -66,8 +62,9 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:colorControlNormal">#ffffff</item>
-        <item name="android:textColorSecondary">#fff</item>
+        <!--<item name="android:colorControlNormal">@android:color/white</item>-->
+        <!--<item name="android:textColorSecondary">@android:color/white</item>-->
+        <!--<item name="android:textColorPrimary">@android:color/white</item>-->
     </style>
 
     <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog.Alert">

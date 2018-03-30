@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.Users;
 
@@ -437,7 +439,6 @@ public class AppSettings {
         public static EnumTheme getEnumTheme(Context context, @Nullable Users user) {
             EnumTheme theme = getEnumTheme(context);
 
-
             if (theme == EnumTheme.DEFAULT &&
                     user != null && user.coalitions != null && user.coalitions.size() > 0) {
 
@@ -467,20 +468,23 @@ public class AppSettings {
         }
 
         public enum EnumTheme {
-            DEFAULT("default", false),
-            INTRA_ORDER("order", false),
-            INTRA_ASSEMBLY("assembly", false),
-            INTRA_FEDERATION("federation", false),
-            INTRA_ALLIANCE("alliance", false),
-            ANDROID("android", false);
+            DEFAULT("default", false, R.string.pref_theme_list_titles_intra),
+            INTRA_ORDER("order", false, R.string.pref_theme_list_titles_intra_the_order),
+            INTRA_ASSEMBLY("assembly", false, R.string.pref_theme_list_titles_intra_the_assembly),
+            INTRA_FEDERATION("federation", false, R.string.pref_theme_list_titles_intra_the_federation),
+            INTRA_ALLIANCE("alliance", false, R.string.pref_theme_list_titles_intra_the_alliance),
+            ANDROID("android", false, R.string.pref_theme_list_titles_android);
 
             private String key;
             private boolean isDark;
+            @StringRes
+            private int name;
 
-            EnumTheme(String key, boolean isDark) {
+            EnumTheme(String key, boolean isDark, @StringRes int name) {
 
                 this.key = key;
                 this.isDark = isDark;
+                this.name = name;
             }
 
             public boolean isDark() {
@@ -489,6 +493,10 @@ public class AppSettings {
 
             void setDark(boolean isDark) {
                 this.isDark = isDark;
+            }
+
+            public int getName() {
+                return name;
             }
         }
 

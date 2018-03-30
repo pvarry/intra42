@@ -156,8 +156,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 AppClass app = AppClass.instance();
                 if (app != null) {
 
-                    app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
-                    app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
                     Toast.makeText(app, R.string.pref_theme_info_need_restart, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -254,9 +252,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
+                app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
+        app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
     }
 
     /**
@@ -292,6 +299,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     h.summaryRes = R.string.pref_activated;
                 else
                     h.summaryRes = R.string.pref_unactivated;
+            } else if (ThemePreferenceFragment.class.getName().equals(h.fragment)) {
+//                String[] keys = getResources().getStringArray(R.array.pref_theme_list_values);
+//                String[] values = getResources().getStringArray(R.array.pref_theme_list_titles);
+//                String k = app.themeSettings.key;
+//
+//                int pos = Arrays.binarySearch(keys, k);
+//                String out = values[pos] + " - ";
+                String out = getResources().getString(app.themeSettings.getName()) + " - ";
+                if (app.themeSettings.isDark())
+                    out += "Dark";
+                else
+                    out += "Light";
+                h.summary = out;
             }
         }
     }
