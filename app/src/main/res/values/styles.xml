@@ -11,10 +11,6 @@
         <item name="colorAccent">#FF6950</item>
     </style>
 
-    <style name="ThemeIntraOrder.Dark" parent="ThemeIntra.Dark">
-        <item name="colorAccent">#FF6950</item>
-    </style>
-
     <style name="ThemeIntraAssembly" parent="ThemeIntra">
         <item name="colorAccent">#A061D1</item>
     </style>
@@ -27,25 +23,7 @@
         <item name="colorAccent">#4180DB</item>
     </style>
 
-    <style name="ThemeStudios" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#990000</item>
-        <item name="colorPrimaryDark">#660000</item>
-        <item name="colorAccent">#000000</item>
-        <item name="colorSecondary">#525663</item>
-    </style>
-
-    <style name="ThemeStudiosDark" parent="ThemeStudios">
-        <item name="colorAccent">#cc0000</item>
-    </style>
-
     <style name="ThemeDarkAndroid" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#212121</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="colorSecondary">#ff37474f</item>
-        <item name="colorAccent">@color/mdtp_accent_color</item>
-    </style>
-
-    <style name="ThemeIntra.Dark" parent="AppTheme.Dark.NoActionBar">
         <item name="colorPrimary">#212121</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorSecondary">#ff37474f</item>
@@ -59,7 +37,7 @@
         <item name="colorSecondary">#7a89dc</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
 
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
@@ -70,23 +48,7 @@
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="Theme.AppCompat">
-
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
-
-        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
-        <item name="tintColor">@color/colorGrayTint</item>
-
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
-    </style>
-
     <style name="AppTheme.NoActionBar" parent="AppTheme">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.Dark.NoActionBar" parent="AppTheme.Dark">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>

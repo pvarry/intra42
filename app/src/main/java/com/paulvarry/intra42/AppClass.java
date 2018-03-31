@@ -195,9 +195,7 @@ public class AppClass extends Application {
         if (CacheUsers.isCached(cacheSQLiteHelper, login))
             me = CacheUsers.get(cacheSQLiteHelper, login);
 
-        themeSettings = AppSettings.Theme.getEnumTheme(this, me);
-        themeRes = ThemeHelper.getThemeResource(themeSettings);
-        setTheme(themeRes);
+        ThemeHelper.setTheme(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationsUtils.generateNotificationChannel(this);

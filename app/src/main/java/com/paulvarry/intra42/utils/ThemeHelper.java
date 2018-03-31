@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +15,21 @@ import com.paulvarry.intra42.api.model.Users;
 
 public class ThemeHelper {
 
+    public static void setTheme(AppClass app) {
+        app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
+        app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
+        if (app.themeSettings.isDark())
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        app.setTheme(app.themeRes);
+    }
+
     public static void setTheme(Activity activity, AppClass app) {
+        if (app.themeSettings.isDark())
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         activity.setTheme(app.themeRes);
     }
 
@@ -84,16 +99,10 @@ public class ThemeHelper {
 
         switch (theme) {
             case DEFAULT:
-                if (theme.isDark())
-                    themeRes = R.style.ThemeIntra_Dark;
-                else
-                    themeRes = R.style.ThemeIntra;
+                themeRes = R.style.ThemeIntra;
                 break;
             case RED:
-                if (theme.isDark())
-                    themeRes = R.style.ThemeIntraOrder_Dark;
-                else
-                    themeRes = R.style.ThemeIntraOrder;
+                themeRes = R.style.ThemeIntraOrder;
                 break;
             case PURPLE:
                 themeRes = R.style.ThemeIntraAssembly;

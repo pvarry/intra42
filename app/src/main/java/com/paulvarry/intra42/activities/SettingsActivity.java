@@ -19,6 +19,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.support.annotation.NonNull;
@@ -252,8 +253,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
-                app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
-                app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
+                ThemeHelper.setTheme(app);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -262,8 +262,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
-        app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
+        ThemeHelper.setTheme(app);
     }
 
     /**
@@ -346,6 +345,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference(AppSettings.Theme.THEME));
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+            if (preference.getTitleRes() == R.string.pref_theme_switch_dark_theme) {
+                AppClass app = ((SettingsActivity) getActivity()).app;
+                ThemeHelper.setTheme(app);
+                ThemeHelper.setTheme(getActivity(), app);
+            }
+            return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
 
         @Override
