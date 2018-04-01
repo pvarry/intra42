@@ -19,6 +19,8 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.activities.MainActivity;
+import com.paulvarry.intra42.api.interactor.HeaderInterceptor;
+import com.paulvarry.intra42.api.interactor.RateLimitInterceptor;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Slots;
@@ -88,7 +90,7 @@ public class ServiceGenerator {
             builder.baseUrl(ApiService42Tools.API_BASE_URL);
 
         httpClient = getBaseClient(true);
-        httpClient.addInterceptor(getHeaderInterceptor());
+        httpClient.addInterceptor(new HeaderInterceptor());
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
@@ -108,17 +110,17 @@ public class ServiceGenerator {
 
         if (serviceClass == ApiService.class) {
             if (ServiceGenerator.have42Token())
-                httpClient.addInterceptor(getHeaderInterceptor(accessTokenIntra42));
+                httpClient.addInterceptor(new HeaderInterceptor(accessTokenIntra42));
             else if (allowRedirectWrongAuth)
                 MainActivity.openActivity(app);
             httpClient.authenticator(getAuthenticatorIntra42(app));
-            httpClient.addInterceptor(getRateLimitInterceptor());
+            httpClient.addInterceptor(new RateLimitInterceptor());
         } else if (serviceClass == ApiService42Tools.class) {
-            httpClient.addInterceptor(getHeaderInterceptor(accessToken42Tools));
+            httpClient.addInterceptor(new HeaderInterceptor(accessToken42Tools));
             httpClient.authenticator(getAuthenticator42Tools(app));
             builder.baseUrl(ApiService42Tools.API_BASE_URL);
         } else
-            httpClient.addInterceptor(getHeaderInterceptor());
+            httpClient.addInterceptor(new HeaderInterceptor());
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
@@ -127,54 +129,6 @@ public class ServiceGenerator {
             Log.d("token", accessTokenIntra42.accessToken);
 
         return retrofit.create(serviceClass);
-    }
-
-    private static Interceptor getRateLimitInterceptor() {
-
-        return new Interceptor() {
-            @Override
-            public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
-
-                Request request = chain.request();
-
-                //Build new request
-                Request.Builder builder = request.newBuilder();
-
-                request = builder.build(); //overwrite old request
-                Response response = chain.proceed(request); //perform request, here original request will be executed
-
-                if (isRateLimitException(response)) {
-
-                    int i = 1;
-                    while (i < 10) {
-
-                        Log.i("API Rate-Limit", "Exceeded, try again " + String.valueOf(i));
-
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        request = builder.build();
-                        Response ret = chain.proceed(request);
-                        if (!isRateLimitException(ret)) {
-                            Log.i("API Rate-Limit", "success");
-                            return ret;
-                        }
-                        i++;
-                        Log.i("API Rate-Limit", "failed");
-                    }
-                }
-
-                return response;
-            }
-        };
-
-    }
-
-    private static boolean isRateLimitException(Response ret) {
-        return ret.code() == 429;
     }
 
     private static int responseCount(Response response) {
@@ -248,7 +202,7 @@ public class ServiceGenerator {
     private static Authenticator getAuthenticator42Tools(final Context context) {
         return new Authenticator() {
             @Override
-            public Request authenticate(@NonNull Route route, @NonNull Response response) throws IOException {
+            public Request authenticate(@NonNull Route route, @NonNull Response response) {
 
                 if (responseCount(response) >= 2) {
                     // If both the original call and the call with refreshed token failed,
@@ -304,62 +258,6 @@ public class ServiceGenerator {
                         return null;
                     }
                 }
-            }
-        };
-    }
-
-    private static Interceptor getHeaderInterceptor(final AccessToken accessToken) {
-        return new Interceptor() {
-            @Override
-            public Response intercept(@NonNull Chain chain) throws IOException {
-                Request original = chain.request();
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_KEY_USER_AGENT, getUserAgent());
-                if (accessToken != null)
-                    requestBuilder.header(HEADER_KEY_API_AUTH, accessToken.tokenType + " " + accessToken.accessToken);
-                requestBuilder.method(original.method(), original.body());
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
-        };
-    }
-
-    private static Interceptor getHeaderInterceptor(final com.paulvarry.intra42.api.tools42.AccessToken accessToken) {
-        return new Interceptor() {
-            @Override
-            public Response intercept(@NonNull Chain chain) throws IOException {
-                Request original = chain.request();
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
-                        .method(original.method(), original.body());
-                if (accessToken != null)
-                    requestBuilder.header(HEADER_KEY_API_AUTH, "Bearer " + accessToken.accessToken);
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
-        };
-    }
-
-    private static Interceptor getHeaderInterceptor() {
-        return new Interceptor() {
-            @Override
-            public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
-                Request original = chain.request();
-
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header(HEADER_KEY_ACCEPT, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_CONTENT_TYPE, HEADER_VALUE_ACCEPT)
-                        .header(HEADER_KEY_USER_AGENT, getUserAgent())
-                        .method(original.method(), original.body());
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
             }
         };
     }
@@ -422,7 +320,7 @@ public class ServiceGenerator {
                 .create();
     }
 
-    private static String getUserAgent() {
+    public static String getUserAgent() {
         return "Intra42Android/" + BuildConfig.VERSION_NAME + "/" + BuildConfig.VERSION_CODE +
                 " (Android/" + Build.VERSION.RELEASE + " ; " + Build.MODEL + ") retrofit2/2.1.0";
     }
