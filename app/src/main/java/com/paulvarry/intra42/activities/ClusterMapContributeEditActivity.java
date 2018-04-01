@@ -145,8 +145,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             }
         });
 
-        timerRefreshActionBar = new Timer();
-
         paddingItem2dp = Tools.dpToPx(this, 2);
         vi = LayoutInflater.from(this);
 
@@ -184,6 +182,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     @Override
     protected void onStart() {
         super.onStart();
+
+        timerRefreshActionBar = new Timer();
         timerRefreshActionBar.schedule(new RefreshActionBar(), new Date(), 500);
     }
 
