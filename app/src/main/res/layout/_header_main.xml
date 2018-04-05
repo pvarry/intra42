@@ -14,7 +14,7 @@
         android:src="@drawable/back_home_42_16_9"
         tools:ignore="ContentDescription" />
 
-    <android.support.constraint.ConstraintLayout
+    <com.paulvarry.intra42.ui.InsetConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
@@ -83,6 +83,6 @@
             app:srcCompat="@drawable/ic_brightness_3_black_24dp"
             tools:ignore="ContentDescription" />
 
-    </android.support.constraint.ConstraintLayout>
+    </com.paulvarry.intra42.ui.InsetConstraintLayout>
 
 </FrameLayout>

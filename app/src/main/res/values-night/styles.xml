@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
+        <item name="tintColor">@color/colorGrayTint</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+
+        <item name="bigBackgroundTextTheme">@style/AppTheme.BigTextBackground.Dark</item>
+        <item name="backgroundOverlay">@drawable/shape_overlay</item>
+    </style>
+
+</resources>

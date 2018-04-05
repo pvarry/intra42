@@ -22,7 +22,6 @@
         <item name="backgroundOverlay">@drawable/shape_overlay</item>
     </style>
 
-
     <style name="ThemeIntra" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">#292D39</item>
         <item name="colorPrimaryDark">#1e212a</item>
