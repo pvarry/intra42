@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -546,6 +547,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             ImageView imageViewNavBackground = headerLayout.findViewById(R.id.imageViewNavBackground);
             TextView name = headerLayout.findViewById(R.id.textViewNavName);
             TextView email = headerLayout.findViewById(R.id.textViewNavEmail);
+            ImageButton imageButtonDayLight = headerLayout.findViewById(R.id.imageButtonDayLight);
 
             if (app.me != null) {
                 name.setText(app.me.displayName);
@@ -569,8 +571,6 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                         case RED:
                             imageViewNavBackground.setImageResource(R.drawable.order_background);
                             break;
-                        default:
-                            imageViewNavBackground.setVisibility(View.GONE);
                     }
                 }
 
@@ -582,10 +582,24 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                     }
                 });
 
+                if (AppSettings.getAppCampus(app) != 7)
+                    navigationView.getMenu().getItem(5).getSubMenu().getItem(3).setVisible(false);
             }
 
-            if (app.me != null && AppSettings.getAppCampus(app) != 7)
-                navigationView.getMenu().getItem(5).getSubMenu().getItem(3).setVisible(false);
+            /* ***** Setup dark theme button ***** */
+            if (app.themeSettings.isDark())
+                imageButtonDayLight.setImageResource(R.drawable.ic_brightness_3_black_24dp);
+            else
+                imageButtonDayLight.setImageResource(R.drawable.ic_brightness_2_black_24dp);
+
+            imageButtonDayLight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppSettings.Theme.setDarkThemeEnable(BasicActivity.this, !app.themeSettings.isDark());
+                    ThemeHelper.setTheme(app);
+                    recreate();
+                }
+            });
         }
     }
 

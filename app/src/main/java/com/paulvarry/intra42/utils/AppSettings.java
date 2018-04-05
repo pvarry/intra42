@@ -406,6 +406,12 @@ public class AppSettings {
             return preferences.getBoolean(DARK_THEME, true);
         }
 
+        public static void setDarkThemeEnable(Context context, boolean enable) {
+            SharedPreferences.Editor preferences = getSharedPreferences(context).edit();
+            preferences.putBoolean(DARK_THEME, enable);
+            preferences.commit();
+        }
+
         public static EnumTheme getEnumTheme(Context context) {
             SharedPreferences settings = getSharedPreferences(context);
             String string = settings.getString(THEME, "default");
