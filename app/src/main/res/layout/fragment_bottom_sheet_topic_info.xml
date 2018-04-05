@@ -2,7 +2,8 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?android:windowBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,10 +62,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
-                        android:background="#00ffffff"
+                        android:background="@color/transparent"
                         android:contentDescription="@string/icon"
                         android:padding="8dp"
-                        android:tint="@color/colorGrayTint"
+                        android:tint="?tintColor"
                         app:srcCompat="@drawable/ic_thumb_up_black_24px" />
                 </FrameLayout>
 
@@ -104,10 +105,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
-                        android:background="#00ffffff"
+                        android:background="@color/transparent"
                         android:contentDescription="@string/icon_report"
                         android:padding="8dp"
-                        android:tint="@color/colorGrayTint"
+                        android:tint="?tintColor"
                         app:srcCompat="@drawable/ic_thumb_down_black_24px" />
                 </FrameLayout>
 
@@ -148,10 +149,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
-                        android:background="#00ffffff"
+                        android:background="@color/transparent"
                         android:contentDescription="@string/icon_report"
                         android:padding="8dp"
-                        android:tint="@color/colorGrayTint"
+                        android:tint="?tintColor"
                         app:srcCompat="@drawable/ic_report_black_24dp" />
                 </FrameLayout>
 
@@ -191,10 +192,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
-                        android:background="#00ffffff"
+                        android:background="@color/transparent"
                         android:contentDescription="@string/icon_report"
                         android:padding="8dp"
-                        android:tint="@color/colorGrayTint"
+                        android:tint="?tintColor"
                         app:srcCompat="@drawable/ic_troll_face_black_24dp" />
                 </FrameLayout>
 
@@ -210,47 +211,47 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorGrayLight" />
+            android:background="?attr/dividerHorizontal" />
 
         <Button
             android:id="@+id/buttonShare"
             style="@style/AppTheme.Button.BorderlessDrawable"
             android:drawableLeft="@drawable/ic_share_black_24dp"
             android:drawableStart="@drawable/ic_share_black_24dp"
-            android:drawableTint="#838383"
+            android:drawableTint="?attr/colorControlNormal"
             android:text="@string/navigation_share" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorGrayLight" />
+            android:background="?attr/dividerHorizontal" />
 
         <Button
             android:id="@+id/buttonReply"
             style="@style/AppTheme.Button.BorderlessDrawable"
             android:drawableLeft="@drawable/ic_reply_black_24dp"
             android:drawableStart="@drawable/ic_reply_black_24dp"
-            android:drawableTint="#838383"
+            android:drawableTint="?attr/colorControlNormal"
             android:text="@string/forum_reply" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorGrayLight" />
+            android:background="?attr/dividerHorizontal" />
 
         <Button
             android:id="@+id/buttonEdit"
             style="@style/AppTheme.Button.BorderlessDrawable"
             android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
             android:drawableStart="@drawable/ic_mode_edit_black_24dp"
-            android:drawableTint="#838383"
+            android:drawableTint="?attr/colorControlNormal"
             android:text="@string/forum_message_edit" />
 
         <View
             android:id="@+id/viewEdit"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorGrayLight" />
+            android:background="?attr/dividerHorizontal" />
 
         <Button
             android:id="@+id/buttonDelete"
@@ -264,7 +265,7 @@
             android:id="@+id/viewDelete"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorGrayLight" />
+            android:background="?attr/dividerHorizontal" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -275,7 +276,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f6f6f6"
                 android:orientation="vertical">
 
                 <TextView
@@ -293,12 +293,11 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorGrayLight" />
+                    android:background="?attr/dividerHorizontal" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fcfcfc"
                     android:orientation="vertical"
                     android:paddingEnd="16dp"
                     android:paddingLeft="16dp"
@@ -311,7 +310,7 @@
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
                         android:text="@string/forum_created_at"
-                        android:textColor="@color/colorGrayDark" />
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:id="@+id/textViewCreated"
@@ -325,7 +324,7 @@
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
                         android:text="@string/forum_updated_at"
-                        android:textColor="@color/colorGrayDark" />
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:id="@+id/textViewUpdated"
@@ -337,7 +336,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/colorGrayLight" />
+                        android:background="?attr/dividerHorizontal" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -345,7 +344,7 @@
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
                         android:text="@string/forum_readings"
-                        android:textColor="@color/colorGrayDark" />
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:id="@+id/textViewView"

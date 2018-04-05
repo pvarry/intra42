@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="@color/windowBackground"
+        android:background="?android:windowBackground"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:visibility="visible">
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="top"
-                android:background="#E0E0E0" />
+                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:id="@+id/textViewPreviewMessage"
@@ -37,13 +37,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="top"
-                android:background="#E0E0E0" />
+                android:background="?android:attr/listDivider" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/windowBackground"
+                android:background="?android:windowBackground"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center_vertical"
@@ -69,7 +69,7 @@
                     android:contentDescription="@string/icon_reply"
                     android:onClick="newMessage"
                     android:padding="2dp"
-                    android:tint="@color/colorGrayTint"
+                    android:tint="?tintColor"
                     app:srcCompat="@drawable/ic_reply_black_24dp" />
 
             </RelativeLayout>
@@ -94,7 +94,7 @@
             android:childDivider="@drawable/shape_empty"
             android:clipToPadding="false"
             android:footerDividersEnabled="true"
-            android:groupIndicator="?colorAccent"
+            android:groupIndicator="@color/transparent"
             android:headerDividersEnabled="true"
             android:paddingBottom="80dp" />
     </android.support.v4.widget.SwipeRefreshLayout>

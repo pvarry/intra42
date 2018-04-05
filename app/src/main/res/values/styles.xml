@@ -1,5 +1,28 @@
 <resources xmlns:android="http://schemas.android.com/tools">
 
+    <style name="AppTheme" parent="AppTheme.Base">
+
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
+        <item name="tintColor">@color/colorGrayTint</item>
+        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <!--<item name="android:textColor">#de000000</item>-->
+        <!--<item name="android:textColorPrimary">#de000000</item>-->
+        <!--<item name="android:textColorSecondary">#8a000000</item>-->
+        <!--<item name="android:textColorTertiary">#61000000</item>-->
+
+        <item name="bigBackgroundTextTheme">@style/AppTheme.BigTextBackground.Light</item>
+        <item name="backgroundOverlay">@drawable/shape_overlay</item>
+    </style>
+
+
     <style name="ThemeIntra" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">#292D39</item>
         <item name="colorPrimaryDark">#1e212a</item>
@@ -35,17 +58,6 @@
         <item name="colorPrimaryDark">#303f9f</item>
         <item name="colorAccent">#FF4081</item>
         <item name="colorSecondary">#7a89dc</item>
-    </style>
-
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
-
-        <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
-        <item name="tintColor">@color/colorGrayTint</item>
-        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">

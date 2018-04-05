@@ -77,7 +77,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:padding="8dp"
             android:rotation="160"
-            android:tint="@color/mdtp_white"
+            android:tint="#fff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_brightness_3_black_24dp"

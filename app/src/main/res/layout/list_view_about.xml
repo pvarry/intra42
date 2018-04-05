@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorGrayDark" />
+        android:textColor="?android:textColorPrimary" />
 
     <TextView
         android:id="@+id/textViewSub"

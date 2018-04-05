@@ -4,6 +4,7 @@
     xmlns:chip="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:windowBackground"
     android:paddingBottom="8dp">
 
     <ImageView
@@ -24,6 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -52,7 +55,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="#00ffffff"
+        android:background="@color/transparent"
         android:contentDescription="@string/icon_menu"
         app:layout_constraintBottom_toBottomOf="@+id/textViewDate"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +63,7 @@
         app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
     <LinearLayout
-        android:id="@+id/df"
+        android:id="@+id/viewGroupVote"
         android:layout_width="8dp"
         android:layout_height="16dp"
         android:layout_marginEnd="8dp"
@@ -100,7 +103,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="New Text"
-        android:textColor="@color/colorGrayDark"
         android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +113,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/shape_overlay"
         app:layout_constraintBottom_toBottomOf="@+id/chipViewTags"
@@ -123,6 +127,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:paddingTop="8dp"
@@ -138,6 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:paddingBottom="8dp"

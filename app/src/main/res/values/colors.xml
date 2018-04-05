@@ -9,9 +9,6 @@
     <color name="textColorBlackSecondary">#8a000000</color>
     <color name="textColorBlackDisabled">#61000000</color>
 
-    <color name="windowBackground">#EDEDED</color>
-    <color name="navigationBarColor">#000000</color>
-
     <color name="transparent">#00ffffff</color>
 
     <color name="colorGrayLight">#EEEEEE</color>

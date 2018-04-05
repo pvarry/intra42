@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -214,7 +215,9 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             imageViewContent.setPadding(0, 0, 0, 0);
             view.setPadding(itemPadding3dp, itemPadding3dp, itemPadding3dp, itemPadding3dp);
 
-            imageViewContent.setBackgroundResource(R.color.windowBackground);
+            TypedValue a = new TypedValue();
+            activity.getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);
+            imageViewContent.setBackgroundResource(a.resourceId);
 
             if (location.highlight == null)
                 view.setBackgroundColor(ThemeHelper.getColorPrimary(activity));

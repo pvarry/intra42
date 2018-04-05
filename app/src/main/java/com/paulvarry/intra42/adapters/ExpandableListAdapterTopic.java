@@ -42,7 +42,6 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
         this.messagesList = topic.messages;
     }
 
-
     /**
      * Gets the number of groups.
      *

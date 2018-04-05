@@ -8,7 +8,7 @@
         android:id="@+id/linearLayoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/windowBackground"
+        android:background="?android:windowBackground"
         android:orientation="vertical"
         android:paddingBottom="8dp"
         android:paddingEnd="16dp"
