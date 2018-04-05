@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
@@ -72,6 +73,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
 
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
             holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
+            holder.progressBar = convertView.findViewById(R.id.progressBar);
 
             convertView.setTag(holder);
 
@@ -89,14 +91,19 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
             builder.append(context.getString(R.string.cluster_map_info_highlight_singular, info.highlightPosts));
         else
             builder.append(context.getString(R.string.cluster_map_info_highlight_plural, info.highlightPosts));
-        builder.append(" - ");
-        if (info.freePosts == 0)
-            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_nothing));
-        else if (info.freePosts == 1)
-            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_singular, info.freePosts));
-        else
-            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_plural, info.freePosts));
+//        builder.append(" - ");
+//        if (info.freePosts == 0)
+//            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_nothing));
+//        else if (info.freePosts == 1)
+//            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_singular, info.freePosts));
+//        else
+//            builder.append(context.getString(R.string.cluster_map_info_vacant_posts_plural, info.freePosts));
         holder.textViewSummary.setText(builder);
+
+        holder.progressBar.setIndeterminate(false);
+        holder.progressBar.setMax(info.posts);
+        holder.progressBar.setProgress(info.posts - info.freePosts - info.highlightPosts);
+        holder.progressBar.setSecondaryProgress(info.posts - info.freePosts);
 
         return convertView;
     }
@@ -105,5 +112,6 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
 
         TextView textViewTitle;
         TextView textViewSummary;
+        ProgressBar progressBar;
     }
 }
