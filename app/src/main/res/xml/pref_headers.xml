@@ -7,6 +7,11 @@
     <!--android:icon="@drawable/ic_info_black_24dp"-->
     <!--android:title="@string/pref_header_general" />-->
 
+    <!--<header-->
+    <!--android:fragment="com.paulvarry.intra42.activities.SettingsActivity$AboutFragment"-->
+    <!--android:icon="@drawable/ic_info_black_24dp"-->
+    <!--android:title="@string/title_activity_about" />-->
+
     <header
         android:fragment="com.paulvarry.intra42.activities.SettingsActivity$ThemePreferenceFragment"
         android:icon="@drawable/ic_format_paint_black_24dp"
