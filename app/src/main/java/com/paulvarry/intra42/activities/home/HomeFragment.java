@@ -205,9 +205,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
                     mainCursus = app.me.cursusUsers.get(0);
 
                 progressBarLevel.setProgress((int) (mainCursus.level / 21.0 * 100.0));
-                StringBuilder lvl = new StringBuilder();
-                lvl.append(activity.getString(R.string.user_level)).append(": ").append(mainCursus.level);
-                textViewLevel.setText(lvl);
+                textViewLevel.setText(String.valueOf(mainCursus.level));
 
             } else {
                 progressBarLevel.setVisibility(View.GONE);

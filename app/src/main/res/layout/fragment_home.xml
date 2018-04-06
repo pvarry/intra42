@@ -55,17 +55,13 @@
 
                     <TextView
                         android:id="@+id/textViewName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
                         android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingLeft="0dp"
-                        android:paddingRight="8dp"
-                        android:paddingStart="0dp"
-                        android:text="@string/user_name"
+                        android:text="New Text"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         app:layout_constraintEnd_toStartOf="@+id/imageViewOpenProfile"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -79,9 +75,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|end"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginStart="4dp"
+                        android:layout_marginStart="2dp"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/icon_eye"
                         android:padding="4dp"
@@ -93,112 +89,87 @@
                         app:layout_constraintTop_toTopOf="@+id/textViewName"
                         app:srcCompat="@drawable/ic_remove_red_eye_black_24px" />
 
-                    <HorizontalScrollView
-                        android:id="@+id/horizontalScrollViewWalletPoints"
+                    <TextView
+                        android:id="@+id/textViewWalletLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/user_wallet_money"
+                        android:textColor="?android:textColorTertiary"
+                        app:layout_constraintStart_toStartOf="@+id/textViewName"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
+                    <TextView
+                        android:id="@+id/textViewWallet"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:background="?backgroundOverlay"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="none"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/textViewWalletLabel"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewName">
+                        app:layout_constraintStart_toEndOf="@+id/textViewWalletLabel" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingBottom="2dp"
-                            android:paddingEnd="4dp"
-                            android:paddingLeft="0dp"
-                            android:paddingRight="4dp"
-                            android:paddingStart="0dp"
-                            android:paddingTop="2dp">
+                    <TextView
+                        android:id="@+id/textViewCpLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="19dp"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/user_correction_points"
+                        android:textColor="?android:textColorTertiary"
+                        app:layout_constraintStart_toStartOf="@+id/textViewName"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewWalletLabel" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingEnd="0dp"
-                                android:paddingLeft="@dimen/user_inline_stat"
-                                android:paddingRight="0dp"
-                                android:paddingStart="@dimen/user_inline_stat"
-                                android:text="@string/user_wallet_money"
-                                android:textColor="?android:textColorTertiary" />
+                    <TextView
+                        android:id="@+id/textViewCP"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCpLabel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCpLabel" />
 
-                            <TextView
-                                android:id="@+id/textViewWallet"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginStart="2dp"
-                                android:paddingEnd="0dp"
-                                android:paddingLeft="@dimen/user_inline_stat"
-                                android:paddingRight="0dp"
-                                android:paddingStart="@dimen/user_inline_stat" />
+                    <TextView
+                        android:id="@+id/textViewLevelLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/user_level"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textViewName"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCpLabel" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="6dp"
-                                android:layout_marginStart="6dp"
-                                android:paddingEnd="0dp"
-                                android:paddingLeft="@dimen/user_inline_stat"
-                                android:paddingRight="0dp"
-                                android:paddingStart="@dimen/user_inline_stat"
-                                android:text="@string/user_correction_points"
-                                android:textColor="?android:textColorTertiary" />
-
-                            <TextView
-                                android:id="@+id/textViewCP"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginStart="2dp"
-                                android:paddingEnd="0dp"
-                                android:paddingLeft="@dimen/user_inline_stat"
-                                android:paddingRight="0dp"
-                                android:paddingStart="@dimen/user_inline_stat" />
-
-                        </LinearLayout>
-                    </HorizontalScrollView>
+                    <TextView
+                        android:id="@+id/textViewLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:text="New Text"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/textViewLevelLabel"
+                        app:layout_constraintStart_toEndOf="@+id/textViewLevelLabel" />
 
                     <ProgressBar
                         android:id="@+id/progressBarLevel"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="8dp"
                         android:indeterminate="false"
                         android:max="100"
                         android:progress="50"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewLevel"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewLevel" />
-
-                    <TextView
-                        android:id="@+id/textViewLevel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="New Text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewWalletPoints" />
+                        app:layout_constraintStart_toEndOf="@+id/textViewLevel"
+                        app:layout_constraintTop_toTopOf="@+id/textViewLevel" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -206,7 +177,6 @@
                     android:id="@+id/linearLayoutFriends"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
