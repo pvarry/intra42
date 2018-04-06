@@ -62,6 +62,9 @@ public class Cluster implements IBaseItem, Serializable, Comparable<Cluster> {
             if (row == null)
                 continue;
             for (Location post : row) {
+                if (post == null)
+                    continue;
+
                 user = clusters.locations.get(post.host);
                 if (post.computeHighlightPosts(clusters, user)) {
                     highlightPosts++;
