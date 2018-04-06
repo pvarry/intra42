@@ -147,7 +147,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
             layoutLayerContent.setVisibility(View.GONE);
         } else {
             textViewNoClusterMap.setVisibility(View.GONE);
-            adapter = new ListAdapterClusterMapInfo(getContext(), activity.clusterStatus.clusters);
+            adapter = new ListAdapterClusterMapInfo(getContext(), activity.clusterStatus);
             listView.setAdapter(adapter);
             listView.setExpanded(true);
         }
@@ -236,22 +236,25 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         editText.setVisibility(View.GONE);
         switch (position) {
             case 0:
-                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.FRIENDS;
+                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.NONE;
                 break;
             case 1:
+                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.FRIENDS;
+                break;
+            case 2:
                 activity.layerTmpStatus = ClusterMapActivity.LayerStatus.USER;
                 editText.setVisibility(View.VISIBLE);
                 editText.setHint(R.string.cluster_map_info_layer_input_login);
                 editText.setText(activity.layerTmpLogin);
                 break;
-            case 2:
+            case 3:
                 activity.layerTmpStatus = ClusterMapActivity.LayerStatus.PROJECT;
                 editText.setVisibility(View.VISIBLE);
                 spinnerSecondary.setVisibility(View.VISIBLE);
                 editText.setHint(R.string.cluster_map_info_layer_input_project);
                 editText.setText(activity.layerTmpProjectSlug);
                 break;
-            case 3:
+            case 4:
                 activity.layerTmpStatus = ClusterMapActivity.LayerStatus.LOCATION;
                 editText.setVisibility(View.VISIBLE);
                 editText.setHint(R.string.cluster_map_info_layer_input_location);
@@ -337,35 +340,39 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
 
         if (v == buttonContribute) {
             ClusterMapContributeActivity.openIt(getContext());
-            return;
-        }
+        } else if (v == buttonUpdate) {
 
-        spinnerMain.setEnabled(false);
-        spinnerSecondary.setEnabled(false);
-        editText.setEnabled(false);
-        buttonUpdate.setClickable(false);
-        buttonUpdate.setEnabled(false);
-        spinnerMain.setOnItemSelectedListener(null);
-        spinnerSecondary.setOnItemSelectedListener(null);
-        editText.removeTextChangedListener(this);
-        swipeRefreshLayout.setEnabled(false);
+            spinnerMain.setEnabled(false);
+            spinnerSecondary.setEnabled(false);
+            editText.setEnabled(false);
+            buttonUpdate.setClickable(false);
+            buttonUpdate.setEnabled(false);
+            spinnerMain.setOnItemSelectedListener(null);
+            spinnerSecondary.setOnItemSelectedListener(null);
+            editText.removeTextChangedListener(this);
+            swipeRefreshLayout.setEnabled(false);
 
-        switch (activity.layerTmpStatus) {
-            case USER:
-                activity.applyLayerUser(activity.layerTmpLogin);
-                finishApplyLayer();
-                break;
-            case FRIENDS:
-                activity.applyLayerFriends();
-                finishApplyLayer();
-                break;
-            case PROJECT:
-                loadingViewStartCircularReveal();
-                layerProjectFindSlug();
-                break;
-            case LOCATION:
-                activity.applyLayerLocation(activity.layerTmpLocation);
-                finishApplyLayer();
+            switch (activity.layerTmpStatus) {
+                case NONE:
+                    activity.applyLayerFriends();
+                    activity.removeLayer();
+                    break;
+                case USER:
+                    activity.applyLayerUser(activity.layerTmpLogin);
+                    finishApplyLayer();
+                    break;
+                case FRIENDS:
+                    activity.applyLayerFriends();
+                    finishApplyLayer();
+                    break;
+                case PROJECT:
+                    loadingViewStartCircularReveal();
+                    layerProjectFindSlug();
+                    break;
+                case LOCATION:
+                    activity.applyLayerLocation(activity.layerTmpLocation);
+                    finishApplyLayer();
+            }
         }
     }
 

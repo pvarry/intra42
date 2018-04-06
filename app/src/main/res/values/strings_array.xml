@@ -29,6 +29,7 @@
     </string-array>
 
     <string-array name="spinner_cluster_map_info_main">
+        <item>@string/cluster_map_info_layer_spinner_main_none</item>
         <item>@string/cluster_map_info_layer_spinner_main_friends</item>
         <item>@string/cluster_map_info_layer_spinner_main_login</item>
         <item>@string/cluster_map_info_layer_spinner_main_project</item>

@@ -10,19 +10,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-
-import java.util.List;
+import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 
 public class ListAdapterClusterMapInfo extends BaseAdapter {
 
     private final Context context;
-    private List<Cluster> clusterInfo;
+    private ClusterStatus cluster;
 
-    public ListAdapterClusterMapInfo(Context context, List<Cluster> list) {
+    public ListAdapterClusterMapInfo(Context context, ClusterStatus clusterStatus) {
 
         this.context = context;
-        this.clusterInfo = list;
+        this.cluster = clusterStatus;
     }
 
     /**
@@ -32,7 +32,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return clusterInfo.size();
+        return cluster.clusters.size();
     }
 
     /**
@@ -44,7 +44,7 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
      */
     @Override
     public Cluster getItem(int position) {
-        return clusterInfo.get(position);
+        return cluster.clusters.get(position);
     }
 
     /**
@@ -102,8 +102,12 @@ public class ListAdapterClusterMapInfo extends BaseAdapter {
 
         holder.progressBar.setIndeterminate(false);
         holder.progressBar.setMax(info.posts);
-        holder.progressBar.setProgress(info.posts - info.freePosts - info.highlightPosts);
         holder.progressBar.setSecondaryProgress(info.posts - info.freePosts);
+
+        if (cluster.layerStatus == ClusterMapActivity.LayerStatus.NONE)
+            holder.progressBar.setProgress(info.posts - info.freePosts);
+        else
+            holder.progressBar.setProgress(info.highlightPosts);
 
         return convertView;
     }

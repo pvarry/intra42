@@ -623,4 +623,5 @@ Guideline: Cluster orientation
 <string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
     <string name="pref_theme_switch_action_bar_background">Display image on ActionBar background</string>
     <string name="pref_theme_switch_dark_theme">Use dark theme</string>
+    <string name="cluster_map_info_layer_spinner_main_none">None</string>
 </resources>

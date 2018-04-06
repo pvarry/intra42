@@ -197,6 +197,14 @@ public class ClusterMapActivity
         return ThreadStatusCode.CONTINUE;
     }
 
+    void removeLayer() {
+        clusterStatus.layerStatus = LayerStatus.NONE;
+
+        clusterStatus.computeHighlightPosts();
+        viewPager.getAdapter().notifyDataSetChanged();
+        viewPager.invalidate();
+    }
+
     void applyLayerUser(String login) {
         clusterStatus.layerUserLogin = login;
         clusterStatus.layerStatus = LayerStatus.USER;
@@ -284,7 +292,7 @@ public class ClusterMapActivity
     }
 
     public enum LayerStatus {
-        FRIENDS(0), PROJECT(1), USER(2), LOCATION(3);
+        NONE(0), FRIENDS(1), PROJECT(2), USER(3), LOCATION(4);
 
         private final int id;
 
