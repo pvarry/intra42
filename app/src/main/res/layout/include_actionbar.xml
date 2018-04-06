@@ -24,7 +24,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/back_home_42_16_9" />
 
-        <com.paulvarry.intra42.ui.LinearLayoutAppBarLayout
+        <com.paulvarry.intra42.ui.InsetLinearLayout
             android:id="@+id/linearLayoutActionBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:visibility="gone"
                 app:tabMode="scrollable" />
-        </com.paulvarry.intra42.ui.LinearLayoutAppBarLayout>
+        </com.paulvarry.intra42.ui.InsetLinearLayout>
     </RelativeLayout>
 
 </android.support.design.widget.AppBarLayout>

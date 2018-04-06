@@ -20,6 +20,12 @@
 
         <item name="bigBackgroundTextTheme">@style/AppTheme.BigTextBackground.Light</item>
         <item name="backgroundOverlay">@drawable/shape_overlay</item>
+
+        <item name="autoCompleteTextViewStyle">@style/myAutoCompleteTextViewStyle</item>
+    </style>
+
+    <style name="myAutoCompleteTextViewStyle" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:popupBackground">#ffffff</item>
     </style>
 
     <style name="ThemeIntra" parent="AppTheme.NoActionBar">

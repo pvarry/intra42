@@ -7,17 +7,17 @@ import android.util.AttributeSet;
 import android.view.WindowInsets;
 import android.widget.LinearLayout;
 
-public class LinearLayoutAppBarLayout extends LinearLayout {
+public class InsetLinearLayout extends LinearLayout {
 
-    public LinearLayoutAppBarLayout(Context context) {
+    public InsetLinearLayout(Context context) {
         super(context);
     }
 
-    public LinearLayoutAppBarLayout(Context context, @Nullable AttributeSet attrs) {
+    public InsetLinearLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LinearLayoutAppBarLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public InsetLinearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
