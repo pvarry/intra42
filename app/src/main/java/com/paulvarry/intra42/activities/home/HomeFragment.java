@@ -5,12 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,6 +39,7 @@ import com.squareup.picasso.RequestCreator;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private ConstraintLayout constraintLayoutProfileHeader;
     private LinearLayout linearLayoutFriends;
     private LinearLayout linearLayoutCantinaMenu;
     private LinearLayout linearLayoutCoalitions;
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     private ImageView imageViewProfile;
     private ProgressBar progressBarLevel;
     private TextView textViewLevel;
-    private ImageButton imageButtonOpenProfile;
+
     private HomeFragment fragment;
     private HomeActivity activity;
     private AppClass app;
@@ -93,6 +94,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        constraintLayoutProfileHeader = view.findViewById(R.id.constraintLayoutProfileHeader);
         linearLayoutFriends = view.findViewById(R.id.linearLayoutFriends);
         linearLayoutCantinaMenu = view.findViewById(R.id.linearLayoutCantinaMenu);
         linearLayoutTimeOnCampus = view.findViewById(R.id.linearLayoutTimeOnCampus);
@@ -106,7 +108,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         imageViewProfile = view.findViewById(R.id.imageViewProfile);
         progressBarLevel = view.findViewById(R.id.progressBarLevel);
         textViewLevel = view.findViewById(R.id.textViewLevel);
-        imageButtonOpenProfile = view.findViewById(R.id.imageButtonOpenProfile);
         linearLayoutCoalitions = view.findViewById(R.id.linearLayoutCoalitions);
 
         swipeRefreshLayout.setVisibility(View.GONE);
@@ -145,7 +146,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
 
     @Override
     public void onClick(View v) {
-        if (v == imageButtonOpenProfile)
+        if (v == constraintLayoutProfileHeader)
             UserActivity.openIt(activity, app.me);
         else if (v == linearLayoutFriends)
             FriendsActivity.openIt(getContext());
@@ -178,7 +179,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
             linearLayoutCantinaMenu.setOnClickListener(this);
             linearLayoutCoalitions.setOnClickListener(this);
 
-            imageButtonOpenProfile.setOnClickListener(fragment);
+            constraintLayoutProfileHeader.setOnClickListener(fragment);
             textViewName.setText(app.me.displayName);
             textViewWallet.setText(String.valueOf(app.me.wallet));
             textViewCP.setText(String.valueOf(app.me.correction_point));

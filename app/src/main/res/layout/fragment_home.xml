@@ -25,192 +25,193 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageViewProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="92dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/user_profile_image"
-                    android:cropToPadding="false"
-                    app:layout_constraintBottom_toTopOf="@+id/barrier2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/ic_person_black_custom" />
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayoutProfileHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground">
 
-                <TextView
-                    android:id="@+id/textViewName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingLeft="0dp"
-                    android:paddingRight="8dp"
-                    android:paddingStart="0dp"
-                    android:text="@string/user_name"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButtonOpenProfile"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/imageViewProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="92dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/user_profile_image"
+                        android:cropToPadding="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/ic_person_black_custom" />
 
-                <ImageButton
-                    android:id="@+id/imageButtonOpenProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="4dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/icon_eye"
-                    android:padding="4dp"
-                    android:tint="?tintColor"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textViewName"
-                    app:layout_constraintTop_toTopOf="@+id/textViewName"
-                    app:srcCompat="@drawable/ic_remove_red_eye_black_24px" />
-
-                <HorizontalScrollView
-                    android:id="@+id/horizontalScrollViewWalletPoints"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="?backgroundOverlay"
-                    android:scrollbarStyle="insideInset"
-                    android:scrollbars="none"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewName">
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/textViewName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="2dp"
-                        android:paddingEnd="4dp"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:paddingEnd="8dp"
                         android:paddingLeft="0dp"
-                        android:paddingRight="4dp"
+                        android:paddingRight="8dp"
                         android:paddingStart="0dp"
-                        android:paddingTop="2dp">
+                        android:text="@string/user_name"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        app:layout_constraintEnd_toStartOf="@+id/imageViewOpenProfile"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
+                    <ImageView
+                        android:id="@+id/imageViewOpenProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/icon_eye"
+                        android:padding="4dp"
+                        android:tint="?tintColor"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewName"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textViewName"
+                        app:layout_constraintTop_toTopOf="@+id/textViewName"
+                        app:srcCompat="@drawable/ic_remove_red_eye_black_24px" />
+
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScrollViewWalletPoints"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:background="?backgroundOverlay"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewName">
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingEnd="0dp"
-                            android:paddingLeft="@dimen/user_inline_stat"
-                            android:paddingRight="0dp"
-                            android:paddingStart="@dimen/user_inline_stat"
-                            android:text="@string/user_wallet_money"
-                            android:textColor="?android:textColorTertiary" />
+                            android:orientation="horizontal"
+                            android:paddingBottom="2dp"
+                            android:paddingEnd="4dp"
+                            android:paddingLeft="0dp"
+                            android:paddingRight="4dp"
+                            android:paddingStart="0dp"
+                            android:paddingTop="2dp">
 
-                        <TextView
-                            android:id="@+id/textViewWallet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginStart="2dp"
-                            android:paddingEnd="0dp"
-                            android:paddingLeft="@dimen/user_inline_stat"
-                            android:paddingRight="0dp"
-                            android:paddingStart="@dimen/user_inline_stat" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="0dp"
+                                android:paddingLeft="@dimen/user_inline_stat"
+                                android:paddingRight="0dp"
+                                android:paddingStart="@dimen/user_inline_stat"
+                                android:text="@string/user_wallet_money"
+                                android:textColor="?android:textColorTertiary" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:layout_marginStart="6dp"
-                            android:paddingEnd="0dp"
-                            android:paddingLeft="@dimen/user_inline_stat"
-                            android:paddingRight="0dp"
-                            android:paddingStart="@dimen/user_inline_stat"
-                            android:text="@string/user_correction_points"
-                            android:textColor="?android:textColorTertiary" />
+                            <TextView
+                                android:id="@+id/textViewWallet"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginStart="2dp"
+                                android:paddingEnd="0dp"
+                                android:paddingLeft="@dimen/user_inline_stat"
+                                android:paddingRight="0dp"
+                                android:paddingStart="@dimen/user_inline_stat" />
 
-                        <TextView
-                            android:id="@+id/textViewCP"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginStart="2dp"
-                            android:paddingEnd="0dp"
-                            android:paddingLeft="@dimen/user_inline_stat"
-                            android:paddingRight="0dp"
-                            android:paddingStart="@dimen/user_inline_stat" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginStart="6dp"
+                                android:paddingEnd="0dp"
+                                android:paddingLeft="@dimen/user_inline_stat"
+                                android:paddingRight="0dp"
+                                android:paddingStart="@dimen/user_inline_stat"
+                                android:text="@string/user_correction_points"
+                                android:textColor="?android:textColorTertiary" />
 
-                    </LinearLayout>
-                </HorizontalScrollView>
+                            <TextView
+                                android:id="@+id/textViewCP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginStart="2dp"
+                                android:paddingEnd="0dp"
+                                android:paddingLeft="@dimen/user_inline_stat"
+                                android:paddingRight="0dp"
+                                android:paddingStart="@dimen/user_inline_stat" />
 
-                <ProgressBar
-                    android:id="@+id/progressBarLevel"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:indeterminate="false"
-                    android:max="100"
-                    android:progress="50"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewLevel" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
 
-                <TextView
-                    android:id="@+id/textViewLevel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="New Text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                    app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewWalletPoints" />
+                    <ProgressBar
+                        android:id="@+id/progressBarLevel"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewLevel" />
 
-                <android.support.constraint.Barrier
-                    android:id="@+id/barrier2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:barrierDirection="bottom"
-                    app:constraint_referenced_ids="progressBarLevel,imageViewProfile" />
+                    <TextView
+                        android:id="@+id/textViewLevel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="New Text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+                        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewWalletPoints" />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayoutFriends"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/barrier2">
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -229,16 +230,13 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayoutTimeOnCampus"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutFriends">
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -257,16 +255,13 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayoutClusterMap"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutTimeOnCampus">
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -285,16 +280,13 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayoutCantinaMenu"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutClusterMap">
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -313,18 +305,13 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayoutCoalitions"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:padding="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutCantinaMenu">
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="24dp"
@@ -341,7 +328,8 @@
                         android:text="@string/title_activity_coalitions" />
                 </LinearLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+
 
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
