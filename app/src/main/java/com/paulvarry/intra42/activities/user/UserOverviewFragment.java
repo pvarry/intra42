@@ -243,6 +243,7 @@ public class UserOverviewFragment
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
+        buttonFriend.setVisibility(View.VISIBLE);
         if (user.equals(app.me)) {
             progressBarFriends.setVisibility(View.GONE);
             buttonFriend.setVisibility(View.GONE);
