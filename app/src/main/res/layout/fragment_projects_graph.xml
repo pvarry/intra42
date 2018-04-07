@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +9,17 @@
         android:id="@+id/galaxy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:theme="@style/AppTheme.Galaxy" />
+        app:backgroundColor="#303030"
+        app:colorProjectAvailable="#bdbdbd"
+        app:colorProjectFailed="@color/colorFail"
+        app:colorProjectInProgress="#ffffff"
+        app:colorProjectTextAvailable="#616161"
+        app:colorProjectTextFailed="#e0e0e0"
+        app:colorProjectTextInProgress="#212121"
+        app:colorProjectTextUnavailable="#fff"
+        app:colorProjectTextValidated="#e0e0e0"
+        app:colorProjectUnavailable="#616161"
+        app:colorProjectValidated="?attr/colorAccentDark"
+        app:weightPath="4.5dp" />
 
 </FrameLayout>

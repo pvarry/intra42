@@ -22,6 +22,8 @@
         <item name="backgroundOverlay">@drawable/shape_overlay</item>
 
         <item name="autoCompleteTextViewStyle">@style/myAutoCompleteTextViewStyle</item>
+        <item name="weightPath">4.5dp</item>
+        <item name="colorAccentDark">#00675b</item>
     </style>
 
     <style name="myAutoCompleteTextViewStyle" parent="Widget.AppCompat.Light.AutoCompleteTextView">
@@ -33,22 +35,27 @@
         <item name="colorPrimaryDark">#1e212a</item>
         <item name="colorSecondary">#525663</item>
         <item name="colorAccent">#00babc</item>
+        <item name="colorAccentDark">#00898c</item>
     </style>
 
     <style name="ThemeIntraOrder" parent="ThemeIntra">
         <item name="colorAccent">#FF6950</item>
+        <item name="colorAccentDark">#c63626</item>
     </style>
 
     <style name="ThemeIntraAssembly" parent="ThemeIntra">
         <item name="colorAccent">#A061D1</item>
+        <item name="colorAccentDark">#6f349f</item>
     </style>
 
     <style name="ThemeIntraAlliance" parent="ThemeIntra">
         <item name="colorAccent">#33C47F</item>
+        <item name="colorAccentDark">#009252</item>
     </style>
 
     <style name="ThemeIntraFederation" parent="ThemeIntra">
         <item name="colorAccent">#4180DB</item>
+        <item name="colorAccentDark">#0054a9</item>
     </style>
 
     <style name="ThemeDarkAndroid" parent="AppTheme.NoActionBar">
@@ -56,6 +63,7 @@
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorSecondary">#ff37474f</item>
         <item name="colorAccent">@color/mdtp_accent_color</item>
+        <item name="colorAccentDark">#00675b</item>
     </style>
 
     <style name="ThemeOld" parent="AppTheme.NoActionBar">
@@ -141,13 +149,13 @@
         <item name="backgroundColor">#000000</item>
         <item name="colorProjectAvailable">#ffffff</item>
         <item name="colorProjectFailed">@color/colorFail</item>
-        <item name="colorProjectInProgress">#afafaf</item>
+        <item name="colorProjectInProgress">#ffffff</item>
         <item name="colorProjectTextAvailable">?attr/colorAccent</item>
         <item name="colorProjectTextFailed">#ffffff</item>
         <item name="colorProjectTextUnavailable">#ffffff</item>
         <item name="colorProjectTextValidated">#ffffff</item>
         <item name="colorProjectUnavailable">#46484C</item>
-        <item name="colorProjectValidated">@color/colorSuccess</item>
+        <item name="colorProjectValidated">?android:attr/colorAccent</item>
         <item name="weightPath">4.5dp</item>
     </style>
 

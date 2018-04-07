@@ -8,6 +8,7 @@
 
         <item name="bigBackgroundTextTheme">@style/AppTheme.BigTextBackground.Dark</item>
         <item name="backgroundOverlay">@drawable/shape_overlay</item>
+        <item name="colorAccentDark">#00675b</item>
     </style>
 
 </resources>
