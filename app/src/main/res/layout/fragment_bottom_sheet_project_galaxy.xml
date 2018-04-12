@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical"
-    app:theme="@style/AppTheme.NoActionBar"
     tools:context=".bottomSheet.BottomSheetEventDialogFragment">
 
     <FrameLayout
@@ -61,33 +61,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="top"
                     android:contentDescription="@string/icon_time"
-                    android:tint="@color/colorGrayTint"
+                    android:tint="?tintColor"
                     app:srcCompat="@drawable/ic_class_black_24dp" />
 
                 <TextView
                     android:id="@+id/textViewState"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:gravity="center_vertical"
-                    android:text="New Text"
-                    android:textColor="@color/colorGray" />
+                    android:text="New Text" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 tools:ignore="UseCompoundDrawables">
 
@@ -95,26 +95,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/icon_info"
-                    android:tint="@color/colorGrayTint"
+                    android:tint="?tintColor"
                     app:srcCompat="@drawable/ic_info_black_24dp" />
 
                 <TextView
                     android:id="@+id/textViewInfo"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:gravity="center_vertical"
-                    android:text="New Text"
-                    android:textColor="@color/colorGray" />
+                    android:text="New Text" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayoutRules"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 tools:ignore="UseCompoundDrawables">
 
@@ -122,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/icon_location"
-                    android:tint="@color/colorGrayTint"
+                    android:tint="?tintColor"
                     app:srcCompat="@drawable/ic_flag_black_24dp" />
 
                 <TextView
@@ -130,11 +129,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:gravity="center_vertical"
-                    android:text="New Text"
-                    android:textColor="@color/colorGray" />
+                    android:text="New Text" />
             </LinearLayout>
 
             <LinearLayout
@@ -143,7 +141,8 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="wrap_content"
