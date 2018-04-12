@@ -20,6 +20,8 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Galaxy extends View {
@@ -237,6 +239,20 @@ public class Galaxy extends View {
                 projectDataFinalInternship.x = 4600;
                 projectDataFinalInternship.y = 4600;
             }
+
+            Collections.sort(data, new Comparator<ProjectDataIntra>() {
+                @Override
+                public int compare(ProjectDataIntra o1, ProjectDataIntra o2) {
+                    if (o1.state == null || o2.state == null)
+                        return 0;
+                    if (o1.state.getLayerIndex() > o2.state.getLayerIndex())
+                        return 1;
+                    else if (o1.state.getLayerIndex() == o2.state.getLayerIndex())
+                        return 0;
+                    else
+                        return -1;
+                }
+            });
         }
 
         onUpdateData();
@@ -662,10 +678,7 @@ public class Galaxy extends View {
                 return false;
             char c = str.charAt(index);
             if (c == ' ' || c == '-' || c == '_') // verify if it is a splittable char
-                if ((index <= 2 || index >= str.length() - 3) && str.length() < 8) { // avoid split 2 char apart if text is small
-                    return false;
-                } else
-                    return true;
+                return (index > 2 && index < str.length() - 3) || str.length() >= 8;
             return false;
         }
 

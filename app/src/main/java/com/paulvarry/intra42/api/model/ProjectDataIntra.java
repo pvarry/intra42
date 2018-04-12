@@ -60,14 +60,14 @@ public class ProjectDataIntra {
     public String slug;
 
     public enum Kind {
-        @SerializedName("project")PROJECT(110),
-        @SerializedName("big_project")BIG_PROJECT(150),
-        @SerializedName("piscine")PISCINE(60, 250),
-        @SerializedName("rush")RUSH(60, 180),
-        @SerializedName("part_time")PART_TIME(300),
-        @SerializedName("first_internship")FIRST_INTERNSHIP(200),
-        @SerializedName("second_internship")SECOND_INTERNSHIP(200),
-        @SerializedName("exam")EXAM(170);
+        @SerializedName("project") PROJECT(110),
+        @SerializedName("big_project") BIG_PROJECT(150),
+        @SerializedName("piscine") PISCINE(60, 250),
+        @SerializedName("rush") RUSH(60, 180),
+        @SerializedName("part_time") PART_TIME(300),
+        @SerializedName("first_internship") FIRST_INTERNSHIP(200),
+        @SerializedName("second_internship") SECOND_INTERNSHIP(200),
+        @SerializedName("exam") EXAM(170);
 
         int width;
         int height;
@@ -98,11 +98,27 @@ public class ProjectDataIntra {
      * Enum of {@code FAIL, DONE, AVAILABLE, IN_PROGRESS, UNAVAILABLE}
      */
     public enum State {
-        @SerializedName("fail")FAIL,
-        @SerializedName("done")DONE,
-        @SerializedName("available")AVAILABLE,
-        @SerializedName("in_progress")IN_PROGRESS,
-        @SerializedName("unavailable")UNAVAILABLE
+        @SerializedName("fail") FAIL(4),
+        @SerializedName("done") DONE(3),
+        @SerializedName("available") AVAILABLE(1),
+        @SerializedName("in_progress") IN_PROGRESS(2),
+        @SerializedName("unavailable") UNAVAILABLE(0);
+
+        private int layerIndex;
+
+        State(int layerIndex) {
+            this.layerIndex = layerIndex;
+        }
+
+        /**
+         * Get the layer of this ProjectData, this work like z index in CSS.
+         *
+         * @return layer index.
+         */
+        public int getLayerIndex() {
+            return layerIndex;
+        }
+
     }
 
     public class By {
