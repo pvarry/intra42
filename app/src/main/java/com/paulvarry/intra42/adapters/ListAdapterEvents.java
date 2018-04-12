@@ -13,7 +13,6 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.ui.TagSpanGenerator;
 import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.Tag;
 
 import java.util.List;
 
@@ -97,7 +96,7 @@ public class ListAdapterEvents extends BaseAdapter {
         holder.textViewName.setText(item.name);
         TagSpanGenerator span = new TagSpanGenerator.Builder(context).setTextSize(holder.textViewName.getTextSize()).build();
         if (item.kind != null)
-            span.addTag(item.kind.getString(context), Tag.getTagColor(item));
+            span.addTag(item.kind.getString(context), item.kind.getColorInt(context));
         span.addText(item.name);
         holder.textViewName.setText(span.getString());
 

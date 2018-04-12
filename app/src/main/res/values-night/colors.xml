@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorClusterMapWall">#424242</color>
+
+    <color name="tag_event_other">#404040</color>
+    <color name="tag_event_extern">#404040</color>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.fragments.EventFragment;
 import com.paulvarry.intra42.utils.Calendar;
-import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.ThemeHelper;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
@@ -29,12 +30,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EventActivity extends AppCompatActivity implements EventFragment.OnFragmentInteractionListener {
+public class EventActivity extends AppCompatActivity implements EventFragment.OnFragmentInteractionListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String ARG_EVENT = "event";
     private Events event;
     private int id;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ViewGroup layoutLoading;
     private ViewGroup layoutOnError;
     private EventFragment eventFragment;
@@ -56,16 +58,21 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
         }
         if (extras.containsKey(ARG_EVENT)) {
             event = ServiceGenerator.getGson().fromJson(extras.getString(ARG_EVENT), Events.class);
+            id = event.id;
         } else if (extras.containsKey(CalendarContract.Events.CUSTOM_APP_URI)) {
             String appUri = extras.getString(CalendarContract.Events.CUSTOM_APP_URI);
             id = Calendar.getEventIdFromUri(appUri);
         }
 
+        AppClass app = (AppClass) getApplication();
+        ThemeHelper.setTheme(this, app);
         setContentView(R.layout.activity_event);
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         layoutLoading = findViewById(R.id.layoutLoading);
         layoutOnError = findViewById(R.id.layoutOnError);
         layoutOnError.setVisibility(View.GONE);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,6 +91,9 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
 
         layoutOnError.setVisibility(View.GONE);
         layoutLoading.setVisibility(View.GONE);
+        FragmentManager manager = getSupportFragmentManager();
+        if (eventFragment != null)
+            manager.beginTransaction().remove(eventFragment).commitNow();
 
         if (event != null)
             setView();
@@ -100,14 +110,15 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         AppBarLayout appBar = findViewById(R.id.app_bar);
         collapsingToolbarLayout.setTitle(event.name);
-        appBar.setBackgroundColor(Tag.getTagColor(event));
+        if (event.kind != null)
+            appBar.setBackgroundColor(event.kind.getColorInt(this));
 
         FragmentManager manager = getSupportFragmentManager();
 
         if (eventFragment != null)
             manager.beginTransaction().remove(eventFragment).commitNow();
 
-        eventFragment = EventFragment.newInstance(event);
+        eventFragment = EventFragment.newInstance(event, false);
         manager.beginTransaction().replace(R.id.fragment_container, eventFragment).commit();
     }
 
@@ -156,5 +167,12 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
                 refresh();
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        event = null;
+        refresh();
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

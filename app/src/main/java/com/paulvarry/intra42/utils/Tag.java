@@ -25,43 +25,12 @@ public class Tag {
         Context context = tagView.getContext();
 
         if (event.kind != null)
-            str = context.getString(event.kind.getRes());
+            str = event.kind.getString(context);
         else
             str = context.getString(R.string.event_kind_unknown);
 
         tagView.setText(str);
-        tagView.setTagColor(getTagColor(event));
-    }
-
-    public static int getTagColor(Events event) {
-        if (event == null || event.kind == null)
-            return -16729412;
-        switch (event.kind) {
-            case CONFERENCE:
-                return Color.parseColor("#00babc");
-            case OTHER:
-                return Color.parseColor("#c0c0c0");
-            case EXTERN:
-                return Color.parseColor("#c0c0c0");
-            case ATELIER:
-                return -6432158;
-            case MEET_UP:
-                return Color.parseColor("#00babc");
-            case HACKATHON:
-                return Color.parseColor("#39D88F");
-            case WORKSHOP:
-                return Color.parseColor("#39D88F");
-            case ASSOCIATION:
-                return Color.parseColor("#a2b3e5");
-            case PARTNERSHIP:
-                return Color.parseColor("#39D88F");
-            case CHALLENGE:
-                return Color.parseColor("#39D88F");
-            case EVENT:
-                return Color.parseColor("#00babc");
-            default:
-                return Color.parseColor("#00babc");
-        }
+        tagView.setTagColor(event.kind.getColorInt(context));
     }
 
     public static void setTagAchievement(Context context, Achievements achievement, TagView tagView) {

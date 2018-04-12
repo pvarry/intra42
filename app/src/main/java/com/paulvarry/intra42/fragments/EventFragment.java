@@ -3,8 +3,10 @@ package com.paulvarry.intra42.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,17 +44,21 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class EventFragment extends Fragment implements View.OnClickListener {
+
     private static final String ARG_EVENT = "event";
+    private static final String ARG_SHOW_TITLE = "show_title";
 
-    Button buttonSubscribe;
-    LinearLayout linearLayoutProgress;
-    ProgressBar progressBarButton;
+    private Button buttonSubscribe;
+    private LinearLayout linearLayoutProgress;
+    private ProgressBar progressBarButton;
 
-    AppClass appClass;
-    ApiService api;
-    Call<List<EventsUsers>> listCallEventsUsers;
-    private Events event;
+    private AppClass appClass;
+    private ApiService api;
+    private Call<List<EventsUsers>> listCallEventsUsers;
+
     private EventsUsers eventsUsers;
+    private Events event;
+    private boolean showTitle;
 
     private Callback<List<EventsUsers>> callback = new Callback<List<EventsUsers>>() {
         @Override
@@ -67,8 +73,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                     eventsUsers = response.body().get(0);
 
                 setButtonSubscribe();
-                if (call.request().method().equals("DELETE"))
-                    Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
 
                 Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
             }
@@ -96,8 +100,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
             if (response.isSuccessful()) {
 
                 setButtonSubscribe();
-                if (call.request().method().equals("DELETE"))
-                    Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
                 Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
             }
         }
@@ -155,6 +158,16 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         return newInstance(ServiceGenerator.getGson().toJson(event));
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param event The event to build this fragment.
+     * @return A new instance of fragment EventFragment.
+     */
+    public static EventFragment newInstance(Events event, boolean showTitle) {
+        return newInstance(ServiceGenerator.getGson().toJson(event), showTitle);
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -171,23 +184,40 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param json The json to build this fragment.
+     * @return A new instance of fragment EventFragment.
+     */
+    public static EventFragment newInstance(String json, boolean showTitle) {
+        EventFragment fragment = new EventFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_EVENT, json);
+        args.putBoolean(ARG_SHOW_TITLE, showTitle);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             event = ServiceGenerator.getGson().fromJson(getArguments().getString(ARG_EVENT), Events.class);
+            showTitle = getArguments().getBoolean(ARG_SHOW_TITLE, true);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (event != null)
             setView(view);
@@ -195,7 +225,10 @@ public class EventFragment extends Fragment implements View.OnClickListener {
 
     private void setView(View contentView) {
 
-        appClass = (AppClass) getActivity().getApplication();
+        FragmentActivity activity = getActivity();
+        if (activity == null)
+            return;
+        appClass = (AppClass) activity.getApplication();
         api = appClass.getApiService();
 
         if (!appClass.userIsLogged())
@@ -213,11 +246,14 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         linearLayoutProgress = contentView.findViewById(R.id.linearLayoutProgress);
         progressBarButton = contentView.findViewById(R.id.progressBarButton);
 
-        if (tagViewKind != null && textViewTitle != null) {
+        if (event.kind != null) {
+            tagViewKind.setVisibility(View.VISIBLE);
             Tag.setTagEvent(event, tagViewKind);
-            textViewTitle.setText(event.name);
-            textViewTitle.setBackgroundColor(tagViewKind.getTagColor());
-        }
+        } else
+            tagViewKind.setVisibility(View.GONE);
+
+        textViewTitle.setText(event.name);
+        textViewTitle.setVisibility(showTitle ? View.VISIBLE : View.GONE);
 
         String date = DateTool.getTodayTomorrow(getContext(), event.beginAt, true);
 

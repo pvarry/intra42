@@ -1,52 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
+    style="@style/AppTheme.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:theme="@style/AppTheme.NoActionBar"
+    android:background="?android:attr/colorBackground"
     tools:context=".bottomSheet.BottomSheetEventDialogFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimary"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="32dp"
-            android:paddingEnd="16dp"
-            android:paddingLeft="80dp"
-            android:paddingRight="16dp"
-            android:paddingStart="80dp"
-            android:paddingTop="85dp"
-            android:text="New Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorGrayLight" />
-
-        <com.veinhorn.tagview.TagView
-            android:id="@+id/tagViewKind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|top"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="25dp"
-            android:text="New Text"
-            app:tagBorderRadius="5"
-            app:tagColor="#ffaa66cc"
-            app:tagType="classic"
-            app:tagUpperCase="true" />
-    </FrameLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

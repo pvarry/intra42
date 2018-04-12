@@ -1,6 +1,8 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
@@ -49,30 +51,45 @@ public class Events {
     public List<Integer> cursus;
 
     public enum EventKind {
-        @SerializedName("conference")CONFERENCE(R.string.event_kind_conf),
-        @SerializedName("meet_up")MEET_UP(R.string.event_kind_meet_up),
-        @SerializedName("extern")EXTERN(R.string.event_kind_extern),
-        @SerializedName("hackathon")HACKATHON(R.string.event_kind_hackathon),
-        @SerializedName("workshop")WORKSHOP(R.string.event_kind_workshop),
-        @SerializedName("event")EVENT(R.string.event_kind_event),
-        @SerializedName("atelier")ATELIER(R.string.event_kind_atelier),
-        @SerializedName("other")OTHER(R.string.event_kind_other),
-        @SerializedName("association")ASSOCIATION(R.string.event_kind_association),
-        @SerializedName("partnership")PARTNERSHIP(R.string.event_kind_partnership),
-        @SerializedName("challenge")CHALLENGE(R.string.event_kind_challenge);
+        @SerializedName("conference") CONFERENCE(R.string.event_kind_conf, R.color.tag_event_conference),
+        @SerializedName("meet_up") MEET_UP(R.string.event_kind_meet_up, R.color.tag_event_meet_up),
+        @SerializedName("extern") EXTERN(R.string.event_kind_extern, R.color.tag_event_extern),
+        @SerializedName("hackathon") HACKATHON(R.string.event_kind_hackathon, R.color.tag_event_hackathon),
+        @SerializedName("workshop") WORKSHOP(R.string.event_kind_workshop, R.color.tag_event_workshop),
+        @SerializedName("event") EVENT(R.string.event_kind_event, R.color.tag_event_event),
+        @SerializedName("atelier") ATELIER(R.string.event_kind_atelier, R.color.tag_event_atelier),
+        @SerializedName("other") OTHER(R.string.event_kind_other, R.color.tag_event_other),
+        @SerializedName("association") ASSOCIATION(R.string.event_kind_association, R.color.tag_event_association),
+        @SerializedName("partnership") PARTNERSHIP(R.string.event_kind_partnership, R.color.tag_event_partnership),
+        @SerializedName("challenge") CHALLENGE(R.string.event_kind_challenge, R.color.tag_event_challenge);
 
-        private final int res;
+        @StringRes
+        private final int name;
+        @ColorRes
+        private final int color;
 
-        EventKind(@StringRes int res) {
-            this.res = res;
+        EventKind(@StringRes int name, @ColorRes int color) {
+            this.name = name;
+            this.color = color;
         }
 
-        public int getRes() {
-            return res;
+        @StringRes
+        public int getName() {
+            return name;
+        }
+
+        @ColorRes
+        public int getColorRes() {
+            return color;
+        }
+
+        @ColorInt
+        public int getColorInt(Context context) {
+            return context.getResources().getColor(color);
         }
 
         public String getString(Context context) {
-            return context.getString(res);
+            return context.getString(name);
         }
     }
 
