@@ -369,7 +369,7 @@ public class NotificationsUtils {
 
     public static void run(Context context, AppClass app) {
 
-        if (app == null || app.userIsLogged(false))
+        if (app == null || !app.userIsLogged(false))
             return;
 
         ApiService api = app.getApiServiceDisableRedirectActivity();
