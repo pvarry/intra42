@@ -4,4 +4,6 @@
 
     <color name="tag_event_other">#404040</color>
     <color name="tag_event_extern">#404040</color>
+
+    <color name="textColorError">#FD6F71</color>
 </resources>

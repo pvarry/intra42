@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,14 +51,12 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
     private boolean isNew = true;
 
-    private TextView textViewTitle;
-    private TextView textViewStartDate;
-    private TextView textViewStartTime;
-    private TextView textViewEndDate;
-    private TextView textViewEndTime;
+    private EditText editTextStartDate;
+    private EditText editTextStartTime;
+    private EditText editTextEndDate;
+    private EditText editTextEndTime;
     private TextView textViewError;
     private Button buttonSave;
-    private Button buttonDelete;
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -110,14 +109,14 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_slots, null);
         dialog.setContentView(contentView);
 
-        textViewTitle = contentView.findViewById(R.id.textViewTitle);
-        textViewStartDate = contentView.findViewById(R.id.textViewStartDate);
-        textViewStartTime = contentView.findViewById(R.id.textViewStartTime);
-        textViewEndDate = contentView.findViewById(R.id.textViewEndDate);
-        textViewEndTime = contentView.findViewById(R.id.textViewEndTime);
+        TextView textViewTitle = contentView.findViewById(R.id.textViewTitle);
+        editTextStartDate = contentView.findViewById(R.id.editTextStartDate);
+        editTextStartTime = contentView.findViewById(R.id.editTextStartTime);
+        editTextEndDate = contentView.findViewById(R.id.editTextEndDate);
+        editTextEndTime = contentView.findViewById(R.id.editTextEndTime);
         textViewError = contentView.findViewById(R.id.textViewError);
         buttonSave = contentView.findViewById(R.id.buttonSave);
-        buttonDelete = contentView.findViewById(R.id.buttonDelete);
+        Button buttonDelete = contentView.findViewById(R.id.buttonDelete);
 
         if (isNew) {
             textViewTitle.setText(R.string.evaluation_slot_new);
@@ -148,10 +147,10 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         setView();
 
         if (slotsGroup.scaleTeam == null) {
-            setDatePicker(textViewStartDate, slotsGroup.beginAt);
-            setTimePicker(textViewStartTime, slotsGroup.beginAt);
-            setDatePicker(textViewEndDate, slotsGroup.endAt);
-            setTimePicker(textViewEndTime, slotsGroup.endAt);
+            setDatePicker(editTextStartDate, slotsGroup.beginAt);
+            setTimePicker(editTextStartTime, slotsGroup.beginAt);
+            setDatePicker(editTextEndDate, slotsGroup.endAt);
+            setTimePicker(editTextEndTime, slotsGroup.endAt);
         }
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -200,10 +199,10 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     }
 
     private void setView() {
-        textViewStartDate.setText(DateTool.getDateLong(slotsGroup.beginAt));
-        textViewStartTime.setText(DateTool.getTimeShort(slotsGroup.beginAt));
-        textViewEndDate.setText(DateTool.getDateLong(slotsGroup.endAt));
-        textViewEndTime.setText(DateTool.getTimeShort(slotsGroup.endAt));
+        editTextStartDate.setText(DateTool.getDateLong(slotsGroup.beginAt));
+        editTextStartTime.setText(DateTool.getTimeShort(slotsGroup.beginAt));
+        editTextEndDate.setText(DateTool.getDateLong(slotsGroup.endAt));
+        editTextEndTime.setText(DateTool.getTimeShort(slotsGroup.endAt));
 
         if (slotsGroup.beginAt.after(slotsGroup.endAt)) {
             textViewError.setVisibility(View.VISIBLE);
@@ -216,7 +215,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         }
     }
 
-    private void setDatePicker(TextView textView, final Date date) {
+    private void setDatePicker(EditText textView, final Date date) {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,7 +255,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         });
     }
 
-    private void setTimePicker(TextView textView, final Date date) {
+    private void setTimePicker(EditText textView, final Date date) {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -278,6 +277,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
 
                 timePickerDialog.setTimeInterval(1, 15);
+                timePickerDialog.setThemeDark(app.themeSettings.isDark());
                 timePickerDialog.show(activity.getFragmentManager(), "");
 
             }
@@ -420,6 +420,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                         @Override
                         public void run() {
                             Toast.makeText(getContext(), R.string.evaluation_slot_deleted, Toast.LENGTH_SHORT).show();
+                            dialogFragment.dismiss();
                         }
                     });
                 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical">
 
     <FrameLayout
@@ -27,126 +29,175 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:minHeight="300dp"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textViewBegin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/evaluation_slot_begin_at" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/evaluation_slot_begin_at"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textViewStartDate"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:text="New Text"
-                android:textColor="@color/colorGrayDark" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="-"
-                android:textColor="@color/colorGrayDark"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/textViewStartTime"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:text="New Text"
-                android:textColor="@color/colorGrayDark" />
-
-        </LinearLayout>
+        <EditText
+            android:id="@+id/editTextStartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:focusable="false"
+            android:hint="@string/hint_date"
+            android:inputType="date"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineDateEnd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBegin" />
 
         <TextView
+            android:id="@+id/textViewBeginSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:text="-"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editTextStartDate"
+            app:layout_constraintStart_toEndOf="@+id/editTextStartDate"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editTextStartTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:focusable="false"
+            android:hint="@string/hint_time"
+            android:inputType="time"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineTimeEnd"
+            app:layout_constraintStart_toEndOf="@+id/textViewBeginSeparator"
+            app:layout_constraintTop_toTopOf="@+id/editTextStartDate" />
+
+        <TextView
+            android:id="@+id/textViewEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/evaluation_slot_end_at"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextStartDate" />
+
+        <EditText
+            android:id="@+id/editTextEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:focusable="false"
+            android:hint="@string/hint_date"
+            android:inputType="date"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineDateEnd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEnd" />
+
+        <TextView
+            android:id="@+id/textViewEndSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:text="-"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editTextEndDate"
+            app:layout_constraintStart_toEndOf="@+id/editTextEndDate"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editTextEndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:focusable="false"
+            android:hint="@string/hint_time"
+            android:inputType="time"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineTimeEnd"
+            app:layout_constraintStart_toEndOf="@+id/textViewEndSeparator"
+            app:layout_constraintTop_toTopOf="@+id/editTextEndDate" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineDateEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.42" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineTimeEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <android.support.constraint.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="editTextEndTime,editTextEndDate,textViewEndSeparator" />
+
+        <Button
+            android:id="@+id/buttonDelete"
+            style="@style/AppTheme.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/evaluation_slot_end_at" />
+            android:text="@string/delete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/barrier2" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textViewEndDate"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:text="New Text"
-                android:textColor="@color/colorGrayDark" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="-"
-                android:textColor="@color/colorGrayDark"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/textViewEndTime"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:text="New Text"
-                android:textColor="@color/colorGrayDark" />
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/buttonSave"
+            style="@style/AppTheme.Button.Borderless"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp">
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/barrier2" />
 
-            <Button
-                android:id="@+id/buttonDelete"
-                style="@style/AppTheme.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete" />
+        <TextView
+            android:id="@+id/textViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="New Text"
+            android:textColor="@color/textColorError"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/barrier2" />
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end">
-
-                <TextView
-                    android:id="@+id/textViewError"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textColor="#f00"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/buttonSave"
-                    style="@style/AppTheme.Button.Borderless"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:text="@string/save" />
-            </FrameLayout>
-
-        </FrameLayout>
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

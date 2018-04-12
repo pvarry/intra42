@@ -136,11 +136,11 @@
     </style>
 
     <style name="AppTheme.BigTextBackground.Light" parent="AppTheme.BigTextBackground">
-        <item name="android:textColor">#28ff0000</item>
+        <item name="android:textColor">#50d30915</item>
     </style>
 
     <style name="AppTheme.BigTextBackground.Dark" parent="AppTheme.BigTextBackground">
-        <item name="android:textColor">#9c1b1b</item>
+        <item name="android:textColor">#7dfd6f71</item>
     </style>
 
     <style name="AppTheme.Galaxy">
@@ -174,7 +174,7 @@
     </style>
 
     <style name="CounterOverflow" parent="TextAppearance.Design.Counter.Overflow">
-        <item name="android:textColor">#D30915</item>
+        <item name="android:textColor">@color/textColorError</item>
     </style>
 
     <style name="AppTheme.TextView" />

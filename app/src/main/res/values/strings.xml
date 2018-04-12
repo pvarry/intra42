@@ -624,4 +624,6 @@ Guideline: Cluster orientation
     <string name="pref_theme_switch_action_bar_background">Display image on ActionBar background</string>
     <string name="pref_theme_switch_dark_theme">Use dark theme</string>
     <string name="cluster_map_info_layer_spinner_main_none">None</string>
+    <string name="hint_date">date</string>
+    <string name="hint_time">time</string>
 </resources>
