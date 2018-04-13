@@ -66,10 +66,7 @@ public class BaseListAdapterSummary<T extends IBaseItem> extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            if (vi == null)
-                return null;
+            LayoutInflater vi = LayoutInflater.from(context);
             convertView = vi.inflate(R.layout.list_view__summary, parent, false);
 
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
@@ -89,8 +86,8 @@ public class BaseListAdapterSummary<T extends IBaseItem> extends BaseAdapter {
         } else
             holder.textViewTitle.setVisibility(View.GONE);
 
-        String summary = item.getName(context);
-        if (name != null && !name.isEmpty()) {
+        String summary = item.getSub(context);
+        if (summary != null && !summary.isEmpty()) {
             holder.textViewSummary.setVisibility(View.VISIBLE);
             holder.textViewSummary.setText(summary);
         } else

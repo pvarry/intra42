@@ -15,17 +15,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ListAdapterClusterMapContribute;
+import com.paulvarry.intra42.adapters.BaseListAdapterSummary;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import com.paulvarry.intra42.api.model.Campus;
@@ -43,10 +43,10 @@ import retrofit2.Response;
 
 public class ClusterMapContributeActivity
         extends BasicThreadActivity
-        implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, ListAdapterClusterMapContribute.OnEditClickListener, SwipeRefreshLayout.OnRefreshListener {
+        implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ExpandableListView listView;
+    private ListView listView;
     private ImageView imageViewExpand;
     private TextView textViewExplanations;
     private ViewGroup linearLayoutExplanations;
@@ -73,19 +73,6 @@ public class ClusterMapContributeActivity
         linearLayoutExplanations = findViewById(R.id.linearLayoutExplanations);
 
         linearLayoutExplanations.setOnClickListener(this);
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ?
-                        0 : listView.getChildAt(0).getTop();
-                swipeRefreshLayout.setEnabled((topRowVerticalPosition >= 0));
-            }
-        });
 
         registerGetDataOnOtherThread(this);
 
@@ -117,8 +104,8 @@ public class ClusterMapContributeActivity
         fabBaseActivity.setVisibility(View.VISIBLE);
         fabBaseActivity.setOnClickListener(this);
 
-        ListAdapterClusterMapContribute adapter = new ListAdapterClusterMapContribute(app, masters);
-        adapter.setOnEditListener(this);
+        BaseListAdapterSummary<Master> adapter = new BaseListAdapterSummary<>(app, masters);
+        listView.setOnItemClickListener(this);
         listView.setAdapter(adapter);
     }
 
@@ -182,8 +169,7 @@ public class ClusterMapContributeActivity
         }
     }
 
-    @Override
-    public void onClickEditLayout(View finalConvertView, int groupPosition, final Master master) {
+    public void onClickEditLayout(final Master master) {
 
         ClusterMapContributeUtils.loadClusterMapAndLock(this, this.app, master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
             @Override
@@ -205,8 +191,7 @@ public class ClusterMapContributeActivity
         });
     }
 
-    @Override
-    public void onClickEditMetadata(View finalConvertView, int groupPosition, final Master master) {
+    public void onClickEditMetadata(final Master master) {
 
         ClusterMapContributeUtils.loadClusterMap(ClusterMapContributeActivity.this, app, master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
             @Override
@@ -362,6 +347,40 @@ public class ClusterMapContributeActivity
     @Override
     public void onRefresh() {
         refresh();
+    }
+
+    /**
+     * Callback method to be invoked when an item in this AdapterView has
+     * been clicked.
+     * <p>
+     * Implementers can call getItemAtPosition(position) if they need
+     * to access the data associated with the selected item.
+     *
+     * @param parent   The AdapterView where the click happened.
+     * @param view     The view within the AdapterView that was clicked (this
+     *                 will be a view provided by the adapter)
+     * @param position The position of the view in the adapter.
+     * @param id       The row id of the item that was clicked.
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        String[] str = new String[]{
+                getString(R.string.cluster_map_contribute_button_edit_metadata),
+                getString(R.string.cluster_map_contribute_button_edit_layout)
+        };
+        builder.setItems(str, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0)
+                    onClickEditMetadata(masters.get(position));
+                else if (which == 1)
+                    onClickEditLayout(masters.get(position));
+            }
+        });
+        builder.setTitle(masters.get(position).name);
+        builder.show();
     }
 
     private class FinalWrapper {

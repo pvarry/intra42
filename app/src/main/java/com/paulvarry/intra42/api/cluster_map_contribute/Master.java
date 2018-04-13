@@ -1,12 +1,20 @@
 package com.paulvarry.intra42.api.cluster_map_contribute;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
+import com.paulvarry.intra42.utils.DateTool;
+
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
-public class Master implements Serializable, Comparable<Master> {
+public class Master implements Serializable, Comparable<Master>, IBaseItem {
 
     public String name;
     @Nullable
@@ -61,5 +69,50 @@ public class Master implements Serializable, Comparable<Master> {
     @Override
     public int compareTo(@NonNull Master o) {
         return name.compareToIgnoreCase(o.name);
+    }
+
+    /**
+     * Usual use like primary text on a listView
+     *
+     * @param context Context
+     * @return The name (title) of the item.
+     */
+    @Override
+    public String getName(Context context) {
+        return name;
+    }
+
+    /**
+     * Usual use like subtitle on a list view.
+     *
+     * @param context Context
+     * @return The sub title.
+     */
+    @Override
+    public String getSub(Context context) {
+
+        if (ClusterMapContributeUtils.canIEdit(this, AppClass.instance()))
+            return null;
+
+        String lockString = context.getString(R.string.cluster_map_contribute_locked_indicator);
+        Calendar c = Calendar.getInstance();
+        c.setTime(locked_at);
+        c.add(Calendar.MINUTE, ClusterMapContributeUtils.MINUTE_LOCK);
+        if (locked_by != null)
+            lockString = lockString.replace("_user_", locked_by);
+        lockString = lockString.replace("_time_", DateTool.getTimeShort(locked_at));
+        lockString = lockString.replace("_timeFuture_", DateTool.getTimeShort(c.getTime()));
+        return lockString;
+    }
+
+    /**
+     * Declare here the method to open this elem n a activity.
+     *
+     * @param context Context
+     * @return A boolean to notice if opening is success.
+     */
+    @Override
+    public boolean openIt(Context context) {
+        return false;
     }
 }
