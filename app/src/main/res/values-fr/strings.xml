@@ -92,7 +92,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="event_nothing_found_for_your_campus_cursus">"Aucun événement trouvé pour votre campus/cursus"</string>
 <string name="event_subscribe">"Souscrire"</string>
 <string name="event_subscribed">"Inscrit"</string>
-<string name="event_subscription_unavailable">"Souscription impossible"</string>
+<string name="event_subscription_unavailable">"Inscription impossible"</string>
 <string name="event_unsubscribe">"Se désinscrire"</string>
 <string name="event_unsubscribed">"Désinscrit"</string>
 <string name="forum_about_this_message">"A propos du message"</string>
@@ -338,13 +338,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="friends_info_database_update">"Mise à jour de la base de données des amis"</string>
 <string name="pref_theme_title_change_theme">"Choix du theme"</string>
 <string name="pref_header_theme">"Theme"</string>
-    <string name="pref_theme_list_titles_default">"Intra (choix de la coalition auto)"</string>
-    <string name="pref_theme_list_titles_green_the_alliance">"l'Alliance"</string>
-    <string name="pref_theme_list_titles_blue_the_federation">"La Fédération"</string>
-    <string name="pref_theme_list_titles_purple_the_assembly">"l'Assemblée"</string>
-    <string name="pref_theme_list_titles_red_the_order">"L'Ordre"</string>
 <string name="pref_theme_list_titles_dark">"Sombre"</string>
-    <string name="pref_theme_list_titles_android">"Android sombre"</string>
 <string name="pref_theme_list_titles_old">"Original (ancien)"</string>
 <string name="info_api_finishing">"finitions"</string>
 <string name="search_section_users_login">"utilisateur ― login"</string>
@@ -406,21 +400,21 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="_super_store_title">"Intra 42"</string>
 <string name="_super_store_short_description">"Application non officielle, gratuite et open-source pour l'intra de 42"</string>
 <string name="_super_store_full_description">"Pour les étudiants de 42 (www.42.fr)
-Application non officiel de l'intranet de 42 pour Android. Cet application est conçu en JAVA et utilise le SDK Android.
+Application non officielle de l'intranet de 42 pour Android. Cet application est conçue en JAVA et utilise le SDK Android.
 
-Fonctionnalites : 
-- Rester informé sur les événements et synchroniser votre calendrier
-- Etre notifier sur les evenements et les corrections
-- Voire les projet et les corrections
-- Voire les profiles des etudients
-- Consulter le forum
-- Regarder les video
-D'autres fonctionnalites et contributions sont bienvenue !
+Fonctionnalités : 
+- Restez informé sur les événements et synchronisez votre calendrier
+- Être notifié sur les événements et les corrections
+- Voir les projets et les corrections
+- Voir les profils des étudiants
+- Consultez le forum
+- Regardez les vidéos de l'intra
+D'autres fonctionnalités et contributions sont bienvenues !
 
-Plus d'information :
+Plus d'informations :
 https://forum.intra.42.fr/topics/9650/messages/last
 
-Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu ou approuvé par 42. Cet application Android est indépendante et non officielle."</string>
+Avertissement : Cette application n'est en aucun cas affiliée, autorisée, maintenue ou approuvée officiellement par 42. Cette application Android est indépendante et non officielle."</string>
 <string name="_super_forum">"ENGLISH VERSION | VERSION ANGLAISE : [topic](https://forum.intra.42.fr/topics/15837/messages)
 
 Application de l'intranet de 42 pour Android. Cet application est conçu en JAVA et utilise le SDK Android.
@@ -543,9 +537,9 @@ Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu
 <string name="cluster_map_info_project_dialog_not_found">"Pas trouvé"</string>
 <string name="cluster_map_info_project_dialog_not_found_content_format">"Pas de projet trouvé avec le nom: %s"</string>
 <string name="cluster_map_info_layer_spinner_main_location">"Ordinateur"</string>
-<string name="cluster_map_info_data_layer_description">"Vous pouvez changer les ordinateurs surlignés (avec cadre de couleur) sur la carte des Clusters, pour cela, vous devez sélectionner la couche de données que vous souhaiter puis cliquer sur « mettre à jour »."</string>
+<string name="cluster_map_info_data_layer_description">"Vous pouvez changer les ordinateurs surlignés (avec cadre de couleur) sur la carte des Clusters. Pour cela, vous devez sélectionner la couche de données que vous souhaitez puis cliquez sur « mettre à jour »."</string>
 <string name="cluster_map_info_data_layer_error">"Erreur lors du chargement de la couche de donnée"</string>
-<string name="cluster_map_info_contribute_description">"Créer, modifier et compléter la carte des Clusters de votre campus. Aider les étudiants à trouver plus facilement leurs amies dans les clusters."</string>
+<string name="cluster_map_info_contribute_description">"Créez, modifiez et complétez la carte des Clusters de votre campus. Aidez les étudiants à trouver plus facilement leurs amis dans les clusters."</string>
 <string name="cluster_map_info_contribute_title">"Ajouter un Cluster manquant"</string>
 <string name="cluster_map_info_no_map">"Pas de cluster disponible (bientot vous pourrez ajouter un cluster)"</string>
 <string name="cluster_map_info_vacant_posts_plural">"%d postes vacants"</string>
@@ -616,19 +610,21 @@ Guideline: Cluster orientation
 <string name="user_profile_grade_rank">"Grade"</string>
 <string name="user_profile_add_to_friends">"Ajouter en amie"</string>
 <string name="user_profile_remove_from_friends">"Retirer des amies"</string>
-<string name="introduction_calendar_title">"Synchroniser votre calendrier"</string>
-<string name="introduction_calendar_description">"Les événements auxquels vous êtes inscrits seront automatiquement ajoutés au calendrier de l’appareil."</string>
+<string name="introduction_calendar_title">"Synchronisez votre calendrier"</string>
+<string name="introduction_calendar_description">"Les événements auxquels vous êtes inscrit seront automatiquement ajoutés au calendrier de l’appareil."</string>
 <string name="introduction_calendar_action">"Autoriser l'agenda"</string>
 <string name="introduction_calendar_switch">"Activer la synchronisation du calendrier"</string>
 <string name="introduction_calendar_image_content_description">"Illustration de calendrier"</string>
 <string name="introduction_translation_title">"Traduisez l'application"</string>
-<string name="introduction_translation_description">"Corrigez et traduisez cette application depuis le projet sur PoEditor"</string>
-<string name="introduction_translation_action">"Voir le projet"</string>
+<string name="introduction_translation_description">"Corrigez et traduisez cette application depuis le projet PoEditor"</string>
+
+<!-- Fuzzy -->
+<string name="introduction_translation_action">"Modifier les chaines de caractères"</string>
 <string name="introduction_translation_text_bottom">"Grammar Nazis are welcome"</string>
 <string name="introduction_translate_image_content_description">"Illustration de traduction"</string>
 <string name="about_show_introduction">"Revoir l’introduction"</string>
-<string name="introduction_cluster_map_contribute_title">"Modifier la carte des clusters"</string>
-<string name="introduction_cluster_map_contribute_description">"Modifier la carte des clusters pour pouvoir trouver facilement une personne dans l’école. Vous pouvez modifier ou ajouter des données à la carte des clusters dans l’application"</string>
+<string name="introduction_cluster_map_contribute_title">"Modifiez la carte des clusters"</string>
+<string name="introduction_cluster_map_contribute_description">"Modifiez la carte des clusters pour pouvoir trouver facilement une personne dans l’école. Vous pouvez modifier ou ajouter des données à la carte des clusters dans l’application."</string>
 <string name="info_network_error">"Network error"</string>
 <string name="user_grade">"Grade"</string>
 <string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
@@ -638,4 +634,15 @@ Guideline: Cluster orientation
 <string name="project_user_not_registered">"not registered"</string>
 <string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
 <string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
+<string name="pref_theme_list_titles_default">"Intra (Auto coalition)"</string>
+<string name="pref_theme_list_titles_green_the_alliance">"Green (The Alliance)"</string>
+<string name="pref_theme_list_titles_blue_the_federation">"Blue (The Federation)"</string>
+<string name="pref_theme_list_titles_purple_the_assembly">"Purple (The Assembly)"</string>
+<string name="pref_theme_list_titles_red_the_order">"Red (The Order)"</string>
+<string name="pref_theme_list_titles_android">"Android Dark"</string>
+<string name="pref_theme_switch_action_bar_background">"Display image on ActionBar background"</string>
+<string name="pref_theme_switch_dark_theme">"Use dark theme"</string>
+<string name="cluster_map_info_layer_spinner_main_none">"None"</string>
+<string name="hint_date">"date"</string>
+<string name="hint_time">"time"</string>
 </resources>
