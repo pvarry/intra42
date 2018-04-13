@@ -350,13 +350,7 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="friends_info_database_update">"Aggiorna database amici"</string>
 <string name="pref_theme_title_change_theme">"Scegli tema"</string>
 <string name="pref_header_theme">"Tema"</string>
-    <string name="pref_theme_list_titles_default">"Intra (Auto coalition)"</string>
-    <string name="pref_theme_list_titles_green_the_alliance">"The Alliance"</string>
-    <string name="pref_theme_list_titles_blue_the_federation">"The Federation"</string>
-    <string name="pref_theme_list_titles_purple_the_assembly">"The Assembly"</string>
-    <string name="pref_theme_list_titles_red_the_order">"The Order"</string>
 <string name="pref_theme_list_titles_dark">"Dark"</string>
-    <string name="pref_theme_list_titles_android">"Android Dark"</string>
 <string name="pref_theme_list_titles_old">"Original (Old)"</string>
 <string name="info_api_finishing">"finishing"</string>
 <string name="search_section_users_login">"utente ― login"</string>
@@ -617,7 +611,7 @@ Guideline: Cluster orientation
 <string name="introduction_calendar_image_content_description">"calendar illustration"</string>
 <string name="introduction_translation_title">"Join the Translate Community"</string>
 <string name="introduction_translation_description">"If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor."</string>
-<string name="introduction_translation_action">"Open project"</string>
+<string name="introduction_translation_action">"Edit strings ressources"</string>
 <string name="introduction_translation_text_bottom">"Grammar Nazis are welcome"</string>
 <string name="introduction_translate_image_content_description">"translate illustration"</string>
 <string name="about_show_introduction">"Show Introduction"</string>
@@ -632,4 +626,15 @@ Guideline: Cluster orientation
 <string name="project_user_not_registered">"not registered"</string>
 <string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
 <string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
+<string name="pref_theme_list_titles_default">"Intra (Auto coalition)"</string>
+<string name="pref_theme_list_titles_green_the_alliance">"Green (The Alliance)"</string>
+<string name="pref_theme_list_titles_blue_the_federation">"Blue (The Federation)"</string>
+<string name="pref_theme_list_titles_purple_the_assembly">"Purple (The Assembly)"</string>
+<string name="pref_theme_list_titles_red_the_order">"Red (The Order)"</string>
+<string name="pref_theme_list_titles_android">"Android Dark"</string>
+<string name="pref_theme_switch_action_bar_background">"Display image on ActionBar background"</string>
+<string name="pref_theme_switch_dark_theme">"Use dark theme"</string>
+<string name="cluster_map_info_layer_spinner_main_none">"None"</string>
+<string name="hint_date">"date"</string>
+<string name="hint_time">"time"</string>
 </resources>
