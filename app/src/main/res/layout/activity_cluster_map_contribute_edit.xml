@@ -24,7 +24,7 @@
                 android:id="@+id/gridLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#212121"
+                android:background="?android:attr/listDivider"
                 android:padding="1px" />
 
         </FrameLayout>

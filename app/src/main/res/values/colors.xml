@@ -19,7 +19,11 @@
     <color name="colorFail">#e57373</color>
     <color name="colorTintCheck">#2e7d32</color>
     <color name="colorTintCross">#c62828</color>
+
     <color name="textColorError">#D30915</color>
+    <color name="colorClusterMapWall">#e0e0e0</color>
+    <color name="colorClusterMapComputerColor">#263238</color>
+    <color name="colorClusterMapTextBackground">#96ffffff</color>
 
     <color name="color_preloader_start">#000000</color>
     <color name="color_preloader_center">#000000</color>
@@ -77,8 +81,6 @@
     <color name="tag_event_challenge">#39D88F</color>
     <color name="tag_event_event">#00babc</color>
     <color name="tag_event_">#00babc</color>
-
-    <color name="colorClusterMapWall">#bebebe</color>
 
     <color name="toggle_hover">@color/gray</color>
     <color name="toggle_normal">@color/gainsboro</color>

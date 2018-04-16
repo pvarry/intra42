@@ -179,13 +179,16 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             view.setTag(location);
             view.setOnClickListener(this);
 
-            if (location.host == null)
+            if (location.host == null) {
                 imageViewContent.setImageResource(R.drawable.ic_missing_black_25dp);
-            else {
+                imageViewContent.setColorFilter(ContextCompat.getColor(activity, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
+            } else {
                 if (user != null)
                     UserImage.setImageSmall(activity, user, imageViewContent);
-                else
+                else {
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_desktop_mac_black_custom));
+                    imageViewContent.setColorFilter(ContextCompat.getColor(activity, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                }
             }
 
         } else if (location.kind == Location.Kind.WALL)

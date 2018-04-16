@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.activities;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -375,6 +375,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_desktop_mac_black_custom));
                     if (location.host.startsWith(cluster.hostPrefix)) // set warning flag because host contain cluster prefix
                         view.setBackgroundColor(getResources().getColor(R.color.color_warning));
+                    else
+                        imageViewContent.setColorFilter(ContextCompat.getColor(this, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
                 }
 
             } else if (location.kind == Location.Kind.WALL)
