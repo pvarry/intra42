@@ -1,15 +1,44 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.bq.poeditor'
 
 task update_galaxy_data(type: Exec) {
     workingDir "${buildDir}/../scripts"
     commandLine 'ruby', 'update_galaxy_data.rb'
 }
 
-task syncTranslations() {
-    loadPoeditor()
-    println "Start sync translations"
-    importPoEditorStrings.execute()
+task update_cluster_map(type: Exec) {
+    workingDir '../scripts/'
+
+    //on windows:
+    commandLine 'ruby', 'update_cluster_map.rb'
+
+    //on linux
+//    commandLine './update_galaxy_data.rb'
+
+    //store the output instead of printing to the console:
+    standardOutput = new ByteArrayOutputStream()
+
+    //extension method stopTomcat.output() can be used to obtain the output:
+    ext.output = {
+        return standardOutput.toString()
+    }
+}
+
+task update_strings(type: Exec) {
+    workingDir '../scripts/'
+
+    //on windows:
+    commandLine 'ruby', 'update_strings.rb'
+
+    //on linux
+//    commandLine './update_galaxy_data.rb'
+
+    //store the output instead of printing to the console:
+    standardOutput = new ByteArrayOutputStream()
+
+    //extension method stopTomcat.output() can be used to obtain the output:
+    ext.output = {
+        return standardOutput.toString()
+    }
 }
 
 android {
@@ -39,10 +68,6 @@ android {
             signingConfig signingConfigs.config
             buildConfigField "Boolean", "REPORT_CRASH", 'true'
             zipAlignEnabled true
-
-//            loadPoeditor()
-//            preBuild.dependsOn(importPoEditorStrings)
-//            preBuild.dependsOn(syncTranslations) //run task syncTranslations
         }
         beta {
             minifyEnabled false
@@ -58,9 +83,8 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix '.debug'
 
-            loadPoeditor()
-            preBuild.dependsOn(importPoEditorStrings)
-            preBuild.dependsOn(syncTranslations) //run task syncTranslations
+//            preBuild.dependsOn(update_cluster_map)
+            preBuild.dependsOn(update_strings)
         }
     }
 
@@ -79,21 +103,21 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:cardview-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
-    implementation 'com.android.support:support-v4:27.1.0'
-    implementation 'com.android.support:support-v13:27.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:support-v13:27.1.1'
     implementation 'com.caverock:androidsvg:1.2.1'
     implementation 'com.github.Commit451:bypasses:1.1.0'
     implementation 'com.github.paolorotolo:expandableheightlistview:1.0.0'
     implementation 'com.github.Plumillon:ChipView:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation 'com.google.firebase:firebase-crash:12.0.1'
-    implementation 'com.google.firebase:firebase-config:12.0.1'
-    implementation 'com.google.firebase:firebase-database:12.0.1'
+    implementation 'com.google.firebase:firebase-crash:15.0.0'
+    implementation 'com.google.firebase:firebase-config:15.0.0'
+    implementation 'com.google.firebase:firebase-database:15.0.0'
     implementation 'com.pnikosis:materialish-progress:1.7'
     implementation 'com.splitwise:tokenautocomplete:2.0.8'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
@@ -129,20 +153,6 @@ static def getVersionCodeTimestamp() {
     def formattedDate = currentDate.format('yyyyMMdd')
     def code = formattedDate.toInteger()
     return code
-}
-
-def loadPoeditor() {
-    Properties props = new Properties()
-    def file = new File('secrets.properties')
-    println "Load PoEditor secrets from file: " + file.absolutePath
-    props.load(new FileInputStream(file))
-    print props
-
-    poEditorPlugin.api_token = props['API_TOKEN']
-    poEditorPlugin.project_id = props['PROJECT_ID']
-    poEditorPlugin.default_lang = "en"
-    poEditorPlugin.generate_tablet_res = false
-    poEditorPlugin.res_dir_path = "${project.rootDir}/app/src/main/res"
 }
 
 apply plugin: 'com.google.gms.google-services'
