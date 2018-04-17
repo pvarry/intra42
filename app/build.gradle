@@ -6,10 +6,11 @@ task update_galaxy_data(type: Exec) {
     commandLine 'ruby', 'update_galaxy_data.rb'
 }
 
-//task syncTranslations() {
-//    println "Start sync translations"
-//    importPoEditorStrings.execute()
-//}
+task syncTranslations() {
+    loadPoeditor()
+    println "Start sync translations"
+    importPoEditorStrings.execute()
+}
 
 android {
     signingConfigs {
@@ -56,6 +57,10 @@ android {
             debuggable true
             applicationIdSuffix ".debug"
             versionNameSuffix '.debug'
+
+            loadPoeditor()
+            preBuild.dependsOn(importPoEditorStrings)
+            preBuild.dependsOn(syncTranslations) //run task syncTranslations
         }
     }
 
@@ -133,10 +138,10 @@ def loadPoeditor() {
     props.load(new FileInputStream(file))
     print props
 
-
     poEditorPlugin.api_token = props['API_TOKEN']
     poEditorPlugin.project_id = props['PROJECT_ID']
     poEditorPlugin.default_lang = "en"
+    poEditorPlugin.generate_tablet_res = false
     poEditorPlugin.res_dir_path = "${project.rootDir}/app/src/main/res"
 }
 
