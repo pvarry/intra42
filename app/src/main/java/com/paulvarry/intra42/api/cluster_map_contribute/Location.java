@@ -32,8 +32,7 @@ public class Location implements Serializable {
     @SerializedName("rot")
     public float angle;
 
-    @Nullable
-    public transient Boolean highlight;
+    public transient boolean highlight = false;
 
     public Location() {
         sizeX = 1;
@@ -41,8 +40,6 @@ public class Location implements Serializable {
     }
 
     public boolean computeHighlightPosts(ClusterStatus cluster, UsersLTE user) {
-        boolean highlight = false;
-
         if (cluster != null && user != null)
             switch (cluster.layerStatus) {
                 case FRIENDS:
@@ -63,7 +60,6 @@ public class Location implements Serializable {
                     break;
             }
 
-        this.highlight = highlight;
         return highlight;
     }
 

@@ -144,7 +144,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
 
                 locationItem = clusterInfo.map[x][y];
                 if (locationItem == null)
-                    break;
+                    continue;
 
                 View view = makeMapItem(clusterInfo.map[x][y], x, y);
                 gridLayout.addView(view);
@@ -164,7 +164,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
 
         user = clusters.getUserInLocation(location);
 
-        if (location.highlight == null || location.highlight) {
+        if (location.highlight) {
             view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
             imageViewContent = view.findViewById(R.id.imageView);
         } else {
@@ -206,10 +206,33 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
         paramsGridLayout.height = (int) (baseItemHeight * location.sizeY);
         paramsGridLayout.width = (int) (baseItemWidth * location.sizeX);
-        imageViewContent.setPadding(itemPadding2dp, itemPadding2dp, itemPadding2dp, itemPadding2dp);
+
+        if (location.kind == Location.Kind.WALL) {
+            int paddingLeft = itemPadding2dp;
+            int paddingTop = itemPadding2dp;
+            int paddingRight = itemPadding2dp;
+            int paddingEnd = itemPadding2dp;
+
+            Location left = getPosition(x - 1, y);
+            if (left != null && left.kind == Location.Kind.WALL)
+                paddingLeft = 0;
+            Location top = getPosition(x, y - 1);
+            if (top != null && top.kind == Location.Kind.WALL)
+                paddingTop = 0;
+            Location right = getPosition(x + 1, y);
+            if (right != null && right.kind == Location.Kind.WALL)
+                paddingRight = 0;
+            Location end = getPosition(x, y + 1);
+            if (end != null && end.kind == Location.Kind.WALL)
+                paddingEnd = 0;
+
+            imageViewContent.setPadding(paddingLeft, paddingTop, paddingRight, paddingEnd);
+        } else
+            imageViewContent.setPadding(itemPadding2dp, itemPadding2dp, itemPadding2dp, itemPadding2dp);
+
         view.setLayoutParams(paramsGridLayout);
 
-        if (location.highlight == null || location.highlight) {
+        if (location.highlight) {
             FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
             paramsFrameLayout.height = (int) (baseItemHeight * location.sizeY);
             paramsFrameLayout.width = (int) (baseItemWidth * location.sizeX);
@@ -222,13 +245,20 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             activity.getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);
             imageViewContent.setBackgroundResource(a.resourceId);
 
-            if (location.highlight == null)
-                view.setBackgroundColor(ThemeHelper.getColorPrimary(activity));
-            else
-                view.setBackgroundColor(ThemeHelper.getColorAccent(activity));
+            view.setBackgroundColor(ThemeHelper.getColorAccent(activity));
         }
 
         return view;
+    }
+
+    Location getPosition(int x, int y) {
+        if (x < 0 ||
+                y < 0 ||
+                clusterInfo.map.length <= x ||
+                clusterInfo.map[x] == null ||
+                clusterInfo.map[x].length <= y)
+            return null;
+        return clusterInfo.map[x][y];
     }
 
     public void onButtonPressed(Uri uri) {

@@ -124,24 +124,7 @@ public class ClusterMapActivity
     public void getDataOnOtherThread() throws IOException {
 
         final List<Locations> locationsTmp = new ArrayList<>();
-        Gson gson = ServiceGenerator.getGson();
-        Type listType = new TypeToken<ArrayList<Cluster>>() {
-        }.getType();
 
-        campusId = AppSettings.getAppCampus(app);
-
-        int resId = ClusterMapContributeUtils.getResId(this, campusId);
-
-        if (resId == 0) {
-            setViewStateThread(StatusCode.EMPTY);
-            return;
-        }
-
-        setLoadingProgress(0, -1);
-        InputStream ins = getResources().openRawResource(resId);
-        String data = Tools.readTextFile(ins);
-        List<Cluster> d = gson.fromJson(data, listType);
-        clusterStatus.initClusterList(d);
 
         setLoadingProgress(R.string.info_loading_locations, 0, -1);
 
@@ -193,6 +176,25 @@ public class ClusterMapActivity
             if (clusterStatus.friends != null && clusterStatus.locations != null)
                 return ThreadStatusCode.FINISH;
         }
+
+        Gson gson = ServiceGenerator.getGson();
+        Type listType = new TypeToken<ArrayList<Cluster>>() {
+        }.getType();
+
+        campusId = AppSettings.getAppCampus(app);
+
+        int resId = ClusterMapContributeUtils.getResId(this, campusId);
+
+        if (resId == 0) {
+            setViewStateThread(StatusCode.EMPTY);
+            return ThreadStatusCode.NONE;
+        }
+
+        setLoadingProgress(0, -1);
+        InputStream ins = getResources().openRawResource(resId);
+        String data = Tools.readTextFile(ins);
+        List<Cluster> clusterList = gson.fromJson(data, listType);
+        clusterStatus.initClusterList(clusterList);
 
         return ThreadStatusCode.CONTINUE;
     }
