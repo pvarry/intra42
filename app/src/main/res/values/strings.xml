@@ -64,7 +64,7 @@
 <string name="shortcut_friends">"Friends"</string>
 <string name="shortcut_long_friends">"Friends list"</string>
 <string name="shortcut_long_cluster_map">"Clusters map"</string>
-<string name="shortcut_galaxy">"Galaxy"</string>
+<string name="shortcut_galaxy">"Holy Graph"</string>
 <string name="about_content">"Access your intra with a native app.
 Contact me on Slack or mail (pvarry)"</string>
 <string name="about_version">"Version"</string>
@@ -116,7 +116,7 @@ You will lose a correction point"</string>
 <string name="galaxy_available">"Available"</string>
 <string name="galaxy_failed">"Failed"</string>
 <string name="galaxy_in_progress">"in progress"</string>
-<string name="galaxy_not_found">"No Galaxy available"</string>
+<string name="galaxy_not_found">"No Holy Graph available"</string>
 <string name="galaxy_succeeded">"Succeeded"</string>
 <string name="galaxy_unavailable">"Unavailable"</string>
 <string name="galaxy_unknown_state">"Unknown state"</string>
@@ -233,7 +233,7 @@ You will lose a correction point"</string>
 <string name="title_tab_project_users">"Users"</string>
 <string name="title_tab_projects_all">"All"</string>
 <string name="title_tab_projects_doing">"Doing"</string>
-<string name="title_tab_projects_graphic">"Galaxy"</string>
+<string name="title_tab_projects_graphic">"Holy Graph"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
 <string name="title_tab_tags_notions">"Notions"</string>
 <string name="title_tab_user_achievements">"Achievements"</string>
@@ -282,7 +282,7 @@ You will lose a correction point"</string>
 <string name="list_preference_network_titles_default">"Default (200×240)"</string>
 <string name="list_preference_network_titles_small">"Small (146×175)"</string>
 <string name="list_preference_network_titles_none">"None"</string>
-<string name="spinner_user_projects_galaxy">"Galaxy"</string>
+<string name="spinner_user_projects_galaxy">"Holy Graph"</string>
 <string name="spinner_user_projects_all">"All"</string>
 <string name="spinner_user_projects_in_progress">"In-progress"</string>
 <string name="accessibility_navigation_drawer_close">"Close navigation drawer"</string>
@@ -349,7 +349,7 @@ You will lose a correction point"</string>
 <string name="coalitions_nothing_selected_cursus_campus">"No coalition found for selected cursus/campus"</string>
 <string name="friends_adding_to_group">"Adding friends to group"</string>
 <string name="friends_removing_from_group">"Removing friends from group"</string>
-<string name="galaxy_no_live_data">"Unable to get live data for Galaxy"</string>
+<string name="galaxy_no_live_data">"Unable to get live data for Holy Graph"</string>
 <string name="coalition_score">"Score"</string>
 <string name="refreshing">"Refreshing"</string>
 <string name="info_data_cached_long_time_ago">"Data cached long time ago"</string>
@@ -490,7 +490,7 @@ Useful tools :
 
 Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
 <string name="shortcut_cluster_map">"Clusters"</string>
-<string name="shortcut_long_galaxy">"Galaxy (projects)"</string>
+<string name="shortcut_long_galaxy">"Holy Graph (projects)"</string>
 <string name="bookings_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
 <string name="pref_title_advanced_data_allow_beta">"Enable advanced preferences"</string>
 <string name="pref_summary_advanced_data_print_ids">"Enable this to show ids and slugs in the app"</string>

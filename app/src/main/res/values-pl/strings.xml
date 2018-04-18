@@ -65,7 +65,6 @@
 <string name="shortcut_friends">"Przyjaciele"</string>
 <string name="shortcut_long_friends">"Lista przyjaciół"</string>
 <string name="shortcut_long_cluster_map">"Mapa klastrów"</string>
-<string name="shortcut_galaxy">"Galaktyka"</string>
 <string name="about_content">"Uaktywnij swoje intra z ojczystą aplikacją. Skontaktuj się ze mną na Slaku lub mailowo (pvarry)."</string>
 <string name="about_version">"Wersja"</string>
 <string name="cantina_menu_fremont_only">"Menu stołówki"</string>
@@ -103,7 +102,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="forum_delete_topic">"Usuń wątek"</string>
 <string name="forum_message_edit">"Edytuj wiadomość"</string>
 <string name="forum_message_hint">"Wiadomość"</string>
-<string name="forum_readings">"Readings"</string>
 <string name="forum_reply">"Odpowiedz"</string>
 <string name="forum_tags">"Tagi"</string>
 <string name="forum_topic_content">"Zawartość"</string>
@@ -116,7 +114,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="galaxy_available">"Dostępny"</string>
 <string name="galaxy_failed">"Nie zdany"</string>
 <string name="galaxy_in_progress">"W trakcje realizacji"</string>
-<string name="galaxy_not_found">"Galaktyka niedostępna"</string>
 <string name="galaxy_succeeded">"Zaliczony"</string>
 <string name="galaxy_unavailable">"Niedostępny"</string>
 <string name="galaxy_unknown_state">"Nieznany status"</string>
@@ -190,7 +187,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="project_you_cant_have_mark_for_this_project">"Nie możesz zaznaczyć tego projektu"</string>
 <string name="search_by">"Wyszukuj przez"</string>
 <string name="search_error_on_open_this_element">"Błąd przy otwieraniu tego elementu"</string>
-<string name="search_hint">"Search"</string>
 <string name="search_on_projects">"Wyszukiwanie w projektach"</string>
 <string name="search_on_topics">"Wyszukiwanie w wątkach"</string>
 <string name="search_on_users">"Wyszukiwanie w użytkownikach"</string>
@@ -198,7 +194,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="search_section_topics">"Wątki"</string>
 <string name="search_section_users">"Użytkownicy"</string>
 <string name="searching">"Wyszukiwanie..."</string>
-<string name="share_using">"Share using"</string>
 <string name="time_zone_error">"Błąd strefy czasowej"</string>
 <string name="title">"Tytuł"</string>
 <string name="title_activity_about">"O nas"</string>
@@ -229,22 +224,15 @@ Stracisz punkt korekcyjny."</string>
 <string name="title_tab_home_slots">"Sloty"</string>
 <string name="title_tab_project_attachments">"Załączniki"</string>
 <string name="title_tab_project_me">"Ja"</string>
-<string name="title_tab_project_overview">"Overview"</string>
 <string name="title_tab_project_users">"Użytkownicy"</string>
 <string name="title_tab_projects_all">"Wszystko"</string>
-<string name="title_tab_projects_doing">"Doing"</string>
-<string name="title_tab_projects_graphic">"Galaktyka"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
-<string name="title_tab_tags_notions">"Notions"</string>
 <string name="title_tab_user_achievements">"Osiągnięcia"</string>
 <string name="title_tab_user_expertises">"Kompetencje"</string>
 <string name="title_tab_user_forum">"Forum"</string>
-<string name="title_tab_user_overview">"Overview"</string>
-<string name="title_tab_user_partnerships">"Partnerships"</string>
 <string name="title_tab_user_projects">"Projekty"</string>
 <string name="title_tab_user_skills">"Umiejętności"</string>
 <string name="title_tab_users_all">"Wszystko"</string>
-<string name="topics_kind_survey">"Survey"</string>
 <string name="user_app_official">"Oficjalna aplikacja"</string>
 <string name="user_correction_points">"Punkty korekcyjne"</string>
 <string name="user_cursus_date">"Data"</string>
@@ -282,7 +270,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="list_preference_network_titles_default">"Standardowe (200×240)"</string>
 <string name="list_preference_network_titles_small">"Małe (146×175)"</string>
 <string name="list_preference_network_titles_none">"Żadne"</string>
-<string name="spinner_user_projects_galaxy">"Galaktyka"</string>
 <string name="spinner_user_projects_all">"Wszystko"</string>
 <string name="spinner_user_projects_in_progress">"W toku"</string>
 <string name="accessibility_navigation_drawer_close">"Zamknij okno nawigacji"</string>
@@ -296,334 +283,10 @@ Stracisz punkt korekcyjny."</string>
 <string name="info_api_unauthorized">"Nie jesteś upoważniony"</string>
 <string name="pref_title_notifications_sync_allow">"Aktywuj powiadomienia i synchronizacje"</string>
 <string name="pref_title_notifications_sync_calendar">"Synchronizuj kalendarz"</string>
-<string name="pref_title_calendar_list">"Choose calendar to insert events"</string>
 <string name="pref_category_notifications">"Powiadomienia"</string>
 <string name="pref_summary_notifications_events">"Powiadamiaj o nowych eventach publikowanych na 42 intra"</string>
 <string name="pref_summary_notifications_scales">"Przypominaj o ewaluacjach"</string>
 <string name="pref_summary_notifications_sync_calendar">"Automatycznie sprawdź subskrybcje eventów i wtedy dodaj "</string>
-<string name="pref_title_calendar_enable">"Enable calendar edition"</string>
-<string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
 <string name="pref_title_calendar_after_subscription">"Wprowadź do kalendarza"</string>
-<string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
 <string name="pref_title_calendar">"Synchronizacja eventów"</string>
-<string name="friends_nothing_found">"You can add friends from their profile"</string>
-<string name="friend_group_name">"Group name"</string>
-<string name="friends">"Friends"</string>
-<string name="friends_group_edit_in_group">"Friends in group"</string>
-<string name="friends_group_edit_discard">"Discard"</string>
-<string name="friends_groups_edit_no_empty_name">"Can't be empty"</string>
-<string name="friends_groups_edit_no_name_set">"No name set"</string>
-<string name="friends_select_group">"Select Group"</string>
-<string name="friends_groups_all">"All"</string>
-<string name="friends_groups_edit_unsaved_changes_title">"You have unsaved changes"</string>
-<string name="friends_groups_edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
-<string name="friends_groups_new">"New Friends Group"</string>
-<string name="friends_groups_edit">"Edit Friends Group"</string>
-<string name="location_undetermined">"undetermined"</string>
-<string name="friends_summary_no_friends">"No friend"</string>
-
-<!-- Format warning -->
-<string name="friends_summary_format_friend">"%d friend"</string>
-
-<!-- Format warning -->
-<string name="friends_summary_format_friends">"%d friends"</string>
-<string name="friends_add_to_group">"Add to group"</string>
-<string name="friends_remove_from_group">"Remove from group"</string>
-<string name="friends_delete_friends_title">"Do want to delete those friends ?"</string>
-<string name="friends_groups_nothing">"You have to create groups first"</string>
-<string name="info_loading_locations">"Loading locations …"</string>
-<string name="info_loading_friends">"Loading friends …"</string>
-<string name="friend_group_list">"Group"</string>
-<string name="info_loading_calculating">"calculating"</string>
-<string name="friends_info_api_try_again">"Friends API is currently getting new users, please try again in 2min"</string>
-<string name="friends_info_database_update">"Friends database update"</string>
-<string name="pref_theme_title_change_theme">"Set theme"</string>
-<string name="pref_header_theme">"Theme"</string>
-<string name="pref_theme_list_titles_dark">"Dark"</string>
-<string name="pref_theme_list_titles_old">"Original (Old)"</string>
-<string name="info_api_finishing">"finishing"</string>
-<string name="search_section_users_login">"user ― login"</string>
-<string name="search_section_users_first_name">"user ― first name"</string>
-<string name="search_section_users_last_name">"user ― last name"</string>
-<string name="title_activity_coalitions">"Coalitions"</string>
-<string name="coalitions_nothing_selected_cursus_campus">"No coalition found for selected cursus/campus"</string>
-<string name="friends_adding_to_group">"Adding friends to group"</string>
-<string name="friends_removing_from_group">"Removing friends from group"</string>
-<string name="galaxy_no_live_data">"Unable to get live data for Galaxy"</string>
-<string name="coalition_score">"Score"</string>
-<string name="refreshing">"Refreshing"</string>
-<string name="info_data_cached_long_time_ago">"Data cached long time ago"</string>
-<string name="title_tab_user_apps">"Apps"</string>
-
-<!-- Format warning -->
-<string name="format__user_profile">"%s's profile"</string>
-<string name="cluster_map_dialog_action">"Action for this location"</string>
-<string name="cluster_map_not_in_campus">"Cluster map is not available in your campus"</string>
-<string name="project_team_status_closed">"closed"</string>
-<string name="project_team_status_locked">"locked"</string>
-<string name="title_tab_forum_unread">"Unread"</string>
-<string name="title_tab_forum_last_topics">"Last topics"</string>
-<string name="title_tab_forum_tag">"Tags"</string>
-<string name="title_activity_friends_groups">"Friends groups"</string>
-<string name="friends_group_edit_name_dialog">"Edit name"</string>
-<string name="project_solo">"solo"</string>
-<string name="project_group">"group"</string>
-<string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
-<string name="event_kind_conf">"conf"</string>
-<string name="event_kind_other">"other"</string>
-<string name="event_kind_extern">"extern"</string>
-<string name="event_kind_atelier">"atelier"</string>
-<string name="event_kind_meet_up">"meet up"</string>
-<string name="event_kind_hackathon">"hackathon"</string>
-<string name="event_kind_workshop">"workshop"</string>
-<string name="event_kind_association">"association"</string>
-<string name="event_kind_partnership">"partnership"</string>
-<string name="event_kind_unknown">"unknown"</string>
-<string name="user_achievement_bronze">"bronze"</string>
-<string name="user_achievement_silver">"silver"</string>
-<string name="user_achievement_gold">"gold"</string>
-<string name="user_achievements_platinum">"platinum"</string>
-<string name="event_kind_event">"event"</string>
-<string name="event_kind_challenge">"challenge"</string>
-<string name="info_attachment_no_app_video">"There are no applications installed to open this, you can install VLC"</string>
-<string name="info_attachment_no_app_pdf">"There are no applications installed to open this, you can install a pdfviewer"</string>
-<string name="info_attachment_no_app">"There are no applications installed to open this"</string>
-<string name="info_loading_page_on">"Loading page %d of %d"</string>
-<string name="info_loading_resolve_number_page">"Resolve number of page"</string>
-<string name="info_loading_topic">"Loading topic …"</string>
-<string name="info_loading_topic_reply">"Loading reply …"</string>
-<string name="info_loading_processing_data">"Processing data"</string>
-<string name="edit_unsaved_changes_title">"You have unsaved changes"</string>
-<string name="edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
-<string name="continue_editing">"continue editing"</string>
-<string name="login_summary">"Intranet"</string>
-<string name="about_app_summary">"Unofficial, free and open-source App"</string>
-<string name="_super_store_title">"Intra 42"</string>
-<string name="_super_store_short_description">"Unofficial, free and open-source 42's intranet App."</string>
-<string name="_super_store_full_description">"Only for 42's students (www.42.fr)
-
-This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
-
-Features :
-- Keep informed on events and sync your calendar
-- Be notified on events and graduations
-- View project and graduations
-- View users profile and project
-- Comment on forum
-- Watch video on e-learning
-- All feature requests and contributions are welcome!
-
-More informations : https://forum.intra.42.fr/topics/9650/messages/last
-
-Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
-<string name="_super_forum">"FRENCH VERSION | VERSION FRANÇAISE : [topic](https://forum.intra.42.fr/topics/9650)
-
-Only for 42's students (www.42.fr)
-
-This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
-
-Dowload this app : [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
-
-Sources : [github](https://github.com/pvarry/intra42)
-
-## Features :
-- Keep informed on events and sync your calendar
-- Be notified on events and graduations
-- View project and graduations
-- View users profile and project
-- Comment on forum
-- Watch video on e-learning
-
-All feature requests and contributions are welcome!
-If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
-
-Useful tools :
-
-&gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
-
-&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing video.
-
-## Changelog
-
-#### v0.8.x
-
-- Theme integration with Coalitions
-- Automatically sync your calendar
-- Change friends system
-- Speed up app starting
-- Add user location history
-- fix minor bug
-
-#### v0.7.x
-
-- Add Galaxy
-- Update Notification for Andorid O
-- Add action on notification for events
-- Update icon for Android O
-
-#### v0.6.0
-
-- add Cluster Map (Paris and Fremont)
-- add subscription for events (on events list only)
-- add Cantina menu
-- bug fix
-
-#### v0.5.7
-
-- add SuperSearch
-- add friends
-- fix bugs
-
-## Screenshot
-
-![home](https://lh3.googleusercontent.com/kVno0ZG2ZQHiG3NXgKsN6pZ7Bx2L18wT54_OCfLJejKYPecyllImXpNQ0KWXRXMFJpE=h310-rw)
-
-![Galaxy](https://lh3.googleusercontent.com/8sl1WUfwK0buyA1BN1uxH0OmhJOfByZfXtJ_u1sVFBPjYPeCQgqin0DnrnNhNwfkW3ot=h310-rw)
-
-![Cluster Map](https://lh3.googleusercontent.com/o5xlA1lXr1qoYWC81RUAg_e4jaWpFg9LoU5kStmR9PuXatqKnUvY8QJ3a2L4M41RKtxd=h310-rw)
-
-![Event](https://lh3.googleusercontent.com/EvbKktad0gKoUU4KBIo4x9eglSHSLlSIfOMgFbIZfIE3Pp6N2ZkguYLYM27nFZOwfg=h310-rw)
-
-![Projects](https://lh3.googleusercontent.com/WWOLxkqUmtg51B5DC0UlJzj1jD-9ju1bDTPcuLd88YW-wFcuHlUDrRcloiOIKpQURZk=h310-rw)
-
-![Projects](https://lh3.googleusercontent.com/9vEGqxY4duq8rK4VeDFgB8rU6JC_8E3kzX1Cl0-jrc3amrPoqFjHwZLTLKpSRdShXkXT=h310-rw)
-
-Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
-<string name="shortcut_cluster_map">"Clusters"</string>
-<string name="shortcut_long_galaxy">"Galaxy (projects)"</string>
-<string name="bookings_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
-<string name="pref_title_advanced_data_allow_beta">"Enable advanced preferences"</string>
-<string name="pref_summary_advanced_data_print_ids">"Enable this to show ids and slugs in the app"</string>
-<string name="pref_title_advanced_data_print_ids">"Show advanced data (ids, slugs ...)"</string>
-<string name="pref_summary_advanced_data_markdown_render">"For forum and events (default true)"</string>
-<string name="pref_title_advanced_data_markdown_render">"Render markdown"</string>
-<string name="pref_summary_advanced_data_save_logs">"On enabling this feature, extra logs will be generated and logs will be saved on \"~/Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. Warning: private information (like phone number) will be saved on device storage. (default false)"</string>
-<string name="pref_title_advanced_data_save_logs">"Save logs on disk"</string>
-<string name="pref_summary_advanced_data_past_events">"Specially for pixels"</string>
-<string name="pref_title_advanced_data_past_events">"Past events"</string>
-<string name="pref_title_advanced_section_other">"Others features"</string>
-<string name="pref_title_advanced_section_features">"Advanced features"</string>
-<string name="pref_summary_advanced_data_enable_beta">"default false"</string>
-<string name="title_tab_cluster_map_info">"Info"</string>
-<string name="cluster_map_info_button_update">"update"</string>
-<string name="cluster_map_info_button_update_disabled">"no need to update"</string>
-<string name="cluster_map_info_layer_input_login">"login"</string>
-<string name="cluster_map_info_layer_input_project">"project"</string>
-<string name="cluster_map_info_clusters">"Clusters"</string>
-<string name="cluster_map_info_data_layer">"Data layer"</string>
-<string name="cluster_map_info_layer_spinner_main_friends">"Friends"</string>
-<string name="cluster_map_info_layer_spinner_main_login">"User"</string>
-<string name="cluster_map_info_layer_spinner_main_coalitions">"Coalitions"</string>
-<string name="cluster_map_info_layer_spinner_main_project">"Project"</string>
-<string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
-<string name="select">"Select"</string>
-<string name="cluster_map_info_project_dialog_not_found">"Not found"</string>
-<string name="cluster_map_info_project_dialog_not_found_content_format">"No project found for: %s"</string>
-<string name="cluster_map_info_layer_spinner_main_location">"Computer"</string>
-<string name="cluster_map_info_data_layer_description">"With this feature you can change the highlighted posts (color around the user image profile) on the cluster map, you just have to select the data layer you want and click on \"update\"."</string>
-<string name="cluster_map_info_data_layer_error">"error on loading and/or applying layer"</string>
-<string name="cluster_map_info_contribute_description">"Create, modify and fulfil cluster map for your campus. Help other students to find their friends from this map"</string>
-<string name="cluster_map_info_contribute_title">"Add missing cluster"</string>
-<string name="cluster_map_info_no_map">"No cluster map available"</string>
-<string name="cluster_map_info_vacant_posts_plural">"%d vacant posts"</string>
-<string name="cluster_map_info_vacant_posts_singular">"%d vacant post"</string>
-<string name="cluster_map_info_vacant_posts_nothing">"no vacant post"</string>
-<string name="cluster_map_info_highlight_nothing">"no highlight"</string>
-<string name="cluster_map_info_highlight_singular">"%d highlight"</string>
-<string name="cluster_map_info_highlight_plural">"%d highlight"</string>
-<string name="title_activity_cluster_map_contribute">"Contribute to Cluster Map"</string>
-<string name="title_activity_cluster_map_contribute_edit">"Create cluster map"</string>
-<string name="cluster_map_contribute_dialog_controller_title_row">"Actions for this row"</string>
-<string name="cluster_map_contribute_dialog_controller_action_column">"Actions for this column"</string>
-<string name="opening_in_progress">"Opening in progress"</string>
-<string name="error_text_is_too_long">"Text is too long"</string>
-<string name="cluster_map_contribute_dialog_metadata_title">"Edit cluster metadata"</string>
-<string name="cluster_map_contribute_locked_indicator">"Cluster locked by _user_ at _time_.
-You will be able to edit this cluster at _timeFuture_."</string>
-<string name="cluster_map_contribute_button_edit_metadata">"edit metadata"</string>
-<string name="cluster_map_contribute_button_edit_layout">"edit map"</string>
-<string name="cluster_map_contribute_dialog_location_title">"Edit: _x_,_y_"</string>
-<string name="cluster_map_contribute_dialog_location_title_host">"Edit: _x_,_y_ (_host_)"</string>
-<string name="error_scale_is_too_small">"Scale is too small"</string>
-<string name="error_scale_is_too_big">"Scale is too big"</string>
-<string name="error_value_must_be_set">"A value must be set"</string>
-<string name="cluster_map_contribute_dialog_controller_action_delete_row">"Delete this row"</string>
-<string name="cluster_map_contribute_dialog_controller_action_delete_column">"Delete this column"</string>
-<string name="cluster_map_contribute_dialog_controller_action_scale_row">"Set row size"</string>
-<string name="cluster_map_contribute_dialog_controller_action_scale_column">"Set column size"</string>
-<string name="cluster_map_contribute_dialog_scale_title">"Edit scale of this row/column"</string>
-<string name="cluster_map_contribute_dialog_add_action_row_top">"Add row on top"</string>
-<string name="cluster_map_contribute_dialog_add_action_row_bottom">"Add row on bottom"</string>
-<string name="cluster_map_contribute_dialog_add_action_column_left">"Add column on left"</string>
-<string name="cluster_map_contribute_dialog_add_action_column_right">"Add column on right"</string>
-<string name="cluster_map_contribute_dialog_time_up_title">"Time up"</string>
-<string name="cluster_map_contribute_dialog_time_up_message">"Lock will soon time up, you may consider saves your changes as soon as possible."</string>
-<string name="cluster_map_contribute_toolbar_info_minute_second">"Cluster lock for: _minute_ m and _second_ s"</string>
-<string name="cluster_map_contribute_toolbar_info_second">"Cluster lock for: _second_ s"</string>
-<string name="cluster_map_contribute_error_data_locked">"Operation can't be finished, data locked"</string>
-<string name="cluster_map_contribute_error_fail_to_retrieve_data_response">"Operation can't be finished, failed to retrieve data"</string>
-<string name="cluster_map_contribute_dialog_metadata_layout_full_name">"Full name"</string>
-<string name="cluster_map_contribute_dialog_metadata_layout_short_name">"Short name"</string>
-<string name="cluster_map_contribute_dialog_metadata_layout_position">"Position of this cluster on the list"</string>
-<string name="cluster_map_contribute_dialog_metadata_layout_location_prefix">"Location prefix"</string>
-<string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">"Info: Location prefix is the beginning of all the host name on this cluster."</string>
-<string name="cluster_map_contribute_dialog_location_layout_user">"user"</string>
-<string name="cluster_map_contribute_dialog_location_layout_wall">"wall"</string>
-<string name="cluster_map_contribute_dialog_location_layout_corridor">"corridor"</string>
-<string name="cluster_map_contribute_dialog_location_layout_host_hint">"host"</string>
-<string name="cluster_map_contribute_dialog_scale_layout_scale_hint">"scale"</string>
-<string name="cluster_map_contribute_dialog_scale_layout_info">"By setting a scale on a row or a column, you will reduce or increase his size."</string>
-<string name="cluster_map_info_button_contribute">"Add missing data"</string>
-<string name="cluster_map_contribute_dialog_delete_title">"Are you sure to delete this row/column ?"</string>
-<string name="cluster_map_contribute_dialog_delete_message_row">"You are going to delete row on y=%d, this action can't be undo"</string>
-<string name="cluster_map_contribute_dialog_delete_message_col">"You are going to delete column on x=%d, this action can't be undo"</string>
-<string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comment"</string>
-<string name="cluster_map_contribute_explanations">"Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be locked up for five minutes and only you can edit it.
-
-Guideline: Cluster orientation
-    - All clusters of a Building must have the same orientation.
-    - The north is not necessarily on the top, it is preferable to have the entrance of the Cluster on the bottom."</string>
-<string name="cluster_map_no_layout">"No layout available for this cluster"</string>
-<string name="readme">"Readme"</string>
-<string name="user_open_it_not_found">"Users not found"</string>
-<string name="discard_changes">"discard"</string>
-<string name="cluster_map_contribute_toolbar_info_too_late">"Too late, you can't save your changes"</string>
-<string name="project_scale_feedback">"Feedback"</string>
-<string name="friends_info_api_data_processing">"Friends API is currently processing new data, your friends will be added shortly"</string>
-<string name="user_profile_grade_rank">"Grade"</string>
-<string name="user_profile_add_to_friends">"Add as friends"</string>
-<string name="user_profile_remove_from_friends">"Remove from friends"</string>
-<string name="introduction_calendar_title">"Sync your calendar"</string>
-<string name="introduction_calendar_description">"Subscribed events will be automatically inserted in your device calendar."</string>
-<string name="introduction_calendar_action">"Allow calendar"</string>
-<string name="introduction_calendar_switch">"Enable Calendar sync"</string>
-<string name="introduction_calendar_image_content_description">"calendar illustration"</string>
-<string name="introduction_translation_title">"Join the Translate Community"</string>
-<string name="introduction_translation_description">"If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor."</string>
-<string name="introduction_translation_action">"Edit strings ressources"</string>
-<string name="introduction_translation_text_bottom">"Grammar Nazis are welcome"</string>
-<string name="introduction_translate_image_content_description">"translate illustration"</string>
-<string name="about_show_introduction">"Show Introduction"</string>
-<string name="introduction_cluster_map_contribute_title">"Create and modify clusters map for your campus"</string>
-<string name="introduction_cluster_map_contribute_description">"Make available the cluster map of your campus for everyone, add or edit a cluster map layout directly from the app under cluster map section"</string>
-<string name="info_network_error">"Network error"</string>
-<string name="user_grade">"Grade"</string>
-<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
-<string name="home_help_calendar_hide">"hide"</string>
-<string name="home_help_calendar_enable">"enable"</string>
-<string name="friends_loading_locations">"Locations"</string>
-<string name="project_user_not_registered">"not registered"</string>
-<string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
-<string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
-<string name="pref_theme_list_titles_default">"Intra (Auto coalition)"</string>
-<string name="pref_theme_list_titles_green_the_alliance">"Green (The Alliance)"</string>
-<string name="pref_theme_list_titles_blue_the_federation">"Blue (The Federation)"</string>
-<string name="pref_theme_list_titles_purple_the_assembly">"Purple (The Assembly)"</string>
-<string name="pref_theme_list_titles_red_the_order">"Red (The Order)"</string>
-<string name="pref_theme_list_titles_android">"Android Dark"</string>
-<string name="pref_theme_switch_action_bar_background">"Display image on ActionBar background"</string>
-<string name="pref_theme_switch_dark_theme">"Use dark theme"</string>
-<string name="cluster_map_info_layer_spinner_main_none">"None"</string>
-<string name="hint_date">"date"</string>
-<string name="hint_time">"time"</string>
 </resources>

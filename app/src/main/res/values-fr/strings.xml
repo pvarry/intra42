@@ -64,7 +64,6 @@
 <string name="shortcut_friends">"Amis"</string>
 <string name="shortcut_long_friends">"Liste d'amis"</string>
 <string name="shortcut_long_cluster_map">"Map des clusters"</string>
-<string name="shortcut_galaxy">"Galaxy"</string>
 <string name="about_content">"Accede a ton intra avec cette application native.
 Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="about_version">"Version"</string>
@@ -115,7 +114,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="galaxy_available">"Disponible"</string>
 <string name="galaxy_failed">"Échoué"</string>
 <string name="galaxy_in_progress">"en cours"</string>
-<string name="galaxy_not_found">"Pas de Galaxy disponible"</string>
 <string name="galaxy_succeeded">"Réussi"</string>
 <string name="galaxy_unavailable">"Indisponible"</string>
 <string name="galaxy_unknown_state">"État inconnu"</string>
@@ -232,7 +230,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="title_tab_project_users">"Utilisateurs"</string>
 <string name="title_tab_projects_all">"Tout"</string>
 <string name="title_tab_projects_doing">"En cours"</string>
-<string name="title_tab_projects_graphic">"Galaxie"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
 <string name="title_tab_tags_notions">"Notions"</string>
 <string name="title_tab_user_achievements">"Réalisations"</string>
@@ -281,7 +278,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="list_preference_network_titles_default">"Défaut (200x240)"</string>
 <string name="list_preference_network_titles_small">"Petit (146x175)"</string>
 <string name="list_preference_network_titles_none">"Aucun"</string>
-<string name="spinner_user_projects_galaxy">"Galaxie"</string>
 <string name="spinner_user_projects_all">"Tous"</string>
 <string name="spinner_user_projects_in_progress">"En cours"</string>
 <string name="accessibility_navigation_drawer_close">"Fermer le navigateur"</string>
@@ -348,7 +344,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="coalitions_nothing_selected_cursus_campus">"Aucune coalition pour le cursus/campus"</string>
 <string name="friends_adding_to_group">"Ajouter un ami à un groupe"</string>
 <string name="friends_removing_from_group">"Enlever des amis de ce groupe"</string>
-<string name="galaxy_no_live_data">"Impossible de récupérer les données de la galaxie"</string>
 <string name="coalition_score">"Score"</string>
 <string name="refreshing">"Mise a jour"</string>
 <string name="info_data_cached_long_time_ago">"Donnees mise en cache il y a long temps"</string>
@@ -356,7 +351,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 
 <!-- Format warning -->
 <string name="format__user_profile">"Profile de %s"</string>
-<string name="cluster_map_dialog_action">"Action pour ce endroit"</string>
+<string name="cluster_map_dialog_action">"Action pour cet endroit"</string>
 <string name="cluster_map_not_in_campus">"La carte des Clusters n'est pas disponnible pour votre campus"</string>
 <string name="project_team_status_closed">"fermé"</string>
 <string name="project_team_status_locked">"verrouillé"</string>
@@ -497,7 +492,6 @@ N'oubliez pas d'avoir un pdf viewer et un lecteur multimédia installer, je vous
 
 Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu ou approuvé par 42. Cet application Android est indépendante et non officielle."</string>
 <string name="shortcut_cluster_map">"Clusters"</string>
-<string name="shortcut_long_galaxy">"Galaxy (projets)"</string>
 <string name="bookings_correct_login_project">"Vous allez corriger _login_ sur _project_ le _date_"</string>
 
 <!-- Fuzzy -->
@@ -533,7 +527,7 @@ Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu
 <string name="cluster_map_info_layer_spinner_main_coalitions">"Coalitions"</string>
 <string name="cluster_map_info_layer_spinner_main_project">"Projet"</string>
 <string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
-<string name="select">"Select"</string>
+<string name="select">"Sélectionner"</string>
 <string name="cluster_map_info_project_dialog_not_found">"Pas trouvé"</string>
 <string name="cluster_map_info_project_dialog_not_found_content_format">"Pas de projet trouvé avec le nom: %s"</string>
 <string name="cluster_map_info_layer_spinner_main_location">"Ordinateur"</string>
@@ -562,21 +556,21 @@ La modification sera possible à _timeFuture_."</string>
 <string name="cluster_map_contribute_dialog_location_title">"Modification: _x_,_y_"</string>
 <string name="cluster_map_contribute_dialog_location_title_host">"Modification: _x_,_y_ (_host_)"</string>
 <string name="error_scale_is_too_small">"La proportion est trop petite"</string>
-<string name="error_scale_is_too_big">"Scale is too big"</string>
+<string name="error_scale_is_too_big">"Échelle trop grande "</string>
 <string name="error_value_must_be_set">"Ne peut pas être vide"</string>
 <string name="cluster_map_contribute_dialog_controller_action_delete_row">"Supprimer cette ligne"</string>
 <string name="cluster_map_contribute_dialog_controller_action_delete_column">"Supprimer cette colonne"</string>
 <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Changer la taille de la ligne"</string>
 <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Changer la taille de la colonne"</string>
-<string name="cluster_map_contribute_dialog_scale_title">"Edit scale of this row/column"</string>
+<string name="cluster_map_contribute_dialog_scale_title">"Éditez l'échelle de cette ligne/colonne "</string>
 <string name="cluster_map_contribute_dialog_add_action_row_top">"Ajouter une ligne en haut"</string>
 <string name="cluster_map_contribute_dialog_add_action_row_bottom">"Ajouter une ligne en bas"</string>
 <string name="cluster_map_contribute_dialog_add_action_column_left">"Ajouter une colonne à gauche"</string>
 <string name="cluster_map_contribute_dialog_add_action_column_right">"Ajouter une colonne à droite"</string>
 <string name="cluster_map_contribute_dialog_time_up_title">"Temps écoulé"</string>
-<string name="cluster_map_contribute_dialog_time_up_message">"Lock will soon time up, you may consider saves your changes as soon as possible."</string>
-<string name="cluster_map_contribute_toolbar_info_minute_second">"Cluster lock for: _minute_ m and _second_ s"</string>
-<string name="cluster_map_contribute_toolbar_info_second">"Cluster lock for: _second_ s"</string>
+<string name="cluster_map_contribute_dialog_time_up_message">"Verrouillage imminent : vous devriez sauvegarder vos modifications dès que possible "</string>
+<string name="cluster_map_contribute_toolbar_info_minute_second">"Cluster verrouillé pour :_minute_m and _second_s"</string>
+<string name="cluster_map_contribute_toolbar_info_second">"Cluster verrouillé pour : _second_s"</string>
 <string name="cluster_map_contribute_error_data_locked">"L’opération ne peut pas être effectuée, les données sont bloquées"</string>
 <string name="cluster_map_contribute_error_fail_to_retrieve_data_response">"L’opération ne peut pas être effectuée, impossible de récupérer les données"</string>
 <string name="cluster_map_contribute_dialog_metadata_layout_full_name">"Nom complet"</string>
@@ -590,26 +584,29 @@ La modification sera possible à _timeFuture_."</string>
 <string name="cluster_map_contribute_dialog_location_layout_host_hint">"nom du poste"</string>
 <string name="cluster_map_contribute_dialog_scale_layout_scale_hint">"proportion"</string>
 <string name="cluster_map_contribute_dialog_scale_layout_info">"En changeant la proportion d’une colonne ou d’une ligne, cela affectera la taille de tous les éléments"</string>
-<string name="cluster_map_info_button_contribute">"Add missing data"</string>
+<string name="cluster_map_info_button_contribute">"Ajoutez les informations manquantes "</string>
 <string name="cluster_map_contribute_dialog_delete_title">"Êtes-vous sûre de supprimer cette colonne/ligne ?"</string>
 <string name="cluster_map_contribute_dialog_delete_message_row">"Vous êtes sur le point de supprimer la ligne y=%d, cette action est irréversible"</string>
 <string name="cluster_map_contribute_dialog_delete_message_col">"Vous êtes sur le point de supprimer la colonne y=%d, cette action est irréversible"</string>
 <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Commentaire"</string>
-<string name="cluster_map_contribute_explanations">"Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be locked up for five minutes and only you can edit it.
+<string name="cluster_map_contribute_explanations">"Un cluster ne peut être édité que par une personne à la fois, donc lorsque vous désirez l'éditer, le cluster sera verrouillé pendant 5 minutes et vous seul pourrez l'éditer. 
 
-Guideline: Cluster orientation
-    - All clusters of a Building must have the same orientation.
-    - The north is not necessarily on the top, it is preferable to have the entrance of the Cluster on the bottom."</string>
+Instructions: orientation des Clusters 
+- Tout les utilisateurs d'un bâtiment doivent avoir la même orientation.
+- Le Nord n'est pas forcément en haut, il est préférable d'avoir l'entrée du cluster en bas. 
+
+
+"</string>
 <string name="cluster_map_no_layout">"Pas de carte disponible pour ce Cluster"</string>
 <string name="readme">"À lire"</string>
-<string name="user_open_it_not_found">"Users not found"</string>
-<string name="discard_changes">"discard"</string>
-<string name="cluster_map_contribute_toolbar_info_too_late">"Too late, you can't save your changes"</string>
-<string name="project_scale_feedback">"Feedback"</string>
-<string name="friends_info_api_data_processing">"L’API qui gère les amies récupères les nouveaux utilisateurs, votre amie sera ajoutée sous peut"</string>
-<string name="user_profile_grade_rank">"Grade"</string>
-<string name="user_profile_add_to_friends">"Ajouter en amie"</string>
-<string name="user_profile_remove_from_friends">"Retirer des amies"</string>
+<string name="user_open_it_not_found">"Utilisateur introuvable "</string>
+<string name="discard_changes">"Annuler "</string>
+<string name="cluster_map_contribute_toolbar_info_too_late">"Trop tard, vous ne pouvez plus sauvegarder vos modifications "</string>
+<string name="project_scale_feedback">"Avis "</string>
+<string name="friends_info_api_data_processing">"L’API qui gère les amis récupères les nouveaux utilisateurs, votre amie sera ajoutée sous peut"</string>
+<string name="user_profile_grade_rank">"Rang"</string>
+<string name="user_profile_add_to_friends">"Ajouter en ami"</string>
+<string name="user_profile_remove_from_friends">"Retirer des amis"</string>
 <string name="introduction_calendar_title">"Synchronisez votre calendrier"</string>
 <string name="introduction_calendar_description">"Les événements auxquels vous êtes inscrit seront automatiquement ajoutés au calendrier de l’appareil."</string>
 <string name="introduction_calendar_action">"Autoriser l'agenda"</string>
@@ -625,24 +622,24 @@ Guideline: Cluster orientation
 <string name="about_show_introduction">"Revoir l’introduction"</string>
 <string name="introduction_cluster_map_contribute_title">"Modifiez la carte des clusters"</string>
 <string name="introduction_cluster_map_contribute_description">"Modifiez la carte des clusters pour pouvoir trouver facilement une personne dans l’école. Vous pouvez modifier ou ajouter des données à la carte des clusters dans l’application."</string>
-<string name="info_network_error">"Network error"</string>
-<string name="user_grade">"Grade"</string>
-<string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
-<string name="home_help_calendar_hide">"hide"</string>
-<string name="home_help_calendar_enable">"enable"</string>
-<string name="friends_loading_locations">"Locations"</string>
-<string name="project_user_not_registered">"not registered"</string>
-<string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
-<string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
-<string name="pref_theme_list_titles_default">"Intra (Auto coalition)"</string>
-<string name="pref_theme_list_titles_green_the_alliance">"Green (The Alliance)"</string>
-<string name="pref_theme_list_titles_blue_the_federation">"Blue (The Federation)"</string>
-<string name="pref_theme_list_titles_purple_the_assembly">"Purple (The Assembly)"</string>
-<string name="pref_theme_list_titles_red_the_order">"Red (The Order)"</string>
-<string name="pref_theme_list_titles_android">"Android Dark"</string>
-<string name="pref_theme_switch_action_bar_background">"Display image on ActionBar background"</string>
-<string name="pref_theme_switch_dark_theme">"Use dark theme"</string>
-<string name="cluster_map_info_layer_spinner_main_none">"None"</string>
-<string name="hint_date">"date"</string>
-<string name="hint_time">"time"</string>
+<string name="info_network_error">"Erreur réseau "</string>
+<string name="user_grade">"Note"</string>
+<string name="home_help_calendar_sync">"Synchronisez le calendrier de votre téléphone avec les événements auquels vous vous êtes inscrit "</string>
+<string name="home_help_calendar_hide">"Cacher "</string>
+<string name="home_help_calendar_enable">"Activer "</string>
+<string name="friends_loading_locations">"Localisation ? (pas sur de celle là) "</string>
+<string name="project_user_not_registered">"Non enregistré "</string>
+<string name="cluster_map_contribute_warning_empty_host">"Attention : le nom de l'hôte doit être rempli "</string>
+<string name="cluster_map_contribute_warning_host_prefix">"Attention : le nom de l'hôte ne doit pas commencer par le préfixe du cluster, il sera ajouté automatiquement "</string>
+<string name="pref_theme_list_titles_default">"Intra (coalition automatique)  "</string>
+<string name="pref_theme_list_titles_green_the_alliance">"Vert (L'Alliance)"</string>
+<string name="pref_theme_list_titles_blue_the_federation">"Bleu (La Fédération) "</string>
+<string name="pref_theme_list_titles_purple_the_assembly">"Mauve (L'Assemblée) "</string>
+<string name="pref_theme_list_titles_red_the_order">"Rouge (L'ordre) "</string>
+<string name="pref_theme_list_titles_android">"Android Noir"</string>
+<string name="pref_theme_switch_action_bar_background">"Afficher (l'image / une image) sur l'arrière plan de la barre d'action "</string>
+<string name="pref_theme_switch_dark_theme">"Utiliser le thème sombre "</string>
+<string name="cluster_map_info_layer_spinner_main_none">"Aucun"</string>
+<string name="hint_date">"Date"</string>
+<string name="hint_time">"Temps / heure "</string>
 </resources>
