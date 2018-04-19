@@ -1,21 +1,35 @@
 package com.paulvarry.intra42.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.google.gson.reflect.TypeToken;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.GraphLabelFormatter;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.model.CoalitionsDataIntra;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +38,10 @@ import retrofit2.Response;
 
 public class TestingActivity extends AppCompatActivity {
 
-    AppClass app;
-    ApiService apiService;
+    private AppClass app;
+    private ApiService apiService;
+
+    private GraphView graphView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +50,39 @@ public class TestingActivity extends AppCompatActivity {
 
         app = (AppClass) getApplication();
         apiService = app.getApiService();
+
+        graphView = findViewById(R.id.graphView);
+
+        InputStream ins = getResources().openRawResource(R.raw._coalitions);
+        String file = Tools.readTextFile(ins);
+
+        Type listType = new TypeToken<ArrayList<CoalitionsDataIntra>>() {
+        }.getType();
+        List<CoalitionsDataIntra> data = ServiceGenerator.getGson().fromJson(file, listType);
+
+        for (CoalitionsDataIntra c : data) {
+            long[][] chart = c.data;
+            DataPoint[] points = new DataPoint[chart.length];
+
+            for (int i = 0; i < chart.length; i++) {
+                long[] p = chart[i];
+                points[i] = new DataPoint(p[0], p[1]);
+            }
+
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+            series.setColor(Color.parseColor(c.color));
+            graphView.addSeries(series);
+        }
+
+        Viewport viewport = graphView.getViewport();
+        viewport.setScrollable(true);
+        viewport.setScrollableY(true);
+        viewport.setScalable(true);
+        viewport.setYAxisBoundsManual(true);
+
+        GridLabelRenderer labelRenderer = graphView.getGridLabelRenderer();
+        labelRenderer.setLabelFormatter(new GraphLabelFormatter(this));
+        labelRenderer.setHorizontalLabelsAngle(45);
     }
 
     public void notification(View view) {
