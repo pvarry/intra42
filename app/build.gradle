@@ -68,6 +68,9 @@ android {
             signingConfig signingConfigs.config
             buildConfigField "Boolean", "REPORT_CRASH", 'true'
             zipAlignEnabled true
+
+//            preBuild.dependsOn(update_cluster_map)
+//            preBuild.dependsOn(update_strings)
         }
         beta {
             minifyEnabled false
@@ -82,9 +85,6 @@ android {
             debuggable true
             applicationIdSuffix ".debug"
             versionNameSuffix '.debug'
-
-//            preBuild.dependsOn(update_cluster_map)
-            preBuild.dependsOn(update_strings)
         }
     }
 
