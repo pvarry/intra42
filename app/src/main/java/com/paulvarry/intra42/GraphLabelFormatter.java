@@ -1,15 +1,13 @@
 package com.paulvarry.intra42;
 
-import android.content.Context;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-
-import java.text.NumberFormat;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public class GraphLabelFormatter extends DateAsXAxisLabelFormatter {
+public class GraphLabelFormatter implements IAxisValueFormatter {
 
     private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
 
@@ -20,15 +18,6 @@ public class GraphLabelFormatter extends DateAsXAxisLabelFormatter {
         suffixes.put(1_000_000_000_000L, "T");
         suffixes.put(1_000_000_000_000_000L, "P");
         suffixes.put(1_000_000_000_000_000_000L, "E");
-    }
-
-    public GraphLabelFormatter(Context context) {
-        super(context);
-
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumFractionDigits(0);
-        numberFormat.setMinimumIntegerDigits(2);
-        mNumberFormatter[0] = numberFormat;
     }
 
     public static String format(long value) {
@@ -46,20 +35,8 @@ public class GraphLabelFormatter extends DateAsXAxisLabelFormatter {
         return hasDecimal ? (truncated / 10d) + suffix : (truncated / 10) + suffix;
     }
 
-    /**
-     * formats the x-values as date string.
-     *
-     * @param value    raw value
-     * @param isValueX true if it's a x value, otherwise false
-     * @return value converted to string
-     */
     @Override
-    public String formatLabel(double value, boolean isValueX) {
-        if (isValueX) {
-            return super.formatLabel(value, isValueX);
-        } else {
-            return format((long) value);
-        }
+    public String getFormattedValue(float value, AxisBase axis) {
+        return format((long) value);
     }
-
 }

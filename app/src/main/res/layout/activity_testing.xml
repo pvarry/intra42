@@ -22,8 +22,8 @@
         android:text="run notif &amp; sync job"
         tools:ignore="HardcodedText" />
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graphView"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chartView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
