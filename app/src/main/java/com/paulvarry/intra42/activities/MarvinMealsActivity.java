@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.SectionListView;
+import com.paulvarry.intra42.adapters.BaseHeaderRecyclerAdapter;
 import com.paulvarry.intra42.api.cantina.MarvinMeals;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.DateTool;
@@ -19,13 +21,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import de.halfbit.pinnedsection.PinnedSectionListView;
 import retrofit2.Response;
 
 public class MarvinMealsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread {
 
     List<MarvinMeals> marvinMealList;
-    List<SectionListView.Item> items;
+    private List<BaseHeaderRecyclerAdapter.Item<MarvinMeals>> items;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, MarvinMealsActivity.class);
@@ -82,8 +83,8 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
             MarvinMeals last = null;
             for (MarvinMeals m : marvinMealList) {
                 if (last == null || !DateTool.sameDayOf(m.beginAt, last.beginAt))
-                    items.add(new SectionListView.Item<>(SectionListView.Item.SECTION, null, DateTool.getDateLong(m.beginAt)));
-                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, m, m.getName(this)));
+                    items.add(new BaseHeaderRecyclerAdapter.Item<MarvinMeals>(DateTool.getDateLong(m.beginAt)));
+                items.add(new BaseHeaderRecyclerAdapter.Item<>(m));
                 last = m;
             }
         }
@@ -110,9 +111,10 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
             return;
         }
 
-        PinnedSectionListView listView = findViewById(R.id.listView);
-        SectionListView adapterMarvinMeal = new SectionListView(this, items);
+        RecyclerView listView = findViewById(R.id.listView);
+        BaseHeaderRecyclerAdapter<MarvinMeals> adapterMarvinMeal = new BaseHeaderRecyclerAdapter<>(this, items);
         listView.setAdapter(adapterMarvinMeal);
+        listView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     /**
