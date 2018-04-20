@@ -12,7 +12,7 @@ import com.paulvarry.intra42.adapters.ListAdapterEvents;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.bottomSheet.BottomSheetEventDialogFragment;
-import com.paulvarry.intra42.ui.BasicFragmentCall;
+import com.paulvarry.intra42.ui.BasicFragmentCallRecycler;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
@@ -30,7 +30,7 @@ import retrofit2.Call;
  * Use the {@link HomePastEventsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomePastEventsFragment extends BasicFragmentCall<Events, ListAdapterEvents> {
+public class HomePastEventsFragment extends BasicFragmentCallRecycler<Events, ListAdapterEvents> {
 
     private OnFragmentInteractionListener mListener;
 
