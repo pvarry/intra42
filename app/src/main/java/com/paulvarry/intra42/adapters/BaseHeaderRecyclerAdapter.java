@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -45,10 +44,10 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == Item.HEADER) {
-            view = inflater.inflate(R.layout.spinner_basic_simple_text, parent, false);
+            view = inflater.inflate(R.layout.list_view_section_header, parent, false);
             return new ViewHolderHeader(view);
         } else {
-            view = inflater.inflate(R.layout.list_view__summary, parent, false);
+            view = inflater.inflate(R.layout.list_view_section_item, parent, false);
             return new ViewHolderItem(view);
 
         }
@@ -61,13 +60,19 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
             case Item.HEADER:
                 ViewHolderHeader header = (ViewHolderHeader) holder;
                 header.textViewHeader.setText(i.getName(context));
-                header.textViewHeader.setTextColor(Color.RED);
                 break;
 
             case Item.ITEM:
                 ViewHolderItem item = (ViewHolderItem) holder;
                 item.textViewTitle.setText(i.getName(context));
                 item.textViewSummary.setText(i.getSub(context));
+                if (items.size() > position + 1) {
+                    Item<T> next = items.get(position + 1);
+                    if (next.type == Item.HEADER)
+                        item.divider.setVisibility(View.GONE);
+                    else
+                        item.divider.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }
@@ -95,7 +100,9 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
 
         @Override
         public String toString() {
-            return item.getName(null);
+            if (item != null)
+                return item.getName(null);
+            return title;
         }
 
         @Override
@@ -131,8 +138,9 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
 
     class ViewHolderItem extends RecyclerView.ViewHolder {
 
-        TextView textViewTitle;
-        TextView textViewSummary;
+        private TextView textViewTitle;
+        private TextView textViewSummary;
+        private View divider;
 
         ViewHolderItem(View itemView) {
             super(itemView);
@@ -146,6 +154,7 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
 
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewSummary = itemView.findViewById(R.id.textViewSummary);
+            divider = itemView.findViewById(R.id.divider);
         }
     }
 
