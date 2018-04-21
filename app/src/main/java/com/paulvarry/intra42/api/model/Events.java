@@ -8,11 +8,12 @@ import android.support.annotation.StringRes;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.IBaseItem;
 
 import java.util.Date;
 import java.util.List;
 
-public class Events {
+public class Events implements IBaseItem {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -49,6 +50,21 @@ public class Events {
     public List<Integer> campus;
     @SerializedName(API_CURSUS_IDS)
     public List<Integer> cursus;
+
+    @Override
+    public String getName(Context context) {
+        return name;
+    }
+
+    @Override
+    public String getSub(Context context) {
+        return location;
+    }
+
+    @Override
+    public boolean openIt(Context context) {
+        return false;
+    }
 
     public enum EventKind {
         @SerializedName("conference") CONFERENCE(R.string.event_kind_conf, R.color.tag_event_conference),

@@ -374,4 +374,93 @@
 <string name="about_app_summary">"App no oficial, libre y open-source"</string>
 <string name="_super_store_title">"Intra 42"</string>
 <string name="_super_store_short_description">"App no oficial, libre y open-source de la intranet de 42"</string>
+    <string name="_super_store_full_description">"Solo para estudiantes de 42 (www.42.fr)
+
+Esta aplicación es un cliente de Intra 42 no oficial para plataformas Android. Está construido en JAVA y usa el SDK oficial de Android.
+
+Caracteristicas :
+- Mantenerse informado sobre los eventos y sincronice su calendario
+- Recibir notificaciones sobre eventos y graduaciones
+- Ver proyectos y graduaciones
+- Ver el perfil y los proyectos de los usuarios
+- Comentar en el foro
+- Ver videos sobre e-learning
+- ¡Todas las solicitudes de características y contribuciones son bienvenidas!
+
+Más información: https://forum.intra.42.fr/topics/9650/messages/last
+
+Descargo de responsabilidad: Este código no está de ninguna manera afiliado, autorizado, mantenido, patrocinado o respaldado por 42. Esta es una aplicación de Android independiente y no oficial."</string>
+    <string name="_super_forum">"VERSIÓN FRANCESA | VERSION FRANÇAISE: [tema] (https://forum.intra.42.fr/topics/9650)
+
+Solo para estudiantes de 42 (www.42.fr)
+
+Esta aplicación es un cliente de Intra 42 no oficial para plataformas Android. Está construido en JAVA y usa el SDK oficial de Android.
+
+Descarga esta aplicación: [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+
+Fuentes: [github](https://github.com/pvarry/intra42)
+
+## Caracteristicas :
+- Mantenerse informado sobre los eventos y sincronice su calendario
+- Recibir notificaciones sobre eventos y graduaciones
+- Ver proyectos y graduaciones
+- Ver el perfil y los proyectos de los usuarios
+- Comentar en el foro
+- Ver videos sobre e-learning
+
+¡Todas las solicitudes de características y contribuciones son bienvenidas!
+Si encuentra errores gramaticales o si desea traducir esta aplicación, puede hacerlo con [POEditor] (https://poeditor.com/join/project/hDRec5Vk8b).
+
+Herramientas útiles:
+
+&gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
+
+&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) para reproducir video.
+
+## Changelog
+
+#### v0.8.x
+
+- Integración de temas con coaliciones
+- Sincroniza automáticamente tu calendario
+- Cambiar el sistema de amigos
+- Acelerar el inicio de la aplicación
+- Agregar historial de ubicación de usuario
+- corregir un error menor
+
+#### v0.7.x
+
+- Agregar Galaxy
+- Notificación de actualización para Andorid O
+- Agregar acción en la notificación de eventos
+- Icono de actualización para Android O
+
+#### v0.6.0
+
+- Agregar Cluster Map (París y Fremont)
+- Agregar suscripción para eventos (solo en la lista de eventos)
+- Agregue el menú Cantina
+- Arreglo del fallo
+
+#### v0.5.7
+
+- Agregar SuperSearch
+- Añade amigos
+- Corregir errores
+
+## Captura de pantalla
+
+![inicio] (https://lh3.googleusercontent.com/kVno0ZG2ZQHiG3NXgKsN6pZ7Bx2L18wT54_OCfLJejKYPecyllImXpNQ0KWXRXMFJpE=h310-rw)
+
+![Galaxy] (https://lh3.googleusercontent.com/8sl1WUfwK0buyA1BN1uxH0OmhJOfByZfXtJ_u1sVFBPjYPeCQgqin0DnrnNhNwfkW3ot=h310-rw)
+
+![Mapa del clúster] (https://lh3.googleusercontent.com/o5xlA1lXr1qoYWC81RUAg_e4jaWpFg9LoU5kStmR9PuXatqKnUvY8QJ3a2L4M41RKtxd=h310-rw)
+
+![Evento] (https://lh3.googleusercontent.com/EvbKktad0gKoUU4KBIo4x9eglSHSLlSIfOMgFbIZfIE3Pp6N2ZkguYLYM27nFZOwfg=h310-rw)
+
+![Proyectos] (https://lh3.googleusercontent.com/WWOLxkqUmtg51B5DC0UlJzj1jD-9ju1bDTPcuLd88YW-wFcuHlUDrRcloiOIKpQURZk=h310-rw)
+
+![Proyectos] (https://lh3.googleusercontent.com/9vEGqxY4duq8rK4VeDFgB8rU6JC_8E3kzX1Cl0-jrc3amrPoqFjHwZLTLKpSRdShXkXT=h310-rw)
+
+Descargo de responsabilidad: Este código no está de ninguna manera afiliado, autorizado, mantenido, patrocinado o respaldado por 42. Esta es una aplicación de Android independiente y no oficial."</string>
 </resources>

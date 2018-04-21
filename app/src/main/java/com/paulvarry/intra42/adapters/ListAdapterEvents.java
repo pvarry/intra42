@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.ui.TagSpanGenerator;
-import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.List;
 
@@ -23,13 +22,16 @@ import in.uncod.android.bypass.Bypass;
 public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_ITEM = 0;
+    private static final int TYPE_HEADER = 1;
+    private static final int TYPE_LOADING = 2;
+
     private final Context context;
-    private List<Events> eventsList;
-    private static final int TYPE_LOADING = 1;
+    private List<BaseHeaderRecyclerAdapter.Item<Events>> eventsList;
     private LayoutInflater inflater;
     private InfiniteScrollListener infiniteScrollListener;
+    private Integer maxSize;
 
-    public ListAdapterEvents(Context context, List<Events> projectsList) {
+    public ListAdapterEvents(Context context, List<BaseHeaderRecyclerAdapter.Item<Events>> projectsList) {
 
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -44,7 +46,10 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemViewType(int position) {
         if (eventsList.size() == position)
             return TYPE_LOADING;
-        return TYPE_ITEM;
+        else if (eventsList.get(position).item != null)
+            return TYPE_ITEM;
+        else
+            return TYPE_HEADER;
     }
 
     @NonNull
@@ -52,6 +57,8 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM)
             return new ViewHolderItem(parent, inflater);
+        else if (viewType == TYPE_HEADER)
+            return new ViewHolderHeader(parent, inflater);
         else if (viewType == TYPE_LOADING)
             return new ViewHolderLoading(parent, inflater);
         return null;
@@ -61,8 +68,10 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if (holder instanceof ViewHolderItem)
-            ((ViewHolderItem) holder).onBindView(eventsList.get(position));
-        else if (holder instanceof ViewHolderLoading) {
+            ((ViewHolderItem) holder).onBindView(eventsList.get(position).item);
+        else if (holder instanceof ViewHolderHeader) {
+            ((ViewHolderHeader) holder).onBindView(eventsList.get(position).getName(context));
+        } else if (holder instanceof ViewHolderLoading) {
             ViewHolderLoading h = (ViewHolderLoading) holder;
             h.setProgressBarVisibility(infiniteScrollListener.requestMoreItem());
         }
@@ -81,7 +90,14 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return eventsList.size() + ((infiniteScrollListener == null) ? 0 : 1);
+        boolean showLoader = infiniteScrollListener == null;
+        if (maxSize != null)
+            showLoader |= maxSize > eventsList.size();
+        return eventsList.size() + ((showLoader) ? 0 : 1);
+    }
+
+    public void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
     }
 
     public interface InfiniteScrollListener {
@@ -92,10 +108,30 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean requestMoreItem();
     }
 
+    public interface CustomViewHolder {
+        void onBindView();
+    }
+
+    static class ViewHolderLoading extends RecyclerView.ViewHolder {
+
+        private ProgressBar progressBar;
+
+        ViewHolderLoading(ViewGroup parent, LayoutInflater inflater) {
+            super(inflater.inflate(R.layout.list_view_section_loading, parent, false));
+
+            progressBar = itemView.findViewById(R.id.progressBar);
+        }
+
+        void setProgressBarVisibility(boolean visibility) {
+            if (visibility)
+                progressBar.setVisibility(View.VISIBLE);
+            else
+                progressBar.setVisibility(View.GONE);
+        }
+    }
+
     static class ViewHolderItem extends RecyclerView.ViewHolder {
 
-        private TextView textViewDateDay;
-        private TextView textViewDateMonth;
         private TextView textViewName;
         private TextView textViewDescription;
         private TextView textViewTime;
@@ -103,7 +139,10 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
         private TextView textViewFull;
 
         public ViewHolderItem(ViewGroup parent, LayoutInflater inflater) {
-            super(inflater.inflate(R.layout.list_view_event, parent, false));
+            super(inflater.inflate(R.layout.list_view_section_item_, parent, false));
+
+            ViewGroup group = (ViewGroup) itemView;
+            group.addView(inflater.inflate(R.layout.list_view_event_, parent, false), 0);
 
             this.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,8 +151,6 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             });
 
-            textViewDateDay = itemView.findViewById(R.id.textViewDateDay);
-            textViewDateMonth = itemView.findViewById(R.id.textViewDateMonth);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             textViewTime = itemView.findViewById(R.id.textViewTime);
@@ -125,8 +162,6 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             Context context = itemView.getContext();
 
-            textViewDateDay.setText(DateTool.getDay(item.beginAt));
-            textViewDateMonth.setText(DateTool.getMonthMedium(item.beginAt));
             textViewName.setText(item.name);
             TagSpanGenerator span = new TagSpanGenerator.Builder(context).setTextSize(textViewName.getTextSize()).build();
             if (item.kind != null)
@@ -159,32 +194,18 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    static class ViewHolderLoading extends RecyclerView.ViewHolder {
-
-        private ProgressBar progressBar;
-
-        ViewHolderLoading(ViewGroup parent, LayoutInflater inflater) {
-            super(inflater.inflate(R.layout.list_view_section_loading, parent, false));
-
-            progressBar = itemView.findViewById(R.id.progressBar);
-        }
-
-        void setProgressBarVisibility(boolean visibility) {
-            if (visibility)
-                progressBar.setVisibility(View.VISIBLE);
-            else
-                progressBar.setVisibility(View.GONE);
-        }
-    }
-
     public class ViewHolderHeader extends RecyclerView.ViewHolder {
 
-        private TextView textViewHeader;
+        TextView textViewHeader;
 
-        ViewHolderHeader(View itemView) {
-            super(itemView);
+        public ViewHolderHeader(ViewGroup parent, LayoutInflater inflater) {
+            super(inflater.inflate(R.layout.list_view_section_header, parent, false));
+
             textViewHeader = itemView.findViewById(R.id.textViewName);
         }
 
+        public void onBindView(String title) {
+            textViewHeader.setText(title);
+        }
     }
 }
