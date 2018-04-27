@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ListAdapterEvents;
+import com.paulvarry.intra42.adapters.BaseRecyclerAdapter;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.utils.Pagination;
 
@@ -28,6 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// Work in progress
 public abstract class BasicFragmentCallRecycler<T, ADAPTER extends RecyclerView.Adapter>
         extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
@@ -177,8 +178,8 @@ public abstract class BasicFragmentCallRecycler<T, ADAPTER extends RecyclerView.
             if (adapter == null) {
                 adapter = generateAdapter(list);
 
-                if (adapter instanceof ListAdapterEvents)
-                    ((ListAdapterEvents) adapter).setInfiniteScrollListener(new ListAdapterEvents.InfiniteScrollListener() {
+                if (adapter instanceof BaseRecyclerAdapter)
+                    ((BaseRecyclerAdapter) adapter).setInfiniteScrollListener(new BaseRecyclerAdapter.InfiniteScrollListener() {
                         @Override
                         public boolean requestMoreItem() {
                             if (!flag_loading && Pagination.canAdd(list)) {

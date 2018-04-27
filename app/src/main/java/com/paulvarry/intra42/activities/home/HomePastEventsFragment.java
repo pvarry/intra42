@@ -8,17 +8,15 @@ import android.support.v4.app.Fragment;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.BaseHeaderRecyclerAdapter;
 import com.paulvarry.intra42.adapters.ListAdapterEvents;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.bottomSheet.BottomSheetEventDialogFragment;
-import com.paulvarry.intra42.ui.BasicFragmentCallRecycler;
+import com.paulvarry.intra42.ui.BasicFragmentCall;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,7 +32,7 @@ import retrofit2.Call;
  * Use the {@link HomePastEventsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomePastEventsFragment extends BasicFragmentCallRecycler<Events, ListAdapterEvents> {
+public class HomePastEventsFragment extends BasicFragmentCall<Events, ListAdapterEvents> {
 
     private OnFragmentInteractionListener mListener;
 
@@ -116,16 +114,7 @@ public class HomePastEventsFragment extends BasicFragmentCallRecycler<Events, Li
             }
         });
 
-        List<BaseHeaderRecyclerAdapter.Item<Events>> items = new ArrayList<>();
-
-        Events last = null;
-        for (Events m : list) {
-            if (last == null || !DateTool.sameDayOf(m.beginAt, last.beginAt))
-                items.add(new BaseHeaderRecyclerAdapter.Item<Events>(DateTool.getDateLong(m.beginAt)));
-            items.add(new BaseHeaderRecyclerAdapter.Item<>(m));
-            last = m;
-        }
-        return new ListAdapterEvents(getContext(), items);
+        return new ListAdapterEvents(getContext(), list);
     }
 
     @Override

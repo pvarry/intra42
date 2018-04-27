@@ -13,13 +13,16 @@ import com.paulvarry.intra42.api.IBaseItem;
 
 import java.util.List;
 
-public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+/**
+ * @param <T> Data type used to fill list
+ */
+public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private LayoutInflater inflater;
     private List<Item<T>> items;
 
-    public BaseHeaderRecyclerAdapter(Context context, List<Item<T>> items) {
+    public SimpleHeaderRecyclerAdapter(Context context, List<Item<T>> items) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.items = items;

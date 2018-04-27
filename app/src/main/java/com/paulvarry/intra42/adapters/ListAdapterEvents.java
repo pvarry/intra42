@@ -2,79 +2,53 @@ package com.paulvarry.intra42.adapters;
 
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.ui.TagSpanGenerator;
+import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.List;
 
 import in.uncod.android.bypass.Bypass;
 
-public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private static final int TYPE_ITEM = 0;
-    private static final int TYPE_HEADER = 1;
-    private static final int TYPE_LOADING = 2;
+public class ListAdapterEvents extends BaseAdapter {
 
     private final Context context;
-    private List<BaseHeaderRecyclerAdapter.Item<Events>> eventsList;
-    private LayoutInflater inflater;
-    private InfiniteScrollListener infiniteScrollListener;
-    private Integer maxSize;
+    private List<Events> eventsList;
 
-    public ListAdapterEvents(Context context, List<BaseHeaderRecyclerAdapter.Item<Events>> projectsList) {
+    public ListAdapterEvents(Context context, List<Events> projectsList) {
 
-        inflater = LayoutInflater.from(context);
         this.context = context;
         this.eventsList = projectsList;
     }
 
-    public void setInfiniteScrollListener(InfiniteScrollListener infiniteScrollListener) {
-        this.infiniteScrollListener = infiniteScrollListener;
+    /**
+     * How many items are in the data set represented by this Adapter.
+     *
+     * @return Count of items.
+     */
+    @Override
+    public int getCount() {
+        return eventsList.size();
     }
 
+    /**
+     * Get the data projectsList associated with the specified position in the data set.
+     *
+     * @param position Position of the projectsList whose data we want within the adapter's
+     *                 data set.
+     * @return The data at the specified position.
+     */
     @Override
-    public int getItemViewType(int position) {
-        if (eventsList.size() == position)
-            return TYPE_LOADING;
-        else if (eventsList.get(position).item != null)
-            return TYPE_ITEM;
-        else
-            return TYPE_HEADER;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_ITEM)
-            return new ViewHolderItem(parent, inflater);
-        else if (viewType == TYPE_HEADER)
-            return new ViewHolderHeader(parent, inflater);
-        else if (viewType == TYPE_LOADING)
-            return new ViewHolderLoading(parent, inflater);
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        if (holder instanceof ViewHolderItem)
-            ((ViewHolderItem) holder).onBindView(eventsList.get(position).item);
-        else if (holder instanceof ViewHolderHeader) {
-            ((ViewHolderHeader) holder).onBindView(eventsList.get(position).getName(context));
-        } else if (holder instanceof ViewHolderLoading) {
-            ViewHolderLoading h = (ViewHolderLoading) holder;
-            h.setProgressBarVisibility(infiniteScrollListener.requestMoreItem());
-        }
+    public Events getItem(int position) {
+        return eventsList.get(position);
     }
 
     /**
@@ -89,123 +63,77 @@ public class ListAdapterEvents extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public int getItemCount() {
-        boolean showLoader = infiniteScrollListener == null;
-        if (maxSize != null)
-            showLoader |= maxSize > eventsList.size();
-        return eventsList.size() + ((showLoader) ? 0 : 1);
-    }
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-    public void setMaxSize(int maxSize) {
-        this.maxSize = maxSize;
-    }
+        final ViewHolder holder;
 
-    public interface InfiniteScrollListener {
+        if (convertView == null) {
+            holder = new ViewHolder();
 
-        /**
-         * @return True when new items will be added
-         */
-        boolean requestMoreItem();
-    }
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (inflater == null)
+                return null;
+            convertView = inflater.inflate(R.layout.list_view_event, parent, false);
 
-    public interface CustomViewHolder {
-        void onBindView();
-    }
+            holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
+            holder.textViewDateMonth = convertView.findViewById(R.id.textViewDateMonth);
+            holder.textViewName = convertView.findViewById(R.id.textViewName);
+            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
+            holder.textViewTime = convertView.findViewById(R.id.textViewTime);
+            holder.textViewPlace = convertView.findViewById(R.id.textViewPlace);
+            holder.textViewFull = convertView.findViewById(R.id.textViewFull);
 
-    static class ViewHolderLoading extends RecyclerView.ViewHolder {
+            convertView.setTag(holder);
 
-        private ProgressBar progressBar;
-
-        ViewHolderLoading(ViewGroup parent, LayoutInflater inflater) {
-            super(inflater.inflate(R.layout.list_view_section_loading, parent, false));
-
-            progressBar = itemView.findViewById(R.id.progressBar);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        void setProgressBarVisibility(boolean visibility) {
-            if (visibility)
-                progressBar.setVisibility(View.VISIBLE);
-            else
-                progressBar.setVisibility(View.GONE);
-        }
+        Events item = getItem(position);
+
+        holder.textViewDateDay.setText(DateTool.getDay(item.beginAt));
+        holder.textViewDateMonth.setText(DateTool.getMonthMedium(item.beginAt));
+        holder.textViewName.setText(item.name);
+        TagSpanGenerator span = new TagSpanGenerator.Builder(context).setTextSize(holder.textViewName.getTextSize()).build();
+        if (item.kind != null)
+            span.addTag(item.kind.getString(context), item.kind.getColorInt(context));
+        span.addText(item.name);
+        holder.textViewName.setText(span.getString());
+
+        String content = item.description;
+        content = content.replace("\r\n\r\n", " ");
+        content = content.replace("\n\n", " ");
+        content = content.replace("\r\n", " ");
+        content = content.replace('\n', ' ');
+        holder.textViewDescription.setText(content);
+
+        Bypass b = new Bypass(context);
+        String content_tmp = b.markdownToSpannable(item.description).toString().replace('\n', ' ');
+        holder.textViewDescription.setText(content_tmp);
+
+        String time;
+        time = DateUtils.formatDateRange(context, item.beginAt.getTime(), item.endAt.getTime(), DateUtils.FORMAT_SHOW_TIME);
+        if (time.length() > 30)
+            time = time.replace(" – ", "\n");
+        holder.textViewTime.setText(time);
+        holder.textViewPlace.setText(item.location);
+
+        if (item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0) {
+            holder.textViewFull.setVisibility(View.VISIBLE);
+        } else
+            holder.textViewFull.setVisibility(View.GONE);
+
+        return convertView;
     }
 
-    static class ViewHolderItem extends RecyclerView.ViewHolder {
+    private static class ViewHolder {
 
-        private TextView textViewName;
-        private TextView textViewDescription;
-        private TextView textViewTime;
-        private TextView textViewPlace;
-        private TextView textViewFull;
-
-        public ViewHolderItem(ViewGroup parent, LayoutInflater inflater) {
-            super(inflater.inflate(R.layout.list_view_section_item_, parent, false));
-
-            ViewGroup group = (ViewGroup) itemView;
-            group.addView(inflater.inflate(R.layout.list_view_event_, parent, false), 0);
-
-            this.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-            textViewName = itemView.findViewById(R.id.textViewName);
-            textViewDescription = itemView.findViewById(R.id.textViewDescription);
-            textViewTime = itemView.findViewById(R.id.textViewTime);
-            textViewPlace = itemView.findViewById(R.id.textViewPlace);
-            textViewFull = itemView.findViewById(R.id.textViewFull);
-        }
-
-        void onBindView(Events item) {
-
-            Context context = itemView.getContext();
-
-            textViewName.setText(item.name);
-            TagSpanGenerator span = new TagSpanGenerator.Builder(context).setTextSize(textViewName.getTextSize()).build();
-            if (item.kind != null)
-                span.addTag(item.kind.getString(context), item.kind.getColorInt(context));
-            span.addText(item.name);
-            textViewName.setText(span.getString());
-
-            String content = item.description;
-            content = content.replace("\r\n\r\n", " ");
-            content = content.replace("\n\n", " ");
-            content = content.replace("\r\n", " ");
-            content = content.replace('\n', ' ');
-            textViewDescription.setText(content);
-
-            Bypass b = new Bypass(context);
-            String content_tmp = b.markdownToSpannable(item.description).toString().replace('\n', ' ');
-            textViewDescription.setText(content_tmp);
-
-            String time;
-            time = DateUtils.formatDateRange(context, item.beginAt.getTime(), item.endAt.getTime(), DateUtils.FORMAT_SHOW_TIME);
-            if (time.length() > 30)
-                time = time.replace(" – ", "\n");
-            textViewTime.setText(time);
-            textViewPlace.setText(item.location);
-
-            if (item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0) {
-                textViewFull.setVisibility(View.VISIBLE);
-            } else
-                textViewFull.setVisibility(View.GONE);
-        }
-    }
-
-    public class ViewHolderHeader extends RecyclerView.ViewHolder {
-
-        TextView textViewHeader;
-
-        public ViewHolderHeader(ViewGroup parent, LayoutInflater inflater) {
-            super(inflater.inflate(R.layout.list_view_section_header, parent, false));
-
-            textViewHeader = itemView.findViewById(R.id.textViewName);
-        }
-
-        public void onBindView(String title) {
-            textViewHeader.setText(title);
-        }
+        TextView textViewDateDay;
+        TextView textViewDateMonth;
+        TextView textViewName;
+        TextView textViewDescription;
+        TextView textViewTime;
+        TextView textViewPlace;
+        TextView textViewFull;
     }
 }

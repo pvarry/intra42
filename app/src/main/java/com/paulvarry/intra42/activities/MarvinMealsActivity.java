@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.BaseHeaderRecyclerAdapter;
+import com.paulvarry.intra42.adapters.SimpleHeaderRecyclerAdapter;
 import com.paulvarry.intra42.api.cantina.MarvinMeals;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.DateTool;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class MarvinMealsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread {
 
     List<MarvinMeals> marvinMealList;
-    private List<BaseHeaderRecyclerAdapter.Item<MarvinMeals>> items;
+    private List<SimpleHeaderRecyclerAdapter.Item<MarvinMeals>> items;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, MarvinMealsActivity.class);
@@ -83,8 +83,8 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
             MarvinMeals last = null;
             for (MarvinMeals m : marvinMealList) {
                 if (last == null || !DateTool.sameDayOf(m.beginAt, last.beginAt))
-                    items.add(new BaseHeaderRecyclerAdapter.Item<MarvinMeals>(DateTool.getDateLong(m.beginAt)));
-                items.add(new BaseHeaderRecyclerAdapter.Item<>(m));
+                    items.add(new SimpleHeaderRecyclerAdapter.Item<MarvinMeals>(DateTool.getDateLong(m.beginAt)));
+                items.add(new SimpleHeaderRecyclerAdapter.Item<>(m));
                 last = m;
             }
         }
@@ -112,7 +112,7 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
         }
 
         RecyclerView listView = findViewById(R.id.listView);
-        BaseHeaderRecyclerAdapter<MarvinMeals> adapterMarvinMeal = new BaseHeaderRecyclerAdapter<>(this, items);
+        SimpleHeaderRecyclerAdapter<MarvinMeals> adapterMarvinMeal = new SimpleHeaderRecyclerAdapter<>(this, items);
         listView.setAdapter(adapterMarvinMeal);
         listView.setLayoutManager(new LinearLayoutManager(this));
     }
