@@ -47,9 +47,7 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
             view = inflater.inflate(R.layout.list_view_section_header, parent, false);
             return new ViewHolderHeader(view);
         } else {
-            view = inflater.inflate(R.layout.list_view_section_item, parent, false);
-            return new ViewHolderItem(view);
-
+            return new ViewHolderItem(inflater, parent);
         }
     }
 
@@ -59,20 +57,12 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
         switch (getItemViewType(position)) {
             case Item.HEADER:
                 ViewHolderHeader header = (ViewHolderHeader) holder;
-                header.textViewHeader.setText(i.getName(context));
+                header.bind(i, position);
                 break;
 
             case Item.ITEM:
                 ViewHolderItem item = (ViewHolderItem) holder;
-                item.textViewTitle.setText(i.getName(context));
-                item.textViewSummary.setText(i.getSub(context));
-                if (items.size() > position + 1) {
-                    Item<T> next = items.get(position + 1);
-                    if (next.type == Item.HEADER)
-                        item.divider.setVisibility(View.GONE);
-                    else
-                        item.divider.setVisibility(View.VISIBLE);
-                }
+                item.bind(i, position);
                 break;
         }
     }
@@ -125,7 +115,8 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
         }
     }
 
-    public class ViewHolderHeader extends RecyclerView.ViewHolder {
+    // this should be static
+    class ViewHolderHeader extends RecyclerView.ViewHolder {
 
         private TextView textViewHeader;
 
@@ -134,16 +125,20 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
             textViewHeader = itemView.findViewById(R.id.textViewName);
         }
 
+        void bind(Item<T> data, int position) {
+            textViewHeader.setText(data.getName(context));
+        }
     }
 
+    // this should be static
     class ViewHolderItem extends RecyclerView.ViewHolder {
 
         private TextView textViewTitle;
         private TextView textViewSummary;
         private View divider;
 
-        ViewHolderItem(View itemView) {
-            super(itemView);
+        ViewHolderItem(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_view_section_item, parent, false));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -155,6 +150,18 @@ public class BaseHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewSummary = itemView.findViewById(R.id.textViewSummary);
             divider = itemView.findViewById(R.id.divider);
+        }
+
+        void bind(Item<T> data, int position) {
+            textViewTitle.setText(data.getName(context));
+            textViewSummary.setText(data.getSub(context));
+            if (items.size() > position + 1) {
+                Item<T> next = items.get(position + 1);
+                if (next.type == Item.HEADER)
+                    divider.setVisibility(View.GONE);
+                else
+                    divider.setVisibility(View.VISIBLE);
+            }
         }
     }
 
