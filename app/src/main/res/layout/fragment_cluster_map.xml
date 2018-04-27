@@ -4,22 +4,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.clusterMap.ClusterMapFragment">
 
-    <com.jaredrummler.android.widget.TwoDScrollView
-        android:id="@+id/viewGroupMain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
 
-        <GridLayout
-            android:id="@+id/gridLayout"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:columnCount="22"
-            android:horizontalSpacing="10dp"
-            android:padding="8dp"
-            android:rowCount="3"
-            android:verticalSpacing="10dp" />
-
-    </com.jaredrummler.android.widget.TwoDScrollView>
+            android:clipToPadding="false"
+            android:padding="2dp" />
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/textViewEmpty"

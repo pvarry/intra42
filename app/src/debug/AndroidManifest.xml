@@ -37,6 +37,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.clusterMap.ClusterMapActivity"
+            android:label="@string/title_activity_cluster_map"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.projects.ProjectsActivity"
             android:label="@string/title_activity_projects"
             android:screenOrientation="portrait"

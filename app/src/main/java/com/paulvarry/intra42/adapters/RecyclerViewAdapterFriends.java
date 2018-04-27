@@ -72,7 +72,7 @@ public class RecyclerViewAdapterFriends extends RecyclerView.Adapter<RecyclerVie
             holder.linearLayoutLocation.setVisibility(View.GONE);
 
         if (stateSelection && selectedPosition != null) {
-            int px = Tools.dpToPx(context, 4);
+            int px = Tools.dpToPxInt(context, 4);
             holder.layoutChild.setPadding(px, px, px, px);
             if (selectedPosition.contains(position))
                 holder.layoutParent.setBackgroundColor(ThemeHelper.getColorAccent(context));

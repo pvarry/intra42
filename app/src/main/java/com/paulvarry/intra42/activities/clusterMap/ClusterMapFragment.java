@@ -11,6 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,8 +53,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     private ClusterStatus clusters;
     private Cluster clusterInfo;
 
-    private ViewGroup viewGroupMain;
-    private GridLayout gridLayout;
+    //    private ViewGroup viewGroupMain;
+    private RecyclerView recyclerView;
     private TextView textViewEmpty;
 
     private LayoutInflater vi;
@@ -87,8 +90,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         }
         activity = (ClusterMapActivity) getActivity();
         vi = LayoutInflater.from(activity);
-        itemPadding2dp = Tools.dpToPx(activity, 2);
-        itemPadding3dp = Tools.dpToPx(activity, 3);
+        itemPadding2dp = Tools.dpToPxInt(activity, 2);
+        itemPadding3dp = Tools.dpToPxInt(activity, 3);
     }
 
     @Override
@@ -101,8 +104,8 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewGroupMain = view.findViewById(R.id.viewGroupMain);
-        gridLayout = view.findViewById(R.id.gridLayout);
+//        viewGroupMain = view.findViewById(R.id.viewGroupMain);
+        recyclerView = view.findViewById(R.id.recyclerView);
         textViewEmpty = view.findViewById(R.id.textViewEmpty);
     }
 
@@ -113,10 +116,10 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         clusterInfo = activity.clusterStatus.getCluster(clusterName);
 
         if (clusterInfo == null || clusterInfo.map == null || clusterInfo.map.length == 0 || clusterInfo.sizeY == 0 || clusterInfo.sizeX == 0) {
-            viewGroupMain.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             textViewEmpty.setVisibility(View.VISIBLE);
         } else {
-            viewGroupMain.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
             textViewEmpty.setVisibility(View.GONE);
             makeMap();
         }
@@ -125,31 +128,35 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     void makeMap() {
 
         // set base item size
-        baseItemHeight = Tools.dpToPx(activity, 42);
-        baseItemWidth = Tools.dpToPx(activity, 35);
+        baseItemHeight = Tools.dpToPxInt(activity, 42);
+        baseItemWidth = Tools.dpToPxInt(activity, 35);
 
         if (clusterInfo == null || clusterInfo.map == null)
             return;
 
-        gridLayout.removeAllViews();
-        gridLayout.removeAllViewsInLayout();
-        gridLayout.setColumnCount(clusterInfo.map.length);
+//        gridLayout.removeAllViews();
+//        gridLayout.removeAllViewsInLayout();
+//        gridLayout.setColumnCount(clusterInfo.map.length);
+//
+//        gridLayout.setRowCount(clusterInfo.sizeY);
+//        gridLayout.setColumnCount(clusterInfo.sizeX);
+//
+//        Location locationItem;
+//        for (int y = 0; y < clusterInfo.sizeY; y++) {
+//            for (int x = 0; x < clusterInfo.sizeX; x++) {
+//
+//                locationItem = clusterInfo.map[x][y];
+//                if (locationItem == null)
+//                    continue;
+//
+//                View view = makeMapItem(clusterInfo.map[x][y], x, y);
+//                gridLayout.addView(view);
+//            }
+//        }
 
-        gridLayout.setRowCount(clusterInfo.sizeY);
-        gridLayout.setColumnCount(clusterInfo.sizeX);
-
-        Location locationItem;
-        for (int y = 0; y < clusterInfo.sizeY; y++) {
-            for (int x = 0; x < clusterInfo.sizeX; x++) {
-
-                locationItem = clusterInfo.map[x][y];
-                if (locationItem == null)
-                    continue;
-
-                View view = makeMapItem(clusterInfo.map[x][y], x, y);
-                gridLayout.addView(view);
-            }
-        }
+        ClusterMapAdapter adapter = new ClusterMapAdapter(getContext(), clusterInfo, clusters);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), clusterInfo.sizeX, LinearLayoutManager.VERTICAL, false));
     }
 
     private View makeMapItem(Location location, int x, int y) {
@@ -165,7 +172,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         user = clusters.getUserInLocation(location);
 
         if (location.highlight) {
-            view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, gridLayout, false);
+            view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, recyclerView, false);
             imageViewContent = view.findViewById(R.id.imageView);
         } else {
 //            view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);

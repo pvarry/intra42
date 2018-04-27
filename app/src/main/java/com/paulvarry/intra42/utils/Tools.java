@@ -4,10 +4,12 @@ package com.paulvarry.intra42.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -112,9 +114,14 @@ public class Tools {
         }
     }
 
-    public static int dpToPx(Context context, int dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    public static float dpToPx(Context context, int dp) {
+        Resources r = context.getResources();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+    }
+
+    @Deprecated
+    public static int dpToPxInt(Context context, int dp) {
+        return Math.round(dpToPx(context, dp));
     }
 
     public static int pxToDp(Context context, int px) {

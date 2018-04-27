@@ -201,7 +201,7 @@ public class TagSpanGenerator {
         public void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, @NonNull Paint paint) {
             Paint newPaint = new Paint(paint); // make a copy for not editing the referenced paint
 
-            final float MAGIC_NUMBER = Tools.dpToPx(context, 2);
+            final float MAGIC_NUMBER = Tools.dpToPxInt(context, 2);
 
             float mTextSize = getTextSize();
 

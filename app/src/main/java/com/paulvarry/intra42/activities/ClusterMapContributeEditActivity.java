@@ -145,7 +145,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             }
         });
 
-        paddingItem2dp = Tools.dpToPx(this, 2);
+        paddingItem2dp = Tools.dpToPxInt(this, 2);
         vi = LayoutInflater.from(this);
 
         onCreateFinished();
@@ -214,8 +214,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     @Override
     protected void setViewContent() {
         // set base item size
-        baseItemHeight = Tools.dpToPx(this, 42);
-        baseItemWidth = Tools.dpToPx(this, 35);
+        baseItemHeight = Tools.dpToPxInt(this, 42);
+        baseItemWidth = Tools.dpToPxInt(this, 35);
         buildMap();
     }
 
