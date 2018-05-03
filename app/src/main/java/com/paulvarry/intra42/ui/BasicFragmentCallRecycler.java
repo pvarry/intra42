@@ -28,7 +28,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// Work in progress
+// usage of Deprecated but is work in progress
+@Deprecated
 public abstract class BasicFragmentCallRecycler<T, ADAPTER extends RecyclerView.Adapter>
         extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {

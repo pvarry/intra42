@@ -4,13 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.SectionListView;
+import com.paulvarry.intra42.adapters.LocationHeaderRecyclerAdapter;
+import com.paulvarry.intra42.adapters.RecyclerItem;
+import com.paulvarry.intra42.adapters.SimpleHeaderRecyclerAdapter;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
@@ -23,20 +25,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.halfbit.pinnedsection.PinnedSectionListView;
 import retrofit2.Response;
 
-public class LocationHistoryActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, AdapterView.OnItemClickListener {
+public class LocationHistoryActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, SimpleHeaderRecyclerAdapter.OnItemClickListener<Locations> {
 
     final static private String INTENT_LOCATION = "location";
     final static private String INTENT_USER = "user";
 
-    List<SectionListView.Item> items;
-    PinnedSectionListView listView;
-    List<Locations> locations;
-    String host;
-    String login;
-    SectionListView adapter;
+    private RecyclerView recyclerView;
+    private List<Locations> locations;
+    private String host;
+    private String login;
+    private LocationHeaderRecyclerAdapter adapter;
 
     public static void openItWithLocation(Context context, String host) {
         Intent intent = new Intent(context, LocationHistoryActivity.class);
@@ -72,8 +72,7 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
         if (host == null && login == null)
             finish();
 
-        listView = findViewById(R.id.listView);
-        listView.setOnItemClickListener(this);
+        recyclerView = findViewById(R.id.recyclerView);
 
         super.onCreateFinished();
     }
@@ -94,27 +93,18 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
 
     @Override
     public void setViewContent() {
-        items = new ArrayList<>();
-        Locations curLocation;
-        boolean needNewSection;
-        String title;
-        SectionListView.Item currentSectionTitle = null;
+        List<RecyclerItem<Locations>> items = new ArrayList<>();
+        Locations lastLocation = null;
+        RecyclerItem<Locations> lastHeader = null;
         List<Locations> locationInThisSection = null;
 
-        for (int i = 0; i < locations.size(); i++) {
-            curLocation = locations.get(i);
-            needNewSection = false;
+        for (Locations location : locations) {
 
             // ***** compute section (if needed) *****
-            if (i > 0 && i - 1 < locations.size()) {
-                if (!DateTool.sameDayOf(locations.get(i).beginAt, locations.get(i - 1).beginAt)) // add a new section ?
-                    needNewSection = true;
-            } else if (i == 0)
-                needNewSection = true;
+            if (lastLocation == null ||
+                    !DateTool.sameDayOf(lastLocation.beginAt, location.beginAt)) {
 
-            if (needNewSection) {
-
-                if (login != null && locationInThisSection != null) { // add duration ?
+                if (login != null && locationInThisSection != null) { // add duration for last header
                     Date date = new Date();
                     boolean plusplus = false;
                     for (Locations locationTmp : locationInThisSection) {
@@ -125,30 +115,34 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
                             plusplus = true;
                         }
                     }
-                    currentSectionTitle.title += " • " + DateTool.getDuration(date);
+                    lastHeader.title += " • " + DateTool.getDuration(date);
                     if (plusplus)
-                        currentSectionTitle.title += " ++";
+                        lastHeader.title += " ++";
                 }
 
-                currentSectionTitle = new SectionListView.Item<Locations>(SectionListView.Item.SECTION, null, DateTool.getDateLong(curLocation.beginAt));
-                items.add(currentSectionTitle);
+                // ***** compute item string *****
+                lastHeader = new RecyclerItem<>(DateTool.getDateLong(location.beginAt));
+                items.add(lastHeader);
                 locationInThisSection = new ArrayList<>();
             }
 
-            // ***** compute item string *****
-            title = (host != null ? curLocation.user.login : curLocation.host);
-            if (login != null) { // add duration ?
-                if (curLocation.beginAt != null && curLocation.endAt != null)
-                    title += " • " + DateTool.getDuration(curLocation.beginAt, curLocation.endAt);
-                else if (curLocation.beginAt != null)
-                    title += " • " + DateTool.getDuration(curLocation.beginAt, new Date()) + " ++";
-            }
-            locationInThisSection.add(curLocation);
+            locationInThisSection.add(location);
 
-            items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, curLocation, title));
+            items.add(new RecyclerItem<>(location));
+            lastLocation = location;
         }
+        lastLocation = null;
 
-        if (login != null && locationInThisSection != null) { // add duration for last element ?
+//        title = (host != null ? location.user.login : location.host);
+//        if (login != null) { // add duration ?
+//            if (location.beginAt != null && location.endAt != null)
+//                title += " • " + DateTool.getDuration(location.beginAt, location.endAt);
+//            else if (location.beginAt != null)
+//                title += " • " + DateTool.getDuration(location.beginAt, new Date()) + " ++";
+//        }
+
+
+        if (login != null && locationInThisSection != null) { // add duration for last element
             Date date = new Date();
             boolean plusplus = false;
             for (Locations locationTmp : locationInThisSection) {
@@ -159,15 +153,17 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
                     plusplus = true;
                 }
             }
-            currentSectionTitle.title += " • " + DateTool.getDuration(date);
+            lastHeader.title += " • " + DateTool.getDuration(date);
             if (plusplus)
-                currentSectionTitle.title += " ++";
+                lastHeader.title += " ++";
         }
 
-        adapter = new SectionListView(this, items);
-        if (host != null)
-            adapter.forceUserPicture(true);
-        listView.setAdapter(adapter);
+        adapter = new LocationHeaderRecyclerAdapter(this, items);
+        if (login != null)
+            adapter.setUserHistory(true);
+        adapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     @Override
@@ -192,9 +188,8 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Locations location = ((Locations) adapter.getItem(position).item);
-
+    public void onItemClick(RecyclerItem<Locations> item) {
+        Locations location = item.item;
         if (location == null)
             return;
 

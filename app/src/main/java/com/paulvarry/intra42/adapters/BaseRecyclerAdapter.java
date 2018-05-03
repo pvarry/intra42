@@ -19,7 +19,8 @@ import java.util.List;
 
 import in.uncod.android.bypass.Bypass;
 
-// Work in progress
+// usage of Deprecated but is work in progress
+@Deprecated
 public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_ITEM = 0;
@@ -27,12 +28,12 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_LOADING = 2;
 
     private final Context context;
-    private List<SimpleHeaderRecyclerAdapter.Item<Events>> eventsList;
+    private List<RecyclerItem<Events>> eventsList;
     private LayoutInflater inflater;
     private InfiniteScrollListener infiniteScrollListener;
     private Integer maxSize;
 
-    public BaseRecyclerAdapter(Context context, List<SimpleHeaderRecyclerAdapter.Item<Events>> projectsList) {
+    public BaseRecyclerAdapter(Context context, List<RecyclerItem<Events>> projectsList) {
 
         inflater = LayoutInflater.from(context);
         this.context = context;

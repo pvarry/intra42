@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.paulvarry.intra42.activities.LocationHistoryActivity">
 
-    <de.halfbit.pinnedsection.PinnedSectionListView
-        android:id="@+id/listView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
