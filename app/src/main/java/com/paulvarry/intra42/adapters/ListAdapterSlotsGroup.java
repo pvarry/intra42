@@ -1,14 +1,16 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.home.HomeSlotsFragment;
 import com.paulvarry.intra42.api.model.Slots;
@@ -54,11 +56,11 @@ public class ListAdapterSlotsGroup extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = LayoutInflater.from(fragment.getActivity());
+            LayoutInflater vi = LayoutInflater.from(parent.getContext());
 
             convertView = vi.inflate(R.layout.list_view_slots_group, parent, false);
             holder.textViewDate = convertView.findViewById(R.id.textViewDate);
-            holder.listViewSlots = convertView.findViewById(R.id.listViewSlots);
+            holder.recyclerViewSlots = convertView.findViewById(R.id.recyclerViewSlots);
 
             convertView.setTag(holder);
         } else {
@@ -68,14 +70,19 @@ public class ListAdapterSlotsGroup extends BaseAdapter {
         final SlotsTools.SlotsDay item = getItem(position);
 
         holder.textViewDate.setText(DateTool.getDateLong(item.day));
-        ListAdapterSlotsItem adapter = new ListAdapterSlotsItem(fragment.getContext(), item.slots);
-        holder.listViewSlots.setAdapter(adapter);
-        holder.listViewSlots.setExpanded(true);
-        holder.listViewSlots.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        RecyclerAdapterSlotsItem adapter = new RecyclerAdapterSlotsItem(parent.getContext(), item.slots);
+        holder.recyclerViewSlots.setAdapter(adapter);
+        holder.recyclerViewSlots.setLayoutManager(new LinearLayoutManager(parent.getContext()));
+        holder.recyclerViewSlots.addItemDecoration(new DividerItemDecoration(parent.getContext(), DividerItemDecoration.VERTICAL));
+        holder.recyclerViewSlots.setNestedScrollingEnabled(false);
+        adapter.setOnItemClickListener(new RecyclerAdapterSlotsItem.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int subPosition, long id) {
-                BottomSheetSlotsDialogFragment bottomSheetDialogFragment = BottomSheetSlotsDialogFragment.newInstance(item.slots.get(subPosition));
-                bottomSheetDialogFragment.show(fragment.getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+            public void onItemClicked(int position, SlotsTools.SlotsGroup slots) {
+                FragmentActivity activity = fragment.getActivity();
+                if (activity == null)
+                    return;
+                BottomSheetSlotsDialogFragment bottomSheetDialogFragment = BottomSheetSlotsDialogFragment.newInstance(item.slots.get(position));
+                bottomSheetDialogFragment.show(activity.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
                 bottomSheetDialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
@@ -97,7 +104,7 @@ public class ListAdapterSlotsGroup extends BaseAdapter {
     static class ViewHolder {
 
         private TextView textViewDate;
-        private ExpandableHeightListView listViewSlots;
+        private RecyclerView recyclerViewSlots;
 
     }
 }

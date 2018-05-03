@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
@@ -18,14 +19,15 @@ import com.paulvarry.intra42.utils.SlotsTools;
 
 import java.util.List;
 
-public class ListAdapterSlotsItem extends BaseAdapter {
+public class RecyclerAdapterSlotsItem extends RecyclerView.Adapter<RecyclerAdapterSlotsItem.ViewHolder> {
 
     private final Context context;
     private List<SlotsTools.SlotsGroup> slots;
     @ColorInt
     private int defaultTextColor;
+    private OnItemClickListener listener;
 
-    ListAdapterSlotsItem(Context context, List<SlotsTools.SlotsGroup> slots) {
+    RecyclerAdapterSlotsItem(Context context, List<SlotsTools.SlotsGroup> slots) {
 
         this.context = context;
         this.slots = slots;
@@ -39,39 +41,21 @@ public class ListAdapterSlotsItem extends BaseAdapter {
         arr.recycle();
     }
 
-    @Override
-    public int getCount() {
-        return slots.size();
-    }
-
-    @Override
     public SlotsTools.SlotsGroup getItem(int position) {
         return slots.get(position);
     }
 
+    @NonNull
     @Override
-    public long getItemId(int position) {
-        return position;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_view_slots_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
-
-        if (convertView == null) {
-            holder = new ViewHolder();
-
-            LayoutInflater vi = LayoutInflater.from(context);
-
-            convertView = vi.inflate(R.layout.list_view_slots_item, parent, false);
-            holder.textViewDate = convertView.findViewById(R.id.textViewDate);
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        SlotsTools.SlotsGroup item = getItem(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final SlotsTools.SlotsGroup item = getItem(position);
 
         String date = DateTool.getTimeShort(item.beginAt) + " - " + DateTool.getTimeShort(item.endAt);
         holder.textViewDate.setText(date);
@@ -80,12 +64,41 @@ public class ListAdapterSlotsItem extends BaseAdapter {
         else
             holder.textViewDate.setTextColor(defaultTextColor);
 
-        return convertView;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null)
+                    listener.onItemClicked(holder.getAdapterPosition(), item);
+            }
+        });
     }
 
-    static class ViewHolder {
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return slots.size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    interface OnItemClickListener {
+        void onItemClicked(int position, SlotsTools.SlotsGroup slots);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewDate;
 
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            textViewDate = itemView.findViewById(R.id.textViewDate);
+        }
     }
 }
