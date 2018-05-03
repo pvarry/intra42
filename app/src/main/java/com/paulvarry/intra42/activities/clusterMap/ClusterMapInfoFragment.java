@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -25,11 +27,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.ClusterMapContributeActivity;
-import com.paulvarry.intra42.adapters.ListAdapterClusterMapInfo;
+import com.paulvarry.intra42.adapters.RecyclerAdapterClusterMapInfo;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
@@ -51,11 +53,14 @@ import retrofit2.Response;
  * Use the {@link ClusterMapInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class ClusterMapInfoFragment
+        extends Fragment
+        implements AdapterView.OnItemSelectedListener, TextWatcher, View.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener, RecyclerAdapterClusterMapInfo.OnItemClickListener {
 
     private ClusterMapActivity activity;
 
-    private ListAdapterClusterMapInfo adapter;
+    private RecyclerAdapterClusterMapInfo adapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewClusters;
@@ -64,7 +69,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     private ViewGroup layoutLayerContent;
     private Spinner spinnerMain;
     private Spinner spinnerSecondary;
-    private ExpandableHeightListView listView;
+    private RecyclerView recyclerView;
     private EditText editText;
     private Button buttonUpdate;
     private ViewGroup layoutLoading;
@@ -108,7 +113,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         super.onViewCreated(view, savedInstanceState);
 
         swipeRefreshLayout = view.findViewById(R.id.layoutParent);
-        listView = view.findViewById(R.id.listView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         spinnerMain = view.findViewById(R.id.spinnerMain);
         spinnerSecondary = view.findViewById(R.id.spinnerSecondary);
         textViewClusters = view.findViewById(R.id.textViewClusters);
@@ -132,7 +137,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         super.onActivityCreated(savedInstanceState);
 
         textViewClusters.setVisibility(View.VISIBLE);
-        listView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
         textViewLayerTitle.setVisibility(View.VISIBLE);
         textViewLayerDescription.setVisibility(View.VISIBLE);
         layoutLayerContent.setVisibility(View.VISIBLE);
@@ -141,15 +146,17 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         if (activity.clusterStatus.clusters == null || activity.clusterStatus.clusters.size() == 0) {
             textViewNoClusterMap.setVisibility(View.VISIBLE);
             textViewClusters.setVisibility(View.GONE);
-            listView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             textViewLayerTitle.setVisibility(View.GONE);
             textViewLayerDescription.setVisibility(View.GONE);
             layoutLayerContent.setVisibility(View.GONE);
         } else {
             textViewNoClusterMap.setVisibility(View.GONE);
-            adapter = new ListAdapterClusterMapInfo(getContext(), activity.clusterStatus);
-            listView.setAdapter(adapter);
-            listView.setExpanded(true);
+            adapter = new RecyclerAdapterClusterMapInfo(getContext(), activity.clusterStatus);
+            adapter.setOnItemClickListener(this);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            recyclerView.setNestedScrollingEnabled(false);
         }
 
         textViewClusters.setTextColor(ThemeHelper.getColorAccent(getContext()));
@@ -158,7 +165,6 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
 
         editText.addTextChangedListener(this);
         buttonUpdate.setOnClickListener(this);
-        listView.setOnItemClickListener(this);
 
         int statusLayerSelection = activity.clusterStatus.layerStatus.getId();
         int projectStatusSelection = getProjectSelectionPosition();
@@ -598,7 +604,7 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
      */
     void finishApplyLayer(final boolean successful) {
         loadingViewStartCircularHide();
-        listView.invalidate();
+        recyclerView.invalidate();
         adapter.notifyDataSetChanged();
 
         spinnerMain.setEnabled(true);
@@ -636,11 +642,6 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
         });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.viewPager.setCurrentItem(position + 1, true);
-    }
-
     /**
      * Called when a swipe gesture triggers a refresh.
      */
@@ -648,6 +649,11 @@ public class ClusterMapInfoFragment extends Fragment implements AdapterView.OnIt
     public void onRefresh() {
         if (activity != null)
             activity.refreshCluster();
+    }
+
+    @Override
+    public void onItemClicked(int position, Cluster cluster) {
+        activity.viewPager.setCurrentItem(position + 1, true);
     }
 
     /**
