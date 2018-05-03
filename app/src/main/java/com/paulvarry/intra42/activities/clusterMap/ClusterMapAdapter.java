@@ -24,6 +24,7 @@ import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 
 public class ClusterMapAdapter extends RecyclerView.Adapter<ClusterMapAdapter.ViewHolderComputer> {
 
+    private onLocationClickListener listener;
     private Cluster cluster;
     private ClusterStatus clusterStatus;
     private LayoutInflater li;
@@ -46,6 +47,10 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<ClusterMapAdapter.Vi
         baseItemWidth = Tools.dpToPx(context, 35);
     }
 
+    public void setOnLocationClickListener(onLocationClickListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public ViewHolderComputer onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,9 +69,14 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<ClusterMapAdapter.Vi
         return cluster.sizeX * cluster.sizeY;
     }
 
+    public interface onLocationClickListener {
+        void onLocationClicked(Location location);
+    }
+
     class ViewHolderComputer extends RecyclerView.ViewHolder {
 
         private ImageView imageViewContent;
+        private Location location;
 
         ViewHolderComputer(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.grid_layout_cluster_map, parent, false));
@@ -74,7 +84,8 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<ClusterMapAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (listener != null)
+                        listener.onLocationClicked(location);
                 }
             });
 
@@ -85,6 +96,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<ClusterMapAdapter.Vi
 
             UsersLTE user;
             user = clusterStatus.getUserInLocation(location);
+            this.location = location;
 
             if (location.kind == Location.Kind.USER) {
 

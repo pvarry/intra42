@@ -1,27 +1,19 @@
 package com.paulvarry.intra42.activities.clusterMap;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
@@ -30,9 +22,6 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.ThemeHelper;
-import com.paulvarry.intra42.utils.Tools;
-import com.paulvarry.intra42.utils.UserImage;
 import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 
 /**
@@ -43,23 +32,16 @@ import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
  * Use the {@link ClusterMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClusterMapFragment extends Fragment implements View.OnClickListener {
+public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.onLocationClickListener {
     private static final String ARG_HOST_PREFIX = "hostPrefix";
-    float baseItemWidth;
-    float baseItemHeight;
 
     private String clusterName;
     private ClusterMapActivity activity;
     private ClusterStatus clusters;
-    private Cluster clusterInfo;
 
     //    private ViewGroup viewGroupMain;
     private RecyclerView recyclerView;
     private TextView textViewEmpty;
-
-    private LayoutInflater vi;
-    private int itemPadding2dp;
-    private int itemPadding3dp;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,9 +71,6 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             clusterName = getArguments().getString(ARG_HOST_PREFIX);
         }
         activity = (ClusterMapActivity) getActivity();
-        vi = LayoutInflater.from(activity);
-        itemPadding2dp = Tools.dpToPxInt(activity, 2);
-        itemPadding3dp = Tools.dpToPxInt(activity, 3);
     }
 
     @Override
@@ -104,7 +83,6 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        viewGroupMain = view.findViewById(R.id.viewGroupMain);
         recyclerView = view.findViewById(R.id.recyclerView);
         textViewEmpty = view.findViewById(R.id.textViewEmpty);
     }
@@ -113,7 +91,7 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         clusters = activity.clusterStatus;
-        clusterInfo = activity.clusterStatus.getCluster(clusterName);
+        Cluster clusterInfo = activity.clusterStatus.getCluster(clusterName);
 
         if (clusterInfo == null || clusterInfo.map == null || clusterInfo.map.length == 0 || clusterInfo.sizeY == 0 || clusterInfo.sizeX == 0) {
             recyclerView.setVisibility(View.GONE);
@@ -121,151 +99,12 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             textViewEmpty.setVisibility(View.GONE);
-            makeMap();
+
+            ClusterMapAdapter adapter = new ClusterMapAdapter(getContext(), clusterInfo, clusters);
+            adapter.setOnLocationClickListener(this);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), clusterInfo.sizeX, LinearLayoutManager.VERTICAL, false));
         }
-    }
-
-    void makeMap() {
-
-        // set base item size
-        baseItemHeight = Tools.dpToPxInt(activity, 42);
-        baseItemWidth = Tools.dpToPxInt(activity, 35);
-
-        if (clusterInfo == null || clusterInfo.map == null)
-            return;
-
-//        gridLayout.removeAllViews();
-//        gridLayout.removeAllViewsInLayout();
-//        gridLayout.setColumnCount(clusterInfo.map.length);
-//
-//        gridLayout.setRowCount(clusterInfo.sizeY);
-//        gridLayout.setColumnCount(clusterInfo.sizeX);
-//
-//        Location locationItem;
-//        for (int y = 0; y < clusterInfo.sizeY; y++) {
-//            for (int x = 0; x < clusterInfo.sizeX; x++) {
-//
-//                locationItem = clusterInfo.map[x][y];
-//                if (locationItem == null)
-//                    continue;
-//
-//                View view = makeMapItem(clusterInfo.map[x][y], x, y);
-//                gridLayout.addView(view);
-//            }
-//        }
-
-        ClusterMapAdapter adapter = new ClusterMapAdapter(getContext(), clusterInfo, clusters);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), clusterInfo.sizeX, LinearLayoutManager.VERTICAL, false));
-    }
-
-    private View makeMapItem(Location location, int x, int y) {
-
-        View view;
-        ImageView imageViewContent;
-        GridLayout.LayoutParams paramsGridLayout;
-        UsersLTE user;
-
-        if (vi == null)
-            return null;
-
-        user = clusters.getUserInLocation(location);
-
-        if (location.highlight) {
-            view = vi.inflate(R.layout.grid_layout_cluster_map_highlight, recyclerView, false);
-            imageViewContent = view.findViewById(R.id.imageView);
-        } else {
-//            view = vi.inflate(R.layout.grid_layout_cluster_map, gridLayout, false);
-            view = new ImageView(activity);
-            view.setLayoutParams(new GridLayout.LayoutParams());
-            imageViewContent = (ImageView) view;
-            imageViewContent.setAdjustViewBounds(true);
-        }
-
-        if (location.kind == Location.Kind.USER) {
-            view.setTag(location);
-            view.setOnClickListener(this);
-
-            if (location.host == null) {
-                imageViewContent.setImageResource(R.drawable.ic_missing_black_25dp);
-                imageViewContent.setColorFilter(ContextCompat.getColor(activity, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
-            } else {
-                if (user != null)
-                    UserImage.setImageSmall(activity, user, imageViewContent);
-                else {
-                    imageViewContent.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_desktop_mac_black_custom));
-                    imageViewContent.setColorFilter(ContextCompat.getColor(activity, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
-                }
-            }
-
-        } else if (location.kind == Location.Kind.WALL)
-            imageViewContent.setImageResource(R.color.colorClusterMapWall);
-        else {
-            imageViewContent.setImageResource(R.drawable.ic_add_black_24dp);
-            imageViewContent.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.CLEAR);
-        }
-
-        paramsGridLayout = (GridLayout.LayoutParams) view.getLayoutParams();
-        paramsGridLayout.columnSpec = GridLayout.spec(x);
-        paramsGridLayout.rowSpec = GridLayout.spec(y);
-        paramsGridLayout.setGravity(Gravity.FILL);
-        paramsGridLayout.height = GridLayout.LayoutParams.WRAP_CONTENT;
-        paramsGridLayout.width = GridLayout.LayoutParams.WRAP_CONTENT;
-        paramsGridLayout.height = (int) (baseItemHeight * location.sizeY);
-        paramsGridLayout.width = (int) (baseItemWidth * location.sizeX);
-
-        if (location.kind == Location.Kind.WALL) {
-            int paddingLeft = itemPadding2dp;
-            int paddingTop = itemPadding2dp;
-            int paddingRight = itemPadding2dp;
-            int paddingEnd = itemPadding2dp;
-
-            Location left = getPosition(x - 1, y);
-            if (left != null && left.kind == Location.Kind.WALL)
-                paddingLeft = 0;
-            Location top = getPosition(x, y - 1);
-            if (top != null && top.kind == Location.Kind.WALL)
-                paddingTop = 0;
-            Location right = getPosition(x + 1, y);
-            if (right != null && right.kind == Location.Kind.WALL)
-                paddingRight = 0;
-            Location end = getPosition(x, y + 1);
-            if (end != null && end.kind == Location.Kind.WALL)
-                paddingEnd = 0;
-
-            imageViewContent.setPadding(paddingLeft, paddingTop, paddingRight, paddingEnd);
-        } else
-            imageViewContent.setPadding(itemPadding2dp, itemPadding2dp, itemPadding2dp, itemPadding2dp);
-
-        view.setLayoutParams(paramsGridLayout);
-
-        if (location.highlight) {
-            FrameLayout.LayoutParams paramsFrameLayout = (FrameLayout.LayoutParams) imageViewContent.getLayoutParams();
-            paramsFrameLayout.height = (int) (baseItemHeight * location.sizeY);
-            paramsFrameLayout.width = (int) (baseItemWidth * location.sizeX);
-            imageViewContent.setLayoutParams(paramsFrameLayout);
-
-            imageViewContent.setPadding(0, 0, 0, 0);
-            view.setPadding(itemPadding3dp, itemPadding3dp, itemPadding3dp, itemPadding3dp);
-
-            TypedValue a = new TypedValue();
-            activity.getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);
-            imageViewContent.setBackgroundResource(a.resourceId);
-
-            view.setBackgroundColor(ThemeHelper.getColorAccent(activity));
-        }
-
-        return view;
-    }
-
-    Location getPosition(int x, int y) {
-        if (x < 0 ||
-                y < 0 ||
-                clusterInfo.map.length <= x ||
-                clusterInfo.map[x] == null ||
-                clusterInfo.map[x].length <= y)
-            return null;
-        return clusterInfo.map[x][y];
     }
 
     public void onButtonPressed(Uri uri) {
@@ -292,19 +131,15 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View v) {
-        Location location = null;
+    public void onLocationClicked(Location location) {
         UsersLTE user = null;
-
-        if (v.getTag() instanceof Location)
-            location = (Location) v.getTag();
         if (location == null || location.kind != Location.Kind.USER)
             return;
 
         if (clusters.locations != null)
             user = clusters.locations.get(location.host);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.cluster_map_dialog_action);
         String[] actions;
         if (user != null)
@@ -325,7 +160,6 @@ public class ClusterMapFragment extends Fragment implements View.OnClickListener
             }
         });
         builder.show();
-
     }
 
     /**
