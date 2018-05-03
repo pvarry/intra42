@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingBottom="12dp">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -22,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/user_profile_image"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="New Text"
         android:textColor="?android:textColorSecondary"
         app:layout_constraintEnd_toStartOf="@+id/imageViewIconStatus"
@@ -51,7 +52,7 @@
         android:layout_marginRight="4dp"
         android:contentDescription="@string/icon_status"
         android:tint="@color/colorTintCheck"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewScale"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCorrector"
         app:layout_constraintEnd_toStartOf="@+id/textViewScale"
         app:srcCompat="@drawable/ic_check_black_24dp" />
 
@@ -63,8 +64,9 @@
         android:layout_marginRight="16dp"
         android:text="New Text"
         android:textColor="?android:textColorSecondary"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCorrector"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewIconStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIconStatus" />
 
     <TextView
         android:id="@+id/textViewComment"

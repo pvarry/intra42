@@ -99,8 +99,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewGroupGitRepository" />
 
-    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
-        android:id="@+id/expandableHeightGridViewUsers"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewUsers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -129,10 +129,10 @@
         android:textColor="?android:attr/textColorTertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandableHeightGridViewUsers" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewUsers" />
 
-    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
-        android:id="@+id/expandableHeightListViewAutomaticCorrections"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewAutomaticCorrections"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -147,33 +147,23 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="@string/project_peer_corrections"
         android:textAppearance="@style/TexAppTheme.TextView.Subhead"
         android:textColor="?android:attr/textColorTertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandableHeightListViewAutomaticCorrections" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewAutomaticCorrections" />
 
-    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
-        android:id="@+id/expandableHeightListViewPeerCorrections"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewPeerCorrections"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCaptionPeerCorrection" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandableHeightListViewPeerCorrections" />
 
 </android.support.constraint.ConstraintLayout>

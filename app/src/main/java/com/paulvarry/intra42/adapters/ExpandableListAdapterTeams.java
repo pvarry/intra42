@@ -1,24 +1,30 @@
 package com.paulvarry.intra42.adapters;
 
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
-import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
+import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.api.model.Teams;
+import com.paulvarry.intra42.api.model.TeamsUsers;
+import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.ui.GridAutofitLayoutManager;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.ProjectUserStatus;
 
@@ -27,15 +33,14 @@ import java.util.List;
 
 public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
 
-    private final Activity context;
     private List<Teams> teamsList;
+    private ProjectsLTE projectsLTE;
 
-    public ExpandableListAdapterTeams(Activity context, List<Teams> teamsList) {
+    public ExpandableListAdapterTeams(List<Teams> teamsList, ProjectsLTE projectsLTE) {
 
-        this.context = context;
         this.teamsList = teamsList;
+        this.projectsLTE = projectsLTE;
     }
-
 
     /**
      * Gets the number of groups.
@@ -150,7 +155,7 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
         if (convertView == null) {
             holder = new ViewHolderGroup();
 
-            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_group, parent, false);
 
             holder.textViewNameGroup = convertView.findViewById(R.id.textViewNameGroup);
@@ -161,7 +166,7 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             holder = (ViewHolderGroup) convertView.getTag();
 
         holder.textViewNameGroup.setText(teams.name);
-        ProjectUserStatus.setMark(context, teams, holder.textViewMark);
+        ProjectUserStatus.setMark(parent.getContext(), teams, holder.textViewMark);
 
         return convertView;
     }
@@ -185,12 +190,13 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
      */
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final Context context = parent.getContext();
         final Teams team = getChild(groupPosition, childPosition);
         ViewHolderChild holder;
 
         if (convertView == null) {
             holder = new ViewHolderChild();
-            LayoutInflater layoutInflater = LayoutInflater.from(this.context);
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.expandable_list_view_teams_item, parent, false);
 
             holder.textViewStatus = convertView.findViewById(R.id.textViewStatus);
@@ -198,10 +204,10 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             holder.textViewCaptionAutomaticEvaluations = convertView.findViewById(R.id.textViewCaptionAutomaticEvaluations);
             holder.textViewGit = convertView.findViewById(R.id.textViewGit);
             holder.imageButtonCopyGit = convertView.findViewById(R.id.imageButtonCopyGit);
-            holder.expandableHeightGridViewUsers = convertView.findViewById(R.id.expandableHeightGridViewUsers);
-            holder.expandableHeightListViewPeerCorrections = convertView.findViewById(R.id.expandableHeightListViewPeerCorrections);
+            holder.recyclerViewUsers = convertView.findViewById(R.id.recyclerViewUsers);
+            holder.recyclerViewPeerCorrections = convertView.findViewById(R.id.recyclerViewPeerCorrections);
             holder.textViewCaptionPeerCorrection = convertView.findViewById(R.id.textViewCaptionPeerCorrection);
-            holder.expandableHeightListViewAutomaticCorrections = convertView.findViewById(R.id.expandableHeightListViewAutomaticCorrections);
+            holder.recyclerViewAutomaticCorrections = convertView.findViewById(R.id.recyclerViewAutomaticCorrections);
             holder.viewGroupGitRepository = convertView.findViewById(R.id.viewGroupGitRepository);
             convertView.setTag(holder);
         } else {
@@ -242,21 +248,29 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             });
         }
 
-        GridAdapterUsersLittle adapterUsers = new GridAdapterUsersLittle(context, team.users);
-        holder.expandableHeightGridViewUsers.setAdapter(adapterUsers);
-        holder.expandableHeightGridViewUsers.setExpanded(true);
-        holder.expandableHeightGridViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        RecyclerAdapterUserTeam adapterUsers = new RecyclerAdapterUserTeam(context, team.users);
+        holder.recyclerViewUsers.setAdapter(adapterUsers);
+        holder.recyclerViewUsers.setLayoutManager(new GridAutofitLayoutManager(context, 192, LinearLayoutManager.VERTICAL, false));
+        holder.recyclerViewUsers.setNestedScrollingEnabled(false);
+
+        adapterUsers.setOnItemClickListener(new RecyclerAdapterUserTeam.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (team.users != null && team.users.get(position) != null)
-                    Toast.makeText(context, team.users.get(position).login, Toast.LENGTH_SHORT).show();
+            public void onItemTeamUserClick(int position, TeamsUsers users) {
+                if (team.users != null && team.users.get(position) != null) {
+                    TeamsUsers user = team.users.get(position);
+                    if (user.leader)
+                        Toast.makeText(context, context.getString(R.string.project_team_users_toast_leader, team.users.get(position).login), Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(context, context.getString(R.string.project_team_users_toast, team.users.get(position).login), Toast.LENGTH_LONG).show();
+
+                }
             }
         });
-        holder.expandableHeightGridViewUsers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        adapterUsers.setOnItemLongClickListener(new RecyclerAdapterUserTeam.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemTeamUserLongClick(int position, TeamsUsers users) {
                 if (team.users != null && team.users.get(position) != null) {
-                    UserActivity.openIt(context, team.users.get(position));
+                    actionForUser(context, team.users.get(position));
                     return true;
                 }
                 return false;
@@ -265,14 +279,15 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
 
         if (team.teamsUploads == null || team.teamsUploads.isEmpty()) {
             holder.textViewCaptionAutomaticEvaluations.setVisibility(View.GONE);
-            holder.expandableHeightListViewAutomaticCorrections.setVisibility(View.GONE);
+            holder.recyclerViewAutomaticCorrections.setVisibility(View.GONE);
         } else {
             holder.textViewCaptionAutomaticEvaluations.setVisibility(View.VISIBLE);
-            holder.expandableHeightListViewAutomaticCorrections.setVisibility(View.VISIBLE);
+            holder.recyclerViewAutomaticCorrections.setVisibility(View.VISIBLE);
 
-            ListAdapterScaleTeamsAutomatic adapterAutoScale = new ListAdapterScaleTeamsAutomatic(context, team.teamsUploads);
-            holder.expandableHeightListViewAutomaticCorrections.setExpanded(true);
-            holder.expandableHeightListViewAutomaticCorrections.setAdapter(adapterAutoScale);
+            RecyclerAdapterScaleTeamsAutomatic adapterAutoScale = new RecyclerAdapterScaleTeamsAutomatic(team.teamsUploads);
+            holder.recyclerViewAutomaticCorrections.setAdapter(adapterAutoScale);
+            holder.recyclerViewAutomaticCorrections.setLayoutManager(new LinearLayoutManager(context));
+            holder.recyclerViewAutomaticCorrections.setNestedScrollingEnabled(false);
         }
 
         // set-up valid scale team
@@ -285,34 +300,52 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             }
         }
 
+        // set peer evaluations list
         if (team.scaleTeams == null || team.scaleTeams.isEmpty() || tmpScaleTeams.isEmpty()) {
             holder.textViewCaptionPeerCorrection.setVisibility(View.GONE);
-            holder.expandableHeightListViewPeerCorrections.setVisibility(View.GONE);
+            holder.recyclerViewPeerCorrections.setVisibility(View.GONE);
         } else {
             holder.textViewCaptionPeerCorrection.setVisibility(View.VISIBLE);
-            holder.expandableHeightListViewPeerCorrections.setVisibility(View.VISIBLE);
+            holder.recyclerViewPeerCorrections.setVisibility(View.VISIBLE);
+            holder.recyclerViewPeerCorrections.setLayoutManager(new LinearLayoutManager(context));
 
             ScaleTeams scaleTeamsForScale = team.scaleTeams.get(0);
             if (scaleTeamsForScale != null && scaleTeamsForScale.scale != null)
                 peer_corrections += " (" + String.valueOf(tmpScaleTeams.size()) + "/" + scaleTeamsForScale.scale.correctionNumber + ")";
             holder.textViewCaptionPeerCorrection.setText(peer_corrections);
 
-            ListAdapterScaleTeams adapterScaleTeams = new ListAdapterScaleTeams(context, tmpScaleTeams);
-            holder.expandableHeightListViewPeerCorrections.setExpanded(true);
-            holder.expandableHeightListViewPeerCorrections.setAdapter(adapterScaleTeams);
-            holder.expandableHeightListViewPeerCorrections.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            RecyclerAdapterScaleTeams adapterScaleTeams = new RecyclerAdapterScaleTeams(tmpScaleTeams);
+            holder.recyclerViewPeerCorrections.setAdapter(adapterScaleTeams);
+            holder.recyclerViewPeerCorrections.setLayoutManager(new LinearLayoutManager(context));
+            holder.recyclerViewPeerCorrections.setNestedScrollingEnabled(false);
+            holder.recyclerViewPeerCorrections.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+            adapterScaleTeams.setOnItemClickListener(new RecyclerAdapterScaleTeams.OnItemClickListener() {
                 @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (tmpScaleTeams.get(position) != null) {
-                        UserActivity.openIt(context, tmpScaleTeams.get(position).corrector);
-                        return true;
-                    }
-                    return false;
+                public void onItemClicked(int position, final ScaleTeams scaleTeams) {
+                    if (scaleTeams.corrector != null)
+                        actionForUser(context, scaleTeams.corrector);
                 }
             });
         }
 
         return convertView;
+    }
+
+    private void actionForUser(final Context context, final UsersLTE user) {
+        String action2 = context.getString(R.string.format_project_team_users_action_open).replace("{project}", projectsLTE.name).replace("{user}", user.login);
+        String[] items = new String[]{context.getString(R.string.format__user_profile, user.login), action2};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0)
+                    UserActivity.openIt(context, user);
+                else if (which == 1)
+                    ProjectActivity.openIt(context, projectsLTE, user);
+            }
+        });
+        builder.show();
     }
 
     /**
@@ -335,9 +368,9 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
         private TextView textViewCaptionAutomaticEvaluations;
         private TextView textViewGit;
         private ImageButton imageButtonCopyGit;
-        private ExpandableHeightGridView expandableHeightGridViewUsers;
-        private ExpandableHeightListView expandableHeightListViewAutomaticCorrections;
-        private ExpandableHeightListView expandableHeightListViewPeerCorrections;
+        private RecyclerView recyclerViewUsers;
+        private RecyclerView recyclerViewAutomaticCorrections;
+        private RecyclerView recyclerViewPeerCorrections;
         private ViewGroup viewGroupGitRepository;
 
     }

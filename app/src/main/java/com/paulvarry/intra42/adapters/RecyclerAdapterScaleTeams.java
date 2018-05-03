@@ -1,14 +1,15 @@
 package com.paulvarry.intra42.adapters;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.constraint.Group;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -20,84 +21,40 @@ import com.paulvarry.intra42.utils.UserImage;
 
 import java.util.List;
 
-public class ListAdapterScaleTeams extends BaseAdapter {
+public class RecyclerAdapterScaleTeams extends RecyclerView.Adapter<RecyclerAdapterScaleTeams.ViewHolder> {
 
-    private final Activity context;
     private List<ScaleTeams> list;
+    private OnItemClickListener listener;
 
-    ListAdapterScaleTeams(Activity context, List<ScaleTeams> list) {
+    RecyclerAdapterScaleTeams(List<ScaleTeams> list) {
 
-        this.context = context;
         this.list = list;
     }
 
-    /**
-     * How many items are in the data set represented by this Adapter.
-     *
-     * @return Count of items.
-     */
-    @Override
-    public int getCount() {
-        if (list != null)
-            return list.size();
-        return 0;
-    }
-
-    /**
-     * Get the data projectsList associated with the specified position in the data set.
-     *
-     * @param position Position of the projectsList whose data we want within the adapter's
-     *                 data set.
-     * @return The data at the specified position.
-     */
-    @Override
     public ScaleTeams getItem(int position) {
         return list.get(position);
     }
 
-    /**
-     * Get the row id associated with the specified position in the list.
-     *
-     * @param position The position of the projectsList within the adapter's data set whose row id we want.
-     * @return The id of the projectsList at the specified position.
-     */
+    @NonNull
     @Override
-    public long getItemId(int position) {
-        return position;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_scale_teams, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
+        final ScaleTeams item = getItem(position);
 
-        final ViewHolder holder;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null)
+                    listener.onItemClicked(holder.getAdapterPosition(), item);
+            }
+        });
 
-        if (convertView == null) {
-            holder = new ViewHolder();
-
-            LayoutInflater vi = LayoutInflater.from(context);
-            convertView = vi.inflate(R.layout.list_view_scale_teams, parent, false);
-
-            holder.imageViewUser = convertView.findViewById(R.id.imageView);
-            holder.textViewCorrector = convertView.findViewById(R.id.textViewCorrector);
-            holder.textViewScale = convertView.findViewById(R.id.textViewScale);
-            holder.textViewComment = convertView.findViewById(R.id.textViewComment);
-            holder.imageViewIconStatus = convertView.findViewById(R.id.imageViewIconStatus);
-            holder.textViewFeedbackInterested = convertView.findViewById(R.id.textViewFeedbackInterested);
-            holder.textViewFeedbackNice = convertView.findViewById(R.id.textViewFeedbackNice);
-            holder.textViewFeedbackPunctuality = convertView.findViewById(R.id.textViewFeedbackPunctuality);
-            holder.textViewFeedbackRigorous = convertView.findViewById(R.id.textViewFeedbackRigorous);
-            holder.textViewFeedback = convertView.findViewById(R.id.textViewFeedback);
-            holder.ratingBarFeedback = convertView.findViewById(R.id.ratingBarFeedback);
-            holder.groupFeedback = convertView.findViewById(R.id.groupFeedback);
-            holder.textViewUserFeedback = convertView.findViewById(R.id.textViewUserFeedback);
-            holder.viewSeparatorFeedback = convertView.findViewById(R.id.viewSeparatorFeedback);
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        ScaleTeams item = getItem(position);
         if (item.corrector != null) {
             UserImage.setImage(context, item.corrector, holder.imageViewUser);
             String s = item.corrector.login + " • ";
@@ -188,11 +145,30 @@ public class ListAdapterScaleTeams extends BaseAdapter {
                 }
             }
         }
-
-        return convertView;
     }
 
-    private static class ViewHolder {
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        if (list != null)
+            return list.size();
+        return 0;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClicked(int position, ScaleTeams scaleTeams);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageViewUser;
         private TextView textViewCorrector;
@@ -208,5 +184,24 @@ public class ListAdapterScaleTeams extends BaseAdapter {
         private TextView textViewFeedback;
         private RatingBar ratingBarFeedback;
         private View viewSeparatorFeedback;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            imageViewUser = itemView.findViewById(R.id.imageView);
+            textViewCorrector = itemView.findViewById(R.id.textViewCorrector);
+            textViewScale = itemView.findViewById(R.id.textViewScale);
+            textViewComment = itemView.findViewById(R.id.textViewComment);
+            imageViewIconStatus = itemView.findViewById(R.id.imageViewIconStatus);
+            textViewFeedbackInterested = itemView.findViewById(R.id.textViewFeedbackInterested);
+            textViewFeedbackNice = itemView.findViewById(R.id.textViewFeedbackNice);
+            textViewFeedbackPunctuality = itemView.findViewById(R.id.textViewFeedbackPunctuality);
+            textViewFeedbackRigorous = itemView.findViewById(R.id.textViewFeedbackRigorous);
+            textViewFeedback = itemView.findViewById(R.id.textViewFeedback);
+            ratingBarFeedback = itemView.findViewById(R.id.ratingBarFeedback);
+            groupFeedback = itemView.findViewById(R.id.groupFeedback);
+            textViewUserFeedback = itemView.findViewById(R.id.textViewUserFeedback);
+            viewSeparatorFeedback = itemView.findViewById(R.id.viewSeparatorFeedback);
+        }
     }
 }

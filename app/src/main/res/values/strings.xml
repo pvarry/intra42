@@ -628,4 +628,7 @@ Guideline: Cluster orientation
 <string name="cluster_map_info_layer_spinner_main_none">"None"</string>
 <string name="hint_date">"date"</string>
 <string name="hint_time">"time"</string>
+    <string name="project_team_users_toast_leader">%s (team leader)\nlong click for more action</string>
+    <string name="project_team_users_toast">%s \nlong click for more action</string>
+    <string name="format_project_team_users_action_open">Open {project} of {user}</string>
 </resources>

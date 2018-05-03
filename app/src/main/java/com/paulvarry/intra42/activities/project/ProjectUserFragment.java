@@ -66,7 +66,7 @@ public class ProjectUserFragment extends Fragment {
         textView = view.findViewById(R.id.textView);
 
         if (activity.projectUser != null && activity.projectUser.user.teams != null && activity.projectUser.user.teams.size() != 0) {
-            ExpandableListAdapterTeams adapter = new ExpandableListAdapterTeams(getActivity(), activity.projectUser.user.teams);
+            ExpandableListAdapterTeams adapter = new ExpandableListAdapterTeams(activity.projectUser.user.teams, activity.projectUser.project);
             listView.setAdapter(adapter);
             listView.expandGroup(0);
             textView.setVisibility(View.GONE);
