@@ -19,7 +19,6 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.activities.intro.IntroActivity;
-import com.paulvarry.intra42.activities.projects.ProjectsActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
@@ -198,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (shortcut.contentEquals("clusterMap"))
                     intent = new Intent(MainActivity.this, ClusterMapActivity.class);
                 else if (shortcut.contentEquals("galaxy"))
-                    intent = new Intent(MainActivity.this, ProjectsActivity.class);
+                    intent = new Intent(MainActivity.this, HolyGraphActivity.class);
             }
         }
 

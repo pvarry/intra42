@@ -28,6 +28,13 @@
         <item>@string/spinner_user_projects_in_progress</item>
     </string-array>
 
+    <string-array name="spinner_projects_galaxy">
+        <item>@string/spinner_user_projects_galaxy</item>
+        <item>@string/spinner_user_projects_my_projects</item>
+        <item>@string/spinner_user_projects_in_progress</item>
+        <!--<item>@string/spinner_user_projects_all</item>-->
+    </string-array>
+
     <string-array name="spinner_cluster_map_info_main">
         <item>@string/cluster_map_info_layer_spinner_main_none</item>
         <item>@string/cluster_map_info_layer_spinner_main_friends</item>

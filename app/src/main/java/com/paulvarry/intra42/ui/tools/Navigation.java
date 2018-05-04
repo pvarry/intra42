@@ -8,6 +8,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.AboutActivity;
 import com.paulvarry.intra42.activities.FriendsActivity;
+import com.paulvarry.intra42.activities.HolyGraphActivity;
 import com.paulvarry.intra42.activities.MarvinMealsActivity;
 import com.paulvarry.intra42.activities.SettingsActivity;
 import com.paulvarry.intra42.activities.TimeActivity;
@@ -15,7 +16,6 @@ import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.forum.ForumActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.activities.notions.NotionsActivity;
-import com.paulvarry.intra42.activities.projects.ProjectsActivity;
 import com.paulvarry.intra42.activities.users.UsersActivity;
 
 public class Navigation {
@@ -44,7 +44,7 @@ public class Navigation {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             activity.startActivity(intent);
         } else if (id == R.id.nav_projects) {
-            Intent intent = new Intent(activity, ProjectsActivity.class);
+            Intent intent = new Intent(activity, HolyGraphActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             activity.startActivity(intent);
         } else if (id == R.id.nav_forum) {

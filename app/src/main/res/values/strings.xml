@@ -631,4 +631,5 @@ Guideline: Cluster orientation
     <string name="project_team_users_toast_leader">%s (team leader)\nlong click for more action</string>
     <string name="project_team_users_toast">%s \nlong click for more action</string>
     <string name="format_project_team_users_action_open">Open {project} of {user}</string>
+    <string name="spinner_user_projects_my_projects">My projects</string>
 </resources>

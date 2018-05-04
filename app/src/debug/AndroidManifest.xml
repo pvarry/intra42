@@ -47,17 +47,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.projects.ProjectsActivity"
-            android:label="@string/title_activity_projects"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activities.project.ProjectActivity"
             android:label="@string/title_activity_project"
             android:screenOrientation="portrait"
@@ -100,6 +89,17 @@
 
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.HolyGraphActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

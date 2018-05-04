@@ -1,9 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.projects.ProjectsGraphFragment">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <com.paulvarry.intra42.ui.Galaxy
         android:id="@+id/galaxy"
@@ -22,4 +21,24 @@
         app:colorProjectValidated="?attr/colorAccentDark"
         app:weightPath="4.5dp" />
 
+    <ListView
+        android:id="@+id/listViewAll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:windowBackground" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:windowBackground" />
+
+    <TextView
+        android:id="@+id/textViewNoItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:windowBackground"
+        android:gravity="center"
+        android:text="@string/info_nothing_to_show"
+        android:visibility="gone" />
 </FrameLayout>

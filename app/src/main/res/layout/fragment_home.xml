@@ -174,7 +174,7 @@
                 </android.support.constraint.ConstraintLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutFriends"
+                    android:id="@+id/linearLayoutHolyGraph"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -188,39 +188,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:contentDescription="@string/icon_friends"
+                        android:contentDescription="@string/icon_project"
                         android:tint="?tintColor"
-                        app:srcCompat="@drawable/ic_people_black_24dp" />
+                        app:srcCompat="@drawable/ic_device_hub_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_activity_friends" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutTimeOnCampus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
-                        android:contentDescription="@string/icon_time"
-                        android:tint="?tintColor"
-                        app:srcCompat="@drawable/ic_access_time_black_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/navigation_time_on_campus" />
+                        android:text="@string/title_tab_projects_graphic" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -271,6 +246,56 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cantina_menu_fremont_only" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutFriends"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:contentDescription="@string/icon_friends"
+                        android:tint="?tintColor"
+                        app:srcCompat="@drawable/ic_people_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_activity_friends" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutTimeOnCampus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:contentDescription="@string/icon_time"
+                        android:tint="?tintColor"
+                        app:srcCompat="@drawable/ic_access_time_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/navigation_time_on_campus" />
                 </LinearLayout>
 
                 <LinearLayout

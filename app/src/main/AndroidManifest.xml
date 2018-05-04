@@ -32,7 +32,6 @@
 
         <!-- - - - - - Receiver - - - - - -->
         <receiver android:name=".notifications.AlarmReceiverNotifications" />
-
         <receiver android:name=".notifications.AutoStart">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -109,10 +108,6 @@
         <activity
             android:name=".activities.users.UsersActivity"
             android:label="@string/title_activity_users"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.projects.ProjectsActivity"
-            android:label="@string/title_activity_projects"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.project.ProjectActivity"
@@ -239,6 +234,9 @@
         <activity android:name=".activities.ImageViewerActivity" />
         <activity
             android:name=".activities.intro.IntroActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.HolyGraphActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

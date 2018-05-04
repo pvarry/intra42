@@ -295,6 +295,7 @@ public class AppClass extends Application {
 
         cursus = me.cursusUsers;
         initFirebase();
+        ThemeHelper.setTheme(this); // init theme
 
         String cacheLastCheckPref = sharedPreferences.getString(PREFS_CACHE_LAST_CHECK, null);
         Date cacheLastCheck = null;

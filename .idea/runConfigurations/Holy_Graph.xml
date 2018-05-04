@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="galaxy (projects)" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+  <configuration default="false" name="Holy Graph" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
     <module name="app" />
     <option name="DEPLOY" value="true" />
     <option name="ARTIFACT_NAME" value="" />
@@ -42,9 +42,7 @@
       <option name="ADVANCED_PROFILING_ENABLED" value="false" />
     </Profilers>
     <option name="DEEP_LINK" value="" />
-    <option name="ACTIVITY_CLASS" value="com.paulvarry.intra42.activities.projects.ProjectsActivity" />
-    <method>
-      <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521211044543" />
-    </method>
+    <option name="ACTIVITY_CLASS" value="com.paulvarry.intra42.activities.HolyGraphActivity" />
+    <method />
   </configuration>
 </component>

@@ -58,18 +58,24 @@ public class ProjectsUsers {
         return ret;
     }
 
-    static public List<ProjectsUsers> getListCursusDoing(List<ProjectsUsers> projects, CursusUsers userCursus) {
+    static public List<ProjectsUsers> getListCursusDoing(List<ProjectsUsers> projects, int userCursus) {
         List<ProjectsUsers> ret = new ArrayList<>();
 
         if (projects != null && !projects.isEmpty()) {
             for (ProjectsUsers p : projects) {
                 if (p.status != Status.FINISHED &&
-                        ((userCursus != null && p.cursusIds != null && p.cursusIds.contains(userCursus.cursusId)) || userCursus == null || p.cursusIds == null))
+                        ((userCursus != 0 && p.cursusIds != null && p.cursusIds.contains(userCursus)) || userCursus == 0 || p.cursusIds == null))
                     ret.add(p);
             }
         }
 
         return ret;
+    }
+
+    static public List<ProjectsUsers> getListCursusDoing(List<ProjectsUsers> projects, CursusUsers userCursus) {
+        if (userCursus != null)
+            return getListCursusDoing(projects, userCursus.cursusId);
+        return getListCursusDoing(projects, 0);
     }
 
     static public List<ProjectsUsers> getListCursus(List<ProjectsUsers> list, Integer cursus) {
@@ -94,14 +100,14 @@ public class ProjectsUsers {
 
     public enum Status {
 
-        @SerializedName("searching_a_group")SEARCHING_A_GROUP(R.string.project_user_status_searching_a_group),
-        @SerializedName("finished")FINISHED(R.string.project_user_status_finished),
-        @SerializedName("in_progress")IN_PROGRESS(R.string.project_user_status_in_progress),
-        @SerializedName("waiting_for_correction")WAITING_FOR_CORRECTION(R.string.project_user_status_waiting_for_correction),
-        @SerializedName("waiting_to_start")WAITING_TO_START(R.string.project_user_status_waiting_to_start),
-        @SerializedName("creating_group")CREATING_GROUP(R.string.project_user_status_creating_group),
-        @SerializedName("parent")PARENT(R.string.project_user_status_parent),
-        @SerializedName("unknown")unknown(R.string.project_user_status_unknown);
+        @SerializedName("searching_a_group") SEARCHING_A_GROUP(R.string.project_user_status_searching_a_group),
+        @SerializedName("finished") FINISHED(R.string.project_user_status_finished),
+        @SerializedName("in_progress") IN_PROGRESS(R.string.project_user_status_in_progress),
+        @SerializedName("waiting_for_correction") WAITING_FOR_CORRECTION(R.string.project_user_status_waiting_for_correction),
+        @SerializedName("waiting_to_start") WAITING_TO_START(R.string.project_user_status_waiting_to_start),
+        @SerializedName("creating_group") CREATING_GROUP(R.string.project_user_status_creating_group),
+        @SerializedName("parent") PARENT(R.string.project_user_status_parent),
+        @SerializedName("unknown") unknown(R.string.project_user_status_unknown);
 
         private final int res;
 

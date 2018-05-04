@@ -20,6 +20,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.CoalitionsActivity;
 import com.paulvarry.intra42.activities.FriendsActivity;
+import com.paulvarry.intra42.activities.HolyGraphActivity;
 import com.paulvarry.intra42.activities.MarvinMealsActivity;
 import com.paulvarry.intra42.activities.TimeActivity;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
@@ -40,6 +41,7 @@ import com.squareup.picasso.RequestCreator;
 public class HomeFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ConstraintLayout constraintLayoutProfileHeader;
+    private LinearLayout linearLayoutHolyGraph;
     private LinearLayout linearLayoutFriends;
     private LinearLayout linearLayoutCantinaMenu;
     private LinearLayout linearLayoutCoalitions;
@@ -95,6 +97,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
         super.onViewCreated(view, savedInstanceState);
 
         constraintLayoutProfileHeader = view.findViewById(R.id.constraintLayoutProfileHeader);
+        linearLayoutHolyGraph = view.findViewById(R.id.linearLayoutHolyGraph);
         linearLayoutFriends = view.findViewById(R.id.linearLayoutFriends);
         linearLayoutCantinaMenu = view.findViewById(R.id.linearLayoutCantinaMenu);
         linearLayoutTimeOnCampus = view.findViewById(R.id.linearLayoutTimeOnCampus);
@@ -148,6 +151,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
     public void onClick(View v) {
         if (v == constraintLayoutProfileHeader)
             UserActivity.openIt(activity, app.me);
+        else if (v == linearLayoutHolyGraph)
+            HolyGraphActivity.openIt(getContext());
         else if (v == linearLayoutFriends)
             FriendsActivity.openIt(getContext());
         else if (v == linearLayoutTimeOnCampus)
@@ -173,6 +178,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Swip
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             textViewStatus.setVisibility(View.GONE);
 
+            linearLayoutHolyGraph.setOnClickListener(this);
             linearLayoutFriends.setOnClickListener(this);
             linearLayoutTimeOnCampus.setOnClickListener(this);
             linearLayoutClusterMap.setOnClickListener(this);
