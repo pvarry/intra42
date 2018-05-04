@@ -540,20 +540,44 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_advanced);
             setHasOptionsMenu(true);
 
-            Activity activity = getActivity();
-            AppClass app = (AppClass) activity.getApplication();
+            final Activity activity = getActivity();
+            final AppClass app = (AppClass) activity.getApplication();
             app.mFirebaseAnalytics.setCurrentScreen(activity, activity.getClass().getSimpleName() + " -> " + getClass().getSimpleName(), null /* class override */);
 
             List<Cursus> cursusCache = CacheCursus.get(app.cacheSQLiteHelper);
+            List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
+
+            // if cache is empty, get data from API
+            if (cursusCache == null || cursusCache.isEmpty() ||
+                    campusCache == null || campusCache.isEmpty()) {
+                Toast.makeText(app, R.string.info_loading_cache_cursus_campus, Toast.LENGTH_LONG).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final List<Cursus> cursusCacheTmp = CacheCursus.getAllowInternet(app.cacheSQLiteHelper, app);
+                        final List<Campus> campusCacheTmp = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initData(app, cursusCacheTmp, campusCacheTmp);
+                            }
+                        });
+                    }
+                }).start();
+            } else
+                initData(app, cursusCache, campusCache);
+        }
+
+        void initData(Context context, List<Cursus> cursusCache, List<Campus> campusCache) {
             ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS);
             if (listPreferenceCursus != null) {
                 int cursusSize = cursusCache != null ? cursusCache.size() : 0;
                 CharSequence entries[] = new String[cursusSize + 2];
                 CharSequence entryValues[] = new String[cursusSize + 2];
 
-                entries[0] = app.getString(R.string.pref_advanced_dont_force);
+                entries[0] = context.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";
-                entries[1] = app.getString(R.string.pref_value_all);
+                entries[1] = context.getString(R.string.pref_value_all);
                 entryValues[1] = "0";
                 int i = 2;
                 if (cursusCache != null)
@@ -566,16 +590,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 listPreferenceCursus.setEntryValues(entryValues);
             }
 
-            List<Campus> campusCache = CacheCampus.get(app.cacheSQLiteHelper);
             ListPreference listPreferenceCampus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CAMPUS);
             if (listPreferenceCampus != null) {
                 int campusSize = campusCache != null ? campusCache.size() : 0;
                 CharSequence entries[] = new String[campusSize + 2];
                 CharSequence entryValues[] = new String[campusSize + 2];
 
-                entries[0] = app.getString(R.string.pref_advanced_dont_force);
+                entries[0] = context.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";
-                entries[1] = app.getString(R.string.pref_value_all);
+                entries[1] = context.getString(R.string.pref_value_all);
                 entryValues[1] = "0";
                 int i = 2;
                 if (campusCache != null)
@@ -592,7 +615,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("switch_preference_advanced_allow_friends"));
             bindPreferenceSummaryToValue(findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS));
             bindPreferenceSummaryToValue(findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CAMPUS));
         }

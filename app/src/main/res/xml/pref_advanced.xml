@@ -36,7 +36,6 @@
 
         <ListPreference
             android:defaultValue="-1"
-
             android:key="list_preference_advanced_force_cursus"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
@@ -44,7 +43,6 @@
 
         <ListPreference
             android:defaultValue="-1"
-
             android:key="list_preference_advanced_force_campus"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
