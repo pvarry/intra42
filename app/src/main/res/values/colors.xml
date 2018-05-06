@@ -19,6 +19,7 @@
     <color name="colorFail">#e57373</color>
     <color name="colorTintCheck">#2e7d32</color>
     <color name="colorTintCross">#c62828</color>
+    <color name="dividers">#1f000000</color>
 
     <color name="textColorError">#D30915</color>
     <color name="colorClusterMapWall">#e0e0e0</color>

@@ -36,10 +36,16 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
     private List<Teams> teamsList;
     private ProjectsLTE projectsLTE;
 
+    private RecyclerView.RecycledViewPool userRecyclerRool;
+    private RecyclerView.RecycledViewPool evaluationRecyclerPool;
+
     public ExpandableListAdapterTeams(List<Teams> teamsList, ProjectsLTE projectsLTE) {
 
         this.teamsList = teamsList;
         this.projectsLTE = projectsLTE;
+
+        userRecyclerRool = new RecyclerView.RecycledViewPool();
+        evaluationRecyclerPool = new RecyclerView.RecycledViewPool();
     }
 
     /**
@@ -209,6 +215,10 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             holder.textViewCaptionPeerCorrection = convertView.findViewById(R.id.textViewCaptionPeerCorrection);
             holder.recyclerViewAutomaticCorrections = convertView.findViewById(R.id.recyclerViewAutomaticCorrections);
             holder.viewGroupGitRepository = convertView.findViewById(R.id.viewGroupGitRepository);
+
+            holder.recyclerViewUsers.setRecycledViewPool(userRecyclerRool);
+            holder.recyclerViewPeerCorrections.setRecycledViewPool(evaluationRecyclerPool);
+            holder.recyclerViewAutomaticCorrections.setRecycledViewPool(evaluationRecyclerPool);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolderChild) convertView.getTag();
@@ -318,7 +328,9 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
             holder.recyclerViewPeerCorrections.setAdapter(adapterScaleTeams);
             holder.recyclerViewPeerCorrections.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerViewPeerCorrections.setNestedScrollingEnabled(false);
-            holder.recyclerViewPeerCorrections.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+            DividerItemDecoration itemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+            itemDecoration.setDrawable(context.getResources().getDrawable(R.drawable.line_divider_tiny));
+            holder.recyclerViewPeerCorrections.addItemDecoration(itemDecoration);
             adapterScaleTeams.setOnItemClickListener(new RecyclerAdapterScaleTeams.OnItemClickListener() {
                 @Override
                 public void onItemClicked(int position, final ScaleTeams scaleTeams) {
