@@ -628,9 +628,11 @@ Guideline: Cluster orientation
 <string name="cluster_map_info_layer_spinner_main_none">"None"</string>
 <string name="hint_date">"date"</string>
 <string name="hint_time">"time"</string>
-    <string name="project_team_users_toast_leader">%s (team leader)\nlong click for more action</string>
-    <string name="project_team_users_toast">%s \nlong click for more action</string>
-    <string name="format_project_team_users_action_open">Open {project} of {user}</string>
-    <string name="spinner_user_projects_my_projects">My projects</string>
-    <string name="info_loading_cache_cursus_campus">Getting cache from API for Cursus and Campus</string>
+<string name="project_team_users_toast_leader">"%s (team leader)
+long click for more action"</string>
+<string name="project_team_users_toast">"%s 
+long click for more action"</string>
+<string name="format_project_team_users_action_open">"Open {project} of {user}"</string>
+<string name="spinner_user_projects_my_projects">"My projects"</string>
+<string name="info_loading_cache_cursus_campus">"Getting cache from API for Cursus and Campus"</string>
 </resources>

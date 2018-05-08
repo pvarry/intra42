@@ -642,4 +642,5 @@ Instructions: orientation des Clusters
 <string name="cluster_map_info_layer_spinner_main_none">"Aucun"</string>
 <string name="hint_date">"Date"</string>
 <string name="hint_time">"Temps / heure "</string>
+<string name="spinner_user_projects_my_projects">"Mes projets"</string>
 </resources>

@@ -25,8 +25,8 @@ conn.use_ssl = true
 conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
 
-(1..18).each do |cursus_id|
-  (1..15).each do |campus_id|
+(1..19).each do |cursus_id|
+  (1..16).each do |campus_id|
 
     print "Calling cursus: #{cursus_id}, campus: #{campus_id} ...  "
 
