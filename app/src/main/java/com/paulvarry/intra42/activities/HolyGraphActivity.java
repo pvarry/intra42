@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,7 +42,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class HolyGraphActivity extends BasicThreadActivity implements AdapterView.OnItemSelectedListener, BasicThreadActivity.GetDataOnThread, Galaxy.OnProjectClickListener, AdapterView.OnItemClickListener {
+public class HolyGraphActivity extends BasicThreadActivity implements AdapterView.OnItemSelectedListener, BasicThreadActivity.GetDataOnThread, Galaxy.OnProjectClickListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain {
+
+    private static final String STATE_POSITION = "state_spinner_position";
 
     int cursus;
     int campus;
@@ -76,8 +81,17 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
         spinner.getBackground().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Toolbar.LayoutParams lp = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMarginStart((int) Tools.dpToPx(context, 8));
+            spinner.setLayoutParams(lp);
+        }
+
+        if (savedInstanceState != null)
+            spinner.setSelection(savedInstanceState.getInt(STATE_POSITION));
 
         toolbar.addView(spinner);
+        toolbar.setContentInsetStartWithNavigation((int) Tools.dpToPx(context, 8));
 
         listView = findViewById(R.id.listView);
         listViewAll = findViewById(R.id.listViewAll);
@@ -89,6 +103,7 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
         listViewAll.setOnItemClickListener(this);
 
         super.registerGetDataOnOtherThread(this);
+        super.registerGetDataOnMainTread(this);
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
 
@@ -135,6 +150,17 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
         return null;
     }
 
+    @Override
+    public final Object onRetainCustomNonConfigurationInstance() {
+        return galaxyData;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt(STATE_POSITION, spinnerSelected);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     public void animate(View action, View view) {
 
         view.bringToFront();
@@ -144,6 +170,9 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
             return;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+            if (!action.isAttachedToWindow() || !view.isAttachedToWindow())
+                return;
 
             // finding X and Y co-ordinates
             int[] coordinateAction = {0, 0};
@@ -176,24 +205,32 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
         if (spinnerSelected == position)
             return;
         spinnerSelected = position;
-        if (position == 0) {
+        if (position == 0) { // set Galaxy
             setViewContentGalaxy();
             animate(spinner, galaxy);
         } else {
 
             ListAdapterMarks adapterList;
-            if (position == 1) {
+            if (position == 1) { // set my projects
                 displayList = app.me.projectsUsers;
                 displayList = ProjectsUsers.getListOnlyRoot(displayList);
                 displayList = ProjectsUsers.getListCursus(displayList, AppSettings.getAppCursus(app));
-                adapterList = new ListAdapterMarks(this, displayList);
-                listViewAll.setAdapter(adapterList);
-                animate(spinner, listViewAll);
-            } else if (position == 2) {
+                if (displayList.isEmpty())
+                    animate(spinner, textViewNoItem);
+                else {
+                    adapterList = new ListAdapterMarks(this, displayList);
+                    listViewAll.setAdapter(adapterList);
+                    animate(spinner, listViewAll);
+                }
+            } else if (position == 2) { // set in progress
                 displayList = ProjectsUsers.getListCursusDoing(app.me.projectsUsers, AppSettings.getAppCursus(app));
-                adapterList = new ListAdapterMarks(this, displayList);
-                listView.setAdapter(adapterList);
-                animate(spinner, listView);
+                if (displayList.isEmpty())
+                    animate(spinner, textViewNoItem);
+                else {
+                    adapterList = new ListAdapterMarks(this, displayList);
+                    listView.setAdapter(adapterList);
+                    animate(spinner, listView);
+                }
             }
 
             if (displayList == null || displayList.size() != 0)
@@ -217,6 +254,14 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
             galaxyData = GalaxyUtils.getDataFromApp(this, cursus, campus, app.me);
         if (spinnerSelected == -1)
             spinnerSelected = 0;
+    }
+
+    @Override
+    public ThreadStatusCode getDataOnMainThread() {
+        galaxyData = (List<ProjectDataIntra>) getLastCustomNonConfigurationInstance();
+        if (galaxyData != null && !galaxyData.isEmpty())
+            return ThreadStatusCode.FINISH;
+        return null;
     }
 
     @Override

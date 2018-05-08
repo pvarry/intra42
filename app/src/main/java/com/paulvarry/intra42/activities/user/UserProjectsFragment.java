@@ -211,7 +211,7 @@ public class UserProjectsFragment
 
     @Override
     public void onClick(ProjectDataIntra projectData) {
-        BottomSheetProjectsGalaxyFragment.openIt(getActivity(), projectData, activity.user.id);
+        BottomSheetProjectsGalaxyFragment.openIt(requireActivity(), projectData, activity.user.id);
     }
 
     @Override
@@ -222,30 +222,35 @@ public class UserProjectsFragment
         if (spinnerSelected == position)
             return;
         spinnerSelected = position;
-        if (position == 0) {
+        if (position == 0) { // show galaxy
             List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(activity, activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
             galaxy.setData(list);
             animate(spinnerContent, galaxy);
         } else {
-            List<ProjectsUsers> list = null;
+            List<ProjectsUsers> list;
 
-            if (position == 1) {
+            if (position == 1) { // show all project list
                 list = activity.user.projectsUsers;
                 list = ProjectsUsers.getListOnlyRoot(list);
                 if (activity.selectedCursus != null)
                     list = ProjectsUsers.getListCursus(list, activity.selectedCursus.cursusId);
-                adapterList = new ListAdapterMarks(activity, list);
-                listViewAll.setAdapter(adapterList);
-                animate(spinnerContent, listViewAll);
-            } else if (position == 2) {
+                if (list.isEmpty())
+                    animate(spinnerContent, textViewNoItem);
+                else {
+                    adapterList = new ListAdapterMarks(activity, list);
+                    listViewAll.setAdapter(adapterList);
+                    animate(spinnerContent, listViewAll);
+                }
+            } else if (position == 2) { // show in-progress list
                 list = ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.selectedCursus);
-                adapterList = new ListAdapterMarks(activity, list);
-                listView.setAdapter(adapterList);
-                animate(spinnerContent, listView);
+                if (list.isEmpty())
+                    animate(spinnerContent, textViewNoItem);
+                else {
+                    adapterList = new ListAdapterMarks(activity, list);
+                    listView.setAdapter(adapterList);
+                    animate(spinnerContent, listView);
+                }
             }
-
-            if (list == null || list.size() != 0)
-                textViewNoItem.setVisibility(View.VISIBLE);
         }
     }
 
