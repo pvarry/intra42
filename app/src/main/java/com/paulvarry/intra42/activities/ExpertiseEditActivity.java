@@ -57,7 +57,6 @@ public class ExpertiseEditActivity
         super.onCreate(savedInstanceState);
 
         super.setContentView(R.layout.activity_expertise_edit);
-        super.setActionBarToggle(ActionBarToggle.ARROW);
 
         String extra = getIntent().getStringExtra(PARAM);
         if (extra != null)
@@ -153,7 +152,7 @@ public class ExpertiseEditActivity
 
             @Override
             public void onFailure(Call<Expertises> call, Throwable t) {
-                callBack.message(t.getMessage());
+                callBack.failed(t.getMessage());
             }
         });
     }
@@ -176,7 +175,7 @@ public class ExpertiseEditActivity
 
             @Override
             public void onFailure(Call<Expertises> call, Throwable t) {
-                callBack.message(t.getMessage());
+                callBack.failed(t.getMessage());
             }
         });
     }

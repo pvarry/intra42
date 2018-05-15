@@ -1,5 +1,6 @@
 package com.paulvarry.intra42.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -61,6 +62,7 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
 
     @Override
     protected void setViewContent() {
+        swipeRefreshLayout.setRefreshing(false);
         BaseListAdapterSlug<Group> adapter = new BaseListAdapterSlug<>(this, groups);
         listView.setAdapter(adapter);
     }
@@ -91,7 +93,7 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (groups.size() > position)
-            FriendsGroupsEditActivity.open(this, groups.get(position));
+            startActivityForResult(FriendsGroupsEditActivity.getIntent(this, groups.get(position)), 0);
     }
 
     @Override
@@ -108,12 +110,27 @@ public class FriendsGroupsActivity extends BasicThreadActivity implements BasicT
     @Override
     public void onClick(View v) {
         if (v == fabBaseActivity)
-            FriendsGroupsEditActivity.open(this);
+            startActivityForResult(FriendsGroupsEditActivity.getIntent(this), 0);
     }
 
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
         refresh();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            swipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    swipeRefreshLayout.setRefreshing(true);
+                }
+            });
+            groups = null;
+            refresh();
+        }
     }
 }

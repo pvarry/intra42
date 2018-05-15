@@ -315,8 +315,6 @@ You will lose a correction point"</string>
 <string name="friends_groups_edit_no_name_set">"No name set"</string>
 <string name="friends_select_group">"Select Group"</string>
 <string name="friends_groups_all">"All"</string>
-<string name="friends_groups_edit_unsaved_changes_title">"You have unsaved changes"</string>
-<string name="friends_groups_edit_unsaved_changes_content">"Do you want to save your changes to this group ?"</string>
 <string name="friends_groups_new">"New Friends Group"</string>
 <string name="friends_groups_edit">"Edit Friends Group"</string>
 <string name="location_undetermined">"undetermined"</string>

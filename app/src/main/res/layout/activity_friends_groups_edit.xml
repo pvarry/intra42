@@ -6,31 +6,18 @@
     android:orientation="vertical"
     tools:context="com.paulvarry.intra42.activities.FriendsGroupsEditActivity">
 
-    <LinearLayout
-        android:id="@+id/layoutGroupName"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="16dp"
+        android:hint="@string/friend_group_name">
 
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="@string/friend_group_name"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editTextGroupName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/textViewSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/friends_groups_edit_no_name_set" />
-
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/textViewFriendsInGroup"

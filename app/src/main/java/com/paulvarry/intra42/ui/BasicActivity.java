@@ -509,6 +509,16 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                     }
                 });
             }
+            case CROSS: {
+                toggle.setDrawerIndicatorEnabled(false);
+                toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
+            }
             case HAMBURGER: {
                 if (drawer != null) {
                     drawer.addDrawerListener(toggle);
@@ -632,11 +642,11 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
     protected enum StatusCode {
         /**
-         * When a error obscure.
+         * When a failed obscure.
          */
         API_DATA_ERROR,
         /**
-         * Set view error if something wrong append on loading data.
+         * Set view failed if something wrong append on loading data.
          */
         NETWORK_ERROR,
         API_UNAUTHORIZED,
@@ -650,6 +660,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
 
     protected enum ActionBarToggle {
         ARROW,
-        HAMBURGER
+        HAMBURGER,
+        CROSS
     }
 }

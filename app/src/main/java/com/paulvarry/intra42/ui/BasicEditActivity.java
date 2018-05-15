@@ -1,7 +1,9 @@
 package com.paulvarry.intra42.ui;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,15 +15,19 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
     protected MenuItem menuItemSave;
     protected MenuItem menuItemDelete;
 
+    protected ProgressDialog progressDialog;
+
     Callback callBackDelete = new Callback() {
         @Override
         public void succeed() {
             show(getString(R.string.user_expertise_deleted));
+            setResult(RESULT_OK);
+            finish();
         }
 
         @Override
         public void failed() {
-            show(getString(R.string.error));
+            failed(getString(R.string.error));
         }
 
         @Override
@@ -29,14 +35,22 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
             show(msg);
         }
 
+        @Override
+        public void failed(String msg) {
+            show(msg);
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+
         void show(final String str) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    progressDialog.cancel();
+                    progressDialog = new ProgressDialog(BasicEditActivity.this);
                     Toast.makeText(app, str, Toast.LENGTH_SHORT).show();
                 }
             });
-            finish();
         }
     };
 
@@ -44,11 +58,13 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
         @Override
         public void succeed() {
             show(getString(R.string.done));
+            setResult(RESULT_OK);
+            finish();
         }
 
         @Override
         public void failed() {
-            show(getString(R.string.error));
+            failed(getString(R.string.error));
         }
 
         @Override
@@ -56,19 +72,37 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
             show(msg);
         }
 
+        @Override
+        public void failed(String msg) {
+            show(msg);
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+
         void show(final String str) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    progressDialog.cancel();
+                    progressDialog = new ProgressDialog(BasicEditActivity.this);
                     Toast.makeText(app, str, Toast.LENGTH_SHORT).show();
                 }
             });
-            finish();
         }
     };
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        super.setActionBarToggle(ActionBarToggle.CROSS);
+
+        progressDialog = new ProgressDialog(this);
+    }
+
+    @Override
     public void onBackPressed() {
+
         if (haveUnsavedData()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.edit_unsaved_changes_title);
@@ -109,6 +143,7 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
             menuItemDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
+                    progressDialog.show();
                     onDelete(callBackDelete);
                     return true;
                 }
@@ -118,12 +153,23 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
         menuItemSave.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                progressDialog.show();
                 onSave(callBackSave);
                 return true;
             }
         });
 
         return true;
+    }
+
+    protected void hideActionBarIcon() {
+        menuItemSave.setEnabled(false);
+        menuItemDelete.setEnabled(false);
+    }
+
+    protected void showActionBarIcon() {
+        menuItemSave.setEnabled(true);
+        menuItemDelete.setEnabled(true);
     }
 
     protected abstract boolean isCreate();
@@ -136,10 +182,24 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
 
     protected interface Callback {
 
+        /**
+         * Show Toast with Success and close
+         */
         void succeed();
 
+        /**
+         * Show Toast with Error and close
+         */
         void failed();
 
+        /**
+         * Just show the massage
+         */
         void message(String msg);
+
+        /**
+         * Show Toast with Error and close
+         */
+        void failed(String msg);
     }
 }

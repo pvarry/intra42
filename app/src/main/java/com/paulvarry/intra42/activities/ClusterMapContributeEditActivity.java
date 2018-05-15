@@ -259,7 +259,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
             @Override
             public void error(String error) {
-                callBack.message(error);
+                callBack.failed(error);
             }
         });
     }

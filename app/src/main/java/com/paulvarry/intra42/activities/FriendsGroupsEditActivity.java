@@ -1,20 +1,11 @@
 package com.paulvarry.intra42.activities;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputType;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +17,7 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.Group;
 import com.paulvarry.intra42.api.tools42.GroupLarge;
 import com.paulvarry.intra42.api.tools42.GroupSmall;
+import com.paulvarry.intra42.ui.BasicEditActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
 
@@ -34,33 +26,29 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FriendsGroupsEditActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, View.OnClickListener {
+public class FriendsGroupsEditActivity extends BasicEditActivity implements BasicThreadActivity.GetDataOnThread {
 
-    static final String PARAM = "group";
+    private static final String PARAM = "group";
 
-    GroupLarge group;
-    int groupId;
+    private GroupLarge group;
+    private int groupId;
 
-    ViewGroup layoutGroupName;
-    TextView textViewSub;
-    GridView gridView;
-    TextView textViewFriendsInGroup;
+    private EditText editTextGroupName;
+    private TextView textViewFriendsInGroup;
+    private GridView gridView;
 
-    String newName;
-
-    static void open(Context context, GroupSmall group) {
+    static Intent getIntent(Context context, GroupSmall group) {
         Intent intent = new Intent(context, FriendsGroupsEditActivity.class);
         intent.putExtra(PARAM, group.id);
-        context.startActivity(intent);
+        return intent;
     }
 
-    static void open(Context context) {
+    static Intent getIntent(Context context) {
         Intent intent = new Intent(context, FriendsGroupsEditActivity.class);
         intent.putExtra(PARAM, 0);
-        context.startActivity(intent);
+        return intent;
     }
 
     @Override
@@ -76,52 +64,77 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
         if (groupId != 0)
             registerGetDataOnOtherThread(this);
 
-        layoutGroupName = findViewById(R.id.layoutGroupName);
-        textViewSub = findViewById(R.id.textViewSub);
-        gridView = findViewById(R.id.gridView);
+        editTextGroupName = findViewById(R.id.editTextGroupName);
         textViewFriendsInGroup = findViewById(R.id.textViewFriendsInGroup);
-
-        layoutGroupName.setOnClickListener(this);
-
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        gridView = findViewById(R.id.gridView);
 
         super.onCreateFinished();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    protected boolean isCreate() {
+        return groupId == 0;
+    }
 
-        getMenuInflater().inflate(R.menu.menu_edit_activity, menu);
+    @Override
+    protected boolean haveUnsavedData() {
+        return !group.name.equals(editTextGroupName.getText().toString());
+    }
 
-        MenuItem menuItemSave = menu.findItem(R.id.actionSave);
-        menuItemSave.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+    @Override
+    protected void onSave(final Callback callBack) {
+        String newName = editTextGroupName.getText().toString();
+        if (newName.isEmpty()) {
+            Toast.makeText(app, R.string.friends_groups_edit_no_empty_name, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ApiService42Tools api = app.getApiService42Tools();
+        Call<Group> call;
+        if (groupId == 0)
+            call = api.createFriendsGroup(newName);
+        else
+            call = api.updateFriendsGroup(groupId, newName);
+
+        call.enqueue(new retrofit2.Callback<Group>() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                actionSave();
-                return true;
+            public void onResponse(Call<Group> call, Response<Group> response) {
+                if (Tools.apiIsSuccessfulNoThrow(response))
+                    callBack.succeed();
+                else if (response != null && response.message() != null)
+                    callBack.failed(response.message());
+                else
+                    callBack.failed();
+            }
+
+            @Override
+            public void onFailure(Call<Group> call, Throwable t) {
+                callBack.failed(t.getMessage());
             }
         });
+    }
 
-        MenuItem menuItemDelete = menu.findItem(R.id.actionDelete);
+    @Override
+    protected void onDelete(final Callback callBack) {
         if (groupId == 0)
-            menuItemDelete.setVisible(false);
-        else
-            menuItemDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    actionDelete();
-                    return true;
-                }
-            });
+            return;
+        Call<Void> call = app.getApiService42Tools().deleteFriendsGroup(groupId);
+        call.enqueue(new retrofit2.Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (Tools.apiIsSuccessfulNoThrow(response))
+                    callBack.succeed();
+                else if (response != null && response.message() != null)
+                    callBack.failed(response.message());
+                else
+                    callBack.failed();
+            }
 
-        return true;
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callBack.failed(t.getMessage());
+            }
+        });
     }
 
     @Nullable
@@ -141,8 +154,7 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
     @Override
     protected void setViewContent() {
         if (group != null) {
-            newName = group.name;
-            textViewSub.setText(group.name);
+            editTextGroupName.setText(group.name);
 
             if (group.users != null) {
                 TreeSet<UsersLTE> friends = new TreeSet<>(group.users);
@@ -171,125 +183,5 @@ public class FriendsGroupsEditActivity extends BasicThreadActivity implements Ba
             group = ret.body();
         else
             group = null;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if ((groupId == 0 && (newName == null || newName.isEmpty())) ||
-                groupId != 0 && (
-                        (newName != null && !newName.contentEquals(group.name))
-                )) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.friends_groups_edit_unsaved_changes_title);
-            builder.setMessage(R.string.friends_groups_edit_unsaved_changes_content);
-
-            builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    actionSave();
-                }
-            });
-            builder.setNegativeButton(R.string.friends_group_edit_discard, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    FriendsGroupsEditActivity.super.onBackPressed();
-                }
-            });
-            builder.setNeutralButton(R.string.cancel, null);
-
-            builder.show();
-        } else
-            super.onBackPressed();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == layoutGroupName) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            final EditText input = new EditText(this);
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-            input.setText(newName);
-
-            input.setSingleLine();
-            input.setSelection(input.getText().length());
-
-            FrameLayout container = new FrameLayout(this);
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.leftMargin = getResources().getDimensionPixelSize(R.dimen.dialog_margin);
-            input.setLayoutParams(params);
-            container.addView(input);
-            builder.setView(container);
-
-            builder.setTitle(R.string.friends_group_edit_name_dialog);
-            builder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String tmp = input.getText().toString().trim();
-                    if (tmp.isEmpty())
-                        Toast.makeText(app, R.string.friends_groups_edit_no_empty_name, Toast.LENGTH_SHORT).show();
-                    else
-                        newName = tmp;
-                    textViewSub.setText(tmp);
-                }
-            });
-            builder.setNegativeButton(R.string.cancel, null);
-            AlertDialog dialog = builder.create();
-
-            Window window = dialog.getWindow();
-            if (window != null)
-                window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            dialog.show();
-        }
-    }
-
-    void actionSave() {
-        if (newName == null || newName.isEmpty()) {
-            Toast.makeText(app, R.string.friends_groups_edit_no_empty_name, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ApiService42Tools api = app.getApiService42Tools();
-        Call<Group> call;
-        if (groupId == 0)
-            call = api.createFriendsGroup(newName);
-        else
-            call = api.updateFriendsGroup(groupId, newName);
-        call.enqueue(new Callback<Group>() {
-            @Override
-            public void onResponse(Call<Group> call, Response<Group> response) {
-                if (Tools.apiIsSuccessfulNoThrow(response)) {
-                    Toast.makeText(FriendsGroupsEditActivity.this, R.string.done, Toast.LENGTH_SHORT).show();
-                    finish();
-                } else
-                    Toast.makeText(FriendsGroupsEditActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Group> call, Throwable t) {
-                Toast.makeText(FriendsGroupsEditActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    void actionDelete() {
-        if (groupId == 0)
-            return;
-        Call<Void> call = app.getApiService42Tools().deleteFriendsGroup(groupId);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (Tools.apiIsSuccessfulNoThrow(response)) {
-                    Toast.makeText(FriendsGroupsEditActivity.this, R.string.done, Toast.LENGTH_SHORT).show();
-                    finish();
-                } else
-                    Toast.makeText(FriendsGroupsEditActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(FriendsGroupsEditActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
