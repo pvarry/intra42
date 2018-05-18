@@ -245,12 +245,16 @@ public class Galaxy extends View {
                 public int compare(ProjectDataIntra o1, ProjectDataIntra o2) {
                     if (o1.state == null || o2.state == null)
                         return 0;
-                    if (o1.state.getLayerIndex() > o2.state.getLayerIndex())
-                        return 1;
-                    else if (o1.state.getLayerIndex() == o2.state.getLayerIndex())
-                        return 0;
-                    else
-                        return -1;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        return Integer.compare(o1.state.getLayerIndex(), o2.state.getLayerIndex());
+                    } else {
+                        if (o1.state.getLayerIndex() > o2.state.getLayerIndex())
+                            return 1;
+                        else if (o1.state.getLayerIndex() == o2.state.getLayerIndex())
+                            return 0;
+                        else
+                            return -1;
+                    }
                 }
             });
         }

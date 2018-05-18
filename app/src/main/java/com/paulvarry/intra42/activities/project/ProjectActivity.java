@@ -322,7 +322,7 @@ public class ProjectActivity extends BasicTabActivity
             if (repProjectUsers != null && repProjectUsers.code() == 200 && repProjectUsers.body().size() != 0) {
                 p.user = repProjectUsers.body().get(0);
 
-                if (p.user.status != ProjectsUsers.Status.PARENT && p.user.teams != null) {
+                if (p.user.status != ProjectsUsers.Status.PARENT && p.user.teams != null && !p.user.teams.isEmpty()) {
                     SparseArray<Teams> teams = new SparseArray<>();
                     for (Teams t : p.user.teams) {
                         teams.append(t.id, t);

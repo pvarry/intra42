@@ -508,6 +508,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                         onBackPressed();
                     }
                 });
+                break;
             }
             case CROSS: {
                 toggle.setDrawerIndicatorEnabled(false);
@@ -518,6 +519,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                         onBackPressed();
                     }
                 });
+                break;
             }
             case HAMBURGER: {
                 if (drawer != null) {
