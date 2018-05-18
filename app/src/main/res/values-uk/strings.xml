@@ -171,7 +171,6 @@
 <string name="search_by">"Шукати за"</string>
 <string name="search_on_users">"Пошук по користувачам"</string>
 <string name="search_section_projects">"проекти"</string>
-<string name="search_section_users">"користувачі"</string>
 <string name="searching">"Пошук ..."</string>
 <string name="title">"Заголовок"</string>
 <string name="title_activity_about">"Про"</string>
@@ -193,7 +192,6 @@
 <string name="title_tab_home_slots">"Слоти"</string>
 <string name="title_tab_project_me">"Я"</string>
 <string name="title_tab_project_users">"Користувачі"</string>
-<string name="title_tab_projects_all">"Всі"</string>
 <string name="title_tab_tags_forum">"Форум"</string>
 <string name="title_tab_user_achievements">"Досягнення"</string>
 <string name="title_tab_user_forum">"Форум"</string>
@@ -206,11 +204,9 @@
 <string name="user_cursus_date">"Дата"</string>
 <string name="user_email">"Електронна пошта"</string>
 <string name="user_expertise_deleted">"Видалено"</string>
-<string name="user_expertise_discard">"Відхилено"</string>
 <string name="user_expertise_interested">"Цікавиться"</string>
 <string name="user_level">"Рівень"</string>
 <string name="user_mobile_phone">"Мобільний"</string>
-<string name="user_name">"Ім'я"</string>
 <string name="user_no_achievements">"Нема досягнень"</string>
 <string name="user_no_cursus_available">"Немає доступних курсів"</string>
 <string name="user_overview_cursus_date_not_finished">"Ще не завершено"</string>

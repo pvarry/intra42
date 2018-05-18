@@ -117,7 +117,6 @@
 <string name="search_on_users">"Поиск по пользователям"</string>
 <string name="search_section_projects">"проекты"</string>
 <string name="search_section_topics">"темы"</string>
-<string name="search_section_users">"пользователи"</string>
 <string name="searching">"Поиск..."</string>
 <string name="share_using">"Поделиться через"</string>
 <string name="time_zone_error">"Ошибка часового пояса"</string>
@@ -173,8 +172,6 @@
 <string name="friends_groups_edit_no_name_set">"Не задано имя"</string>
 <string name="friends_select_group">"Выбрать группу"</string>
 <string name="friends_groups_all">"Все"</string>
-<string name="friends_groups_edit_unsaved_changes_title">"У тебя есть несохраненные изменения"</string>
-<string name="friends_groups_edit_unsaved_changes_content">"Хочешь сохранить изменения в группе?"</string>
 <string name="friends_groups_new">"Новая группа друзей"</string>
 <string name="friends_groups_edit">"Редактировать группу друзей"</string>
 <string name="location_undetermined">"не определено"</string>
@@ -197,7 +194,6 @@
 <string name="title_tab_forum_last_topics">"Последние темы"</string>
 <string name="title_tab_forum_tag">"Теги"</string>
 <string name="title_activity_friends_groups">"Группы друзей"</string>
-<string name="friends_group_edit_name_dialog">"Редактировать имя"</string>
 <string name="project_solo">"соло"</string>
 <string name="user_achievement_silver">"серебро"</string>
 <string name="user_achievement_gold">"золото"</string>

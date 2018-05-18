@@ -188,7 +188,6 @@
 <string name="search_on_users">"Buscando en usuarios"</string>
 <string name="search_section_projects">"proyectos"</string>
 <string name="search_section_topics">"tópicos"</string>
-<string name="search_section_users">"usuarios"</string>
 <string name="searching">"Buscando ..."</string>
 <string name="share_using">"Compartir con"</string>
 <string name="time_zone_error">"Error en la zona horaria"</string>
@@ -221,8 +220,6 @@
 <string name="title_tab_project_attachments">"Archivos adjuntos"</string>
 <string name="title_tab_project_me">"Yo"</string>
 <string name="title_tab_project_users">"Usuarios"</string>
-<string name="title_tab_projects_all">"Todo"</string>
-<string name="title_tab_projects_doing">"Trabajando"</string>
 <string name="title_tab_tags_forum">"Foro"</string>
 <string name="title_tab_user_achievements">"Logros"</string>
 <string name="title_tab_user_expertises">"Experiencias"</string>
@@ -237,7 +234,6 @@
 <string name="user_cursus_date">"Fecha"</string>
 <string name="user_email">"Email"</string>
 <string name="user_expertise_deleted">"Borrado"</string>
-<string name="user_expertise_discard">"Descartar"</string>
 <string name="user_expertise_edit">"Editar Experiencia"</string>
 <string name="user_expertise_edit_plural">"Editar Experiencias"</string>
 <string name="user_expertise_interested">"Interesado"</string>
@@ -245,7 +241,6 @@
 <string name="user_level">"Nivel"</string>
 <string name="user_location">"Ubicación"</string>
 <string name="user_mobile_phone">"Móvil"</string>
-<string name="user_name">"Nombre"</string>
 <string name="user_no_achievements">"Sin logros"</string>
 <string name="user_no_cursus_available">"Sin cursos disponibles"</string>
 <string name="user_overview_cursus_date_not_finished">"Sin terminar"</string>
@@ -296,13 +291,10 @@
 <string name="friend_group_name">"Nombre del grupo"</string>
 <string name="friends">"Amigos"</string>
 <string name="friends_group_edit_in_group">"Amigos en el grupo"</string>
-<string name="friends_group_edit_discard">"Descartar"</string>
 <string name="friends_groups_edit_no_empty_name">"No puede estar vacío"</string>
 <string name="friends_groups_edit_no_name_set">"No has escrito un nombre"</string>
 <string name="friends_select_group">"Seleccionar grupo"</string>
 <string name="friends_groups_all">"Todo"</string>
-<string name="friends_groups_edit_unsaved_changes_title">"Tienes cambios sin guardar"</string>
-<string name="friends_groups_edit_unsaved_changes_content">"¿Quieres guardar los cambios de este grupo?"</string>
 <string name="friends_groups_new">"Nuevo grupo de amigos"</string>
 <string name="friends_groups_edit">"Editar grupo de amigos"</string>
 <string name="location_undetermined">"indeterminado"</string>
@@ -325,8 +317,6 @@
 <string name="friends_info_database_update">"Base de datos de Amigos actualizada"</string>
 <string name="pref_theme_title_change_theme">"Seleccionar tema"</string>
 <string name="pref_header_theme">"Tema"</string>
-<string name="pref_theme_list_titles_dark">"Oscuro"</string>
-<string name="pref_theme_list_titles_old">"Original (Viejo)"</string>
 <string name="info_api_finishing">"acabando"</string>
 <string name="search_section_users_login">"usuario - login"</string>
 <string name="search_section_users_first_name">"usuario - primer nombre"</string>
@@ -351,7 +341,6 @@
 <string name="title_tab_forum_last_topics">"Últimos tópicos"</string>
 <string name="title_tab_forum_tag">"Etiquetas"</string>
 <string name="title_activity_friends_groups">"Grupos de amigos"</string>
-<string name="friends_group_edit_name_dialog">"Editar nombre"</string>
 <string name="project_solo">"en solitario"</string>
 <string name="project_group">"grupo"</string>
 <string name="pref_theme_info_need_restart">"Necesitas reiniciar la apliación para actualizar el tema"</string>

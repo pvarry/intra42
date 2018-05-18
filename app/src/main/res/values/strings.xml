@@ -196,7 +196,6 @@ You will lose a correction point"</string>
 <string name="search_on_users">"Searching on users"</string>
 <string name="search_section_projects">"projects"</string>
 <string name="search_section_topics">"topics"</string>
-<string name="search_section_users">"users"</string>
 <string name="searching">"Searching …"</string>
 <string name="share_using">"Share using"</string>
 <string name="time_zone_error">"Time zone error"</string>
@@ -231,8 +230,6 @@ You will lose a correction point"</string>
 <string name="title_tab_project_me">"Me"</string>
 <string name="title_tab_project_overview">"Overview"</string>
 <string name="title_tab_project_users">"Users"</string>
-<string name="title_tab_projects_all">"All"</string>
-<string name="title_tab_projects_doing">"Doing"</string>
 <string name="title_tab_projects_graphic">"Holy Graph"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
 <string name="title_tab_tags_notions">"Notions"</string>
@@ -250,7 +247,6 @@ You will lose a correction point"</string>
 <string name="user_cursus_date">"Date"</string>
 <string name="user_email">"Email"</string>
 <string name="user_expertise_deleted">"Deleted"</string>
-<string name="user_expertise_discard">"Discard"</string>
 <string name="user_expertise_edit">"Edit Expertise"</string>
 <string name="user_expertise_edit_plural">"Edit Expertises"</string>
 <string name="user_expertise_interested">"Interested:"</string>
@@ -258,7 +254,6 @@ You will lose a correction point"</string>
 <string name="user_level">"Level"</string>
 <string name="user_location">"Location"</string>
 <string name="user_mobile_phone">"Mobile"</string>
-<string name="user_name">"Name"</string>
 <string name="user_no_achievements">"No achievement"</string>
 <string name="user_no_cursus_available">"No cursus available"</string>
 <string name="user_overview_cursus_date_not_finished">"Not finished yet"</string>
@@ -310,7 +305,6 @@ You will lose a correction point"</string>
 <string name="friend_group_name">"Group name"</string>
 <string name="friends">"Friends"</string>
 <string name="friends_group_edit_in_group">"Friends in group"</string>
-<string name="friends_group_edit_discard">"Discard"</string>
 <string name="friends_groups_edit_no_empty_name">"Can't be empty"</string>
 <string name="friends_groups_edit_no_name_set">"No name set"</string>
 <string name="friends_select_group">"Select Group"</string>
@@ -337,8 +331,6 @@ You will lose a correction point"</string>
 <string name="friends_info_database_update">"Friends database update"</string>
 <string name="pref_theme_title_change_theme">"Set theme"</string>
 <string name="pref_header_theme">"Theme"</string>
-<string name="pref_theme_list_titles_dark">"Dark"</string>
-<string name="pref_theme_list_titles_old">"Original (Old)"</string>
 <string name="info_api_finishing">"finishing"</string>
 <string name="search_section_users_login">"user ― login"</string>
 <string name="search_section_users_first_name">"user ― first name"</string>
@@ -363,7 +355,6 @@ You will lose a correction point"</string>
 <string name="title_tab_forum_last_topics">"Last topics"</string>
 <string name="title_tab_forum_tag">"Tags"</string>
 <string name="title_activity_friends_groups">"Friends groups"</string>
-<string name="friends_group_edit_name_dialog">"Edit name"</string>
 <string name="project_solo">"solo"</string>
 <string name="project_group">"group"</string>
 <string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
@@ -607,21 +598,19 @@ Guideline: Cluster orientation
 <string name="introduction_cluster_map_contribute_title">"Create and modify clusters map for your campus"</string>
 <string name="introduction_cluster_map_contribute_description">"Make available the cluster map of your campus for everyone, add or edit a cluster map layout directly from the app under cluster map section"</string>
 <string name="info_network_error">"Network error"</string>
-<string name="user_grade">"Grade"</string>
 <string name="home_help_calendar_sync">"Sync your phone calendar with your subscribed events"</string>
 <string name="home_help_calendar_hide">"hide"</string>
 <string name="home_help_calendar_enable">"enable"</string>
-<string name="friends_loading_locations">"Locations"</string>
 <string name="project_user_not_registered">"not registered"</string>
 <string name="cluster_map_contribute_warning_empty_host">"Warning: host name need to be filled"</string>
 <string name="cluster_map_contribute_warning_host_prefix">"Warning: host name must not begin with cluster prefix, it will be added automatically"</string>
-<string name="pref_theme_list_titles_default">"Intra (Auto coalition)"</string>
+<string name="pref_theme_list_titles_default">"Intra (coalition auto theming)"</string>
 <string name="pref_theme_list_titles_green_the_alliance">"Green (The Alliance)"</string>
 <string name="pref_theme_list_titles_blue_the_federation">"Blue (The Federation)"</string>
 <string name="pref_theme_list_titles_purple_the_assembly">"Purple (The Assembly)"</string>
 <string name="pref_theme_list_titles_red_the_order">"Red (The Order)"</string>
 <string name="pref_theme_list_titles_android">"Android Dark"</string>
-<string name="pref_theme_switch_action_bar_background">"Display image on ActionBar background"</string>
+<string name="pref_theme_switch_action_bar_background">"Display image on App Bar background"</string>
 <string name="pref_theme_switch_dark_theme">"Use dark theme"</string>
 <string name="cluster_map_info_layer_spinner_main_none">"None"</string>
 <string name="hint_date">"date"</string>

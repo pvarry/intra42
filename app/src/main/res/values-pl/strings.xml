@@ -192,7 +192,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="search_on_users">"Wyszukiwanie w użytkownikach"</string>
 <string name="search_section_projects">"Projekty"</string>
 <string name="search_section_topics">"Wątki"</string>
-<string name="search_section_users">"Użytkownicy"</string>
 <string name="searching">"Wyszukiwanie..."</string>
 <string name="time_zone_error">"Błąd strefy czasowej"</string>
 <string name="title">"Tytuł"</string>
@@ -225,7 +224,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="title_tab_project_attachments">"Załączniki"</string>
 <string name="title_tab_project_me">"Ja"</string>
 <string name="title_tab_project_users">"Użytkownicy"</string>
-<string name="title_tab_projects_all">"Wszystko"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
 <string name="title_tab_user_achievements">"Osiągnięcia"</string>
 <string name="title_tab_user_expertises">"Kompetencje"</string>
@@ -238,7 +236,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="user_cursus_date">"Data"</string>
 <string name="user_email">"Email"</string>
 <string name="user_expertise_deleted">"Usunięto"</string>
-<string name="user_expertise_discard">"Nie zapisuj"</string>
 <string name="user_expertise_edit">"Edytuj kompetencję"</string>
 <string name="user_expertise_edit_plural">"Edytuj kompetencje"</string>
 <string name="user_expertise_interested">"Zainteresowany(a):"</string>
@@ -246,7 +243,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="user_level">"Level"</string>
 <string name="user_location">"Lokalizacja"</string>
 <string name="user_mobile_phone">"Mobilny"</string>
-<string name="user_name">"Imię"</string>
 <string name="user_no_achievements">"Brak osiągnieć"</string>
 <string name="user_no_cursus_available">"Program nauczania niedostępny"</string>
 <string name="user_overview_cursus_date_not_finished">"Jeszcze nie skończono"</string>

@@ -193,7 +193,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="search_on_users">"Recherche d'utilisteurs"</string>
 <string name="search_section_projects">"projets"</string>
 <string name="search_section_topics">"topics"</string>
-<string name="search_section_users">"Utilisateurs"</string>
 <string name="searching">"Recherche …"</string>
 <string name="share_using">"Partager en utilisant"</string>
 <string name="time_zone_error">"Erreur de fuseau horaire"</string>
@@ -228,8 +227,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="title_tab_project_me">"Moi"</string>
 <string name="title_tab_project_overview">"Aperçu"</string>
 <string name="title_tab_project_users">"Utilisateurs"</string>
-<string name="title_tab_projects_all">"Tout"</string>
-<string name="title_tab_projects_doing">"En cours"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
 <string name="title_tab_tags_notions">"Notions"</string>
 <string name="title_tab_user_achievements">"Réalisations"</string>
@@ -246,7 +243,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="user_cursus_date">"Date"</string>
 <string name="user_email">"Email"</string>
 <string name="user_expertise_deleted">"Supprimé"</string>
-<string name="user_expertise_discard">"Annuler"</string>
 <string name="user_expertise_edit">"Editer la compétence"</string>
 <string name="user_expertise_edit_plural">"Editer les compétences"</string>
 <string name="user_expertise_interested">"Intéressé:"</string>
@@ -254,7 +250,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="user_level">"Niveau"</string>
 <string name="user_location">"Emplacement"</string>
 <string name="user_mobile_phone">"Mobile"</string>
-<string name="user_name">"Nom"</string>
 <string name="user_no_achievements">"Aucune réussite"</string>
 <string name="user_no_cursus_available">"Aucun cursus disponible"</string>
 <string name="user_overview_cursus_date_not_finished">"Pas encore fini"</string>
@@ -265,7 +260,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="user_you_dont_have_any_expertise_yet">"Vous n'avez pas encore de compétence"</string>
 <string name="info_loading_cache">"Récuperation du cache ..."</string>
 <string name="info_loading_current_user">"Utilisateur courrant"</string>
-<string name="evaluation_user_nothing">"Vous n'avez pas de corréction"</string>
+<string name="evaluation_user_nothing">"Vous n'avez pas de correction"</string>
 <string name="home_help_POEditor">"Si vous trouvez des erreurs dans le texte ou si vous voulez participer à la traduction, vous pouvez le faire via le projet sur POEditor. Cliquer ici"</string>
 <string name="pref_notifications_frequency_titles_15min">"15 minutes"</string>
 <string name="pref_notifications_frequency_titles_30min">"30 minutes"</string>
@@ -305,13 +300,10 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="friend_group_name">"Nom du groupe"</string>
 <string name="friends">"Amis"</string>
 <string name="friends_group_edit_in_group">"Amis dans le groupe"</string>
-<string name="friends_group_edit_discard">"Annuler"</string>
 <string name="friends_groups_edit_no_empty_name">"Ne peut pas être vide"</string>
 <string name="friends_groups_edit_no_name_set">"Aucun nom enregistré"</string>
 <string name="friends_select_group">"Sélectionnez le groupe"</string>
 <string name="friends_groups_all">"Tous"</string>
-<string name="friends_groups_edit_unsaved_changes_title">"Vous avez des modifications non enregistrées"</string>
-<string name="friends_groups_edit_unsaved_changes_content">"Voulez-vous enregistrer les modifications sur ce groupe"</string>
 <string name="friends_groups_new">"Nouveau groupe d'amis"</string>
 <string name="friends_groups_edit">"Éditer le groupe d'amis"</string>
 <string name="location_undetermined">"Non déterminé"</string>
@@ -334,8 +326,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="friends_info_database_update">"Mise à jour de la base de données des amis"</string>
 <string name="pref_theme_title_change_theme">"Choix du theme"</string>
 <string name="pref_header_theme">"Theme"</string>
-<string name="pref_theme_list_titles_dark">"Sombre"</string>
-<string name="pref_theme_list_titles_old">"Original (ancien)"</string>
 <string name="info_api_finishing">"finitions"</string>
 <string name="search_section_users_login">"utilisateur ― login"</string>
 <string name="search_section_users_first_name">"utilisateur ― prenom"</string>
@@ -359,7 +349,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="title_tab_forum_last_topics">"Derniers"</string>
 <string name="title_tab_forum_tag">"Libellés"</string>
 <string name="title_activity_friends_groups">"Groupes d'amis"</string>
-<string name="friends_group_edit_name_dialog">"Changer le nom"</string>
 <string name="project_solo">"seul"</string>
 <string name="project_group">"group"</string>
 <string name="pref_theme_info_need_restart">"Vous devez redémarrer l'application pour changer le thème"</string>
@@ -599,10 +588,10 @@ Instructions: orientation des Clusters
 "</string>
 <string name="cluster_map_no_layout">"Pas de carte disponible pour ce Cluster"</string>
 <string name="readme">"À lire"</string>
-<string name="user_open_it_not_found">"Utilisateur introuvable "</string>
+<string name="user_open_it_not_found">"Utilisateur introuvable"</string>
 <string name="discard_changes">"Annuler "</string>
-<string name="cluster_map_contribute_toolbar_info_too_late">"Trop tard, vous ne pouvez plus sauvegarder vos modifications "</string>
-<string name="project_scale_feedback">"Avis "</string>
+<string name="cluster_map_contribute_toolbar_info_too_late">"Trop tard, vous ne pouvez plus sauvegarder vos modifications"</string>
+<string name="project_scale_feedback">"Avis"</string>
 <string name="friends_info_api_data_processing">"L’API qui gère les amis récupères les nouveaux utilisateurs, votre amie sera ajoutée sous peut"</string>
 <string name="user_profile_grade_rank">"Rang"</string>
 <string name="user_profile_add_to_friends">"Ajouter en ami"</string>
@@ -623,24 +612,22 @@ Instructions: orientation des Clusters
 <string name="introduction_cluster_map_contribute_title">"Modifiez la carte des clusters"</string>
 <string name="introduction_cluster_map_contribute_description">"Modifiez la carte des clusters pour pouvoir trouver facilement une personne dans l’école. Vous pouvez modifier ou ajouter des données à la carte des clusters dans l’application."</string>
 <string name="info_network_error">"Erreur réseau "</string>
-<string name="user_grade">"Note"</string>
 <string name="home_help_calendar_sync">"Synchronisez le calendrier de votre téléphone avec les événements auquels vous vous êtes inscrit "</string>
 <string name="home_help_calendar_hide">"Cacher "</string>
 <string name="home_help_calendar_enable">"Activer "</string>
-<string name="friends_loading_locations">"Localisation ? (pas sur de celle là) "</string>
 <string name="project_user_not_registered">"Non enregistré "</string>
-<string name="cluster_map_contribute_warning_empty_host">"Attention : le nom de l'hôte doit être rempli "</string>
-<string name="cluster_map_contribute_warning_host_prefix">"Attention : le nom de l'hôte ne doit pas commencer par le préfixe du cluster, il sera ajouté automatiquement "</string>
-<string name="pref_theme_list_titles_default">"Intra (coalition automatique)  "</string>
+<string name="cluster_map_contribute_warning_empty_host">"Attention : le nom de l'hôte doit être rempli"</string>
+<string name="cluster_map_contribute_warning_host_prefix">"Attention : le nom de l'hôte ne doit pas commencer par le préfixe du cluster, il sera ajouté automatiquement"</string>
+<string name="pref_theme_list_titles_default">"Intra (thème de la coalition automatique)"</string>
 <string name="pref_theme_list_titles_green_the_alliance">"Vert (L'Alliance)"</string>
-<string name="pref_theme_list_titles_blue_the_federation">"Bleu (La Fédération) "</string>
-<string name="pref_theme_list_titles_purple_the_assembly">"Mauve (L'Assemblée) "</string>
-<string name="pref_theme_list_titles_red_the_order">"Rouge (L'ordre) "</string>
+<string name="pref_theme_list_titles_blue_the_federation">"Bleu (La Fédération)"</string>
+<string name="pref_theme_list_titles_purple_the_assembly">"Mauve (L'Assemblée)"</string>
+<string name="pref_theme_list_titles_red_the_order">"Rouge (L'ordre)"</string>
 <string name="pref_theme_list_titles_android">"Android Noir"</string>
-<string name="pref_theme_switch_action_bar_background">"Afficher (l'image / une image) sur l'arrière plan de la barre d'action "</string>
+<string name="pref_theme_switch_action_bar_background">"Afficher l'image du thème sur l'arrière-plan de la barre d’application"</string>
 <string name="pref_theme_switch_dark_theme">"Utiliser le thème sombre "</string>
 <string name="cluster_map_info_layer_spinner_main_none">"Aucun"</string>
 <string name="hint_date">"Date"</string>
-<string name="hint_time">"Temps / heure "</string>
+<string name="hint_time">"heure"</string>
 <string name="spinner_user_projects_my_projects">"Mes projets"</string>
 </resources>

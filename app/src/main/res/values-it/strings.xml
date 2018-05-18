@@ -201,7 +201,6 @@ Perderai un punto correzione"</string>
 <string name="search_on_users">"Cerca tra gli utenti"</string>
 <string name="search_section_projects">"progetti"</string>
 <string name="search_section_topics">"argomenti"</string>
-<string name="search_section_users">"utenti"</string>
 <string name="searching">"Ricerca ..."</string>
 <string name="share_using">"Condividi tramite"</string>
 <string name="time_zone_error">"Errore time zone"</string>
@@ -235,8 +234,6 @@ Perderai un punto correzione"</string>
 <string name="title_tab_project_me">"Io"</string>
 <string name="title_tab_project_overview">"Panoramica"</string>
 <string name="title_tab_project_users">"Utenti"</string>
-<string name="title_tab_projects_all">"Tutto"</string>
-<string name="title_tab_projects_doing">"In corso"</string>
 <string name="title_tab_projects_graphic">"Grafo Progetti"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
 <string name="title_tab_tags_notions">"Nozioni"</string>
@@ -254,7 +251,6 @@ Perderai un punto correzione"</string>
 <string name="user_cursus_date">"Data"</string>
 <string name="user_email">"Email"</string>
 <string name="user_expertise_deleted">"Eliminato"</string>
-<string name="user_expertise_discard">"Dimentica"</string>
 <string name="user_expertise_edit">"Modifica Esperienza"</string>
 <string name="user_expertise_edit_plural">"Modifica Esperienze"</string>
 <string name="user_expertise_interested">"Interessato:"</string>
@@ -262,7 +258,6 @@ Perderai un punto correzione"</string>
 <string name="user_level">"Livello"</string>
 <string name="user_location">"Posizione"</string>
 <string name="user_mobile_phone">"Mobile"</string>
-<string name="user_name">"Nome"</string>
 <string name="user_no_achievements">"Nessuna conquista"</string>
 <string name="user_no_cursus_available">"Nessun corso disponibile"</string>
 <string name="user_overview_cursus_date_not_finished">"Non ancora concluso"</string>
@@ -315,13 +310,10 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="friend_group_name">"Nome del gruppo"</string>
 <string name="friends">"Amici"</string>
 <string name="friends_group_edit_in_group">"Amici nel gruppo"</string>
-<string name="friends_group_edit_discard">"Annulla"</string>
 <string name="friends_groups_edit_no_empty_name">"Non può essere vuoto"</string>
 <string name="friends_groups_edit_no_name_set">"Nessun nome impostato"</string>
 <string name="friends_select_group">"Seleziona gruppo"</string>
 <string name="friends_groups_all">"Tutti"</string>
-<string name="friends_groups_edit_unsaved_changes_title">"Hai dei cambiamenti da salvare"</string>
-<string name="friends_groups_edit_unsaved_changes_content">"Vuoi salvare i cambiamenti a questo gruppo?"</string>
 <string name="friends_groups_new">"Nuovo gruppo amici"</string>
 <string name="friends_groups_edit">"Modifica gruppo amici"</string>
 <string name="location_undetermined">"indeterminato"</string>
@@ -346,8 +338,6 @@ puoi farlo con POEditor. Clicca qui"</string>
 <string name="friends_info_database_update">"Aggiorna database amici"</string>
 <string name="pref_theme_title_change_theme">"Scegli tema"</string>
 <string name="pref_header_theme">"Tema"</string>
-<string name="pref_theme_list_titles_dark">"Scuro"</string>
-<string name="pref_theme_list_titles_old">"Originale (Vecchio)"</string>
 <string name="info_api_finishing">"Finendo"</string>
 <string name="search_section_users_login">"utente ― login"</string>
 <string name="search_section_users_first_name">"utente ― nome"</string>
