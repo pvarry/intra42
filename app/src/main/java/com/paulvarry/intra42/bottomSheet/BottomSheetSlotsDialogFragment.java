@@ -65,7 +65,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                 dismiss();
             }
-
         }
 
         @Override
@@ -386,10 +385,12 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private void newSlot() {
         ApiService api = app.getApiService();
         Call<List<Slots>> call = api.createSlot(app.me.id, DateTool.getUTC(slotsGroup.beginAt), DateTool.getUTC(slotsGroup.endAt));
+        final ProgressDialog progressDialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), true);
 
         call.enqueue(new Callback<List<Slots>>() {
             @Override
             public void onResponse(Call<List<Slots>> call, retrofit2.Response<List<Slots>> response) {
+                progressDialog.dismiss();
                 if (activity == null || !isAdded())
                     return;
                 if (response.isSuccessful()) {
@@ -403,6 +404,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             public void onFailure(Call<List<Slots>> call, Throwable t) {
                 if (activity == null || !isAdded())
                     return;
+                progressDialog.dismiss();
                 Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

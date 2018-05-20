@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -9,10 +11,18 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Tools;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Response;
 
 public class Slots {
 
@@ -34,6 +44,37 @@ public class Slots {
     public UsersLTE user;
 
     public boolean isBooked;
+
+    @Nullable
+    public static List<Slots> getAll(ApiService api) {
+        List<Slots> list = new ArrayList<>();
+        int i = 1;
+        int pageSize = 100;
+        int pageMax;
+
+        try {
+
+            Response<List<Slots>> response = api.getSlotsMe(pageSize, Pagination.getPage(list, pageSize)).execute();
+            if (!Tools.apiIsSuccessfulNoThrow(response))
+                return null;
+            list.addAll(response.body());
+            int total = Integer.parseInt(response.headers().get("X-Total"));
+            pageMax = (int) Math.ceil(total / pageSize);
+
+            while (i <= pageMax) {
+                response = api.getSlotsMe(pageSize, Pagination.getPage(list, pageSize)).execute();
+                if (!Tools.apiIsSuccessfulNoThrow(response))
+                    break;
+                list.addAll(response.body());
+                ++i;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (list.isEmpty())
+            return null;
+        return list;
+    }
 
     @Override
     public String toString() {

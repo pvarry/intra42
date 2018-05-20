@@ -19,12 +19,11 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="New Text"
-        android:visibility="gone" />
+        android:text="@string/info_loading" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabNew"

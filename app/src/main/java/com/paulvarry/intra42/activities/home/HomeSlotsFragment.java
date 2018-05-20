@@ -5,24 +5,21 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterSlotsGroup;
-import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Slots;
 import com.paulvarry.intra42.bottomSheet.BottomSheetSlotsDialogFragment;
-import com.paulvarry.intra42.ui.BasicFragmentCall;
-import com.paulvarry.intra42.utils.Pagination;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,12 +29,17 @@ import retrofit2.Call;
  * Use the {@link HomeSlotsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeSlotsFragment extends BasicFragmentCall<Slots, ListAdapterSlotsGroup> implements View.OnClickListener {
+public class HomeSlotsFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    HomeActivity activity;
-    FloatingActionButton fabNew;
+    private HomeActivity activity;
 
-    Thread thread;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ListView listView;
+    private TextView textViewLoading;
+    private FloatingActionButton fabNew;
+
+    private List<Slots> list;
+
     private OnFragmentInteractionListener mListener;
 
     public HomeSlotsFragment() {
@@ -73,36 +75,19 @@ public class HomeSlotsFragment extends BasicFragmentCall<Slots, ListAdapterSlots
         fabNew = view.findViewById(R.id.fabNew);
         fabNew.setOnClickListener(this);
         super.onViewCreated(view, savedInstanceState);
+
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        listView = view.findViewById(R.id.listView);
+        textViewLoading = view.findViewById(R.id.textViewLoading);
+
+        textViewLoading.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.GONE);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setRefreshing(true);
+
+        onRefresh();
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-        thread.interrupt();
-    }
-
-
-    @Nullable
-    @Override
-    public Call<List<Slots>> getCall(ApiService apiService, @Nullable List<Slots> list) {
-        return apiService.getSlotsMe(Pagination.getPage(list));
-    }
-
-    @Override
-    public void onItemClick(Slots item) {
-
-    }
-
-    @Override
-    public ListAdapterSlotsGroup generateAdapter(List<Slots> list) {
-        return new ListAdapterSlotsGroup(this, list);
-    }
-
-    @Override
-    public String getEmptyMessage() {
-        return null;
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -133,6 +118,33 @@ public class HomeSlotsFragment extends BasicFragmentCall<Slots, ListAdapterSlots
                 }
             });
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                list = Slots.getAll(activity.app.getApiService());
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        if (list == null || list.isEmpty()) {
+                            listView.setVisibility(View.GONE);
+                            textViewLoading.setVisibility(View.VISIBLE);
+                            textViewLoading.setText(R.string.info_nothing_to_show);
+                        } else {
+                            listView.setVisibility(View.VISIBLE);
+                            textViewLoading.setVisibility(View.GONE);
+                            listView.setAdapter(new ListAdapterSlotsGroup(HomeSlotsFragment.this, list));
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     /**

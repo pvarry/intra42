@@ -302,6 +302,10 @@ public interface ApiService {
     @GET("/v2/me/slots?sort=begin_at&filter[future]=true")
     Call<List<Slots>> getSlotsMe(@Query("page") int page);
 
+    /* Slots */
+    @GET("/v2/me/slots?sort=begin_at&filter[future]=true")
+    Call<List<Slots>> getSlotsMe(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+
     @POST("/v2/slots")
     Call<List<Slots>> createSlot(@Query("slot[user_id]") int userId, @Query("slot[begin_at]") String beginAt, @Query("slot[end_at]") String endAt);
 
