@@ -11,7 +11,6 @@ import com.paulvarry.intra42.adapters.ListAdapterNotions;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Notions;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
-import com.paulvarry.intra42.utils.Pagination;
 
 import java.util.List;
 
@@ -74,9 +73,9 @@ public class TagsNotionsFragment extends BasicFragmentCall<Notions, ListAdapterN
 
     @Nullable
     @Override
-    public Call<List<Notions>> getCall(ApiService apiService, @Nullable List<Notions> list) {
+    public Call<List<Notions>> getCall(ApiService apiService, int page) {
         TagsActivity activity = (TagsActivity) getActivity();
-        return apiService.getNotionsTag(activity.tag.id, Pagination.getPage(list));
+        return apiService.getNotionsTag(activity.tag.id, page);
     }
 
     @Override

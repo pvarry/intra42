@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.utils.Pagination;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.util.List;
 
@@ -33,27 +33,34 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
 
     protected FloatingActionButton fabBasicFragmentCall;
+    protected List<T> list;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textView;
     private ListView listView;
     private boolean flag_loading = false;
+    private Integer maxPage = null;
+    private int lastPage = 0;
     private ADAPTER adapter;
-
     @Nullable
     private Call<List<T>> call;
-    private List<T> list;
     private Callback<List<T>> callback = new Callback<List<T>>() {
 
         @Override
         public void onResponse(Call<List<T>> call, Response<List<T>> response) {
             List<T> listTmp = response.body();
-            if (list != null && listTmp != null)
-                list.addAll(listTmp);
-            else
-                list = listTmp;
-            setView();
+
             flag_loading = false;
             swipeRefreshLayout.setRefreshing(false);
+
+            if (Tools.apiIsSuccessfulNoThrow(response)) {
+                maxPage = (int) Math.ceil(Double.parseDouble(response.headers().get("X-Total")) / Double.parseDouble(response.headers().get("X-Per-Page")));
+                lastPage = Integer.parseInt(response.headers().get("X-Page"));
+                if (list != null && listTmp != null)
+                    list.addAll(listTmp);
+                else
+                    list = listTmp;
+                setView();
+            }
         }
 
         @Override
@@ -102,12 +109,7 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         flag_loading = true;
         if (call != null)
             call.cancel();
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
+        swipeRefreshLayout.setRefreshing(true);
 
         list = null;
         adapter = null;
@@ -120,23 +122,21 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         if (isDetached())
             return;
 
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-
         Activity a = getActivity();
         if (a == null)
             return;
         ApiService apiService = ((AppClass) a.getApplication()).getApiService();
 
-        Call<List<T>> call = getCall(apiService, list);
+        Call<List<T>> call = getCall(apiService, lastPage + 1);
+        maxPage = 0; // set max page to avoid max useless call
 
         if (call != null) {
             this.call = call;
             call.enqueue(callback);
+        } else {
+            setView();
+            flag_loading = false;
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -144,17 +144,23 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
      * Return a Call of retrofit2 can be enqueue()
      *
      * @param apiService Service
-     * @param list       The current item on list (for pagination)
+     * @param page       The current page
      * @return The Call
      */
     @Nullable
-    public abstract Call<List<T>> getCall(ApiService apiService, @Nullable List<T> list);
+    public abstract Call<List<T>> getCall(ApiService apiService, int page);
 
     public void setView() {
         if (!isAdded())
             return;
-        if (list == null || list.isEmpty()) {
+        if (list != null && adapter == null) {
+            adapter = generateAdapter(list);
+            listView.setAdapter(adapter);
+        }
+
+        if (adapter == null) {
             listView.setAdapter(null);
+            listView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
             String message = getEmptyMessage();
             if (message != null && !message.isEmpty())
@@ -162,14 +168,12 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
             else if (isAdded())
                 textView.setText(getString(R.string.info_nothing_to_show));
         } else {
-            if (adapter == null) {
-                adapter = generateAdapter(list);
-                listView.setAdapter(adapter);
-            }
             adapter.notifyDataSetChanged();
+            listView.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
             flag_loading = false;
         }
+
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -196,8 +200,14 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
-            if (!flag_loading && Pagination.canAdd(list)) {
+            if (!flag_loading && (maxPage == null || lastPage < maxPage)) {
                 flag_loading = true;
+                swipeRefreshLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(true);
+                    }
+                });
                 addItems();
             }
         }

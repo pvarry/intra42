@@ -9,7 +9,6 @@ import com.paulvarry.intra42.adapters.ListAdapterTopics;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
-import com.paulvarry.intra42.utils.Pagination;
 
 import java.util.List;
 
@@ -58,10 +57,10 @@ public class TagsForumFragment extends BasicFragmentCall<Topics, ListAdapterTopi
 
     @Nullable
     @Override
-    public Call<List<Topics>> getCall(ApiService apiService, @Nullable List<Topics> list) {
+    public Call<List<Topics>> getCall(ApiService apiService, int page) {
         TagsActivity activity = (TagsActivity) getActivity();
 
-        return apiService.getTopicsTag(activity.tag.id, Pagination.getPage(list));
+        return apiService.getTopicsTag(activity.tag.id, page);
     }
 
     @Override

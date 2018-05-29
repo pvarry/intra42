@@ -13,7 +13,6 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
-import com.paulvarry.intra42.utils.Pagination;
 
 import java.util.List;
 
@@ -79,8 +78,8 @@ public class HomeCorrectionsFragment extends BasicFragmentCall<ScaleTeams, ListA
 
     @Nullable
     @Override
-    public Call<List<ScaleTeams>> getCall(ApiService apiService, @Nullable List<ScaleTeams> list) {
-        return apiService.getScaleTeamsMe(Pagination.getPage(list));
+    public Call<List<ScaleTeams>> getCall(ApiService apiService, int page) {
+        return apiService.getScaleTeamsMe(page);
     }
 
     @Override

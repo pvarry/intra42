@@ -10,7 +10,6 @@ import com.paulvarry.intra42.adapters.ListAdapterTopics;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
-import com.paulvarry.intra42.utils.Pagination;
 
 import java.util.List;
 
@@ -67,8 +66,8 @@ public class ForumUnreadFragment extends BasicFragmentCall<Topics, ListAdapterTo
 
     @Nullable
     @Override
-    public Call<List<Topics>> getCall(ApiService apiService, @Nullable List<Topics> list) {
-        return apiService.getTopicsUnread(Pagination.getPage(list));
+    public Call<List<Topics>> getCall(ApiService apiService, int page) {
+        return apiService.getTopicsUnread(page);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class UserAppsFragment extends BasicFragmentCall<Apps, ListAdapterApps> {
 
     @Nullable
     @Override
-    public Call<List<Apps>> getCall(ApiService apiService, @Nullable List<Apps> list) {
+    public Call<List<Apps>> getCall(ApiService apiService, int page) {
 
         UserActivity activity = (UserActivity) getActivity();
         if (activity != null)

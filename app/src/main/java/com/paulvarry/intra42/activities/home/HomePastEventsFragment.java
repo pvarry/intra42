@@ -80,7 +80,7 @@ public class HomePastEventsFragment extends BasicFragmentCall<Events, ListAdapte
 
     @Nullable
     @Override
-    public Call<List<Events>> getCall(ApiService apiService, @Nullable List<Events> list) {
+    public Call<List<Events>> getCall(ApiService apiService, int page) {
         AppClass app = (AppClass) getActivity().getApplication();
         int cursus = AppSettings.getAppCursus(app);
         int campus = AppSettings.getAppCampus(app);

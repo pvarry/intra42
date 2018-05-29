@@ -15,7 +15,6 @@ import com.paulvarry.intra42.adapters.ListAdapterExpertises;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.ExpertiseUsers;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
-import com.paulvarry.intra42.utils.Pagination;
 
 import java.util.List;
 
@@ -75,9 +74,9 @@ public class UserExpertisesFragment extends BasicFragmentCall<ExpertiseUsers, Li
 
     @Nullable
     @Override
-    public Call<List<ExpertiseUsers>> getCall(ApiService apiService, @Nullable List<ExpertiseUsers> list) {
+    public Call<List<ExpertiseUsers>> getCall(ApiService apiService, int page) {
         if (activity != null && activity.user != null) {
-            return apiService.getUserExpertises(activity.user.id, Pagination.getPage(list));
+            return apiService.getUserExpertises(activity.user.id, page);
         }
         return null;
     }

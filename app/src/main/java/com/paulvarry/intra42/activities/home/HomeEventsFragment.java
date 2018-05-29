@@ -16,7 +16,6 @@ import com.paulvarry.intra42.bottomSheet.BottomSheetEventDialogFragment;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.Pagination;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -81,7 +80,7 @@ public class HomeEventsFragment extends BasicFragmentCall<Events, ListAdapterEve
 
     @Nullable
     @Override
-    public Call<List<Events>> getCall(ApiService apiService, @Nullable List<Events> list) {
+    public Call<List<Events>> getCall(ApiService apiService, int page) {
         AppClass app = (AppClass) getActivity().getApplication();
         int cursus = AppSettings.getAppCursus(app);
         int campus = AppSettings.getAppCampus(app);
@@ -91,13 +90,13 @@ public class HomeEventsFragment extends BasicFragmentCall<Events, ListAdapterEve
         String date = DateTool.getNowUTC() + "," + DateTool.getUTC(c.getTime());
 
         if (cursus != -1 && cursus != 0 && campus != -1 && campus != 0)
-            return apiService.getEvent(campus, cursus, date, Pagination.getPage(list));
+            return apiService.getEvent(campus, cursus, date, page);
         else if (cursus != -1 && cursus != 0)
-            return apiService.getEventCursus(cursus, date, Pagination.getPage(list));
+            return apiService.getEventCursus(cursus, date, page);
         else if (campus != -1 && campus != 0)
-            return apiService.getEventCampus(campus, date, Pagination.getPage(list));
+            return apiService.getEventCampus(campus, date, page);
         else
-            return apiService.getEvent(date, Pagination.getPage(list));
+            return apiService.getEvent(date, page);
     }
 
     @Override

@@ -73,7 +73,7 @@ public class TagsProjectsFragment extends BasicFragmentCall<Projects, BaseListAd
 
     @Nullable
     @Override
-    public Call<List<Projects>> getCall(ApiService apiService, @Nullable List<Projects> list) {
+    public Call<List<Projects>> getCall(ApiService apiService, int page) {
         return null;
     }
 

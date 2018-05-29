@@ -48,9 +48,9 @@ public class ProjectActivity extends BasicTabActivity
 
     public AppClass app;
     ProjectUser projectUser;
+    int idUser;
+    String login;
     private int idProjectUser;
-    private int idUser;
-    private String login;
     private int idProject;
     private String slugProject;
 
@@ -79,6 +79,14 @@ public class ProjectActivity extends BasicTabActivity
         intent.putExtra(ProjectActivity.INTENT_ID_PROJECT, project.id);
         intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, project.slug);
         intent.putExtra(ProjectActivity.INTENT_ID_USER, idUser);
+        context.startActivity(intent);
+    }
+
+    public static void openIt(Context context, ProjectsLTE project, String login) {
+        Intent intent = new Intent(context, ProjectActivity.class);
+        intent.putExtra(ProjectActivity.INTENT_ID_PROJECT, project.id);
+        intent.putExtra(ProjectActivity.INTENT_SLUG_PROJECT, project.slug);
+        intent.putExtra(ProjectActivity.INTENT_SLUG_USER, login);
         context.startActivity(intent);
     }
 

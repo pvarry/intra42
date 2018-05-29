@@ -15,6 +15,7 @@ import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -80,15 +81,19 @@ public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAda
 
     @Nullable
     @Override
-    public Call<List<ProjectsUsers>> getCall(ApiService apiService, @Nullable List<ProjectsUsers> list) {
-        if (activity == null || activity.projectUser == null || activity.projectUser.user == null || activity.projectUser.user.user == null)
+    public Call<List<ProjectsUsers>> getCall(ApiService apiService, int page) {
+        if (activity == null || activity.projectUser == null)
             return null;
+        if (activity.projectUser.user == null || activity.projectUser.user.user == null) {
+            this.list = new ArrayList<>();
+            return null;
+        }
 
         int start = 0;
         if (list != null)
             start = list.size();
         String filter = Projects.concatIds(activity.projectUser.project.children, start, 100);
-        return apiService.getProjectsUsers(filter, activity.projectUser.user.user.id, 100, 1);
+        return apiService.getProjectsUsers(filter, activity.projectUser.user.user.id, 100, page);
     }
 
     @Override
@@ -123,8 +128,12 @@ public class ProjectSubFragment extends BasicFragmentCall<ProjectsUsers, ListAda
 
             if (projectsUser != null)
                 ProjectActivity.openIt(getContext(), projectsUser);
-            else if (activity != null && activity.projectUser != null)
+            else if (activity != null && activity.projectUser != null && activity.projectUser.user != null && activity.projectUser.user.user != null)
                 ProjectActivity.openIt(getContext(), project, activity.projectUser.user.user);
+            else if (activity != null && activity.login != null)
+                ProjectActivity.openIt(getContext(), project, activity.login);
+            else if (activity != null)
+                ProjectActivity.openIt(getContext(), project, activity.idUser);
             else
                 ProjectActivity.openIt(getContext(), project);
         }
