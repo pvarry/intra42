@@ -142,7 +142,7 @@ public class ServiceGenerator {
     private static OkHttpClient.Builder getBaseClient(boolean allowRedirectWrongAuth) {
         httpClient = new OkHttpClient.Builder();
 
-        getLogInterceptor(httpClient);
+        setupLoggingInterceptor(httpClient);
         if (allowRedirectWrongAuth)
             httpClient.addNetworkInterceptor(new AuthInterceptorRedirectActivity());
 
@@ -262,7 +262,7 @@ public class ServiceGenerator {
         };
     }
 
-    private static void getLogInterceptor(OkHttpClient.Builder httpClient) {
+    private static void setupLoggingInterceptor(OkHttpClient.Builder httpClient) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG)
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);

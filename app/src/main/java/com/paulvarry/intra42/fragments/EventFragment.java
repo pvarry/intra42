@@ -98,10 +98,12 @@ public class EventFragment extends Fragment implements View.OnClickListener {
             buttonSubscribe.setEnabled(true);
             eventsUsers = null;
             if (response.isSuccessful()) {
-
                 setButtonSubscribe();
-                Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
-                Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
+                Context context = getContext();
+                if (context != null) {
+                    Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
+                    Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
+                }
             }
         }
 

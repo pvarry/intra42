@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class ProjectActivity extends BasicTabActivity
         implements ProjectOverviewFragment.OnFragmentInteractionListener, ProjectUserFragment.OnFragmentInteractionListener,
         ProjectAttachmentsFragment.OnFragmentInteractionListener, ProjectSubFragment.OnFragmentInteractionListener,
-        ProjectUsersListFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnThread {
+        ProjectUsersListFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnThread, BasicThreadActivity.GetDataOnMain {
 
     private static final String INTENT_ID_PROJECT_USER = "project_user_id";
     private static final String INTENT_ID_USER = "P_user_id";
@@ -182,6 +182,9 @@ public class ProjectActivity extends BasicTabActivity
         if (intent.hasExtra(INTENT_SLUG_USER))
             login = intent.getStringExtra(INTENT_SLUG_USER);
 
+        projectUser = (ProjectUser) getLastCustomNonConfigurationInstance();
+
+        registerGetDataOnMainTread(this);
         registerGetDataOnOtherThread(this);
 
         super.setSelectedMenu(Navigation.MENU_SELECTED_PROJECTS);
@@ -222,6 +225,21 @@ public class ProjectActivity extends BasicTabActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public final Object onRetainCustomNonConfigurationInstance() {
+        return projectUser;
+    }
+
+    @Override
+    public ThreadStatusCode getDataOnMainThread() {
+        if (projectUser != null)
+            return ThreadStatusCode.FINISH;
+        if (app == null)
+            return ThreadStatusCode.NONE;
+
+        return ThreadStatusCode.CONTINUE;
     }
 
     @Override

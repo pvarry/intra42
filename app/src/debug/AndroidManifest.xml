@@ -49,7 +49,6 @@
         <activity
             android:name=".activities.project.ProjectActivity"
             android:label="@string/title_activity_project"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter android:label="Intra42 project">
