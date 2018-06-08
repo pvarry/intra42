@@ -38,6 +38,7 @@ public class Users extends UsersLTE {
     private final static String API_LANGUAGES_USERS = "languages_users";
     private final static String API_ACHIEVEMENTS = "achievements";
     private final static String API_TITLES = "titles";
+    private final static String API_TITLES_USERS = "titles_users";
     private final static String API_PARTNERSHIPS = "partnerships";
     private final static String API_PATRONED = "patroned";
     private final static String API_PATRONING = "patroning";
@@ -81,7 +82,9 @@ public class Users extends UsersLTE {
     @SerializedName(API_ACHIEVEMENTS)
     public List<Achievements> achievements;
     @SerializedName(API_TITLES)
-    public List<UserTitle> titles;
+    public List<Title> titles;
+    @SerializedName(API_TITLES_USERS)
+    public List<TitleUser> titlesUsers;
     @SerializedName(API_PARTNERSHIPS)
     public List<Partnerships> partnerships;
 
@@ -235,18 +238,32 @@ public class Users extends UsersLTE {
             return tmp.cursusId;
     }
 
-    static public class UserTitle {
+    static public class Title {
 
         static final String API_ID = "id";
         static final String API_NAME = "name";
-        static final String API_FORMATTER = "formatter";
 
         @SerializedName(API_ID)
         public int id;
         @SerializedName(API_NAME)
         public String name;
-        @SerializedName(API_FORMATTER)
-        public String formatter;
+    }
+
+    static public class TitleUser {
+
+        static final String API_ID = "id";
+        static final String API_USER_ID = "user_id";
+        static final String API_TITLE_ID = "title_id";
+        static final String API_SELECTED = "selected";
+
+        @SerializedName(API_ID)
+        public int id;
+        @SerializedName(API_USER_ID)
+        public int userId;
+        @SerializedName(API_TITLE_ID)
+        public int titleId;
+        @SerializedName(API_SELECTED)
+        public boolean selected;
     }
 
 }

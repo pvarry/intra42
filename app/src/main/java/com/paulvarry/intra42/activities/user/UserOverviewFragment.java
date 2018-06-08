@@ -254,10 +254,32 @@ public class UserOverviewFragment
         } else
             setButtonFriends(1);
 
+        // set user name
+        Users.TitleUser selectedTitleUser = null;
+        if (user.titlesUsers != null && !user.titlesUsers.isEmpty())
+            for (Users.TitleUser tmpTitleUser : user.titlesUsers) {
+                if (tmpTitleUser.selected)
+                    selectedTitleUser = tmpTitleUser;
+            }
+        Users.Title selectedTitle = null;
+        if (selectedTitleUser != null) {
+            for (Users.Title tmpTitle : user.titles) {
+                if (tmpTitle.id == selectedTitleUser.titleId)
+                    selectedTitle = tmpTitle;
+            }
+        }
+
         TagSpanGenerator span = new TagSpanGenerator.Builder(getContext())
                 .setTextSize(textViewName.getTextSize())
                 .build();
-        span.addText(user.displayName + " - " + user.login);
+        span.addText(user.displayName);
+        span.addText(" - ");
+
+        if (selectedTitle != null)
+            span.addText(selectedTitle.name.replace("%login", user.login));
+        else
+            span.addText(user.login);
+
         if (user.groups != null && !user.groups.isEmpty()) {
             span.addText(" ");
             for (Tags tag : user.groups) {
