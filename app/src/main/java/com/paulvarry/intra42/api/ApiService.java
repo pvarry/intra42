@@ -129,6 +129,9 @@ public interface ApiService {
     @GET("/v2/users?sort=login")
     Call<List<UsersLTE>> getUsers(@Query("page") int page);
 
+    @GET("/v2/users")
+    Call<List<UsersLTE>> getUsers(@Query("filter[id]") String filter_users);
+
     @GET("/v2/campus/{campus_id}/users?sort=login")
     Call<List<UsersLTE>> getUsersCampus(@Path("campus_id") int campus, @Query("page") int page);
 

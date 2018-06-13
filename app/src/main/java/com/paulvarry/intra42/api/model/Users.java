@@ -87,10 +87,10 @@ public class Users extends UsersLTE {
     public List<TitleUser> titlesUsers;
     @SerializedName(API_PARTNERSHIPS)
     public List<Partnerships> partnerships;
-
-    public transient List<Object> patroned;
-    public transient List<Object> patroning;
-
+    @SerializedName(API_PATRONED)
+    public List<Patron> patroned;
+    @SerializedName(API_PATRONING)
+    public List<Patron> patroning;
     @SerializedName(API_EXPERTISES_USERS)
     public List<ExpertiseUsers> expertisesUsers;
     @SerializedName(API_CAMPUS)
@@ -264,6 +264,23 @@ public class Users extends UsersLTE {
         public int titleId;
         @SerializedName(API_SELECTED)
         public boolean selected;
+    }
+
+    static public class Patron {
+
+        static final String API_ID = "id";
+        static final String API_USER_ID = "user_id";
+        static final String API_GODFATHER_ID = "godfather_id";
+        static final String API_ONGOING = "ongoing";
+
+        @SerializedName(API_ID)
+        public int id;
+        @SerializedName(API_USER_ID)
+        public int userId;
+        @SerializedName(API_GODFATHER_ID)
+        public int godfatherId;
+        @SerializedName(API_ONGOING)
+        public boolean ongoing;
     }
 
 }

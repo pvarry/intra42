@@ -59,6 +59,7 @@ public class UserActivity extends BasicTabActivity
         UserProjectsDoingFragment.OnFragmentInteractionListener, UserSkillsFragment.OnFragmentInteractionListener,
         UserAchievementsFragment.OnFragmentInteractionListener, UserForumFragment.OnFragmentInteractionListener,
         UserExpertisesFragment.OnFragmentInteractionListener, UserProjectsFragment.OnFragmentInteractionListener,
+        UserPatronagesFragment.OnFragmentInteractionListener,
         BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
 
     private static final String INTENT_USER_LTE = "user_lte";
@@ -357,6 +358,7 @@ public class UserActivity extends BasicTabActivity
         adapter.addFragment(UserAchievementsFragment.newInstance(), getString(R.string.title_tab_user_achievements));
         adapter.addFragment(UserSkillsFragment.newInstance(), getString(R.string.title_tab_user_skills));
         adapter.addFragment(UserPartnershipsFragment.newInstance(), getString(R.string.title_tab_user_partnerships));
+        adapter.addFragment(UserPatronagesFragment.newInstance(), getString(R.string.title_tab_user_patronages));
 
         if (AppSettings.Advanced.getAllowAdvancedData(this)) {
             adapter.addFragment(UserAppsFragment.newInstance(), getString(R.string.title_tab_user_apps));
