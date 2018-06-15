@@ -14,6 +14,7 @@ import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -293,6 +294,7 @@ public class AppClass extends Application {
         if (me == null)
             return false;
 
+        Crashlytics.setUserIdentifier(String.valueOf(me.id));
         cursus = me.cursusUsers;
         initFirebase();
         ThemeHelper.setTheme(this); // init theme
@@ -366,6 +368,7 @@ public class AppClass extends Application {
         editor.remove(API_ME_LOGIN);
         editor.apply();
         Token.removeToken(this);
+        Crashlytics.setUserIdentifier(null);
     }
 
     public void logoutAndRedirect() {

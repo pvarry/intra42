@@ -5,6 +5,11 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application android:fullBackupContent="@xml/backup_descriptor">
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="true" />
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
