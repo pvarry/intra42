@@ -111,6 +111,8 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
             call.cancel();
         swipeRefreshLayout.setRefreshing(true);
 
+        maxPage = 0; // set max page to avoid max useless call
+        lastPage = 0;
         list = null;
         adapter = null;
 
@@ -128,7 +130,6 @@ public abstract class BasicFragmentCall<T, ADAPTER extends BaseAdapter>
         ApiService apiService = ((AppClass) a.getApplication()).getApiService();
 
         Call<List<T>> call = getCall(apiService, lastPage + 1);
-        maxPage = 0; // set max page to avoid max useless call
 
         if (call != null) {
             this.call = call;
