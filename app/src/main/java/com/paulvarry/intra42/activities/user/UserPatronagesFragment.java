@@ -128,6 +128,9 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
 
     void setView() {
 
+        if (!isAdded())
+            return;
+
         scrollView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
 

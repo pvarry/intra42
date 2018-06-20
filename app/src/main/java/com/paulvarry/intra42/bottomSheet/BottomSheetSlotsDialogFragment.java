@@ -359,6 +359,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                     public void run() {
                         progressDialog.dismiss();
 
+                        if (activity == null || !isAdded())
+                            return;
                         if (finalIsSuccess) {
                             Toast.makeText(getContext(), R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
                             dialogFragment.dismiss();
@@ -395,7 +397,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                     return;
                 if (response.isSuccessful()) {
                     Toast.makeText(activity, R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
-                    dialogFragment.dismiss();
+                    dialogFragment.dismissAllowingStateLoss();
                 } else
                     Toast.makeText(activity, response.message(), Toast.LENGTH_SHORT).show();
             }
@@ -422,7 +424,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                         @Override
                         public void run() {
                             Toast.makeText(getContext(), R.string.evaluation_slot_deleted, Toast.LENGTH_SHORT).show();
-                            dialogFragment.dismiss();
+                            if (dialogFragment.isAdded())
+                                dialogFragment.dismiss();
                         }
                     });
                 }
