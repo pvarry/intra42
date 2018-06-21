@@ -627,4 +627,5 @@ long click for more action"</string>
     <string name="user_patronages_no_patron">NO PATRON</string>
     <string name="user_patronages_patroning">Patroning</string>
     <string name="user_patronages_no_patroning">NOT PATRONING ANYONE</string>
+    <string name="retry">Retry</string>
 </resources>

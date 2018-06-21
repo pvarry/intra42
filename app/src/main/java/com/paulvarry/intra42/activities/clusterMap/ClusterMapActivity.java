@@ -41,6 +41,7 @@ public class ClusterMapActivity
         implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread, ClusterMapInfoFragment.OnFragmentInteractionListener {
 
     final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
+    public List<ClusterMapActivity.LayerStatus> haveErrorOnLayer = new ArrayList<>();
     ClusterMapActivity.LayerStatus layerTmpStatus;
     String layerTmpLogin = "";
     String layerTmpProjectSlug = "";
@@ -155,12 +156,20 @@ public class ClusterMapActivity
 
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
 
-        ApiService42Tools api = app.getApiService42Tools();
-        final List<FriendsSmall> friendsTmp = Friends.getFriends(api);
-        setLoadingProgress(pageMax + 1, pageMax + 1);
-        clusterStatus.friends = new SparseArray<>();
-        for (FriendsSmall f : friendsTmp) {
-            clusterStatus.friends.put(f.id, f);
+        try {
+            ApiService42Tools api = app.getApiService42Tools();
+            final List<FriendsSmall> friendsTmp = Friends.getFriends(api);
+            setLoadingProgress(pageMax + 1, pageMax + 1);
+            clusterStatus.friends = new SparseArray<>();
+            for (FriendsSmall f : friendsTmp) {
+                clusterStatus.friends.put(f.id, f);
+            }
+            haveErrorOnLayer.remove(LayerStatus.FRIENDS);
+        } catch (IOException | RuntimeException e) {
+            e.printStackTrace();
+            if (!haveErrorOnLayer.contains(LayerStatus.FRIENDS)) {
+                haveErrorOnLayer.add(LayerStatus.FRIENDS);
+            }
         }
 
         clusterStatus.computeHighlightAndFreePosts();

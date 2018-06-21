@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -78,6 +79,8 @@ public class ClusterMapInfoFragment
     private TextView textViewContributeDescription;
     private TextView textViewNoClusterMap;
     private Button buttonContribute;
+    private CardView cardViewApiError;
+    private ViewGroup layoutDisabledLayer;
 
     private OnFragmentInteractionListener mListener;
 
@@ -128,6 +131,8 @@ public class ClusterMapInfoFragment
         textViewContributeDescription = view.findViewById(R.id.textViewContributeDescription);
         textViewNoClusterMap = view.findViewById(R.id.textViewNoClusterMap);
         buttonContribute = view.findViewById(R.id.buttonContribute);
+        cardViewApiError = view.findViewById(R.id.cardViewApiError);
+        layoutDisabledLayer = view.findViewById(R.id.layoutDisabledLayer);
 
         buttonContribute.setOnClickListener(this);
     }
@@ -142,6 +147,8 @@ public class ClusterMapInfoFragment
         textViewLayerDescription.setVisibility(View.VISIBLE);
         layoutLayerContent.setVisibility(View.VISIBLE);
         textViewNoClusterMap.setVisibility(View.GONE);
+        cardViewApiError.setVisibility(View.GONE);
+        layoutDisabledLayer.setVisibility(View.GONE);
 
         if (activity.clusterStatus.clusters == null || activity.clusterStatus.clusters.size() == 0) {
             textViewNoClusterMap.setVisibility(View.VISIBLE);
@@ -221,7 +228,10 @@ public class ClusterMapInfoFragment
     public void updateButton() {
         buttonUpdate.setEnabled(true);
         buttonUpdate.setText(R.string.cluster_map_info_button_update);
-        if (!isLayerChanged()) {
+        if (activity.haveErrorOnLayer.contains(activity.layerTmpStatus)) {
+            buttonUpdate.setEnabled(true);
+            buttonUpdate.setText(R.string.retry);
+        } else if (!isLayerChanged()) {
             buttonUpdate.setEnabled(false);
             buttonUpdate.setText(R.string.cluster_map_info_button_update_disabled);
         }
@@ -267,6 +277,12 @@ public class ClusterMapInfoFragment
                 editText.setText(activity.layerTmpLocation);
                 break;
         }
+
+        if (activity.haveErrorOnLayer.contains(activity.layerTmpStatus))
+            cardViewApiError.setVisibility(View.VISIBLE);
+        else
+            cardViewApiError.setVisibility(View.GONE);
+
         updateButton();
     }
 
@@ -368,6 +384,7 @@ public class ClusterMapInfoFragment
                     finishApplyLayer();
                     break;
                 case FRIENDS:
+                    //TODO: refresh friends
                     activity.applyLayerFriends();
                     finishApplyLayer();
                     break;
