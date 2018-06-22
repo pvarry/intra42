@@ -30,6 +30,8 @@
 <string name="error">"ошибка"</string>
 <string name="ok">"ОК"</string>
 <string name="open_this">"Открыть"</string>
+
+    <!-- Less char is better -->
 <string name="save">"Сохранить"</string>
 <string name="soon">"Скоро"</string>
 <string name="sort_by">"Сортировать по"</string>

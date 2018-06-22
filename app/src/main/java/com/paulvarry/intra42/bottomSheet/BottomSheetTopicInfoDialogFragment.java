@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -177,11 +178,14 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
         massageWithoutRendering.setText(message.content);
 
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
-        CoordinatorLayout.Behavior behavior = params.getBehavior();
+        FrameLayout viewParent = (FrameLayout) contentView.getParent();
+        Object params = viewParent.getLayoutParams();
+        if (params instanceof CoordinatorLayout.LayoutParams) {
+            CoordinatorLayout.Behavior behavior = ((CoordinatorLayout.LayoutParams) params).getBehavior();
 
-        if (behavior != null && behavior instanceof BottomSheetBehavior) {
-            ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
+            if (behavior != null && behavior instanceof BottomSheetBehavior) {
+                ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
+            }
         }
     }
 

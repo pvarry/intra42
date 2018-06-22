@@ -113,6 +113,9 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
         if (event.kind != null)
             appBar.setBackgroundColor(event.kind.getColorInt(this));
 
+        if (isFinishing())
+            return;
+
         FragmentManager manager = getSupportFragmentManager();
 
         if (eventFragment != null)

@@ -53,6 +53,8 @@
 <string name="error">"error"</string>
 <string name="ok">"OK"</string>
 <string name="open_this">"Open this"</string>
+
+    <!-- Less char is better -->
 <string name="save">"Save"</string>
 <string name="soon">"Soon"</string>
 <string name="sort_by">"Sort by"</string>

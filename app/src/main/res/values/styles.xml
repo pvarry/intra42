@@ -189,7 +189,6 @@
     </style>
 
     <style name="TexAppTheme.TextView.Subhead" parent="TextAppearance.AppCompat.Subhead">
-        <item name="android:textColor">?android:attr/colorAccent</item>
         <item name="android:textStyle">bold</item>
     </style>
 
