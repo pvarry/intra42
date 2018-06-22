@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -28,14 +29,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.ClusterMapContributeActivity;
 import com.paulvarry.intra42.adapters.RecyclerAdapterClusterMapInfo;
 import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.tools42.Friends;
+import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 
@@ -81,6 +89,7 @@ public class ClusterMapInfoFragment
     private Button buttonContribute;
     private CardView cardViewApiError;
     private ViewGroup layoutDisabledLayer;
+    private TextView textViewWarningDisabledLayer;
 
     private OnFragmentInteractionListener mListener;
 
@@ -133,6 +142,7 @@ public class ClusterMapInfoFragment
         buttonContribute = view.findViewById(R.id.buttonContribute);
         cardViewApiError = view.findViewById(R.id.cardViewApiError);
         layoutDisabledLayer = view.findViewById(R.id.layoutDisabledLayer);
+        textViewWarningDisabledLayer = view.findViewById(R.id.textViewWarningDisabledLayer);
 
         buttonContribute.setOnClickListener(this);
     }
@@ -228,7 +238,10 @@ public class ClusterMapInfoFragment
     public void updateButton() {
         buttonUpdate.setEnabled(true);
         buttonUpdate.setText(R.string.cluster_map_info_button_update);
-        if (activity.haveErrorOnLayer.contains(activity.layerTmpStatus)) {
+
+        final FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        boolean warning_42tools_enable = mFirebaseRemoteConfig.getBoolean(getString(R.string.firebase_remote_config_warning_42tools_enable));
+        if (activity.haveErrorOnLayer.contains(activity.layerTmpStatus) && !warning_42tools_enable) {
             buttonUpdate.setEnabled(true);
             buttonUpdate.setText(R.string.retry);
         } else if (!isLayerChanged()) {
@@ -282,6 +295,41 @@ public class ClusterMapInfoFragment
             cardViewApiError.setVisibility(View.VISIBLE);
         else
             cardViewApiError.setVisibility(View.GONE);
+
+        layoutDisabledLayer.setVisibility(View.GONE);
+        if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.FRIENDS) {
+            final FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+            mFirebaseRemoteConfig.fetch(AppClass.FIREBASE_REMOTE_CONFIG_CACHE_EXPIRATION)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                // After config data is successfully fetched, it must be activated before newly fetched
+                                // values are returned.
+                                mFirebaseRemoteConfig.activateFetched();
+                            }
+
+                            if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.FRIENDS) { // add this condition a second time in case layout changed
+                                boolean warning_42tools_enable = mFirebaseRemoteConfig.getBoolean(getString(R.string.firebase_remote_config_warning_42tools_enable));
+                                if (warning_42tools_enable) {
+
+                                    String message = mFirebaseRemoteConfig.getString(getString(R.string.firebase_remote_config_warning_42tools_message));
+                                    if (message != null)
+                                        textViewWarningDisabledLayer.setText(message);
+                                    else
+                                        textViewWarningDisabledLayer.setText(R.string.cluster_map_info_layer_warning_disabled);
+
+                                    layoutDisabledLayer.setVisibility(View.VISIBLE);
+                                    buttonUpdate.setEnabled(false);
+                                    cardViewApiError.setVisibility(View.GONE);
+                                } else
+                                    layoutDisabledLayer.setVisibility(View.GONE);
+                            }
+                            updateButton();
+                        }
+                    });
+        }
 
         updateButton();
     }
@@ -384,9 +432,13 @@ public class ClusterMapInfoFragment
                     finishApplyLayer();
                     break;
                 case FRIENDS:
-                    //TODO: refresh friends
-                    activity.applyLayerFriends();
-                    finishApplyLayer();
+                    if (activity.clusterStatus.friends == null || activity.haveErrorOnLayer.contains(ClusterMapActivity.LayerStatus.FRIENDS)) {
+                        loadingViewStartCircularReveal();
+                        loadDataFriends();
+                    } else {
+                        activity.applyLayerFriends();
+                        finishApplyLayer();
+                    }
                     break;
                 case PROJECT:
                     loadingViewStartCircularReveal();
@@ -475,6 +527,35 @@ public class ClusterMapInfoFragment
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
+    }
+
+    void loadDataFriends() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ApiService42Tools api = activity.app.getApiService42Tools();
+                    final List<FriendsSmall> friendsTmp = Friends.getFriends(api);
+                    activity.clusterStatus.friends = new SparseArray<>();
+                    for (FriendsSmall f : friendsTmp) {
+                        activity.clusterStatus.friends.put(f.id, f);
+                    }
+                    activity.haveErrorOnLayer.remove(ClusterMapActivity.LayerStatus.FRIENDS);
+                } catch (IOException | RuntimeException e) {
+                    finishApplyLayerOnThread(false);
+                    e.printStackTrace();
+                    if (!activity.haveErrorOnLayer.contains(ClusterMapActivity.LayerStatus.FRIENDS)) {
+                        activity.haveErrorOnLayer.add(ClusterMapActivity.LayerStatus.FRIENDS);
+                    }
+                }
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.applyLayerFriends();
+                    }
+                });
+            }
+        }).start();
     }
 
     void layerProjectFindSlug() {

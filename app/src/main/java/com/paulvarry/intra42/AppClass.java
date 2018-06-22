@@ -18,6 +18,8 @@ import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.activities.MainActivity;
 import com.paulvarry.intra42.api.ApiService;
@@ -59,6 +61,8 @@ public class AppClass extends Application {
     public static final String PREFS_CACHE_LAST_CHECK = "cache_last_check";
     public static final String PREFS_API_TOKEN = "api_token";
     public static final String API_ME_LOGIN = "me_login";
+
+    public static final int FIREBASE_REMOTE_CONFIG_CACHE_EXPIRATION = 60;
 
     private static AppClass sInstance;
     public List<CursusUsers> cursus;
@@ -204,6 +208,13 @@ public class AppClass extends Application {
 
         initFirebase();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
 
         if (isExternalStorageWritable() && (AppSettings.Advanced.getAllowSaveLogs(this) | BuildConfig.DEBUG)) {
 

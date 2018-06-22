@@ -50,4 +50,7 @@
     <string name="Github_link">https://github.com/pvarry/intra42/</string>
     <string name="Github_link_issues">https://github.com/pvarry/intra42/issues/</string>
 
+    <string name="firebase_remote_config_warning_42tools_enable">warning_42tools_enable</string>
+    <string name="firebase_remote_config_warning_42tools_message">warning_42tools_message</string>
+
 </resources>

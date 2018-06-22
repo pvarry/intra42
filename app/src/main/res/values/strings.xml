@@ -628,4 +628,6 @@ long click for more action"</string>
     <string name="user_patronages_patroning">Patroning</string>
     <string name="user_patronages_no_patroning">NOT PATRONING ANYONE</string>
     <string name="retry">Retry</string>
+    <string name="cluster_map_info_layer_warning_disabled">Unable to use this data layer, the server delivering this data is doing maintenance, try again later</string>
+    <string name="friends_warning">Friends feature is not available, the server is doing maintenance</string>
 </resources>

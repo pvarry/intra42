@@ -133,18 +133,13 @@
                             app:srcCompat="@drawable/ic_warning_black_24dp" />
 
                         <TextView
+                            android:id="@+id/textViewWarningDisabledLayer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_marginStart="8dp"
-                            android:text="Unable to use this data layer, the serveur delivering this data is doing maintenance, try again later"
+                            android:text="@string/cluster_map_info_layer_warning_disabled"
                             android:textColor="@color/textColorError" />
-
-                        <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Unable to use this data layer" />-->
-
                     </LinearLayout>
 
                     <Button

@@ -8,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService42Tools;
@@ -156,6 +158,8 @@ public class ClusterMapActivity
 
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
 
+        final FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        mFirebaseRemoteConfig.fetch(AppClass.FIREBASE_REMOTE_CONFIG_CACHE_EXPIRATION);
         try {
             ApiService42Tools api = app.getApiService42Tools();
             final List<FriendsSmall> friendsTmp = Friends.getFriends(api);
