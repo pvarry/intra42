@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
@@ -55,6 +56,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
     private AppClass appClass;
     private ApiService api;
     private Call<List<EventsUsers>> listCallEventsUsers;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private EventsUsers eventsUsers;
     private Events event;
@@ -102,8 +104,11 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 Context context = getContext();
                 if (context != null) {
                     Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
-                    Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
+                    Calendar.syncEventCalendarAfterSubscription(context, event, eventsUsers);
                 }
+                Bundle params = new Bundle();
+                params.putString("event_id", String.valueOf(event.id));
+                mFirebaseAnalytics.logEvent("event_unsubscribe", params);
             }
         }
 
@@ -129,9 +134,19 @@ public class EventFragment extends Fragment implements View.OnClickListener {
             if (response.isSuccessful()) {
                 eventsUsers = response.body();
                 setButtonSubscribe();
-                Toast.makeText(getContext(), R.string.event_subscribed, Toast.LENGTH_SHORT).show();
+
+                Context context = getContext();
+                if (context != null) {
+                    Toast.makeText(context, R.string.event_subscribed, Toast.LENGTH_SHORT).show();
+                    Calendar.syncEventCalendarAfterSubscription(context, event, eventsUsers);
+                }
+
+                Bundle params = new Bundle();
+                params.putString("event_id", String.valueOf(response.body().eventId));
+                params.putString("event_user_id", String.valueOf(response.body().id));
+                mFirebaseAnalytics.logEvent("event_subscribe", params);
             }
-            Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
+
         }
 
         @Override
@@ -209,6 +224,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
             event = ServiceGenerator.getGson().fromJson(getArguments().getString(ARG_EVENT), Events.class);
             showTitle = getArguments().getBoolean(ARG_SHOW_TITLE, true);
         }
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(requireContext());
     }
 
     @Override

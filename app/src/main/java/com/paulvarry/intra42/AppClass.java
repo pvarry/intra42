@@ -201,6 +201,7 @@ public class AppClass extends Application {
             me = CacheUsers.get(cacheSQLiteHelper, login);
 
         ThemeHelper.setTheme(this);
+//        Analytics.settingUpdated(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationsUtils.generateNotificationChannel(this);

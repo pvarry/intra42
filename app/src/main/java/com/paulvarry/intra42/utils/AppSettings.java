@@ -402,7 +402,10 @@ public class AppSettings {
         }
 
         public static boolean getDarkThemeEnable(Context context) {
-            SharedPreferences preferences = getSharedPreferences(context);
+            return context == null || getDarkThemeEnable(getSharedPreferences(context));
+        }
+
+        public static boolean getDarkThemeEnable(SharedPreferences preferences) {
             return preferences.getBoolean(DARK_THEME, true);
         }
 
@@ -413,9 +416,14 @@ public class AppSettings {
         }
 
         public static EnumTheme getEnumTheme(Context context) {
-            SharedPreferences settings = getSharedPreferences(context);
-            String string = settings.getString(THEME, "default");
-            boolean darkThemeEnable = getDarkThemeEnable(context);
+            if (context != null)
+                return getEnumTheme(getSharedPreferences(context));
+            return EnumTheme.DEFAULT;
+        }
+
+        public static EnumTheme getEnumTheme(SharedPreferences preferences) {
+            String string = preferences.getString(THEME, "default");
+            boolean darkThemeEnable = getDarkThemeEnable(preferences);
 
             EnumTheme enumTheme;
             switch (string) {
