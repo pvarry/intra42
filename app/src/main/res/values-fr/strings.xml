@@ -54,8 +54,8 @@
 <string name="ok">"OK"</string>
 <string name="open_this">"Ouvre ceci"</string>
 
-    <!-- Less char is better -->
-    <string name="save">"Enr."</string>
+<!-- Less char is better -->
+<string name="save">"Enr."</string>
 <string name="soon">"Bientôt"</string>
 <string name="sort_by">"Trier par"</string>
 <string name="refresh">"Rafraîchir"</string>

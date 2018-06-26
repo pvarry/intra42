@@ -54,7 +54,7 @@
 <string name="ok">"OK"</string>
 <string name="open_this">"Open this"</string>
 
-    <!-- Less char is better -->
+<!-- Less char is better -->
 <string name="save">"Save"</string>
 <string name="soon">"Soon"</string>
 <string name="sort_by">"Sort by"</string>
@@ -624,12 +624,12 @@ long click for more action"</string>
 <string name="format_project_team_users_action_open">"Open {project} of {user}"</string>
 <string name="spinner_user_projects_my_projects">"My projects"</string>
 <string name="info_loading_cache_cursus_campus">"Getting cache from API for Cursus and Campus"</string>
-    <string name="title_tab_user_patronages">Patronages</string>
-    <string name="user_patronages_patron">Patron</string>
-    <string name="user_patronages_no_patron">NO PATRON</string>
-    <string name="user_patronages_patroning">Patroning</string>
-    <string name="user_patronages_no_patroning">NOT PATRONING ANYONE</string>
-    <string name="retry">Retry</string>
-    <string name="cluster_map_info_layer_warning_disabled">Unable to use this data layer, the server delivering this data is doing maintenance, try again later</string>
-    <string name="friends_warning">Friends feature is not available, the server is doing maintenance</string>
+<string name="title_tab_user_patronages">"Patronages"</string>
+<string name="user_patronages_patron">"Patron"</string>
+<string name="user_patronages_no_patron">"NO PATRON"</string>
+<string name="user_patronages_patroning">"Patroning"</string>
+<string name="user_patronages_no_patroning">"NOT PATRONING ANYONE"</string>
+<string name="retry">"Retry"</string>
+<string name="cluster_map_info_layer_warning_disabled">"Unable to use this data layer, the server delivering this data is doing maintenance, try again later"</string>
+<string name="friends_warning">"Friends feature is not available, the server is doing maintenance"</string>
 </resources>

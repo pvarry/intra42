@@ -2,7 +2,7 @@
 <resources>
 <string name="app_name">"Intra 42"</string>
 <string name="pref_advanced_dont_force">"Desabilitar (No forzar)"</string>
-    <string name="pref_force_content_location">"Forzar localización del contenido"</string>
+<string name="pref_force_content_location">"Forzar localización del contenido"</string>
 <string name="pref_unactivated">"Desactivado"</string>
 <string name="pref_activated">"Activado"</string>
 <string name="pref_value_all">"todo"</string>
@@ -11,9 +11,9 @@
 <string name="pref_title_notifications_scales">"Notificar correcciones (beta)"</string>
 <string name="pref_title_notifications_frequency">"Frecuenca de sincronización"</string>
 <string name="pref_header_network">"Red"</string>
-    <string name="pref_title_network_over_cellular_slow">"Red lenta"</string>
-    <string name="pref_title_network_over_cellular_fast">"Red rápida"</string>
-    <string name="pref_title_network_over_wifi">"WiFi"</string>
+<string name="pref_title_network_over_cellular_slow">"Red lenta"</string>
+<string name="pref_title_network_over_cellular_fast">"Red rápida"</string>
+<string name="pref_title_network_over_wifi">"WiFi"</string>
 <string name="notifications_events_sub_text">"Evento"</string>
 <string name="notifications_events_channel_name">"Eventos"</string>
 <string name="notifications_events_channel_description">"Notificaciones para eventos"</string>
@@ -54,7 +54,7 @@
 <string name="ok">"OK"</string>
 <string name="open_this">"Abrir esto"</string>
 
-    <!-- Less char is better -->
+<!-- Less char is better -->
 <string name="save">"Guardar"</string>
 <string name="soon">"Próximamente"</string>
 <string name="sort_by">"Organizar por"</string>
@@ -66,7 +66,7 @@
 <string name="shortcut_friends">"Amigos"</string>
 <string name="shortcut_long_friends">"Lista de amigos"</string>
 <string name="shortcut_long_cluster_map">"Mapa de grupos"</string>
-    <string name="shortcut_galaxy">"Gráfico Sagrado
+<string name="shortcut_galaxy">"Gráfico Sagrado
 "</string>
 <string name="about_content">"Accede a tu intra con una app nativa. Contáctame por Slack o por correo (pvarry)"</string>
 <string name="about_version">"Versión"</string>
@@ -117,7 +117,7 @@
 <string name="galaxy_available">"Disponible"</string>
 <string name="galaxy_failed">"Fallo"</string>
 <string name="galaxy_in_progress">"en progreso"</string>
-    <string name="galaxy_not_found">"No hay Gráficos Sagrados
+<string name="galaxy_not_found">"No hay Gráficos Sagrados
  disponibles"</string>
 <string name="galaxy_succeeded">"Éxito"</string>
 <string name="galaxy_unavailable">"No disponible"</string>
@@ -214,7 +214,7 @@
 <string name="title_activity_projects">"Proyectos"</string>
 <string name="title_activity_search">"Buscar"</string>
 <string name="title_activity_settings">"Ajustes"</string>
-    <string name="title_activity_sub_notion">"Nociones menores"</string>
+<string name="title_activity_sub_notion">"Nociones menores"</string>
 <string name="title_activity_tag">"Etiqueta"</string>
 <string name="title_activity_time">"Tiempo"</string>
 <string name="title_activity_topic">"Tópico"</string>
@@ -230,15 +230,15 @@
 <string name="title_tab_home_slots">"Espacios"</string>
 <string name="title_tab_project_attachments">"Archivos adjuntos"</string>
 <string name="title_tab_project_me">"Yo"</string>
-    <string name="title_tab_project_overview">"Vista Previa"</string>
+<string name="title_tab_project_overview">"Vista Previa"</string>
 <string name="title_tab_project_users">"Usuarios"</string>
-    <string name="title_tab_projects_graphic">"Gráficos Sagrados"</string>
+<string name="title_tab_projects_graphic">"Gráficos Sagrados"</string>
 <string name="title_tab_tags_forum">"Foro"</string>
-    <string name="title_tab_tags_notions">"Nociones"</string>
+<string name="title_tab_tags_notions">"Nociones"</string>
 <string name="title_tab_user_achievements">"Logros"</string>
 <string name="title_tab_user_expertises">"Experiencias"</string>
 <string name="title_tab_user_forum">"Foro"</string>
-    <string name="title_tab_user_overview">"Vista Previa"</string>
+<string name="title_tab_user_overview">"Vista Previa"</string>
 <string name="title_tab_user_partnerships">"Patrocinios"</string>
 <string name="title_tab_user_projects">"Proyectos"</string>
 <string name="title_tab_user_skills">"Habilidades"</string>
@@ -279,7 +279,7 @@
 <string name="list_preference_network_titles_default">"Por defecto (200x240)"</string>
 <string name="list_preference_network_titles_small">"Pequeño (146x175)"</string>
 <string name="list_preference_network_titles_none">"Ninguno"</string>
-    <string name="spinner_user_projects_galaxy">"Gráfico Sagrado"</string>
+<string name="spinner_user_projects_galaxy">"Gráfico Sagrado"</string>
 <string name="spinner_user_projects_all">"Todo"</string>
 <string name="spinner_user_projects_in_progress">"En progreso"</string>
 <string name="accessibility_navigation_drawer_close">"Cerrar ventana de navegación"</string>
@@ -360,10 +360,10 @@
 <string name="project_solo">"en solitario"</string>
 <string name="project_group">"grupo"</string>
 <string name="pref_theme_info_need_restart">"Necesitas reiniciar la apliación para actualizar el tema"</string>
-    <string name="event_kind_conf">"conferencia"</string>
+<string name="event_kind_conf">"conferencia"</string>
 <string name="event_kind_other">"otro"</string>
 <string name="event_kind_extern">"externo"</string>
-    <string name="event_kind_atelier">"taller"</string>
+<string name="event_kind_atelier">"taller"</string>
 <string name="event_kind_meet_up">"reunión"</string>
 <string name="event_kind_hackathon">"hackathon"</string>
 <string name="event_kind_workshop">"workshop"</string>
@@ -480,14 +480,14 @@ Herramientas útiles:
 ![Proyectos] (https://lh3.googleusercontent.com/9vEGqxY4duq8rK4VeDFgB8rU6JC_8E3kzX1Cl0-jrc3amrPoqFjHwZLTLKpSRdShXkXT=h310-rw)
 
 Descargo de responsabilidad: Este código no está de ninguna manera afiliado, autorizado, mantenido, patrocinado o respaldado por 42. Esta es una aplicación de Android independiente y no oficial."</string>
-    <string name="shortcut_cluster_map">"Grupos"</string>
-    <string name="shortcut_long_galaxy">"Gráfico Sagrado (proyectos)"</string>
+<string name="shortcut_cluster_map">"Grupos"</string>
+<string name="shortcut_long_galaxy">"Gráfico Sagrado (proyectos)"</string>
 <string name="bookings_correct_login_project">"Vas a corregir el _project_ de _login_ a las _date_"</string>
 <string name="pref_title_advanced_data_allow_beta">"Habilitar características avanzadas"</string>
 <string name="pref_summary_advanced_data_print_ids">"Habilitar para mostrar los ids y fichas en la app"</string>
 <string name="pref_title_advanced_data_print_ids">"Mostrar datos avanzados (ids, fichas ...)"</string>
 <string name="pref_summary_advanced_data_markdown_render">"Para el foro y los eventos (predeterminado a verdadero)"</string>
-    <string name="pref_title_advanced_data_markdown_render">"Reducir renderización"</string>
+<string name="pref_title_advanced_data_markdown_render">"Reducir renderización"</string>
 <string name="pref_summary_advanced_data_save_logs">"Al habilitar esta función, se generarán registros adicionales que se guardarán en \"~/Android/com.paulvarry.intra42/files/logs\". Debes reiniciar la aplicación para aplicar los cambios. Advertencia: la información privada (como el número de teléfono) se guardará en el almacenamiento del dispositivo. (predeterminado a falso)"</string>
 <string name="pref_title_advanced_data_save_logs">"Guardar registros en disco"</string>
 <string name="pref_summary_advanced_data_past_events">"Especialmente para píxeles"</string>
@@ -500,7 +500,7 @@ Descargo de responsabilidad: Este código no está de ninguna manera afiliado, a
 <string name="cluster_map_info_button_update_disabled">"no necesita actualizarse"</string>
 <string name="cluster_map_info_layer_input_login">"inicio de sesión"</string>
 <string name="cluster_map_info_layer_input_project">"proyecto"</string>
-    <string name="cluster_map_info_clusters">"Grupos"</string>
+<string name="cluster_map_info_clusters">"Grupos"</string>
 <string name="cluster_map_info_data_layer">"Capa de datos"</string>
 <string name="cluster_map_info_layer_spinner_main_friends">"Amigos"</string>
 <string name="cluster_map_info_layer_spinner_main_login">"Usuario"</string>
@@ -546,7 +546,7 @@ Descargo de responsabilidad: Este código no está de ninguna manera afiliado, a
 <string name="cluster_map_contribute_dialog_add_action_row_bottom">"Añadir fila inferior"</string>
 <string name="cluster_map_contribute_dialog_add_action_column_left">"Añadir columna lateral izquierda"</string>
 <string name="cluster_map_contribute_dialog_add_action_column_right">"Añadir columna lateral derecha"</string>
-    <string name="cluster_map_contribute_dialog_time_up_title">"Tiempo finalizado"</string>
+<string name="cluster_map_contribute_dialog_time_up_title">"Tiempo finalizado"</string>
 <string name="cluster_map_contribute_dialog_time_up_message">"Dentro de poco se cerrará tu trabajo, deberías considerar guardar tu progreso lo antes posible."</string>
 <string name="cluster_map_contribute_toolbar_info_minute_second">"Grupo cerrado hace _minute_ minutos y _second_ segundos"</string>
 <string name="cluster_map_contribute_toolbar_info_second">"Grupo cerrado hace _second_ segundos"</string>
@@ -558,71 +558,71 @@ Descargo de responsabilidad: Este código no está de ninguna manera afiliado, a
 <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix">"Prefijo de la ubicación"</string>
 <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">"Información: el prefijo de la ubicación es el principio del nombre del anfitrión de este grupo"</string>
 <string name="cluster_map_contribute_dialog_location_layout_user">"usuario"</string>
-    <string name="cluster_map_contribute_dialog_location_layout_wall">"muro"</string>
-    <string name="cluster_map_contribute_dialog_location_layout_corridor">"corredor"</string>
+<string name="cluster_map_contribute_dialog_location_layout_wall">"muro"</string>
+<string name="cluster_map_contribute_dialog_location_layout_corridor">"corredor"</string>
 <string name="cluster_map_contribute_dialog_location_layout_host_hint">"anfitrión"</string>
 <string name="cluster_map_contribute_dialog_scale_layout_scale_hint">"escala"</string>
 <string name="cluster_map_contribute_dialog_scale_layout_info">"Al establecer una escala en una fila o columna, redices o incrementas su tamaño"</string>
 <string name="cluster_map_info_button_contribute">"Añadir datos"</string>
 <string name="cluster_map_contribute_dialog_delete_title">"¿Seguro que quieres eliminar esta fila/columna?"</string>
 <string name="cluster_map_contribute_dialog_delete_message_row">"Vas a eliminar la fila y=%d, esta acción no puede deshacerse"</string>
-    <string name="cluster_map_contribute_dialog_delete_message_col">"Vas a eliminar la columna en x=%d, esta acción no se puede deshacer"</string>
-    <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comentario"</string>
-    <string name="cluster_map_contribute_explanations">"Solo se puede editar el grupo cuando eres el único editor, de modo que, cuando quieras editarlo, el grupo será bloqueado por 5 minutos y sólo tú podrás acceder a él.
+<string name="cluster_map_contribute_dialog_delete_message_col">"Vas a eliminar la columna en x=%d, esta acción no se puede deshacer"</string>
+<string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comentario"</string>
+<string name="cluster_map_contribute_explanations">"Solo se puede editar el grupo cuando eres el único editor, de modo que, cuando quieras editarlo, el grupo será bloqueado por 5 minutos y sólo tú podrás acceder a él.
 
 Guía: Orientación del grupo
 - Todos los grupos de un Edificio deben tener la misma orientación.
 - El norte no es necesariamente la parte alta, es preferible tener la entrada del grupo por la parte baja."</string>
-    <string name="cluster_map_no_layout">"No hay interfaz para este grupo"</string>
-    <string name="readme">"Léeme"</string>
-    <string name="user_open_it_not_found">"Usuarios no encontrados"</string>
-    <string name="discard_changes">"descartar"</string>
-    <string name="cluster_map_contribute_toolbar_info_too_late">"Muy tarde, no puedes guardar los cambios"</string>
-    <string name="project_scale_feedback">"Feedback"</string>
-    <string name="friends_info_api_data_processing">"La API de Amigos está procesando nuevos datos, tus amigos serán agregados lo más pronto posible"</string>
-    <string name="user_profile_grade_rank">"Nota"</string>
-    <string name="user_profile_add_to_friends">"Añadir como amigos"</string>
-    <string name="user_profile_remove_from_friends">"Eliminar de amigos"</string>
-    <string name="introduction_calendar_title">"Sincronizar tu calendario"</string>
-    <string name="introduction_calendar_description">"Los eventos a los que te apuntes serán insertados automáticamente en tu calendario"</string>
-    <string name="introduction_calendar_action">"Permitir calendario"</string>
-    <string name="introduction_calendar_switch">"Activar sincronización del calendario"</string>
-    <string name="introduction_calendar_image_content_description">"ilustración del calendario"</string>
-    <string name="introduction_translation_title">"Unirse a la Comunidad de Traducción"</string>
-    <string name="introduction_translation_description">"Si encuentras algún error gramatical o si quieres traducir esta aplicación, puedes hacerlo en POEditor"</string>
-    <string name="introduction_translation_action">"Editar las fuentes de strings"</string>
-    <string name="introduction_translation_text_bottom">"Los Nazis gramaticales son bienvenidos"</string>
-    <string name="introduction_translate_image_content_description">"traducir ilustración"</string>
-    <string name="about_show_introduction">"Mostrar Introducción"</string>
-    <string name="introduction_cluster_map_contribute_title">"Crear y modificar el mapa de grupos de tu campus"</string>
-    <string name="introduction_cluster_map_contribute_description">"Publicar el mapa de grupos de tu campus para todos, puedes añadir o editar la interfaz de un mapa de grupos directamente desde la app a través de la sección mapa de grupos"</string>
-    <string name="info_network_error">"Error de red"</string>
-    <string name="home_help_calendar_sync">"Sincronizar el calendariod e tu teléfono con los eventos suscritos"</string>
-    <string name="home_help_calendar_hide">"esconder"</string>
-    <string name="home_help_calendar_enable">"habilitar"</string>
-    <string name="project_user_not_registered">"no registrado"</string>
-    <string name="cluster_map_contribute_warning_empty_host">"Peligro: necesita rellenar el nombre del anfitrión"</string>
-    <string name="cluster_map_contribute_warning_host_prefix">"Peligro: el nombre del anfitrión no debe comenzar con un prefijo de grupo ya que este será añadido automáticamente más adelante"</string>
-    <string name="pref_theme_list_titles_default">"Intra (coalition auto theming)"</string>
-    <string name="pref_theme_list_titles_green_the_alliance">"Verde (La Alianza)"</string>
-    <string name="pref_theme_list_titles_blue_the_federation">"Azul (La Federación)"</string>
-    <string name="pref_theme_list_titles_purple_the_assembly">"Violeta / Lila (El Consejo)"</string>
-    <string name="pref_theme_list_titles_red_the_order">"Rojo (La Orden)"</string>
-    <string name="pref_theme_list_titles_android">"Android Oscuro"</string>
-    <string name="pref_theme_switch_action_bar_background">"Establecer imagen como fondo de la Aplicación"</string>
-    <string name="pref_theme_switch_dark_theme">"Usar modo oscuro"</string>
-    <string name="cluster_map_info_layer_spinner_main_none">"Nada"</string>
-    <string name="hint_date">"fecha"</string>
-    <string name="hint_time">"tiempo"</string>
-    <string name="project_team_users_toast_leader">"%s (líder de equipo)"</string>
-    <string name="project_team_users_toast">"%s
+<string name="cluster_map_no_layout">"No hay interfaz para este grupo"</string>
+<string name="readme">"Léeme"</string>
+<string name="user_open_it_not_found">"Usuarios no encontrados"</string>
+<string name="discard_changes">"descartar"</string>
+<string name="cluster_map_contribute_toolbar_info_too_late">"Muy tarde, no puedes guardar los cambios"</string>
+<string name="project_scale_feedback">"Feedback"</string>
+<string name="friends_info_api_data_processing">"La API de Amigos está procesando nuevos datos, tus amigos serán agregados lo más pronto posible"</string>
+<string name="user_profile_grade_rank">"Nota"</string>
+<string name="user_profile_add_to_friends">"Añadir como amigos"</string>
+<string name="user_profile_remove_from_friends">"Eliminar de amigos"</string>
+<string name="introduction_calendar_title">"Sincronizar tu calendario"</string>
+<string name="introduction_calendar_description">"Los eventos a los que te apuntes serán insertados automáticamente en tu calendario"</string>
+<string name="introduction_calendar_action">"Permitir calendario"</string>
+<string name="introduction_calendar_switch">"Activar sincronización del calendario"</string>
+<string name="introduction_calendar_image_content_description">"ilustración del calendario"</string>
+<string name="introduction_translation_title">"Unirse a la Comunidad de Traducción"</string>
+<string name="introduction_translation_description">"Si encuentras algún error gramatical o si quieres traducir esta aplicación, puedes hacerlo en POEditor"</string>
+<string name="introduction_translation_action">"Editar las fuentes de strings"</string>
+<string name="introduction_translation_text_bottom">"Los Nazis gramaticales son bienvenidos"</string>
+<string name="introduction_translate_image_content_description">"traducir ilustración"</string>
+<string name="about_show_introduction">"Mostrar Introducción"</string>
+<string name="introduction_cluster_map_contribute_title">"Crear y modificar el mapa de grupos de tu campus"</string>
+<string name="introduction_cluster_map_contribute_description">"Publicar el mapa de grupos de tu campus para todos, puedes añadir o editar la interfaz de un mapa de grupos directamente desde la app a través de la sección mapa de grupos"</string>
+<string name="info_network_error">"Error de red"</string>
+<string name="home_help_calendar_sync">"Sincronizar el calendariod e tu teléfono con los eventos suscritos"</string>
+<string name="home_help_calendar_hide">"esconder"</string>
+<string name="home_help_calendar_enable">"habilitar"</string>
+<string name="project_user_not_registered">"no registrado"</string>
+<string name="cluster_map_contribute_warning_empty_host">"Peligro: necesita rellenar el nombre del anfitrión"</string>
+<string name="cluster_map_contribute_warning_host_prefix">"Peligro: el nombre del anfitrión no debe comenzar con un prefijo de grupo ya que este será añadido automáticamente más adelante"</string>
+<string name="pref_theme_list_titles_default">"Intra (coalition auto theming)"</string>
+<string name="pref_theme_list_titles_green_the_alliance">"Verde (La Alianza)"</string>
+<string name="pref_theme_list_titles_blue_the_federation">"Azul (La Federación)"</string>
+<string name="pref_theme_list_titles_purple_the_assembly">"Violeta / Lila (El Consejo)"</string>
+<string name="pref_theme_list_titles_red_the_order">"Rojo (La Orden)"</string>
+<string name="pref_theme_list_titles_android">"Android Oscuro"</string>
+<string name="pref_theme_switch_action_bar_background">"Establecer imagen como fondo de la Aplicación"</string>
+<string name="pref_theme_switch_dark_theme">"Usar modo oscuro"</string>
+<string name="cluster_map_info_layer_spinner_main_none">"Nada"</string>
+<string name="hint_date">"fecha"</string>
+<string name="hint_time">"tiempo"</string>
+<string name="project_team_users_toast_leader">"%s (líder de equipo)"</string>
+<string name="project_team_users_toast">"%s
 Mantenga pulsado para más opciones"</string>
-    <string name="format_project_team_users_action_open">"Abrir {proyecto} de {user}"</string>
-    <string name="spinner_user_projects_my_projects">"Mis proyectos"</string>
-    <string name="info_loading_cache_cursus_campus">"Obteniendo cache de la API para Cursus y Campus"</string>
-    <string name="title_tab_user_patronages">"Patrocinadores"</string>
-    <string name="user_patronages_patron">"Patrocinador"</string>
-    <string name="user_patronages_no_patron">"NO ES PATROCINADOR"</string>
-    <string name="user_patronages_patroning">"Patrocinando"</string>
-    <string name="user_patronages_no_patroning">"NO PATROCINA A NADIE"</string>
+<string name="format_project_team_users_action_open">"Abrir {proyecto} de {user}"</string>
+<string name="spinner_user_projects_my_projects">"Mis proyectos"</string>
+<string name="info_loading_cache_cursus_campus">"Obteniendo cache de la API para Cursus y Campus"</string>
+<string name="title_tab_user_patronages">"Patrocinadores"</string>
+<string name="user_patronages_patron">"Patrocinador"</string>
+<string name="user_patronages_no_patron">"NO ES PATROCINADOR"</string>
+<string name="user_patronages_patroning">"Patrocinando"</string>
+<string name="user_patronages_no_patroning">"NO PATROCINA A NADIE"</string>
 </resources>
