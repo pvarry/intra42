@@ -35,7 +35,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -107,7 +106,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                     Calendar.syncEventCalendarAfterSubscription(context, event, eventsUsers);
                 }
                 Bundle params = new Bundle();
-                params.putString("event_id", String.valueOf(event.id));
+                params.putInt("event_id", event.id);
                 mFirebaseAnalytics.logEvent("event_unsubscribe", params);
             }
         }
@@ -142,8 +141,8 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 }
 
                 Bundle params = new Bundle();
-                params.putString("event_id", String.valueOf(response.body().eventId));
-                params.putString("event_user_id", String.valueOf(response.body().id));
+                params.putInt("event_id", response.body().eventId);
+                params.putInt("event_user_id", response.body().id);
                 mFirebaseAnalytics.logEvent("event_subscribe", params);
             }
 
