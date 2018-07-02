@@ -32,6 +32,7 @@ public class FriendsGroupsEditActivity extends BasicEditActivity implements Basi
 
     private static final String PARAM = "group";
 
+    @Nullable
     private GroupLarge group;
     private int groupId;
 
@@ -78,7 +79,7 @@ public class FriendsGroupsEditActivity extends BasicEditActivity implements Basi
 
     @Override
     protected boolean haveUnsavedData() {
-        return !group.name.equals(editTextGroupName.getText().toString());
+        return group != null && !group.name.equals(editTextGroupName.getText().toString());
     }
 
     @Override
@@ -166,7 +167,6 @@ public class FriendsGroupsEditActivity extends BasicEditActivity implements Basi
             gridView.setVisibility(View.GONE);
             textViewFriendsInGroup.setVisibility(View.GONE);
         }
-
     }
 
     @Override

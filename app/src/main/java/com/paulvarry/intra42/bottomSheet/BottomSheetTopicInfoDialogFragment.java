@@ -226,7 +226,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
             @Override
             public void onResponse(Call<Votes> call, retrofit2.Response<Votes> response) {
                 Context context = getContext();
-                if (context == null)
+                if (context == null || !isAdded())
                     return;
                 if (response.isSuccessful())
                     Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
@@ -238,6 +238,8 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
             @Override
             public void onFailure(Call<Votes> call, Throwable t) {
+                if (!isAdded())
+                    return;
                 Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
                 imageButton.setVisibility(View.VISIBLE);
@@ -260,6 +262,8 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                 call.enqueue(new Callback<Messages>() {
                     @Override
                     public void onResponse(Call<Messages> call, retrofit2.Response<Messages> response) {
+                        if (!isAdded())
+                            return;
                         if (response.isSuccessful())
                             Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                         else
@@ -268,6 +272,8 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
                     @Override
                     public void onFailure(Call<Messages> call, Throwable t) {
+                        if (!isAdded())
+                            return;
                         Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -341,10 +347,11 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
             }
         });
 
-        AlertDialog a = builder.create();
-        a.getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        a.show();
+        AlertDialog alertDialog = builder.create();
+        Window alertDialogWindow = alertDialog.getWindow();
+        if (alertDialogWindow != null)
+            alertDialogWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        alertDialog.show();
         input.requestFocus();
     }
 

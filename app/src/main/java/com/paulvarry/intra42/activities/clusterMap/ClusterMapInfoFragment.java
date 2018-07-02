@@ -309,13 +309,15 @@ public class ClusterMapInfoFragment
                                 // values are returned.
                                 mFirebaseRemoteConfig.activateFetched();
                             }
+                            if (!isAdded())
+                                return;
 
                             if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.FRIENDS) { // add this condition a second time in case layout changed
                                 boolean warning_42tools_enable = mFirebaseRemoteConfig.getBoolean(getString(R.string.firebase_remote_config_warning_42tools_enable));
                                 if (warning_42tools_enable) {
 
                                     String message = mFirebaseRemoteConfig.getString(getString(R.string.firebase_remote_config_warning_42tools_message));
-                                    if (message != null)
+                                    if (message != null && !message.isEmpty())
                                         textViewWarningDisabledLayer.setText(message);
                                     else
                                         textViewWarningDisabledLayer.setText(R.string.cluster_map_info_layer_warning_disabled);
