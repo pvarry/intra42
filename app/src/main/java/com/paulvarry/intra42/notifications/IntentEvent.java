@@ -10,6 +10,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.EventsUsers;
+import com.paulvarry.intra42.utils.Analytics;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +62,7 @@ public class IntentEvent extends IntentService {
 
                 }
             });
+            Analytics.eventSubscribe(eventId, app.me.id, Analytics.EventSource.NOTIFICATION);
         } else if (action.contentEquals(ACTION_DELETE)) {
             api.deleteEventsUsers(eventUserId).enqueue(new Callback<Void>() {
                 @Override
@@ -74,6 +76,7 @@ public class IntentEvent extends IntentService {
 
                 }
             });
+            Analytics.eventUnsubscribe(eventId, app.me.id, Analytics.EventSource.NOTIFICATION);
         }
     }
 }

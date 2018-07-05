@@ -23,6 +23,7 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
+import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
@@ -105,9 +106,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getContext(), R.string.event_unsubscribed, Toast.LENGTH_SHORT).show();
                     Calendar.syncEventCalendarAfterSubscription(context, event, eventsUsers);
                 }
-                Bundle params = new Bundle();
-                params.putInt("event_id", event.id);
-                mFirebaseAnalytics.logEvent("event_unsubscribe", params);
             }
         }
 
@@ -139,13 +137,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(context, R.string.event_subscribed, Toast.LENGTH_SHORT).show();
                     Calendar.syncEventCalendarAfterSubscription(context, event, eventsUsers);
                 }
-
-                Bundle params = new Bundle();
-                params.putInt("event_id", response.body().eventId);
-                params.putInt("event_user_id", response.body().id);
-                mFirebaseAnalytics.logEvent("event_subscribe", params);
             }
-
         }
 
         @Override
@@ -343,10 +335,13 @@ public class EventFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         progressBarButton.setVisibility(View.VISIBLE);
         buttonSubscribe.setEnabled(false);
-        if (eventsUsers == null)
+        if (eventsUsers == null) {
             api.createEventsUsers(event.id, appClass.me.id).enqueue(callbackSubscribe);
-        else
+            Analytics.eventSubscribe(event.id, appClass.me.id, Analytics.EventSource.APPLICATION);
+        } else {
             api.deleteEventsUsers(eventsUsers.id).enqueue(callbackDelete);
+            Analytics.eventUnsubscribe(eventsUsers, Analytics.EventSource.APPLICATION);
+        }
     }
 
     void setButtonSubscribe() {

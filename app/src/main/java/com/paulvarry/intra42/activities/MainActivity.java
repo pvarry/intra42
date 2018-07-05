@@ -23,6 +23,7 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
+import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Token;
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                         int statusCode = response.code();
                         if (statusCode == 200) {
+                            Analytics.signInSuccess();
                             AccessToken token = response.body();
                             Token.save(MainActivity.this, token);
                             ServiceGenerator.setToken(token);
@@ -213,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open(View view) {
+        Analytics.signInAttempt();
         Uri u = Uri.parse(ApiService.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
         Intent intent = new Intent(Intent.ACTION_VIEW, u);
         // This flag is set to prevent the browser with the login form from showing in the history stack

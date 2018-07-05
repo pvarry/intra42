@@ -20,13 +20,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Slots;
 import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
+import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.SlotsTools;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -59,8 +59,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private TextView textViewError;
     private Button buttonSave;
 
-    private FirebaseAnalytics mFirebaseAnalytics;
-
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
         @Override
@@ -92,7 +90,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
         super.onCreate(savedInstanceState);
 
         dialogFragment = this;
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(requireContext());
 
         if (getArguments() != null) {
             if (getArguments().containsKey(ARG_SLOTS)) {
@@ -357,6 +354,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
                 }
 
+                Analytics.slotSave(slotsGroup);
+
                 final boolean finalIsSuccess = isSuccess;
                 activity.runOnUiThread(new Runnable() {
                     @Override
@@ -368,10 +367,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                         if (finalIsSuccess) {
                             Toast.makeText(getContext(), R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
                             dialogFragment.dismiss();
-                            Bundle params = new Bundle();
-                            params.putSerializable("start_at", slotsGroup.beginAt);
-                            params.putSerializable("end_at", slotsGroup.endAt);
-                            mFirebaseAnalytics.logEvent("slot_save", params);
                         } else {
 
                             boolean errorFound = false;
@@ -407,10 +402,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                     Toast.makeText(activity, R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
                     dialogFragment.dismissAllowingStateLoss();
 
-                    Bundle params = new Bundle();
-                    params.putSerializable("start_at", slotsGroup.beginAt);
-                    params.putSerializable("end_at", slotsGroup.endAt);
-                    mFirebaseAnalytics.logEvent("slot_create", params);
+                    Analytics.slotCreate(slotsGroup);
                 } else
                     Toast.makeText(activity, response.message(), Toast.LENGTH_SHORT).show();
             }
@@ -428,6 +420,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private void deleteSlotFull() {
         final ProgressDialog dialog = ProgressDialog.show(activity, null, activity.getString(R.string.info_loading_please_wait), false);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        Analytics.slotDelete(slotsGroup);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -441,10 +434,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                                 dialogFragment.dismiss();
                         }
                     });
-                    Bundle params = new Bundle();
-                    params.putSerializable("start_at", slotsGroup.beginAt);
-                    params.putSerializable("end_at", slotsGroup.endAt);
-                    mFirebaseAnalytics.logEvent("slot_delete", params);
                 }
             }
         }).start();

@@ -40,6 +40,7 @@ import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.ui.TagSpanGenerator;
+import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Share;
 import com.paulvarry.intra42.utils.Tag;
@@ -423,8 +424,10 @@ public class UserOverviewFragment
             if (!isFriend) { //add
                 Call<Friends> friendsCall = api.addFriend(user.id);
                 friendsCall.enqueue(addFriend);
+                Analytics.friendAdd(user, app.me);
             } else {
                 api.deleteFriend(user.id).enqueue(removeFriend);
+                Analytics.friendAdd(user, app.me);
             }
         } else if (v == imageViewProfile) {
             ImageViewerActivity.openIt(getContext(), user);
