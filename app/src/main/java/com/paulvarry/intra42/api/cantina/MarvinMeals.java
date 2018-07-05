@@ -4,11 +4,11 @@ import android.content.Context;
 import android.text.format.DateUtils;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 
 import java.util.Date;
 
-public class MarvinMeals implements IBaseItem {
+public class MarvinMeals implements IBaseItemSmall {
 
     static final String API_ID = "id";
     static final String API_MENU = "menu";
@@ -49,5 +49,10 @@ public class MarvinMeals implements IBaseItem {
     @Override
     public boolean openIt(Context context) {
         return false;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

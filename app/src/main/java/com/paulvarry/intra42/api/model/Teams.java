@@ -1,8 +1,10 @@
 package com.paulvarry.intra42.api.model;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.ItemWithId;
 
 import java.util.Date;
@@ -11,7 +13,7 @@ import java.util.List;
 /**
  * A user (or a groupe of users) register in a project
  */
-public class Teams extends ItemWithId {
+public class Teams extends ItemWithId implements IBaseItemSmall {
 
     private static final String API_NAME = "name";
     private static final String API_URL = "url";
@@ -83,4 +85,23 @@ public class Teams extends ItemWithId {
         return users.get(0);
     }
 
+    @Override
+    public String getName(Context context) {
+        return name;
+    }
+
+    @Override
+    public String getSub(Context context) {
+        return null;
+    }
+
+    @Override
+    public boolean openIt(Context context) {
+        return false;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
 }

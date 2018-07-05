@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.DateTool;
 
@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Master implements Serializable, Comparable<Master>, IBaseItem {
+public class Master implements Serializable, Comparable<Master>, IBaseItemSmall {
 
     public String name;
     @Nullable
@@ -114,5 +114,10 @@ public class Master implements Serializable, Comparable<Master>, IBaseItem {
     @Override
     public boolean openIt(Context context) {
         return false;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
     }
 }

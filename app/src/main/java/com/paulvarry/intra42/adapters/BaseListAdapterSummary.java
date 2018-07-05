@@ -8,11 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 
 import java.util.List;
 
-public class BaseListAdapterSummary<T extends IBaseItem> extends BaseAdapter {
+public class BaseListAdapterSummary<T extends IBaseItemSmall> extends BaseAdapter {
 
     private final Context context;
     private List<T> itemList;
@@ -43,7 +43,7 @@ public class BaseListAdapterSummary<T extends IBaseItem> extends BaseAdapter {
      * @return The data at the specified position.
      */
     @Override
-    public IBaseItem getItem(int position) {
+    public IBaseItemSmall getItem(int position) {
         return itemList.get(position);
     }
 
@@ -77,7 +77,7 @@ public class BaseListAdapterSummary<T extends IBaseItem> extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final IBaseItem item = getItem(position);
+        final IBaseItemSmall item = getItem(position);
 
         String name = item.getName(context);
         if (name != null && !name.isEmpty()) {

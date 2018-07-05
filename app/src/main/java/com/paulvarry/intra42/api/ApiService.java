@@ -21,6 +21,7 @@ import com.paulvarry.intra42.api.model.Slots;
 import com.paulvarry.intra42.api.model.Subnotions;
 import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Teams;
+import com.paulvarry.intra42.api.model.TeamsUploads;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
@@ -236,6 +237,11 @@ public interface ApiService {
 
     @GET("/v2/scale_teams?sort=team_id&per_page=100")
     Call<List<ScaleTeams>> getScaleTeams(@Query("filter[team_id]") String filterTeam);
+
+    /* Team Uploads */
+
+    @GET("/v2/teams_uploads?per_page=100")
+    Call<List<TeamsUploads>> getTeamUpload(@Query("filter[team_id]") int teamId);
 
     /* Projects */
     @GET("/v2/projects?sort=name&filter[visible]=true")

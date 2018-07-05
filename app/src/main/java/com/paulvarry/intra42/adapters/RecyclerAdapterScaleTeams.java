@@ -22,7 +22,7 @@ public class RecyclerAdapterScaleTeams extends RecyclerView.Adapter<ViewHolderSc
     private List<ScaleTeams> list;
     private OnItemClickListener listener;
 
-    RecyclerAdapterScaleTeams(List<ScaleTeams> list) {
+    public RecyclerAdapterScaleTeams(List<ScaleTeams> list) {
 
         this.list = list;
     }

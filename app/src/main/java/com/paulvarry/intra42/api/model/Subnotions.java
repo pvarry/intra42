@@ -3,12 +3,12 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 
 import java.util.Date;
 import java.util.List;
 
-public class Subnotions implements IBaseItem {
+public class Subnotions implements IBaseItemSmall {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -45,4 +45,8 @@ public class Subnotions implements IBaseItem {
         return false;
     }
 
+    @Override
+    public int getId() {
+        return id;
+    }
 }

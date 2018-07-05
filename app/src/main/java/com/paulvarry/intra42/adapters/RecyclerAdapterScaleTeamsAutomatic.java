@@ -18,7 +18,7 @@ public class RecyclerAdapterScaleTeamsAutomatic extends RecyclerView.Adapter<Vie
 
     private List<TeamsUploads> list;
 
-    RecyclerAdapterScaleTeamsAutomatic(List<TeamsUploads> list) {
+    public RecyclerAdapterScaleTeamsAutomatic(List<TeamsUploads> list) {
         this.list = list;
     }
 

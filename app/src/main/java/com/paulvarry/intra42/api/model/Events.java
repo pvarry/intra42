@@ -8,12 +8,12 @@ import android.support.annotation.StringRes;
 
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 
 import java.util.Date;
 import java.util.List;
 
-public class Events implements IBaseItem {
+public class Events implements IBaseItemSmall {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -64,6 +64,11 @@ public class Events implements IBaseItem {
     @Override
     public boolean openIt(Context context) {
         return false;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     public enum EventKind {

@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.RecyclerItem;
+import com.paulvarry.intra42.adapters.RecyclerItemSmall;
 import com.paulvarry.intra42.adapters.SimpleHeaderRecyclerAdapter;
 import com.paulvarry.intra42.api.cantina.MarvinMeals;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
@@ -27,7 +27,7 @@ import retrofit2.Response;
 public class MarvinMealsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread {
 
     List<MarvinMeals> marvinMealList;
-    private List<RecyclerItem<MarvinMeals>> items;
+    private List<RecyclerItemSmall<MarvinMeals>> items;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, MarvinMealsActivity.class);
@@ -84,8 +84,8 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
             MarvinMeals last = null;
             for (MarvinMeals m : marvinMealList) {
                 if (last == null || !DateTool.sameDayOf(m.beginAt, last.beginAt))
-                    items.add(new RecyclerItem<MarvinMeals>(DateTool.getDateLong(m.beginAt)));
-                items.add(new RecyclerItem<>(m));
+                    items.add(new RecyclerItemSmall<MarvinMeals>(DateTool.getDateLong(m.beginAt)));
+                items.add(new RecyclerItemSmall<>(m));
                 last = m;
             }
         }

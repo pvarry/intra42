@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.UserImage;
@@ -143,7 +143,7 @@ public class SectionListView extends BaseAdapter
 
     }
 
-    public static class Item<T extends IBaseItem> {
+    public static class Item<T extends IBaseItemSmall> {
 
         public static final int ITEM = 0;
         public static final int SECTION = 1;

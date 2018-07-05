@@ -3,7 +3,7 @@ package com.paulvarry.intra42.api.model;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.api.IBaseItemDetail;
+import com.paulvarry.intra42.api.IBaseItemMedium;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Partnerships implements IBaseItemDetail {
+public class Partnerships implements IBaseItemMedium {
 
     private static final String API_ID = "id";
     private static final String API_NAME = "name";
@@ -87,5 +87,10 @@ public class Partnerships implements IBaseItemDetail {
     @Override
     public String getDetail(Context context) {
         return "T" + String.valueOf(this.tier);
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

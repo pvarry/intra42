@@ -19,7 +19,7 @@ public class LocationHeaderRecyclerAdapter extends SimpleHeaderRecyclerAdapter<L
 
     private boolean isUserHistory = false;
 
-    public LocationHeaderRecyclerAdapter(Context context, List<RecyclerItem<Locations>> items) {
+    public LocationHeaderRecyclerAdapter(Context context, List<RecyclerItemSmall<Locations>> items) {
         super(context, items);
     }
 
@@ -31,7 +31,7 @@ public class LocationHeaderRecyclerAdapter extends SimpleHeaderRecyclerAdapter<L
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if (viewType == RecyclerItem.HEADER) {
+        if (viewType == RecyclerItemSmall.HEADER) {
             view = inflater.inflate(R.layout.list_view_section_header, parent, false);
             return new ViewHolderHeader(view);
         } else {
@@ -41,9 +41,9 @@ public class LocationHeaderRecyclerAdapter extends SimpleHeaderRecyclerAdapter<L
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-        RecyclerItem<Locations> i = items.get(position);
+        RecyclerItemSmall<Locations> i = items.get(position);
         switch (getItemViewType(position)) {
-            case RecyclerItem.ITEM:
+            case RecyclerItemSmall.ITEM:
                 ViewHolderItem item = (ViewHolderItem) holder;
                 item.bind(i, position);
                 break;
@@ -55,7 +55,7 @@ public class LocationHeaderRecyclerAdapter extends SimpleHeaderRecyclerAdapter<L
     // this should be static
     class ViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private RecyclerItem<Locations> location;
+        private RecyclerItemSmall<Locations> location;
 
         private ImageView imageView;
         private TextView textViewTitle;
@@ -73,7 +73,7 @@ public class LocationHeaderRecyclerAdapter extends SimpleHeaderRecyclerAdapter<L
             divider = itemView.findViewById(R.id.divider);
         }
 
-        void bind(RecyclerItem<Locations> data, int position) {
+        void bind(RecyclerItemSmall<Locations> data, int position) {
             location = data;
 
             if (isUserHistory) {
@@ -87,8 +87,8 @@ public class LocationHeaderRecyclerAdapter extends SimpleHeaderRecyclerAdapter<L
             textViewSummary.setText(data.getSub(context));
 
             if (items.size() > position + 1) {
-                RecyclerItem<Locations> next = items.get(position + 1);
-                if (next.type == RecyclerItem.HEADER)
+                RecyclerItemSmall<Locations> next = items.get(position + 1);
+                if (next.type == RecyclerItemSmall.HEADER)
                     divider.setVisibility(View.GONE);
                 else
                     divider.setVisibility(View.VISIBLE);

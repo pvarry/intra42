@@ -9,22 +9,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 
 import java.util.List;
 
 /**
  * @param <T> Data type used to fill list
  */
-public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SimpleHeaderRecyclerAdapter<T extends IBaseItemSmall> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected Context context;
     protected LayoutInflater inflater;
-    protected List<RecyclerItem<T>> items;
+    protected List<RecyclerItemSmall<T>> items;
 
     protected OnItemClickListener<T> listener;
 
-    public SimpleHeaderRecyclerAdapter(Context context, List<RecyclerItem<T>> items) {
+    public SimpleHeaderRecyclerAdapter(Context context, List<RecyclerItemSmall<T>> items) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.items = items;
@@ -40,7 +40,7 @@ public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerVi
         return items.size();
     }
 
-    public List<RecyclerItem<T>> getItems() {
+    public List<RecyclerItemSmall<T>> getItems() {
         return items;
     }
 
@@ -52,7 +52,7 @@ public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerVi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if (viewType == RecyclerItem.HEADER) {
+        if (viewType == RecyclerItemSmall.HEADER) {
             view = inflater.inflate(R.layout.list_view_section_header, parent, false);
             return new ViewHolderHeader(view);
         } else {
@@ -62,22 +62,22 @@ public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-        RecyclerItem<T> i = items.get(position);
+        RecyclerItemSmall<T> i = items.get(position);
         switch (getItemViewType(position)) {
-            case RecyclerItem.HEADER:
+            case RecyclerItemSmall.HEADER:
                 ViewHolderHeader header = (ViewHolderHeader) holder;
                 header.bind(i, position);
                 break;
-            case RecyclerItem.ITEM:
+            case RecyclerItemSmall.ITEM:
                 ViewHolderItem item = (ViewHolderItem) holder;
                 item.bind(i, position);
                 break;
         }
     }
 
-    public interface OnItemClickListener<C extends IBaseItem> {
+    public interface OnItemClickListener<C extends IBaseItemSmall> {
 
-        void onItemClick(RecyclerItem<C> item);
+        void onItemClick(RecyclerItemSmall<C> item);
     }
 
     // this should be static
@@ -90,7 +90,7 @@ public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerVi
             textViewHeader = itemView.findViewById(R.id.textViewName);
         }
 
-        void bind(RecyclerItem<T> data, int position) {
+        void bind(RecyclerItemSmall<T> data, int position) {
             textViewHeader.setText(data.getName(context));
         }
     }
@@ -101,7 +101,7 @@ public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerVi
         private TextView textViewTitle;
         private TextView textViewSummary;
         private View divider;
-        private RecyclerItem<T> item;
+        private RecyclerItemSmall<T> item;
 
         ViewHolderItem(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_view_section_item, parent, false));
@@ -119,14 +119,14 @@ public class SimpleHeaderRecyclerAdapter<T extends IBaseItem> extends RecyclerVi
             divider = itemView.findViewById(R.id.divider);
         }
 
-        void bind(RecyclerItem<T> data, int position) {
+        void bind(RecyclerItemSmall<T> data, int position) {
             item = data;
 
             textViewTitle.setText(data.getName(context));
             textViewSummary.setText(data.getSub(context));
             if (items.size() > position + 1) {
-                RecyclerItem<T> next = items.get(position + 1);
-                if (next.type == RecyclerItem.HEADER)
+                RecyclerItemSmall<T> next = items.get(position + 1);
+                if (next.type == RecyclerItemSmall.HEADER)
                     divider.setVisibility(View.GONE);
                 else
                     divider.setVisibility(View.VISIBLE);

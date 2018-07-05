@@ -2,9 +2,9 @@ package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
 
-import com.paulvarry.intra42.api.IBaseItem;
+import com.paulvarry.intra42.api.IBaseItemSmall;
 
-public class RecyclerItem<T extends IBaseItem> implements IBaseItem {
+public class RecyclerItemSmall<T extends IBaseItemSmall> implements IBaseItemSmall {
 
     public static final int HEADER = 0;
     public static final int ITEM = 1;
@@ -13,13 +13,13 @@ public class RecyclerItem<T extends IBaseItem> implements IBaseItem {
     public final T item;
     public String title;
 
-    public RecyclerItem(T item) {
+    public RecyclerItemSmall(T item) {
         this.type = ITEM;
         this.item = item;
         title = null;
     }
 
-    public RecyclerItem(String header) {
+    public RecyclerItemSmall(String header) {
         this.type = HEADER;
         this.item = null;
         title = header;
@@ -49,5 +49,10 @@ public class RecyclerItem<T extends IBaseItem> implements IBaseItem {
     @Override
     public boolean openIt(Context context) {
         return false;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
     }
 }

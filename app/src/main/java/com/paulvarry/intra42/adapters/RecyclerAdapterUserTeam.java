@@ -21,7 +21,7 @@ public class RecyclerAdapterUserTeam extends RecyclerView.Adapter<RecyclerAdapte
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    RecyclerAdapterUserTeam(Context context, List<TeamsUsers> users) {
+    public RecyclerAdapterUserTeam(Context context, List<TeamsUsers> users) {
 
         this.activity = context;
         this.users = users;
@@ -81,7 +81,7 @@ public class RecyclerAdapterUserTeam extends RecyclerView.Adapter<RecyclerAdapte
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
-    interface OnItemLongClickListener {
+    public interface OnItemLongClickListener {
 
         /**
          * Called when a view has been clicked and held.
@@ -91,7 +91,7 @@ public class RecyclerAdapterUserTeam extends RecyclerView.Adapter<RecyclerAdapte
         boolean onItemTeamUserLongClick(int position, TeamsUsers users);
     }
 
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
 
         void onItemTeamUserClick(int position, TeamsUsers users);
     }

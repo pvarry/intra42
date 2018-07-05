@@ -28,12 +28,12 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_LOADING = 2;
 
     private final Context context;
-    private List<RecyclerItem<Events>> eventsList;
+    private List<RecyclerItemSmall<Events>> eventsList;
     private LayoutInflater inflater;
     private InfiniteScrollListener infiniteScrollListener;
     private Integer maxSize;
 
-    public BaseRecyclerAdapter(Context context, List<RecyclerItem<Events>> projectsList) {
+    public BaseRecyclerAdapter(Context context, List<RecyclerItemSmall<Events>> projectsList) {
 
         inflater = LayoutInflater.from(context);
         this.context = context;

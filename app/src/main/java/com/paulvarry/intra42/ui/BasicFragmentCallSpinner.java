@@ -87,7 +87,7 @@ public abstract class BasicFragmentCallSpinner<T, ADAPTER extends BaseAdapter, S
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__basic_spinner, container, false);
+        return inflater.inflate(R.layout.fragment__basic_spinner_call, container, false);
     }
 
     @Override

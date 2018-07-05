@@ -2,7 +2,7 @@ package com.paulvarry.intra42.api;
 
 import android.content.Context;
 
-public interface IBaseItemDetail extends IBaseItem {
+public interface IBaseItemMedium extends IBaseItemSmall {
 
     /**
      * Use to fill detail on cell

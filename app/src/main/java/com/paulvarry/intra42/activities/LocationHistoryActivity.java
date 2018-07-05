@@ -11,7 +11,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.LocationHeaderRecyclerAdapter;
-import com.paulvarry.intra42.adapters.RecyclerItem;
+import com.paulvarry.intra42.adapters.RecyclerItemSmall;
 import com.paulvarry.intra42.adapters.SimpleHeaderRecyclerAdapter;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
@@ -93,9 +93,9 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
 
     @Override
     public void setViewContent() {
-        List<RecyclerItem<Locations>> items = new ArrayList<>();
+        List<RecyclerItemSmall<Locations>> items = new ArrayList<>();
         Locations lastLocation = null;
-        RecyclerItem<Locations> lastHeader = null;
+        RecyclerItemSmall<Locations> lastHeader = null;
         List<Locations> locationInThisSection = null;
 
         for (Locations location : locations) {
@@ -121,14 +121,14 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
                 }
 
                 // ***** compute item string *****
-                lastHeader = new RecyclerItem<>(DateTool.getDateLong(location.beginAt));
+                lastHeader = new RecyclerItemSmall<>(DateTool.getDateLong(location.beginAt));
                 items.add(lastHeader);
                 locationInThisSection = new ArrayList<>();
             }
 
             locationInThisSection.add(location);
 
-            items.add(new RecyclerItem<>(location));
+            items.add(new RecyclerItemSmall<>(location));
             lastLocation = location;
         }
         lastLocation = null;
@@ -188,7 +188,7 @@ public class LocationHistoryActivity extends BasicThreadActivity implements Basi
     }
 
     @Override
-    public void onItemClick(RecyclerItem<Locations> item) {
+    public void onItemClick(RecyclerItemSmall<Locations> item) {
         Locations location = item.item;
         if (location == null)
             return;
