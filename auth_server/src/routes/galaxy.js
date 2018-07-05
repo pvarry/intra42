@@ -32,7 +32,7 @@ async function _galaxy(cursus_id, campus_id, login) {
     }
   })
 
-  return res.json()
+  return [res.status, await res.json()]
 }
 
 export default async (req, res) => {
@@ -57,5 +57,7 @@ export default async (req, res) => {
     })
   }
 
-  res.status(200).json(await _galaxy(cursus_id, campus_id, login))
+  const [status, galaxy] = await _galaxy(cursus_id, campus_id, login)
+
+  res.status(status).json(galaxy)
 }
