@@ -188,8 +188,14 @@
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
+    <style name="TexAppTheme.TextView.Subhead.Colored" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
     <style name="TexAppTheme.TextView.Subhead" parent="TextAppearance.AppCompat.Subhead">
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorTertiary</item>
     </style>
 
     <style name="Introduction" />

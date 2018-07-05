@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,7 @@ public class SpinnerAdapterCursusAccent extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
 
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(context);
             convertView = vi.inflate(R.layout.spinner_cursus_accent, parent, false);
 
             holder.textViewName = convertView.findViewById(R.id.textViewName);

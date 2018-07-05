@@ -44,7 +44,6 @@ import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
-import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
@@ -175,10 +174,6 @@ public class ClusterMapInfoFragment
             recyclerView.setLayoutManager(new LinearLayoutManager(activity));
             recyclerView.setNestedScrollingEnabled(false);
         }
-
-        textViewClusters.setTextColor(ThemeHelper.getColorAccent(getContext()));
-        textViewLayerTitle.setTextColor(ThemeHelper.getColorAccent(getContext()));
-        textViewContributeTitle.setTextColor(ThemeHelper.getColorAccent(getContext()));
 
         editText.addTextChangedListener(this);
         buttonUpdate.setOnClickListener(this);

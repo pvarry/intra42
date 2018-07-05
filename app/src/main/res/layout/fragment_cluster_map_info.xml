@@ -26,7 +26,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/cluster_map_info_clusters"
-                android:textStyle="bold"
+                android:textAppearance="@style/TexAppTheme.TextView.Subhead.Colored"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/cluster_map_info_data_layer"
-                android:textStyle="bold"
+                android:textAppearance="@style/TexAppTheme.TextView.Subhead.Colored"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -263,7 +263,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/cluster_map_info_contribute_title"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TexAppTheme.TextView.Subhead.Colored" />
 
             <TextView
                 android:id="@+id/textViewContributeDescription"

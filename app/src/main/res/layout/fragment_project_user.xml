@@ -30,7 +30,6 @@
             android:layout_marginTop="8dp"
             android:text="@string/project_git_repository"
             android:textAppearance="@style/TexAppTheme.TextView.Subhead"
-            android:textColor="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +96,6 @@
             android:layout_marginTop="16dp"
             android:text="@string/project_list_user_team"
             android:textAppearance="@style/TexAppTheme.TextView.Subhead"
-            android:textColor="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +128,6 @@
             android:layout_marginTop="16dp"
             android:text="@string/project_automatic_corrections"
             android:textAppearance="@style/TexAppTheme.TextView.Subhead"
-            android:textColor="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewUsers" />
@@ -154,7 +151,6 @@
             android:layout_marginTop="12dp"
             android:text="@string/project_peer_corrections"
             android:textAppearance="@style/TexAppTheme.TextView.Subhead"
-            android:textColor="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewAutomaticCorrections" />
