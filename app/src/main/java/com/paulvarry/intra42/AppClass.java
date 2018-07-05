@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.app.job.JobScheduler;
+import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,6 +42,9 @@ import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Token;
+import com.squareup.picasso.Cache;
+import com.squareup.picasso.LruCache;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,6 +81,8 @@ public class AppClass extends Application {
     @StyleRes
     public
     int themeRes;
+
+    Cache picassoCache;
 
     public static AppClass instance() {
         return sInstance;
@@ -142,6 +148,12 @@ public class AppClass extends Application {
         ServiceGenerator.init(this);
         cacheSQLiteHelper = new CacheSQLiteHelper(this);
         sInstance = this;
+
+        picassoCache = new LruCache(this);
+        Picasso picasso = new Picasso.Builder(this)
+                .memoryCache(picassoCache)
+                .build();
+        Picasso.setSingletonInstance(picasso);
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
@@ -359,7 +371,6 @@ public class AppClass extends Application {
         }
 
         return true;
-
     }
 
     void initFirebase() {
@@ -369,6 +380,76 @@ public class AppClass extends Application {
                 firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
         } catch (IllegalStateException | NullPointerException e) {
             Log.e("Firebase", "Fail to init friends with firebase");
+        }
+    }
+
+    /**
+     * Release memory when the UI becomes hidden or when system resources become low.
+     *
+     * @param level the memory-related event that was raised.
+     */
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+
+        // Determine which lifecycle or system event was raised.
+        switch (level) {
+
+            case ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN:
+
+                /*
+                   Release any UI objects that currently hold memory.
+
+                   "release your UI resources" is actually about things like caches.
+                   You usually don't have to worry about managing views or UI components because the OS
+                   already does that, and that's why there are all those callbacks for creating, starting,
+                   pausing, stopping and destroying an activity.
+                   The user interface has moved to the background.
+                */
+
+                break;
+
+            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE:
+            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW:
+            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL:
+
+                picassoCache.clear();
+
+                /*
+                   Release any memory that your app doesn't need to run.
+
+                   The device is running low on memory while the app is running.
+                   The event raised indicates the severity of the memory-related event.
+                   If the event is TRIM_MEMORY_RUNNING_CRITICAL, then the system will
+                   begin killing background processes.
+                */
+
+                break;
+
+            case ComponentCallbacks2.TRIM_MEMORY_BACKGROUND:
+            case ComponentCallbacks2.TRIM_MEMORY_MODERATE:
+            case ComponentCallbacks2.TRIM_MEMORY_COMPLETE:
+
+                picassoCache.clear();
+
+                /*
+                   Release as much memory as the process can.
+                   The app is on the LRU list and the system is running low on memory.
+                   The event raised indicates where the app sits within the LRU list.
+                   If the event is TRIM_MEMORY_COMPLETE, the process will be one of
+                   the first to be terminated.
+                */
+
+
+                break;
+
+            default:
+                /*
+                  Release any non-critical data structures.
+
+                  The app received an unrecognized memory level value
+                  from the system. Treat this as a generic low-memory message.
+                */
+                break;
         }
     }
 

@@ -53,6 +53,7 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
     @Nullable
     private UserActivity activity;
     private OnFragmentInteractionListener mListener;
+    @Nullable
     private Users user;
     private SparseArray<UsersLTE> users;
 
@@ -97,13 +98,15 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
         }
 
         List<Integer> userIds = new ArrayList<>();
-        if (user.patroned != null && !user.patroned.isEmpty()) {
-            for (Users.Patron p : user.patroned)
-                userIds.add(p.godfatherId);
-        }
-        if (user.patroning != null && !user.patroning.isEmpty()) {
-            for (Users.Patron p : user.patroning)
-                userIds.add(p.userId);
+        if (user != null) {
+            if (user.patroned != null && !user.patroned.isEmpty()) {
+                for (Users.Patron p : user.patroned)
+                    userIds.add(p.godfatherId);
+            }
+            if (user.patroning != null && !user.patroning.isEmpty()) {
+                for (Users.Patron p : user.patroning)
+                    userIds.add(p.userId);
+            }
         }
 
         AppClass app = (AppClass) activity.getApplication();
@@ -138,7 +141,7 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         int noOfColumns = (int) (dpWidth / 90);
 
-        if (user.patroned != null && !user.patroned.isEmpty()) {
+        if (user != null && user.patroned != null && !user.patroned.isEmpty()) {
 
             UsersLTE t;
             List<UsersLTE> patroned = new ArrayList<>();
@@ -161,7 +164,7 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
             textViewPatronNone.setVisibility(View.VISIBLE);
             listViewPatron.setVisibility(View.GONE);
         }
-        if (user.patroning != null && !user.patroning.isEmpty()) {
+        if (user != null && user.patroning != null && !user.patroning.isEmpty()) {
 
             UsersLTE t;
             List<UsersLTE> patroning = new ArrayList<>();

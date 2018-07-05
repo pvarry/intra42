@@ -260,7 +260,7 @@ public class ExpandableListAdapterTeams extends BaseExpandableListAdapter {
 
         RecyclerAdapterUserTeam adapterUsers = new RecyclerAdapterUserTeam(context, team.users);
         holder.recyclerViewUsers.setAdapter(adapterUsers);
-        holder.recyclerViewUsers.setLayoutManager(new GridAutofitLayoutManager(context, 192, LinearLayoutManager.VERTICAL, false));
+        holder.recyclerViewUsers.setLayoutManager(new GridAutofitLayoutManager(context, 120, LinearLayoutManager.VERTICAL, false));
         holder.recyclerViewUsers.setNestedScrollingEnabled(false);
 
         adapterUsers.setOnItemClickListener(new RecyclerAdapterUserTeam.OnItemClickListener() {

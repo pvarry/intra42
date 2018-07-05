@@ -1,14 +1,10 @@
 package com.paulvarry.intra42.adapters;
 
 import android.support.annotation.NonNull;
-import android.support.constraint.Group;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.TeamsUploads;
@@ -18,7 +14,7 @@ import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 
-public class RecyclerAdapterScaleTeamsAutomatic extends RecyclerView.Adapter<RecyclerAdapterScaleTeamsAutomatic.ViewHolder> {
+public class RecyclerAdapterScaleTeamsAutomatic extends RecyclerView.Adapter<ViewHolderScaleTeam> {
 
     private List<TeamsUploads> list;
 
@@ -32,13 +28,13 @@ public class RecyclerAdapterScaleTeamsAutomatic extends RecyclerView.Adapter<Rec
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderScaleTeam onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_scale_teams, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolderScaleTeam(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolderScaleTeam holder, int position) {
         TeamsUploads item = getItem(position);
 
         Picasso picasso = Picasso.with(holder.itemView.getContext());
@@ -60,42 +56,5 @@ public class RecyclerAdapterScaleTeamsAutomatic extends RecyclerView.Adapter<Rec
         if (list != null)
             return list.size();
         return 0;
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView imageViewUser;
-        private TextView textViewCorrector;
-        private TextView textViewScale;
-        private TextView textViewComment;
-        private ImageView imageViewIconStatus;
-        private TextView textViewUserFeedback;
-        private Group groupFeedback;
-        private TextView textViewFeedbackInterested;
-        private TextView textViewFeedbackNice;
-        private TextView textViewFeedbackPunctuality;
-        private TextView textViewFeedbackRigorous;
-        private TextView textViewFeedback;
-        private RatingBar ratingBarFeedback;
-        private View viewSeparatorFeedback;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            imageViewUser = itemView.findViewById(R.id.imageView);
-            textViewCorrector = itemView.findViewById(R.id.textViewCorrector);
-            textViewScale = itemView.findViewById(R.id.textViewScale);
-            textViewComment = itemView.findViewById(R.id.textViewComment);
-            imageViewIconStatus = itemView.findViewById(R.id.imageViewIconStatus);
-            textViewFeedbackInterested = itemView.findViewById(R.id.textViewFeedbackInterested);
-            textViewFeedbackNice = itemView.findViewById(R.id.textViewFeedbackNice);
-            textViewFeedbackPunctuality = itemView.findViewById(R.id.textViewFeedbackPunctuality);
-            textViewFeedbackRigorous = itemView.findViewById(R.id.textViewFeedbackRigorous);
-            textViewFeedback = itemView.findViewById(R.id.textViewFeedback);
-            ratingBarFeedback = itemView.findViewById(R.id.ratingBarFeedback);
-            groupFeedback = itemView.findViewById(R.id.groupFeedback);
-            textViewUserFeedback = itemView.findViewById(R.id.textViewUserFeedback);
-            viewSeparatorFeedback = itemView.findViewById(R.id.viewSeparatorFeedback);
-        }
     }
 }

@@ -30,6 +30,7 @@ import com.paulvarry.intra42.ui.Galaxy;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.GalaxyUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -230,7 +231,8 @@ public class UserProjectsFragment
             List<ProjectsUsers> list;
 
             if (position == 1) { // show all project list
-                list = activity.user.projectsUsers;
+                if (activity.user != null) list = activity.user.projectsUsers;
+                else list = new ArrayList<>();
                 list = ProjectsUsers.getListOnlyRoot(list);
                 if (activity.selectedCursus != null)
                     list = ProjectsUsers.getListCursus(list, activity.selectedCursus.cursusId);
@@ -242,7 +244,9 @@ public class UserProjectsFragment
                     animate(spinnerContent, listViewAll);
                 }
             } else if (position == 2) { // show in-progress list
-                list = ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.selectedCursus);
+                if (activity.user != null)
+                    list = ProjectsUsers.getListCursusDoing(activity.user.projectsUsers, activity.selectedCursus);
+                else list = new ArrayList<>();
                 if (list.isEmpty())
                     animate(spinnerContent, textViewNoItem);
                 else {
