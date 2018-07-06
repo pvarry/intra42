@@ -1,5 +1,10 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <JSON>
+      <option name="SPACE_AFTER_COLON" value="false" />
+      <option name="OBJECT_WRAPPING" value="0" />
+      <option name="ARRAY_WRAPPING" value="0" />
+    </JSON>
     <Objective-C-extensions>
       <file>
         <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Import" />
@@ -25,5 +30,9 @@
         <pair source="c" header="h" fileNamingConvention="NONE" />
       </extensions>
     </Objective-C-extensions>
+    <codeStyleSettings language="JSON">
+      <option name="KEEP_LINE_BREAKS" value="false" />
+      <option name="SPACE_AFTER_COMMA" value="false" />
+    </codeStyleSettings>
   </code_scheme>
 </component>
