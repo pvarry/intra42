@@ -230,7 +230,8 @@
         </activity>
         <activity
             android:name=".activities.ClusterMapContributeActivity"
-            android:label="@string/title_activity_cluster_map_contribute" />
+            android:label="@string/title_activity_cluster_map_contribute"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ClusterMapContributeEditActivity"
             android:label="@string/title_activity_cluster_map_contribute_edit" />

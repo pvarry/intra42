@@ -53,9 +53,7 @@
 <string name="error">"erreur"</string>
 <string name="ok">"OK"</string>
 <string name="open_this">"Ouvre ceci"</string>
-
-<!-- Less char is better -->
-<string name="save">"Enr."</string>
+<string name="save">"Enregistrer"</string>
 <string name="soon">"Bientôt"</string>
 <string name="sort_by">"Trier par"</string>
 <string name="refresh">"Rafraîchir"</string>
@@ -632,4 +630,7 @@ Instructions: orientation des Clusters
 <string name="hint_date">"Date"</string>
 <string name="hint_time">"heure"</string>
 <string name="spinner_user_projects_my_projects">"Mes projets"</string>
+
+<!-- Short word (under 6 char) -->
+<string name="save_short">"Enr."</string>
 </resources>

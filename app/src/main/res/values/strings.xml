@@ -53,8 +53,6 @@
 <string name="error">"error"</string>
 <string name="ok">"OK"</string>
 <string name="open_this">"Open this"</string>
-
-<!-- Less char is better -->
 <string name="save">"Save"</string>
 <string name="soon">"Soon"</string>
 <string name="sort_by">"Sort by"</string>
@@ -632,4 +630,7 @@ long click for more action"</string>
 <string name="retry">"Retry"</string>
 <string name="cluster_map_info_layer_warning_disabled">"Unable to use this data layer, the server delivering this data is doing maintenance, try again later"</string>
 <string name="friends_warning">"Friends feature is not available, the server is doing maintenance"</string>
+
+<!-- Short word (under 6 char) -->
+<string name="save_short">"Save"</string>
 </resources>

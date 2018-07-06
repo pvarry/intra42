@@ -53,8 +53,6 @@
 <string name="error">"Error"</string>
 <string name="ok">"OK"</string>
 <string name="open_this">"Abrir esto"</string>
-
-<!-- Less char is better -->
 <string name="save">"Guardar"</string>
 <string name="soon">"Próximamente"</string>
 <string name="sort_by">"Organizar por"</string>

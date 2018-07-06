@@ -54,8 +54,6 @@
 <string name="error">"Błąd"</string>
 <string name="ok">"OK"</string>
 <string name="open_this">"Otwórz"</string>
-
-<!-- Less char is better -->
 <string name="save">"Zapisz"</string>
 <string name="soon">"Wkrótce"</string>
 <string name="sort_by">"Sortuj przez"</string>
