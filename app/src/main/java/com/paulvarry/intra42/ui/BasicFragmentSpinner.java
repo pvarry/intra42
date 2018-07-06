@@ -29,7 +29,7 @@ public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADA
     private int positionSelected;
 
     @Nullable
-    private List<T> listSpinnerHeader;
+    protected List<T> listSpinnerHeader;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

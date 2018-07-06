@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.api.model.Feedback;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.UserImage;
@@ -75,16 +76,15 @@ public class RecyclerAdapterScaleTeams extends RecyclerView.Adapter<ViewHolderSc
         holder.groupFeedback.setVisibility(View.VISIBLE);
         holder.textViewUserFeedback.setVisibility(View.VISIBLE);
 
-        if (true /*(item.feedback == null || item.feedback.isEmpty()) && (item.feedbacks == null || item.feedbacks.size() == 0)*/) {
+        if (item.feedbacks == null || item.feedbacks.size() == 0) {
             holder.groupFeedback.setVisibility(View.GONE);
             holder.textViewUserFeedback.setVisibility(View.GONE);
         } else {
 
-            if (item.feedback != null) {
-                holder.textViewFeedback.setText(item.feedback);
-            }
+            Feedback feedback = item.feedbacks.get(0);
 
-            holder.ratingBarFeedback.setRating(item.feedback_rating);
+            holder.textViewFeedback.setText(feedback.comment);
+            holder.ratingBarFeedback.setRating(feedback.rating);
 
             // re initialise feedback
             holder.textViewFeedbackPunctuality.setVisibility(View.GONE);
@@ -99,7 +99,7 @@ public class RecyclerAdapterScaleTeams extends RecyclerView.Adapter<ViewHolderSc
             holder.textViewFeedbackRigorous.setCompoundDrawables(null, null, null, null);
             holder.textViewFeedbackInterested.setCompoundDrawables(null, null, null, null);
             holder.textViewFeedbackPunctuality.setCompoundDrawables(null, null, null, null);
-            if (item.feedbacks != null && item.feedbacks.size() != 0) {
+            if (feedback.feedbackDetails != null && feedback.feedbackDetails.size() != 0) {
                 holder.textViewFeedbackPunctuality.setVisibility(View.VISIBLE);
                 holder.textViewFeedbackRigorous.setVisibility(View.VISIBLE);
                 holder.textViewFeedbackInterested.setVisibility(View.VISIBLE);
@@ -120,7 +120,7 @@ public class RecyclerAdapterScaleTeams extends RecyclerView.Adapter<ViewHolderSc
                 holder.textViewFeedbackRigorous.setCompoundDrawables(drawableRigorous, null, null, null);
 
                 String str;
-                for (ScaleTeams.Feedback f : item.feedbacks) {
+                for (Feedback.FeedbackDetails f : feedback.feedbackDetails) {
                     str = String.valueOf(f.rate) + "/4";
                     switch (f.kind) {
                         case NICE:

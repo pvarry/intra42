@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Teams;
 import com.paulvarry.intra42.utils.ProjectUserStatus;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.util.List;
 
@@ -70,12 +72,21 @@ public class SpinnerAdapterTeams extends BaseAdapter {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.spinner_team, parent, false);
 
+            holder.layoutContainer = convertView.findViewById(R.id.layoutContainer);
             holder.textViewNameGroup = convertView.findViewById(R.id.textViewNameGroup);
             holder.textViewMark = convertView.findViewById(R.id.textViewMark);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            holder.layoutContainer.setPaddingRelative(
+                    holder.layoutContainer.getPaddingStart(),
+                    holder.layoutContainer.getPaddingTop(),
+                    (int) Tools.dpToPx(context, 0),
+                    holder.layoutContainer.getPaddingBottom());
         }
 
         Teams item = getItem(position);
@@ -101,6 +112,7 @@ public class SpinnerAdapterTeams extends BaseAdapter {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.spinner_team, parent, false);
 
+            holder.layoutContainer = convertView.findViewById(R.id.layoutContainer);
             holder.textViewNameGroup = convertView.findViewById(R.id.textViewNameGroup);
             holder.textViewMark = convertView.findViewById(R.id.textViewMark);
 
@@ -109,16 +121,24 @@ public class SpinnerAdapterTeams extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            holder.layoutContainer.setPaddingRelative(
+                    holder.layoutContainer.getPaddingStart(),
+                    holder.layoutContainer.getPaddingTop(),
+                    (int) Tools.dpToPx(context, 16),
+                    holder.layoutContainer.getPaddingBottom());
+        }
+
         Teams item = getItem(position);
 
         holder.textViewNameGroup.setText(item.name);
         ProjectUserStatus.setMark(parent.getContext(), item, holder.textViewMark);
-//        holder.textViewNameGroup.setTextColor(context.getResources().getColor(R.color.textColorSecondary));
 
         return convertView;
     }
 
     private static class ViewHolder {
+        private ViewGroup layoutContainer;
         private TextView textViewNameGroup;
         private TextView textViewMark;
     }

@@ -11,6 +11,7 @@ import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.api.model.ExpertiseUsers;
 import com.paulvarry.intra42.api.model.Expertises;
+import com.paulvarry.intra42.api.model.Feedback;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Notions;
@@ -242,6 +243,11 @@ public interface ApiService {
 
     @GET("/v2/teams_uploads?per_page=100")
     Call<List<TeamsUploads>> getTeamUpload(@Query("filter[team_id]") int teamId);
+
+    /* Feedback */
+
+    @GET("/v2/scale_teams/{id}/feedbacks?")
+    Call<List<Feedback>> getFeedbacks(@Path("id") int scaleTeamId);
 
     /* Projects */
     @GET("/v2/projects?sort=name&filter[visible]=true")

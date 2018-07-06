@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,17 +28,22 @@ import com.paulvarry.intra42.adapters.RecyclerAdapterScaleTeams;
 import com.paulvarry.intra42.adapters.RecyclerAdapterScaleTeamsAutomatic;
 import com.paulvarry.intra42.adapters.RecyclerAdapterUserTeam;
 import com.paulvarry.intra42.adapters.SpinnerAdapterTeams;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.model.Feedback;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.api.model.Teams;
 import com.paulvarry.intra42.api.model.TeamsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicFragmentSpinner;
-import com.paulvarry.intra42.ui.GridAutofitLayoutManager;
 import com.paulvarry.intra42.utils.DateTool;
+import com.paulvarry.intra42.utils.Tools;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +54,9 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdapterTeams> {
+
     private ProjectActivity activity;
+    private Teams team;
 
     private TextView textViewCaptionPeerCorrection;
     private TextView textViewStatus;
@@ -59,6 +68,7 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     private RecyclerView recyclerViewAutomaticCorrections;
     private RecyclerView recyclerViewPeerCorrections;
     private ViewGroup viewGroupGitRepository;
+    private ProgressBar progressBar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -98,6 +108,7 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
         textViewCaptionPeerCorrection = view.findViewById(R.id.textViewCaptionPeerCorrection);
         recyclerViewAutomaticCorrections = view.findViewById(R.id.recyclerViewAutomaticCorrections);
         viewGroupGitRepository = view.findViewById(R.id.viewGroupGitRepository);
+        progressBar = view.findViewById(R.id.progressBar);
 
         return view;
     }
@@ -105,6 +116,7 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     @Override
     public void onHeaderItemChanged(final Teams team) {
         final Context context = getContext();
+        this.team = team;
 
         StringBuilder str = new StringBuilder();
         if (team.closed) {
@@ -142,8 +154,7 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
 
         RecyclerAdapterUserTeam adapterUsers = new RecyclerAdapterUserTeam(context, team.users);
         recyclerViewUsers.setAdapter(adapterUsers);
-        recyclerViewUsers.setLayoutManager(new GridAutofitLayoutManager(context, 110, LinearLayoutManager.VERTICAL, false));
-        recyclerViewUsers.setNestedScrollingEnabled(false);
+        recyclerViewUsers.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         adapterUsers.setOnItemClickListener(new RecyclerAdapterUserTeam.OnItemClickListener() {
             @Override
@@ -168,6 +179,25 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
                 return false;
             }
         });
+
+        textViewCaptionAutomaticEvaluations.setVisibility(View.GONE);
+        recyclerViewAutomaticCorrections.setVisibility(View.GONE);
+        textViewCaptionPeerCorrection.setVisibility(View.GONE);
+        recyclerViewPeerCorrections.setVisibility(View.GONE);
+
+        if (team.extraAdded) {
+            setViewScaleTeam(team);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            loadExtraDataForTeam();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    void setViewScaleTeam(Teams team) {
+        final Context context = getContext();
+
+        progressBar.setVisibility(View.GONE);
 
         if (team.teamsUploads == null || team.teamsUploads.isEmpty()) {
             textViewCaptionAutomaticEvaluations.setVisibility(View.GONE);
@@ -210,9 +240,11 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
             recyclerViewPeerCorrections.setAdapter(adapterScaleTeams);
             recyclerViewPeerCorrections.setLayoutManager(new LinearLayoutManager(context));
             recyclerViewPeerCorrections.setNestedScrollingEnabled(false);
-            DividerItemDecoration itemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-            itemDecoration.setDrawable(getResources().getDrawable(R.drawable.line_divider_tiny));
-            recyclerViewPeerCorrections.addItemDecoration(itemDecoration);
+            if (recyclerViewPeerCorrections.getItemDecorationCount() == 0) {
+                DividerItemDecoration itemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+                itemDecoration.setDrawable(getResources().getDrawable(R.drawable.line_divider_tiny));
+                recyclerViewPeerCorrections.addItemDecoration(itemDecoration);
+            }
             adapterScaleTeams.setOnItemClickListener(new RecyclerAdapterScaleTeams.OnItemClickListener() {
                 @Override
                 public void onItemClicked(int position, final ScaleTeams scaleTeams) {
@@ -220,6 +252,64 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
                         actionForUser(context, scaleTeams.corrector);
                 }
             });
+        }
+    }
+
+    void loadExtraDataForTeam() {
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ApiService apiService = activity.app.getApiService();
+
+                    loadDataProjectUser(apiService);
+
+                    ProjectUserFragment.super.listSpinnerHeader.clear();
+                    ProjectUserFragment.super.listSpinnerHeader.addAll(activity.projectUser.user.teams);
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            setViewScaleTeam(team);
+                        }
+                    });
+
+                    if (team != null && team.scaleTeams != null) {
+                        for (ScaleTeams s : team.scaleTeams) {
+                            if (s.feedback == null)
+                                continue;
+                            Response<List<Feedback>> response = apiService.getFeedbacks(s.id).execute();
+                            if (Tools.apiIsSuccessful(response))
+                                s.feedbacks = response.body();
+                        }
+                        team.extraAdded = true;
+                    }
+                } catch (IOException | RuntimeException e) {
+                    e.printStackTrace();
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        setViewScaleTeam(team);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    void loadDataProjectUser(ApiService apiService) throws IOException, RuntimeException { // load general data
+        if (!activity.projectUser.extraDataAdded) {
+            ProjectActivity.ProjectUser.fillTeams(apiService, activity.projectUser);
+            activity.projectUser.extraDataAdded = true;
+            if (activity.projectUser.user.teams != null) {
+                for (Teams t : activity.projectUser.user.teams) {
+                    if (t.id == team.id) {
+                        team = t;
+                        break;
+                    }
+                }
+            }
         }
     }
 

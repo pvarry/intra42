@@ -6,7 +6,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:descendantFocusability="blocksDescendants">
 
         <TextView
             android:id="@+id/textViewStatus"
@@ -103,11 +105,12 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewUsers"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:clipToPadding="false"
             android:columnWidth="50dp"
             android:gravity="center"
             android:horizontalSpacing="1dp"
@@ -118,6 +121,19 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCaptionUserInTeam" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewUsers" />
 
         <TextView
             android:id="@+id/textViewCaptionAutomaticEvaluations"

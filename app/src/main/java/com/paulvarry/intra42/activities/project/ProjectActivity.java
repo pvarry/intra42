@@ -28,6 +28,8 @@ import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -247,10 +249,7 @@ public class ProjectActivity extends BasicTabActivity
         ApiService apiService = app.getApiService();
 
         if (idProjectUser != 0)
-            if (slugProject != null && !slugProject.isEmpty())
-                projectUser = ProjectUser.get(apiService, idProjectUser, slugProject);
-            else
-                projectUser = ProjectUser.get(apiService, idProjectUser, idProject);
+            projectUser = ProjectUser.get(apiService, idProjectUser, idProject, slugProject);
         else {
             if (login != null) {
                 if (slugProject != null)
@@ -265,6 +264,15 @@ public class ProjectActivity extends BasicTabActivity
                 else
                     projectUser = ProjectUser.getWithProject(apiService, idProject, idUser);
             }
+        }
+
+        if (projectUser != null && projectUser.user != null && projectUser.user.teams != null) {
+            Collections.sort(projectUser.user.teams, new Comparator<Teams>() {
+                @Override
+                public int compare(Teams o1, Teams o2) {
+                    return o2.created_at.compareTo(o1.created_at);
+                }
+            });
         }
     }
 
@@ -302,6 +310,7 @@ public class ProjectActivity extends BasicTabActivity
 
         public Projects project;
         public ProjectsUsers user;
+        public boolean extraDataAdded = false;
 
         static ProjectUser getWithProject(ApiService api, int projectId, int userId) throws IOException, UnauthorizedException, ErrorServerException {
             Call<Projects> callProject = api.getProject(projectId);
@@ -348,41 +357,31 @@ public class ProjectActivity extends BasicTabActivity
             if (repProjectUsers != null && repProjectUsers.code() == 200 && repProjectUsers.body().size() != 0) {
                 p.user = repProjectUsers.body().get(0);
 
-                if (p.user.status != ProjectsUsers.Status.PARENT && p.user.teams != null && !p.user.teams.isEmpty()) {
-                    SparseArray<Teams> teams = new SparseArray<>();
-                    for (Teams t : p.user.teams) {
-                        teams.append(t.id, t);
-                        t.scaleTeams = new ArrayList<>();
-                    }
-
-                    // get all scale teams
-                    Call<List<ScaleTeams>> call = api.getScaleTeams(Tools.concatListIds(p.user.teams));
-                    Response<List<ScaleTeams>> responseScaleTeam = call.execute();
-                    if (Tools.apiIsSuccessful(responseScaleTeam)) {
-                        for (ScaleTeams s : responseScaleTeam.body()) {
-                            if (s.teams != null) {
-                                teams.get(s.teams.id).scaleTeams.add(s);
-                                s.teams = null;
-                            }
-                        }
-                    }
-                }
+                if (p.user.user == null)
+                    throw new ErrorServerException();
             }
             return p;
         }
 
-        public static ProjectUser get(ApiService api, int projectUserId, int projectId) throws IOException, ErrorServerException, UnauthorizedException {
-            Call<Projects> callProject = api.getProject(projectId);
-            Call<ProjectsUsers> callProjectUsers = api.getProjectsUsers(projectUserId);
-
-
+        public static ProjectUser get(ApiService api, int projectUserId, int projectId, String projectSlug) throws IOException, ErrorServerException, UnauthorizedException {
+            Call<Projects> callProject;
+            Call<ProjectsUsers> callProjectUsers;
             Response<Projects> repProject;
             Response<ProjectsUsers> repProjectUsers;
-            Response<List<Teams>> repTeams;
 
+            if (projectId == 0 && projectSlug == null)
+                return null;
+
+            // set api call
+            if (projectSlug == null)
+                callProject = api.getProject(projectId);
+            else
+                callProject = api.getProject(projectSlug);
+            callProjectUsers = api.getProjectsUsers(projectUserId);
+
+            // make api call
             repProject = callProject.execute();
             repProjectUsers = callProjectUsers.execute();
-
 
             ProjectUser p = new ProjectUser();
             if (Tools.apiIsSuccessful(repProject))
@@ -393,85 +392,39 @@ public class ProjectActivity extends BasicTabActivity
 
                 if (p.user.user == null)
                     throw new ErrorServerException();
-
-                Call<List<Teams>> callTeams = api.getTeams(p.user.user.id, projectId, 1);
-
-                repTeams = callTeams.execute();
-
-                if (Tools.apiIsSuccessful(repTeams))
-                    p.user.teams = repTeams.body();
-
-                if (p.user.teams != null) {
-                    SparseArray<Teams> teams = new SparseArray<>();
-                    for (Teams t : p.user.teams) {
-                        teams.append(t.id, t);
-                        t.scaleTeams = new ArrayList<>();
-                    }
-
-                    // get all scale teams
-                    Call<List<ScaleTeams>> call = api.getScaleTeams(Tools.concatListIds(p.user.teams));
-                    Response<List<ScaleTeams>> responseScaleTeam = call.execute();
-                    if (Tools.apiIsSuccessful(responseScaleTeam)) {
-                        for (ScaleTeams s : responseScaleTeam.body()) {
-                            if (s.teams != null) {
-                                teams.get(s.teams.id).scaleTeams.add(s);
-                                s.teams = null;
-                            }
-                        }
-                    }
-                }
             }
             return p;
         }
 
-        public static ProjectUser get(ApiService api, int projectUserId, String projectSlug) throws UnauthorizedException, ErrorServerException, IOException {
-            Call<Projects> callProject = api.getProject(projectSlug);
-            Call<ProjectsUsers> callProjectUsers = api.getProjectsUsers(projectUserId);
+        static void fillTeams(ApiService api, ProjectUser p) throws IOException {
+            ProjectsUsers projectsUsers = p.user;
 
-            Response<Projects> repProject;
-            Response<ProjectsUsers> repProjectUsers;
-            Response<List<Teams>> repTeams;
+            Call<List<Teams>> callTeams = api.getTeams(projectsUsers.user.id, p.project.id, 1);
+            Response<List<Teams>> repTeams = callTeams.execute();
 
-            ProjectUser p = new ProjectUser();
-            repProject = callProject.execute();
-            if (Tools.apiIsSuccessful(repProject))
-                p.project = repProject.body();
+            if (Tools.apiIsSuccessful(repTeams))
+                projectsUsers.teams = repTeams.body();
 
-            repProjectUsers = callProjectUsers.execute();
-            if (Tools.apiIsSuccessful(repProjectUsers)) {
-                p.user = repProjectUsers.body();
 
-                if (p.user.user == null)
-                    throw new ErrorServerException();
+            if (projectsUsers.status != ProjectsUsers.Status.PARENT && projectsUsers.teams != null && !projectsUsers.teams.isEmpty()) {
+                SparseArray<Teams> teams = new SparseArray<>();
+                for (Teams t : projectsUsers.teams) {
+                    teams.append(t.id, t);
+                    t.scaleTeams = new ArrayList<>();
+                }
 
-                Call<List<Teams>> callTeams = api.getTeams(p.user.user.id, projectSlug, 1);
-
-                repTeams = callTeams.execute();
-
-                if (Tools.apiIsSuccessful(repTeams))
-                    p.user.teams = repTeams.body();
-
-                if (p.user.teams != null) {
-                    SparseArray<Teams> teams = new SparseArray<>();
-                    for (Teams t : p.user.teams) {
-                        teams.append(t.id, t);
-                        t.scaleTeams = new ArrayList<>();
-                    }
-
-                    // get all scale teams
-                    Call<List<ScaleTeams>> call = api.getScaleTeams(Tools.concatListIds(p.user.teams));
-                    Response<List<ScaleTeams>> responseScaleTeam = call.execute();
-                    if (Tools.apiIsSuccessful(responseScaleTeam)) {
-                        for (ScaleTeams s : responseScaleTeam.body()) {
-                            if (s.teams != null) {
-                                teams.get(s.teams.id).scaleTeams.add(s);
-                                s.teams = null;
-                            }
+                // get all scale teams
+                Call<List<ScaleTeams>> call = api.getScaleTeams(Tools.concatListIds(projectsUsers.teams));
+                Response<List<ScaleTeams>> responseScaleTeam = call.execute();
+                if (Tools.apiIsSuccessful(responseScaleTeam)) {
+                    for (ScaleTeams s : responseScaleTeam.body()) {
+                        if (s.teams != null) {
+                            teams.get(s.teams.id).scaleTeams.add(s);
+                            s.teams = null;
                         }
                     }
                 }
             }
-            return p;
         }
     }
 

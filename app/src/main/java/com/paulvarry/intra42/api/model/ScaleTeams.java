@@ -139,37 +139,6 @@ public class ScaleTeams {
 
     }
 
-    static public class Feedback {
-
-        private static final String API_ID = "id";
-        private static final String API_SCALE_TEAM_ID = "scale_team_id";
-        private static final String API_RATE = "rate";
-        private static final String API_KIND = "kind";
-        private static final String API_CREATED_AT = "created_at";
-        private static final String API_UPDATED_AT = "updated_at";
-
-        @SerializedName(API_ID)
-        public int id;
-        @SerializedName(API_SCALE_TEAM_ID)
-        public int scaleTeamId;
-        @SerializedName(API_RATE)
-        public int rate;
-        @SerializedName(API_KIND)
-        public Kind kind;
-        @SerializedName(API_CREATED_AT)
-        public Date createdAt;
-        @SerializedName(API_UPDATED_AT)
-        public Date updatedAt;
-
-        public enum Kind {
-            @SerializedName("nice")NICE,
-            @SerializedName("rigorous")RIGOROUS,
-            @SerializedName("interested")INTERESTED,
-            @SerializedName("punctuality")PUNCTUALITY
-        }
-
-    }
-
     public static class Scale {
 
         private static final String API_ID = "id";

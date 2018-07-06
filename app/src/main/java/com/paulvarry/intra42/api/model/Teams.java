@@ -75,6 +75,8 @@ public class Teams extends ItemWithId implements IBaseItemSmall {
     @SerializedName(API_SCALE_TEAMS)
     public List<ScaleTeams> scaleTeams;
 
+    public transient boolean extraAdded = false;
+
     public TeamsUsers getLeader() {
         if (users == null || users.isEmpty())
             return null;
