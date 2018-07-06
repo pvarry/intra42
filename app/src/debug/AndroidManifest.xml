@@ -3,6 +3,8 @@
     package="com.paulvarry.intra42">
 
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application android:fullBackupContent="@xml/backup_descriptor">
 

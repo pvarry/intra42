@@ -1,7 +1,10 @@
 package com.paulvarry.intra42.utils;
 
 import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import com.paulvarry.intra42.api.model.Users;
@@ -16,6 +19,11 @@ import java.util.ArrayList;
 public class Contacts {
 
     public static boolean add(Context context, Users user) {
+
+        String groupId = getGroupId(context);
+        if (groupId == null)
+            groupId = createGroup(context);
+
         ArrayList<ContentProviderOperation> ops =
                 new ArrayList<>();
 
@@ -33,7 +41,7 @@ public class Contacts {
         ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, rawContactID)
                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, user.login)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, user.displayName)
                 .build());
 
         // Adding insert operation to operations list
@@ -51,7 +59,15 @@ public class Contacts {
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, rawContactID)
                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.Email.DATA, user.email)
-                .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_OTHER)
+                .withValue(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+                .build());
+
+        // Adding insert operation to operations list
+        // to insert Mail in the table ContactsContract.Data
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, rawContactID)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID, groupId)
                 .build());
 
 
@@ -103,5 +119,31 @@ public class Contacts {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static String getGroupId(Context context) {
+        Cursor groupCursor = context.getContentResolver().query(
+                ContactsContract.Groups.CONTENT_URI,
+                new String[]{
+                        ContactsContract.Groups._ID,
+                        ContactsContract.Groups.TITLE
+                }, null, null, null
+        );
+        while (groupCursor.moveToNext()) {
+            if (groupCursor.getString(1).equals("42"))
+                return groupCursor.getString(0);
+        }
+        groupCursor.close();
+
+        return null;
+    }
+
+    public static String createGroup(Context context) {
+        ContentResolver cr = context.getContentResolver();
+        ContentValues groupValues = new ContentValues();
+        groupValues.put(ContactsContract.Groups.TITLE, "42");
+        groupValues.put(ContactsContract.Groups.NOTES, "Ecole 42");
+        cr.insert(ContactsContract.Groups.CONTENT_URI, groupValues);
+        return getGroupId(context);
     }
 }
