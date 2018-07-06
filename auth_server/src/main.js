@@ -13,6 +13,7 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
 /*** SERVER ***/
 
 const app = express()
+app.set('trust proxy', true)
 app.use(morgan('combined'))
 app.use(timeout('30s'))
 app.disable('x-powered-by')
