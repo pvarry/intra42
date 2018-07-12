@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/cluster_map_contribute_dialog_scale_layout_info" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutScale"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +27,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/cluster_map_contribute_dialog_scale_layout_scale_hint"
             android:inputType="numberDecimal|numberSigned" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

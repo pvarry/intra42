@@ -1,8 +1,7 @@
 package com.paulvarry.intra42.api.cluster_map_contribute;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.model.UsersLTE;

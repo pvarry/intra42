@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/actionBar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
-    android:background="?attr/colorPrimary"
-    android:fitsSystemWindows="true"
-    android:theme="?actionBarTheme">
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/actionBar"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="wrap_content"
+                                                 android:animateLayoutChanges="true"
+                                                 android:background="?attr/colorPrimary"
+                                                 android:fitsSystemWindows="true"
+                                                 android:theme="?actionBarTheme">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,14 +31,14 @@
             android:fitsSystemWindows="true"
             android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="?actionBarPopupTheme" />
             <!--app:layout_scrollFlags="scroll|enterAlways" into toolbar-->
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -47,4 +47,4 @@
         </com.paulvarry.intra42.ui.InsetLinearLayout>
     </RelativeLayout>
 
-</android.support.design.widget.AppBarLayout>
+</com.google.android.material.appbar.AppBarLayout>

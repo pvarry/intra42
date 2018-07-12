@@ -4,15 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AndroidRuntimeException;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
@@ -27,12 +22,11 @@ import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Token;
-
-import java.io.IOException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 

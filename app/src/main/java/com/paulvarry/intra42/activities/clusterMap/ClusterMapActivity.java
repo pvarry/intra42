@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
-
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +27,7 @@ import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,8 +35,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import retrofit2.Response;
 
 public class ClusterMapActivity
         extends BasicTabActivity

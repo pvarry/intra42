@@ -1,21 +1,19 @@
 package com.paulvarry.intra42.api.model;
 
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.utils.Pagination;
 import com.paulvarry.intra42.utils.Tools;
 import com.plumillonforge.android.chipview.Chip;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Response;
 
 public class Tags implements Chip, Serializable {
 

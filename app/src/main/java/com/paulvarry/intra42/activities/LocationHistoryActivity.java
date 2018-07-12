@@ -3,10 +3,9 @@ package com.paulvarry.intra42.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
@@ -19,13 +18,12 @@ import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Response;
 
 public class LocationHistoryActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, SimpleHeaderRecyclerAdapter.OnItemClickListener<Locations> {
 

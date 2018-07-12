@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.support.v4.app.ShareCompat;
 import android.widget.Toast;
-
+import androidx.core.app.ShareCompat;
 import com.paulvarry.intra42.R;
 
 import static android.content.Context.CLIPBOARD_SERVICE;

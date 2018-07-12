@@ -1,21 +1,19 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class Users extends UsersLTE {
 

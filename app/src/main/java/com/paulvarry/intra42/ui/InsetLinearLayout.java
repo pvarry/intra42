@@ -2,10 +2,10 @@ package com.paulvarry.intra42.ui;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
 import android.widget.LinearLayout;
+import androidx.annotation.Nullable;
 
 public class InsetLinearLayout extends LinearLayout {
 

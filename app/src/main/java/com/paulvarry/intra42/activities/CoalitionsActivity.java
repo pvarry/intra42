@@ -3,9 +3,8 @@ package com.paulvarry.intra42.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.ListView;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterCoalitionsBlocs;
 import com.paulvarry.intra42.api.ApiService;
@@ -15,13 +14,12 @@ import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import retrofit2.Response;
 
 public class CoalitionsActivity
         extends BasicThreadActivity

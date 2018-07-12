@@ -1,15 +1,8 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import androidx.annotation.NonNull;
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.paulvarry.intra42.AppClass;
@@ -17,7 +10,6 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.cache.BaseCacheData;
-
 import org.parceler.Parcel;
 
 import java.lang.reflect.Type;

@@ -1,28 +1,19 @@
 package com.paulvarry.intra42.api.model;
 
-import android.support.annotation.Nullable;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import androidx.annotation.Nullable;
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.utils.Pagination;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Response;
 
 public class Slots {
 
@@ -97,10 +88,8 @@ public class Slots {
             if (elementScaleTeam != null && elementScaleTeam.isJsonObject()) { // when is booked and can't be see by user, value is "invisible"
                 slots.scaleTeam = gson.fromJson(elementScaleTeam, ScaleTeams.class);
                 slots.isBooked = true;
-            } else if (elementScaleTeam != null && elementScaleTeam.isJsonPrimitive()) { // when is booked and can't be see by user, value is "invisible"
-                slots.isBooked = true;
-            } else
-                slots.isBooked = false;
+            } else // when is booked and can't be see by user, value is "invisible"
+                slots.isBooked = elementScaleTeam != null && elementScaleTeam.isJsonPrimitive();
             JsonElement elementUser = jsonObject.get(API_USER);
             if (elementUser != null && elementUser.isJsonObject())
                 slots.user = gson.fromJson(elementUser, UsersLTE.class);

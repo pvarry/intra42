@@ -3,13 +3,12 @@ package com.paulvarry.intra42.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.AppCompatDrawableManager;
 import android.view.View;
 import android.widget.TextView;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatDrawableManager;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.Teams;

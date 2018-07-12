@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.users.UsersAllFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,7 +20,7 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="1dp" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include layout="@layout/include_constraint_layout_loading" />
 

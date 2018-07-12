@@ -2,9 +2,8 @@ package com.paulvarry.intra42.activities.users;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
-
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;

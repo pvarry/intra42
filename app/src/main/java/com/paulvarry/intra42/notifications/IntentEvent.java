@@ -3,15 +3,13 @@ package com.paulvarry.intra42.notifications;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationManagerCompat;
-
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationManagerCompat;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.utils.Analytics;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

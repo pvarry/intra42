@@ -11,39 +11,27 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.SparseArray;
-
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.EventActivity;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.model.Announcements;
-import com.paulvarry.intra42.api.model.Events;
-import com.paulvarry.intra42.api.model.EventsUsers;
-import com.paulvarry.intra42.api.model.ScaleTeams;
-import com.paulvarry.intra42.api.model.Users;
-import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.model.*;
 import com.paulvarry.intra42.cache.CacheUsers;
-import com.paulvarry.intra42.utils.AppSettings;
-import com.paulvarry.intra42.utils.Calendar;
-import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.Pagination;
-import com.paulvarry.intra42.utils.ThemeHelper;
-import com.paulvarry.intra42.utils.Tools;
+import com.paulvarry.intra42.utils.*;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class NotificationsUtils {
 

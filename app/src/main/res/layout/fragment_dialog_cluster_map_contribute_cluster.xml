@@ -13,7 +13,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="16dp">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,15 +24,15 @@
             app:counterOverflowTextAppearance="@style/CounterOverflow"
             app:errorTextAppearance="@style/CounterOverflow">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/cluster_map_contribute_dialog_metadata_layout_full_name"
                 android:inputType="textVisiblePassword" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputNameShort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,15 +42,15 @@
             app:counterOverflowTextAppearance="@style/CounterOverflow"
             app:errorTextAppearance="@style/CounterOverflow">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextNameShort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/cluster_map_contribute_dialog_metadata_layout_short_name"
                 android:inputType="textVisiblePassword" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/cluster_map_contribute_dialog_metadata_layout_position"
                 android:inputType="number" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             style="@style/TextAppearance.Design.Hint"
@@ -81,7 +81,7 @@
             android:layout_marginLeft="-4dp"
             android:layout_marginStart="-4dp" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutPrefix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix"
                 android:inputType="textVisiblePassword" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -103,7 +103,7 @@
             android:layout_marginStart="4dp"
             android:text="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix_info" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/cluster_map_contribute_dialog_metadata_layout_comment"
                 android:inputType="textMultiLine" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 </ScrollView>

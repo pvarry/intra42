@@ -6,10 +6,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -18,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
 import com.paulvarry.intra42.api.ApiService;
@@ -28,13 +27,12 @@ import com.paulvarry.intra42.api.model.Subnotions;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Pagination;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class SubnotionListActivity extends BasicThreadActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread {
 

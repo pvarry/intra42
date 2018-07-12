@@ -3,14 +3,9 @@ package com.paulvarry.intra42.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.RatingBar;
-import android.widget.Spinner;
-
+import android.widget.*;
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.SpinnerAdapterExpertises;
 import com.paulvarry.intra42.api.ApiService;
@@ -21,12 +16,10 @@ import com.paulvarry.intra42.cache.CacheExpertise;
 import com.paulvarry.intra42.ui.BasicEditActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
-
-import java.io.IOException;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Response;
+
+import java.util.List;
 
 public class ExpertiseEditActivity
         extends BasicEditActivity
@@ -115,7 +108,7 @@ public class ExpertiseEditActivity
     }
 
     @Override
-    public void getDataOnOtherThread() throws IOException, RuntimeException {
+    public void getDataOnOtherThread() throws RuntimeException {
         expertisesList = CacheExpertise.getAllowInternet(app.cacheSQLiteHelper, app);
         if (expertisesList == null || expertisesList.size() == 0)
             throw new RuntimeException();

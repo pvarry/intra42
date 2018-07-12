@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-
+import androidx.viewpager.widget.ViewPager;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
@@ -15,10 +14,9 @@ import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Response;
 
 import java.io.IOException;
-
-import retrofit2.Response;
 
 public class TagsActivity
         extends BasicTabActivity

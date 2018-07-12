@@ -3,18 +3,16 @@ package com.paulvarry.intra42.bottomSheet;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.CoordinatorLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.UsersLTE;
-
 import org.parceler.Parcels;
 
 public class BottomSheetUserDialogFragment extends BottomSheetDialogFragment {

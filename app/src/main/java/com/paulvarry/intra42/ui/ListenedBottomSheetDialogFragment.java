@@ -2,10 +2,9 @@ package com.paulvarry.intra42.ui;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.ViewGroup;
 import android.view.Window;
-
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.paulvarry.intra42.R;
 
 public class ListenedBottomSheetDialogFragment extends BottomSheetDialogFragment {

@@ -1,11 +1,10 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.IBaseItemSmall;

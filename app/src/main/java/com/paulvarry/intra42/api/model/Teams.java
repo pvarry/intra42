@@ -1,8 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.ItemWithId;

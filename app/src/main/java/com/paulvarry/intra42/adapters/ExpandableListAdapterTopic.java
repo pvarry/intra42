@@ -1,18 +1,9 @@
 package com.paulvarry.intra42.adapters;
 
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.TextView;
-
+import android.view.*;
+import android.widget.*;
+import androidx.core.content.ContextCompat;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.NewTopicActivity;

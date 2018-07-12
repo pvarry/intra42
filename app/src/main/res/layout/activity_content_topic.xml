@@ -76,7 +76,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,6 +97,6 @@
             android:groupIndicator="@color/transparent"
             android:headerDividersEnabled="true"
             android:paddingBottom="80dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>
 

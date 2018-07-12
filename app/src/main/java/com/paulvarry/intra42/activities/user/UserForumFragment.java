@@ -3,9 +3,8 @@ package com.paulvarry.intra42.activities.user;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.TopicActivity;
@@ -13,10 +12,9 @@ import com.paulvarry.intra42.adapters.ListAdapterTopics;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
+import retrofit2.Call;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,11 +1,10 @@
 package com.paulvarry.intra42.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.view.View;
-
+import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.paulvarry.intra42.R;
 
 public abstract class BasicTabActivity extends BasicThreadActivity implements NavigationView.OnNavigationItemSelectedListener {

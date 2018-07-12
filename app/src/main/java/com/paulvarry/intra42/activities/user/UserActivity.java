@@ -11,28 +11,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.snackbar.Snackbar;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
-import com.paulvarry.intra42.api.model.Coalitions;
-import com.paulvarry.intra42.api.model.CursusUsers;
-import com.paulvarry.intra42.api.model.Locations;
-import com.paulvarry.intra42.api.model.Users;
-import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.model.*;
 import com.paulvarry.intra42.cache.CacheUsers;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
@@ -43,16 +38,15 @@ import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,

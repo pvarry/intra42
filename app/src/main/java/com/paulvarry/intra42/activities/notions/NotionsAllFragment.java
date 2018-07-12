@@ -2,9 +2,8 @@ package com.paulvarry.intra42.activities.notions;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.activities.SubnotionListActivity;
 import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
@@ -13,10 +12,9 @@ import com.paulvarry.intra42.api.model.Notions;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Pagination;
+import retrofit2.Call;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 /**
  * A simple {@link Fragment} subclass.

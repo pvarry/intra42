@@ -3,22 +3,20 @@ package com.paulvarry.intra42.activities.project;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
-
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.paulvarry.intra42.adapters.ListAdapterProjectsMarks;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
+import retrofit2.Call;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
 
 /**
  * A simple {@link Fragment} subclass.

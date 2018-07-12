@@ -1,17 +1,17 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefreshLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.home.HomeFragment">
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                       xmlns:tools="http://schemas.android.com/tools"
+                                                       android:id="@+id/swipeRefreshLayout"
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       tools:context=".activities.home.HomeFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
                 tools:layout_editor_absoluteX="8dp" />
 
-            <android.support.constraint.Guideline
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineInfoStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textViewCorrectionPointsLabel" />
 
-            <android.support.constraint.Group
+            <androidx.constraintlayout.widget.Group
                 android:id="@+id/groupPiscine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                 app:layout_constraintStart_toEndOf="@+id/buttonFriend"
                 app:layout_constraintTop_toTopOf="@+id/buttonFriend" />
 
-            <android.support.constraint.Barrier
+            <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
                 app:constraint_referenced_ids="buttonFriend,imageControl"
                 tools:layout_editor_absoluteY="160dp" />
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -283,7 +283,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_chat_black_24dp" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
                         android:id="@+id/separatorPhone"
@@ -293,7 +293,7 @@
                         android:layout_marginStart="72dp"
                         android:background="?android:listDivider" />
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutMail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -339,7 +339,7 @@
                             app:layout_constraintLeft_toLeftOf="@+id/textViewMail"
                             app:layout_constraintTop_toBottomOf="@+id/textViewMail" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -348,7 +348,7 @@
                         android:layout_marginStart="72dp"
                         android:background="?android:listDivider" />
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -393,11 +393,11 @@
                             app:layout_constraintLeft_toLeftOf="@+id/textViewPosition"
                             app:layout_constraintTop_toBottomOf="@+id/textViewPosition" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewCursus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -467,7 +467,7 @@
                         android:layout_height="1dp"
                         android:background="?android:listDivider" />
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
@@ -524,7 +524,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -565,11 +565,11 @@
                     android:padding="16dp"
                     android:text="@string/user_no_cursus_available"
                     android:visibility="gone" />
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

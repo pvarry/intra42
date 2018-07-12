@@ -3,19 +3,14 @@ package com.paulvarry.intra42.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -23,18 +18,13 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
-import com.paulvarry.intra42.utils.Analytics;
-import com.paulvarry.intra42.utils.Calendar;
-import com.paulvarry.intra42.utils.DateTool;
-import com.paulvarry.intra42.utils.Tag;
-import com.paulvarry.intra42.utils.Tools;
+import com.paulvarry.intra42.utils.*;
 import com.veinhorn.tagview.TagView;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

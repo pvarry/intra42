@@ -1,8 +1,7 @@
 package com.paulvarry.intra42.ui;
 
-import android.support.annotation.Nullable;
 import android.widget.BaseAdapter;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Tags;

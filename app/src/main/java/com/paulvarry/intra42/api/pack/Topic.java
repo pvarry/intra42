@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.api.pack;
 
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.api.ApiService;
@@ -9,11 +8,10 @@ import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Call;
 
 import java.io.IOException;
 import java.util.List;
-
-import retrofit2.Call;
 
 public class Topic {
 

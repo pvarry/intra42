@@ -1,16 +1,14 @@
 package com.paulvarry.intra42.api.model;
 
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.utils.Pagination;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Response;
 
 public class Campus {
 

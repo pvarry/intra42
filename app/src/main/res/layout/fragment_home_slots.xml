@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.home.HomeSlotsFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:divider="#00ffffff"
             android:dividerHeight="0dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <TextView
         android:id="@+id/textViewLoading"
@@ -25,7 +25,7 @@
         android:gravity="center"
         android:text="@string/info_loading" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

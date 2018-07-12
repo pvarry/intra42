@@ -1,13 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
-import android.support.annotation.Nullable;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import androidx.annotation.Nullable;
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.ServiceGenerator;
 

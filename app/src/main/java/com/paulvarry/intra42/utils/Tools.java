@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -15,21 +14,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ItemWithId;
 import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.squareup.picasso.Picasso;
+import in.uncod.android.bypass.Bypass;
+import retrofit2.Response;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.StringJoiner;
-
-import in.uncod.android.bypass.Bypass;
-import retrofit2.Response;
 
 public class Tools {
 

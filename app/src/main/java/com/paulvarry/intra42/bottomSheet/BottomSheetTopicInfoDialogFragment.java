@@ -7,24 +7,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -33,12 +25,11 @@ import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Votes;
 import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 import java.text.DateFormat;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 

@@ -1,15 +1,13 @@
 package com.paulvarry.intra42.api.interactor;
 
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
-
-import java.io.IOException;
-
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import java.io.IOException;
 
 public class HeaderInterceptor implements Interceptor {
 

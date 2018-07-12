@@ -3,13 +3,12 @@ package com.paulvarry.intra42.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.GridAdapterUsers;
 import com.paulvarry.intra42.api.ApiService42Tools;
@@ -20,13 +19,12 @@ import com.paulvarry.intra42.api.tools42.GroupSmall;
 import com.paulvarry.intra42.ui.BasicEditActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeSet;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class FriendsGroupsEditActivity extends BasicEditActivity implements BasicThreadActivity.GetDataOnThread {
 

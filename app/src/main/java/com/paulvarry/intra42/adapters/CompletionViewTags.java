@@ -3,13 +3,12 @@ package com.paulvarry.intra42.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import androidx.core.content.res.ResourcesCompat;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.utils.Tag;

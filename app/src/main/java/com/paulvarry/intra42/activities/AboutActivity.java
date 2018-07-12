@@ -3,7 +3,6 @@ package com.paulvarry.intra42.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.intro.IntroActivity;

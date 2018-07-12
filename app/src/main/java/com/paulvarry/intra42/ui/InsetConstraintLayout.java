@@ -2,11 +2,12 @@ package com.paulvarry.intra42.ui;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class InsetConstraintLayout extends android.support.constraint.ConstraintLayout {
+public class InsetConstraintLayout extends ConstraintLayout {
 
     public InsetConstraintLayout(Context context) {
         super(context);

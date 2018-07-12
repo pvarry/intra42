@@ -2,24 +2,22 @@ package com.paulvarry.intra42.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.tools42.Group;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class FriendsGroupsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 

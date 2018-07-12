@@ -1,11 +1,10 @@
 package com.paulvarry.intra42.ui;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import com.paulvarry.intra42.activities.user.UserProjectsFragment;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;

@@ -4,21 +4,15 @@ import android.animation.Animator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.adapters.ListAdapterMarks;
@@ -29,13 +23,12 @@ import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
 import com.paulvarry.intra42.ui.Galaxy;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.GalaxyUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

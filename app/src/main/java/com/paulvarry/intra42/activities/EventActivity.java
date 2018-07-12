@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.google.android.material.appbar.AppBarLayout;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ServiceGenerator;
@@ -23,9 +22,7 @@ import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.fragments.EventFragment;
 import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.ThemeHelper;
-
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

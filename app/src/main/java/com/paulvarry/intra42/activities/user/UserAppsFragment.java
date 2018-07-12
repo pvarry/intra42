@@ -2,17 +2,15 @@ package com.paulvarry.intra42.activities.user;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.webkit.URLUtil;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.adapters.ListAdapterApps;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Apps;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
+import retrofit2.Call;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 public class UserAppsFragment extends BasicFragmentCall<Apps, ListAdapterApps> {
 

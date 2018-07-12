@@ -3,18 +3,16 @@ package com.paulvarry.intra42.activities.tags;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.paulvarry.intra42.activities.SubnotionListActivity;
 import com.paulvarry.intra42.adapters.ListAdapterNotions;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Notions;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
+import retrofit2.Call;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 /**
  * A simple {@link Fragment} subclass.

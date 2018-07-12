@@ -2,8 +2,7 @@ package com.paulvarry.intra42.activities.notions;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-
+import androidx.viewpager.widget.ViewPager;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.ui.BasicTabActivity;

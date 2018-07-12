@@ -7,21 +7,15 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
-
+import android.widget.*;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.Toolbar;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.adapters.ListAdapterMarks;
@@ -35,12 +29,11 @@ import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.GalaxyUtils;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class HolyGraphActivity extends BasicThreadActivity implements AdapterView.OnItemSelectedListener, BasicThreadActivity.GetDataOnThread, Galaxy.OnProjectClickListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain {
 

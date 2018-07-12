@@ -1,14 +1,13 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.api.model.ProjectsUsers;

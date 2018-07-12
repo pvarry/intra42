@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import androidx.constraintlayout.widget.ConstraintLayout;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.UserImage;
+import de.halfbit.pinnedsection.PinnedSectionListView;
 
 import java.util.List;
-
-import de.halfbit.pinnedsection.PinnedSectionListView;
 
 public class SectionListView extends BaseAdapter
         implements PinnedSectionListView.PinnedSectionListAdapter {

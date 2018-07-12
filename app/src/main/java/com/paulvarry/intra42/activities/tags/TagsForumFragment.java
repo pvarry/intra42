@@ -2,17 +2,15 @@ package com.paulvarry.intra42.activities.tags;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.adapters.ListAdapterTopics;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.ui.BasicFragmentCall;
+import retrofit2.Call;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 public class TagsForumFragment extends BasicFragmentCall<Topics, ListAdapterTopics> {
 

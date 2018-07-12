@@ -1,10 +1,9 @@
 package com.paulvarry.intra42.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
@@ -14,13 +13,12 @@ import com.paulvarry.intra42.notifications.NotificationsUtils;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class TestingActivity extends AppCompatActivity {
 

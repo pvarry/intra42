@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.MatrixCursor;
 import android.provider.BaseColumns;
-import android.support.annotation.ArrayRes;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-
+import androidx.annotation.ArrayRes;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;

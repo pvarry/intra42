@@ -1,12 +1,11 @@
 package com.paulvarry.intra42.adapters;
 
-import android.support.constraint.Group;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
+import androidx.constraintlayout.widget.Group;
+import androidx.recyclerview.widget.RecyclerView;
 import com.paulvarry.intra42.R;
 
 public class ViewHolderScaleTeam extends RecyclerView.ViewHolder {

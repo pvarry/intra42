@@ -2,8 +2,7 @@ package com.paulvarry.intra42.activities.user;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
-
+import androidx.fragment.app.Fragment;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.adapters.ListAdapterMarks;
 import com.paulvarry.intra42.api.model.ProjectsUsers;

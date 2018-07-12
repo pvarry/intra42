@@ -2,22 +2,20 @@ package com.paulvarry.intra42.adapters;
 
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.ui.TagSpanGenerator;
+import in.uncod.android.bypass.Bypass;
 
 import java.util.List;
-
-import in.uncod.android.bypass.Bypass;
 
 // usage of Deprecated but is work in progress
 @Deprecated

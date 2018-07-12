@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.widget.GridView;
-
+import androidx.annotation.Nullable;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.GridAdapterTimeTool;
 import com.paulvarry.intra42.api.model.Campus;

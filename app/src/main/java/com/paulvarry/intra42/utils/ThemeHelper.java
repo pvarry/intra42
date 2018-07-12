@@ -2,13 +2,12 @@ package com.paulvarry.intra42.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.StyleRes;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
-
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatDelegate;
+import com.google.android.material.appbar.AppBarLayout;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Users;

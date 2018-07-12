@@ -2,11 +2,10 @@ package com.paulvarry.intra42.utils;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ChipViewAdapterForum;
 import com.paulvarry.intra42.adapters.ChipViewAdapterUsers;

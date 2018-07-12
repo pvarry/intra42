@@ -3,10 +3,9 @@ package com.paulvarry.intra42.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Users;

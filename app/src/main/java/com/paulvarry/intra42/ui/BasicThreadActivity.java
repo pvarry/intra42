@@ -1,7 +1,7 @@
 package com.paulvarry.intra42.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
 
