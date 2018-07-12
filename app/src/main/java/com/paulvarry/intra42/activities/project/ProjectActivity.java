@@ -8,32 +8,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.util.SparseArray;
-
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.model.Projects;
-import com.paulvarry.intra42.api.model.ProjectsLTE;
-import com.paulvarry.intra42.api.model.ProjectsUsers;
-import com.paulvarry.intra42.api.model.ScaleTeams;
-import com.paulvarry.intra42.api.model.Teams;
-import com.paulvarry.intra42.api.model.Users;
-import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.model.*;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class ProjectActivity extends BasicTabActivity
         implements ProjectOverviewFragment.OnFragmentInteractionListener, ProjectUserFragment.OnFragmentInteractionListener,
@@ -304,6 +296,11 @@ public class ProjectActivity extends BasicTabActivity
             return idUser == app.me.id;
         else
             return false;
+    }
+
+    @Override
+    public ProjectUser getData() {
+        return projectUser;
     }
 
     public static class ProjectUser {

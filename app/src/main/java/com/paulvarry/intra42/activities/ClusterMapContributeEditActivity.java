@@ -19,13 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-
+import android.widget.*;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
@@ -34,11 +28,7 @@ import com.paulvarry.intra42.ui.BasicEditActivity;
 import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.Tools;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ClusterMapContributeEditActivity extends BasicEditActivity implements View.OnClickListener {
 
@@ -787,6 +777,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     private void deleteColumn(int x) {
+        if (allLocations.size() == 0)
+            return;
         for (int i = x; i < allLocations.size() - 1; i++) {
             allLocations.setValueAt(i, allLocations.valueAt(i + 1));
         }

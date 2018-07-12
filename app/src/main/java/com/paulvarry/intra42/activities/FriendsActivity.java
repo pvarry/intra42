@@ -16,12 +16,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -44,17 +39,11 @@ import com.paulvarry.intra42.api.tools42.Group;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Tools;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
 import retrofit2.Call;
 import retrofit2.Response;
+
+import java.io.IOException;
+import java.util.*;
 
 public class FriendsActivity
         extends BasicThreadActivity
@@ -552,9 +541,10 @@ public class FriendsActivity
 
     List<FriendsSmall> getSelectedList() {
         List<FriendsSmall> toAdd = new ArrayList<>();
-        for (Integer i : selection) {
-            toAdd.add(list.get(i));
-        }
+        if (selection != null)
+            for (Integer i : selection) {
+                toAdd.add(list.get(i));
+            }
         return toAdd;
     }
 

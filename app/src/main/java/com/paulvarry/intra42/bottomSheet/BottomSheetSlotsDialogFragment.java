@@ -1,10 +1,6 @@
 package com.paulvarry.intra42.bottomSheet;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.app.*;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,12 +10,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
@@ -30,17 +21,12 @@ import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.SlotsTools;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.io.IOException;
+import java.util.*;
 
 public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomSheetDialogFragment {
 
@@ -430,7 +416,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                         @Override
                         public void run() {
                             Toast.makeText(getContext(), R.string.evaluation_slot_deleted, Toast.LENGTH_SHORT).show();
-                            if (dialogFragment.isAdded())
+                            if (dialogFragment.isAdded() && !dialogFragment.isStateSaved())
                                 dialogFragment.dismiss();
                         }
                     });
@@ -442,7 +428,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private boolean deleteSlot(ProgressDialog progressDialog) {
 
         if (slotsGroup.group == null) {
-            progressDialog.dismiss();
+            if (dialogFragment.isAdded() && !dialogFragment.isStateSaved())
+                progressDialog.dismiss();
             return true;
         }
 
@@ -463,7 +450,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             }
             ++i;
         }
-        progressDialog.dismiss();
+        if (dialogFragment.isAdded() && !dialogFragment.isStateSaved())
+            progressDialog.dismiss();
         return isSuccess;
     }
 }

@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
@@ -23,12 +22,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.activities.MainActivity;
-import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.ApiService42Tools;
-import com.paulvarry.intra42.api.ApiServiceAuthServer;
-import com.paulvarry.intra42.api.ApiServiceCantina;
-import com.paulvarry.intra42.api.ApiServiceClusterMapContribute;
-import com.paulvarry.intra42.api.ServiceGenerator;
+import com.paulvarry.intra42.api.*;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.tools42.AccessToken;
@@ -45,6 +39,8 @@ import com.paulvarry.intra42.utils.Token;
 import com.squareup.picasso.Cache;
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,9 +50,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class AppClass extends Application {
 
@@ -204,6 +197,24 @@ public class AppClass extends Application {
                 editor.commit();
             }
 
+            //clear logs on each version
+            if (isExternalStorageWritable()) {
+
+                try {
+                    File appDirectory = getExternalFilesDir(null);
+                    File logDirectory = new File(appDirectory + "/logs");
+                    if (!logDirectory.exists() && logDirectory.isDirectory()) {
+                        String[] children = logDirectory.list();
+                        for (String c : children) {
+                            new File(logDirectory, c).delete();
+                        }
+                    }
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                    Crashlytics.logException(e);
+                }
+            }
+
             edit.apply();
         }
 
@@ -229,7 +240,8 @@ public class AppClass extends Application {
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
 
-        if (isExternalStorageWritable() && (AppSettings.Advanced.getAllowSaveLogs(this) | BuildConfig.DEBUG)) {
+        Crashlytics.setBool("save_logs_enabled", AppSettings.Advanced.getAllowSaveLogs(this));
+        if (isExternalStorageWritable() && (AppSettings.Advanced.getAllowSaveLogs(this) || BuildConfig.DEBUG)) {
 
             File appDirectory = getExternalFilesDir(null);
             File logDirectory = new File(appDirectory + "/logs");
@@ -243,18 +255,15 @@ public class AppClass extends Application {
 
             // clear the previous logcat and then write the new one to the file
             try {
-                logFile.createNewFile();
-                Process process = Runtime.getRuntime().exec("logcat -c");
-                process = Runtime.getRuntime().exec("logcat -f " + logFile);
+                Runtime.getRuntime().exec("logcat -c");
+                boolean created = logFile.createNewFile();
+                if (created)
+                    Runtime.getRuntime().exec("logcat -f " + logFile);
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Crashlytics.logException(e);
             }
-
-        } else if (isExternalStorageReadable()) {
-            // only readable
-        } else {
-            // not accessible
         }
     }
 

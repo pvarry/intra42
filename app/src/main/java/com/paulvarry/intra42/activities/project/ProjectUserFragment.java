@@ -4,12 +4,12 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.RecyclerAdapterScaleTeams;
@@ -29,21 +29,15 @@ import com.paulvarry.intra42.adapters.RecyclerAdapterScaleTeamsAutomatic;
 import com.paulvarry.intra42.adapters.RecyclerAdapterUserTeam;
 import com.paulvarry.intra42.adapters.SpinnerAdapterTeams;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.model.Feedback;
-import com.paulvarry.intra42.api.model.Projects;
-import com.paulvarry.intra42.api.model.ScaleTeams;
-import com.paulvarry.intra42.api.model.Teams;
-import com.paulvarry.intra42.api.model.TeamsUsers;
-import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.api.model.*;
 import com.paulvarry.intra42.ui.BasicFragmentSpinner;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tools;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +49,6 @@ import retrofit2.Response;
  */
 public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdapterTeams> {
 
-    private ProjectActivity activity;
     private Teams team;
 
     private TextView textViewCaptionPeerCorrection;
@@ -70,6 +63,7 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     private ViewGroup viewGroupGitRepository;
     private ProgressBar progressBar;
 
+    @Nullable
     private OnFragmentInteractionListener mListener;
 
     public ProjectUserFragment() {
@@ -89,8 +83,6 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        activity = (ProjectActivity) getActivity();
     }
 
     @Override
@@ -142,6 +134,8 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
             imageButtonCopyGit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (context == null)
+                        return;
                     ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                     if (clipboard == null)
                         return;
@@ -196,6 +190,8 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
 
     void setViewScaleTeam(Teams team) {
         final Context context = getContext();
+        if (context == null || !isAdded())
+            return;
 
         progressBar.setVisibility(View.GONE);
 
@@ -261,12 +257,15 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
             @Override
             public void run() {
                 try {
-                    ApiService apiService = activity.app.getApiService();
+                    FragmentActivity activity = getActivity();
+                    if (activity == null || mListener == null)
+                        return;
+                    ApiService apiService = ((AppClass) (activity.getApplication())).getApiService();
 
                     loadDataProjectUser(apiService);
 
                     ProjectUserFragment.super.listSpinnerHeader.clear();
-                    ProjectUserFragment.super.listSpinnerHeader.addAll(activity.projectUser.user.teams);
+                    ProjectUserFragment.super.listSpinnerHeader.addAll(mListener.getData().user.teams);
 
                     handler.post(new Runnable() {
                         @Override
@@ -299,11 +298,14 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     }
 
     void loadDataProjectUser(ApiService apiService) throws IOException, RuntimeException { // load general data
-        if (!activity.projectUser.extraDataAdded) {
-            ProjectActivity.ProjectUser.fillTeams(apiService, activity.projectUser);
-            activity.projectUser.extraDataAdded = true;
-            if (activity.projectUser.user.teams != null) {
-                for (Teams t : activity.projectUser.user.teams) {
+        if (mListener == null)
+            return;
+        ProjectActivity.ProjectUser data = mListener.getData();
+        if (!data.extraDataAdded) {
+            ProjectActivity.ProjectUser.fillTeams(apiService, data);
+            data.extraDataAdded = true;
+            if (data.user.teams != null) {
+                for (Teams t : data.user.teams) {
                     if (t.id == team.id) {
                         team = t;
                         break;
@@ -314,7 +316,9 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     }
 
     private void actionForUser(final Context context, final UsersLTE user) {
-        final Projects projectsLTE = activity.projectUser.project;
+        if (mListener == null)
+            return;
+        final Projects projectsLTE = mListener.getData().project;
         String action2 = context.getString(R.string.format_project_team_users_action_open).replace("{project}", projectsLTE.name).replace("{user}", user.login);
         String[] items = new String[]{context.getString(R.string.format__user_profile, user.login), action2};
 
@@ -334,7 +338,9 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     @Nullable
     @Override
     public List<Teams> getSpinnerElemList() {
-        return activity.projectUser.user.teams;
+        if (mListener != null)
+            return mListener.getData().user.teams;
+        return null;
     }
 
     @Override
@@ -347,11 +353,6 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
         return 0;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -381,6 +382,6 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        ProjectActivity.ProjectUser getData();
     }
 }

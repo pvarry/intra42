@@ -8,23 +8,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.utils.Pagination;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.util.List;
 
 public abstract class BasicFragmentCallGrid<T, ADAPTER extends BaseAdapter> extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, AbsListView.OnScrollListener, AdapterView.OnItemLongClickListener {
@@ -170,7 +163,7 @@ public abstract class BasicFragmentCallGrid<T, ADAPTER extends BaseAdapter> exte
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (list.size() > position)
+        if (list != null && list.size() > position)
             onItemClick(list.get(position));
     }
 
