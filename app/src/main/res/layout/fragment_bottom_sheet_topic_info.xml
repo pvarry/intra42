@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                       xmlns:app="http://schemas.android.com/apk/res-auto"
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:background="?android:windowBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:windowBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,10 +19,10 @@
             android:focusableInTouchMode="true"
             android:gravity="center_vertical"
             android:lines="1"
-            android:paddingBottom="0dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="0dp"
             android:text="New Text" />
 
         <LinearLayout
@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <LinearLayout
                 android:id="@+id/linearLayoutUp"
@@ -216,8 +216,8 @@
         <Button
             android:id="@+id/buttonShare"
             style="@style/AppTheme.Button.BorderlessDrawable"
-            android:drawableLeft="@drawable/ic_share_black_24dp"
             android:drawableStart="@drawable/ic_share_black_24dp"
+            android:drawableLeft="@drawable/ic_share_black_24dp"
             android:drawableTint="?attr/colorControlNormal"
             android:text="@string/navigation_share" />
 
@@ -229,8 +229,8 @@
         <Button
             android:id="@+id/buttonReply"
             style="@style/AppTheme.Button.BorderlessDrawable"
-            android:drawableLeft="@drawable/ic_reply_black_24dp"
             android:drawableStart="@drawable/ic_reply_black_24dp"
+            android:drawableLeft="@drawable/ic_reply_black_24dp"
             android:drawableTint="?attr/colorControlNormal"
             android:text="@string/forum_reply" />
 
@@ -242,8 +242,8 @@
         <Button
             android:id="@+id/buttonEdit"
             style="@style/AppTheme.Button.BorderlessDrawable"
-            android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
             android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+            android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
             android:drawableTint="?attr/colorControlNormal"
             android:text="@string/forum_message_edit" />
 
@@ -256,8 +256,8 @@
         <Button
             android:id="@+id/buttonDelete"
             style="@style/AppTheme.Button.BorderlessDrawable"
-            android:drawableLeft="@drawable/ic_delete_black_24dp"
             android:drawableStart="@drawable/ic_delete_black_24dp"
+            android:drawableLeft="@drawable/ic_delete_black_24dp"
             android:drawableTint="#e53935"
             android:text="@string/forum_delete_message" />
 
@@ -282,10 +282,10 @@
                     android:id="@+id/textViewAbout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="8dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="8dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/forum_about_this_message"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="?colorAccent" />
@@ -299,16 +299,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingStart="16dp">
+                    android:paddingEnd="16dp"
+                    android:paddingRight="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginBottom="2dp"
                         android:text="@string/forum_created_at"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -321,8 +321,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginBottom="2dp"
                         android:text="@string/forum_updated_at"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -341,8 +341,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginBottom="2dp"
                         android:text="@string/forum_readings"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 

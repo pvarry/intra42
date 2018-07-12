@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:paddingTop="8dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
     tools:context=".activities.users.UsersAdvancedFragment">
 
     <LinearLayout
@@ -28,8 +28,8 @@
                 android:id="@+id/spinnerCursus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp" />
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,8 +47,8 @@
                 android:id="@+id/spinnerCampus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp" />
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,16 +73,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp" />
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
 
                 <Spinner
                     android:id="@+id/spinnerPoolYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp" />
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -107,8 +107,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/spinner_user_search_search_by"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp" />
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
 
             </LinearLayout>
 
@@ -136,8 +136,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/spinner_user_search_sort"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp" />
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
         </LinearLayout>
 
         <TextView

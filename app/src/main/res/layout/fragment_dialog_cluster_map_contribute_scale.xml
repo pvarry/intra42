@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="16dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="16dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="16dp">
+    android:paddingBottom="16dp">
 
     <TextView
         android:layout_width="match_parent"

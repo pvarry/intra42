@@ -53,8 +53,8 @@
                     android:id="@+id/editTextReply"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/buttonReply"
                     android:layout_toStartOf="@+id/buttonReply"
+                    android:layout_toLeftOf="@+id/buttonReply"
                     android:hint="@string/forum_reply"
                     android:inputType="textMultiLine|textCapSentences|textAutoComplete|textAutoCorrect" />
 
@@ -81,16 +81,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/scrollViewReply"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true">
 
         <ExpandableListView
             android:id="@+id/expandableListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_below="@+id/view"
+            android:layout_alignParentBottom="true"
             android:childDivider="@drawable/shape_empty"
             android:clipToPadding="false"
             android:footerDividersEnabled="true"

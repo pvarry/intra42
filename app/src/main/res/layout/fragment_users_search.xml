@@ -14,12 +14,12 @@
             android:id="@+id/editTextLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@+id/frameLayoutSearch"
             android:layout_toStartOf="@+id/frameLayoutSearch"
+            android:layout_toLeftOf="@+id/frameLayoutSearch"
             android:hint="@string/navigation_place_holder_login"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textNoSuggestions|textVisiblePassword" />
@@ -28,9 +28,9 @@
             android:id="@+id/frameLayoutSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
             android:layout_gravity="end|top">
 
             <Button

@@ -24,10 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/icon_location"
-            android:paddingEnd="4dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
             android:paddingStart="4dp"
+            android:paddingLeft="4dp"
+            android:paddingEnd="4dp"
+            android:paddingRight="4dp"
             android:src="@drawable/shape_locations_dot" />
 
         <TextView
@@ -46,8 +46,8 @@
         android:layout_gravity="bottom"
         android:background="@drawable/shape_user"
         android:gravity="center"
-        android:paddingBottom="6dp"
         android:paddingTop="16dp"
+        android:paddingBottom="6dp"
         android:text="New Text"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/textColorPrimary" />

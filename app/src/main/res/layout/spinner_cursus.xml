@@ -5,10 +5,10 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingBottom="8dp"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:paddingTop="8dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp"
     android:weightSum="1">
 
     <TextView

@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="16dp"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="16dp">
+        android:paddingBottom="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputName"
@@ -68,8 +68,8 @@
             style="@style/TextAppearance.Design.Hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
             android:text="@string/campus"
             android:textColor="#9B9B9B" />
@@ -78,8 +78,8 @@
             android:id="@+id/spinnerCampus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="-4dp"
-            android:layout_marginStart="-4dp" />
+            android:layout_marginStart="-4dp"
+            android:layout_marginLeft="-4dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutPrefix"
@@ -98,9 +98,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix_info" />
 
         <com.google.android.material.textfield.TextInputLayout

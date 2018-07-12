@@ -9,10 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingEnd="75dp"
-        android:paddingLeft="0dp"
-        android:paddingRight="75dp"
         android:paddingStart="0dp"
+        android:paddingLeft="0dp"
+        android:paddingEnd="75dp"
+        android:paddingRight="75dp"
         android:scrollbarStyle="outsideOverlay">
 
         <FrameLayout

@@ -22,8 +22,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -43,8 +43,8 @@
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="12dp"
                 android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
                 android:text="New Text"
                 android:textIsSelectable="true" />
 
@@ -52,8 +52,8 @@
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="12dp"
                 android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
                 android:text="New Text" />
 
         </LinearLayout>
@@ -62,8 +62,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">
 
@@ -79,8 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:text="New Text" />
     </LinearLayout>
@@ -89,8 +89,8 @@
         android:id="@+id/linearLayoutPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">
 
@@ -106,8 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:text="New Text" />
     </LinearLayout>
@@ -115,8 +115,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -131,8 +131,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:text="New Text" />
     </LinearLayout>
@@ -141,8 +141,8 @@
         android:id="@+id/tagViewKind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
         android:text="New Text"
         app:tagBorderRadius="5"
         app:tagColor="#ffaa66cc"
@@ -153,8 +153,8 @@
         android:id="@+id/textViewDescription"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="32dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
         android:text="New Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textIsSelectable="true" />

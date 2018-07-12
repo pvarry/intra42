@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                     xmlns:tools="http://schemas.android.com/tools"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent"
-                                                     android:fitsSystemWindows="true"
-                                                     tools:context="com.paulvarry.intra42.activities.EventActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.paulvarry.intra42.activities.EventActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -41,12 +41,12 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                               xmlns:app="http://schemas.android.com/apk/res-auto"
-                                               xmlns:tools="http://schemas.android.com/tools"
-                                               android:id="@+id/fragment_container"
-                                               android:layout_width="match_parent"
-                                               android:layout_height="match_parent"
-                                               tools:context="com.paulvarry.intra42.activities.EventActivity">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.paulvarry.intra42.activities.EventActivity">
 
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

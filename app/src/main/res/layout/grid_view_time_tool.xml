@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   xmlns:tools="http://schemas.android.com/tools"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="wrap_content"
-                                   app:cardElevation="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,10 +28,10 @@
             android:id="@+id/textViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="4dp"
             android:text="New Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -39,10 +39,10 @@
             android:id="@+id/textViewDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:paddingTop="2dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="4dp"
             android:text="New Text" />
 
         <TextView
@@ -52,10 +52,10 @@
             android:gravity="bottom"
             android:maxLines="2"
             android:minLines="2"
-            android:paddingBottom="8dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:paddingTop="2dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
             android:text="New Text"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textSize="10sp"

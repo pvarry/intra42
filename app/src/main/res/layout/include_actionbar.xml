@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:id="@+id/actionBar"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="wrap_content"
-                                                 android:animateLayoutChanges="true"
-                                                 android:background="?attr/colorPrimary"
-                                                 android:fitsSystemWindows="true"
-                                                 android:theme="?actionBarTheme">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/actionBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="?attr/colorPrimary"
+    android:fitsSystemWindows="true"
+    android:theme="?actionBarTheme">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
             android:id="@+id/imageViewActionBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/linearLayoutActionBar"
             android:layout_alignTop="@id/linearLayoutActionBar"
+            android:layout_alignBottom="@id/linearLayoutActionBar"
             android:adjustViewBounds="true"
             android:contentDescription="@string/icon_background"
             android:scaleType="centerCrop"

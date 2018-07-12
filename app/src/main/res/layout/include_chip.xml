@@ -14,10 +14,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="4dp"
             android:paddingLeft="6dp"
+            android:paddingTop="4dp"
             android:paddingRight="6dp"
-            android:paddingTop="4dp">
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@android:id/text1"
