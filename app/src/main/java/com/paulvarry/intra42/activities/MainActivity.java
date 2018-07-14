@@ -6,8 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.view.View;
-import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
@@ -15,18 +19,20 @@ import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.activities.intro.IntroActivity;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.ApiServiceAuthServer;
+import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Token;
+
+import java.io.IOException;
+
+import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -121,20 +127,19 @@ public class MainActivity extends AppCompatActivity {
             String code = uri.getQueryParameter("code");
             if (code != null) {
 
-                Call<AccessToken> call;
-                if (Credential.UID != null &&
-                        !Credential.UID.isEmpty() &&
-                        Credential.SECRET != null &&
-                        !Credential.SECRET.isEmpty()) {
+                if (Credential.API_OAUTH_REDIRECT == null || Credential.SCOPE == null || Credential.UID == null) {
+                    throw new RuntimeException("API Credentials must be specified");
+                }
 
+                Call<AccessToken> call;
+                if (Credential.SECRET != null && !Credential.SECRET.isEmpty()) {
                     ApiService client = ServiceGenerator.createService(ApiService.class);
                     call = client.getNewAccessToken(code, Credential.UID,
                             Credential.SECRET, Credential.API_OAUTH_REDIRECT,
                             "authorization_code");
-
                 } else {
-                    ApiServiceAuthServer client = app.getApiServiceAuthServer();
-                    call = client.getNewAccessToken(code, Credential.API_OAUTH_REDIRECT);
+                    ApiService42Tools client = app.getApiService42Tools();
+                    call = client.auth42Api(Credential.UID, code, Credential.API_OAUTH_REDIRECT);
                 }
 
                 call.enqueue(new Callback<AccessToken>() {

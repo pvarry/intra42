@@ -21,8 +21,15 @@ public interface ApiService42Tools {
     String API_BASE_URL = "https://api.42.tools/v1/";
 
     /* Auth */
+
     @POST("auth")
     Call<AccessToken> getAccessToken(@Query("access_token") String access_token);
+
+    @GET("https://api.42.tools/oauth/authorize/{uid}")
+    Call<com.paulvarry.intra42.api.model.AccessToken> auth42Api(
+            @Path("uid") String uid,
+            @Query("code") String code,
+            @Query("redirect_uri") String redirectUri);
 
     /* Friends */
     @GET("friends")
