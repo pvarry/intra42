@@ -3,8 +3,16 @@ package com.paulvarry.intra42.api;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
-import androidx.annotation.NonNull;
-import com.google.gson.*;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
@@ -18,19 +26,27 @@ import com.paulvarry.intra42.api.model.Slots;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Token;
-import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
+import okhttp3.Authenticator;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Route;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
@@ -306,8 +322,10 @@ public class ServiceGenerator {
     }
 
     public static String getUserAgent() {
-        return "Intra42Android/" + BuildConfig.VERSION_NAME + "/" + BuildConfig.VERSION_CODE +
-                " (Android/" + Build.VERSION.RELEASE + " ; " + Build.MODEL + ") retrofit2/2.1.0";
+        Locale l = Locale.getDefault();
+        return "Mozilla/5.0 (Linux; Android " + Build.VERSION.RELEASE + "; " +
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? Locale.getDefault().toLanguageTag() : l.getLanguage() + "-" + l.getCountry())
+                + "; " + Build.MODEL + ") Intra42/" + BuildConfig.VERSION_NAME;
     }
 
     public static AccessToken getToken() {
