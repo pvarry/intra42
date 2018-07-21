@@ -4,6 +4,7 @@ import timeout from 'connect-timeout'
 import route_root from './routes/root'
 import route_auth from './routes/auth'
 import route_galaxy from './routes/galaxy'
+import route_coalitions from './routes/coalitions'
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
   console.log('Please specify env : \'CLIENT ID\' and \'CLIENT SECRET\'')
@@ -26,6 +27,7 @@ app.get('*', (req, res, next) => {
 app.get('/', route_root)
 app.get('/auth', route_auth)
 app.get('/galaxy', route_galaxy)
+app.get('/coalitions', route_coalitions)
 
 // catch 404 and forward to error handler
 app.use((req, res) => {
