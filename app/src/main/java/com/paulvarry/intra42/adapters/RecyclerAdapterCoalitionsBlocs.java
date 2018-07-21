@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -9,7 +8,6 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,76 +20,31 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ListAdapterCoalitionsBlocs extends BaseAdapter {
+import androidx.recyclerview.widget.RecyclerView;
+
+public class RecyclerAdapterCoalitionsBlocs extends RecyclerView.Adapter<RecyclerAdapterCoalitionsBlocs.ViewHolder> {
 
     private final Activity activity;
     private List<Coalitions> itemList;
 
-    public ListAdapterCoalitionsBlocs(Activity activity, List<Coalitions> items) {
+    public RecyclerAdapterCoalitionsBlocs(Activity activity, List<Coalitions> items) {
         this.activity = activity;
         this.itemList = items;
     }
 
-    /**
-     * How many items are in the data set represented by this Adapter.
-     *
-     * @return Count of items.
-     */
-    @Override
-    public int getCount() {
-        if (itemList == null)
-            return 0;
-        return itemList.size();
-    }
-
-    /**
-     * Get the data BaseItem associated with the specified position in the data set.
-     *
-     * @param position Position of the projectsList whose data we want within the adapter's
-     *                 data set.
-     * @return The data at the specified position.
-     */
-    @Override
     public Coalitions getItem(int position) {
         return itemList.get(position);
     }
 
-    /**
-     * Get the row id associated with the specified position in the list.
-     *
-     * @param position The position of the projectsList within the adapter's data set whose row id we want.
-     * @return The id of the projectsList at the specified position.
-     */
     @Override
-    public long getItemId(int position) {
-        return position;
+    public RecyclerAdapterCoalitionsBlocs.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_view_coalitions_blocs, parent, false);
+        return new RecyclerAdapterCoalitionsBlocs.ViewHolder(view);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        final ViewHolder holder;
-
-        if (convertView == null) {
-            holder = new ViewHolder();
-
-            LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            if (vi == null)
-                return null;
-            convertView = vi.inflate(R.layout.list_view_coalitions_blocs, parent, false);
-
-            holder.frameLayoutBanner = convertView.findViewById(R.id.frameLayoutBanner);
-            holder.imageViewBanner = convertView.findViewById(R.id.imageViewBanner);
-            holder.imageView = convertView.findViewById(R.id.imageView);
-            holder.textViewCoalitions = convertView.findViewById(R.id.textViewCoalitions);
-            holder.textViewScore = convertView.findViewById(R.id.textViewScore);
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
+    public void onBindViewHolder(final RecyclerAdapterCoalitionsBlocs.ViewHolder holder, int position) {
         final Coalitions item = getItem(position);
 
         holder.textViewCoalitions.setText(item.name);
@@ -134,11 +87,16 @@ public class ListAdapterCoalitionsBlocs extends BaseAdapter {
                 });
             }
         }).start();
-
-        return convertView;
     }
 
-    private static class ViewHolder {
+    @Override
+    public int getItemCount() {
+        if (itemList == null)
+            return 0;
+        return itemList.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private FrameLayout frameLayoutBanner;
         private ImageView imageViewBanner;
@@ -146,5 +104,17 @@ public class ListAdapterCoalitionsBlocs extends BaseAdapter {
         private TextView textViewCoalitions;
         private TextView textViewScore;
 
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            frameLayoutBanner = itemView.findViewById(R.id.frameLayoutBanner);
+            imageViewBanner = itemView.findViewById(R.id.imageViewBanner);
+            imageView = itemView.findViewById(R.id.imageView);
+            textViewCoalitions = itemView.findViewById(R.id.textViewCoalitions);
+            textViewScore = itemView.findViewById(R.id.textViewScore);
+        }
+
     }
+
+
 }

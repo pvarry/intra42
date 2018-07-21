@@ -212,10 +212,6 @@
             android:name=".activities.LocationHistoryActivity"
             android:label="@string/title_activity_user_location_history" />
         <activity
-            android:name=".activities.TestingActivity"
-            android:label="Testing"
-            android:theme="@style/AppTheme.ActionBar" />
-        <activity
             android:name=".activities.FriendsGroupsActivity"
             android:label="R.string.title_activity_friends_groups" />
         <activity android:name=".activities.FriendsGroupsEditActivity" />
