@@ -11,14 +11,16 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.Group;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.ImageViewerActivity;
@@ -31,7 +33,20 @@ import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.ui.TagSpanGenerator;
-import com.paulvarry.intra42.utils.*;
+import com.paulvarry.intra42.utils.Analytics;
+import com.paulvarry.intra42.utils.DateTool;
+import com.paulvarry.intra42.utils.Share;
+import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
+import com.paulvarry.intra42.utils.UserImage;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -221,11 +236,18 @@ public class UserOverviewFragment
         setView();
     }
 
-    void setView() {
+    private void setView() {
 
         if (activity == null || activity.user == null || isDetached() || !isAdded())
             return;
         user = activity.user;
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Contacts.add(getContext(), user);
+//            }
+//        }).start();
 
         swipeRefreshLayout.setOnRefreshListener(this);
 

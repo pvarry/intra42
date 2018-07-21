@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 
 import com.paulvarry.intra42.api.model.Users;
@@ -24,16 +25,16 @@ public class Contacts {
         if (groupId == null)
             groupId = createGroup(context);
 
-        ArrayList<ContentProviderOperation> ops =
-                new ArrayList<>();
+        ArrayList<ContentProviderOperation> ops = new ArrayList<>();
 
-        int rawContactID = ops.size();
+        int rawContactID = Contacts.getContactId(context, user.phone);
+        rawContactID = 0;
 
         // Adding insert operation to operations list
         // to insert a new raw contact in the table ContactsContract.RawContacts
         ops.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, "com.paulvarry.intra42")
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, user.login)
                 .build());
 
         // Adding insert operation to operations list
@@ -121,7 +122,25 @@ public class Contacts {
         return false;
     }
 
-    public static String getGroupId(Context context) {
+    private static int getContactId(Context context, String phoneNumber) {
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+
+        String[] projection = new String[]{ContactsContract.PhoneLookup._ID};
+
+        int contactName = 0;
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                contactName = cursor.getInt(cursor.getColumnIndex(ContactsContract.PhoneLookup._ID));
+            }
+            cursor.close();
+        }
+
+        return contactName;
+    }
+
+    private static String getGroupId(Context context) {
         Cursor groupCursor = context.getContentResolver().query(
                 ContactsContract.Groups.CONTENT_URI,
                 new String[]{
@@ -138,7 +157,7 @@ public class Contacts {
         return null;
     }
 
-    public static String createGroup(Context context) {
+    private static String createGroup(Context context) {
         ContentResolver cr = context.getContentResolver();
         ContentValues groupValues = new ContentValues();
         groupValues.put(ContactsContract.Groups.TITLE, "42");
