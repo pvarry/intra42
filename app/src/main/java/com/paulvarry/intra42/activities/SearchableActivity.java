@@ -10,11 +10,12 @@ import android.provider.BaseColumns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.SectionListView;
@@ -26,26 +27,33 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.SuperSearch;
 import com.paulvarry.intra42.utils.Tools;
-import okhttp3.ResponseBody;
+import com.paulvarry.jsonviewer.JsonViewer;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import retrofit2.Call;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class SearchableActivity
         extends BasicThreadActivity
         implements AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
 
-    FrameLayout layoutApi;
-    TextView textViewJson;
+    private LinearLayout layoutApi;
+    private JsonViewer jsonViewer;
+    private TextView textViewError;
 
-    ListView listView;
-    Button buttonApiOpen;
+    private ListView listView;
 
     List<SectionListView.Item> items;
     String apiRaw;
@@ -54,6 +62,7 @@ public class SearchableActivity
     ApiService apiService;
     String query;
     private SimpleCursorAdapter searchAdapter;
+    private Object json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +90,8 @@ public class SearchableActivity
         layoutApi = findViewById(R.id.layoutApiRawData);
 
         listView = findViewById(R.id.listView);
-        textViewJson = findViewById(R.id.textViewJson);
-        buttonApiOpen = findViewById(R.id.buttonApiOpen);
+        jsonViewer = findViewById(R.id.jsonViewer);
+        textViewError = findViewById(R.id.textViewError);
 
         app = (AppClass) getApplication();
 
@@ -191,7 +200,18 @@ public class SearchableActivity
             listView.setAdapter(adapter);
         } else {
             layoutApi.setVisibility(View.VISIBLE);
-            textViewJson.setText(apiRaw);
+            if (json != null) {
+                textViewError.setVisibility(View.GONE);
+                jsonViewer.setVisibility(View.VISIBLE);
+                jsonViewer.setJson(json);
+            } else {
+                textViewError.setVisibility(View.VISIBLE);
+                jsonViewer.setVisibility(View.GONE);
+                if (apiRaw != null)
+                    textViewError.setText(apiRaw);
+                else
+                    textViewError.setText(R.string.error);
+            }
         }
     }
 
@@ -320,7 +340,6 @@ public class SearchableActivity
             ApiService api = ((AppClass) getApplication()).getApiService();
 
             setLoadingProgress(getString(R.string.info_api_requesting));
-            buttonApiOpen.setVisibility(View.GONE);
 
             String URL = split[1];
             if (URL.startsWith("v2/"))
@@ -334,26 +353,20 @@ public class SearchableActivity
             Response<ResponseBody> response = call.execute();
 
             if (response.isSuccessful())
-                try {
-                    JSONArray j = new JSONArray("[" + response.body().string() + "]");
-                    Object o = j.get(0);
-                    String output = null;
-                    if (o instanceof JSONArray)
-                        output = ((JSONArray) o).toString(4);
-                    else if (o instanceof JSONObject)
-                        output = ((JSONObject) o).toString(4);
+                apiRaw = response.body().string();
+            else if (response.errorBody() != null) {
+                apiRaw = response.errorBody().string();
+            } else
+                apiRaw = String.valueOf(response.code()) + " " + response.message();
 
-                    apiRaw = output.replace("\\/", "/");
+            try {
+                if (apiRaw.charAt(0) == '[')
+                    json = new JSONArray(apiRaw);
+                else if (apiRaw.charAt(0) == '{')
+                    json = new JSONObject(apiRaw);
 
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-            else {
-                try {
-                    apiRaw = response.errorBody().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
             return true;
         }
@@ -397,5 +410,16 @@ public class SearchableActivity
     private void visibilityGoneAll() {
         layoutApi.setVisibility(View.GONE);
         listView.setVisibility(View.GONE);
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonExpand:
+                jsonViewer.expandJson();
+                break;
+            case R.id.buttonCollapse:
+                jsonViewer.collapseJson();
+                break;
+        }
     }
 }
