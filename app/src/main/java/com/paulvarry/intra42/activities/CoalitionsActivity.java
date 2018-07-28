@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -41,6 +43,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CoalitionsActivity
@@ -49,6 +53,8 @@ public class CoalitionsActivity
 
     private RecyclerView recyclerView;
     private LineChart chartView;
+    private ViewGroup viewGroupChartInfo;
+    private ProgressBar progressBarChart;
 
     private CoalitionsBlocs blocs;
     private List<CoalitionsDataIntra> graphData;
@@ -70,6 +76,8 @@ public class CoalitionsActivity
 
         recyclerView = findViewById(R.id.recyclerView);
         chartView = findViewById(R.id.chartView);
+        viewGroupChartInfo = findViewById(R.id.viewGroupChartInfo);
+        progressBarChart = findViewById(R.id.progressBarChart);
 
         super.onCreateFinished();
     }
@@ -110,7 +118,35 @@ public class CoalitionsActivity
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
+        viewGroupChartInfo.setVisibility(View.GONE);
+        chartView.setVisibility(View.GONE);
+        progressBarChart.setVisibility(View.VISIBLE);
+        if (graphData != null)
+            setViewContentGraph();
+        else {
+            ApiServiceAuthServer extraApi = app.getApiServiceAuthServer();
+            Call<List<CoalitionsDataIntra>> call = extraApi.getCoalitionsStart(blocs.id);
+            call.enqueue(new Callback<List<CoalitionsDataIntra>>() {
+                @Override
+                public void onResponse(Call<List<CoalitionsDataIntra>> call, Response<List<CoalitionsDataIntra>> response) {
+                    if (Tools.apiIsSuccessfulNoThrow(response)) {
+                        graphData = response.body();
+                    }
+                    setViewContentGraph();
+                }
+
+                @Override
+                public void onFailure(Call<List<CoalitionsDataIntra>> call, Throwable t) {
+                    setViewContentGraph();
+                }
+            });
+        }
+    }
+
+    void setViewContentGraph() {
+        progressBarChart.setVisibility(View.GONE);
         if (graphData != null) {
+            viewGroupChartInfo.setVisibility(View.VISIBLE);
             chartView.setVisibility(View.VISIBLE);
             chartView.setDescription(null);
             chartView.getAxisRight().setEnabled(false);
@@ -167,7 +203,6 @@ public class CoalitionsActivity
     @Override
     public void getDataOnOtherThread() throws IOException, RuntimeException {
         ApiService api = app.getApiService();
-        ApiServiceAuthServer extraApi = app.getApiServiceAuthServer();
         int campus = AppSettings.getAppCampus(app);
         int cursus = AppSettings.getAppCursus(app);
 
@@ -179,12 +214,6 @@ public class CoalitionsActivity
                     break;
                 }
             }
-        }
-
-        Response<List<CoalitionsDataIntra>> responseGraph = extraApi.getCoalitionsStart(blocs.id).execute();
-        graphData = null;
-        if (Tools.apiIsSuccessfulNoThrow(responseGraph)) {
-            graphData = responseGraph.body();
         }
     }
 

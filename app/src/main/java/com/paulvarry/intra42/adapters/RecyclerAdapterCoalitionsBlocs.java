@@ -20,6 +20,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapterCoalitionsBlocs extends RecyclerView.Adapter<RecyclerAdapterCoalitionsBlocs.ViewHolder> {
@@ -36,15 +37,16 @@ public class RecyclerAdapterCoalitionsBlocs extends RecyclerView.Adapter<Recycle
         return itemList.get(position);
     }
 
+    @NonNull
     @Override
-    public RecyclerAdapterCoalitionsBlocs.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerAdapterCoalitionsBlocs.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_view_coalitions_blocs, parent, false);
         return new RecyclerAdapterCoalitionsBlocs.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerAdapterCoalitionsBlocs.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerAdapterCoalitionsBlocs.ViewHolder holder, int position) {
         final Coalitions item = getItem(position);
 
         holder.textViewCoalitions.setText(item.name);
