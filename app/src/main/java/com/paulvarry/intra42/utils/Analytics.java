@@ -6,8 +6,13 @@ import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.api.model.AccessToken;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
+
+import java.io.IOException;
+
+import retrofit2.Response;
 
 public class Analytics {
 
@@ -19,6 +24,10 @@ public class Analytics {
     private static final String EVENT_LOG_EVENT_ID = "event_id";
     private static final String EVENT_LOG_SOURCE = "source";
     private static final String EVENT_LOG_FRIEND_ID = "friend_id";
+
+    private static final String EVENT_LOG_API_CODE = "api_status_code";
+    private static final String EVENT_LOG_API_MESSAGE = "api_message";
+    private static final String EVENT_LOG_API_ERROR_BODY = "api_error_body";
 
     private static FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(AppClass.instance());
 
@@ -58,8 +67,8 @@ public class Analytics {
 
     public static void eventSubscribe(int eventId, int userId, EventSource source) {
         Bundle params = new Bundle();
-        params.putInt(EVENT_LOG_EVENT_ID, eventId);
-        params.putInt(EVENT_LOG_USER_ID, userId);
+        params.putString(EVENT_LOG_EVENT_ID, String.valueOf(eventId));
+        params.putString(EVENT_LOG_USER_ID, String.valueOf(userId));
         params.putString(EVENT_LOG_SOURCE, source.name());
         firebaseAnalytics.logEvent("event_subscribe", params);
     }
@@ -70,23 +79,23 @@ public class Analytics {
 
     public static void eventUnsubscribe(int eventId, int userId, EventSource source) {
         Bundle params = new Bundle();
-        params.putInt(EVENT_LOG_EVENT_ID, eventId);
-        params.putInt(EVENT_LOG_USER_ID, userId);
+        params.putString(EVENT_LOG_EVENT_ID, String.valueOf(eventId));
+        params.putString(EVENT_LOG_USER_ID, String.valueOf(userId));
         params.putString(EVENT_LOG_SOURCE, source.name());
         firebaseAnalytics.logEvent("event_unsubscribe", params);
     }
 
     public static void friendAdd(UsersLTE friend, UsersLTE me) {
         Bundle params = new Bundle();
-        params.putInt(EVENT_LOG_FRIEND_ID, friend.id);
-        params.putInt(EVENT_LOG_USER_ID, me.id);
+        params.putString(EVENT_LOG_FRIEND_ID, String.valueOf(friend.id));
+        params.putString(EVENT_LOG_USER_ID, String.valueOf(me.id));
         firebaseAnalytics.logEvent("friend_add", params);
     }
 
     public static void friendRemove(UsersLTE friend, UsersLTE me) {
         Bundle params = new Bundle();
-        params.putInt(EVENT_LOG_FRIEND_ID, friend.id);
-        params.putInt(EVENT_LOG_USER_ID, me.id);
+        params.putString(EVENT_LOG_FRIEND_ID, String.valueOf(friend.id));
+        params.putString(EVENT_LOG_USER_ID, String.valueOf(me.id));
         firebaseAnalytics.logEvent("friend_remove", params);
     }
 
@@ -96,6 +105,38 @@ public class Analytics {
 
     public static void signInSuccess() {
         firebaseAnalytics.logEvent("sign_in_success", null);
+    }
+
+    public static void signInError(Response<AccessToken> response) {
+        Bundle params = new Bundle();
+        params.putString(EVENT_LOG_API_CODE, String.valueOf(response.code()));
+        params.putString(EVENT_LOG_API_MESSAGE, response.message());
+        try {
+            if (response.errorBody() != null) {
+                params.putString(EVENT_LOG_API_ERROR_BODY, response.errorBody().string());
+            }
+        } catch (IOException e) {
+            params.putString(EVENT_LOG_API_ERROR_BODY, e.getMessage());
+        }
+        firebaseAnalytics.logEvent("sign_in_error", params);
+    }
+
+    public static void signInError(Throwable t) {
+        Bundle params = new Bundle();
+        params.putString(EVENT_LOG_API_ERROR_BODY, t.getMessage());
+        firebaseAnalytics.logEvent("sign_in_error", params);
+    }
+
+    public static void shortcutFriends() {
+        firebaseAnalytics.logEvent("shortcut_friends", null);
+    }
+
+    public static void shortcutGalaxy() {
+        firebaseAnalytics.logEvent("shortcut_galaxy", null);
+    }
+
+    public static void shortcutClusterMap() {
+        firebaseAnalytics.logEvent("shortcut_cluster_map", null);
     }
 
     public enum EventSource {

@@ -5,8 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.fragments.EventFragment;
@@ -14,6 +13,9 @@ import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 
 public class HomeActivity extends BasicTabActivity
         implements HomeFragment.OnFragmentInteractionListener, HomeEventsFragment.OnFragmentInteractionListener,

@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.utils;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,20 +13,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
+
+import com.crashlytics.android.Crashlytics;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ItemWithId;
 import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.squareup.picasso.Picasso;
-import in.uncod.android.bypass.Bypass;
-import retrofit2.Response;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.StringJoiner;
+
+import androidx.annotation.Nullable;
+import in.uncod.android.bypass.Bypass;
+import retrofit2.Response;
 
 public class Tools {
 
@@ -101,13 +103,16 @@ public class Tools {
             try {
                 activity.startActivity(intent);
             } catch (android.content.ActivityNotFoundException ex) {
-
+                Crashlytics.logException(ex);
                 if (url.contains(".3gp") || url.contains(".mpg") || url.contains(".mpeg") || url.contains(".mpe") || url.contains(".mp4") || url.contains(".avi"))
                     Toast.makeText(activity, R.string.info_attachment_no_app_video, Toast.LENGTH_SHORT).show();
                 else if (url.contains(".pdf"))
                     Toast.makeText(activity, R.string.info_attachment_no_app_pdf, Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(activity, R.string.info_attachment_no_app, Toast.LENGTH_SHORT).show();
+            } catch (java.lang.SecurityException e) {
+                Crashlytics.logException(e);
+                Toast.makeText(activity, R.string.info_attachment_no_app, Toast.LENGTH_SHORT).show();
             }
         }
     }

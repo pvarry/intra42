@@ -4,20 +4,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.utils.Pagination;
+
+import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 public abstract class BasicFragmentCallGrid<T, ADAPTER extends BaseAdapter> extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, AbsListView.OnScrollListener, AdapterView.OnItemLongClickListener {
@@ -169,7 +176,7 @@ public abstract class BasicFragmentCallGrid<T, ADAPTER extends BaseAdapter> exte
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-        return list.size() > position && onItemLongClick(list.get(position));
+        return list != null && list.size() > position && onItemLongClick(list.get(position));
     }
 
     @Override

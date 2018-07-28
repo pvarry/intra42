@@ -26,6 +26,7 @@ import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Token;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT))// oauth callback
             setViewLoading();
-        else if (ServiceGenerator.have42Token()) {
+        else if (ServiceGenerator.have42Token() && app.userIsLogged(false)) {
             setViewLoading();
 
             new Thread(new Runnable() {
@@ -145,8 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 call.enqueue(new Callback<AccessToken>() {
                     @Override
                     public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
-                        int statusCode = response.code();
-                        if (statusCode == 200) {
+                        if (Tools.apiIsSuccessfulNoThrow(response)) {
                             Analytics.signInSuccess();
                             AccessToken token = response.body();
                             Token.save(MainActivity.this, token);
@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                             }).start();
 
                         } else {
+                            Analytics.signInError(response);
                             try {
                                 Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
                                 setViewLogin();
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<AccessToken> call, Throwable t) {
+                        Analytics.signInError(t);
                         Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -194,11 +196,15 @@ public class MainActivity extends AppCompatActivity {
             String shortcut = getIntent().getStringExtra("shortcut");
             if (shortcut != null) {
                 if (shortcut.contentEquals("friends")) {
+                    Analytics.shortcutFriends();
                     intent = new Intent(MainActivity.this, FriendsActivity.class);
-                } else if (shortcut.contentEquals("clusterMap"))
+                } else if (shortcut.contentEquals("clusterMap")) {
+                    Analytics.shortcutClusterMap();
                     intent = new Intent(MainActivity.this, ClusterMapActivity.class);
-                else if (shortcut.contentEquals("galaxy"))
+                } else if (shortcut.contentEquals("galaxy")) {
+                    Analytics.shortcutGalaxy();
                     intent = new Intent(MainActivity.this, HolyGraphActivity.class);
+                }
             }
         }
 
