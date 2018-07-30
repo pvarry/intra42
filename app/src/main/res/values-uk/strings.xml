@@ -285,7 +285,4 @@
 <string name="introduction_calendar_title">"Синхронізувати календар"</string>
 <string name="about_show_introduction">"Переглянути інструкцію"</string>
 <string name="introduction_cluster_map_contribute_title">"Створити/редагувати карту кластеру"</string>
-
-<!-- Short word (under 6 char) -->
-<string name="save_short">"Збер."</string>
 </resources>

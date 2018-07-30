@@ -630,7 +630,4 @@ Instructions: orientation des Clusters
 <string name="hint_date">"Date"</string>
 <string name="hint_time">"heure"</string>
 <string name="spinner_user_projects_my_projects">"Mes projets"</string>
-
-<!-- Short word (under 6 char) -->
-<string name="save_short">"Enr."</string>
 </resources>

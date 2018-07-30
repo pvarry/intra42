@@ -135,17 +135,6 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.pvarry:android-json-viewer:v1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    androidTestImplementation 'com.azimolabs.conditionwatcher:conditionwatcher:0.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0-alpha3', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-    }
 }
 
 static def getVersionCodeTimestamp() {
