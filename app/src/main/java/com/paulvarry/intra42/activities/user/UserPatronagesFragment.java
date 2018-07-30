@@ -11,12 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ItemDecoration;
@@ -24,12 +19,19 @@ import com.paulvarry.intra42.adapters.RecyclerAdapterUser;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.Tools;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,14 +115,17 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
             @Override
             public void onResponse(Call<List<UsersLTE>> call, Response<List<UsersLTE>> response) {
                 users = new SparseArray<>();
-                for (UsersLTE u : response.body())
-                    users.append(u.id, u);
+                List<UsersLTE> body = response.body();
+                if (Tools.apiIsSuccessfulNoThrow(response) && body != null)
+                    for (UsersLTE u : body)
+                        users.append(u.id, u);
                 setView();
             }
 
             @Override
             public void onFailure(Call<List<UsersLTE>> call, Throwable t) {
-
+                users = new SparseArray<>();
+                setView();
             }
         });
 

@@ -9,8 +9,37 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.BaseColumns;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.SearchableActivity;
+import com.paulvarry.intra42.activities.SettingsActivity;
+import com.paulvarry.intra42.activities.user.UserActivity;
+import com.paulvarry.intra42.ui.tools.Navigation;
+import com.paulvarry.intra42.utils.Analytics;
+import com.paulvarry.intra42.utils.AppSettings;
+import com.paulvarry.intra42.utils.Share;
+import com.paulvarry.intra42.utils.SuperSearch;
+import com.paulvarry.intra42.utils.ThemeHelper;
+import com.paulvarry.intra42.utils.Tools;
+import com.paulvarry.intra42.utils.UserImage;
+import com.squareup.picasso.RequestCreator;
+
+import java.util.Locale;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,19 +53,6 @@ import androidx.core.view.GravityCompat;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.drawerlayout.widget.DrawerLayout;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.paulvarry.intra42.AppClass;
-import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.SearchableActivity;
-import com.paulvarry.intra42.activities.SettingsActivity;
-import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.ui.tools.Navigation;
-import com.paulvarry.intra42.utils.*;
-import com.squareup.picasso.RequestCreator;
-
-import java.util.Locale;
 
 public abstract class BasicActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -593,6 +609,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             imageButtonDayLight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Analytics.setBrightness(!app.themeSettings.isDark());
                     AppSettings.Theme.setDarkThemeEnable(BasicActivity.this, !app.themeSettings.isDark());
                     ThemeHelper.setTheme(app);
                     recreate();

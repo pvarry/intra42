@@ -24,6 +24,7 @@ public class Analytics {
     private static final String EVENT_LOG_EVENT_ID = "event_id";
     private static final String EVENT_LOG_SOURCE = "source";
     private static final String EVENT_LOG_FRIEND_ID = "friend_id";
+    private static final String EVENT_LOG_SLOTS_COUNT = "slots_count";
 
     private static final String EVENT_LOG_API_CODE = "api_status_code";
     private static final String EVENT_LOG_API_MESSAGE = "api_message";
@@ -46,22 +47,23 @@ public class Analytics {
 
     public static void slotSave(SlotsTools.SlotsGroup slotsGroup) {
         Bundle params = new Bundle();
-        params.putSerializable("start_at", slotsGroup.beginAt);
-        params.putSerializable("end_at", slotsGroup.endAt);
+        if (slotsGroup.group != null)
+            params.putInt(EVENT_LOG_SLOTS_COUNT, slotsGroup.group.size());
         firebaseAnalytics.logEvent("slot_save", params);
     }
 
     public static void slotCreate(SlotsTools.SlotsGroup slotsGroup) {
         Bundle params = new Bundle();
-        params.putSerializable("start_at", slotsGroup.beginAt);
-        params.putSerializable("end_at", slotsGroup.endAt);
+        if (slotsGroup.group != null)
+            params.putInt(EVENT_LOG_SLOTS_COUNT, slotsGroup.group.size());
         firebaseAnalytics.logEvent("slot_create", params);
     }
 
     public static void slotDelete(SlotsTools.SlotsGroup slotsGroup) {
         Bundle params = new Bundle();
-        params.putSerializable("start_at", slotsGroup.beginAt);
-        params.putSerializable("end_at", slotsGroup.endAt);
+        if (slotsGroup.group != null)
+            params.putInt(EVENT_LOG_SLOTS_COUNT, slotsGroup.group.size());
+        params.putBoolean("is_booked", slotsGroup.isBooked);
         firebaseAnalytics.logEvent("slot_delete", params);
     }
 
@@ -137,6 +139,12 @@ public class Analytics {
 
     public static void shortcutClusterMap() {
         firebaseAnalytics.logEvent("shortcut_cluster_map", null);
+    }
+
+    public static void setBrightness(boolean isDark) {
+        Bundle params = new Bundle();
+        params.putString("brightness", isDark ? "DARK" : "LIGHT");
+        firebaseAnalytics.logEvent("brightness_switched_menu", params);
     }
 
     public enum EventSource {
