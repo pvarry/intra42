@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="16dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="16dp"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="16dp">
+        android:paddingTop="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputName"
@@ -68,8 +68,8 @@
             style="@style/TextAppearance.Design.Hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginLeft="0dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:text="@string/campus"
             android:textColor="#9B9B9B" />
@@ -78,8 +78,8 @@
             android:id="@+id/spinnerCampus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-4dp"
-            android:layout_marginLeft="-4dp" />
+            android:layout_marginLeft="-4dp"
+            android:layout_marginStart="-4dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutPrefix"
@@ -98,10 +98,29 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:text="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix_info" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="This cluster is ready to be published" />
+
+            <CheckBox
+                android:id="@+id/checkboxReadyToPublish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutComment"

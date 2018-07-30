@@ -27,6 +27,8 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
     public int sizeY;
     public Location map[][];
     public String comment;
+    @SerializedName("isReadyToPublish")
+    public boolean isReadyToPublish;
 
     public transient int freePosts;
     public transient int highlightPosts;

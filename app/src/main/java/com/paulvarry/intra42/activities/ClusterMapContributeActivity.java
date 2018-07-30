@@ -11,10 +11,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.BaseListAdapterSummary;
@@ -24,13 +31,17 @@ import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
-import retrofit2.Call;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class ClusterMapContributeActivity
         extends BasicThreadActivity
@@ -207,6 +218,7 @@ public class ClusterMapContributeActivity
         final EditText editTextNameShort = view.findViewById(R.id.editTextNameShort);
         final EditText editTextPosition = view.findViewById(R.id.editTextPosition);
         final Spinner spinnerCampus = view.findViewById(R.id.spinnerCampus);
+        final CheckBox checkboxReadyToPublish = view.findViewById(R.id.checkboxReadyToPublish);
         final EditText editTextComment = view.findViewById(R.id.editTextComment);
 
         final boolean isCreate = cluster == null;
@@ -269,6 +281,7 @@ public class ClusterMapContributeActivity
             if (cluster.clusterPosition > 0)
                 editTextPosition.setText(String.valueOf(cluster.clusterPosition));
             editTextComment.setText(cluster.comment);
+            checkboxReadyToPublish.setChecked(cluster.isReadyToPublish);
         }
         spinnerCampus.setSelection(selection, false);
 
@@ -289,6 +302,7 @@ public class ClusterMapContributeActivity
                     newCluster.clusterPosition = Integer.decode(stringPosition);
                 newCluster.hostPrefix = editTextPrefix.getText().toString();
                 newCluster.comment = editTextComment.getText().toString();
+                newCluster.isReadyToPublish = checkboxReadyToPublish.isChecked();
 
                 newCluster.campusId = 1;
                 int pos = spinnerCampus.getSelectedItemPosition();

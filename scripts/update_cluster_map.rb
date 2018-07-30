@@ -18,11 +18,27 @@ def get_pad(key)
   req = Net::HTTP::Get.new("/api/jsonBlob/#{key}")
   res = conn.request(req)
 
-  JSON.parse(res.body)
+  JSON.parse(res.body) if res.kind_of? Net::HTTPSuccess
 end
 
 masters = get_pad('9d4791dc-1bd4-11e8-88aa-9d6752c34362')
-maps = masters.map { |master| get_pad(master['key']) }
+maps = masters.map { |master|
+                cluster_map = get_pad(master['key'])
+
+                if cluster_map.nil?
+                  puts "not found ― #{master['name']} (#{master['key']})"
+                  next
+                end
+
+                unless cluster_map['isReadyToPublish']
+                  puts "not ready ― #{master['name']} (#{master['key']})"
+                  next
+                end
+                puts "good ― #{master['name']} (#{master['key']})"
+
+                cluster_map
+              }
+              .reject { |cluster_map| cluster_map.nil? }
               .map { |cluster_map|
                 cluster_map['map']&.map! do |col|
                   col&.map! do |cel|
