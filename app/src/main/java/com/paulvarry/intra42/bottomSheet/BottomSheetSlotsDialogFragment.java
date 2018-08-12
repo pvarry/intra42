@@ -1,15 +1,20 @@
 package com.paulvarry.intra42.bottomSheet;
 
-import android.app.*;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -21,12 +26,21 @@ import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.SlotsTools;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.io.IOException;
-import java.util.*;
 
 public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomSheetDialogFragment {
 
@@ -210,11 +224,6 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                 long maxDate = System.currentTimeMillis() + 1209600 * 1000;
                 final long currentDate = date.getTime();
 
-                if (currentDate < minDate)
-                    minDate = currentDate;
-                else if (currentDate > maxDate)
-                    maxDate = currentDate;
-
                 Calendar calendar = Calendar.getInstance(Locale.getDefault());
                 calendar.setTime(date);
                 DatePickerDialog pickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
@@ -230,8 +239,14 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+                if (minDate > currentDate)
+                    minDate = currentDate;
+                else if (maxDate < currentDate)
+                    maxDate = currentDate;
                 pickerDialog.getDatePicker().setMinDate(minDate);
                 pickerDialog.getDatePicker().setMaxDate(maxDate);
+
                 pickerDialog.setTitle("");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     pickerDialog.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);

@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -18,13 +19,22 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
-import com.paulvarry.intra42.utils.*;
+import com.paulvarry.intra42.utils.Analytics;
+import com.paulvarry.intra42.utils.Calendar;
+import com.paulvarry.intra42.utils.DateTool;
+import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.utils.Tools;
 import com.veinhorn.tagview.TagView;
+
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,10 +142,12 @@ public class EventFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onFailure(Call<EventsUsers> call, Throwable t) {
-            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            linearLayoutProgress.setVisibility(View.INVISIBLE);
-            progressBarButton.setVisibility(View.GONE);
-            buttonSubscribe.setEnabled(true);
+            if (isAdded()) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                linearLayoutProgress.setVisibility(View.INVISIBLE);
+                progressBarButton.setVisibility(View.GONE);
+                buttonSubscribe.setEnabled(true);
+            }
         }
     };
 

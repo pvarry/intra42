@@ -45,7 +45,9 @@ public class SpinnerAdapterTeams extends BaseAdapter {
      */
     @Override
     public Teams getItem(int position) {
-        return teams.get(position);
+        if (teams != null && teams.size() > position)
+            return teams.get(position);
+        return null;
     }
 
     /**
@@ -56,7 +58,9 @@ public class SpinnerAdapterTeams extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return teams.get(position).id;
+        if (teams != null && teams.size() > position)
+            return teams.get(position).id;
+        return 0;
     }
 
     @Override

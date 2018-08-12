@@ -13,14 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
@@ -29,15 +22,29 @@ import com.paulvarry.intra42.adapters.RecyclerAdapterScaleTeamsAutomatic;
 import com.paulvarry.intra42.adapters.RecyclerAdapterUserTeam;
 import com.paulvarry.intra42.adapters.SpinnerAdapterTeams;
 import com.paulvarry.intra42.api.ApiService;
-import com.paulvarry.intra42.api.model.*;
+import com.paulvarry.intra42.api.model.Feedback;
+import com.paulvarry.intra42.api.model.Projects;
+import com.paulvarry.intra42.api.model.ScaleTeams;
+import com.paulvarry.intra42.api.model.Teams;
+import com.paulvarry.intra42.api.model.TeamsUsers;
+import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicFragmentSpinner;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tools;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -338,8 +345,11 @@ public class ProjectUserFragment extends BasicFragmentSpinner<Teams, SpinnerAdap
     @Nullable
     @Override
     public List<Teams> getSpinnerElemList() {
-        if (mListener != null)
-            return mListener.getData().user.teams;
+        if (mListener != null) {
+            ProjectActivity.ProjectUser data = mListener.getData();
+            if (data != null && data.user != null && data.user.teams != null)
+                return data.user.teams;
+        }
         return null;
     }
 

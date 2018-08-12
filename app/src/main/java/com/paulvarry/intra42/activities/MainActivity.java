@@ -1,5 +1,6 @@
 package com.paulvarry.intra42.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
@@ -226,8 +228,14 @@ public class MainActivity extends AppCompatActivity {
         // This flag is set to prevent the browser with the login form from showing in the history stack
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-        startActivity(intent);
-        finish();
+        try {
+            startActivity(intent);
+            finish();
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            Crashlytics.logException(e);
+            Toast.makeText(app, "You must install a web browser", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void openSources(View view) {

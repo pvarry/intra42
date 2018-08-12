@@ -6,6 +6,7 @@
     tools:context=".activities.project.ProjectActivity">
 
     <FrameLayout
+        android:id="@+id/viewGroupHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?colorSecondary"

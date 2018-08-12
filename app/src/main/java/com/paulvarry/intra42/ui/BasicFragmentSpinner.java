@@ -8,13 +8,15 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADAPTER extends BaseAdapter>
         extends Fragment
@@ -22,6 +24,8 @@ public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADA
 
     private final static String SAVED_STATE_ID_TAG = "saved_state_tag";
 
+    private ViewGroup viewGroupHeader;
+    private View viewGroupChild;
     private TextView textView;
     private Spinner spinner;
 
@@ -42,11 +46,12 @@ public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADA
         super.onViewCreated(view, savedInstanceState);
 
         ViewGroup layoutContent = view.findViewById(R.id.layoutContent);
+        viewGroupHeader = view.findViewById(R.id.viewGroupHeader);
         textView = view.findViewById(R.id.textView);
         spinner = view.findViewById(R.id.spinner);
 
-        View childView = onCreateChildView(LayoutInflater.from(getContext()), layoutContent, savedInstanceState);
-        layoutContent.addView(childView);
+        viewGroupChild = onCreateChildView(LayoutInflater.from(getContext()), layoutContent, savedInstanceState);
+        layoutContent.addView(viewGroupChild);
 
         textView.setVisibility(View.GONE);
 
@@ -66,6 +71,8 @@ public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADA
             int itemIdRequestSelection;
             int tmpPositionSelected = 0;
 
+            viewGroupHeader.setVisibility(View.VISIBLE);
+            viewGroupChild.setVisibility(View.VISIBLE);
             if (savedInstanceState != null)
                 itemIdRequestSelection = savedInstanceState.getInt(SAVED_STATE_ID_TAG);
             else
@@ -83,6 +90,10 @@ public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADA
             if (tmpPositionSelected != 0)
                 positionSelected = tmpPositionSelected;
             spinner.setSelection(positionSelected);
+        } else {
+            viewGroupHeader.setVisibility(View.GONE);
+            viewGroupChild.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -90,6 +101,8 @@ public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADA
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         positionSelected = i;
         textView.setVisibility(View.GONE);
+        viewGroupHeader.setVisibility(View.VISIBLE);
+        viewGroupChild.setVisibility(View.VISIBLE);
         if (listSpinnerHeader != null && listSpinnerHeader.size() > positionSelected)
             onHeaderItemChanged(listSpinnerHeader.get(positionSelected));
     }
@@ -97,7 +110,6 @@ public abstract class BasicFragmentSpinner<T extends IBaseItemSmall, SPINNER_ADA
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         positionSelected = -1;
-        textView.setVisibility(View.VISIBLE);
     }
 
     public abstract View onCreateChildView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
