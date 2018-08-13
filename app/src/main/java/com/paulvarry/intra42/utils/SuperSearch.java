@@ -63,9 +63,11 @@ public class SuperSearch {
             if (split.length != 3)
                 return false;
             if (split[1].contentEquals("projects")) {
+                Analytics.search("OPEN_URL_PROJECT", query);
                 ProjectActivity.openIt(activity, split[2]);
                 return true;
             } else if (split[2].contentEquals("mine") || true) {
+                Analytics.search("OPEN_URL_PROJECT", query);
                 ProjectActivity.openIt(activity, split[1]);
                 return true;
             } else {
@@ -74,11 +76,13 @@ public class SuperSearch {
             }
         } else if (query.contains("profile.intra.42")) {
             if (split.length == 3 && split[1].contentEquals("users")) {
+                Analytics.search("OPEN_URL_USER", query);
                 UserActivity.openIt(activity, split[2], activity);
                 return true;
             }
         } else if (query.contains("forum.intra.42")) {
             if (split.length >= 3 && split[1].contentEquals("topics")) {
+                Analytics.search("OPEN_URL_TOPIC", query);
                 TopicActivity.openIt(activity, Integer.parseInt(split[2]));
                 return true;
             }
@@ -86,10 +90,12 @@ public class SuperSearch {
             if (split.length < 3)
                 return false;
             if (split[1].contentEquals("notions")) {
+                Analytics.search("OPEN_URL_NOTION", query);
                 SubnotionListActivity.openIt(activity, split[2]);
                 return true;
             }
         } else if (split.length >= 3 && split[1].contentEquals("tags")) {
+            Analytics.search("OPEN_URL_TAG", query);
             TagsActivity.openIt(activity, Integer.parseInt(split[2]));
         }
         return false;
@@ -109,21 +115,27 @@ public class SuperSearch {
 
         try {
             if (searchOnArray(R.array.search_users, split[0], activity)) {
+                Analytics.search("OPEN_USER", query);
                 UserActivity.openIt(activity, split[1], activity);
                 return true;
             } else if (searchOnArray(R.array.search_projects, split[0], activity)) {
+                Analytics.search("OPEN_PROJECT", query);
                 ProjectActivity.openIt(activity, split[1]);
                 return true;
             } else if (searchOnArray(R.array.search_topics, split[0], activity)) {
+                Analytics.search("OPEN_TOPIC", query);
                 TopicActivity.openIt(activity, Integer.parseInt(split[1]));
                 return true;
             } else if (searchOnArray(R.array.search_tags, split[0], activity)) {
+                Analytics.search("OPEN_TAG", query);
                 TagsActivity.openIt(activity, Integer.parseInt(split[1]));
                 return true;
             } else if (searchOnArray(R.array.search_location, split[0], activity)) {
+                Analytics.search("OPEN_LOCATION", query);
                 UserActivity.openLocation(activity, split[1], (AppClass) activity.getApplication());
                 return true;
             } else if (query.contains("@student.42")) {
+                Analytics.search("OPEN_USER_WITH_MAIL", query);
                 UserActivity.openIt(activity, query.split("@")[0]);
                 return true;
             } else

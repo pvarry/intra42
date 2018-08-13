@@ -18,6 +18,7 @@ import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.activities.MainActivity;
+import com.paulvarry.intra42.api.interactor.AnalyticsInterceptor;
 import com.paulvarry.intra42.api.interactor.HeaderInterceptor;
 import com.paulvarry.intra42.api.interactor.RateLimitInterceptor;
 import com.paulvarry.intra42.api.model.AccessToken;
@@ -122,6 +123,7 @@ public class ServiceGenerator {
             builder.baseUrl(ApiService42Tools.API_BASE_URL);
         } else
             httpClient.addInterceptor(new HeaderInterceptor());
+        httpClient.addInterceptor(new AnalyticsInterceptor());
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();

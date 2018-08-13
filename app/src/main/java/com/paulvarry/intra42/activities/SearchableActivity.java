@@ -25,6 +25,7 @@ import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
+import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.SuperSearch;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.jsonviewer.JsonViewer;
@@ -276,20 +277,25 @@ public class SearchableActivity
         if (split.length > 1) {
 
             if (SuperSearch.searchOnArray(R.array.search_users, split[0], SearchableActivity.this)) {
+                Analytics.search("SEARCH_USERS", query);
                 responseUsersLogin = execUsers(callUsersLogin, 1, 4);
                 responseUsersFirstName = execUsers(callUsersFirstName, 2, 4);
                 responseUsersLastName = execUsers(callUsersLastName, 3, 4);
             } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
+                Analytics.search("SEARCH_PROJECTS", query);
                 responseProjects = execProjects(callProjects, 1, 2);
             } else if (SuperSearch.searchOnArray(R.array.search_topics, split[0], SearchableActivity.this)) {
+                Analytics.search("SEARCH_TOPICS", query);
                 responseTopics = execTopics(callTopics, 1, 2);
             } else {
+                Analytics.search(null, query);
                 responseUsersLogin = execUsers(callUsersLogin, 1, 5);
                 responseUsersFirstName = execUsers(callUsersFirstName, 2, 5);
                 responseProjects = execProjects(callProjects, 3, 5);
                 responseTopics = execTopics(callTopics, 4, 5);
             }
         } else {
+            Analytics.search(null, query);
             responseUsersLogin = execUsers(callUsersLogin, 1, 6);
             responseUsersFirstName = execUsers(callUsersFirstName, 2, 6);
             responseUsersLastName = execUsers(callUsersLastName, 3, 6);
@@ -368,6 +374,7 @@ public class SearchableActivity
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            Analytics.search("API_CALL", query);
             return true;
         }
         return false;

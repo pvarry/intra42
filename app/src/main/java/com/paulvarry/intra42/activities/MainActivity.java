@@ -1,9 +1,11 @@
 package com.paulvarry.intra42.activities;
 
+import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.view.View;
@@ -31,6 +33,7 @@ import com.paulvarry.intra42.utils.Token;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -130,66 +133,87 @@ public class MainActivity extends AppCompatActivity {
             String code = uri.getQueryParameter("code");
             if (code != null) {
 
-                if (Credential.API_OAUTH_REDIRECT == null || Credential.SCOPE == null || Credential.UID == null) {
-                    throw new RuntimeException("API Credentials must be specified");
+                String referrer = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    Uri referrerUri = getReferrer();
+                    if (referrerUri != null)
+                        referrer = referrerUri.getHost();
                 }
-
-                Call<AccessToken> call;
-                if (Credential.SECRET != null && !Credential.SECRET.isEmpty()) {
-                    ApiService client = ServiceGenerator.createService(ApiService.class);
-                    call = client.getNewAccessToken(code, Credential.UID,
-                            Credential.SECRET, Credential.API_OAUTH_REDIRECT,
-                            "authorization_code");
-                } else {
-                    ApiService42Tools client = app.getApiService42Tools();
-                    call = client.auth42Api(Credential.UID, code, Credential.API_OAUTH_REDIRECT);
+                if (referrer == null) {
+                    ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+                    List<ActivityManager.RecentTaskInfo> recentTasks = am.getRecentTasks(10000, ActivityManager.RECENT_WITH_EXCLUDED);
+                    ActivityManager.RecentTaskInfo t = recentTasks.get(1);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                        referrer = t.baseActivity.getPackageName();
+                    else
+                        referrer = t.origActivity.getPackageName();
                 }
+                Analytics.signInHaveCode(referrer);
 
-                call.enqueue(new Callback<AccessToken>() {
-                    @Override
-                    public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
-                        if (Tools.apiIsSuccessfulNoThrow(response)) {
-                            Analytics.signInSuccess();
-                            AccessToken token = response.body();
-                            Token.save(MainActivity.this, token);
-                            ServiceGenerator.setToken(token);
-
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    app.initCache(true, MainActivity.this);
-                                    AppClass.scheduleAlarm(MainActivity.this);
-
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            finishCache();
-                                        }
-                                    });
-                                }
-                            }).start();
-
-                        } else {
-                            Analytics.signInError(response);
-                            try {
-                                Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
-                                setViewLogin();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<AccessToken> call, Throwable t) {
-                        Analytics.signInError(t);
-                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                getTokenWithCode(code);
             } else { // Handle a missing code in the redirect URI
                 Toast.makeText(MainActivity.this, "code is missing", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void getTokenWithCode(String code) {
+        if (Credential.API_OAUTH_REDIRECT == null || Credential.SCOPE == null || Credential.UID == null) {
+            throw new RuntimeException("API Credentials must be specified");
+        }
+
+        Call<AccessToken> call;
+        if (Credential.SECRET != null && !Credential.SECRET.isEmpty()) {
+            ApiService client = ServiceGenerator.createService(ApiService.class);
+            call = client.getNewAccessToken(code, Credential.UID,
+                    Credential.SECRET, Credential.API_OAUTH_REDIRECT,
+                    "authorization_code");
+        } else {
+            ApiService42Tools client = app.getApiService42Tools();
+            call = client.auth42Api(Credential.UID, code, Credential.API_OAUTH_REDIRECT);
+        }
+
+        call.enqueue(new Callback<AccessToken>() {
+            @Override
+            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
+                if (Tools.apiIsSuccessfulNoThrow(response)) {
+                    Analytics.signInSuccess();
+                    AccessToken token = response.body();
+                    Token.save(MainActivity.this, token);
+                    ServiceGenerator.setToken(token);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            app.initCache(true, MainActivity.this);
+                            AppClass.scheduleAlarm(MainActivity.this);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finishCache();
+                                }
+                            });
+                        }
+                    }).start();
+
+                } else {
+                    Analytics.signInError(response);
+                    try {
+                        Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        setViewLogin();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AccessToken> call, Throwable t) {
+                Analytics.signInError(t);
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void finishCache() {

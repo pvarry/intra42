@@ -12,6 +12,8 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 
 import java.io.IOException;
 
+import okhttp3.Request;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class Analytics {
@@ -26,6 +28,7 @@ public class Analytics {
     private static final String EVENT_LOG_FRIEND_ID = "friend_id";
     private static final String EVENT_LOG_SLOTS_COUNT = "slots_count";
 
+    private static final String EVENT_LOG_API_URL = "api_url";
     private static final String EVENT_LOG_API_CODE = "api_status_code";
     private static final String EVENT_LOG_API_MESSAGE = "api_message";
     private static final String EVENT_LOG_API_ERROR_BODY = "api_error_body";
@@ -105,6 +108,12 @@ public class Analytics {
         firebaseAnalytics.logEvent("sign_in_attempt", null);
     }
 
+    public static void signInHaveCode(String referrer) {
+        Bundle params = new Bundle();
+        params.putString("sign_in_referrer", referrer);
+        firebaseAnalytics.logEvent("sign_in_have_code", params);
+    }
+
     public static void signInSuccess() {
         firebaseAnalytics.logEvent("sign_in_success", null);
     }
@@ -145,6 +154,31 @@ public class Analytics {
         Bundle params = new Bundle();
         params.putString("brightness", isDark ? "DARK" : "LIGHT");
         firebaseAnalytics.logEvent("brightness_switched_menu", params);
+    }
+
+    public static void apiCall(Request request, okhttp3.Response response) {
+        Bundle params = new Bundle();
+        params.putString(EVENT_LOG_API_URL, request.method() + " " + request.url().host() + request.url().encodedPath());
+        params.putString(EVENT_LOG_API_CODE, String.valueOf(response.code()));
+        params.putString(EVENT_LOG_API_MESSAGE, response.message());
+
+        ResponseBody body = response.body();
+        if (!response.isSuccessful() && body != null) {
+            try {
+                params.putString(EVENT_LOG_API_ERROR_BODY, body.string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        firebaseAnalytics.logEvent("api_call", params);
+    }
+
+    public static void search(String kind, String text) {
+        Bundle params = new Bundle();
+        if (kind != null)
+            params.putString("kind", kind);
+        params.putString("query", text);
+        firebaseAnalytics.logEvent("search", params);
     }
 
     public enum EventSource {
