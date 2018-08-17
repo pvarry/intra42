@@ -2,7 +2,7 @@ package com.paulvarry.intra42.activities;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,13 +10,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
@@ -37,6 +36,7 @@ import java.io.IOException;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,7 +44,7 @@ import retrofit2.Response;
 public class LaunchActivity extends AppCompatActivity {
 
     public AppClass app;
-    private LinearLayout linearLayoutNeedLogin;
+    private ViewGroup viewGroupNeedLogin;
     private Button buttonViewSources;
     private TextView textViewLoadingInfo;
     private ProgressBar progressBarLoading;
@@ -70,7 +70,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         AppClass.scheduleAlarm(this);
 
-        linearLayoutNeedLogin = findViewById(R.id.linearLayoutNeedLogin);
+        viewGroupNeedLogin = findViewById(R.id.linearLayoutNeedLogin);
         buttonViewSources = findViewById(R.id.buttonViewSources);
         textViewLoadingInfo = findViewById(R.id.textViewLoadingInfo);
         progressBarLoading = findViewById(R.id.progressBarLoading);
@@ -108,7 +108,7 @@ public class LaunchActivity extends AppCompatActivity {
         textViewLoadingInfo.setVisibility(View.GONE);
         textViewStatus.setVisibility(View.GONE);
         progressBarLoading.setVisibility(View.GONE);
-        linearLayoutNeedLogin.setVisibility(View.GONE);
+        viewGroupNeedLogin.setVisibility(View.GONE);
         buttonViewSources.setVisibility(View.GONE);
     }
 
@@ -121,7 +121,7 @@ public class LaunchActivity extends AppCompatActivity {
 
     private void setViewLogin() {
         setViewHide();
-        linearLayoutNeedLogin.setVisibility(View.VISIBLE);
+        viewGroupNeedLogin.setVisibility(View.VISIBLE);
         buttonViewSources.setVisibility(View.VISIBLE);
     }
 
@@ -253,21 +253,21 @@ public class LaunchActivity extends AppCompatActivity {
         finish();
     }
 
-    public void open(View view) {
+    public void login(View view) {
         Analytics.signInAttempt();
-        Uri u = Uri.parse(ApiService.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
-        Intent intent = new Intent(Intent.ACTION_VIEW, u);
-        // This flag is set to prevent the browser with the login form from showing in the history stack
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
 
-        try {
-            startActivity(intent);
-            finish();
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
-            Crashlytics.logException(e);
-            Toast.makeText(app, "You must install a web browser", Toast.LENGTH_SHORT).show();
-        }
+        Uri loginUri = Uri.parse(ApiService.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
+
+        Intent defaultBrowserIntent = new Intent(Intent.ACTION_VIEW);
+        defaultBrowserIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        defaultBrowserIntent.setData(loginUri);
+        PendingIntent defaultBrowserPendingIntent = PendingIntent.getActivity(this, 0, defaultBrowserIntent, 0);
+
+
+        builder.addMenuItem(getString(R.string.login_custom_chrome_tabs_open_default_browser), defaultBrowserPendingIntent);
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, loginUri);
     }
 
     public void openSources(View view) {

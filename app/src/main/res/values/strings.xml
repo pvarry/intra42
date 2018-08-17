@@ -132,8 +132,6 @@ You will lose a correction point"</string>
 <string name="language_french">"French"</string>
 <string name="language_romanian">"Romanian"</string>
 <string name="language_ukrainian">"Ukrainian"</string>
-<string name="login_open_browser">"Open Web browser"</string>
-<string name="login_open_browser_to_login">"You need to sign in"</string>
 <string name="login_view_sources">"View sources"</string>
 <string name="menu_action_filter">"filter"</string>
 <string name="menu_action_open_intra">"Show web version"</string>
@@ -634,4 +632,6 @@ long click for more action"</string>
 <!-- Short word (under 6 char) -->
 <string name="save_short">"Save"</string>
     <string name="sign_in_error_invalid_grant">You can\'t use this app right now, your 42 account is maybe closed</string>
+    <string name="login_open_custom_chrome_tabs">log in</string>
+    <string name="login_custom_chrome_tabs_open_default_browser">Open default browser</string>
 </resources>

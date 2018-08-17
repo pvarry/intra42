@@ -135,6 +135,7 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.pvarry:android-json-viewer:v1.1'
+    implementation 'com.android.support:customtabs:27.1.0'
 }
 
 static def getVersionCodeTimestamp() {

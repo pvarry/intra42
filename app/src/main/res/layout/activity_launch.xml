@@ -87,7 +87,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBarLoading" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayoutNeedLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,27 +102,23 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.6">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/login_open_browser_to_login"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/textColorPrimary"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="25dp" />
-
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="open"
-            android:text="@string/login_open_browser"
+            android:onClick="login"
+            android:text="@string/login_open_custom_chrome_tabs"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             app:layout_constraintStart_toStartOf="@+id/linearLayoutNeedLogin"
             app:layout_constraintTop_toTopOf="@+id/linearLayoutNeedLogin" />
-    </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonViewSources"
