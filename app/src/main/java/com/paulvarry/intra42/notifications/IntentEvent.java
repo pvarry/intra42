@@ -3,13 +3,15 @@ package com.paulvarry.intra42.notifications;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationManagerCompat;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.utils.Analytics;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationManagerCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +50,7 @@ public class IntentEvent extends IntentService {
         ApiService api = app.getApiService();
 
         if (action.contentEquals(ACTION_CREATE)) {
+            Analytics.eventSubscribe(Analytics.EventSource.NOTIFICATION);
             api.createEventsUsers(eventId, app.me.id).enqueue(new Callback<EventsUsers>() {
                 @Override
                 public void onResponse(Call<EventsUsers> call, Response<EventsUsers> response) {
@@ -60,8 +63,8 @@ public class IntentEvent extends IntentService {
 
                 }
             });
-            Analytics.eventSubscribe(eventId, app.me.id, Analytics.EventSource.NOTIFICATION);
         } else if (action.contentEquals(ACTION_DELETE)) {
+            Analytics.eventUnsubscribe(Analytics.EventSource.NOTIFICATION);
             api.deleteEventsUsers(eventUserId).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
@@ -74,7 +77,6 @@ public class IntentEvent extends IntentService {
 
                 }
             });
-            Analytics.eventUnsubscribe(eventId, app.me.id, Analytics.EventSource.NOTIFICATION);
         }
     }
 }

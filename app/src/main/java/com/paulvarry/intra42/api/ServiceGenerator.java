@@ -17,7 +17,7 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.Credential;
-import com.paulvarry.intra42.activities.MainActivity;
+import com.paulvarry.intra42.activities.LaunchActivity;
 import com.paulvarry.intra42.api.interactor.AnalyticsInterceptor;
 import com.paulvarry.intra42.api.interactor.HeaderInterceptor;
 import com.paulvarry.intra42.api.interactor.RateLimitInterceptor;
@@ -114,7 +114,7 @@ public class ServiceGenerator {
             if (ServiceGenerator.have42Token())
                 httpClient.addInterceptor(new HeaderInterceptor(accessTokenIntra42));
             else if (allowRedirectWrongAuth)
-                MainActivity.openActivity(app);
+                LaunchActivity.openActivity(app);
             httpClient.authenticator(getAuthenticatorIntra42(app));
             httpClient.addInterceptor(new RateLimitInterceptor());
         } else if (serviceClass == ApiService42Tools.class) {

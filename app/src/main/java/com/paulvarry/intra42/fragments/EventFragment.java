@@ -339,10 +339,10 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         buttonSubscribe.setEnabled(false);
         if (eventsUsers == null) {
             api.createEventsUsers(event.id, appClass.me.id).enqueue(callbackSubscribe);
-            Analytics.eventSubscribe(event.id, appClass.me.id, Analytics.EventSource.APPLICATION);
+            Analytics.eventSubscribe(Analytics.EventSource.APPLICATION);
         } else {
             api.deleteEventsUsers(eventsUsers.id).enqueue(callbackDelete);
-            Analytics.eventUnsubscribe(eventsUsers, Analytics.EventSource.APPLICATION);
+            Analytics.eventUnsubscribe(Analytics.EventSource.APPLICATION);
         }
     }
 

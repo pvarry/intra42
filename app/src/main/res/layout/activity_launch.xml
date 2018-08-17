@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".activities.MainActivity"
+    tools:context=".activities.LaunchActivity"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="25dp">
 
@@ -112,17 +112,21 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="25dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="open"
-            android:text="@string/login_open_browser" />
+            android:text="@string/login_open_browser"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            app:layout_constraintStart_toStartOf="@+id/linearLayoutNeedLogin"
+            app:layout_constraintTop_toTopOf="@+id/linearLayoutNeedLogin" />
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonViewSources"
-        style="@style/AppTheme.Button.Borderless"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -131,6 +135,7 @@
         android:layout_marginBottom="0dp"
         android:onClick="openSources"
         android:text="@string/login_view_sources"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         android:textColor="?colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -138,12 +143,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutNeedLogin"
         app:layout_constraintVertical_bias="1.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="556dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

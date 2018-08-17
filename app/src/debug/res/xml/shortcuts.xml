@@ -10,7 +10,7 @@
         android:shortcutShortLabel="@string/shortcut_galaxy">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.paulvarry.intra42.activities.MainActivity"
+            android:targetClass="com.paulvarry.intra42.activities.LaunchActivity"
             android:targetPackage="com.paulvarry.intra42.debug">
             <extra
                 android:name="shortcut"
@@ -26,7 +26,7 @@
         android:shortcutShortLabel="@string/shortcut_friends">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.paulvarry.intra42.activities.MainActivity"
+            android:targetClass="com.paulvarry.intra42.activities.LaunchActivity"
             android:targetPackage="com.paulvarry.intra42.debug">
             <extra
                 android:name="shortcut"
@@ -42,7 +42,7 @@
         android:shortcutShortLabel="@string/shortcut_cluster_map">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.paulvarry.intra42.activities.MainActivity"
+            android:targetClass="com.paulvarry.intra42.activities.LaunchActivity"
             android:targetPackage="com.paulvarry.intra42.debug">
             <extra
                 android:name="shortcut"

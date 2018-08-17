@@ -55,7 +55,7 @@
 
         <!-- - - - - - Activity - - - - - -->
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.LaunchActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Login">
             <intent-filter>

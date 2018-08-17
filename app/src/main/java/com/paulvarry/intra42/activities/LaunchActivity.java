@@ -1,6 +1,7 @@
 package com.paulvarry.intra42.activities;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class LaunchActivity extends AppCompatActivity {
 
     public AppClass app;
     private LinearLayout linearLayoutNeedLogin;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewStatus;
 
     public static void openActivity(Context context) {
-        Intent i = new Intent(context, MainActivity.class);
+        Intent i = new Intent(context, LaunchActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             context.startActivity(i);
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         ThemeHelper.setTheme(this, app);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_launch);
 
         AppClass.scheduleAlarm(this);
 
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    final boolean ret = app.initCache(false, MainActivity.this);
+                    final boolean ret = app.initCache(false, LaunchActivity.this);
                     runOnUiThread(new Runnable() {
                                       @Override
                                       public void run() {
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
                 getTokenWithCode(code);
             } else { // Handle a missing code in the redirect URI
-                Toast.makeText(MainActivity.this, "code is missing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LaunchActivity.this, "code is missing", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -179,14 +180,14 @@ public class MainActivity extends AppCompatActivity {
                 if (Tools.apiIsSuccessfulNoThrow(response)) {
                     Analytics.signInSuccess();
                     AccessToken token = response.body();
-                    Token.save(MainActivity.this, token);
+                    Token.save(LaunchActivity.this, token);
                     ServiceGenerator.setToken(token);
 
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            app.initCache(true, MainActivity.this);
-                            AppClass.scheduleAlarm(MainActivity.this);
+                            app.initCache(true, LaunchActivity.this);
+                            AppClass.scheduleAlarm(LaunchActivity.this);
 
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -197,10 +198,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }).start();
 
+                } else if (response.code() == 200) {
+                    Analytics.signInError(response);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LaunchActivity.this);
+                    builder.setMessage(R.string.sign_in_error_invalid_grant);
+                    builder.setPositiveButton(R.string.ok, null);
+                    builder.show();
+                    setViewLogin();
                 } else {
                     Analytics.signInError(response);
                     try {
-                        Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LaunchActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
                         setViewLogin();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -211,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
                 Analytics.signInError(t);
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LaunchActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -223,13 +231,13 @@ public class MainActivity extends AppCompatActivity {
             if (shortcut != null) {
                 if (shortcut.contentEquals("friends")) {
                     Analytics.shortcutFriends();
-                    intent = new Intent(MainActivity.this, FriendsActivity.class);
+                    intent = new Intent(LaunchActivity.this, FriendsActivity.class);
                 } else if (shortcut.contentEquals("clusterMap")) {
                     Analytics.shortcutClusterMap();
-                    intent = new Intent(MainActivity.this, ClusterMapActivity.class);
+                    intent = new Intent(LaunchActivity.this, ClusterMapActivity.class);
                 } else if (shortcut.contentEquals("galaxy")) {
                     Analytics.shortcutGalaxy();
-                    intent = new Intent(MainActivity.this, HolyGraphActivity.class);
+                    intent = new Intent(LaunchActivity.this, HolyGraphActivity.class);
                 }
             }
         }

@@ -11,9 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
-import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AppCompatDelegate;
+
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
@@ -21,8 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.internal.bind.util.ISO8601Utils;
-import com.paulvarry.intra42.activities.MainActivity;
-import com.paulvarry.intra42.api.*;
+import com.paulvarry.intra42.activities.LaunchActivity;
+import com.paulvarry.intra42.api.ApiService;
+import com.paulvarry.intra42.api.ApiService42Tools;
+import com.paulvarry.intra42.api.ApiServiceAuthServer;
+import com.paulvarry.intra42.api.ApiServiceCantina;
+import com.paulvarry.intra42.api.ApiServiceClusterMapContribute;
+import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.tools42.AccessToken;
@@ -39,8 +42,6 @@ import com.paulvarry.intra42.utils.Token;
 import com.squareup.picasso.Cache;
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
-import retrofit2.Call;
-import retrofit2.Response;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +51,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatDelegate;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class AppClass extends Application {
 
@@ -305,14 +312,14 @@ public class AppClass extends Application {
      *
      * @return status
      */
-    public boolean initCache(boolean forceAPI, MainActivity mainActivity) {
+    public boolean initCache(boolean forceAPI, LaunchActivity launchActivity) {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         ApiService api = getApiService();
 
         String login = sharedPreferences.getString(API_ME_LOGIN, "");
-        if (mainActivity != null)
-            mainActivity.updateViewState(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
+        if (launchActivity != null)
+            launchActivity.updateViewState(getString(R.string.info_loading_cache), getString(R.string.info_loading_current_user), 1, 6);
 
         if (login.isEmpty() || !CacheUsers.isCached(cacheSQLiteHelper, login) || forceAPI) {
             me = Users.me(api);
@@ -349,17 +356,17 @@ public class AppClass extends Application {
             cacheLastCheck = new Date(0);
 
         if (cacheLastCheckPref == null || cacheLastCheck.before(lastValidCache.getTime())) {
-            if (mainActivity != null)
-                mainActivity.updateViewState(null, getString(R.string.cursus), 1, 3);
+            if (launchActivity != null)
+                launchActivity.updateViewState(null, getString(R.string.cursus), 1, 3);
             CacheCursus.getAllowInternet(cacheSQLiteHelper, this);
-            if (mainActivity != null)
-                mainActivity.updateViewState(null, getString(R.string.campus), 2, 3);
+            if (launchActivity != null)
+                launchActivity.updateViewState(null, getString(R.string.campus), 2, 3);
             CacheCampus.getAllowInternet(cacheSQLiteHelper, this);
-//            if (mainActivity != null) //remove tag caching
-//                mainActivity.updateViewState(null, getString(R.string.tags), 3, 6);
+//            if (launchActivity != null) //remove tag caching
+//                launchActivity.updateViewState(null, getString(R.string.tags), 3, 6);
 //            CacheTags.refreshCache(cacheSQLiteHelper, this, cacheLastCheck, now);
-            if (mainActivity != null)
-                mainActivity.updateViewState(null, getString(R.string.info_api_finishing), 3, 3);
+            if (launchActivity != null)
+                launchActivity.updateViewState(null, getString(R.string.info_api_finishing), 3, 3);
             //TODO: add integration to force use API with a cache manager in the UI !!
             editor.putString(PREFS_CACHE_LAST_CHECK, ISO8601Utils.format(now));
         }
@@ -475,13 +482,13 @@ public class AppClass extends Application {
 
     public void logoutAndRedirect() {
         logout();
-        MainActivity.openActivity(this);
+        LaunchActivity.openActivity(this);
     }
 
     public boolean userIsLogged(boolean canOpenActivity) {
         if (me == null || !ServiceGenerator.have42Token()) {
             if (canOpenActivity)
-                MainActivity.openActivity(this);
+                LaunchActivity.openActivity(this);
             return false;
         }
         return true;

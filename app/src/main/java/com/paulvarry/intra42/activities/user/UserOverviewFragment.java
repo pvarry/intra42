@@ -431,10 +431,10 @@ public class UserOverviewFragment
             if (!isFriend) { //add
                 Call<Friends> friendsCall = api.addFriend(user.id);
                 friendsCall.enqueue(addFriend);
-                Analytics.friendAdd(user, app.me);
+                Analytics.friendAdd();
             } else {
                 api.deleteFriend(user.id).enqueue(removeFriend);
-                Analytics.friendAdd(user, app.me);
+                Analytics.friendRemove();
             }
         } else if (v == imageViewProfile) {
             ImageViewerActivity.openIt(getContext(), user);

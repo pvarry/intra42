@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 <string name="app_name">"Intra 42"</string>
 <string name="pref_advanced_dont_force">"Disable (don't force)"</string>
 <string name="pref_force_content_location">"Force content location"</string>
@@ -633,4 +633,5 @@ long click for more action"</string>
 
 <!-- Short word (under 6 char) -->
 <string name="save_short">"Save"</string>
+    <string name="sign_in_error_invalid_grant">You can\'t use this app right now, your 42 account is maybe closed</string>
 </resources>
