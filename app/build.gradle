@@ -54,7 +54,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 28
         versionCode getVersionCodeTimestamp()
-        versionName "0.10"
+        versionName "0.10.1"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -136,7 +136,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.pvarry:android-json-viewer:v1.1'
     implementation 'com.android.support:customtabs:27.1.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
 }
 
 static def getVersionCodeTimestamp() {
