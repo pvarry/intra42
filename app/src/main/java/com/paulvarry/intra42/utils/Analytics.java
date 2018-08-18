@@ -140,10 +140,16 @@ public class Analytics {
         params.putString(EVENT_PARAM_API_CODE, String.valueOf(response.code()));
         params.putString(EVENT_PARAM_API_MESSAGE, response.message());
 
-        ResponseBody body = response.body();
+        ResponseBody body = null;
+        try {
+            body = response.peekBody(200);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (!response.isSuccessful() && body != null) {
             try {
-                params.putString(EVENT_PARAM_API_ERROR_BODY, body.string());
+                String errorBody = body.string();
+                params.putString(EVENT_PARAM_API_ERROR_BODY, errorBody.substring(0, (errorBody.length() < 100) ? errorBody.length() : 100));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -157,6 +163,10 @@ public class Analytics {
             params.putString(FirebaseAnalytics.Param.CONTENT_TYPE, kind);
         params.putString(FirebaseAnalytics.Param.SEARCH_TERM, text);
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, params);
+    }
+
+    public static void openTopicMessageDetails() {
+        firebaseAnalytics.logEvent("open_topics_message_details", null);
     }
 
     public enum EventSource {

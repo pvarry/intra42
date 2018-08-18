@@ -1,9 +1,17 @@
 package com.paulvarry.intra42.adapters;
 
-import android.view.*;
-import android.widget.*;
-import androidx.core.content.ContextCompat;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import android.content.DialogInterface;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.NewTopicActivity;
@@ -12,6 +20,7 @@ import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.pack.Topic;
 import com.paulvarry.intra42.bottomSheet.BottomSheetTopicInfoDialogFragment;
+import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.Tools;
@@ -20,7 +29,9 @@ import com.plumillonforge.android.chipview.ChipView;
 
 import java.util.List;
 
-public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
+import androidx.core.content.ContextCompat;
+
+public class ExpandableListAdapterTopic extends BaseExpandableListAdapter implements DialogInterface.OnDismissListener {
 
     private final TopicActivity context;
     private List<Messages> messagesList;
@@ -329,7 +340,9 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
     }
 
     private void openBottomSheet(Messages message) {
-        BottomSheetDialogFragment bottomSheetDialogFragment = BottomSheetTopicInfoDialogFragment.newInstance(message);
+        Analytics.openTopicMessageDetails();
+        BottomSheetTopicInfoDialogFragment bottomSheetDialogFragment = BottomSheetTopicInfoDialogFragment.newInstance(message);
+        bottomSheetDialogFragment.setOnDismissListener(this);
         bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
@@ -343,6 +356,11 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+
     }
 
     private static class ViewHolder {

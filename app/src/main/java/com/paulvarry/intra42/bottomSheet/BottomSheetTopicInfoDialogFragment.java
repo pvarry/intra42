@@ -1,21 +1,25 @@
 package com.paulvarry.intra42.bottomSheet;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
 import com.paulvarry.intra42.AppClass;
@@ -25,21 +29,24 @@ import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Votes;
 import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 import java.text.DateFormat;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 
     private static String INTENT_JSON = "json";
-    private static String INTENT_UP = "up_vote";
-    private static String INTENT_DOWN = "down_vote";
-    private static String INTENT_TROLL = "troll_vote";
-    private static String INTENT_REPORT = "report_vote";
     private AppClass app;
     private Messages message;
+    private OnFragmentInteractionListener mListener;
 
     private TextView textViewUp;
     private TextView textViewDown;
@@ -53,12 +60,20 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
     private ProgressBar progressBarDown;
     private ProgressBar progressBarReport;
     private ProgressBar progressBarTroll;
-    private TextView massageWithoutRendering;
-
     private Button buttonReply;
     private Button buttonShare;
     private Button buttonEdit;
     private Button buttonDelete;
+
+    private View viewEdit;
+    private View viewDelete;
+    private TextView textViewCreated;
+    private TextView textViewUpdated;
+    private TextView textViewView;
+    private TextView massageWithoutRendering;
+    private TextView textViewMessage;
+
+    private FrameLayout viewParent;
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -101,7 +116,7 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         View contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet_topic_info, null);
         dialog.setContentView(contentView);
 
-        TextView textViewMessage = contentView.findViewById(R.id.textViewMessage);
+        textViewMessage = contentView.findViewById(R.id.textViewMessage);
 
         textViewUp = contentView.findViewById(R.id.textViewUp);
         textViewDown = contentView.findViewById(R.id.textViewDown);
@@ -120,14 +135,21 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         buttonShare = contentView.findViewById(R.id.buttonShare);
         buttonEdit = contentView.findViewById(R.id.buttonEdit);
         buttonDelete = contentView.findViewById(R.id.buttonDelete);
-        View viewEdit = contentView.findViewById(R.id.viewEdit);
-        View viewDelete = contentView.findViewById(R.id.viewDelete);
+        viewEdit = contentView.findViewById(R.id.viewEdit);
+        viewDelete = contentView.findViewById(R.id.viewDelete);
 
-        TextView textViewCreated = contentView.findViewById(R.id.textViewCreated);
-        TextView textViewUpdated = contentView.findViewById(R.id.textViewUpdated);
-        TextView textViewView = contentView.findViewById(R.id.textViewView);
+        textViewCreated = contentView.findViewById(R.id.textViewCreated);
+        textViewUpdated = contentView.findViewById(R.id.textViewUpdated);
+        textViewView = contentView.findViewById(R.id.textViewView);
 
         massageWithoutRendering = contentView.findViewById(R.id.massageWithoutRendering);
+
+        viewParent = (FrameLayout) contentView.getParent();
+
+        setView();
+    }
+
+    private void setView() {
 
         textViewMessage.setText(message.content.replace('\n', ' '));
         textViewUp.setText(String.valueOf(message.votesCount.upvote));
@@ -135,14 +157,17 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         textViewReport.setText(String.valueOf(message.votesCount.problem));
         textViewTroll.setText(String.valueOf(message.votesCount.trollvote));
 
-        if (message.userVotes.upvote != null)
-            imageButtonUp.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorTintCheck));
-        if (message.userVotes.downvote != null)
-            imageButtonDown.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorTintCross));
-        if (message.userVotes.trollvote != null)
-            imageButtonTroll.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorTintCross));
-        if (message.userVotes.problem != null)
-            imageButtonReport.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorTintCross));
+        int[] textSizeAttr = new int[]{R.attr.tintColor};
+        TypedArray a = getContext().obtainStyledAttributes(textSizeAttr);
+        int colorTint = a.getColor(0, -1);
+        a.recycle();
+        int colorGreen = ContextCompat.getColor(getContext(), R.color.colorTintCheck);
+        int colorRed = ContextCompat.getColor(getContext(), R.color.colorTintCross);
+
+        imageButtonUp.setColorFilter((message.userVotes.upvote == null) ? colorTint : colorGreen);
+        imageButtonDown.setColorFilter((message.userVotes.downvote == null) ? colorTint : colorRed);
+        imageButtonTroll.setColorFilter((message.userVotes.trollvote == null) ? colorTint : colorRed);
+        imageButtonReport.setColorFilter((message.userVotes.problem == null) ? colorTint : colorRed);
         imageButtonUp.setOnClickListener(this);
         imageButtonDown.setOnClickListener(this);
         imageButtonTroll.setOnClickListener(this);
@@ -169,12 +194,11 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
 
         massageWithoutRendering.setText(message.content);
 
-        FrameLayout viewParent = (FrameLayout) contentView.getParent();
         Object params = viewParent.getLayoutParams();
         if (params instanceof CoordinatorLayout.LayoutParams) {
             CoordinatorLayout.Behavior behavior = ((CoordinatorLayout.LayoutParams) params).getBehavior();
 
-            if (behavior != null && behavior instanceof BottomSheetBehavior) {
+            if (behavior instanceof BottomSheetBehavior) {
                 ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
             }
         }
@@ -183,13 +207,13 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
     @Override
     public void onClick(View v) {
         if (v == imageButtonUp)
-            vote(progressBarUp, imageButtonUp, message.userVotes.upvote, Votes.KIND_UP);
+            vote(progressBarUp, imageButtonUp, message.userVotes.upvote, Votes.Kind.UPVOTE);
         else if (v == imageButtonDown)
-            vote(progressBarDown, imageButtonDown, message.userVotes.downvote, Votes.KIND_DOWN);
+            vote(progressBarDown, imageButtonDown, message.userVotes.downvote, Votes.Kind.DOWNVOTE);
         else if (v == imageButtonTroll)
-            vote(progressBarTroll, imageButtonTroll, message.userVotes.trollvote, Votes.KIND_TROLL);
+            vote(progressBarTroll, imageButtonTroll, message.userVotes.trollvote, Votes.Kind.TROLLVOTE);
         else if (v == imageButtonReport)
-            vote(progressBarReport, imageButtonReport, message.userVotes.problem, Votes.KIND_PROBLEM);
+            vote(progressBarReport, imageButtonReport, message.userVotes.problem, Votes.Kind.PROBLEM);
         else if (v == buttonShare) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
@@ -204,13 +228,13 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
             onDelete();
     }
 
-    private void vote(final ProgressBar progressBar, final ImageButton imageButton, Integer vote, String kind) { // update this
+    private void vote(final ProgressBar progressBar, final ImageButton imageButton, final Integer voteId, final Votes.Kind kind) { // update this
         progressBar.setVisibility(View.VISIBLE);
         imageButton.setVisibility(View.GONE);
         ApiService api = app.getApiService();
         Call<Votes> call;
-        if (vote != null)
-            call = api.destroyVote(vote);
+        if (voteId != null)
+            call = api.destroyVote(voteId);
         else
             call = api.createVote(app.me.id, message.id, kind);
         call.enqueue(new Callback<Votes>() {
@@ -219,10 +243,14 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                 Context context = getContext();
                 if (context == null || !isAdded())
                     return;
-                if (response.isSuccessful())
-                    Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    Votes body = response.body();
+                    if (body != null && body.message != null)
+                        updateVoteAfterAction(body.id, kind, body.message);
+                    else
+                        updateVoteAfterAction(null, kind, null);
+                } else
+                    Toast.makeText(context, "Error: " + response.message(), Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
                 imageButton.setVisibility(View.VISIBLE);
             }
@@ -231,11 +259,42 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
             public void onFailure(Call<Votes> call, Throwable t) {
                 if (!isAdded())
                     return;
-                Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
                 imageButton.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void updateVoteAfterAction(Integer voteId, Votes.Kind kind, Messages newMessage) {
+        if (newMessage != null) {
+            message = newMessage;
+        } else {
+            int voteOperation = (voteId != null) ? 1 : -1;
+            switch (kind) {
+                case UPVOTE:
+                    message.userVotes.upvote = voteId;
+                    message.votesCount.upvote += voteOperation;
+                    break;
+                case DOWNVOTE:
+                    message.userVotes.downvote = voteId;
+                    message.votesCount.downvote += voteOperation;
+                    break;
+                case TROLLVOTE:
+                    message.userVotes.trollvote = voteId;
+                    message.votesCount.trollvote += voteOperation;
+                    break;
+                case PROBLEM:
+                    message.userVotes.problem = voteId;
+                    message.votesCount.problem += voteOperation;
+                    break;
+            }
+        }
+        if (mListener != null)
+            mListener.onVoteChange(message.id, message, kind, voteId);
+        setView();
+        if (getArguments() != null)
+            getArguments().putString(INTENT_JSON, message.toString());
     }
 
     private void onDelete() {
@@ -255,17 +314,19 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                     public void onResponse(Call<Messages> call, retrofit2.Response<Messages> response) {
                         if (!isAdded())
                             return;
-                        if (response.isSuccessful())
-                            Toast.makeText(getContext(), "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(getContext(), "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        if (response.isSuccessful()) {
+                            if (mListener != null)
+                                mListener.refreshFromDialog();
+                            dismiss();
+                        } else
+                            Toast.makeText(getContext(), "Error: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Messages> call, Throwable t) {
                         if (!isAdded())
                             return;
-                        Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -316,17 +377,18 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                         if (context == null)
                             return;
 
-                        if (response.isSuccessful())
-                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        if (response.isSuccessful()) {
+                            if (mListener != null)
+                                mListener.refreshFromDialog();
+                        } else
+                            Toast.makeText(context, "Error: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Messages> call, Throwable t) {
                         Context context = getContext();
                         if (context != null)
-                            Toast.makeText(context, "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -378,15 +440,16 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
                         Context context = getContext();
                         if (context == null)
                             return;
-                        if (response.isSuccessful())
-                            Toast.makeText(context, "Success\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(context, "Error: " + response.message() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        if (response.isSuccessful()) {
+                            if (mListener != null)
+                                mListener.refreshFromDialog();
+                        } else
+                            Toast.makeText(context, "Error: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Messages> call, Throwable t) {
-                        Toast.makeText(getContext(), "Failed: " + t.getMessage() + "\nDon't forget to refresh", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -404,5 +467,38 @@ public class BottomSheetTopicInfoDialogFragment extends ListenedBottomSheetDialo
         a.show();
         input.requestFocus();
 //        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        void onVoteChange(int messageId, Messages message, Votes.Kind kind, Integer vote);
+
+        void refreshFromDialog();
     }
 }

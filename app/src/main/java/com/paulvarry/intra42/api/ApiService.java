@@ -329,7 +329,7 @@ public interface ApiService {
 
     /* Votes */
     @POST("/v2/votes")
-    Call<Votes> createVote(@Query("vote[user_id]") int userId, @Query("vote[message_id]") int messageId, @Query("vote[kind]") String kind);
+    Call<Votes> createVote(@Query("vote[user_id]") int userId, @Query("vote[message_id]") int messageId, @Query("vote[kind]") Votes.Kind kind);
 
     @DELETE("/v2/votes/{id}")
     Call<Votes> destroyVote(@Path("id") int id);

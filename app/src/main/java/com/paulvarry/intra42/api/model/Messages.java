@@ -83,12 +83,24 @@ public class Messages {
         static final String API_TROLL_VOTES = "trollvote";
         static final String API_PROBLEMS = "problem";
 
+        /**
+         * Vote ID.
+         */
         @SerializedName(API_UP_VOTE)
         public Integer upvote;
+        /**
+         * Vote ID.
+         */
         @SerializedName(API_DOWN_VOTES)
         public Integer downvote;
+        /**
+         * Vote ID.
+         */
         @SerializedName(API_TROLL_VOTES)
         public Integer trollvote;
+        /**
+         * Vote ID.
+         */
         @SerializedName(API_PROBLEMS)
         public Integer problem;
 

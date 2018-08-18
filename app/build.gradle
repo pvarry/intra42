@@ -136,6 +136,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.pvarry:android-json-viewer:v1.1'
     implementation 'com.android.support:customtabs:27.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
 }
 
 static def getVersionCodeTimestamp() {

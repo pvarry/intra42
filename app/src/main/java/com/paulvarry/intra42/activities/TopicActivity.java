@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.*;
-import androidx.annotation.Nullable;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.ExpandableListAdapterTopic;
@@ -16,20 +21,25 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Topics;
+import com.paulvarry.intra42.api.model.Votes;
 import com.paulvarry.intra42.api.pack.Topic;
+import com.paulvarry.intra42.bottomSheet.BottomSheetTopicInfoDialogFragment;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import java.io.IOException;
-
 public class TopicActivity
         extends BasicThreadActivity
-        implements AdapterView.OnItemLongClickListener, View.OnClickListener, BasicThreadActivity.GetDataOnThread, SwipeRefreshLayout.OnRefreshListener {
+        implements AdapterView.OnItemLongClickListener, View.OnClickListener, BasicThreadActivity.GetDataOnThread, SwipeRefreshLayout.OnRefreshListener, BottomSheetTopicInfoDialogFragment.OnFragmentInteractionListener {
 
     private final static String INTENT_ID = "intent_topic_id";
     private final static String INTENT_TOPIC_JSON = "intent_topic_json";
@@ -37,6 +47,7 @@ public class TopicActivity
     @Nullable
     private Topic topic;
     private int id;
+    private ExpandableListAdapterTopic adapterTopic;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ExpandableListView listView;
@@ -129,7 +140,7 @@ public class TopicActivity
             return;
         }
 
-        ExpandableListAdapterTopic adapterTopic = new ExpandableListAdapterTopic(this, topic);
+        adapterTopic = new ExpandableListAdapterTopic(this, topic);
         listView.setAdapter(adapterTopic);
 
         fabBaseActivity.setOnClickListener(this);
@@ -247,6 +258,53 @@ public class TopicActivity
 
     @Override
     public void onRefresh() {
+        super.refresh();
+    }
+
+    @Override
+    public void onVoteChange(int messageId, Messages newMessage, Votes.Kind kind, Integer voteId) {
+
+        Messages message = null;
+        for (Messages topMessages : topic.messages) {
+            if (topMessages.id == messageId)
+                message = topMessages;
+            for (Messages subMessages : topMessages.replies) {
+                if (subMessages.id == messageId)
+                    message = subMessages;
+            }
+        }
+        if (message == null)
+            return;
+
+        if (newMessage != null) {
+            message.userVotes = newMessage.userVotes;
+            message.votesCount = newMessage.votesCount;
+        } else {
+            int voteOperation = (voteId != null) ? 1 : -1;
+            switch (kind) {
+                case UPVOTE:
+                    message.userVotes.upvote = voteId;
+                    message.votesCount.upvote += voteOperation;
+                    break;
+                case DOWNVOTE:
+                    message.userVotes.downvote = voteId;
+                    message.votesCount.downvote += voteOperation;
+                    break;
+                case TROLLVOTE:
+                    message.userVotes.trollvote = voteId;
+                    message.votesCount.trollvote += voteOperation;
+                    break;
+                case PROBLEM:
+                    message.userVotes.problem = voteId;
+                    message.votesCount.problem += voteOperation;
+                    break;
+            }
+        }
+        adapterTopic.notifyDataSetChanged();
+    }
+
+    @Override
+    public void refreshFromDialog() {
         super.refresh();
     }
 }

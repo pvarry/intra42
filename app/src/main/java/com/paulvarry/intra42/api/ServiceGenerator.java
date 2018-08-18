@@ -93,6 +93,7 @@ public class ServiceGenerator {
 
         httpClient = getBaseClient(true);
         httpClient.addInterceptor(new HeaderInterceptor());
+        httpClient.addInterceptor(new AnalyticsInterceptor());
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
