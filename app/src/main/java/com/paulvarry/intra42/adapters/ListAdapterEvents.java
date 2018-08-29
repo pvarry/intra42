@@ -107,10 +107,14 @@ public class ListAdapterEvents extends BaseAdapter {
         content = content.replace('\n', ' ');
         holder.textViewDescription.setText(content);
 
-        Bypass b = new Bypass(context);
-        String content_tmp = b.markdownToSpannable(item.description).toString().replace('\n', ' ');
-        holder.textViewDescription.setText(content_tmp);
-
+        try {
+            Bypass b = new Bypass(context);
+            String content_tmp = b.markdownToSpannable(item.description).toString().replace('\n', ' ');
+            holder.textViewDescription.setText(content_tmp);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            holder.textViewDescription.setText(item.description.replace('\n', ' '));
+        }
         String time;
         time = DateUtils.formatDateRange(context, item.beginAt.getTime(), item.endAt.getTime(), DateUtils.FORMAT_SHOW_TIME);
         if (time.length() > 30)

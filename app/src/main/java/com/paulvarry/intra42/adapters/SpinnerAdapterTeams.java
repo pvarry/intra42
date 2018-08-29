@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,21 +84,20 @@ public class SpinnerAdapterTeams extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            holder.layoutContainer.setPaddingRelative(
-                    holder.layoutContainer.getPaddingStart(),
-                    holder.layoutContainer.getPaddingTop(),
-                    (int) Tools.dpToPx(context, 0),
-                    holder.layoutContainer.getPaddingBottom());
-        }
+        holder.layoutContainer.setPaddingRelative(
+                holder.layoutContainer.getPaddingStart(),
+                holder.layoutContainer.getPaddingTop(),
+                (int) Tools.dpToPx(context, 0),
+                holder.layoutContainer.getPaddingBottom());
 
         Teams item = getItem(position);
 
-        holder.textViewNameGroup.setText(item.name);
-        ProjectUserStatus.setMark(parent.getContext(), item, holder.textViewMark);
-        holder.textViewMark.setTextColor(context.getResources().getColor(R.color.textColorSecondary));
-        holder.textViewNameGroup.setTextColor(context.getResources().getColor(R.color.textColorSecondary));
-
+        if (item != null) {
+            holder.textViewNameGroup.setText(item.name);
+            ProjectUserStatus.setMark(parent.getContext(), item, holder.textViewMark);
+            holder.textViewMark.setTextColor(context.getResources().getColor(R.color.textColorSecondary));
+            holder.textViewNameGroup.setTextColor(context.getResources().getColor(R.color.textColorSecondary));
+        }
         return convertView;
     }
 
@@ -125,13 +123,11 @@ public class SpinnerAdapterTeams extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            holder.layoutContainer.setPaddingRelative(
-                    holder.layoutContainer.getPaddingStart(),
-                    holder.layoutContainer.getPaddingTop(),
-                    (int) Tools.dpToPx(context, 16),
-                    holder.layoutContainer.getPaddingBottom());
-        }
+        holder.layoutContainer.setPaddingRelative(
+                holder.layoutContainer.getPaddingStart(),
+                holder.layoutContainer.getPaddingTop(),
+                (int) Tools.dpToPx(context, 16),
+                holder.layoutContainer.getPaddingBottom());
 
         Teams item = getItem(position);
 

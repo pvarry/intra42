@@ -361,10 +361,9 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        progressDialog.dismiss();
-
                         if (activity == null || !isAdded())
                             return;
+                        progressDialog.dismiss();
                         if (finalIsSuccess) {
                             Toast.makeText(getContext(), R.string.evaluation_slot_success, Toast.LENGTH_SHORT).show();
                             dialogFragment.dismiss();

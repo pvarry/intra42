@@ -26,15 +26,15 @@ maps = masters.map { |master|
                 cluster_map = get_pad(master['key'])
 
                 if cluster_map.nil?
-                  puts "not found ― #{master['name']} (#{master['key']})"
+                  puts "[not found] ― #{master['name']} (#{master['key']})"
                   next
                 end
 
                 unless cluster_map['isReadyToPublish']
-                  puts "not ready ― #{master['name']} (#{master['key']})"
+                  puts "[not ready] ― #{master['name']} (#{master['key']})"
                   next
                 end
-                puts "good ― #{master['name']} (#{master['key']})"
+                puts "[good]      ― #{master['name']} (#{master['key']})"
 
                 cluster_map
               }

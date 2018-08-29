@@ -3,6 +3,7 @@ package com.paulvarry.intra42.activities;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
@@ -133,29 +135,37 @@ public class LaunchActivity extends AppCompatActivity {
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT)) {
             String code = uri.getQueryParameter("code");
             if (code != null) {
-
-                String referrer = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                    Uri referrerUri = getReferrer();
-                    if (referrerUri != null)
-                        referrer = referrerUri.getHost();
-                }
-                if (referrer == null) {
-                    ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
-                    List<ActivityManager.RecentTaskInfo> recentTasks = am.getRecentTasks(10000, ActivityManager.RECENT_WITH_EXCLUDED);
-                    ActivityManager.RecentTaskInfo t = recentTasks.get(1);
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-                        referrer = t.baseActivity.getPackageName();
-                    else
-                        referrer = t.origActivity.getPackageName();
-                }
-                Analytics.signInHaveCode(referrer);
-
+                Analytics.signInHaveCode(getLoginReferrer());
                 getTokenWithCode(code);
             } else { // Handle a missing code in the redirect URI
                 Toast.makeText(LaunchActivity.this, "code is missing", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private String getLoginReferrer() {
+        String referrer = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            Uri referrerUri = getReferrer();
+            if (referrerUri != null)
+                referrer = referrerUri.getHost();
+        }
+        ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+        if (referrer == null && am != null) {
+            try {
+                List<ActivityManager.RecentTaskInfo> recentTasks = am.getRecentTasks(10000, ActivityManager.RECENT_WITH_EXCLUDED);
+                ActivityManager.RecentTaskInfo t = recentTasks.get(1);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                    referrer = t.baseActivity.getPackageName();
+                else {
+                    if (t.origActivity != null)
+                        referrer = t.origActivity.getPackageName();
+                }
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+        return referrer;
     }
 
     private void getTokenWithCode(String code) {
@@ -267,7 +277,13 @@ public class LaunchActivity extends AppCompatActivity {
 
         builder.addMenuItem(getString(R.string.login_custom_chrome_tabs_open_default_browser), defaultBrowserPendingIntent);
         CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(this, loginUri);
+        try {
+            customTabsIntent.launchUrl(this, loginUri);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            Crashlytics.logException(e);
+            Toast.makeText(app, R.string.login_error_web_browser_required, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void openSources(View view) {
