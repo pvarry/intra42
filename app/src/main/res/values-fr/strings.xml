@@ -129,8 +129,6 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="language_french">"Français"</string>
 <string name="language_romanian">"Roumain"</string>
 <string name="language_ukrainian">"Ukrainien"</string>
-<string name="login_open_browser">"Ouvrir le navigateur"</string>
-<string name="login_open_browser_to_login">"Vous devez vous identifier"</string>
 <string name="login_view_sources">"Voir les sources"</string>
 <string name="menu_action_filter">"filtre"</string>
 <string name="menu_action_open_intra">"Afficher la version Web"</string>

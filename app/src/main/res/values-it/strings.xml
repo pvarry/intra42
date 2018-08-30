@@ -140,8 +140,6 @@ Perderai un punto correzione"</string>
 <string name="language_french">"Francese"</string>
 <string name="language_romanian">"Rumeno"</string>
 <string name="language_ukrainian">"Ucraino"</string>
-<string name="login_open_browser">"Apri browser web"</string>
-<string name="login_open_browser_to_login">"Devi effettuare l'accesso"</string>
 <string name="login_view_sources">"Mostra sorgenti"</string>
 <string name="menu_action_filter">"filtro"</string>
 <string name="menu_action_open_intra">"Mostra versione web"</string>

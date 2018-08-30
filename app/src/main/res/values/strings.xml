@@ -634,5 +634,5 @@ long click for more action"</string>
     <string name="sign_in_error_invalid_grant">"You can't use this app right now, your 42 account is maybe closed"</string>
     <string name="login_open_custom_chrome_tabs">"log in"</string>
     <string name="login_custom_chrome_tabs_open_default_browser">"Open default browser"</string>
-    <string name="login_error_web_browser_required">You must install a web browser</string>
+    <string name="login_error_web_browser_required">"You must install a web browser"</string>
 </resources>

@@ -132,8 +132,6 @@
 <string name="language_french">"Francés"</string>
 <string name="language_romanian">"Rumano"</string>
 <string name="language_ukrainian">"Ucraniano"</string>
-<string name="login_open_browser">"Abrir el navegador"</string>
-<string name="login_open_browser_to_login">"Necesitas iniciar sesión"</string>
 <string name="login_view_sources">"Ver fuentes"</string>
 <string name="menu_action_filter">"filtrar"</string>
 <string name="menu_action_open_intra">"Mostrar versión web"</string>

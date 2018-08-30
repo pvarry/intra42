@@ -129,8 +129,6 @@ Stracisz punkt korekcyjny."</string>
 <string name="language_french">"Francuski"</string>
 <string name="language_romanian">"Rumuński"</string>
 <string name="language_ukrainian">"Ukraiński"</string>
-<string name="login_open_browser">"Otwórz przeglądarkę internetową"</string>
-<string name="login_open_browser_to_login">"Musisz się zarejestrować"</string>
 <string name="login_view_sources">"Wyświetl źródła"</string>
 <string name="menu_action_filter">"Filtr"</string>
 <string name="menu_action_open_intra">"Pokaż wersję na komputer"</string>

@@ -127,8 +127,6 @@
 <string name="language_french">"Французька"</string>
 <string name="language_romanian">"Русинська"</string>
 <string name="language_ukrainian">"Українська"</string>
-<string name="login_open_browser">"Відкрити в Браузері"</string>
-<string name="login_open_browser_to_login">"Тобі потрібно увійти"</string>
 <string name="login_view_sources">"Переглянути джерела"</string>
 <string name="menu_action_filter">"фільтр"</string>
 <string name="menu_action_open_intra">"Показати веб-версію"</string>
