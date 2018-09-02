@@ -7,6 +7,7 @@ import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.CoalitionsBlocs;
 import com.paulvarry.intra42.api.model.Cursus;
+import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.EventsUsers;
 import com.paulvarry.intra42.api.model.ExpertiseUsers;
@@ -351,7 +352,10 @@ public interface ApiService {
     @GET("/v2/cursus?sort=name")
     Call<List<Cursus>> getCursus(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
 
-    /* Cursus */
+    @GET("/v2/cursus_users ")
+    Call<List<CursusUsers>> getCursusUsers(@Query("filter[user_id]") String user, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+
+    /* Campus */
     @GET("/v2/campus?sort=name")
     Call<List<Campus>> getCampus();
 

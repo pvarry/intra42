@@ -8,19 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
+import com.paulvarry.intra42.utils.clusterMap.ClusterData;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapterClusterMapInfo extends RecyclerView.Adapter<RecyclerAdapterClusterMapInfo.ViewHolder> {
 
     private final Context context;
-    private ClusterStatus cluster;
+    private ClusterData cluster;
     private OnItemClickListener listener;
 
-    public RecyclerAdapterClusterMapInfo(Context context, ClusterStatus clusterStatus) {
+    public RecyclerAdapterClusterMapInfo(Context context, ClusterData clusterStatus) {
 
         this.context = context;
         this.cluster = clusterStatus;

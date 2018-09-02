@@ -8,6 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.LocationHistoryActivity;
+import com.paulvarry.intra42.activities.user.UserActivity;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.cluster_map_contribute.Location;
+import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.clusterMap.ClusterData;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -15,13 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.LocationHistoryActivity;
-import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-import com.paulvarry.intra42.api.cluster_map_contribute.Location;
-import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +38,7 @@ public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.on
 
     private String clusterName;
     private ClusterMapActivity activity;
-    private ClusterStatus clusters;
+    private ClusterData clusters;
 
     //    private ViewGroup viewGroupMain;
     private RecyclerView recyclerView;
@@ -89,8 +91,8 @@ public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.on
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        clusters = activity.clusterStatus;
-        Cluster clusterInfo = activity.clusterStatus.getCluster(clusterName);
+        clusters = activity.clusterData;
+        Cluster clusterInfo = activity.clusterData.getCluster(clusterName);
 
         if (clusterInfo == null || clusterInfo.map == null || clusterInfo.map.length == 0 || clusterInfo.sizeY == 0 || clusterInfo.sizeX == 0) {
             recyclerView.setVisibility(View.GONE);

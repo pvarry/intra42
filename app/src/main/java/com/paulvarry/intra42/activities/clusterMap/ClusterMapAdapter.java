@@ -6,10 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
@@ -17,7 +14,12 @@ import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
-import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
+import com.paulvarry.intra42.utils.clusterMap.ClusterData;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -27,7 +29,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private onLocationClickListener listener;
     private Cluster cluster;
-    private ClusterStatus clusterStatus;
+    private ClusterData clusterStatus;
     private LayoutInflater li;
     private Context context;
 
@@ -37,7 +39,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private float baseItemWidth;
     private float baseItemHeight;
 
-    ClusterMapAdapter(Context context, Cluster cluster, ClusterStatus clusterStatus) {
+    ClusterMapAdapter(Context context, Cluster cluster, ClusterData clusterStatus) {
         this.cluster = cluster;
         this.context = context;
         this.clusterStatus = clusterStatus;

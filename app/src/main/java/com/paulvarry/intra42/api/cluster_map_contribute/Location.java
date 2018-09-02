@@ -1,12 +1,16 @@
 package com.paulvarry.intra42.api.cluster_map_contribute;
 
-import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
+import com.paulvarry.intra42.utils.clusterMap.ClusterData;
+import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import androidx.annotation.Nullable;
 
 public class Location implements Serializable {
 
@@ -38,24 +42,42 @@ public class Location implements Serializable {
         sizeY = 1;
     }
 
-    public boolean computeHighlightPosts(ClusterStatus cluster, UsersLTE user) {
-        if (cluster != null && user != null)
-            switch (cluster.layerStatus) {
+    boolean computeHighlightPosts(ClusterData clusterData, ClusterLayersSettings layersSettings, UsersLTE user) {
+        if (clusterData != null && user != null)
+            switch (layersSettings.layer) {
                 case FRIENDS:
-                    if (cluster.friends != null && cluster.friends.get(user.id) != null)
+                    if (clusterData.friends != null && clusterData.friends.get(user.id) != null)
                         highlight = true;
                     break;
                 case USER:
-                    if (cluster.layerUserLogin.contentEquals(user.login))
+                    if (layersSettings.layerUserLogin.contentEquals(user.login))
                         highlight = true;
                     break;
                 case PROJECT:
                     ProjectsUsers projectsUsers;
-                    if (cluster.projectsUsers != null && (projectsUsers = cluster.projectsUsers.get(user.id)) != null && projectsUsers.status == cluster.layerProjectStatus)
+                    if (clusterData.projectsUsers != null && (projectsUsers = clusterData.projectsUsers.get(user.id)) != null && projectsUsers.status == layersSettings.layerProjectStatus)
                         highlight = true;
                     break;
                 case LOCATION:
-                    highlight = (cluster.layerLocationPost.contentEquals(host));
+                    if (host == null)
+                        highlight = false;
+                    else
+                        highlight = (layersSettings.layerLocationPost.contentEquals(host));
+                    break;
+                case LEVEL:
+                    highlight = false;
+                    CursusUsers cursusUser = clusterData.cursusUsers.get(layersSettings.layerLevelCursus).get(user.id);
+                    if (cursusUser == null)
+                        break;
+                    if (!layersSettings.useClosedCursusUser &&
+                            (cursusUser.end_at == null || cursusUser.end_at.after(new Date())))
+                        break;
+                    float level = cursusUser.level;
+                    if (layersSettings.layerLevelMax == -1f) {
+                        highlight = layersSettings.layerLevelMin <= level;
+                    } else {
+                        highlight = layersSettings.layerLevelMin <= level && layersSettings.layerLevelMax > level;
+                    }
                     break;
             }
 
@@ -63,6 +85,6 @@ public class Location implements Serializable {
     }
 
     public enum Kind implements Serializable {
-        @SerializedName("user")USER, @SerializedName("corridor")CORRIDOR, @SerializedName("wall")WALL
+        @SerializedName("user") USER, @SerializedName("corridor") CORRIDOR, @SerializedName("wall") WALL
     }
 }

@@ -41,6 +41,7 @@
         <item>@string/cluster_map_info_layer_spinner_main_login</item>
         <item>@string/cluster_map_info_layer_spinner_main_project</item>
         <item>@string/cluster_map_info_layer_spinner_main_location</item>
+        <item>@string/cluster_map_info_layer_spinner_main_level</item>
     </string-array>
 
     <string-array name="spinner_cluster_map_info_projects_kind">

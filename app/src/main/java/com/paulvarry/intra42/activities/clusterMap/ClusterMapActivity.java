@@ -5,8 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.SparseArray;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
+
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,18 +15,20 @@ import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
+import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.CustomViewPager;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
 import com.paulvarry.intra42.utils.Tools;
-import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
-import retrofit2.Response;
+import com.paulvarry.intra42.utils.clusterMap.ClusterData;
+import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,18 +37,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
+import retrofit2.Response;
+
 public class ClusterMapActivity
         extends BasicTabActivity
         implements ClusterMapFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread, ClusterMapInfoFragment.OnFragmentInteractionListener {
 
     final static private String ARG_LOCATION_HIGHLIGHT = "location_highlight";
-    public List<ClusterMapActivity.LayerStatus> haveErrorOnLayer = new ArrayList<>();
-    ClusterMapActivity.LayerStatus layerTmpStatus;
-    String layerTmpLogin = "";
-    String layerTmpProjectSlug = "";
-    String layerTmpLocation = "";
-    ProjectsUsers.Status layerTmpProjectStatus;
-    ClusterStatus clusterStatus;
+    public List<ClusterLayersSettings.LayerStatus> haveErrorOnLayer = new ArrayList<>();
+
+    ClusterData clusterData;
+    ClusterLayersSettings layerSettings;
+    ClusterLayersSettings layerSettingsInProgress;
+
     private int campusId;
     private DataWrapper dataWrapper;
 
@@ -68,23 +72,23 @@ public class ClusterMapActivity
 
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null && dataWrapper.clusters != null) {
-            clusterStatus = dataWrapper.clusters;
+            clusterData = dataWrapper.clusters;
         } else {
-            clusterStatus = new ClusterStatus();
-            clusterStatus.layerStatus = LayerStatus.FRIENDS;
-            clusterStatus.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+            clusterData = new ClusterData();
+            layerSettings = new ClusterLayersSettings();
+            layerSettings.layer = ClusterLayersSettings.LayerStatus.FRIENDS;
+            layerSettings.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+            layerSettings.layerLevelCursus = AppSettings.getAppCursus(app);
             dataWrapper = null;
 
             Intent i = getIntent();
             if (i != null && i.hasExtra(ARG_LOCATION_HIGHLIGHT)) {
-                clusterStatus.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
-                clusterStatus.layerStatus = LayerStatus.LOCATION;
+                layerSettings.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
+                layerSettings.layer = ClusterLayersSettings.LayerStatus.LOCATION;
             }
         }
 
-        layerTmpLocation = clusterStatus.layerLocationPost;
-        layerTmpStatus = clusterStatus.layerStatus;
-        layerTmpProjectStatus = clusterStatus.layerProjectStatus;
+        layerSettingsInProgress = new ClusterLayersSettings(layerSettings);
 
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
@@ -103,8 +107,8 @@ public class ClusterMapActivity
 
         adapter.addFragment(ClusterMapInfoFragment.newInstance(), getString(R.string.title_tab_cluster_map_info));
 
-        if (clusterStatus.clusters != null)
-            for (Cluster i : clusterStatus.clusters) {
+        if (clusterData.clusters != null)
+            for (Cluster i : clusterData.clusters) {
                 adapter.addFragment(ClusterMapFragment.newInstance(i.hostPrefix), i.nameShort);
             }
 
@@ -149,9 +153,11 @@ public class ClusterMapActivity
             }
         }
 
-        clusterStatus.locations = new HashMap<>();
+        clusterData.cursusList = CacheCursus.getAllowInternet(app.cacheSQLiteHelper, app); //init cache for cursus
+
+        clusterData.locations = new HashMap<>();
         for (Locations l : locationsTmp) {
-            clusterStatus.locations.put(l.host, l.user);
+            clusterData.locations.put(l.host, l.user);
         }
 
         setLoadingProgress(R.string.info_loading_friends, pageMax, pageMax + 1);
@@ -162,19 +168,19 @@ public class ClusterMapActivity
             ApiService42Tools api = app.getApiService42Tools();
             final List<FriendsSmall> friendsTmp = Friends.getFriends(api);
             setLoadingProgress(pageMax + 1, pageMax + 1);
-            clusterStatus.friends = new SparseArray<>();
+            clusterData.friends = new SparseArray<>();
             for (FriendsSmall f : friendsTmp) {
-                clusterStatus.friends.put(f.id, f);
+                clusterData.friends.put(f.id, f);
             }
-            haveErrorOnLayer.remove(LayerStatus.FRIENDS);
+            haveErrorOnLayer.remove(ClusterLayersSettings.LayerStatus.FRIENDS);
         } catch (IOException | RuntimeException e) {
             e.printStackTrace();
-            if (!haveErrorOnLayer.contains(LayerStatus.FRIENDS)) {
-                haveErrorOnLayer.add(LayerStatus.FRIENDS);
+            if (!haveErrorOnLayer.contains(ClusterLayersSettings.LayerStatus.FRIENDS)) {
+                haveErrorOnLayer.add(ClusterLayersSettings.LayerStatus.FRIENDS);
             }
         }
 
-        clusterStatus.computeHighlightAndFreePosts();
+        clusterData.computeHighlightAndFreePosts(layerSettings);
 
         setViewStateThread(StatusCode.CONTENT);
     }
@@ -184,7 +190,7 @@ public class ClusterMapActivity
 
         if (dataWrapper != null) {
             dataWrapper = null;
-            if (clusterStatus.friends != null && clusterStatus.locations != null)
+            if (clusterData.friends != null && clusterData.locations != null)
                 return ThreadStatusCode.FINISH;
         }
 
@@ -205,72 +211,96 @@ public class ClusterMapActivity
         InputStream ins = getResources().openRawResource(resId);
         String data = Tools.readTextFile(ins);
         List<Cluster> clusterList = gson.fromJson(data, listType);
-        clusterStatus.initClusterList(clusterList);
+        clusterData.initClusterList(clusterList);
 
         return ThreadStatusCode.CONTINUE;
     }
 
-    void removeLayer() {
-        clusterStatus.layerStatus = LayerStatus.NONE;
-
-        clusterStatus.computeHighlightPosts();
+    void updateView() {
+        clusterData.computeHighlightPosts(layerSettings);
         viewPager.getAdapter().notifyDataSetChanged();
         viewPager.invalidate();
+    }
+
+    void removeLayer() {
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.NONE;
+
+        updateView();
     }
 
     void applyLayerUser(String login) {
-        clusterStatus.layerUserLogin = login;
-        clusterStatus.layerStatus = LayerStatus.USER;
+        layerSettings.layerUserLogin = login;
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.USER;
 
-        clusterStatus.computeHighlightPosts();
-        viewPager.getAdapter().notifyDataSetChanged();
-        viewPager.invalidate();
+        updateView();
     }
 
     void applyLayerFriends() {
-        clusterStatus.layerStatus = LayerStatus.FRIENDS;
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.FRIENDS;
 
-        clusterStatus.computeHighlightPosts();
-        viewPager.getAdapter().notifyDataSetChanged();
-        viewPager.invalidate();
+        updateView();
     }
 
     void applyLayerProject(List<ProjectsUsers> projectsUsers, String slug, ProjectsUsers.Status layerProjectStatus) {
-        clusterStatus.layerStatus = LayerStatus.PROJECT;
-        clusterStatus.layerProjectSlug = slug;
-        clusterStatus.layerProjectStatus = layerProjectStatus;
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.PROJECT;
+        layerSettings.layerProjectSlug = slug;
+        layerSettings.layerProjectStatus = layerProjectStatus;
 
         if (projectsUsers == null)
             return;
-        clusterStatus.projectsUsers = new SparseArray<>();
+        clusterData.projectsUsers = new SparseArray<>();
 
         for (ProjectsUsers p : projectsUsers) {
             if (p.user != null) {
-                clusterStatus.projectsUsers.append(p.user.id, p);
+                clusterData.projectsUsers.append(p.user.id, p);
             }
         }
 
-        clusterStatus.computeHighlightPosts();
-        viewPager.getAdapter().notifyDataSetChanged();
-        viewPager.invalidate();
+        updateView();
     }
 
     void applyLayerProject(ProjectsUsers.Status layerProjectStatus) {
-        clusterStatus.layerStatus = LayerStatus.PROJECT;
-        clusterStatus.layerProjectStatus = layerProjectStatus;
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.PROJECT;
+        layerSettings.layerProjectStatus = layerProjectStatus;
 
-        clusterStatus.computeHighlightPosts();
-        viewPager.getAdapter().notifyDataSetChanged();
-        viewPager.invalidate();
+        updateView();
     }
 
     void applyLayerLocation(String location) {
-        clusterStatus.layerStatus = LayerStatus.LOCATION;
-        clusterStatus.layerLocationPost = location;
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.LOCATION;
+        layerSettings.layerLocationPost = location;
 
-        clusterStatus.computeHighlightPosts();
-        viewPager.getAdapter().notifyDataSetChanged();
-        viewPager.invalidate();
+        updateView();
+    }
+
+    public void applyLayerLevel(List<CursusUsers> cursusUsersList) {
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.LEVEL;
+        layerSettings.layerLevelMin = layerSettingsInProgress.layerLevelMin;
+        layerSettings.layerLevelMax = layerSettingsInProgress.layerLevelMax;
+        layerSettings.layerLevelCursus = layerSettingsInProgress.layerLevelCursus;
+
+        if (cursusUsersList == null)
+            return;
+        clusterData.cursusUsers = new SparseArray<>();
+
+        for (CursusUsers c : cursusUsersList) {
+            if (c.user != null) {
+                if (clusterData.cursusUsers.get(c.cursusId) == null)
+                    clusterData.cursusUsers.append(c.cursusId, new SparseArray<CursusUsers>());
+                clusterData.cursusUsers.get(c.cursusId).append(c.user.id, c);
+            }
+        }
+
+        updateView();
+    }
+
+    public void applyLayerLevel() {
+        layerSettings.layer = ClusterLayersSettings.LayerStatus.LEVEL;
+        layerSettings.layerLevelMin = layerSettingsInProgress.layerLevelMin;
+        layerSettings.layerLevelMax = layerSettingsInProgress.layerLevelMax;
+        layerSettings.layerLevelCursus = layerSettingsInProgress.layerLevelCursus;
+
+        updateView();
     }
 
     @Override
@@ -296,29 +326,18 @@ public class ClusterMapActivity
     @Override
     public final Object onRetainCustomNonConfigurationInstance() {
         DataWrapper data = new DataWrapper();
-        data.clusters = clusterStatus;
+        data.clusters = clusterData;
         return data;
     }
 
     void refreshCluster() {
+        clusterData.cursusUsers = null;
+        clusterData.projectsUsers = null;
+        clusterData.friends = null;
         onCreateFinished();
     }
 
-    public enum LayerStatus {
-        NONE(0), FRIENDS(1), PROJECT(2), USER(3), LOCATION(4);
-
-        private final int id;
-
-        LayerStatus(int id) {
-            this.id = id;
-        }
-
-        public int getId() {
-            return id;
-        }
-    }
-
     private class DataWrapper {
-        ClusterStatus clusters;
+        ClusterData clusters;
     }
 }

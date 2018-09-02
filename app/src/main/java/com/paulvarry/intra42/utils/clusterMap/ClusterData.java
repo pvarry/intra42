@@ -2,9 +2,10 @@ package com.paulvarry.intra42.utils.clusterMap;
 
 import android.util.SparseArray;
 
-import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
+import com.paulvarry.intra42.api.model.Cursus;
+import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
@@ -13,7 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class ClusterStatus {
+public class ClusterData {
 
     public List<Cluster> clusters;
 
@@ -23,17 +24,17 @@ public class ClusterStatus {
      * Value : User on this location
      */
     public HashMap<String, UsersLTE> locations;
+
+
     public SparseArray<FriendsSmall> friends;
 
-    public ClusterMapActivity.LayerStatus layerStatus = ClusterMapActivity.LayerStatus.FRIENDS;
-    public String layerUserLogin = "";
-
     public SparseArray<ProjectsUsers> projectsUsers;
-    public String layerProjectSlug = "";
-    public ProjectsUsers.Status layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
-    public String layerLocationPost = "";
 
-    public ClusterStatus() {
+    // level
+    public SparseArray<SparseArray<CursusUsers>> cursusUsers;
+    public List<Cursus> cursusList;
+
+    public ClusterData() {
 
     }
 
@@ -51,11 +52,11 @@ public class ClusterStatus {
         }
     }
 
-    public void computeHighlightPosts() {
+    public void computeHighlightPosts(ClusterLayersSettings layerSettings) {
         if (clusters == null)
             return;
         for (Cluster cluster : clusters) {
-            cluster.computeHighlightPosts(this);
+            cluster.computeHighlightPosts(this, layerSettings);
         }
     }
 
@@ -68,11 +69,11 @@ public class ClusterStatus {
         return null;
     }
 
-    public void computeHighlightAndFreePosts() {
+    public void computeHighlightAndFreePosts(ClusterLayersSettings layerSettings) {
         if (clusters == null)
             return;
         for (Cluster cluster : clusters) {
-            cluster.computeHighlightAndFreePosts(this, locations);
+            cluster.computeHighlightAndFreePosts(this, layerSettings, locations);
         }
     }
 

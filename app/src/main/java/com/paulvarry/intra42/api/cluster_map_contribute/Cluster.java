@@ -1,14 +1,17 @@
 package com.paulvarry.intra42.api.cluster_map_contribute;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.clusterMap.ClusterStatus;
+import com.paulvarry.intra42.utils.clusterMap.ClusterData;
+import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 
 import java.io.Serializable;
 import java.util.HashMap;
+
+import androidx.annotation.NonNull;
 
 public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster> {
 
@@ -53,7 +56,7 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
             }
     }
 
-    public void computeHighlightPosts(ClusterStatus clusters) {
+    public void computeHighlightPosts(ClusterData clusterData, ClusterLayersSettings layersSettings) {
         UsersLTE user;
 
         highlightPosts = 0;
@@ -66,15 +69,15 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
                 if (post == null)
                     continue;
 
-                user = clusters.locations.get(post.host);
-                if (post.computeHighlightPosts(clusters, user)) {
+                user = clusterData.locations.get(post.host);
+                if (post.computeHighlightPosts(clusterData, layersSettings, user)) {
                     highlightPosts++;
                 }
             }
         }
     }
 
-    public void computeHighlightAndFreePosts(ClusterStatus clusters, HashMap<String, UsersLTE> locations) {
+    public void computeHighlightAndFreePosts(ClusterData clusterData, ClusterLayersSettings layersSettings, HashMap<String, UsersLTE> locations) {
         UsersLTE user;
 
         highlightPosts = 0;
@@ -87,8 +90,8 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
             for (Location post : row) {
                 if (post == null)
                     break;
-                user = clusters.locations.get(post.host);
-                if (post.computeHighlightPosts(clusters, user)) {
+                user = clusterData.locations.get(post.host);
+                if (post.computeHighlightPosts(clusterData, layersSettings, user)) {
                     highlightPosts++;
                 }
                 if (post.kind == Location.Kind.USER) {

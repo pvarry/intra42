@@ -14,14 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -32,18 +35,31 @@ import com.paulvarry.intra42.adapters.RecyclerAdapterClusterMapInfo;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.model.Cursus;
+import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
+import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.utils.Tools;
-import retrofit2.Response;
+import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import io.apptik.widget.MultiSlider;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,12 +71,14 @@ import java.util.Locale;
  */
 public class ClusterMapInfoFragment
         extends Fragment
-        implements AdapterView.OnItemSelectedListener, TextWatcher, View.OnClickListener,
+        implements AdapterView.OnItemSelectedListener, View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, RecyclerAdapterClusterMapInfo.OnItemClickListener {
 
     private ClusterMapActivity activity;
 
     private RecyclerAdapterClusterMapInfo adapter;
+    private ArrayAdapter<String> adapterSpinnerSecondaryProject;
+    private ArrayAdapter<String> adapterSpinnerSecondaryLevels;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewClusters;
@@ -81,8 +99,125 @@ public class ClusterMapInfoFragment
     private CardView cardViewApiError;
     private ViewGroup layoutDisabledLayer;
     private TextView textViewWarningDisabledLayer;
+    private ViewGroup layoutLevel;
+    private EditText editTextLevelMin;
+    private EditText editTextLevelMax;
+    private MultiSlider multiSliderLevels;
+    private CheckBox checkboxLevels;
 
     private OnFragmentInteractionListener mListener;
+
+    private TextWatcher textWatcherMain = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            switch (activity.layerSettingsInProgress.layer) {
+                case USER:
+                    activity.layerSettingsInProgress.layerUserLogin = String.valueOf(s);
+                    break;
+                case PROJECT:
+                    activity.layerSettingsInProgress.layerProjectSlug = String.valueOf(s);
+                    break;
+                case LOCATION:
+                    activity.layerSettingsInProgress.layerLocationPost = String.valueOf(s);
+            }
+            updateButton();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+    private TextWatcher textWatcherLevelMin = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            multiSliderLevels.setOnThumbValueChangeListener(null);
+            try {
+                activity.layerSettingsInProgress.layerLevelMin = Float.parseFloat(s.toString());
+                multiSliderLevels.getThumb(0).setValue(Math.round(activity.layerSettingsInProgress.layerLevelMin));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
+            updateButton();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+    private MultiSlider.OnThumbValueChangeListener onThumbValueChangeListener = new MultiSlider.OnThumbValueChangeListener() {
+        @Override
+        public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+            if (thumbIndex == 0) {
+                activity.layerSettingsInProgress.layerLevelMin = value;
+                editTextLevelMin.removeTextChangedListener(textWatcherLevelMin);
+                editTextLevelMin.setText(String.valueOf(value));
+                editTextLevelMin.addTextChangedListener(textWatcherLevelMin);
+            } else {
+                editTextLevelMax.removeTextChangedListener(textWatcherLevelMax);
+
+                if (value == 22) {
+                    activity.layerSettingsInProgress.layerLevelMax = -1f;
+                    editTextLevelMax.setText("21+");
+                } else {
+                    activity.layerSettingsInProgress.layerLevelMax = value;
+                    editTextLevelMax.setText(String.valueOf(value));
+                }
+
+                editTextLevelMax.addTextChangedListener(textWatcherLevelMax);
+            }
+            updateButton();
+        }
+    };
+    private TextWatcher textWatcherLevelMax = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            multiSliderLevels.setOnThumbValueChangeListener(null);
+            if (s.toString().contentEquals("21+")) {
+                activity.layerSettingsInProgress.layerLevelMax = -1;
+                multiSliderLevels.getThumb(1).setValue(22);
+                multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
+            } else {
+                try {
+                    activity.layerSettingsInProgress.layerLevelMax = Float.parseFloat(s.toString());
+                    multiSliderLevels.getThumb(1).setValue(Math.round(activity.layerSettingsInProgress.layerLevelMax));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                } finally {
+                    multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
+                }
+            }
+            updateButton();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+    private CompoundButton.OnCheckedChangeListener checkedChangeListenerLevel = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        }
+    };
 
     public ClusterMapInfoFragment() {
         // Required empty public constructor
@@ -134,6 +269,11 @@ public class ClusterMapInfoFragment
         cardViewApiError = view.findViewById(R.id.cardViewApiError);
         layoutDisabledLayer = view.findViewById(R.id.layoutDisabledLayer);
         textViewWarningDisabledLayer = view.findViewById(R.id.textViewWarningDisabledLayer);
+        layoutLevel = view.findViewById(R.id.layoutLevel);
+        editTextLevelMin = view.findViewById(R.id.editTextLevelMin);
+        editTextLevelMax = view.findViewById(R.id.editTextLevelMax);
+        multiSliderLevels = view.findViewById(R.id.multiSliderLevels);
+        checkboxLevels = view.findViewById(R.id.checkbox);
 
         buttonContribute.setOnClickListener(this);
     }
@@ -150,8 +290,9 @@ public class ClusterMapInfoFragment
         textViewNoClusterMap.setVisibility(View.GONE);
         cardViewApiError.setVisibility(View.GONE);
         layoutDisabledLayer.setVisibility(View.GONE);
+        layoutLevel.setVisibility(View.GONE);
 
-        if (activity.clusterStatus.clusters == null || activity.clusterStatus.clusters.size() == 0) {
+        if (activity.clusterData.clusters == null || activity.clusterData.clusters.size() == 0) {
             textViewNoClusterMap.setVisibility(View.VISIBLE);
             textViewClusters.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
@@ -160,28 +301,44 @@ public class ClusterMapInfoFragment
             layoutLayerContent.setVisibility(View.GONE);
         } else {
             textViewNoClusterMap.setVisibility(View.GONE);
-            adapter = new RecyclerAdapterClusterMapInfo(getContext(), activity.clusterStatus);
+            adapter = new RecyclerAdapterClusterMapInfo(getContext(), activity.clusterData);
             adapter.setOnItemClickListener(this);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(activity));
             recyclerView.setNestedScrollingEnabled(false);
         }
+        swipeRefreshLayout.setOnRefreshListener(this);
 
-        editText.addTextChangedListener(this);
+        editText.addTextChangedListener(textWatcherMain);
+        editTextLevelMin.addTextChangedListener(textWatcherLevelMin);
+        editTextLevelMax.addTextChangedListener(textWatcherLevelMax);
         buttonUpdate.setOnClickListener(this);
+        multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
+        checkboxLevels.setOnCheckedChangeListener(checkedChangeListenerLevel);
 
-        int statusLayerSelection = activity.clusterStatus.layerStatus.getId();
-        int projectStatusSelection = getProjectSelectionPosition();
-        spinnerMain.setSelection(statusLayerSelection);
+        multiSliderLevels.setMax(22);
+        multiSliderLevels.setMin(0);
+
+        adapterSpinnerSecondaryProject = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.spinner_cluster_map_info_projects_kind));
+        List<Cursus> cursus = CacheCursus.get(activity.app.cacheSQLiteHelper);
+        if (cursus != null)
+            adapterSpinnerSecondaryLevels = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, Cursus.getStrings(cursus));
+
+        spinnerMain.setSelection(activity.layerSettings.layer.getId());
         spinnerMain.setOnItemSelectedListener(this);
         spinnerSecondary.setOnItemSelectedListener(this);
-        spinnerSecondary.setSelection(projectStatusSelection);
-
-        swipeRefreshLayout.setOnRefreshListener(this);
+        if (activity.layerSettingsInProgress.layer == ClusterLayersSettings.LayerStatus.PROJECT) {
+            spinnerSecondary.setAdapter(adapterSpinnerSecondaryProject);
+            spinnerSecondary.setSelection(getSpinnerSecondaryPositionProject());
+        } else if (activity.layerSettingsInProgress.layer == ClusterLayersSettings.LayerStatus.LEVEL) {
+            spinnerSecondary.setAdapter(adapterSpinnerSecondaryLevels);
+            spinnerSecondary.setSelection(getSpinnerSecondaryPositionLevel());
+        }
     }
 
-    private int getProjectSelectionPosition() {
-        switch (activity.layerTmpProjectStatus) {
+    private int getSpinnerSecondaryPositionProject() {
+        switch (activity.layerSettingsInProgress.layerProjectStatus) {
             case CREATING_GROUP:
                 return 0;
             case SEARCHING_A_GROUP:
@@ -197,6 +354,15 @@ public class ClusterMapInfoFragment
             default:
                 return 3;
         }
+    }
+
+    private int getSpinnerSecondaryPositionLevel() {
+        List<Cursus> cursusList = activity.clusterData.cursusList;
+        for (int i = 0; i < cursusList.size(); i++) {
+            if (cursusList.get(i).id == activity.layerSettingsInProgress.layerLevelCursus)
+                return i;
+        }
+        return 0;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -222,16 +388,16 @@ public class ClusterMapInfoFragment
         mListener = null;
     }
 
-    public void updateButton() {
+    private void updateButton() {
         buttonUpdate.setEnabled(true);
         buttonUpdate.setText(R.string.cluster_map_info_button_update);
 
         final FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         boolean warning_42tools_enable = mFirebaseRemoteConfig.getBoolean(getString(R.string.firebase_remote_config_warning_42tools_enable));
-        if (activity.haveErrorOnLayer.contains(activity.layerTmpStatus) && !warning_42tools_enable) {
+        if (activity.haveErrorOnLayer.contains(activity.layerSettingsInProgress.layer) && !warning_42tools_enable) {
             buttonUpdate.setEnabled(true);
             buttonUpdate.setText(R.string.retry);
-        } else if (!isLayerChanged()) {
+        } else if (activity.layerSettings.equals(activity.layerSettingsInProgress)) {
             buttonUpdate.setEnabled(false);
             buttonUpdate.setText(R.string.cluster_map_info_button_update_disabled);
         }
@@ -240,51 +406,66 @@ public class ClusterMapInfoFragment
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent == spinnerMain) {
-            setLayerSelectionTmpMain(position);
+            setLayerSelectionMain(position);
         } else if (parent == spinnerSecondary) {
-            setLayerSelectionTmpSecondary(position);
+            setLayerSelectionSecondary(position);
         }
 
     }
 
-    private void setLayerSelectionTmpMain(int position) {
+    private void setLayerSelectionMain(int position) {
         spinnerSecondary.setVisibility(View.GONE);
         editText.setVisibility(View.GONE);
+        layoutLevel.setVisibility(View.GONE);
         switch (position) {
             case 0:
-                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.NONE;
+                activity.layerSettingsInProgress.layer = ClusterLayersSettings.LayerStatus.NONE;
                 break;
             case 1:
-                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.FRIENDS;
+                activity.layerSettingsInProgress.layer = ClusterLayersSettings.LayerStatus.FRIENDS;
                 break;
             case 2:
-                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.USER;
+                activity.layerSettingsInProgress.layer = ClusterLayersSettings.LayerStatus.USER;
                 editText.setVisibility(View.VISIBLE);
                 editText.setHint(R.string.cluster_map_info_layer_input_login);
-                editText.setText(activity.layerTmpLogin);
+                editText.setText(activity.layerSettingsInProgress.layerUserLogin);
                 break;
             case 3:
-                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.PROJECT;
+                activity.layerSettingsInProgress.layer = ClusterLayersSettings.LayerStatus.PROJECT;
                 editText.setVisibility(View.VISIBLE);
+                spinnerSecondary.setAdapter(adapterSpinnerSecondaryProject);
+                spinnerSecondary.setSelection(getSpinnerSecondaryPositionProject());
                 spinnerSecondary.setVisibility(View.VISIBLE);
                 editText.setHint(R.string.cluster_map_info_layer_input_project);
-                editText.setText(activity.layerTmpProjectSlug);
+                editText.setText(activity.layerSettingsInProgress.layerProjectSlug);
                 break;
             case 4:
-                activity.layerTmpStatus = ClusterMapActivity.LayerStatus.LOCATION;
+                activity.layerSettingsInProgress.layer = ClusterLayersSettings.LayerStatus.LOCATION;
                 editText.setVisibility(View.VISIBLE);
                 editText.setHint(R.string.cluster_map_info_layer_input_location);
-                editText.setText(activity.layerTmpLocation);
+                editText.setText(activity.layerSettingsInProgress.layerLocationPost);
+                break;
+            case 5:
+                activity.layerSettingsInProgress.layer = ClusterLayersSettings.LayerStatus.LEVEL;
+                spinnerSecondary.setAdapter(adapterSpinnerSecondaryLevels);
+                spinnerSecondary.setSelection(getSpinnerSecondaryPositionLevel());
+                spinnerSecondary.setVisibility(View.VISIBLE);
+                layoutLevel.setVisibility(View.VISIBLE);
+                editTextLevelMin.setText(String.valueOf(activity.layerSettingsInProgress.layerLevelMin));
+                if (activity.layerSettingsInProgress.layerLevelMax == -1f)
+                    editTextLevelMax.setText("21+");
+                else
+                    editTextLevelMax.setText(String.valueOf(activity.layerSettingsInProgress.layerLevelMax));
                 break;
         }
 
-        if (activity.haveErrorOnLayer.contains(activity.layerTmpStatus))
+        if (activity.haveErrorOnLayer.contains(activity.layerSettingsInProgress.layer))
             cardViewApiError.setVisibility(View.VISIBLE);
         else
             cardViewApiError.setVisibility(View.GONE);
 
         layoutDisabledLayer.setVisibility(View.GONE);
-        if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.FRIENDS) {
+        if (activity.layerSettingsInProgress.layer == ClusterLayersSettings.LayerStatus.FRIENDS) {
             final FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
             mFirebaseRemoteConfig.fetch(AppClass.FIREBASE_REMOTE_CONFIG_CACHE_EXPIRATION)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -299,7 +480,7 @@ public class ClusterMapInfoFragment
                             if (!isAdded())
                                 return;
 
-                            if (activity.layerTmpStatus == ClusterMapActivity.LayerStatus.FRIENDS) { // add this condition a second time in case layout changed
+                            if (activity.layerSettingsInProgress.layer == ClusterLayersSettings.LayerStatus.FRIENDS) { // add this condition a second time in case layout changed
                                 boolean warning_42tools_enable = mFirebaseRemoteConfig.getBoolean(getString(R.string.firebase_remote_config_warning_42tools_enable));
                                 if (warning_42tools_enable) {
 
@@ -323,74 +504,37 @@ public class ClusterMapInfoFragment
         updateButton();
     }
 
-    private void setLayerSelectionTmpSecondary(int position) {
-        switch (position) {
-            case 0:
-                activity.layerTmpProjectStatus = ProjectsUsers.Status.CREATING_GROUP;
-                break;
-            case 1:
-                activity.layerTmpProjectStatus = ProjectsUsers.Status.SEARCHING_A_GROUP;
-                break;
-            case 2:
-                activity.layerTmpProjectStatus = ProjectsUsers.Status.WAITING_TO_START;
-                break;
-            case 3:
-                activity.layerTmpProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
-                break;
-            case 4:
-                activity.layerTmpProjectStatus = ProjectsUsers.Status.WAITING_FOR_CORRECTION;
-                break;
-            case 5:
-                activity.layerTmpProjectStatus = ProjectsUsers.Status.FINISHED;
-                break;
+    private void setLayerSelectionSecondary(int position) {
+        if (activity.layerSettingsInProgress.layer == ClusterLayersSettings.LayerStatus.PROJECT) {
+            switch (position) {
+                case 0:
+                    activity.layerSettingsInProgress.layerProjectStatus = ProjectsUsers.Status.CREATING_GROUP;
+                    break;
+                case 1:
+                    activity.layerSettingsInProgress.layerProjectStatus = ProjectsUsers.Status.SEARCHING_A_GROUP;
+                    break;
+                case 2:
+                    activity.layerSettingsInProgress.layerProjectStatus = ProjectsUsers.Status.WAITING_TO_START;
+                    break;
+                case 3:
+                    activity.layerSettingsInProgress.layerProjectStatus = ProjectsUsers.Status.IN_PROGRESS;
+                    break;
+                case 4:
+                    activity.layerSettingsInProgress.layerProjectStatus = ProjectsUsers.Status.WAITING_FOR_CORRECTION;
+                    break;
+                case 5:
+                    activity.layerSettingsInProgress.layerProjectStatus = ProjectsUsers.Status.FINISHED;
+                    break;
 
+            }
+        } else if (activity.layerSettingsInProgress.layer == ClusterLayersSettings.LayerStatus.LEVEL) {
+            activity.layerSettingsInProgress.layerLevelCursus = activity.clusterData.cursusList.get(position).id;
         }
         updateButton();
-    }
-
-    /**
-     * Return true if the layer settings have changed
-     *
-     * @return layer settings changed
-     */
-    boolean isLayerChanged() {
-        return activity.clusterStatus.layerStatus != activity.layerTmpStatus ||
-                (activity.clusterStatus.layerStatus == ClusterMapActivity.LayerStatus.USER &&
-                        !activity.clusterStatus.layerUserLogin.contentEquals(activity.layerTmpLogin)) ||
-                (activity.clusterStatus.layerStatus == ClusterMapActivity.LayerStatus.PROJECT &&
-                        (!activity.clusterStatus.layerProjectSlug.contentEquals(activity.layerTmpProjectSlug) ||
-                                activity.clusterStatus.layerProjectStatus != activity.layerTmpProjectStatus)) ||
-                (activity.clusterStatus.layerStatus == ClusterMapActivity.LayerStatus.LOCATION &&
-                        !activity.clusterStatus.layerLocationPost.contentEquals(activity.layerTmpLocation));
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        switch (activity.layerTmpStatus) {
-            case USER:
-                activity.layerTmpLogin = String.valueOf(s);
-                break;
-            case PROJECT:
-                activity.layerTmpProjectSlug = String.valueOf(s);
-                break;
-            case LOCATION:
-                activity.layerTmpLocation = String.valueOf(s);
-        }
-        updateButton();
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
 
     }
 
@@ -402,26 +546,32 @@ public class ClusterMapInfoFragment
         } else if (v == buttonUpdate) {
 
             spinnerMain.setEnabled(false);
+            spinnerMain.setOnItemSelectedListener(null);
             spinnerSecondary.setEnabled(false);
+            spinnerSecondary.setOnItemSelectedListener(null);
             editText.setEnabled(false);
+            editText.removeTextChangedListener(textWatcherMain);
             buttonUpdate.setClickable(false);
             buttonUpdate.setEnabled(false);
-            spinnerMain.setOnItemSelectedListener(null);
-            spinnerSecondary.setOnItemSelectedListener(null);
-            editText.removeTextChangedListener(this);
+            editTextLevelMin.setEnabled(false);
+            editTextLevelMin.removeTextChangedListener(textWatcherLevelMin);
+            editTextLevelMax.setEnabled(false);
+            editTextLevelMax.removeTextChangedListener(textWatcherLevelMax);
+            checkboxLevels.setEnabled(false);
             swipeRefreshLayout.setEnabled(false);
+            multiSliderLevels.setEnabled(false);
 
-            switch (activity.layerTmpStatus) {
+            switch (activity.layerSettingsInProgress.layer) {
                 case NONE:
                     activity.applyLayerFriends();
                     activity.removeLayer();
                     break;
                 case USER:
-                    activity.applyLayerUser(activity.layerTmpLogin);
+                    activity.applyLayerUser(activity.layerSettingsInProgress.layerUserLogin);
                     finishApplyLayer();
                     break;
                 case FRIENDS:
-                    if (activity.clusterStatus.friends == null || activity.haveErrorOnLayer.contains(ClusterMapActivity.LayerStatus.FRIENDS)) {
+                    if (activity.clusterData.friends == null || activity.haveErrorOnLayer.contains(ClusterLayersSettings.LayerStatus.FRIENDS)) {
                         loadingViewStartCircularReveal();
                         loadDataFriends();
                     } else {
@@ -434,13 +584,18 @@ public class ClusterMapInfoFragment
                     layerProjectFindSlug();
                     break;
                 case LOCATION:
-                    activity.applyLayerLocation(activity.layerTmpLocation);
+                    activity.applyLayerLocation(activity.layerSettingsInProgress.layerLocationPost);
                     finishApplyLayer();
+                    break;
+                case LEVEL:
+                    loadingViewStartCircularReveal();
+                    layerLevelGetData();
+                    break;
             }
         }
     }
 
-    public void loadingViewStartCircularReveal() {
+    private void loadingViewStartCircularReveal() {
 
         layoutLoading.setVisibility(View.VISIBLE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
@@ -478,7 +633,7 @@ public class ClusterMapInfoFragment
         anim.start();
     }
 
-    public void loadingViewStartCircularHide() {
+    private void loadingViewStartCircularHide() {
 
         layoutLoading.setVisibility(View.GONE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
@@ -518,23 +673,23 @@ public class ClusterMapInfoFragment
         }
     }
 
-    void loadDataFriends() {
+    private void loadDataFriends() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     ApiService42Tools api = activity.app.getApiService42Tools();
                     final List<FriendsSmall> friendsTmp = Friends.getFriends(api);
-                    activity.clusterStatus.friends = new SparseArray<>();
+                    activity.clusterData.friends = new SparseArray<>();
                     for (FriendsSmall f : friendsTmp) {
-                        activity.clusterStatus.friends.put(f.id, f);
+                        activity.clusterData.friends.put(f.id, f);
                     }
-                    activity.haveErrorOnLayer.remove(ClusterMapActivity.LayerStatus.FRIENDS);
+                    activity.haveErrorOnLayer.remove(ClusterLayersSettings.LayerStatus.FRIENDS);
                 } catch (IOException | RuntimeException e) {
                     finishApplyLayerOnThread(false);
                     e.printStackTrace();
-                    if (!activity.haveErrorOnLayer.contains(ClusterMapActivity.LayerStatus.FRIENDS)) {
-                        activity.haveErrorOnLayer.add(ClusterMapActivity.LayerStatus.FRIENDS);
+                    if (!activity.haveErrorOnLayer.contains(ClusterLayersSettings.LayerStatus.FRIENDS)) {
+                        activity.haveErrorOnLayer.add(ClusterLayersSettings.LayerStatus.FRIENDS);
                     }
                 }
                 activity.runOnUiThread(new Runnable() {
@@ -547,12 +702,12 @@ public class ClusterMapInfoFragment
         }).start();
     }
 
-    void layerProjectFindSlug() {
+    private void layerProjectFindSlug() {
 
-        if (activity.layerTmpProjectSlug != null &&
-                activity.clusterStatus.layerProjectSlug != null &&
-                activity.layerTmpProjectSlug.contentEquals(activity.clusterStatus.layerProjectSlug)) {
-            activity.applyLayerProject(activity.layerTmpProjectStatus);
+        if (activity.layerSettings.layerProjectSlug != null &&
+                activity.layerSettingsInProgress.layerProjectSlug != null &&
+                activity.layerSettings.layerProjectSlug.contentEquals(activity.layerSettingsInProgress.layerProjectSlug)) {
+            activity.applyLayerProject(activity.layerSettingsInProgress.layerProjectStatus);
             return;
         }
 
@@ -583,7 +738,55 @@ public class ClusterMapInfoFragment
         }).start();
     }
 
-    void layerProjectSelectRightProject(final List<Projects> projects) {
+    private void layerLevelGetData() {
+        if (activity.clusterData.cursusUsers != null) {
+            activity.applyLayerLevel();
+            return;
+        }
+
+        final List<CursusUsers> cursusUsersList = new ArrayList<>();
+        final int pageSize = 100;
+
+        progressBar.setRotation(0);
+        progressBar.setMax((int) Math.ceil((float) activity.clusterData.locations.size() / (float) pageSize));
+        progressBar.setIndeterminate(false);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    int id = 0;
+
+                    while (id < activity.clusterData.locations.size()) {
+                        loadingViewUpdateProgress((int) Math.ceil((float) id / (float) pageSize));
+                        String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusterData.locations.values()), id, pageSize);
+                        final ApiService api = activity.app.getApiService();
+                        Response<List<CursusUsers>> response = api.getCursusUsers(ids, pageSize, 1).execute();
+                        if (!Tools.apiIsSuccessfulNoThrow(response)) {
+                            finishApplyLayerOnThread(false);
+                            return;
+                        }
+                        cursusUsersList.addAll(response.body());
+                        id += pageSize;
+                    }
+                } catch (IOException e) {
+                    finishApplyLayerOnThread(false);
+                    e.printStackTrace();
+                }
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.applyLayerLevel(cursusUsersList);
+                        finishApplyLayer();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void layerProjectSelectRightProject(final List<Projects> projects) {
 
         if (projects == null || projects.size() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -627,15 +830,15 @@ public class ClusterMapInfoFragment
         alert.show();
     }
 
-    void layerProjectApplySlug(final String slug) {
+    private void layerProjectApplySlug(final String slug) {
         final List<ProjectsUsers> projectsUsersList = new ArrayList<>();
         final int pageSize = 100;
 
         editText.setText(slug);
-        activity.layerTmpProjectSlug = slug;
+        activity.layerSettingsInProgress.layerProjectSlug = slug;
 
         progressBar.setRotation(0);
-        progressBar.setMax((int) Math.ceil((float) activity.clusterStatus.locations.size() / (float) pageSize));
+        progressBar.setMax((int) Math.ceil((float) activity.clusterData.locations.size() / (float) pageSize));
         progressBar.setIndeterminate(false);
 
         new Thread(new Runnable() {
@@ -645,9 +848,9 @@ public class ClusterMapInfoFragment
 
                     int id = 0;
 
-                    while (id < activity.clusterStatus.locations.size()) {
+                    while (id < activity.clusterData.locations.size()) {
                         loadingViewUpdateProgress((int) Math.ceil((float) id / (float) pageSize));
-                        String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusterStatus.locations.values()), id, pageSize);
+                        String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusterData.locations.values()), id, pageSize);
                         final ApiService api = activity.app.getApiService();
                         Response<List<ProjectsUsers>> response = api.getProjectIDProjectsUsers(slug, ids, pageSize, 1).execute();
                         if (!Tools.apiIsSuccessfulNoThrow(response)) {
@@ -665,7 +868,7 @@ public class ClusterMapInfoFragment
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        activity.applyLayerProject(projectsUsersList, slug, activity.layerTmpProjectStatus);
+                        activity.applyLayerProject(projectsUsersList, slug, activity.layerSettingsInProgress.layerProjectStatus);
                         finishApplyLayer();
                     }
                 });
@@ -673,7 +876,7 @@ public class ClusterMapInfoFragment
         }).start();
     }
 
-    void loadingViewUpdateProgress(final int progress) {
+    private void loadingViewUpdateProgress(final int progress) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -689,20 +892,26 @@ public class ClusterMapInfoFragment
     /**
      * Called when all data are set and this view is ready to be updated
      */
-    void finishApplyLayer(final boolean successful) {
+    private void finishApplyLayer(final boolean successful) {
         loadingViewStartCircularHide();
         recyclerView.invalidate();
         adapter.notifyDataSetChanged();
 
         spinnerMain.setEnabled(true);
+        spinnerMain.setOnItemSelectedListener(this);
         spinnerSecondary.setEnabled(true);
+        spinnerSecondary.setOnItemSelectedListener(this);
         editText.setEnabled(true);
+        editText.addTextChangedListener(textWatcherMain);
         buttonUpdate.setClickable(true);
         buttonUpdate.setEnabled(true);
-        editText.addTextChangedListener(this);
-        spinnerMain.setOnItemSelectedListener(this);
-        spinnerSecondary.setOnItemSelectedListener(this);
+        editTextLevelMin.setEnabled(true);
+        editTextLevelMin.addTextChangedListener(textWatcherLevelMin);
+        editTextLevelMax.setEnabled(true);
+        editTextLevelMax.addTextChangedListener(textWatcherLevelMax);
+        checkboxLevels.setEnabled(true);
         swipeRefreshLayout.setEnabled(true);
+        multiSliderLevels.setEnabled(true);
 
         updateButton();
 
@@ -713,14 +922,14 @@ public class ClusterMapInfoFragment
     /**
      * Called when all data are set and this view is ready to be updated
      */
-    void finishApplyLayer() {
+    private void finishApplyLayer() {
         finishApplyLayer(true);
     }
 
     /**
      * Called when all data are set and this view is ready to be updated
      */
-    void finishApplyLayerOnThread(final boolean successful) {
+    private void finishApplyLayerOnThread(final boolean successful) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

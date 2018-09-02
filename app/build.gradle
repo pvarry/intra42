@@ -136,6 +136,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.pvarry:android-json-viewer:v1.1'
     implementation 'com.android.support:customtabs:27.1.0'
+    implementation 'io.apptik.widget:multislider:1.3'
 }
 
 static def getVersionCodeTimestamp() {
