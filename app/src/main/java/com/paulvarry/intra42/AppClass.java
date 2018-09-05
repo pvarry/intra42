@@ -15,7 +15,6 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -53,7 +52,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatDelegate;
 import retrofit2.Call;
@@ -74,8 +72,6 @@ public class AppClass extends Application {
     public Users me;
 
     public CacheSQLiteHelper cacheSQLiteHelper;
-    @Nullable
-    public DatabaseReference firebaseRefFriends;
     public FirebaseAnalytics mFirebaseAnalytics;
 
     public AppSettings.Theme.EnumTheme themeSettings;
@@ -171,11 +167,6 @@ public class AppClass extends Application {
             SharedPreferences.Editor edit = sharedPreferences.edit();
             edit.putInt(AppClass.PREFS_APP_VERSION, BuildConfig.VERSION_CODE);
 
-            if (appVersion <= 20171113) {
-                SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
-                pref.putBoolean("should_sync_friends", true);
-                pref.apply();
-            }
             if (appVersion <= 20171126) {
                 if (cacheSQLiteHelper != null) {
                     cacheSQLiteHelper.getWritableDatabase().execSQL("DELETE FROM users;");
@@ -210,6 +201,11 @@ public class AppClass extends Application {
                 }
 
                 editor.commit();
+            }
+            if (appVersion <= 20171113) {
+                SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
+                pref.remove("should_sync_friends");
+                pref.apply();
             }
 
             //clear logs on each version
@@ -400,10 +396,9 @@ public class AppClass extends Application {
     void initFirebase() {
         try {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            if (me != null)
-                firebaseRefFriends = database.getReference("users").child(me.login).child("friends");
         } catch (IllegalStateException | NullPointerException e) {
-            Log.e("Firebase", "Fail to init friends with firebase");
+            e.printStackTrace();
+            Crashlytics.logException(e);
         }
     }
 

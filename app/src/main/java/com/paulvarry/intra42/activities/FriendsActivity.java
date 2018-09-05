@@ -4,46 +4,48 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.ItemDecoration;
 import com.paulvarry.intra42.adapters.RecyclerViewAdapterFriends;
-import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Locations;
-import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.tools42.Friends;
 import com.paulvarry.intra42.api.tools42.FriendsSmall;
 import com.paulvarry.intra42.api.tools42.Group;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Tools;
-import retrofit2.Call;
-import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class FriendsActivity
         extends BasicThreadActivity
@@ -63,7 +65,6 @@ public class FriendsActivity
     SwipeRefreshLayout swipeRefreshLayout;
     Spinner spinner;
     RecyclerViewAdapterFriends adapter;
-    boolean needUpdateFriends = false;
     int spinnerGroupSelected;
 
     public static void openIt(Context context) {
@@ -100,17 +101,7 @@ public class FriendsActivity
             spinnerGroupSelected = savedInstanceState.getInt(SAVED_STATE_SPINNER_GROUP_SELECTED);
 
         setViewState(StatusCode.LOADING);
-
-        SharedPreferences pref = AppSettings.getSharedPreferences(this);
-        if (pref.getBoolean("should_sync_friends", false) && app.firebaseRefFriends != null) {
-            needUpdateFriends = true;
-
-            getFriendsFromFirebase();
-
-        } else {
-            needUpdateFriends = false;
-            onCreateFinished();
-        }
+        onCreateFinished();
 
         final FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         mFirebaseRemoteConfig.fetch(AppClass.FIREBASE_REMOTE_CONFIG_CACHE_EXPIRATION)
@@ -135,106 +126,6 @@ public class FriendsActivity
                         }
                     }
                 });
-    }
-
-    private void getFriendsFromFirebase() {
-        ValueEventListener friendsEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                GenericTypeIndicator<HashMap<String, String>> t = new GenericTypeIndicator<HashMap<String, String>>() {
-                };
-                final HashMap<String, String> messages = snapshot.getValue(t);
-
-                if (messages == null) {
-                    friendsDatabaseFinish(true);
-                } else {
-
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            Call<Friends> call;
-                            boolean success = true;
-                            boolean apiWorking = false;
-                            try {
-
-                                final ApiService apiIntra = app.getApiService();
-
-                                Response<List<Locations>> retIntra = apiIntra.getLocations(1, 1, 1).execute();
-                                if (!Tools.apiIsSuccessfulNoThrow(retIntra))
-                                    return;
-
-                                final ApiService42Tools api = app.getApiService42Tools();
-
-                                Set<String> s = messages.keySet();
-                                UsersLTE tmp = new UsersLTE();
-                                int i = 1;
-                                for (String k : s) {
-                                    tmp.id = Integer.decode(k);
-                                    tmp.login = messages.get(k);
-                                    call = api.addFriend(tmp.id);
-
-                                    String state = getString(R.string.friends) + " " + String.valueOf(i) + "/" + s.size();
-                                    setLoadingProgress(state, i, s.size());
-
-                                    Response<Friends> ret = call.execute();
-                                    if (Tools.apiIsSuccessfulNoThrow(ret) && app.firebaseRefFriends != null)
-                                        app.firebaseRefFriends.child(String.valueOf(tmp.id)).removeValue();
-                                    else
-                                        success = false;
-                                    if (ret != null && ret.code() == 102) {
-                                        if (!apiWorking)
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    Toast.makeText(app, R.string.friends_info_api_try_again, Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        apiWorking = true;
-                                    }
-                                    i++;
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                success = false;
-                            }
-                            friendsDatabaseFinish(success);
-                        }
-                    }).start();
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.e("Firebase", "Failed to read value.", error.toException());
-                friendsDatabaseFinish(false);
-            }
-        };
-
-        setViewState(StatusCode.LOADING);
-        setLoadingProgress(R.string.friends_info_database_update, 0, -1);
-
-        if (app.firebaseRefFriends != null) {
-            app.firebaseRefFriends.addListenerForSingleValueEvent(friendsEventListener);
-        }
-    }
-
-    private void friendsDatabaseFinish(boolean success) {
-        if (success) {
-            SharedPreferences.Editor pref = AppSettings.getSharedPreferences(FriendsActivity.this).edit();
-            pref.remove("should_sync_friends");
-            pref.apply();
-        }
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                onCreateFinished();
-            }
-        });
     }
 
     @Nullable
