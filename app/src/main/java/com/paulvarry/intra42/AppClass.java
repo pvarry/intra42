@@ -8,6 +8,7 @@ import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -152,6 +153,13 @@ public class AppClass extends Application {
         picassoCache = new LruCache(this);
         Picasso picasso = new Picasso.Builder(this)
                 .memoryCache(picassoCache)
+                .listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        exception.printStackTrace();
+                        Crashlytics.logException(exception);
+                    }
+                })
                 .build();
         Picasso.setSingletonInstance(picasso);
 

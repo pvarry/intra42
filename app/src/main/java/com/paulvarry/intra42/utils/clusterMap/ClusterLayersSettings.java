@@ -22,7 +22,7 @@ public class ClusterLayersSettings {
     public float layerLevelMin = 0;
     public float layerLevelMax = -1;
     public int layerLevelCursus;
-    public boolean useClosedCursusUser = false;
+    public boolean layerLevelShowClosedCursusUser = false;
 
     public ClusterLayersSettings(ClusterLayersSettings old) {
         layer = old.layer;
@@ -33,7 +33,7 @@ public class ClusterLayersSettings {
         layerLevelMin = old.layerLevelMin;
         layerLevelMax = old.layerLevelMax;
         layerLevelCursus = old.layerLevelCursus;
-        useClosedCursusUser = old.useClosedCursusUser;
+        layerLevelShowClosedCursusUser = old.layerLevelShowClosedCursusUser;
     }
 
     public ClusterLayersSettings() {
@@ -52,7 +52,7 @@ public class ClusterLayersSettings {
                         (layer == LayerStatus.LOCATION && layerLocationPost.contentEquals(layerLocationPost)) ||
                         (layer == LayerStatus.LEVEL && layerLevelMin == o.layerLevelMin &&
                                 layerLevelMax == o.layerLevelMax && layerLevelCursus == o.layerLevelCursus &&
-                                useClosedCursusUser == o.useClosedCursusUser));
+                                layerLevelShowClosedCursusUser == o.layerLevelShowClosedCursusUser));
     }
 
     public enum LayerStatus {

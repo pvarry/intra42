@@ -101,7 +101,7 @@ public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.on
             recyclerView.setVisibility(View.VISIBLE);
             textViewEmpty.setVisibility(View.GONE);
 
-            ClusterMapAdapter adapter = new ClusterMapAdapter(getContext(), clusterInfo, clusters);
+            ClusterMapAdapter adapter = new ClusterMapAdapter(getContext(), clusterInfo, clusters, activity.layerSettings);
             adapter.setOnLocationClickListener(this);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), clusterInfo.sizeX, LinearLayoutManager.VERTICAL, false));

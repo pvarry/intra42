@@ -1,20 +1,24 @@
 package com.paulvarry.intra42.activities.clusterMap;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.Location;
+import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.utils.ThemeHelper;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 import com.paulvarry.intra42.utils.clusterMap.ClusterData;
+import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -28,8 +32,6 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEW_TYPE_WALL = 2;
 
     private onLocationClickListener listener;
-    private Cluster cluster;
-    private ClusterData clusterStatus;
     private LayoutInflater li;
     private Context context;
 
@@ -39,10 +41,15 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private float baseItemWidth;
     private float baseItemHeight;
 
-    ClusterMapAdapter(Context context, Cluster cluster, ClusterData clusterStatus) {
+    private Cluster cluster;
+    private ClusterData clusterData;
+    private ClusterLayersSettings layerSettings;
+    private SparseArray<CursusUsers> levelSelectedCursus;
+
+    ClusterMapAdapter(Context context, Cluster cluster, ClusterData clusterData, ClusterLayersSettings layerSettings) {
         this.cluster = cluster;
         this.context = context;
-        this.clusterStatus = clusterStatus;
+        this.clusterData = clusterData;
 
         li = LayoutInflater.from(context);
         itemPadding1dp = (int) Tools.dpToPx(context, 1);
@@ -50,6 +57,10 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         itemPadding3dp = (int) Tools.dpToPx(context, 3);
         baseItemHeight = Tools.dpToPx(context, 42);
         baseItemWidth = Tools.dpToPx(context, 35);
+        this.layerSettings = layerSettings;
+
+        if (layerSettings.layer == ClusterLayersSettings.LayerStatus.LEVEL)
+            levelSelectedCursus = clusterData.cursusUsers.get(layerSettings.layerLevelCursus);
     }
 
     @Override
@@ -115,6 +126,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     class ViewHolderUser extends RecyclerView.ViewHolder {
 
         private ImageView imageViewContent;
+        private TextView textView;
         private Location location;
 
         ViewHolderUser(LayoutInflater inflater, ViewGroup parent) {
@@ -129,28 +141,37 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             });
 
             imageViewContent = itemView.findViewById(R.id.imageView);
+            textView = itemView.findViewById(R.id.textView);
         }
 
         void bind(Location location) {
 
             UsersLTE user;
-            user = clusterStatus.getUserInLocation(location);
+            user = clusterData.getUserInLocation(location);
             this.location = location;
 
+            textView.setVisibility(View.GONE);
             if (location.host == null) {
                 imageViewContent.setImageResource(R.drawable.ic_missing_black_25dp);
                 imageViewContent.setColorFilter(ContextCompat.getColor(context, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
                 imageViewContent.clearColorFilter();
-                if (user != null)
+                if (user != null) {
                     UserImage.setImageSmall(context, user, imageViewContent);
-                else {
+                    if (levelSelectedCursus != null) {
+                        CursusUsers cursusUser = levelSelectedCursus.get(user.id);
+                        if (cursusUser != null) {
+                            textView.setVisibility(View.VISIBLE);
+                            textView.setText(String.valueOf(cursusUser.level));
+                        }
+                    }
+                } else {
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_desktop_mac_black_custom));
                     imageViewContent.setColorFilter(ContextCompat.getColor(context, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
                 }
             }
 
-            GridLayoutManager.LayoutParams paramsGridLayout = (GridLayoutManager.LayoutParams) imageViewContent.getLayoutParams();
+            GridLayoutManager.LayoutParams paramsGridLayout = (GridLayoutManager.LayoutParams) itemView.getLayoutParams();
             paramsGridLayout.height = (int) (baseItemHeight);
             paramsGridLayout.width = (int) (baseItemWidth);
             imageViewContent.setPadding(itemPadding1dp, itemPadding1dp, itemPadding1dp, itemPadding1dp);
@@ -168,7 +189,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 imageViewContent.setBackgroundColor(ThemeHelper.getColorAccent(context));
             }
-            imageViewContent.setLayoutParams(paramsGridLayout);
+            itemView.setLayoutParams(paramsGridLayout);
         }
     }
 

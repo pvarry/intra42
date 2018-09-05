@@ -215,7 +215,8 @@ public class ClusterMapInfoFragment
     private CompoundButton.OnCheckedChangeListener checkedChangeListenerLevel = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+            activity.layerSettingsInProgress.layerLevelShowClosedCursusUser = isChecked;
+            updateButton();
         }
     };
 
@@ -456,6 +457,7 @@ public class ClusterMapInfoFragment
                     editTextLevelMax.setText("21+");
                 else
                     editTextLevelMax.setText(String.valueOf(activity.layerSettingsInProgress.layerLevelMax));
+                checkboxLevels.setChecked(activity.layerSettingsInProgress.layerLevelShowClosedCursusUser);
                 break;
         }
 

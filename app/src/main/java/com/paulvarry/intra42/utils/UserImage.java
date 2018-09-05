@@ -3,11 +3,9 @@ package com.paulvarry.intra42.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.widget.ImageView;
 
-import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.squareup.picasso.Picasso;
@@ -71,19 +69,11 @@ public class UserImage {
     }
 
     public static RequestCreator getRequestCreator(Context context, UsersLTE user, String type) {
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.listener(new Picasso.Listener() {
-            @Override
-            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-
-        Picasso picasso = builder.build();
+        Picasso picasso = Picasso.with(context);
         RequestCreator requestCreator;
 
-        if (BuildConfig.DEBUG)
-            picasso.setLoggingEnabled(true);
+//        if (BuildConfig.DEBUG)
+//            picasso.setLoggingEnabled(true);
 
         switch (type) {
             case "large":

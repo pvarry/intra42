@@ -72,7 +72,7 @@ public class Location implements Serializable {
                     if (cursusUsersArray == null) break;
                     CursusUsers cursusUser = cursusUsersArray.get(user.id);
                     if (cursusUser == null) break;
-                    if (!layersSettings.useClosedCursusUser &&
+                    if (!layersSettings.layerLevelShowClosedCursusUser &&
                             cursusUser.end_at != null && cursusUser.end_at.after(new Date()))
                         break;
                     float level = cursusUser.level;

@@ -132,7 +132,6 @@ public class ClusterMapActivity
 
         final List<Locations> locationsTmp = new ArrayList<>();
 
-
         setLoadingProgress(R.string.info_loading_locations, 0, -1);
 
         int page = 1;
@@ -302,6 +301,7 @@ public class ClusterMapActivity
         layerSettings.layerLevelMin = layerSettingsInProgress.layerLevelMin;
         layerSettings.layerLevelMax = layerSettingsInProgress.layerLevelMax;
         layerSettings.layerLevelCursus = layerSettingsInProgress.layerLevelCursus;
+        layerSettings.layerLevelShowClosedCursusUser = layerSettingsInProgress.layerLevelShowClosedCursusUser;
 
         updateView();
     }
