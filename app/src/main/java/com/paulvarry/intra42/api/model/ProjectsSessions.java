@@ -1,12 +1,13 @@
 package com.paulvarry.intra42.api.model;
 
-import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.utils.AppSettings;
 
 import java.util.Date;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 public class ProjectsSessions {
 

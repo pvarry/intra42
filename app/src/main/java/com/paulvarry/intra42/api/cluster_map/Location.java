@@ -1,4 +1,4 @@
-package com.paulvarry.intra42.api.cluster_map_contribute;
+package com.paulvarry.intra42.api.cluster_map;
 
 import android.util.SparseArray;
 
@@ -11,6 +11,7 @@ import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 
@@ -38,6 +39,15 @@ public class Location implements Serializable {
     public float angle;
 
     public transient boolean highlight = false;
+
+    public Location(Map<String, Object> map) {
+        host = (String) map.get("host");
+        if (map.get("kind") != null)
+            kind = Kind.valueOf((String) map.get("kind"));
+        sizeX = Float.valueOf(map.get("sizeX").toString());
+        sizeY = Float.valueOf(map.get("sizeY").toString());
+        angle = Float.valueOf(map.get("angle").toString());
+    }
 
     public Location() {
         sizeX = 1;

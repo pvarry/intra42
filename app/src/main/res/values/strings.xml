@@ -639,4 +639,5 @@ long click for more action"</string>
     <string name="cluster_map_info_levels_display_closed">Display closed users (like finished piscine)</string>
     <string name="min">min</string>
     <string name="max">max</string>
+    <string name="cluster_map_contribute_ready_publish">This cluster is ready to be published</string>
 </resources>

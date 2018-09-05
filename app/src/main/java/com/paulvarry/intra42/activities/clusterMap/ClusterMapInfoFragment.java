@@ -34,7 +34,7 @@ import com.paulvarry.intra42.activities.ClusterMapContributeActivity;
 import com.paulvarry.intra42.adapters.RecyclerAdapterClusterMapInfo;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiService42Tools;
-import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.cluster_map.Cluster;
 import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Projects;

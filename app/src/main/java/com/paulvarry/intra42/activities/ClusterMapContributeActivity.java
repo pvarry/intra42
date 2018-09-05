@@ -1,61 +1,60 @@
 package com.paulvarry.intra42.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.BaseListAdapterSummary;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.adapters.BaseRecyclerAdapterItem;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-import com.paulvarry.intra42.api.cluster_map_contribute.Master;
 import com.paulvarry.intra42.api.model.Campus;
 import com.paulvarry.intra42.cache.CacheCampus;
-import com.paulvarry.intra42.ui.BasicThreadActivity;
-import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
+import com.paulvarry.intra42.ui.BasicActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class ClusterMapContributeActivity
-        extends BasicThreadActivity
-        implements View.OnClickListener, BasicThreadActivity.GetDataOnThread, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
+        extends BasicActivity
+        implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, ValueEventListener, BaseRecyclerAdapterItem.OnItemClickListener<Cluster> {
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ListView listView;
-    private ImageView imageViewExpand;
-    private TextView textViewExplanations;
-    private ViewGroup linearLayoutExplanations;
+    private RecyclerView recyclerView;
 
     private List<Campus> listCampus;
-    private List<Master> masters;
-    private Master newMaster;
+    private List<Cluster> clusters;
 
     public static void openIt(Context context) {
         Intent intent = new Intent(context, ClusterMapContributeActivity.class);
@@ -68,17 +67,48 @@ public class ClusterMapContributeActivity
         setContentView(R.layout.activity_cluster_map_contribute);
         setActionBarToggle(ActionBarToggle.ARROW);
 
-        listView = findViewById(R.id.listView);
+        recyclerView = findViewById(R.id.recyclerView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        imageViewExpand = findViewById(R.id.imageViewExpand);
-        textViewExplanations = findViewById(R.id.textViewExplanations);
-        linearLayoutExplanations = findViewById(R.id.linearLayoutExplanations);
 
-        linearLayoutExplanations.setOnClickListener(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        registerGetDataOnOtherThread(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                listCampus = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
+            }
+        }).start();
 
         super.onCreateFinished();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupFirebaseListener();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        removeFirebaseListener();
+    }
+
+    void setupFirebaseListener() {
+        if (app.firebaseRefClusterMapContribute != null) {
+            setViewState(StatusCode.LOADING);
+            app.firebaseRefClusterMapContribute.addValueEventListener(this);
+        } else {
+            setViewState(StatusCode.API_DATA_ERROR);
+        }
+    }
+
+    void removeFirebaseListener() {
+        if (app.firebaseRefClusterMapContribute != null) {
+            app.firebaseRefClusterMapContribute.removeEventListener(this);
+        }
     }
 
     @Nullable
@@ -92,10 +122,14 @@ public class ClusterMapContributeActivity
         return null;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void setViewContent() {
 
-        if (masters == null || masters.isEmpty()) {
+        fabBaseActivity.setVisibility(View.VISIBLE);
+        fabBaseActivity.setOnClickListener(this);
+
+        if (clusters == null || clusters.isEmpty()) {
             setViewState(StatusCode.EMPTY);
             return;
         }
@@ -103,12 +137,9 @@ public class ClusterMapContributeActivity
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(false);
 
-        fabBaseActivity.setVisibility(View.VISIBLE);
-        fabBaseActivity.setOnClickListener(this);
-
-        BaseListAdapterSummary<Master> adapter = new BaseListAdapterSummary<>(app, masters);
-        listView.setOnItemClickListener(this);
-        listView.setAdapter(adapter);
+        BaseRecyclerAdapterItem<Cluster> adapter = new BaseRecyclerAdapterItem<>(clusters);
+        adapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -119,96 +150,11 @@ public class ClusterMapContributeActivity
     @Override
     public void onClick(View v) {
         if (v == fabBaseActivity) {
-            openEditMetadataDialog(null, null);
-        } else if (v == linearLayoutExplanations) {
-            if (textViewExplanations.getVisibility() == View.VISIBLE) {
-                textViewExplanations.setVisibility(View.GONE);
-                imageViewExpand.setImageResource(R.drawable.ic_expand_more_black_24dp);
-            } else {
-                textViewExplanations.setVisibility(View.VISIBLE);
-                imageViewExpand.setImageResource(R.drawable.ic_expand_less_black_24dp);
-            }
+            openEditMetadataDialog(null);
         }
     }
 
-    /**
-     * Triggered when the activity start.
-     * <p>
-     * This method is run on main Thread, so you can make api call.
-     */
-    @Override
-    public void getDataOnOtherThread() throws RuntimeException {
-
-        listCampus = CacheCampus.getAllowInternet(app.cacheSQLiteHelper, app);
-        if (listCampus == null) {
-            super.setViewStateThread(StatusCode.API_DATA_ERROR);
-            return;
-        }
-
-        final Call<List<Master>> call = app.getApiServiceClusterMapContribute().getMasters();
-
-        long start = System.nanoTime();
-        try {
-            Response<List<Master>> response = call.execute();
-            long end = System.nanoTime();
-            long diff = end - start;
-
-            Log.d("cluster call time", String.valueOf(diff));
-
-            List<Master> tmpMaster = response.body();
-            masters = new ArrayList<>();
-            for (Master m : tmpMaster) {
-
-                if (newMaster == null && m.name == null)
-                    newMaster = m;
-
-                if (m.name != null)
-                    masters.add(m);
-            }
-            Collections.sort(masters);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onClickEditLayout(final Master master) {
-
-        ClusterMapContributeUtils.loadClusterMapAndLock(this, this.app, master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
-            @Override
-            public void finish(final Master master, final Cluster cluster) {
-                Toast.makeText(app, R.string.opening_in_progress, Toast.LENGTH_SHORT).show();
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ClusterMapContributeEditActivity.openIt(ClusterMapContributeActivity.this, cluster, master);
-                    }
-                });
-            }
-
-            @Override
-            public void error(String error) {
-                Toast.makeText(app, error, Toast.LENGTH_SHORT).show();
-                refresh();
-            }
-        });
-    }
-
-    public void onClickEditMetadata(final Master master) {
-
-        ClusterMapContributeUtils.loadClusterMap(ClusterMapContributeActivity.this, app, master, new ClusterMapContributeUtils.LoadClusterMapCallback() {
-            @Override
-            public void finish(final Master master, final Cluster cluster) {
-                openEditMetadataDialog(master, cluster);
-            }
-
-            @Override
-            public void error(String error) {
-                Toast.makeText(app, error, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    void openEditMetadataDialog(@Nullable final Master master, @Nullable final Cluster cluster) {
+    void openEditMetadataDialog(@Nullable final Cluster cluster) {
         final LayoutInflater inflater = LayoutInflater.from(ClusterMapContributeActivity.this);
         final View view = inflater.inflate(R.layout.fragment_dialog_cluster_map_contribute_cluster, null);
         final TextInputLayout textInputName = view.findViewById(R.id.textInputName);
@@ -259,11 +205,12 @@ public class ClusterMapContributeActivity
             List<String> listCampusString;
             listCampusString = new ArrayList<>();
             Campus c;
+            listCampusString.add("[none]");
             for (int i = 0; i < listCampus.size(); i++) {
                 c = listCampus.get(i);
                 listCampusString.add(c.name + " (id: " + String.valueOf(c.id) + ")");
                 if (cluster != null && c.id == cluster.campusId)
-                    selection = i;
+                    selection = i + 1;
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(ClusterMapContributeActivity.this, android.R.layout.simple_spinner_dropdown_item, listCampusString);
@@ -278,8 +225,8 @@ public class ClusterMapContributeActivity
             editTextPrefix.setText(cluster.hostPrefix);
             editTextNameShort.setText(cluster.nameShort);
             editTextName.setText(cluster.name);
-            if (cluster.clusterPosition > 0)
-                editTextPosition.setText(String.valueOf(cluster.clusterPosition));
+            if (cluster.position > 0)
+                editTextPosition.setText(String.valueOf(cluster.position));
             editTextComment.setText(cluster.comment);
             checkboxReadyToPublish.setChecked(cluster.isReadyToPublish);
         }
@@ -299,35 +246,61 @@ public class ClusterMapContributeActivity
                 newCluster.nameShort = editTextNameShort.getText().toString();
                 String stringPosition = editTextPosition.getText().toString();
                 if (!stringPosition.isEmpty())
-                    newCluster.clusterPosition = Integer.decode(stringPosition);
+                    newCluster.position = Integer.decode(stringPosition);
                 newCluster.hostPrefix = editTextPrefix.getText().toString();
                 newCluster.comment = editTextComment.getText().toString();
                 newCluster.isReadyToPublish = checkboxReadyToPublish.isChecked();
 
-                newCluster.campusId = 1;
-                int pos = spinnerCampus.getSelectedItemPosition();
-                if (listCampus != null && pos < listCampus.size()) {
+                newCluster.campusId = 0;
+                int pos = spinnerCampus.getSelectedItemPosition() - 1;
+                if (listCampus != null && pos != -1 && pos < listCampus.size()) {
                     Campus c = listCampus.get(pos);
                     newCluster.campusId = c.id;
                 }
 
-                ClusterMapContributeUtils.CreateSaveClusterMapCallback callback = new ClusterMapContributeUtils.CreateSaveClusterMapCallback() {
-                    @Override
-                    public void finish(List<Master> masters) {
-                        refresh();
-                    }
+                if (newCluster.slug == null)
+                    newCluster.slug = String.valueOf(newCluster.campusId) + "_" + newCluster.hostPrefix + "_" + String.valueOf(System.currentTimeMillis());
+                DatabaseReference newData = app.firebaseRefClusterMapContribute.child(newCluster.slug);
+                if (isCreate) {
+                    newData.setValue(newCluster);
+                    onRefresh();
+                } else {
+                    final Cluster finalNewCluster = newCluster;
+                    newData.runTransaction(new Transaction.Handler() {
+                        @NonNull
+                        @Override
+                        public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                            Cluster clusterMutable = mutableData.getValue(Cluster.class);
+                            if (clusterMutable == null) {
+                                return Transaction.success(mutableData);
+                            }
 
-                    @Override
-                    public void error(String error) {
-                        Toast.makeText(app, error, Toast.LENGTH_SHORT).show();
-                        refresh();
-                    }
-                };
+                            clusterMutable.name = finalNewCluster.name;
+                            clusterMutable.nameShort = finalNewCluster.nameShort;
+                            clusterMutable.position = finalNewCluster.position;
+                            clusterMutable.hostPrefix = finalNewCluster.hostPrefix;
+                            clusterMutable.comment = finalNewCluster.comment;
+                            clusterMutable.isReadyToPublish = finalNewCluster.isReadyToPublish;
+                            clusterMutable.campusId = finalNewCluster.campusId;
 
-                if (isCreate)
-                    ClusterMapContributeUtils.createCluster(app, ClusterMapContributeActivity.this, newCluster, callback);
-                else
-                    ClusterMapContributeUtils.saveClusterMapMetadata(ClusterMapContributeActivity.this, app, master, newCluster, callback);
+
+                            Map<String, Object> export = clusterMutable.toMap();
+                            mutableData.setValue(export);
+                            return Transaction.success(mutableData);
+                        }
+
+                        @Override
+                        public void onComplete(DatabaseError databaseError, boolean b,
+                                               DataSnapshot dataSnapshot) {
+                            // Transaction completed
+                            onRefresh();
+                            if (databaseError != null) {
+                                Log.d("ClusterMapContribute", "postTransaction:onComplete:" + databaseError);
+                                Crashlytics.log(0, ClusterMapActivity.class.getName(), "postTransaction:onComplete:" + databaseError);
+                            }
+                        }
+                    });
+                }
             }
         });
         dialog.dialog = builder.show();
@@ -351,24 +324,16 @@ public class ClusterMapContributeActivity
      */
     @Override
     public void onRefresh() {
-        refresh();
+        removeFirebaseListener();
+        setupFirebaseListener();
     }
 
     /**
-     * Callback method to be invoked when an item in this AdapterView has
+     * Callback method to be invoked when an item in this Recycler has
      * been clicked.
-     * <p>
-     * Implementers can call getItemAtPosition(position) if they need
-     * to access the data associated with the selected item.
-     *
-     * @param parent   The AdapterView where the click happened.
-     * @param view     The view within the AdapterView that was clicked (this
-     *                 will be a view provided by the adapter)
-     * @param position The position of the view in the adapter.
-     * @param id       The row id of the item that was clicked.
      */
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+    public void onItemClicked(final int position, Cluster item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         String[] str = new String[]{
@@ -379,13 +344,32 @@ public class ClusterMapContributeActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0)
-                    onClickEditMetadata(masters.get(position));
+                    openEditMetadataDialog(clusters.get(position));
                 else if (which == 1)
-                    onClickEditLayout(masters.get(position));
+                    ClusterMapContributeEditActivity.openIt(ClusterMapContributeActivity.this, clusters.get(position));
             }
         });
-        builder.setTitle(masters.get(position).name);
+        builder.setTitle(clusters.get(position).name);
         builder.show();
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        GenericTypeIndicator<HashMap<String, Cluster>> t = new GenericTypeIndicator<HashMap<String, Cluster>>() {
+        };
+        HashMap<String, Cluster> data = dataSnapshot.getValue(t);
+
+        if (data != null) {
+            clusters = new ArrayList<>(data.values());
+            Collections.sort(clusters);
+        }
+
+        refresh();
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError databaseError) {
+        setViewState(StatusCode.API_DATA_ERROR);
     }
 
     private class FinalWrapper {

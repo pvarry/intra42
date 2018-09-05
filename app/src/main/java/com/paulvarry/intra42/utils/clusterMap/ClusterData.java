@@ -2,8 +2,8 @@ package com.paulvarry.intra42.utils.clusterMap;
 
 import android.util.SparseArray;
 
-import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-import com.paulvarry.intra42.api.cluster_map_contribute.Location;
+import com.paulvarry.intra42.api.cluster_map.Cluster;
+import com.paulvarry.intra42.api.cluster_map.Location;
 import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.ProjectsUsers;

@@ -14,117 +14,75 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
+import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
+import com.paulvarry.intra42.api.cluster_map.Location;
+import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.ui.BasicEditActivity;
+import com.paulvarry.intra42.utils.Tools;
+
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import com.google.android.material.textfield.TextInputLayout;
-import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
-import com.paulvarry.intra42.api.cluster_map_contribute.Location;
-import com.paulvarry.intra42.api.cluster_map_contribute.Master;
-import com.paulvarry.intra42.ui.BasicEditActivity;
-import com.paulvarry.intra42.utils.ClusterMapContributeUtils;
-import com.paulvarry.intra42.utils.Tools;
 
-import java.util.*;
+public class ClusterMapContributeEditActivity extends BasicEditActivity implements View.OnClickListener, ValueEventListener {
 
-public class ClusterMapContributeEditActivity extends BasicEditActivity implements View.OnClickListener {
-
-    private static final String INTENT_CLUSTER = "cluster";
-    private static final String INTENT_MASTER = "master";
-
+    private static final String INTENT_CLUSTER_SLUG = "cluster_slug";
     float baseItemWidth;
     float baseItemHeight;
+    private String clusterSlug;
     private Cluster cluster;
-    private Master master;
+
     private boolean createCluster = false;
-    private boolean unsavedData = false;
     private GridLayout gridLayout;
-
-    private Date lockEnd;
-    private boolean isTimeUpDialogDisplayed;
-    private Timer timerRefreshActionBar;
-
-    private MapStore allLocations;
 
     private LayoutInflater vi;
     private int paddingItem2dp;
-
-    public static void openIt(Context context, Cluster cluster, Master master) {
-        Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
-
-        if (cluster != null) {
-            intent.putExtra(INTENT_CLUSTER, cluster);
-            intent.putExtra(INTENT_MASTER, master);
-        }
-        context.startActivity(intent);
-    }
 
     public static void openIt(Context context, Cluster cluster) {
         Intent intent = new Intent(context, ClusterMapContributeEditActivity.class);
 
         if (cluster != null) {
-            intent.putExtra(INTENT_CLUSTER, cluster);
+            intent.putExtra(INTENT_CLUSTER_SLUG, cluster.slug);
+            context.startActivity(intent);
         }
-        context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cluster_map_contribute_edit);
-        setActionBarToggle(ActionBarToggle.ARROW);
+        setActionBarToggle(ActionBarToggle.CROSS);
 
         Intent intent = getIntent();
 
-        if (intent.hasExtra(INTENT_MASTER)) {
-            cluster = (Cluster) intent.getSerializableExtra(INTENT_CLUSTER);
-            master = (Master) intent.getSerializableExtra(INTENT_MASTER);
-
-            if (master.locked_at != null) {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(master.locked_at);
-                cal.add(Calendar.MINUTE, ClusterMapContributeUtils.MINUTE_LOCK);
-                lockEnd = cal.getTime();
-
-                updateActionBar();
-            }
+        if (intent.hasExtra(INTENT_CLUSTER_SLUG)) {
+            clusterSlug = intent.getStringExtra(INTENT_CLUSTER_SLUG);
         }
 
         gridLayout = findViewById(R.id.gridLayout);
 
         DataWrapper dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
         if (dataWrapper != null) {
-            isTimeUpDialogDisplayed = dataWrapper.isTimeUpDialogDisplayed;
-            allLocations = dataWrapper.allLocations;
             cluster = dataWrapper.cluster;
-        } else {
-            allLocations = new MapStore();
-
-            if (cluster.map != null) {
-                int sizeX = cluster.map.length;
-                int sizeY = 0;
-                for (int x = 0; x < cluster.map.length; x++) {
-
-                    if (cluster.map[x] != null) {
-                        SparseArray<Location> col = allLocations.require(x);
-                        if (cluster.map[x].length > sizeY)
-                            sizeY = cluster.map[x].length;
-
-                        for (int y = 0; y < cluster.map[x].length; y++) {
-                            col.append(y, cluster.map[x][y]);
-                        }
-                    }
-                }
-
-                cluster.sizeX = sizeX;
-                cluster.sizeY = sizeY;
-            } else {
-                cluster.sizeX = 10;
-                cluster.sizeY = 10;
-            }
         }
 
         fabBaseActivity.setVisibility(View.VISIBLE);
@@ -142,47 +100,30 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (app.firebaseRefClusterMapContribute != null) {
+            setViewState(StatusCode.LOADING);
+            app.firebaseRefClusterMapContribute.child(clusterSlug).addValueEventListener(this);
+        } else {
+            setViewState(StatusCode.API_DATA_ERROR);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (app.firebaseRefClusterMapContribute != null) {
+            app.firebaseRefClusterMapContribute.removeEventListener(this);
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean b = super.onCreateOptionsMenu(menu);
-        if (menuItemDelete != null)
-            menuItemDelete.setVisible(false);
+        if (menuItemSave != null)
+            menuItemSave.setVisible(false);
         return b;
-    }
-
-    @Override
-    public void onBackPressed() {
-        long duration = lockEnd.getTime() - new Date().getTime();
-        if (duration < 0) {
-            ClusterMapContributeEditActivity.super.onBackPressed();
-            return;
-        }
-        ClusterMapContributeUtils.unlockCluster(this, app, master, true, new ClusterMapContributeUtils.NoReturnCallback() {
-            @Override
-            public void finish() {
-                ClusterMapContributeEditActivity.super.onBackPressed();
-            }
-
-            @Override
-            public void error(String error) {
-                ClusterMapContributeEditActivity.super.onBackPressed();
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        timerRefreshActionBar = new Timer();
-        timerRefreshActionBar.schedule(new RefreshActionBar(), new Date(), 500);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        timerRefreshActionBar.cancel();
-        timerRefreshActionBar.purge();
     }
 
     @Nullable
@@ -195,8 +136,8 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     public String getToolbarName() {
         if (createCluster)
             return getString(R.string.title_activity_cluster_map_contribute_edit);
-        else if (master != null)
-            return master.name;
+        else if (cluster != null)
+            return cluster.name;
         else
             return null;
     }
@@ -221,37 +162,12 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     @Override
     protected boolean haveUnsavedData() {
-        return unsavedData;
+        return false;
     }
 
     @Override
     protected void onSave(final Callback callBack) {
 
-        Location[][] tmp = new Location[cluster.sizeX][];
-        for (int i = 0; i < cluster.sizeX; i++) {
-            SparseArray<Location> col = allLocations.get(i);
-            tmp[i] = new Location[cluster.sizeY];
-
-            if (col != null)
-                for (int j = 0; j < cluster.sizeY; j++) {
-                    Location cell = col.get(j);
-
-                    tmp[i][j] = cell;
-                }
-        }
-        cluster.map = tmp;
-
-        ClusterMapContributeUtils.saveClusterMap(this, app, master, cluster, new ClusterMapContributeUtils.CreateSaveClusterMapCallback() {
-            @Override
-            public void finish(List<Master> masters) {
-                callBack.succeed();
-            }
-
-            @Override
-            public void error(String error) {
-                callBack.failed(error);
-            }
-        });
     }
 
     @Override
@@ -259,42 +175,37 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     }
 
-    private void updateActionBar() {
-        Calendar calendar = Calendar.getInstance();
-        long duration = lockEnd.getTime() - new Date().getTime();
+    void save() {
+        app.firebaseRefClusterMapContribute.child(clusterSlug).runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                Cluster clusterMutable = mutableData.getValue(Cluster.class);
+                if (clusterMutable == null) {
+                    return Transaction.success(mutableData);
+                }
 
-        if (!isTimeUpDialogDisplayed && duration < 30 * 1000 && duration > 0) { // 10 seconds
-            isTimeUpDialogDisplayed = true;
+                clusterMutable.width = cluster.width;
+                clusterMutable.height = cluster.height;
+                clusterMutable.map = cluster.map;
 
-            AlertDialog.Builder b = new AlertDialog.Builder(this);
-            b.setTitle(R.string.cluster_map_contribute_dialog_time_up_title);
-            b.setMessage(R.string.cluster_map_contribute_dialog_time_up_message);
-            b.setPositiveButton(R.string.ok, null);
-            b.show();
-        }
-        if (duration < 0) {
-            toolbar.setSubtitle(R.string.cluster_map_contribute_toolbar_info_too_late);
-            super.menuItemSave.setVisible(false);
-            return;
-        }
-        calendar.setTimeInMillis(duration);
-        int m = calendar.get(Calendar.MINUTE);
-        calendar.add(Calendar.MINUTE, -m);
-        int s = calendar.get(Calendar.SECOND);
+                Map<String, Object> export = clusterMutable.toMap();
+                mutableData.setValue(export);
+                return Transaction.success(mutableData);
+            }
 
-        if (m != 0)
-            toolbar.setSubtitle(
-                    getString(R.string.cluster_map_contribute_toolbar_info_minute_second)
-                            .replace("_minute_", String.valueOf(m))
-                            .replace("_second_", String.valueOf(s)));
-        else
-            toolbar.setSubtitle(
-                    getString(R.string.cluster_map_contribute_toolbar_info_second)
-                            .replace("_second_", String.valueOf(s)));
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                if (databaseError != null)
+                    Crashlytics.log(0, ClusterMapActivity.class.getName(), "postTransaction:onComplete:" + databaseError);
+            }
+        });
     }
 
     void refreshMap() {
-        unsavedData = true;
+        save();
         buildMap();
     }
 
@@ -307,23 +218,23 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         gridLayout.removeAllViews();
         gridLayout.removeAllViewsInLayout();
-        gridLayout.setRowCount(cluster.sizeY + 1);
-        gridLayout.setColumnCount(cluster.sizeX + 1);
+        gridLayout.setRowCount(cluster.height + 1);
+        gridLayout.setColumnCount(cluster.width + 1);
 
-        for (int x = 0; x < cluster.sizeX; x++) {
+        for (int x = 0; x < cluster.width; x++) {
 
-            for (int y = 0; y < cluster.sizeY; y++) {
+            for (int y = 0; y < cluster.height; y++) {
 
                 View view = inflateClusterMapItem(x, y);
                 gridLayout.addView(view);
             }
 
-            View view = inflateClusterMapController(x, cluster.sizeY);
+            View view = inflateClusterMapController(x, cluster.height);
             gridLayout.addView(view);
         }
 
-        for (int y = 0; y < cluster.sizeY + 1; y++) {
-            View view = inflateClusterMapController(cluster.sizeX, y);
+        for (int y = 0; y < cluster.height + 1; y++) {
+            View view = inflateClusterMapController(cluster.width, y);
             gridLayout.addView(view);
         }
 
@@ -334,7 +245,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
     private View inflateClusterMapItem(int x, int y) {
         @Nullable
-        Location location = allLocations.get(x, y);
+        Location location = cluster.map.get(x, y);
 
         View view;
         ImageView imageViewContent;
@@ -363,7 +274,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                     textView.setVisibility(View.VISIBLE);
                     textView.setText(location.host);
                     imageViewContent.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_desktop_mac_black_custom));
-                    if (location.host.startsWith(cluster.hostPrefix)) // set warning flag because host contain cluster prefix
+                    if (cluster.hostPrefix != null && location.host.startsWith(cluster.hostPrefix)) // set warning flag because host contain cluster prefix
                         view.setBackgroundColor(getResources().getColor(R.color.color_warning));
                     else
                         imageViewContent.setColorFilter(ContextCompat.getColor(this, R.color.colorClusterMapComputerColor), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -403,13 +314,12 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         View view = vi.inflate(R.layout.grid_layout_cluster_map_edit_controller, gridLayout, false);
 
-        if (x == cluster.sizeX && y == cluster.sizeY) {
-            location = null;
+        if (x == cluster.width && y == cluster.height) {
             isCorner = true;
-        } else if (x == cluster.sizeX)
-            location = allLocations.get(0, y);
-        else if (y == cluster.sizeY)
-            location = allLocations.get(x, 0);
+        } else if (x == cluster.width)
+            location = cluster.map.get(0, y);
+        else if (y == cluster.height)
+            location = cluster.map.get(x, 0);
 
         float sizeX = 1;
         float sizeY = 1;
@@ -497,7 +407,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                 textInputLayoutHost.setErrorEnabled(true);
                 if (s.length() == 0)
                     textInputLayoutHost.setError(getString(R.string.cluster_map_contribute_warning_empty_host));
-                else if (s.toString().startsWith(cluster.hostPrefix))
+                else if (cluster.hostPrefix != null && s.toString().startsWith(cluster.hostPrefix))
                     textInputLayoutHost.setError(getString(R.string.cluster_map_contribute_warning_host_prefix));
                 else
                     textInputLayoutHost.setErrorEnabled(false);
@@ -542,7 +452,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Location locationEdit = allLocations.require(finalLocation.x, finalLocation.y);
+                Location locationEdit = cluster.map.require(finalLocation.x, finalLocation.y, cluster);
                 locationEdit.host = null;
                 if (radioButtonUser.isChecked()) {
                     locationEdit.kind = Location.Kind.USER;
@@ -556,6 +466,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                 gridLayout.removeView(v);
                 View view = inflateClusterMapItem(finalLocation.x, finalLocation.y);
                 gridLayout.addView(view);
+                save();
             }
         });
         alert.setNegativeButton(R.string.discard_changes, null);
@@ -565,11 +476,11 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     public void onClickController(final LocationWrapper wrapper) {
         boolean isRow = false;
 
-        if (wrapper.x == cluster.sizeX && wrapper.y == cluster.sizeY)
+        if (wrapper.x == cluster.width && wrapper.y == cluster.height)
             return;
-        else if (wrapper.x == cluster.sizeX)
+        else if (wrapper.x == cluster.width)
             isRow = true;
-        else if (wrapper.y == cluster.sizeY)
+        else if (wrapper.y == cluster.height)
             isRow = false;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -725,27 +636,27 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         builder.setItems(actions, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    cluster.sizeY++;
-                    for (int i = 0; i < cluster.sizeX; i++) {
-                        SparseArray<Location> row = allLocations.get(i);
+                if (which == 0) { // add row top
+                    cluster.height++;
+                    for (int i = 0; i < cluster.width; i++) {
+                        SparseArray<Location> row = cluster.map.get(i);
                         if (row != null) {
-                            for (int j = cluster.sizeY; j > 0; j--) {
+                            for (int j = cluster.height; j > 0; j--) {
                                 row.put(j, row.get(j - 1));
                             }
                             row.remove(0);
                         }
                     }
-                } else if (which == 1)
-                    cluster.sizeY++;
-                else if (which == 2) {
-                    cluster.sizeX++;
-                    for (int i = cluster.sizeX; i > 0; i--) {
-                        allLocations.put(i, allLocations.get(i - 1));
+                } else if (which == 1) // add row bottom
+                    cluster.height++;
+                else if (which == 2) { // add column left
+                    cluster.width++;
+                    for (int i = cluster.width; i > 0; i--) {
+                        cluster.map.put(i, cluster.map.get(i - 1));
                     }
-                    allLocations.remove(0);
-                } else if (which == 3)
-                    cluster.sizeX++;
+                    cluster.map.remove(0);
+                } else if (which == 3) // add column right
+                    cluster.width++;
                 else
                     return;
                 refreshMap();
@@ -755,17 +666,15 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     private void setRowScale(int y, float scale) {
-        for (int i = 0; i < allLocations.size(); i++) {
-
-            Location cel = allLocations.require(i, y);
+        for (int i = 0; i < cluster.map.size(); i++) {
+            Location cel = cluster.map.require(i, y, cluster);
             cel.sizeY = scale;
         }
     }
 
     private void setColumnScale(int x, float scale) {
-        SparseArray<Location> col = allLocations.require(x);
-
-        for (int i = 0; i < cluster.sizeY; i++) {
+        SparseArray<Location> col = cluster.map.require(x, cluster);
+        for (int i = 0; i < cluster.height; i++) {
             Location cel = col.get(i);
             if (cel == null) {
                 cel = new Location();
@@ -773,54 +682,58 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
             }
             cel.sizeX = scale;
         }
-
     }
 
     private void deleteColumn(int x) {
-        if (allLocations.size() == 0)
+        if (cluster.map.size() == 0)
             return;
-        for (int i = x; i < allLocations.size() - 1; i++) {
-            allLocations.setValueAt(i, allLocations.valueAt(i + 1));
+        for (int i = x; i < cluster.map.size() - 1; i++) {
+            cluster.map.setValueAt(i, cluster.map.valueAt(i + 1));
         }
-        allLocations.removeAt(allLocations.size() - 1);
-        cluster.sizeX--;
+        cluster.map.removeAt(cluster.map.size() - 1);
+        cluster.width--;
     }
 
     private void deleteRow(int y) {
-        for (int i = 0; i < allLocations.size(); i++) {
+        for (int i = 0; i < cluster.map.size(); i++) {
             SparseArray<Location> col;
-            if ((col = allLocations.get(i)) != null) {
+            if ((col = cluster.map.get(i)) != null) {
                 for (int j = y; j < col.size() - 1; j++) {
                     col.setValueAt(j, col.valueAt(j + 1));
                 }
                 col.removeAt(col.size() - 1);
             }
         }
-        cluster.sizeY--;
+        cluster.height--;
     }
 
     @Override
     public final Object onRetainCustomNonConfigurationInstance() {
         DataWrapper d = new DataWrapper();
         d.cluster = cluster;
-        d.isTimeUpDialogDisplayed = isTimeUpDialogDisplayed;
-        d.allLocations = allLocations;
         return d;
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+        cluster = dataSnapshot.getValue(Cluster.class);
+
+        if (cluster != null && (cluster.map == null || cluster.map.size() == 0)) {
+            cluster.width = 10;
+            cluster.height = 10;
+        }
+        refresh();
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError databaseError) {
+        Toast.makeText(app, R.string.error, Toast.LENGTH_SHORT).show();
+        Crashlytics.log(0, ClusterMapActivity.class.getName(), "onCancelled:" + databaseError);
     }
 
     private class DialogFinalWrapper {
         AlertDialog dialog;
-    }
-
-    class RefreshActionBar extends TimerTask {
-        public void run() {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    updateActionBar();
-                }
-            });
-        }
     }
 
     private class LocationWrapper {
@@ -837,68 +750,6 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     private class DataWrapper {
-
         Cluster cluster;
-        boolean isTimeUpDialogDisplayed;
-        MapStore allLocations;
-    }
-
-    private class MapStore extends SparseArray<SparseArray<Location>> {
-
-        @NonNull
-        SparseArray<Location> require(int x) {
-            if (x < 0)
-                throw new ArrayIndexOutOfBoundsException("x= " + String.valueOf(x));
-
-            SparseArray<Location> col = super.get(x);
-            if (col == null) {
-                col = new SparseArray<>(cluster.sizeY);
-                super.append(x, col);
-            }
-            return col;
-        }
-
-        public Location get(int x, int y) {
-            if (x < 0 || y < 0)
-                return null;
-            SparseArray<Location> col = super.get(x);
-            if (col == null)
-                return null;
-            return col.get(y);
-        }
-
-        @NonNull
-        Location require(int x, int y) {
-            if (x < 0 || y < 0)
-                throw new ArrayIndexOutOfBoundsException("x= " + String.valueOf(x) + " ; y= " + String.valueOf(y));
-
-            SparseArray<Location> col = super.get(x);
-            if (col == null) {
-                col = new SparseArray<>(cluster.sizeY);
-                super.append(x, col);
-                col.append(y, new Location());
-                return col.get(y);
-            }
-
-            Location cel = col.get(y);
-            if (cel == null) {
-                cel = new Location();
-                col.append(y, cel);
-            }
-            return cel;
-        }
-
-        public void replace(int x, int y, Location item) {
-            if (x < 0 || y < 0)
-                throw new ArrayIndexOutOfBoundsException("x= " + String.valueOf(x) + " ; y= " + String.valueOf(y));
-
-            SparseArray<Location> col = super.get(x);
-            if (col == null) {
-                col = new SparseArray<>(cluster.sizeY);
-                super.append(x, col);
-                col.append(y, item);
-            } else
-                col.append(y, item);
-        }
     }
 }

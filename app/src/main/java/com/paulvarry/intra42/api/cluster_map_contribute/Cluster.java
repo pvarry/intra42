@@ -1,15 +1,19 @@
 package com.paulvarry.intra42.api.cluster_map_contribute;
 
 import android.content.Context;
+import android.util.SparseArray;
 
-import com.google.gson.annotations.SerializedName;
+import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.api.IBaseItemSmall;
-import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.clusterMap.ClusterData;
-import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
+import com.paulvarry.intra42.api.cluster_map.Location;
+import com.paulvarry.intra42.api.model.Campus;
+import com.paulvarry.intra42.cache.CacheCampus;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
@@ -18,24 +22,25 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
     public String name;
     public String nameShort;
     public String slug;
-    @SerializedName("host_prefix")
     public String hostPrefix;
-    @SerializedName("campus_id")
     public int campusId;
-    @SerializedName("position")
-    public int clusterPosition;
-    @SerializedName("width")
-    public int sizeX;
-    @SerializedName("height")
-    public int sizeY;
-    public Location map[][];
+    public int position;
+    /**
+     * Size X
+     */
+    public int width;
+    /**
+     * Size Y
+     */
+    public int height;
+    public MapStore map;
     public String comment;
-    @SerializedName("isReadyToPublish")
     public boolean isReadyToPublish;
 
-    public transient int freePosts;
-    public transient int highlightPosts;
-    public transient int posts;
+    private transient Campus campus;
+
+    public Cluster() {
+    }
 
     public Cluster(int campusId, String name, String hostPrefix) {
         this.campusId = campusId;
@@ -44,73 +49,111 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
         this.hostPrefix = hostPrefix;
     }
 
-    public void computeFreePosts(HashMap<String, UsersLTE> locations) {
-        for (Location[] row : map)
-            for (Location post : row) {
+    public void setMap(Object mapTmp) {
+        this.map = new MapStore();
 
-                if (post.kind == Location.Kind.USER) {
-                    posts++;
-                    if (!locations.containsKey(post.host))
-                        freePosts++;
-                }
-            }
-    }
-
-    public void computeHighlightPosts(ClusterData clusterData, ClusterLayersSettings layersSettings) {
-        UsersLTE user;
-
-        highlightPosts = 0;
-        if (map == null)
+        if (mapTmp == null)
             return;
-        for (Location[] row : map) {
-            if (row == null)
-                continue;
-            for (Location post : row) {
-                if (post == null)
-                    continue;
 
-                user = clusterData.locations.get(post.host);
-                if (post.computeHighlightPosts(clusterData, layersSettings, user)) {
-                    highlightPosts++;
-                }
+        if (mapTmp instanceof HashMap) {
+            HashMap mapData = (HashMap) mapTmp;
+            for (Object i : mapData.keySet()) {
+                setMapCol(Integer.parseInt(i.toString()), mapData.get(i));
+            }
+        } else if (mapTmp instanceof ArrayList) {
+            ArrayList mapData = (ArrayList) mapTmp;
+            for (int i = 0; i < mapData.size(); i++) {
+                setMapCol(i, mapData.get(i));
             }
         }
     }
 
-    public void computeHighlightAndFreePosts(ClusterData clusterData, ClusterLayersSettings layersSettings, HashMap<String, UsersLTE> locations) {
-        UsersLTE user;
-
-        highlightPosts = 0;
-        freePosts = 0;
-        if (map == null)
+    private void setMapCol(int i, Object colTmp) {
+        if (colTmp == null)
             return;
-        for (Location[] row : map) {
-            if (row == null)
-                continue;
-            for (Location post : row) {
-                if (post == null)
-                    break;
-                user = clusterData.locations.get(post.host);
-                if (post.computeHighlightPosts(clusterData, layersSettings, user)) {
-                    highlightPosts++;
-                }
-                if (post.kind == Location.Kind.USER) {
-                    posts++;
-                    if (!locations.containsKey(post.host))
-                        freePosts++;
-                }
+        map.put(i, new SparseArray<Location>());
+
+        if (colTmp instanceof HashMap) {
+            HashMap col = (HashMap) colTmp;
+            for (Object j : col.keySet()) {
+                setMapCel(i, Integer.parseInt(j.toString()), col.get(j));
+            }
+        } else if (colTmp instanceof ArrayList) {
+            ArrayList col = (ArrayList) colTmp;
+            for (int j = 0; j < col.size(); j++) {
+                setMapCel(i, j, col.get(j));
             }
         }
+    }
+
+    private void setMapCel(int i, int j, Object o) {
+        if (o == null)
+            return;
+        map.get(i).put(j, new Location((Map<String, Object>) o));
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("nameShort", nameShort);
+        map.put("slug", slug);
+        map.put("hostPrefix", hostPrefix);
+        map.put("campusId", campusId);
+        map.put("position", position);
+        map.put("width", width);
+        map.put("height", height);
+        map.put("comment", comment);
+        map.put("isReadyToPublish", isReadyToPublish);
+
+        ArrayList<ArrayList<Location>> arrayListExport = new ArrayList<>(width);
+        for (int i = 0; i < width; i++) {
+            SparseArray<Location> sparseArrayCol = this.map.get(i);
+            arrayListExport.add(i, new ArrayList<Location>(height));
+
+            if (sparseArrayCol != null)
+                for (int j = 0; j < height; j++) {
+                    arrayListExport.get(i).add(j, sparseArrayCol.get(j));
+                }
+        }
+        map.put("map", arrayListExport);
+
+        return map;
     }
 
     @Override
     public String getName(Context context) {
-        return name;
+        if (campus == null) {
+            List<Campus> cache = CacheCampus.get(AppClass.instance().cacheSQLiteHelper);
+            if (cache != null)
+                for (Campus c : cache) {
+                    if (c.id == campusId)
+                        this.campus = c;
+                }
+        }
+        StringBuilder b = new StringBuilder();
+        if (campus != null) {
+            b.append("[").append(campus.name).append(" - ").append(campusId).append("]");
+        } else if (campusId != 0)
+            b.append("[campus_id=").append(campusId).append("]");
+        else
+            b.append("[??]");
+        b.append(" ");
+        if (name != null)
+            b.append(name);
+        if (name != null && nameShort != null)
+            b.append(" - ");
+        if (nameShort != null)
+            b.append(nameShort);
+
+        if (name == null && nameShort == null)
+            b.append("[no name]");
+
+        return b.toString();
     }
 
     @Override
     public String getSub(Context context) {
-        return slug;
+        return comment;
     }
 
     @Override
@@ -120,8 +163,14 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
 
     @Override
     public int compareTo(@NonNull Cluster o) {
-        if (clusterPosition != o.clusterPosition) {
-            if (clusterPosition > o.clusterPosition)
+        if (campusId != o.campusId) {
+            if (campusId > o.campusId)
+                return 1;
+            else
+                return -1;
+        }
+        if (position != o.position) {
+            if (position > o.position)
                 return 1;
             else
                 return -1;

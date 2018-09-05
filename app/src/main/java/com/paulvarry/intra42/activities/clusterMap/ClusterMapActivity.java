@@ -14,7 +14,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewStatePagerAdapter;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ServiceGenerator;
-import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.cluster_map.Cluster;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Locations;
 import com.paulvarry.intra42.api.model.ProjectsUsers;

@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -24,7 +25,6 @@ import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
 import com.paulvarry.intra42.api.ApiServiceCantina;
-import com.paulvarry.intra42.api.ApiServiceClusterMapContribute;
 import com.paulvarry.intra42.api.ServiceGenerator;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Users;
@@ -52,6 +52,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatDelegate;
 import retrofit2.Call;
@@ -73,6 +74,8 @@ public class AppClass extends Application {
 
     public CacheSQLiteHelper cacheSQLiteHelper;
     public FirebaseAnalytics mFirebaseAnalytics;
+    @Nullable
+    public DatabaseReference firebaseRefClusterMapContribute;
 
     public AppSettings.Theme.EnumTheme themeSettings;
     @StyleRes
@@ -298,10 +301,6 @@ public class AppClass extends Application {
         return ServiceGenerator.createService(ApiServiceAuthServer.class, this, false);
     }
 
-    public ApiServiceClusterMapContribute getApiServiceClusterMapContribute() {
-        return ServiceGenerator.createService(ApiServiceClusterMapContribute.class, this, false);
-    }
-
     /**
      * Method to init some data for user (/me, cursus, campus, tags).
      *
@@ -396,6 +395,7 @@ public class AppClass extends Application {
     void initFirebase() {
         try {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
+            firebaseRefClusterMapContribute = database.getReference("cluster_map");
         } catch (IllegalStateException | NullPointerException e) {
             e.printStackTrace();
             Crashlytics.logException(e);
