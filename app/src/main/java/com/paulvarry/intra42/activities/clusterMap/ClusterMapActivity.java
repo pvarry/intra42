@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import retrofit2.Response;
 
@@ -71,8 +72,10 @@ public class ClusterMapActivity
         super.onCreate(savedInstanceState);
 
         dataWrapper = (DataWrapper) getLastCustomNonConfigurationInstance();
-        if (dataWrapper != null && dataWrapper.clusters != null) {
-            clusterData = dataWrapper.clusters;
+        if (dataWrapper != null && dataWrapper.clusterData != null) {
+            clusterData = dataWrapper.clusterData;
+            layerSettings = dataWrapper.layerSettings;
+            layerSettingsInProgress = dataWrapper.layerSettingsInProgress;
         } else {
             clusterData = new ClusterData();
             layerSettings = new ClusterLayersSettings();
@@ -86,9 +89,8 @@ public class ClusterMapActivity
                 layerSettings.layerLocationPost = i.getStringExtra(ARG_LOCATION_HIGHLIGHT);
                 layerSettings.layer = ClusterLayersSettings.LayerStatus.LOCATION;
             }
+            layerSettingsInProgress = new ClusterLayersSettings(layerSettings);
         }
-
-        layerSettingsInProgress = new ClusterLayersSettings(layerSettings);
 
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
@@ -218,7 +220,8 @@ public class ClusterMapActivity
 
     void updateView() {
         clusterData.computeHighlightPosts(layerSettings);
-        viewPager.getAdapter().notifyDataSetChanged();
+        PagerAdapter adapter = viewPager.getAdapter();
+        if (adapter != null) adapter.notifyDataSetChanged();
         viewPager.invalidate();
     }
 
@@ -326,7 +329,9 @@ public class ClusterMapActivity
     @Override
     public final Object onRetainCustomNonConfigurationInstance() {
         DataWrapper data = new DataWrapper();
-        data.clusters = clusterData;
+        data.clusterData = clusterData;
+        data.layerSettings = layerSettings;
+        data.layerSettingsInProgress = layerSettingsInProgress;
         return data;
     }
 
@@ -338,6 +343,8 @@ public class ClusterMapActivity
     }
 
     private class DataWrapper {
-        ClusterData clusters;
+        ClusterLayersSettings layerSettingsInProgress;
+        ClusterLayersSettings layerSettings;
+        ClusterData clusterData;
     }
 }

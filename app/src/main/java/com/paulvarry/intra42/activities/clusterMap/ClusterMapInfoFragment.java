@@ -319,11 +319,11 @@ public class ClusterMapInfoFragment
         multiSliderLevels.setMax(22);
         multiSliderLevels.setMin(0);
 
-        adapterSpinnerSecondaryProject = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
+        adapterSpinnerSecondaryProject = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,
                 getResources().getStringArray(R.array.spinner_cluster_map_info_projects_kind));
         List<Cursus> cursus = CacheCursus.get(activity.app.cacheSQLiteHelper);
         if (cursus != null)
-            adapterSpinnerSecondaryLevels = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, Cursus.getStrings(cursus));
+            adapterSpinnerSecondaryLevels = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, Cursus.getStrings(cursus));
 
         spinnerMain.setSelection(activity.layerSettings.layer.getId());
         spinnerMain.setOnItemSelectedListener(this);

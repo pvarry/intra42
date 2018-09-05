@@ -85,23 +85,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="4dp"
                         android:entries="@array/spinner_cluster_map_info_main"
                         android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewLayer" />
+                        android:paddingBottom="4dp" />
 
                     <EditText
                         android:id="@+id/editText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="4dp"
                         android:ems="10"
                         android:hint="@string/cluster_map_info_layer_input_project"
                         android:inputType="text"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/spinnerSecondary" />
@@ -111,12 +109,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:drawSelectorOnTop="true"
                         android:entries="@array/spinner_cluster_map_info_projects_kind"
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/spinnerMain" />
 
@@ -223,7 +222,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
                         android:layout_marginBottom="8dp"
                         android:text="@string/cluster_map_info_button_update" />
 
@@ -252,7 +250,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
-                                android:tint="#ffffff"
+                                android:tint="?android:textColorPrimary"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/ic_warning_black_24dp" />

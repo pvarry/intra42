@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.api.cluster_map_contribute;
 
+import android.util.SparseArray;
+
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
@@ -66,11 +68,12 @@ public class Location implements Serializable {
                     break;
                 case LEVEL:
                     highlight = false;
-                    CursusUsers cursusUser = clusterData.cursusUsers.get(layersSettings.layerLevelCursus).get(user.id);
-                    if (cursusUser == null)
-                        break;
+                    SparseArray<CursusUsers> cursusUsersArray = clusterData.cursusUsers.get(layersSettings.layerLevelCursus);
+                    if (cursusUsersArray == null) break;
+                    CursusUsers cursusUser = cursusUsersArray.get(user.id);
+                    if (cursusUser == null) break;
                     if (!layersSettings.useClosedCursusUser &&
-                            (cursusUser.end_at == null || cursusUser.end_at.after(new Date())))
+                            cursusUser.end_at != null && cursusUser.end_at.after(new Date()))
                         break;
                     float level = cursusUser.level;
                     if (layersSettings.layerLevelMax == -1f) {

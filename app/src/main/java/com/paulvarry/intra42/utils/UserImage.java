@@ -3,20 +3,24 @@ package com.paulvarry.intra42.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.widget.ImageView;
-import androidx.appcompat.widget.AppCompatDrawableManager;
+
+import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Transformation;
+
+import androidx.appcompat.widget.AppCompatDrawableManager;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class UserImage {
 
-    public static final String BASE_URL = "http://cdn.intra.42.fr/users/";
+    public static final String BASE_URL = "https://cdn.intra.42.fr/users/";
 
     private static RequestCreator getImageLarge(Picasso picasso, String login) {
 
@@ -67,11 +71,19 @@ public class UserImage {
     }
 
     public static RequestCreator getRequestCreator(Context context, UsersLTE user, String type) {
-        Picasso picasso = Picasso.with(context);
+        Picasso.Builder builder = new Picasso.Builder(context);
+        builder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+
+        Picasso picasso = builder.build();
         RequestCreator requestCreator;
 
-//        if (BuildConfig.DEBUG)
-//            picasso.setLoggingEnabled(true);
+        if (BuildConfig.DEBUG)
+            picasso.setLoggingEnabled(true);
 
         switch (type) {
             case "large":
