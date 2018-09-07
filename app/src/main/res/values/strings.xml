@@ -507,7 +507,6 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
 <string name="cluster_map_info_project_dialog_not_found">"Not found"</string>
 <string name="cluster_map_info_project_dialog_not_found_content_format">"No project found for: %s"</string>
 <string name="cluster_map_info_layer_spinner_main_location">"Computer"</string>
-    <string name="cluster_map_info_layer_spinner_main_level">"Levels"</string>
 <string name="cluster_map_info_data_layer_description">"With this feature you can change the highlighted posts (color around the user image profile) on the cluster map, you just have to select the data layer you want and click on \"update\"."</string>
 <string name="cluster_map_info_data_layer_error">"error on loading and/or applying layer"</string>
 <string name="cluster_map_info_contribute_description">"Create, modify and fulfil cluster map for your campus. Help other students to find their friends from this map"</string>
@@ -566,9 +565,11 @@ You will be able to edit this cluster at _timeFuture_."</string>
 <string name="cluster_map_contribute_dialog_delete_message_row">"You are going to delete row on y=%d, this action can't be undo"</string>
 <string name="cluster_map_contribute_dialog_delete_message_col">"You are going to delete column on x=%d, this action can't be undo"</string>
 <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comment"</string>
-<string name="cluster_map_contribute_explanations">"Only one person can edit a cluster at the same time, so when you want to edit it, the cluster will be locked up for five minutes and only you can edit it.
+    <string name="cluster_map_contribute_explanations">"The cluster map can be edited by multiples users as the save time, you may see dynamics changes while you editing.
 
-Guideline: Cluster orientation
+Ready to be publish : When this flag is set, the cluster will be manually publish on the next update of the app.
+
+Cluster orientation :
     - All clusters of a Building must have the same orientation.
     - The north is not necessarily on the top, it is preferable to have the entrance of the Cluster on the bottom."</string>
 <string name="cluster_map_no_layout">"No layout available for this cluster"</string>
@@ -636,8 +637,9 @@ long click for more action"</string>
     <string name="login_open_custom_chrome_tabs">"log in"</string>
     <string name="login_custom_chrome_tabs_open_default_browser">"Open default browser"</string>
     <string name="login_error_web_browser_required">"You must install a web browser"</string>
-    <string name="cluster_map_info_levels_display_closed">Display closed users (like finished piscine)</string>
-    <string name="min">min</string>
-    <string name="max">max</string>
-    <string name="cluster_map_contribute_ready_publish">This cluster is ready to be published</string>
+    <string name="cluster_map_info_layer_spinner_main_level">"Levels"</string>
+    <string name="cluster_map_info_levels_display_closed">"Display closed students (like finished piscine)"</string>
+    <string name="min">"min"</string>
+    <string name="max">"max"</string>
+    <string name="cluster_map_contribute_ready_publish">"This cluster is ready to be published"</string>
 </resources>

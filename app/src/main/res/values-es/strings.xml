@@ -564,6 +564,8 @@ Descargo de responsabilidad: Este código no está de ninguna manera afiliado, a
 <string name="cluster_map_contribute_dialog_delete_message_row">"Vas a eliminar la fila y=%d, esta acción no puede deshacerse"</string>
 <string name="cluster_map_contribute_dialog_delete_message_col">"Vas a eliminar la columna en x=%d, esta acción no se puede deshacer"</string>
 <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comentario"</string>
+
+    <!-- Fuzzy -->
 <string name="cluster_map_contribute_explanations">"Solo se puede editar el grupo cuando eres el único editor, de modo que, cuando quieras editarlo, el grupo será bloqueado por 5 minutos y sólo tú podrás acceder a él.
 
 Guía: Orientación del grupo
