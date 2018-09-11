@@ -741,14 +741,13 @@ public class ClusterMapInfoFragment
     }
 
     private void layerLevelGetData() {
-        if (activity.clusterData.cursusUsers != null) {
+        if (activity.clusterData.cursusUsers != null &&
+                activity.clusterData.cursusUsers.get(activity.layerSettingsInProgress.layerLevelCursus) != null) {
             activity.applyLayerLevel();
             return;
         }
 
-        final List<CursusUsers> cursusUsersList = new ArrayList<>();
         final int pageSize = 100;
-
         progressBar.setRotation(0);
         progressBar.setMax((int) Math.ceil((float) activity.clusterData.locations.size() / (float) pageSize));
         progressBar.setIndeterminate(false);
@@ -756,15 +755,18 @@ public class ClusterMapInfoFragment
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                final List<CursusUsers> cursusUsersList = new ArrayList<>();
+
+                final ApiService api = activity.app.getApiService();
+                int cursusId = activity.layerSettingsInProgress.layerLevelCursus;
+                int id = 0;
+
                 try {
-
-                    int id = 0;
-
                     while (id < activity.clusterData.locations.size()) {
                         loadingViewUpdateProgress((int) Math.ceil((float) id / (float) pageSize));
                         String ids = UsersLTE.concatIds(new ArrayList<>(activity.clusterData.locations.values()), id, pageSize);
-                        final ApiService api = activity.app.getApiService();
-                        Response<List<CursusUsers>> response = api.getCursusUsers(ids, pageSize, 1).execute();
+                        Response<List<CursusUsers>> response = api.getCursusUsers(ids, cursusId, pageSize, 1).execute();
                         if (!Tools.apiIsSuccessfulNoThrow(response)) {
                             finishApplyLayerOnThread(false);
                             return;
@@ -777,6 +779,9 @@ public class ClusterMapInfoFragment
                     e.printStackTrace();
                 }
 
+                if (activity.clusterData.cursusUsers == null)
+                    activity.clusterData.cursusUsers = new SparseArray<>();
+                activity.clusterData.cursusUsers.append(cursusId, new SparseArray<CursusUsers>()); // mark this cluster data called once, and reset it
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

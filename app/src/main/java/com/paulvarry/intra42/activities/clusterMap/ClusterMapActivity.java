@@ -283,7 +283,8 @@ public class ClusterMapActivity
 
         if (cursusUsersList == null)
             return;
-        clusterData.cursusUsers = new SparseArray<>();
+        if (clusterData.cursusUsers == null)
+            clusterData.cursusUsers = new SparseArray<>();
 
         for (CursusUsers c : cursusUsersList) {
             if (c.user != null) {

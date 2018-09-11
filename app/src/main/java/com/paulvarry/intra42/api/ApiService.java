@@ -352,8 +352,8 @@ public interface ApiService {
     @GET("/v2/cursus?sort=name")
     Call<List<Cursus>> getCursus(@Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
 
-    @GET("/v2/cursus_users ")
-    Call<List<CursusUsers>> getCursusUsers(@Query("filter[user_id]") String user, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
+    @GET("/v2/cursus_users")
+    Call<List<CursusUsers>> getCursusUsers(@Query("filter[user_id]") String user, @Query("filter[cursus_id]") int cursus_id, @Query("page[size]") int pageSize, @Query("page[number]") int pageNumber);
 
     /* Campus */
     @GET("/v2/campus?sort=name")

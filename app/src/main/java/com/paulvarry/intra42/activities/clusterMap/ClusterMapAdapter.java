@@ -97,9 +97,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return new ViewHolderWall(li, parent);
             default:
                 return new ViewHolderCorridor(li, parent);
-
         }
-
     }
 
     @Override
@@ -158,7 +156,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 imageViewContent.clearColorFilter();
                 if (user != null) {
                     UserImage.setImageSmall(context, user, imageViewContent);
-                    if (levelSelectedCursus != null) {
+                    if (levelSelectedCursus != null && location.highlight) {
                         CursusUsers cursusUser = levelSelectedCursus.get(user.id);
                         if (cursusUser != null) {
                             textView.setVisibility(View.VISIBLE);
@@ -197,7 +195,6 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         ViewHolderCorridor(LayoutInflater inflater, ViewGroup parent) {
             super(new View(context));
-
 
         }
 
