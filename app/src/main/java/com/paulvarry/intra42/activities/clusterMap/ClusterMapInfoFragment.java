@@ -1,7 +1,6 @@
 package com.paulvarry.intra42.activities.clusterMap;
 
 import android.animation.Animator;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -53,6 +52,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -338,6 +338,12 @@ public class ClusterMapInfoFragment
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateButton();
+    }
+
     private int getSpinnerSecondaryPositionProject() {
         switch (activity.layerSettingsInProgress.layerProjectStatus) {
             case CREATING_GROUP:
@@ -390,6 +396,10 @@ public class ClusterMapInfoFragment
     }
 
     private void updateButton() {
+
+        if (!isAdded())
+            return;
+
         buttonUpdate.setEnabled(true);
         buttonUpdate.setText(R.string.cluster_map_info_button_update);
 
@@ -716,13 +726,30 @@ public class ClusterMapInfoFragment
         new Thread(new Runnable() {
             @Override
             public void run() {
+                final ApiService api = activity.app.getApiService();
+                String searchedProject = editText.getText().toString();
                 try {
 
+                    if (searchedProject.contentEquals(searchedProject.toLowerCase())) {
+                        // first try to use user's entered string as project slug
+                        Response<Projects> responseProject = api.getProject(searchedProject).execute();
+                        final Projects project = responseProject.body();
+                        if (Tools.apiIsSuccessfulNoThrow(responseProject) && project != null) {
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    layerProjectApplySlug(project.slug);
+                                }
+                            });
+                            return;
+                        }
+                    }
+
+                    // secondary, search a project with this string
                     List<Projects> projects = null;
-                    final ApiService api = activity.app.getApiService();
-                    Response<List<Projects>> response = api.getProjectsSearch(editText.getText().toString()).execute();
-                    if (Tools.apiIsSuccessfulNoThrow(response))
-                        projects = response.body();
+                    Response<List<Projects>> responseProjectList = api.getProjectsSearch(searchedProject).execute();
+                    if (Tools.apiIsSuccessfulNoThrow(responseProjectList))
+                        projects = responseProjectList.body();
 
                     final List<Projects> finalProjects = projects;
                     activity.runOnUiThread(new Runnable() {

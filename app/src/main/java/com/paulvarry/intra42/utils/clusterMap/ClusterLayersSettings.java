@@ -48,7 +48,7 @@ public class ClusterLayersSettings {
         return layer == o.layer &&
                 ((layer == LayerStatus.FRIENDS) ||
                         (layer == LayerStatus.USER && layerUserLogin.contentEquals(o.layerUserLogin)) ||
-                        (layer == LayerStatus.PROJECT && layerProjectSlug.contentEquals(layerProjectSlug) && layerProjectStatus != o.layerProjectStatus) ||
+                        (layer == LayerStatus.PROJECT && layerProjectSlug.contentEquals(o.layerProjectSlug) && layerProjectStatus == o.layerProjectStatus) ||
                         (layer == LayerStatus.LOCATION && layerLocationPost.contentEquals(layerLocationPost)) ||
                         (layer == LayerStatus.LEVEL && layerLevelMin == o.layerLevelMin &&
                                 layerLevelMax == o.layerLevelMax && layerLevelCursus == o.layerLevelCursus &&

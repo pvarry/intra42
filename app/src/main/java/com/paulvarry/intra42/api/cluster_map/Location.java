@@ -55,6 +55,7 @@ public class Location implements Serializable {
     }
 
     boolean computeHighlightPosts(ClusterData clusterData, ClusterLayersSettings layersSettings, UsersLTE user) {
+        highlight = false;
         if (clusterData != null && user != null)
             switch (layersSettings.layer) {
                 case FRIENDS:
@@ -67,17 +68,17 @@ public class Location implements Serializable {
                     break;
                 case PROJECT:
                     ProjectsUsers projectsUsers;
-                    if (clusterData.projectsUsers != null && (projectsUsers = clusterData.projectsUsers.get(user.id)) != null && projectsUsers.status == layersSettings.layerProjectStatus)
+                    if (clusterData.projectsUsers != null &&
+                            (projectsUsers = clusterData.projectsUsers.get(user.id)) != null &&
+                            projectsUsers.status == layersSettings.layerProjectStatus)
                         highlight = true;
                     break;
                 case LOCATION:
-                    if (host == null)
-                        highlight = false;
-                    else
-                        highlight = (layersSettings.layerLocationPost.contentEquals(host));
+                    if (host != null && (layersSettings.layerLocationPost.contentEquals(host)))
+                        highlight = true;
                     break;
                 case LEVEL:
-                    highlight = false;
+                    if (clusterData.cursusUsers == null) break;
                     SparseArray<CursusUsers> cursusUsersArray = clusterData.cursusUsers.get(layersSettings.layerLevelCursus);
                     if (cursusUsersArray == null) break;
                     CursusUsers cursusUser = cursusUsersArray.get(user.id);
