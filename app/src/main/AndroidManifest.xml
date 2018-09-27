@@ -33,6 +33,10 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
 
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="false" />
+
         <!-- - - - - - Receiver - - - - - -->
         <receiver android:name=".notifications.AlarmReceiverNotifications" />
         <receiver android:name=".notifications.AutoStart">
