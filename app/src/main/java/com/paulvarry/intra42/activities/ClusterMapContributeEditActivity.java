@@ -33,6 +33,7 @@ import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.api.cluster_map.Location;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
+import com.paulvarry.intra42.api.cluster_map_contribute.MapStore;
 import com.paulvarry.intra42.ui.BasicEditActivity;
 import com.paulvarry.intra42.utils.Tools;
 
@@ -210,11 +211,15 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     void buildMap() {
-
         long start = System.nanoTime();
 
         if (cluster == null)
             return;
+        if (cluster.map == null) {
+            cluster.map = new MapStore();
+            cluster.width = 10;
+            cluster.height = 10;
+        }
 
         gridLayout.removeAllViews();
         gridLayout.removeAllViewsInLayout();
