@@ -642,4 +642,5 @@ long click for more action"</string>
     <string name="min">"min"</string>
     <string name="max">"max"</string>
     <string name="cluster_map_contribute_ready_publish">"This cluster is ready to be published"</string>
+    <string name="slots_delete_dialog_error_booked">A slot can\'t be deleted, it changed state</string>
 </resources>

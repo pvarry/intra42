@@ -115,7 +115,10 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
     public String getUrlIntra() {
         switch (spinnerSelected) {
             case 0:
-                return "https://projects.intra.42.fr/projects/graph?login=" + app.me.login;
+                if (app.me != null)
+                    return "https://projects.intra.42.fr/projects/graph?login=" + app.me.login;
+                else
+                    return "https://projects.intra.42.fr/projects/graph";
             case 1:
                 return "https://projects.intra.42.fr/projects/list";
         }

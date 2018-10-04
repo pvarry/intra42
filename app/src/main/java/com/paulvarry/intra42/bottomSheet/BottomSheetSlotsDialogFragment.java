@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -440,12 +441,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     }
 
     private boolean deleteSlot(ProgressDialog progressDialog) {
-
-        if (slotsGroup.group == null) {
-            if (dialogFragment.isAdded() && !dialogFragment.isStateSaved())
-                progressDialog.dismiss();
-            return true;
-        }
+        if (!deleteSlotCanBeProceed(progressDialog)) return true;
+        SparseArray<Slots> verifySlots = deleteSlotGetVerificationData();
 
         boolean isSuccess = true;
         progressDialog.setMax(slotsGroup.group.size());
@@ -453,6 +450,19 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
         for (Slots slot : slotsGroup.group) {
             progressDialog.setProgress(i);
+            ++i;
+
+            Slots apiData = verifySlots.get(slot.id);
+            if (apiData != null && apiData.isBooked != slot.isBooked) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(activity, R.string.slots_delete_dialog_error_booked, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                continue;
+            }
+
             ApiService api = app.getApiService();
             Call<Slots> call = api.destroySlot(slot.id);
 
@@ -462,10 +472,29 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ++i;
         }
         if (dialogFragment.isAdded() && !dialogFragment.isStateSaved())
             progressDialog.dismiss();
         return isSuccess;
+    }
+
+    private boolean deleteSlotCanBeProceed(ProgressDialog progressDialog) {
+        if (slotsGroup.group == null) {
+            if (dialogFragment.isAdded() && !dialogFragment.isStateSaved())
+                progressDialog.dismiss();
+            return false;
+        }
+        return true;
+    }
+
+    private SparseArray<Slots> deleteSlotGetVerificationData() {
+        ApiService api = app.getApiService();
+        List<Slots> slotsTmp = Slots.getAll(api);
+        SparseArray<Slots> verifySlots = new SparseArray<>();
+        if (slotsTmp != null)
+            for (Slots s : slotsTmp) {
+                verifySlots.put(s.id, s);
+            }
+        return verifySlots;
     }
 }
