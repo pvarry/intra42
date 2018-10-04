@@ -20,6 +20,18 @@
 <string name="notifications_bookings_channel_name">"Заброниррованные"</string>
 <string name="notifications_bookings_channel_description">"Уведомления о коррекциях"</string>
 <string name="notifications_announcements_channel_name">"Объявления"</string>
+
+<!-- Format warning -->
+<string name="bookings_corrected_by">"Ваш проект будет проверен в _date_"</string>
+
+<!-- Format warning -->
+<string name="bookings_corrected_by_login">"Ваш проект будет проверять _login_ в _date_."</string>
+
+<!-- Format warning -->
+<string name="bookings_correct_login">"Вы будете проверять проект _login_ в _date_."</string>
+
+<!-- Format warning -->
+<string name="bookings_correct_somebody">"Вы будете проверять чей-то код в _date_."</string>
 <string name="campus">"Кампус"</string>
 <string name="cursus">"Курс"</string>
 <string name="cancel">"Отмена"</string>
@@ -55,12 +67,14 @@
 <string name="evaluation_slot_start_before_end">"В нашем пространстве-времени начало должно быть перед концом, а не наоборот"</string>
 <string name="evaluation_slot_success">"успешно"</string>
 <string name="evaluation_someone">"кто-то"</string>
+<string name="evaluations_booked_slot">"Забронированный слот"</string>
 <string name="event_full">"Заполнено"</string>
 <string name="event_subscribe">"Записаться"</string>
 <string name="event_subscribed">"Запись успешна"</string>
 <string name="event_subscription_unavailable">"Запись недоступна"</string>
 <string name="event_unsubscribe">"Отменить запись"</string>
 <string name="event_unsubscribed">"Запись отменена"</string>
+<string name="forum_confirmation_delete_message">"Вы уверены, что хотите удалить это сообщение?"</string>
 <string name="forum_created_at">"Создано"</string>
 <string name="forum_delete_message">"Удалить сообщение"</string>
 <string name="forum_delete_topic">"Удалить тему"</string>
@@ -87,16 +101,21 @@
 <string name="info_error_on_loading_this_page">"Ошибка загрузки страницы"</string>
 <string name="info_initializing">"Инициализация"</string>
 <string name="info_loading">"загрузка..."</string>
-<string name="info_loading_please_wait">"Загрузка. Пожалуйста, подожди"</string>
-<string name="info_network_no_internet">"не получилось подключиться к интернету"</string>
+<string name="info_loading_please_wait">"Загрузка. Пожалуйста, подождите..."</string>
+<string name="info_network_no_internet">"невозможно подключиться к интернету"</string>
 <string name="info_nothing_to_show">"Тут ничего нет"</string>
 <string name="language_english">"Английский"</string>
 <string name="language_french">"Французский"</string>
 <string name="language_romanian">"Румынский"</string>
 <string name="language_ukrainian">"Украинский"</string>
+<string name="menu_action_filter">"фильтр"</string>
+<string name="menu_action_search">"Поиск"</string>
+<string name="menu_action_settings">"Настройки"</string>
+<string name="navigation_cluster_map">"Карта Кластера"</string>
+<string name="navigation_time_on_campus">"Текущее время в разных кампусах"</string>
 <string name="notification_auto_clear">"закрытие через 5с"</string>
 <string name="notification_bookings_title_imminent">"Скоро коррекция"</string>
-<string name="notification_bookings_title_new">"У тебя новое бронирование"</string>
+<string name="notification_bookings_title_new">"У вас новое бронирование"</string>
 <string name="notification_see_project">"посмотреть проект"</string>
 <string name="notification_see_user">"посмотреть пользователя"</string>
 <string name="project_automatic_correction">"Автоматическая оценка"</string>
@@ -122,12 +141,13 @@
 <string name="time_zone_error">"Ошибка часового пояса"</string>
 <string name="title">"Заголовок"</string>
 <string name="title_activity_about">"Описание"</string>
-<string name="title_activity_cantina_menu">"Меню Кантины (Фремонт)"</string>
+<string name="title_activity_cantina_menu">"Меню Кантины (Фримонт)"</string>
 <string name="title_activity_cluster_map">"Карта кластера"</string>
 <string name="title_activity_elearning">"Обучение"</string>
 <string name="title_activity_event">"Событие"</string>
 <string name="title_activity_forum_new_topic">"Новая тема"</string>
 <string name="title_activity_friends">"Друзья"</string>
+<string name="title_activity_library_list">"Список библиотек"</string>
 <string name="title_activity_project">"Проект"</string>
 <string name="title_activity_projects">"Проекты"</string>
 <string name="title_activity_search">"Поиск"</string>
@@ -136,9 +156,14 @@
 <string name="title_activity_time">"Время"</string>
 <string name="title_activity_topic">"Тема"</string>
 <string name="title_activity_user">"Пользователь"</string>
+<string name="title_activity_user_location_history">"История местоположений"</string>
 <string name="title_activity_users">"Пользователи"</string>
 <string name="title_tab_elearning_all">"Все"</string>
 <string name="title_tab_elearning_tags">"Теги"</string>
+<string name="title_tab_home_evaluation">"Оценивание"</string>
+<string name="title_tab_home_home">"Главная"</string>
+<string name="title_tab_home_past_events">"Прошедшие мероприятия"</string>
+<string name="title_tab_home_slots">"Слоты"</string>
 <string name="title_tab_user_forum">"Форум"</string>
 <string name="title_tab_user_overview">"Обзор"</string>
 <string name="title_tab_user_partnerships">"Партнёрские программы"</string>
@@ -155,15 +180,22 @@
 <string name="user_level">"Уровень"</string>
 <string name="user_location">"Местоположение"</string>
 <string name="user_mobile_phone">"Мобильный телефон"</string>
+<string name="home_help_POEditor">"Если вы нашли грамматические ошибки или вы хотите перевести это приложение, вы можете это сделать с помощью POEditor, нажав здесь"</string>
+<string name="pref_notifications_frequency_titles_15min">"15 минут"</string>
+<string name="pref_notifications_frequency_titles_30min">"30 минут"</string>
+<string name="pref_notifications_frequency_titles_1hour">"1 час"</string>
 <string name="pref_notifications_frequency_titles_3hour">"3 часа"</string>
 <string name="pref_notifications_frequency_titles_6hour">"6 часов"</string>
 <string name="pref_notifications_frequency_titles_never">"Никогда"</string>
 <string name="spinner_user_projects_all">"Все"</string>
 <string name="spinner_user_projects_in_progress">"В процессе"</string>
 <string name="user_wallet_money">"Кошелёк"</string>
-<string name="about_on_github">"на гитхабе"</string>
+<string name="about_on_github">"на Github"</string>
 <string name="about_report_bug">"Сообщить о баге"</string>
 <string name="info_api_unauthorized">"Тебе этого нельзя"</string>
+<string name="pref_category_notifications">"Уведомления"</string>
+<string name="pref_summary_notifications_events">"Уведомлять о новых событиях, опубликованных в интранете 42"</string>
+<string name="pref_summary_notifications_scales">"Напоминать мне о проверках"</string>
 <string name="pref_title_calendar">"Синхронизация событий"</string>
 <string name="friend_group_name">"Название группы"</string>
 <string name="friends">"Друзья"</string>
@@ -189,6 +221,10 @@
 <string name="coalition_score">"Счет"</string>
 <string name="refreshing">"Обновление"</string>
 <string name="title_tab_user_apps">"Приложения"</string>
+
+<!-- Format warning -->
+<string name="format__user_profile">"Профиль %s"</string>
+<string name="cluster_map_not_in_campus">"Карта кластера пока не доступна для вашего кампуса"</string>
 <string name="project_team_status_closed">"закрыто"</string>
 <string name="project_team_status_locked">"заблокировано"</string>
 <string name="title_tab_forum_last_topics">"Последние темы"</string>
@@ -203,5 +239,15 @@
 <string name="info_loading_topic">"Загрузка темы..."</string>
 <string name="login_summary">"Интранет"</string>
 <string name="_super_store_title">"Интра 42"</string>
+<string name="shortcut_cluster_map">"Кластеры"</string>
+<string name="shortcut_long_galaxy">"Holy Graph (проекты)"</string>
 <string name="pref_title_advanced_data_save_logs">"Сохранить логи на диск"</string>
+<string name="pref_title_advanced_data_past_events">"Прошедшие события"</string>
+<string name="cluster_map_info_clusters">"Кластеры"</string>
+<string name="cluster_map_info_layer_spinner_main_friends">"Друзья"</string>
+<string name="cluster_map_info_layer_spinner_main_login">"Пользователь"</string>
+<string name="cluster_map_info_layer_spinner_main_coalitions">"Коалиции"</string>
+<string name="cluster_map_info_layer_spinner_main_location">"Компьютер"</string>
+<string name="cluster_map_info_contribute_description">"Создавать, изменять и дополнять карту кластера для вашего кампуса. Помочь другим студентам найти своих друзей на этой карте"</string>
+<string name="cluster_map_info_contribute_title">"Добавить отсутствующий кластер"</string>
 </resources>

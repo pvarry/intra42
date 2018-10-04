@@ -565,7 +565,7 @@ You will be able to edit this cluster at _timeFuture_."</string>
 <string name="cluster_map_contribute_dialog_delete_message_row">"You are going to delete row on y=%d, this action can't be undo"</string>
 <string name="cluster_map_contribute_dialog_delete_message_col">"You are going to delete column on x=%d, this action can't be undo"</string>
 <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comment"</string>
-    <string name="cluster_map_contribute_explanations">"The cluster map can be edited by multiples users as the save time, you may see dynamics changes while you editing.
+<string name="cluster_map_contribute_explanations">"The cluster map can be edited by multiples users as the save time, you may see dynamics changes while you editing.
 
 Ready to be publish : When this flag is set, the cluster will be manually publish on the next update of the app.
 
@@ -589,9 +589,7 @@ Cluster orientation :
 <string name="introduction_calendar_image_content_description">"calendar illustration"</string>
 <string name="introduction_translation_title">"Join the Translate Community"</string>
 <string name="introduction_translation_description">"If you find grammatical mistakes or if you want to translate this app, you can do it with POEditor."</string>
-
-<!-- Fuzzy -->
-<string name="introduction_translation_action">"Edit strings ressources"</string>
+<string name="introduction_translation_action">"Edit strings resources"</string>
 <string name="introduction_translation_text_bottom">"Grammar Nazis are welcome"</string>
 <string name="introduction_translate_image_content_description">"translate illustration"</string>
 <string name="about_show_introduction">"Show Introduction"</string>
@@ -633,14 +631,14 @@ long click for more action"</string>
 
 <!-- Short word (under 6 char) -->
 <string name="save_short">"Save"</string>
-    <string name="sign_in_error_invalid_grant">"You can't use this app right now, your 42 account is maybe closed"</string>
-    <string name="login_open_custom_chrome_tabs">"log in"</string>
-    <string name="login_custom_chrome_tabs_open_default_browser">"Open default browser"</string>
-    <string name="login_error_web_browser_required">"You must install a web browser"</string>
-    <string name="cluster_map_info_layer_spinner_main_level">"Levels"</string>
-    <string name="cluster_map_info_levels_display_closed">"Display closed students (like finished piscine)"</string>
-    <string name="min">"min"</string>
-    <string name="max">"max"</string>
-    <string name="cluster_map_contribute_ready_publish">"This cluster is ready to be published"</string>
-    <string name="slots_delete_dialog_error_booked">A slot can\'t be deleted, it changed state</string>
+<string name="sign_in_error_invalid_grant">"You can't use this app right now, your 42 account is maybe closed"</string>
+<string name="login_open_custom_chrome_tabs">"log in"</string>
+<string name="login_custom_chrome_tabs_open_default_browser">"Open default browser"</string>
+<string name="login_error_web_browser_required">"You must install a web browser"</string>
+<string name="cluster_map_info_layer_spinner_main_level">"Levels"</string>
+<string name="cluster_map_info_levels_display_closed">"Display closed students (like finished piscine)"</string>
+<string name="min">"min"</string>
+<string name="max">"max"</string>
+<string name="cluster_map_contribute_ready_publish">"This cluster is ready to be published"</string>
+<string name="slots_delete_dialog_error_booked">"A slot can't be deleted, it changed state"</string>
 </resources>

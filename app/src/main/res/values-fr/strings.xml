@@ -64,7 +64,7 @@
 <string name="shortcut_friends">"Amis"</string>
 <string name="shortcut_long_friends">"Liste d'amis"</string>
 <string name="shortcut_long_cluster_map">"Map des clusters"</string>
-    <string name="shortcut_galaxy">"Saint Graph"</string>
+<string name="shortcut_galaxy">"Saint Graph"</string>
 <string name="about_content">"Accede a ton intra avec cette application native.
 Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="about_version">"Version"</string>
@@ -115,7 +115,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="galaxy_available">"Disponible"</string>
 <string name="galaxy_failed">"Échoué"</string>
 <string name="galaxy_in_progress">"en cours"</string>
-    <string name="galaxy_not_found">"Pas de Saint Graph disponible"</string>
+<string name="galaxy_not_found">"Pas de Saint Graph disponible"</string>
 <string name="galaxy_succeeded">"Réussi"</string>
 <string name="galaxy_unavailable">"Indisponible"</string>
 <string name="galaxy_unknown_state">"État inconnu"</string>
@@ -227,7 +227,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="title_tab_project_me">"Moi"</string>
 <string name="title_tab_project_overview">"Aperçu"</string>
 <string name="title_tab_project_users">"Utilisateurs"</string>
-    <string name="title_tab_projects_graphic">"Saint Graph"</string>
+<string name="title_tab_projects_graphic">"Saint Graph"</string>
 <string name="title_tab_tags_forum">"Forum"</string>
 <string name="title_tab_tags_notions">"Notions"</string>
 <string name="title_tab_user_achievements">"Réalisations"</string>
@@ -274,7 +274,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="list_preference_network_titles_default">"Défaut (200x240)"</string>
 <string name="list_preference_network_titles_small">"Petit (146x175)"</string>
 <string name="list_preference_network_titles_none">"Aucun"</string>
-    <string name="spinner_user_projects_galaxy">"Saint Graph"</string>
+<string name="spinner_user_projects_galaxy">"Saint Graph"</string>
 <string name="spinner_user_projects_all">"Tous"</string>
 <string name="spinner_user_projects_in_progress">"En cours"</string>
 <string name="accessibility_navigation_drawer_close">"Fermer le navigateur"</string>
@@ -336,7 +336,7 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
 <string name="coalitions_nothing_selected_cursus_campus">"Aucune coalition pour le cursus/campus"</string>
 <string name="friends_adding_to_group">"Ajouter un ami à un groupe"</string>
 <string name="friends_removing_from_group">"Enlever des amis de ce groupe"</string>
-    <string name="galaxy_no_live_data">"Impossible de récupérer la version courante du Saint Graph"</string>
+<string name="galaxy_no_live_data">"Impossible de récupérer la version courante du Saint Graph"</string>
 <string name="coalition_score">"Score"</string>
 <string name="refreshing">"Mise a jour"</string>
 <string name="info_data_cached_long_time_ago">"Donnees mise en cache il y a long temps"</string>
@@ -484,7 +484,7 @@ N'oubliez pas d'avoir un pdf viewer et un lecteur multimédia installer, je vous
 
 Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu ou approuvé par 42. Cet application Android est indépendante et non officielle."</string>
 <string name="shortcut_cluster_map">"Clusters"</string>
-    <string name="shortcut_long_galaxy">"Saint Graph (projects)"</string>
+<string name="shortcut_long_galaxy">"Saint Graph (projects)"</string>
 <string name="bookings_correct_login_project">"Vous allez corriger _login_ sur _project_ le _date_"</string>
 <string name="pref_title_advanced_data_allow_beta">"Activer les paramètres avancés"</string>
 <string name="pref_summary_advanced_data_print_ids">"Activer ceci pour afficher les ids et les slugs dans l'application"</string>
@@ -576,7 +576,7 @@ La modification sera possible à _timeFuture_."</string>
 <string name="cluster_map_contribute_dialog_delete_message_row">"Vous êtes sur le point de supprimer la ligne y=%d, cette action est irréversible"</string>
 <string name="cluster_map_contribute_dialog_delete_message_col">"Vous êtes sur le point de supprimer la colonne y=%d, cette action est irréversible"</string>
 <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Commentaire"</string>
-    <string name="cluster_map_contribute_explanations">"La carte des cluster peut être modifier par plusieurs personnes en meme temps, vous pouvez voir des changements dynamiques quand vous faites vos modifications.
+<string name="cluster_map_contribute_explanations">"La carte des cluster peut être modifier par plusieurs personnes en meme temps, vous pouvez voir des changements dynamiques quand vous faites vos modifications.
 
 Pres a être publié : Quand cet option est coché, le cluster en question vas être publie manuellement a la prochaine mise a jour de l'application.  
 
@@ -626,31 +626,31 @@ Orientation des Clusters :
 <string name="cluster_map_info_layer_spinner_main_none">"Aucun"</string>
 <string name="hint_date">"Date"</string>
 <string name="hint_time">"heure"</string>
-    <string name="project_team_users_toast_leader">"%s (chef d'équipe)
+<string name="project_team_users_toast_leader">"%s (chef d'équipe)
 clique long pour plus d'action"</string>
-    <string name="project_team_users_toast">"%s
+<string name="project_team_users_toast">"%s
 clique long pour plus d'action"</string>
-    <string name="format_project_team_users_action_open">"Ouvrir {project} de {user}"</string>
+<string name="format_project_team_users_action_open">"Ouvrir {project} de {user}"</string>
 <string name="spinner_user_projects_my_projects">"Mes projets"</string>
-    <string name="info_loading_cache_cursus_campus">"Récupération du cache pour Cursus et Campus"</string>
-    <string name="title_tab_user_patronages">"Parrainages"</string>
-    <string name="user_patronages_patron">"Parrain"</string>
-    <string name="user_patronages_no_patron">"PAS DE PARRAIN"</string>
-    <string name="user_patronages_patroning">"Parraine"</string>
-    <string name="user_patronages_no_patroning">"NE PARRAINE PERSONNE"</string>
-    <string name="retry">"Réessayer"</string>
-    <string name="cluster_map_info_layer_warning_disabled">"Impossible d'afficher cet couche, le est en cours de maintenance, essayer plus tard"</string>
-    <string name="friends_warning">"Les amis ne sont pas accessibles, le serveur est en cours de maintenance"</string>
+<string name="info_loading_cache_cursus_campus">"Récupération du cache pour Cursus et Campus"</string>
+<string name="title_tab_user_patronages">"Parrainages"</string>
+<string name="user_patronages_patron">"Parrain"</string>
+<string name="user_patronages_no_patron">"PAS DE PARRAIN"</string>
+<string name="user_patronages_patroning">"Parraine"</string>
+<string name="user_patronages_no_patroning">"NE PARRAINE PERSONNE"</string>
+<string name="retry">"Réessayer"</string>
+<string name="cluster_map_info_layer_warning_disabled">"Impossible d'afficher cet couche, le est en cours de maintenance, essayer plus tard"</string>
+<string name="friends_warning">"Les amis ne sont pas accessibles, le serveur est en cours de maintenance"</string>
 
-    <!-- Short word (under 6 char) -->
-    <string name="save_short">"Sauv."</string>
-    <string name="sign_in_error_invalid_grant">"Vous ne pouvez pas utiliser cet application pour le moment, votre compte 42 est peut-être close"</string>
-    <string name="login_open_custom_chrome_tabs">"connexion"</string>
-    <string name="login_custom_chrome_tabs_open_default_browser">"Ouvrir le navigateur par defaut"</string>
-    <string name="login_error_web_browser_required">"Vous devez installer un navigateur web"</string>
-    <string name="cluster_map_info_layer_spinner_main_level">"Niveaux"</string>
-    <string name="cluster_map_info_levels_display_closed">"Afficher les étudients close (comme les piscine fini)"</string>
-    <string name="min">"min"</string>
-    <string name="max">"max"</string>
-    <string name="cluster_map_contribute_ready_publish">"Prêt à être publié"</string>
+<!-- Short word (under 6 char) -->
+<string name="save_short">"Sauv."</string>
+<string name="sign_in_error_invalid_grant">"Vous ne pouvez pas utiliser cet application pour le moment, votre compte 42 est peut-être close"</string>
+<string name="login_open_custom_chrome_tabs">"connexion"</string>
+<string name="login_custom_chrome_tabs_open_default_browser">"Ouvrir le navigateur par defaut"</string>
+<string name="login_error_web_browser_required">"Vous devez installer un navigateur web"</string>
+<string name="cluster_map_info_layer_spinner_main_level">"Niveaux"</string>
+<string name="cluster_map_info_levels_display_closed">"Afficher les étudients close (comme les piscine fini)"</string>
+<string name="min">"min"</string>
+<string name="max">"max"</string>
+<string name="cluster_map_contribute_ready_publish">"Prêt à être publié"</string>
 </resources>
