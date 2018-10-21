@@ -10,44 +10,40 @@ old_files = Dir.entries(OUTPUT_PATH)
                .map{|i| File.join(OUTPUT_PATH, i)}
 File.delete(*old_files) if old_files.any?
 
-def get_pad(key)
-  conn = Net::HTTP.new('jsonblob.com', 443)
-  conn.use_ssl = true
-  conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-  req = Net::HTTP::Get.new("/api/jsonBlob/#{key}")
-  res = conn.request(req)
-
-  JSON.parse(res.body) if res.kind_of? Net::HTTPSuccess
-end
-
-masters = get_pad('9d4791dc-1bd4-11e8-88aa-9d6752c34362')
-maps = masters.map { |master|
-                cluster_map = get_pad(master['key'])
+masters = JSON.parse(File.read("cluster_map-export.json"))
+maps = masters.map { |slug, cluster_map|
 
                 if cluster_map.nil?
-                  puts "[not found] ― #{master['name']} (#{master['key']})"
+                  puts "[not found] ― #{cluster_map['name']} (#{slug})"
                   next
                 end
 
                 unless cluster_map['isReadyToPublish']
-                  puts "[not ready] ― #{master['name']} (#{master['key']})"
+                  puts "[not ready] ― #{cluster_map['name']} (#{slug})"
                   next
                 end
-                puts "[good]      ― #{master['name']} (#{master['key']})"
+                puts "[good]      ― #{cluster_map['name']} (#{slug})"
 
                 cluster_map
               }
               .reject { |cluster_map| cluster_map.nil? }
               .map { |cluster_map|
                 cluster_map['map']&.map! do |col|
+
+                  if col.is_a?(Hash)
+                    col = (0..(col.keys.last.to_i)).map do |i|
+                      col[i.to_s]
+                    end
+                  end
+
+            
                   col&.map! do |cel|
                     next if cel.nil?
 
                     if cel['host'] == 'TBD' || cel['host'] == 'null'
                       cel.delete('host')
                     elsif cel['host'] != nil
-                      cel['host'] = cluster_map['host_prefix'] + cel['host']
+                      cel['host'] = cluster_map['hostPrefix'] + cel['host']
                     end
 
                     cel
@@ -57,7 +53,7 @@ maps = masters.map { |master|
                 cluster_map
               }
               .sort_by { |cluster_map| cluster_map['position'] }
-              .group_by { |cluster_map| cluster_map['campus_id'] }
+              .group_by { |cluster_map| cluster_map['campusId'] }
 
 maps.each do |campus_id, cluster_maps|
   File.write(File.join(OUTPUT_PATH, "cluster_map_campus_#{campus_id}.json"), cluster_maps.to_json)

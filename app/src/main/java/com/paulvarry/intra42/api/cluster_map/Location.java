@@ -27,15 +27,15 @@ public class Location implements Serializable {
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("scale_x")
+    @SerializedName("sizeX")
     public float sizeX;
     /**
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("scale_y")
+    @SerializedName("sizeY")
     public float sizeY;
-    @SerializedName("rot")
+    @SerializedName("angle")
     public float angle;
 
     public transient boolean highlight = false;
@@ -99,6 +99,6 @@ public class Location implements Serializable {
     }
 
     public enum Kind implements Serializable {
-        @SerializedName("user") USER, @SerializedName("corridor") CORRIDOR, @SerializedName("wall") WALL
+        @SerializedName("USER") USER, @SerializedName("CORRIDOR") CORRIDOR, @SerializedName("WALL") WALL
     }
 }

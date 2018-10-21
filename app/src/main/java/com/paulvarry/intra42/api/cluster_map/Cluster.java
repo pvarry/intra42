@@ -18,9 +18,9 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
     public String name;
     public String nameShort;
     public String slug;
-    @SerializedName("host_prefix")
+    @SerializedName("hostPrefix")
     public String hostPrefix;
-    @SerializedName("campus_id")
+    @SerializedName("campusId")
     public int campusId;
     @SerializedName("position")
     public int clusterPosition;

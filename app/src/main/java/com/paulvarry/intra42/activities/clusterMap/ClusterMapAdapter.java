@@ -59,7 +59,8 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         baseItemWidth = Tools.dpToPx(context, 35);
         this.layerSettings = layerSettings;
 
-        if (layerSettings.layer == ClusterLayersSettings.LayerStatus.LEVEL)
+        if (layerSettings.layer == ClusterLayersSettings.LayerStatus.LEVEL &&
+                clusterData.cursusUsers != null)
             levelSelectedCursus = clusterData.cursusUsers.get(layerSettings.layerLevelCursus);
     }
 
@@ -67,7 +68,13 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemViewType(int position) {
         int x = position % cluster.sizeX;
         int y = position / cluster.sizeX;
-        Location location = cluster.map[x][y];
+        Location location = null;
+
+        try {
+            location = cluster.map[x][y];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
         if (location == null || location.kind == null)
             return VIEW_TYPE_CORRIDOR;
@@ -107,7 +114,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof ViewHolderUser)
             ((ViewHolderUser) holder).bind(cluster.map[x][y]);
         else if (holder instanceof ViewHolderCorridor)
-            ((ViewHolderCorridor) holder).bind(cluster.map[x][y]);
+            ((ViewHolderCorridor) holder).bind();
         else if (holder instanceof ViewHolderWall)
             ((ViewHolderWall) holder).bind(cluster.map[x][y], x, y);
     }
@@ -198,7 +205,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         }
 
-        void bind(Location location) {
+        void bind() {
 
             GridLayoutManager.LayoutParams paramsGridLayout = (GridLayoutManager.LayoutParams) itemView.getLayoutParams();
             if (paramsGridLayout == null)
