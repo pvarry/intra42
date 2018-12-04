@@ -1,13 +1,31 @@
 *.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
+/.idea/caches/build_file_checksums.ser
 /.idea/libraries
-.DS_Store
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/assetWizardSettings.xml
+/.idea/navEditor.xml
 /build
 /captures
+.externalNativeBuild
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/dbnavigator.xml
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Built application files
+/*/build/
 *.apk
 
 app/src/*/google-services.json
-
 app/src/**/java/com/paulvarry/intra42/Credential.java

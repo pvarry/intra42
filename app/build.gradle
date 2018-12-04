@@ -104,7 +104,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
@@ -112,12 +112,12 @@ dependencies {
     implementation 'com.github.Commit451:bypasses:1.1.0'
     implementation 'com.github.Plumillon:ChipView:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-config:16.0.1'
-    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+    implementation 'com.google.firebase:firebase-config:16.1.0'
+    implementation 'com.google.firebase:firebase-database:16.0.5'
     implementation 'com.pnikosis:materialish-progress:1.7'
     implementation 'com.splitwise:tokenautocomplete:2.0.8'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -132,10 +132,10 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.github.apl-devs:appintro:v4.2.3'
     implementation 'com.jaredrummler:twodscrollview:1.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.pvarry:android-json-viewer:v1.1'
-    implementation 'com.android.support:customtabs:27.1.0'
+    implementation 'com.android.support:customtabs:28.0.0'
     implementation 'io.apptik.widget:multislider:1.3'
 }
 

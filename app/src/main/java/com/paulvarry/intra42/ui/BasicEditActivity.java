@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
+
 import com.paulvarry.intra42.R;
+
+import androidx.appcompat.app.AlertDialog;
 
 public abstract class BasicEditActivity extends BasicThreadActivity {
 
@@ -142,8 +144,19 @@ public abstract class BasicEditActivity extends BasicThreadActivity {
             menuItemDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    progressDialog.show();
-                    onDelete(callBackDelete);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(viewContent.getContext());
+                    builder.setMessage(R.string.dialog_delete_message);
+                    builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            progressDialog.show();
+                            onDelete(callBackDelete);
+                        }
+                    });
+                    builder.setNegativeButton(android.R.string.cancel, null);
+                    builder.show();
+
                     return true;
                 }
             });

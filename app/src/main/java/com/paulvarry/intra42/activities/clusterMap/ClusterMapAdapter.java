@@ -72,7 +72,7 @@ public class ClusterMapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         try {
             location = cluster.map[x][y];
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             e.printStackTrace();
         }
 

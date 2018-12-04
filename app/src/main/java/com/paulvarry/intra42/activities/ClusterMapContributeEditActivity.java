@@ -26,6 +26,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
@@ -172,8 +173,13 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     }
 
     @Override
-    protected void onDelete(Callback callBack) {
-
+    protected void onDelete(final Callback callBack) {
+        app.firebaseRefClusterMapContribute.child(clusterSlug).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                callBack.succeed();
+            }
+        });
     }
 
     void save() {
