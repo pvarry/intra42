@@ -5,13 +5,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.Users;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 
 /**
  * This class is a interface for app Settings set with {@link com.paulvarry.intra42.activities.SettingsActivity SettingsActivity}.
@@ -126,22 +128,33 @@ public class AppSettings {
             return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_ADVANCED, false);
         }
 
+        public static void setAllowAdvanced(Context context, boolean activated) {
+            if (context != null)
+                setAllowAdvanced(getSharedPreferences(context), activated);
+        }
+
+        public static void setAllowAdvanced(SharedPreferences settings, boolean activated) {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(PREFERENCE_ADVANCED_ALLOW_ADVANCED, activated);
+            editor.apply();
+        }
+
+        // advanced data
         public static boolean getAllowAdvancedData(Context context) {
             return context != null && getAllowAdvancedData(getSharedPreferences(context));
         }
 
-        // advanced data
         public static boolean getAllowAdvancedData(SharedPreferences settings) {
             return getAllowAdvanced(settings) && settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_DATA, false);
         }
 
+        // markdown renderer
         public static boolean getAllowMarkdownRenderer(Context context) {
             if (context == null)
                 return false;
             return getAllowMarkdownRenderer(getSharedPreferences(context));
         }
 
-        // markdown renderer
         public static boolean getAllowMarkdownRenderer(SharedPreferences settings) {
             if (getAllowAdvanced(settings))
                 return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_MARKDOWN, true);
@@ -149,11 +162,11 @@ public class AppSettings {
                 return true;
         }
 
+        // friends
         public static boolean getAllowPastEvents(Context context) {
             return context != null && getAllowPastEvents(getSharedPreferences(context));
         }
 
-        // friends
         public static boolean getAllowPastEvents(SharedPreferences settings) {
             if (getAllowAdvanced(settings))
                 return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_PAST_EVENTS, false);
@@ -161,11 +174,12 @@ public class AppSettings {
                 return false;
         }
 
+        // save logs
         public static boolean getAllowSaveLogs(Context context) {
             return context != null && getAllowSaveLogs(getSharedPreferences(context));
         }
 
-        // save logs
+
         public static boolean getAllowSaveLogs(SharedPreferences settings) {
             if (getAllowAdvanced(settings))
                 return settings.getBoolean(PREFERENCE_ADVANCED_ALLOW_SAVE_LOGS, true);
@@ -173,6 +187,18 @@ public class AppSettings {
                 return false;
         }
 
+        public static void setAllowSaveLogs(Context context, boolean activated) {
+            if (context != null)
+                setAllowSaveLogs(getSharedPreferences(context), activated);
+        }
+
+        public static void setAllowSaveLogs(SharedPreferences settings, boolean activated) {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(PREFERENCE_ADVANCED_ALLOW_SAVE_LOGS, activated);
+            editor.apply();
+        }
+
+        // force campus
         public static int getContentForceCampus(Context context) {
             if (context == null)
                 return -1;
@@ -180,7 +206,6 @@ public class AppSettings {
                 return getContentForceCampus(getSharedPreferences(context));
         }
 
-        // force campus
         public static int getContentForceCampus(SharedPreferences settings) {
             if (getAllowAdvanced(settings))
                 return Integer.parseInt(settings.getString(PREFERENCE_ADVANCED_FORCE_CAMPUS, "-1"));
@@ -188,6 +213,7 @@ public class AppSettings {
                 return -1;
         }
 
+        // force cursus
         public static int getContentForceCursus(Context context) {
             if (context == null)
                 return -1;
@@ -195,7 +221,6 @@ public class AppSettings {
                 return getContentForceCursus(getSharedPreferences(context));
         }
 
-        // force cursus
         public static int getContentForceCursus(SharedPreferences settings) {
             if (getAllowAdvanced(settings))
                 return Integer.parseInt(settings.getString(PREFERENCE_ADVANCED_FORCE_CURSUS, "-1"));

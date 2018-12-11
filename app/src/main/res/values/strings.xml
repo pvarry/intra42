@@ -642,4 +642,8 @@ long click for more action"</string>
 <string name="cluster_map_contribute_ready_publish">"This cluster is ready to be published"</string>
 <string name="slots_delete_dialog_error_booked">"A slot can't be deleted, it changed state"</string>
     <string name="dialog_delete_message">Do you to delete this element, this action can\'t be undo ?</string>
+    <string name="error_server_contect_support">Error server, please contact support</string>
+    <string name="dialog_enable_app_logs">Enable Logs</string>
+    <string name="toast_logs_disabled">Logs disabled</string>
+    <string name="dont_forget_to_restart">Don\'t forget to restart the app</string>
 </resources>

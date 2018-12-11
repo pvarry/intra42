@@ -1,10 +1,10 @@
 package com.paulvarry.intra42.activities;
 
 import android.app.ActivityManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -37,6 +37,7 @@ import com.paulvarry.intra42.utils.Tools;
 import java.io.IOException;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 import retrofit2.Call;
@@ -54,7 +55,7 @@ public class LaunchActivity extends AppCompatActivity {
 
     public static void openActivity(Context context) {
         Intent i = new Intent(context, LaunchActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         try {
             context.startActivity(i);
         } catch (AndroidRuntimeException e) {
@@ -104,6 +105,32 @@ public class LaunchActivity extends AppCompatActivity {
             }).start();
         } else
             setViewLogin();
+
+        buttonViewSources.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!AppSettings.Advanced.getAllowAdvanced(LaunchActivity.this)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LaunchActivity.this);
+                    builder.setTitle(R.string.pref_title_advanced_data_save_logs);
+                    builder.setMessage(R.string.pref_summary_advanced_data_save_logs);
+                    builder.setNegativeButton(android.R.string.cancel, null);
+                    builder.setPositiveButton(getString(R.string.dialog_enable_app_logs), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AppSettings.Advanced.setAllowAdvanced(LaunchActivity.this, true);
+                            AppSettings.Advanced.setAllowSaveLogs(LaunchActivity.this, true);
+                            Toast.makeText(LaunchActivity.this, getString(R.string.dont_forget_to_restart), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    builder.show();
+                } else {
+                    AppSettings.Advanced.setAllowSaveLogs(LaunchActivity.this, false);
+                    Toast.makeText(LaunchActivity.this, getString(R.string.toast_logs_disabled), Toast.LENGTH_LONG).show();
+                }
+
+                return true;
+            }
+        });
     }
 
     private void setViewHide() {
@@ -218,8 +245,8 @@ public class LaunchActivity extends AppCompatActivity {
                 } else {
                     Analytics.signInError(response);
                     try {
-                        Toast.makeText(LaunchActivity.this, response.errorBody().string(), Toast.LENGTH_LONG).show();
                         setViewLogin();
+                        Toast.makeText(LaunchActivity.this, getString(R.string.error_server_contect_support) + "\n" + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -229,6 +256,7 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
                 Analytics.signInError(t);
+                setViewLogin();
                 Toast.makeText(LaunchActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

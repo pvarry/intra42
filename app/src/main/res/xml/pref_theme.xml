@@ -15,7 +15,7 @@
         android:positiveButtonText="@null"
         android:title="@string/pref_theme_title_change_theme" />
 
-    <SwitchPreference
+    <CheckBoxPreference
         android:defaultValue="true"
         android:key="switch_theme_actionbar_enable_background"
         android:title="@string/pref_theme_switch_action_bar_background" />
