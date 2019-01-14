@@ -2,22 +2,24 @@ package com.paulvarry.intra42.adapters;
 
 import android.graphics.Rect;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ItemDecoration extends RecyclerView.ItemDecoration {
+public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
 
     private int mSizeGridSpacingPx;
     private int mGridSize;
 
     private boolean mNeedLeftSpacing = false;
 
-    public ItemDecoration(int gridSpacingPx, int gridSize) {
+    public ItemDecorationGrid(int gridSpacingPx, int gridSize) {
         mSizeGridSpacingPx = gridSpacingPx;
         mGridSize = gridSize;
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         int frameWidth = (int) ((parent.getWidth() - (float) mSizeGridSpacingPx * (mGridSize - 1)) / mGridSize);
         int padding = parent.getWidth() / mGridSize - frameWidth;
         int itemPosition = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewAdapterPosition();

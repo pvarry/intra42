@@ -21,7 +21,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.adapters.ItemDecoration;
+import com.paulvarry.intra42.adapters.ItemDecorationGrid;
 import com.paulvarry.intra42.adapters.RecyclerViewAdapterFriends;
 import com.paulvarry.intra42.api.ApiService42Tools;
 import com.paulvarry.intra42.api.model.Locations;
@@ -258,7 +258,7 @@ public class FriendsActivity
             recyclerView.setLayoutManager(new GridLayoutManager(this, noOfColumns));
 
             if (recyclerView.getItemDecorationCount() == 0 || recyclerView.getItemDecorationAt(0) == null)
-                recyclerView.addItemDecoration(new ItemDecoration(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns), 0);
+                recyclerView.addItemDecoration(new ItemDecorationGrid(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns), 0);
 
             adapter = new RecyclerViewAdapterFriends(this, list, locations);
             adapter.setClickListener(this);

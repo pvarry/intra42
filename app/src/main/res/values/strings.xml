@@ -646,4 +646,10 @@ long click for more action"</string>
     <string name="dialog_enable_app_logs">Enable Logs</string>
     <string name="toast_logs_disabled">Logs disabled</string>
     <string name="dont_forget_to_restart">Don\'t forget to restart the app</string>
+    <string name="quest_in_progress">In Progress</string>
+    <string name="quest_validated">Success</string>
+    <string name="quest_failed">Failed</string>
+    <string name="title_tab_user_quests">Black Hole</string>
+    <string name="quest_progress">Progress: %s</string>
+    <string name="quest_retry_left">%d retry left</string>
 </resources>

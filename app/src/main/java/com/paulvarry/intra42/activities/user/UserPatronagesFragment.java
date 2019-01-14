@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ItemDecoration;
+import com.paulvarry.intra42.adapters.ItemDecorationGrid;
 import com.paulvarry.intra42.adapters.RecyclerAdapterUser;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
@@ -160,7 +160,7 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
             listViewPatron.setAdapter(adapterUsers);
             listViewPatron.setLayoutManager(new GridLayoutManager(getContext(), noOfColumns, LinearLayoutManager.VERTICAL, false));
             if (listViewPatron.getItemDecorationCount() == 0 || listViewPatron.getItemDecorationAt(0) == null)
-                listViewPatron.addItemDecoration(new ItemDecoration(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns), 0);
+                listViewPatron.addItemDecoration(new ItemDecorationGrid(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns), 0);
             listViewPatron.setNestedScrollingEnabled(false);
             adapterUsers.setOnItemClickListener(this);
         } else {
@@ -183,7 +183,7 @@ public class UserPatronagesFragment extends Fragment implements RecyclerAdapterU
             listViewPatroning.setAdapter(adapterUsers);
             listViewPatroning.setLayoutManager(new GridLayoutManager(getContext(), noOfColumns, LinearLayoutManager.VERTICAL, false));
             if (listViewPatron.getItemDecorationCount() == 0 || listViewPatron.getItemDecorationAt(0) == null)
-                listViewPatroning.addItemDecoration(new ItemDecoration(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns), 0);
+                listViewPatroning.addItemDecoration(new ItemDecorationGrid(getResources().getDimensionPixelSize(R.dimen.list_spacing), noOfColumns), 0);
             listViewPatroning.setNestedScrollingEnabled(false);
             adapterUsers.setOnItemClickListener(this);
         } else {

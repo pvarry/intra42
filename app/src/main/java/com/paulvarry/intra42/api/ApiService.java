@@ -18,6 +18,7 @@ import com.paulvarry.intra42.api.model.Messages;
 import com.paulvarry.intra42.api.model.Notions;
 import com.paulvarry.intra42.api.model.Projects;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
+import com.paulvarry.intra42.api.model.QuestsUsers;
 import com.paulvarry.intra42.api.model.ScaleTeams;
 import com.paulvarry.intra42.api.model.Slots;
 import com.paulvarry.intra42.api.model.Subnotions;
@@ -419,6 +420,10 @@ public interface ApiService {
 
     @GET("/v2/blocs")
     Call<List<CoalitionsBlocs>> getCoalitionsBlocs();
+
+    /* Quests */
+    @GET("/v2/users/{login}/quests_users")
+    Call<List<QuestsUsers>> getUsersQuests(@Path("login") String login);
 
     /* Other */
     @GET
