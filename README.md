@@ -1,8 +1,10 @@
 Only for 42's students (www.42.fr), this app is available for all the campus :)
 
-This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+The app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
 
-Dowload this app : [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+Download it : [https://play.google.com/store/apps/details?id=com.paulvarry.intra42](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+
+View sources : [https://github.com/pvarry/intra42](https://github.com/pvarry/intra42)
 
 ## Features :
 - Keep informed on events and sync your calendar
@@ -18,55 +20,24 @@ Useful tools :
 
 > [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
 
-> [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing video.
+> [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing e-learning videos.
 
 ## Contribute
 
 You can Contribute to this project by fixing bugs or add missing features.
 
-#### Source code
+### Edit Source code
 
-You have to use Android Studio as IDE.
-You alse have to create a application on https://profile.intra.42.fr/oauth/applications, duplique file on `app/src/debug/java/com/paulvarry/intra42/Credential.java.sample` and fill up credantials.
+Sources : [https://github.com/pvarry/intra42](https://github.com/pvarry/intra42)
 
-#### Strings ressources
+To run the app locally you have to :
+- Use Android Studio as IDE.
+- Create a application on https://profile.intra.42.fr/oauth/applications
+- Duplicate file on `app/src/debug/java/com/paulvarry/intra42/Credential.java.sample` and fill up with yours credentials.
+
+### Edit Strings ressources
 
 If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
-
-#### Cluster map
-
-Soon, you will be able to add or update the cluster map for all campus (directly from the app)
-
-## Changelog
-
-#### v0.8.x
-
-- Theme integration with Coalitions
-- Automatically sync your calendar
-- Change friends system
-- Speed up app starting
-- Add user location history
-- fix minor bug
-
-#### v0.7.x
-
-- Add Galaxy
-- Update Notification for Andorid O
-- Add action on notification for events
-- Update icon for Android O
-
-#### v0.6.0
-
-- add Cluster Map (Paris and Fremont)
-- add subscription for events (on events list only)
-- add Cantina menu
-- bug fix
-
-#### v0.5.7
-
-- add SuperSearch
-- add friends
-- fix bugs
 
 ## Screenshot
 
