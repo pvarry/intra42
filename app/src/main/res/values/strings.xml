@@ -401,17 +401,18 @@ Features :
 - All feature requests and contributions are welcome!
 
 More informations : https://forum.intra.42.fr/topics/9650/messages/last
+https://github.com/pvarry/intra42
 
 Disclaimer : This code is in no way affiliated with, authorised, maintained, sponsored or endorsed by 42. This is an independent and unofficial Android app."</string>
-<string name="_super_forum">"FRENCH VERSION | VERSION FRANÇAISE : [topic](https://forum.intra.42.fr/topics/9650)
 
-Only for 42's students (www.42.fr)
+<!-- Fuzzy -->
+<string name="_super_forum">"Only for 42's students (www.42.fr), this app is available for all the campus :)
 
-This app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
+The app is an unofficial Intra 42 client for Android platforms. It's built in JAVA and use official Android SDK.
 
-Dowload this app : [play store](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+Download it : [https://play.google.com/store/apps/details?id=com.paulvarry.intra42](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
 
-Sources : [github](https://github.com/pvarry/intra42)
+View sources : [https://github.com/pvarry/intra42](https://github.com/pvarry/intra42)
 
 ## Features :
 - Keep informed on events and sync your calendar
@@ -422,44 +423,29 @@ Sources : [github](https://github.com/pvarry/intra42)
 - Watch video on e-learning
 
 All feature requests and contributions are welcome!
-If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
 
 Useful tools :
 
 &gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
 
-&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing video.
+&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing e-learning videos.
 
-## Changelog
+## Contribute
 
-#### v0.8.x
+You can Contribute to this project by fixing bugs or add missing features.
 
-- Theme integration with Coalitions
-- Automatically sync your calendar
-- Change friends system
-- Speed up app starting
-- Add user location history
-- fix minor bug
+### Edit Source code
 
-#### v0.7.x
+Sources : [https://github.com/pvarry/intra42](https://github.com/pvarry/intra42)
 
-- Add Galaxy
-- Update Notification for Andorid O
-- Add action on notification for events
-- Update icon for Android O
+To run the app locally you have to :
+- Use Android Studio as IDE.
+- Create a application on https://profile.intra.42.fr/oauth/applications
+- Duplicate file on `app/src/debug/java/com/paulvarry/intra42/Credential.java.sample` and fill up with yours credentials.
 
-#### v0.6.0
+### Edit Strings ressources
 
-- add Cluster Map (Paris and Fremont)
-- add subscription for events (on events list only)
-- add Cantina menu
-- bug fix
-
-#### v0.5.7
-
-- add SuperSearch
-- add friends
-- fix bugs
+If you find grammatical mistakes or if you want to translate this app, you can do it with [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
 
 ## Screenshot
 
@@ -641,15 +627,15 @@ long click for more action"</string>
 <string name="max">"max"</string>
 <string name="cluster_map_contribute_ready_publish">"This cluster is ready to be published"</string>
 <string name="slots_delete_dialog_error_booked">"A slot can't be deleted, it changed state"</string>
-    <string name="dialog_delete_message">Do you to delete this element, this action can\'t be undo ?</string>
-    <string name="error_server_contect_support">Error server, please contact support</string>
-    <string name="dialog_enable_app_logs">Enable Logs</string>
-    <string name="toast_logs_disabled">Logs disabled</string>
-    <string name="dont_forget_to_restart">Don\'t forget to restart the app</string>
-    <string name="quest_in_progress">In Progress</string>
-    <string name="quest_validated">Success</string>
-    <string name="quest_failed">Failed</string>
-    <string name="title_tab_user_quests">Black Hole</string>
-    <string name="quest_progress">Progress: %s</string>
-    <string name="quest_retry_left">%d retry left</string>
+<string name="dialog_delete_message">"Do you to delete this element, this action can't be undo ?"</string>
+<string name="error_server_contect_support">"Error server, please contact support"</string>
+<string name="dialog_enable_app_logs">"Enable Logs"</string>
+<string name="toast_logs_disabled">"Logs disabled"</string>
+<string name="dont_forget_to_restart">"Don't forget to restart the app"</string>
+<string name="quest_in_progress">"In Progress"</string>
+<string name="quest_validated">"Success"</string>
+<string name="quest_failed">"Failed"</string>
+<string name="title_tab_user_quests">"Black Hole"</string>
+<string name="quest_progress">"Progress: %s"</string>
+<string name="quest_retry_left">"%d retry left"</string>
 </resources>

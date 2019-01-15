@@ -74,6 +74,9 @@ public class GridAdapterAchievements extends BaseAdapter {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+
+                    if (achievements.imageUrl == null)
+                        return;
                     final Bitmap d = mImage.loadImageSVG("http://cdn.intra.42.fr" + achievements.imageUrl.replace("/uploads/", "/"));
                     if (d != null) {
                         activity.picAchievements.put(achievements.imageUrl, d);

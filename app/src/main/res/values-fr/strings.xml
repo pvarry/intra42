@@ -402,6 +402,8 @@ Plus d'informations :
 https://forum.intra.42.fr/topics/9650/messages/last
 
 Avertissement : Cette application n'est en aucun cas affiliée, autorisée, maintenue ou approuvée officiellement par 42. Cette application Android est indépendante et non officielle."</string>
+
+<!-- Fuzzy -->
 <string name="_super_forum">"ENGLISH VERSION | VERSION ANGLAISE : [topic](https://forum.intra.42.fr/topics/15837/messages)
 
 Application de l'intranet de 42 pour Android. Cet application est conçu en JAVA et utilise le SDK Android.

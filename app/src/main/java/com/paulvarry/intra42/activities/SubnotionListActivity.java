@@ -14,10 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.BaseListAdapterSlug;
 import com.paulvarry.intra42.api.ApiService;
@@ -27,12 +24,17 @@ import com.paulvarry.intra42.api.model.Subnotions;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Pagination;
 import com.paulvarry.intra42.utils.Tools;
-import retrofit2.Call;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class SubnotionListActivity extends BasicThreadActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnThread {
 
@@ -204,7 +206,10 @@ public class SubnotionListActivity extends BasicThreadActivity implements SwipeR
                     if (attachments.language != null)
                         stringBuilder.append(attachments.language.getFlag()).append(" ");
                     stringBuilder.append("― ");
-                    stringBuilder.append(attachments.name);
+                    if (attachments.name != null)
+                        stringBuilder.append(attachments.name);
+                    else
+                        stringBuilder.append(attachments.url);
                     list.add(stringBuilder);
                 }
             }

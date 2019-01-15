@@ -21,12 +21,12 @@
 <string name="notifications_events_channel_description">"Уведомления о мероприятиях"</string>
 <string name="notifications_bookings_sub_text">"заказ"</string>
 <string name="notifications_bookings_channel_name">"Заказы"</string>
-<string name="notifications_bookings_channel_description">"Уведомления о заказах на коррекции"</string>
+<string name="notifications_bookings_channel_description">"Уведомления о бронированиях проверок"</string>
 <string name="notifications_announcements_channel_name">"Объявления"</string>
 <string name="notifications_announcements_channel_description">"Уведомления"</string>
 
 <!-- Format warning -->
-<string name="bookings_corrected_by">"Ваш проект будет проверен _date_"</string>
+<string name="bookings_corrected_by">"Ваш проект _project_ будет проверен _date_"</string>
 
 <!-- Format warning -->
 <string name="bookings_corrected_by_login">"Ваш проект будет проверять _login_ _date_."</string>
@@ -89,7 +89,7 @@
 <string name="evaluation_someone">"кто-то"</string>
 <string name="evaluation_with">"С"</string>
 <string name="evaluations_booked_slot">"Забронированный слот"</string>
-<string name="evaluations_confirmation_delete_booked_slot">"Вы действительно хотите удалить зарезервированный слот? Вы потеряете балл за корректировку."</string>
+<string name="evaluations_confirmation_delete_booked_slot">"Вы действительно хотите удалить зарезервированный слот? Вы потеряете оценочный балл."</string>
 <string name="event_check_registration">"Проверка вашей регистрации"</string>
 <string name="event_full">"Заполнено"</string>
 <string name="event_nothing_found_for_your_campus_cursus">"Событий не найдено для вашего кампуса/курса"</string>
@@ -154,7 +154,7 @@
 <string name="navigation_share">"Поделиться"</string>
 <string name="navigation_time_on_campus">"Текущее время в разных кампусах"</string>
 <string name="notification_auto_clear">"закрытие через 5с"</string>
-<string name="notification_bookings_title_imminent">"Скоро коррекция"</string>
+<string name="notification_bookings_title_imminent">"Скоро проверка"</string>
 <string name="notification_bookings_title_new">"У вас новое бронирование"</string>
 <string name="notification_see_project">"посмотреть проект"</string>
 <string name="notification_see_user">"посмотреть пользователя"</string>
@@ -173,7 +173,7 @@
 <string name="project_no_session_found_for_this_cursus_campus">"Сессия не найдена для выбранного курса/кампуса"</string>
 <string name="project_objectives">"Цели"</string>
 <string name="project_past_session">"Прошлая сессия"</string>
-<string name="project_peer_corrections">"Оценка однокурсников"</string>
+<string name="project_peer_corrections">"Оценка пиров"</string>
 <string name="project_register">"Зарегистрироваться"</string>
 <string name="project_session">"Сессия"</string>
 <string name="project_show_mine">"Перейти ко мне"</string>
@@ -185,7 +185,7 @@
 <string name="project_user_status_parent">"родитель"</string>
 <string name="project_user_status_searching_a_group">"в поиске группы"</string>
 <string name="project_user_status_unknown">"неизвестен"</string>
-<string name="project_user_status_waiting_for_correction">"в ожидании оценок"</string>
+<string name="project_user_status_waiting_for_correction">"в ожидании проверок"</string>
 <string name="project_user_status_waiting_to_start">"в ожидании начала"</string>
 <string name="project_you_cant_have_mark_for_this_project">"Вы не можете получить оценку за этот проект"</string>
 <string name="search_by">"Поиск по"</string>
@@ -243,7 +243,7 @@
 <string name="title_tab_users_all">"Все"</string>
 <string name="topics_kind_survey">"Исследование"</string>
 <string name="user_app_official">"Официальное приложение"</string>
-<string name="user_correction_points">"Очки коррекции"</string>
+<string name="user_correction_points">"Оценочные баллы"</string>
 <string name="user_cursus_date">"Дата"</string>
 <string name="user_email">"Email"</string>
 <string name="user_expertise_deleted">"Удалено"</string>
@@ -264,7 +264,7 @@
 <string name="user_you_dont_have_any_expertise_yet">"У вас ещё нет навыков"</string>
 <string name="info_loading_cache">"Загрузка кэша"</string>
 <string name="info_loading_current_user">"текущий пользователь"</string>
-<string name="evaluation_user_nothing">"у вас нет корректировок"</string>
+<string name="evaluation_user_nothing">"у вас нет проверок"</string>
 <string name="home_help_POEditor">"Если вы нашли грамматические ошибки или вы хотите перевести это приложение, вы можете это сделать с помощью POEditor, нажав здесь"</string>
 <string name="pref_notifications_frequency_titles_15min">"15 минут"</string>
 <string name="pref_notifications_frequency_titles_30min">"30 минут"</string>
@@ -405,7 +405,11 @@
 https://forum.intra.42.fr/topics/9650/messages/last
 
 Дисклеймер: данный код никоим образом не связан (с), не поддерживается технически или материально и не одобрен 42. Это независимое и неофициальное приложение для Андроид."</string>
+
+<!-- Fuzzy -->
 <string name="_super_forum">"ФРАНЦУЗСКАЯ ВЕРСИЯ | VERSION FRANÇAISE : [topic](https://forum.intra.42.fr/topics/9650)
+
+АНГЛИЙСКАЯ ВЕРСИЯ | ENGLISH VERSION : [topic](https://forum.intra.42.fr/topics/15837/messages)
 
 Тольько для студентов 42 (www.42.fr)
 
@@ -643,4 +647,9 @@ https://forum.intra.42.fr/topics/9650/messages/last
 <string name="max">"Макс."</string>
 <string name="cluster_map_contribute_ready_publish">"Этот кластер готов к публикации"</string>
 <string name="slots_delete_dialog_error_booked">"Слот не может быть удален, его состояние изменилось"</string>
+<string name="dialog_delete_message">"Вы действительно хотите удалить этот элемент, это действие не может быть отменено?"</string>
+<string name="error_server_contect_support">"Ошибка сервера, обратитесь в службу поддержки"</string>
+<string name="dialog_enable_app_logs">"Включить логи"</string>
+<string name="toast_logs_disabled">"Логи отключены"</string>
+<string name="dont_forget_to_restart">"Не забудьте перезагрузить приложение"</string>
 </resources>
