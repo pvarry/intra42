@@ -6,13 +6,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.AppCompatDrawableManager;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Transformation;
 
-import androidx.appcompat.widget.AppCompatDrawableManager;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -69,7 +70,7 @@ public class UserImage {
     }
 
     public static RequestCreator getRequestCreator(Context context, UsersLTE user, String type) {
-        Picasso picasso = Picasso.with(context);
+        Picasso picasso = Picasso.get();
         RequestCreator requestCreator;
 
 //        if (BuildConfig.DEBUG)

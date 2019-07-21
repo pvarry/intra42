@@ -22,9 +22,9 @@ public class BypassPicassoImageGetter implements Bypass.ImageGetter {
     private final WeakReference<TextView> mTextView;
     private SourceModifier mSourceModifier;
 
-    public BypassPicassoImageGetter(final TextView textView, final Picasso picasso) {
+    public BypassPicassoImageGetter(final TextView textView) {
         mTextView = new WeakReference<>(textView);
-        mPicasso = picasso;
+        mPicasso = Picasso.get();
     }
 
     @Override

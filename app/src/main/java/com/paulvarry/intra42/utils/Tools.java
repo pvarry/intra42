@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.crashlytics.android.Crashlytics;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ItemWithId;
 import com.paulvarry.intra42.api.model.Attachments;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,7 +28,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.StringJoiner;
 
-import androidx.annotation.Nullable;
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Response;
 
@@ -138,7 +138,7 @@ public class Tools {
 
             content = content.replace(":\r\n-", ":\r\n\r\n-");
 
-            CharSequence string = bypass.markdownToSpannable(content, new BypassPicassoImageGetter(textView, Picasso.with(context)));
+            CharSequence string = bypass.markdownToSpannable(content, new BypassPicassoImageGetter(textView));
 
             textView.setText(string);
             textView.setMovementMethod(LinkMovementMethod.getInstance());

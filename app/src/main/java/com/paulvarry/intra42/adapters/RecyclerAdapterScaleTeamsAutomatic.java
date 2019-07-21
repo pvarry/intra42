@@ -3,8 +3,10 @@ package com.paulvarry.intra42.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.TeamsUploads;
 import com.paulvarry.intra42.utils.UserImage;
@@ -36,7 +38,7 @@ public class RecyclerAdapterScaleTeamsAutomatic extends RecyclerView.Adapter<Vie
     public void onBindViewHolder(@NonNull final ViewHolderScaleTeam holder, int position) {
         TeamsUploads item = getItem(position);
 
-        Picasso picasso = Picasso.with(holder.itemView.getContext());
+        Picasso picasso = Picasso.get();
         RequestCreator requestCreator;
         String url = UserImage.BASE_URL + "moulinette.jpg";
         requestCreator = picasso.load(url).resize(200, 240);

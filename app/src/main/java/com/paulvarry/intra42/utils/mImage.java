@@ -8,8 +8,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.widget.ImageView;
+
 import androidx.annotation.DrawableRes;
-import androidx.appcompat.widget.AppCompatDrawableManager;
+import androidx.core.content.ContextCompat;
+
 import com.caverock.androidsvg.SVG;
 import com.paulvarry.intra42.BuildConfig;
 import com.squareup.picasso.Picasso;
@@ -51,7 +53,7 @@ public class mImage {
 
     public static void setPicasso(Context context, Uri url, ImageView imageView, @DrawableRes int placeHolder) {
 
-        Picasso picasso = Picasso.with(context);
+        Picasso picasso = Picasso.get();
 
         if (BuildConfig.DEBUG)
             picasso.setLoggingEnabled(true);
@@ -62,7 +64,7 @@ public class mImage {
             requestCreator.placeholder(placeHolder);
             requestCreator.error(placeHolder);
         } else {
-            Drawable drawable = AppCompatDrawableManager.get().getDrawable(context, placeHolder);
+            Drawable drawable = ContextCompat.getDrawable(context, placeHolder);
             requestCreator.placeholder(drawable);
             requestCreator.error(drawable);
         }

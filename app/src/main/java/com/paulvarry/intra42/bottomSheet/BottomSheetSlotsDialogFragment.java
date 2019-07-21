@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.bottomSheet;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -15,6 +14,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.paulvarry.intra42.AppClass;
@@ -35,10 +40,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +49,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
     private static final String ARG_SLOTS = "arg_slots";
     private SlotsTools.SlotsGroup slotsGroup;
     private AppClass app;
-    private Activity activity;
+    private FragmentActivity activity;
     private BottomSheetSlotsDialogFragment dialogFragment;
 
     private boolean isNew = true;
@@ -280,7 +281,7 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
 
                 timePickerDialog.setTimeInterval(1, 15);
                 timePickerDialog.setThemeDark(app.themeSettings.isDark());
-                timePickerDialog.show(activity.getFragmentManager(), "");
+                timePickerDialog.show(activity.getSupportFragmentManager(), "");
 
             }
         });

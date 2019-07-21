@@ -11,9 +11,18 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.CompletionViewCursus;
@@ -26,15 +35,15 @@ import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.cache.CacheCursus;
 import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
-import com.squareup.picasso.Picasso;
 import com.tokenautocomplete.TokenCompleteTextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NewTopicActivity extends AppCompatActivity {
 
@@ -158,7 +167,7 @@ public class NewTopicActivity extends AppCompatActivity {
 //            completionViewCursus.addObject(c);
 
         Bypass bypass = new Bypass(NewTopicActivity.this);
-        CharSequence messageContent = bypass.markdownToSpannable(editTextContent.getText().toString(), new BypassPicassoImageGetter(textViewPreview, Picasso.with(NewTopicActivity.this)));
+        CharSequence messageContent = bypass.markdownToSpannable(editTextContent.getText().toString(), new BypassPicassoImageGetter(textViewPreview));
         textViewPreview.setText(messageContent);
         textViewPreview.setMovementMethod(LinkMovementMethod.getInstance());
         editTextContent.addTextChangedListener(new TextWatcher() {
@@ -176,7 +185,7 @@ public class NewTopicActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
 
                 Bypass bypass = new Bypass(NewTopicActivity.this);
-                CharSequence messageContent = bypass.markdownToSpannable(editable.toString(), new BypassPicassoImageGetter(textViewPreview, Picasso.with(NewTopicActivity.this)));
+                CharSequence messageContent = bypass.markdownToSpannable(editable.toString(), new BypassPicassoImageGetter(textViewPreview));
                 textViewPreview.setText(messageContent);
                 textViewPreview.setMovementMethod(LinkMovementMethod.getInstance());
             }

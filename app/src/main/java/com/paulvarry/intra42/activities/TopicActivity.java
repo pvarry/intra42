@@ -14,6 +14,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.adapters.ExpandableListAdapterTopic;
@@ -27,12 +30,9 @@ import com.paulvarry.intra42.bottomSheet.BottomSheetTopicInfoDialogFragment;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
-import androidx.annotation.Nullable;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import in.uncod.android.bypass.Bypass;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -164,7 +164,7 @@ public class TopicActivity
                     textViewPreviewMessage.setVisibility(View.GONE);
                 else {
                     Bypass bypass = new Bypass(TopicActivity.this);
-                    CharSequence messageContent = bypass.markdownToSpannable(text, new BypassPicassoImageGetter(textViewPreviewMessage, Picasso.with(TopicActivity.this)));
+                    CharSequence messageContent = bypass.markdownToSpannable(text, new BypassPicassoImageGetter(textViewPreviewMessage));
                     textViewPreviewMessage.setText(messageContent);
                     textViewPreviewMessage.setVisibility(View.VISIBLE);
                 }
