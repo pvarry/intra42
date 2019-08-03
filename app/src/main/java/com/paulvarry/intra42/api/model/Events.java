@@ -1,10 +1,12 @@
 package com.paulvarry.intra42.api.model;
 
 import android.content.Context;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.IBaseItemSmall;
@@ -25,6 +27,9 @@ public class Events implements IBaseItemSmall {
     private static final String API_END_AT = "end_at";
     private static final String API_CAMPUS_IDS = "campus_ids";
     private static final String API_CURSUS_IDS = "cursus_ids";
+    private static final String API_PROHIBITION_OF_CANCELLATION = "prohibition_of_cancellation";
+    private static final String API_WAITLIST = "waitlist";
+    private static final String API_THEMES = "themes";
 
     @SerializedName(API_ID)
     public int id;
@@ -38,7 +43,8 @@ public class Events implements IBaseItemSmall {
     @SerializedName(API_KIND)
     public EventKind kind;
     @SerializedName(API_MAX_PEOPLE)
-    public int maxPeople;
+    @Nullable
+    public Integer maxPeople;
     @SerializedName(API_NBR_SUBSCRIBERS)
     public int nbrSubscribers;
     @SerializedName(API_BEGIN_AT)
@@ -49,6 +55,11 @@ public class Events implements IBaseItemSmall {
     public List<Integer> campus;
     @SerializedName(API_CURSUS_IDS)
     public List<Integer> cursus;
+    /**
+     * Number of hours before the event while a subscription can't be canceled
+     */
+    @SerializedName(API_PROHIBITION_OF_CANCELLATION)
+    public Integer prohibitionOfCancellation;
 
     @Override
     public String getName(Context context) {
@@ -68,6 +79,17 @@ public class Events implements IBaseItemSmall {
     @Override
     public int getId() {
         return id;
+    }
+
+    public Date getCancellationLimit() {
+        if (prohibitionOfCancellation == null)
+            return null;
+
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        calendar.setTime(beginAt);
+        calendar.add(java.util.Calendar.HOUR, prohibitionOfCancellation * -1);
+
+        return calendar.getTime();
     }
 
     public enum EventKind {

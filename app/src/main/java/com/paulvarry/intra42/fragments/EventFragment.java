@@ -12,6 +12,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -26,12 +32,9 @@ import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.Tools;
 import com.veinhorn.tagview.TagView;
 
+import java.util.Date;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -252,6 +255,9 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         LinearLayout linearLayoutPlace = contentView.findViewById(R.id.linearLayoutPlace);
         TextView textViewPlace = contentView.findViewById(R.id.textViewPlace);
         TextView textViewPeople = contentView.findViewById(R.id.textViewPeople);
+        ViewGroup linearLayoutPeople = contentView.findViewById(R.id.linearLayoutPeople);
+        CardView cardViewUnsubscribeLimit = contentView.findViewById(R.id.cardViewUnsubscribeLimit);
+        TextView textViewUnsubscribeLimit = contentView.findViewById(R.id.textViewUnsubscribeLimit);
         TextView textViewDescription = contentView.findViewById(R.id.textViewDescription);
         buttonSubscribe = contentView.findViewById(R.id.buttonSubscribe);
         linearLayoutProgress = contentView.findViewById(R.id.linearLayoutProgress);
@@ -287,12 +293,23 @@ public class EventFragment extends Fragment implements View.OnClickListener {
             textViewPlace.setText(event.location);
         }
 
-        String people;
-        if (event.maxPeople == 0)
-            people = getString(R.string.event_subscription_unavailable);
-        else
-            people = String.valueOf(event.nbrSubscribers) + " / " + String.valueOf(event.maxPeople);
-        textViewPeople.setText(people);
+        linearLayoutPeople.setVisibility(View.GONE);
+        if (event.maxPeople != null) {
+            String people;
+            if (event.maxPeople == 0)
+                people = getString(R.string.event_subscription_unavailable);
+            else
+                people = event.nbrSubscribers + " / " + event.maxPeople;
+            linearLayoutPeople.setVisibility(View.VISIBLE);
+            textViewPeople.setText(people);
+        }
+        cardViewUnsubscribeLimit.setVisibility(View.GONE);
+        if (event.prohibitionOfCancellation != null) {
+            Date cancellationLimit = event.getCancellationLimit();
+            String timeFormatted = DateTool.getDateTimeLong(cancellationLimit);
+            cardViewUnsubscribeLimit.setVisibility(View.VISIBLE);
+            textViewUnsubscribeLimit.setText(getString(R.string.event_prohibition_of_cancellation, timeFormatted));
+        }
 
         Tools.setMarkdown(getContext(), textViewDescription, event.description);
 
@@ -359,22 +376,28 @@ public class EventFragment extends Fragment implements View.OnClickListener {
                 buttonSubscribe.setEnabled(false);
                 buttonSubscribe.setText(R.string.event_subscription_unavailable);
             }
+            if (event.maxPeople != null && event.nbrSubscribers >= event.maxPeople) {
+
+                if (event.maxPeople == 0)
+                    buttonSubscribe.setText(R.string.event_subscription_unavailable);
+                else
+                    buttonSubscribe.setText(R.string.event_full);
+                buttonSubscribe.setEnabled(false);
+            }
         } else {
             buttonSubscribe.setText(R.string.event_unsubscribe);
             if (DateTool.isInFuture(event.beginAt))
                 buttonSubscribe.setEnabled(true);
             else
                 buttonSubscribe.setEnabled(false);
+            if (event.prohibitionOfCancellation != null) {
+                Date cancellationLimit = event.getCancellationLimit();
+                if (DateTool.isInPast(cancellationLimit)) {
+                    buttonSubscribe.setEnabled(false);
+                    buttonSubscribe.setText(R.string.event_cancellation_date_exceeded);
+                }
+            }
             Calendar.syncEventCalendarAfterSubscription(getContext(), event, eventsUsers);
-        }
-
-        if (eventsUsers == null && event.nbrSubscribers >= event.maxPeople) {
-
-            if (event.maxPeople == 0)
-                buttonSubscribe.setText(R.string.event_subscription_unavailable);
-            else
-                buttonSubscribe.setText(R.string.event_full);
-            buttonSubscribe.setEnabled(false);
         }
     }
 

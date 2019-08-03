@@ -21,6 +21,8 @@
     <color name="colorTintCross">#c62828</color>
     <color name="dividers">#1f000000</color>
 
+    <color name="colorErrorSurface">#B00020</color>
+    <color name="colorErrorOnSurface">#ffffff</color>
     <color name="textColorError">#D30915</color>
     <color name="colorClusterMapWall">#e0e0e0</color>
     <color name="colorClusterMapComputerColor">#263238</color>

@@ -122,7 +122,7 @@ public class ListAdapterEvents extends BaseAdapter {
         holder.textViewTime.setText(time);
         holder.textViewPlace.setText(item.location);
 
-        if (item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0) {
+        if (item.maxPeople != null && item.nbrSubscribers >= item.maxPeople && item.maxPeople > 0) {
             holder.textViewFull.setVisibility(View.VISIBLE);
         } else
             holder.textViewFull.setVisibility(View.GONE);

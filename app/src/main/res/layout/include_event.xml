@@ -60,6 +60,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutPeople"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -148,6 +149,31 @@
         app:tagColor="#ffaa66cc"
         app:tagType="classic"
         app:tagUpperCase="true" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewUnsubscribeLimit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorErrorSurface"
+        android:backgroundTint="@color/colorErrorSurface"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <TextView
+            android:id="@+id/textViewUnsubscribeLimit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/event_prohibition_of_cancellation"
+            android:textColor="@color/colorErrorOnSurface" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textViewDescription"

@@ -601,7 +601,7 @@ Cluster orientation :
     <string name="hint_time">"time"</string>
     <string name="project_team_users_toast_leader">"%s (team leader)
 long click for more action"</string>
-    <string name="project_team_users_toast">"%s 
+    <string name="project_team_users_toast">"%s
 long click for more action"</string>
     <string name="format_project_team_users_action_open">"Open {project} of {user}"</string>
     <string name="spinner_user_projects_my_projects">"My projects"</string>
@@ -638,4 +638,8 @@ long click for more action"</string>
     <string name="title_tab_user_quests">"Black Hole"</string>
     <string name="quest_progress">"Progress: %s"</string>
     <string name="quest_retry_left">"%d retry left"</string>
+    <string name="event_prohibition_of_cancellation">Subscriptions can no longer be cancelled after %s</string>
+    <string name="event_cancellation_date_exceeded">Cancellation date limit exceeded</string>
+    <string name="event_prohibition_of_cancellation">Subscriptions can no longer be cancelled after %s</string>
+    <string name="event_cancellation_date_exceeded">Cancellation date limit exceeded</string>
 </resources>
