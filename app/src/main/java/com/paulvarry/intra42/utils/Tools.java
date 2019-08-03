@@ -49,7 +49,7 @@ public class Tools {
         if (url != null) {
 
             if (!url.startsWith("http"))
-                url = "http://cdn.intra.42.fr" + url;
+                url = "https://cdn.intra.42.fr" + url;
 
             Uri uri = Uri.parse(url.replace("/uploads", ""));
 
@@ -210,7 +210,7 @@ public class Tools {
             StringBuilder builder = new StringBuilder();
             String join = "";
             for (T item : list) {
-                builder.append(join).append(String.valueOf(item.id));
+                builder.append(join).append(item.id);
                 join = ",";
             }
             eventsId = builder.toString();
@@ -232,7 +232,7 @@ public class Tools {
             StringBuilder builder = new StringBuilder();
             String join = "";
             for (Integer e : integerList) {
-                builder.append(join).append(String.valueOf(e));
+                builder.append(join).append(e);
                 join = ",";
             }
             eventsId = builder.toString();
@@ -244,7 +244,7 @@ public class Tools {
     public static String readTextFile(InputStream inputStream) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-        byte buf[] = new byte[1024];
+        byte[] buf = new byte[1024];
         int len;
         try {
             while ((len = inputStream.read(buf)) != -1) {

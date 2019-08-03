@@ -77,7 +77,7 @@ public class GridAdapterAchievements extends BaseAdapter {
 
                     if (achievements.imageUrl == null)
                         return;
-                    final Bitmap d = mImage.loadImageSVG("http://cdn.intra.42.fr" + achievements.imageUrl.replace("/uploads/", "/"));
+                    final Bitmap d = mImage.loadImageSVG("https://cdn.intra.42.fr" + achievements.imageUrl.replace("/uploads/", "/"));
                     if (d != null) {
                         activity.picAchievements.put(achievements.imageUrl, d);
                         activity.runOnUiThread(new Runnable() {

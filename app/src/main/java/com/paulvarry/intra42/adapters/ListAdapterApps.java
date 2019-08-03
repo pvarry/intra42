@@ -124,7 +124,7 @@ public class ListAdapterApps extends BaseAdapter {
 
         Uri uri = null;
         if (app.image != null && !app.image.isEmpty()) {
-            String url = "http://cdn.intra.42.fr" + app.image;
+            String url = "https://cdn.intra.42.fr" + app.image;
 
             uri = Uri.parse(url.replace("/uploads", ""));
         }
