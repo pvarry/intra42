@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:chip="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:windowBackground"
@@ -138,7 +137,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMessage" />
 
-    <com.plumillonforge.android.chipview.ChipView
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipViewTags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -149,17 +148,12 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:paddingBottom="8dp"
+        app:chipSpacingHorizontal="@dimen/chip_group_spacing_horizontal"
+        app:chipSpacingVertical="@dimen/chip_group_spacing_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
-        app:layout_constraintVertical_bias="0.478"
-        chip:chip_background="@color/deep_orange"
-        chip:chip_background_res="@drawable/chip_selector"
-        chip:chip_background_selected="@color/blue_grey"
-        chip:chip_line_spacing="20dp"
-        chip:chip_padding="10dp"
-        chip:chip_side_padding="10dp"
-        chip:chip_spacing="16dp" />
+        app:layout_constraintVertical_bias="0.478" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

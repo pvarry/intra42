@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ProjectsLTE;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
@@ -85,11 +87,11 @@ public class ListAdapterMarks extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (vi == null)
                 return null;
-            convertView = vi.inflate(R.layout.list_view_marks, parent, false);
+            convertView = vi.inflate(R.layout.list_view__detail_summary, parent, false);
 
-            holder.textViewProjectName = convertView.findViewById(R.id.textViewProjectName);
-            holder.textViewProjectSlug = convertView.findViewById(R.id.textViewProjectSlug);
-            holder.textViewProjectMark = convertView.findViewById(R.id.textViewProjectMark);
+            holder.textViewProjectName = convertView.findViewById(R.id.textViewTitle);
+            holder.textViewProjectSlug = convertView.findViewById(R.id.textViewSummary);
+            holder.textViewProjectMark = convertView.findViewById(R.id.textViewDetail);
 
             convertView.setTag(holder);
         } else {

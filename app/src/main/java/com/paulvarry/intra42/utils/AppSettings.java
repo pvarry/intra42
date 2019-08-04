@@ -6,14 +6,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.Users;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
 
 /**
  * This class is a interface for app Settings set with {@link com.paulvarry.intra42.activities.SettingsActivity SettingsActivity}.
@@ -463,9 +463,6 @@ public class AppSettings {
                 case "green":
                     enumTheme = EnumTheme.GREEN;
                     break;
-                case "android":
-                    enumTheme = EnumTheme.ANDROID;
-                    break;
                 default:
                     enumTheme = EnumTheme.DEFAULT;
             }
@@ -510,8 +507,7 @@ public class AppSettings {
             RED("red", false, R.string.pref_theme_list_titles_red_the_order),
             PURPLE("purple", false, R.string.pref_theme_list_titles_purple_the_assembly),
             BLUE("blue", false, R.string.pref_theme_list_titles_blue_the_federation),
-            GREEN("green", false, R.string.pref_theme_list_titles_green_the_alliance),
-            ANDROID("android", false, R.string.pref_theme_list_titles_android);
+            GREEN("green", false, R.string.pref_theme_list_titles_green_the_alliance);
 
             private String key;
             private boolean isDark;

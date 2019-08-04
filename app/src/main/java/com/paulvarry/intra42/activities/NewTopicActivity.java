@@ -12,45 +12,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.CompletionViewCursus;
-import com.paulvarry.intra42.adapters.CompletionViewTags;
 import com.paulvarry.intra42.api.ServiceGenerator;
-import com.paulvarry.intra42.api.model.Cursus;
 import com.paulvarry.intra42.api.model.Language;
-import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Topics;
-import com.paulvarry.intra42.cache.CacheCursus;
-import com.paulvarry.intra42.cache.CacheTags;
 import com.paulvarry.intra42.utils.BypassPicassoImageGetter;
-import com.tokenautocomplete.TokenCompleteTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.uncod.android.bypass.Bypass;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class NewTopicActivity extends AppCompatActivity {
 
     private static final String INTENT_TOPIC = "intent_topic";
 
-    CompletionViewTags completionViewTag;
-    CompletionViewCursus completionViewCursus;
+    //    CompletionViewTags completionViewTag;
+//    CompletionViewCursus completionViewCursus;
     TextView textViewPreview;
 
     List<Topics.Kind> kind;
@@ -104,8 +91,8 @@ public class NewTopicActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.editTextTitle);
         spinnerKind = findViewById(R.id.spinnerKind);
-        completionViewTag = findViewById(R.id.completion_view_tags);
-        completionViewCursus = findViewById(R.id.completion_view_cursus);
+//        completionViewTag = findViewById(R.id.completion_view_tags);
+//        completionViewCursus = findViewById(R.id.completion_view_cursus);
         editTextContent = findViewById(R.id.editTextContent);
         spinnerLanguage = findViewById(R.id.spinnerLanguage);
         textViewPreview = findViewById(R.id.textViewPreview);
@@ -142,26 +129,26 @@ public class NewTopicActivity extends AppCompatActivity {
 
         char[] splitChar = {',', ';'};
 
-        ArrayAdapter<Tags> adapterTags = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, CacheTags.get(app.cacheSQLiteHelper));
-        completionViewTag.setAdapter(adapterTags);
-        completionViewTag.allowDuplicates(false);
-        completionViewTag.allowCollapse(false);
-        completionViewTag.setThreshold(0);
-        completionViewTag.setSplitChar(splitChar);
-        completionViewTag.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Delete);
-
-        if (editExistingTopic)
-            for (Tags t : topic.tags)
-                completionViewTag.addObject(t);
-
-        ArrayAdapter<Cursus> adapterCursus = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, CacheCursus.get(app.cacheSQLiteHelper));
-        completionViewCursus.setAdapter(adapterCursus);
-        completionViewCursus.allowDuplicates(false);
-        completionViewCursus.allowCollapse(false);
-        completionViewCursus.setThreshold(0);
-
-        completionViewCursus.setSplitChar(splitChar);
-        completionViewCursus.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Delete);
+//        ArrayAdapter<Tags> adapterTags = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, CacheTags.get(app.cacheSQLiteHelper));
+//        completionViewTag.setAdapter(adapterTags);
+//        completionViewTag.allowDuplicates(false);
+//        completionViewTag.allowCollapse(false);
+//        completionViewTag.setThreshold(0);
+//        completionViewTag.setSplitChar(splitChar);
+//        completionViewTag.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Delete);
+//
+//        if (editExistingTopic)
+//            for (Tags t : topic.tags)
+//                completionViewTag.addObject(t);
+//
+//        ArrayAdapter<Cursus> adapterCursus = new ArrayAdapter<>(NewTopicActivity.this, android.R.layout.simple_list_item_1, CacheCursus.get(app.cacheSQLiteHelper));
+//        completionViewCursus.setAdapter(adapterCursus);
+//        completionViewCursus.allowDuplicates(false);
+//        completionViewCursus.allowCollapse(false);
+//        completionViewCursus.setThreshold(0);
+//
+//        completionViewCursus.setSplitChar(splitChar);
+//        completionViewCursus.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Delete);
 
 //        for (Cursus c : topic.)
 //            completionViewCursus.addObject(c);
@@ -233,51 +220,51 @@ public class NewTopicActivity extends AppCompatActivity {
         String content = editTextContent.getText().toString();
         int language = (int) spinnerLanguage.getSelectedItemId();
 
-        List<Tags> tag = completionViewTag.getObjects();
-        List<Integer> tagInt = new ArrayList<>();
-        for (Tags t : tag) {
-            tagInt.add(t.id);
-        }
-        String tagString = tagInt.toString();
+//        List<Tags> tag = completionViewTag.getObjects();
+//        List<Integer> tagInt = new ArrayList<>();
+//        for (Tags t : tag) {
+//            tagInt.add(t.id);
+//        }
+//        String tagString = tagInt.toString();
+//
+//        List<Cursus> cursus = completionViewCursus.getObjects();
+//        List<Integer> cursusInt = new ArrayList<>();
+//        for (Cursus c : cursus) {
+//            cursusInt.add(c.id);
+//        }
+//        String cursusString = cursusInt.toString();
 
-        List<Cursus> cursus = completionViewCursus.getObjects();
-        List<Integer> cursusInt = new ArrayList<>();
-        for (Cursus c : cursus) {
-            cursusInt.add(c.id);
-        }
-        String cursusString = cursusInt.toString();
-
-        if (editExistingTopic) {
-            app.getApiService().updateTopic(topic.id, name, kind, language, content, tagString, cursusString).enqueue(new Callback<Topics>() {
-                @Override
-                public void onResponse(Call<Topics> call, Response<Topics> response) {
-                    if (response.isSuccessful())
-                        finish();
-                    else
-                        Toast.makeText(NewTopicActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Call<Topics> call, Throwable t) {
-                    Toast.makeText(NewTopicActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            app.getApiService().createTopic(name, kind, language, content, tagString, cursusString).enqueue(new Callback<Topics>() {
-                @Override
-                public void onResponse(Call<Topics> call, Response<Topics> response) {
-                    if (response.isSuccessful())
-                        finish();
-                    else
-                        Toast.makeText(NewTopicActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Call<Topics> call, Throwable t) {
-                    Toast.makeText(NewTopicActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+//        if (editExistingTopic) {
+//            app.getApiService().updateTopic(topic.id, name, kind, language, content, tagString, cursusString).enqueue(new Callback<Topics>() {
+//                @Override
+//                public void onResponse(Call<Topics> call, Response<Topics> response) {
+//                    if (response.isSuccessful())
+//                        finish();
+//                    else
+//                        Toast.makeText(NewTopicActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Topics> call, Throwable t) {
+//                    Toast.makeText(NewTopicActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        } else {
+//            app.getApiService().createTopic(name, kind, language, content, tagString, cursusString).enqueue(new Callback<Topics>() {
+//                @Override
+//                public void onResponse(Call<Topics> call, Response<Topics> response) {
+//                    if (response.isSuccessful())
+//                        finish();
+//                    else
+//                        Toast.makeText(NewTopicActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Topics> call, Throwable t) {
+//                    Toast.makeText(NewTopicActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
     }
 
     void setTextChangeListener() {
@@ -305,8 +292,8 @@ public class NewTopicActivity extends AppCompatActivity {
 
         editTextTitle.addTextChangedListener(textWatcherChange);
         editTextContent.addTextChangedListener(textWatcherChange);
-        completionViewTag.addTextChangedListener(textWatcherChange);
-        completionViewCursus.addTextChangedListener(textWatcherChange);
+//        completionViewTag.addTextChangedListener(textWatcherChange);
+//        completionViewCursus.addTextChangedListener(textWatcherChange);
 
         spinnerWatchEdit = new AdapterView.OnItemSelectedListener() {
             @Override
@@ -331,8 +318,8 @@ public class NewTopicActivity extends AppCompatActivity {
     void unSetTextChangeListener() {
         editTextTitle.removeTextChangedListener(textWatcherChange);
         editTextContent.removeTextChangedListener(textWatcherChange);
-        completionViewTag.removeTextChangedListener(textWatcherChange);
-        completionViewCursus.removeTextChangedListener(textWatcherChange);
+//        completionViewTag.removeTextChangedListener(textWatcherChange);
+//        completionViewCursus.removeTextChangedListener(textWatcherChange);
 
         spinnerKind.setOnItemSelectedListener(null);
         spinnerLanguage.setOnItemSelectedListener(null);

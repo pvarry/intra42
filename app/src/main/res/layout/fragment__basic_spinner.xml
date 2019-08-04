@@ -9,14 +9,14 @@
         android:id="@+id/viewGroupHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorSecondary"
+        android:background="?colorPrimaryDark"
         android:elevation="2dp">
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/textColorSecondary" />
+            android:backgroundTint="?colorOnPrimary" />
     </FrameLayout>
 
     <FrameLayout

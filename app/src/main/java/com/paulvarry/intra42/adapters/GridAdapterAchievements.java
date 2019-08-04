@@ -6,15 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.api.model.Achievements;
-import com.paulvarry.intra42.utils.Tag;
+import com.paulvarry.intra42.ui.TagSpanGenerator;
 import com.paulvarry.intra42.utils.mImage;
-import com.veinhorn.tagview.TagView;
 
 import java.util.List;
 
@@ -56,10 +54,7 @@ public class GridAdapterAchievements extends BaseAdapter {
             convertView = vi.inflate(R.layout.grid_view_achievements, parent, false);
             holder.imageView = convertView.findViewById(R.id.imageView);
             holder.textViewName = convertView.findViewById(R.id.textViewName);
-            holder.tagView = convertView.findViewById(R.id.tagView);
             holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
-            holder.textViewTier = convertView.findViewById(R.id.textViewTier);
-            holder.progressBar = convertView.findViewById(R.id.progressBar);
 
             convertView.setTag(holder);
         } else {
@@ -70,7 +65,8 @@ public class GridAdapterAchievements extends BaseAdapter {
 
         if (activity.picAchievements.containsKey(achievements.imageUrl))
             holder.imageView.setImageBitmap(activity.picAchievements.get(achievements.imageUrl));
-        else
+        else {
+            holder.imageView.setImageBitmap(null);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -89,12 +85,14 @@ public class GridAdapterAchievements extends BaseAdapter {
                     }
                 }
             }).start();
+        }
 
-        Tag.setTagAchievement(activity, achievements, holder.tagView);
-        holder.textViewName.setText(achievements.name);
+        TagSpanGenerator text = new TagSpanGenerator(holder.textViewName.getContext());
+        text.addText(achievements.name);
+        text.addText("  ");
+        text.addTag(achievements);
+        holder.textViewName.setText(text.getString());
         holder.textViewDescription.setText(achievements.description);
-        holder.textViewTier.setText(achievements.kind);
-        holder.progressBar.setProgress(100);
 
         return convertView;
     }
@@ -102,9 +100,6 @@ public class GridAdapterAchievements extends BaseAdapter {
     static class ViewHolder {
         private ImageView imageView;
         private TextView textViewName;
-        private TagView tagView;
         private TextView textViewDescription;
-        private TextView textViewTier;
-        private ProgressBar progressBar;
     }
 }

@@ -7,6 +7,10 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ListAdapterQuests;
 import com.paulvarry.intra42.api.ApiService;
@@ -17,9 +21,6 @@ import com.paulvarry.intra42.ui.BasicFragmentCall;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import retrofit2.Call;
 
 /**
@@ -63,6 +64,8 @@ public class UserQuestsFragment extends BasicFragmentCall<QuestsUsers, ListAdapt
         ListView listView = view.findViewById(R.id.listView);
         listView.setDivider(null);
         listView.setDividerHeight(0);
+        int padding = Math.round(getResources().getDimension(R.dimen.card_spacing_half));
+        listView.setPadding(0, padding, 0, padding);
     }
 
     public void onButtonPressed(Uri uri) {

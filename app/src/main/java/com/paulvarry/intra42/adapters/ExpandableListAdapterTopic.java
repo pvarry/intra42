@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.chip.ChipGroup;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.NewTopicActivity;
@@ -25,11 +28,8 @@ import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
-import com.plumillonforge.android.chipview.ChipView;
 
 import java.util.List;
-
-import androidx.core.content.ContextCompat;
 
 public class ExpandableListAdapterTopic extends BaseExpandableListAdapter implements DialogInterface.OnDismissListener {
 
@@ -377,7 +377,7 @@ public class ExpandableListAdapterTopic extends BaseExpandableListAdapter implem
 
     private static class ViewHolderParent extends ViewHolder {
         TextView textViewTitle;
-        ChipView chipViewTags;
+        ChipGroup chipViewTags;
         View titleBackground;
     }
 }

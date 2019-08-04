@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.MaterialComponents.Chip.Entry"
+    android:checkable="false"
+    android:text="New Text"
+    android:textColor="#000"
+    app:chipCornerRadius="5dp"
+    app:closeIcon="@null"
+    app:textEndPadding="2dp"
+    app:textStartPadding="2dp" />

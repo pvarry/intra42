@@ -24,8 +24,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -50,14 +59,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import io.apptik.widget.MultiSlider;
 import retrofit2.Response;
 
@@ -96,7 +97,7 @@ public class ClusterMapInfoFragment
     private TextView textViewContributeDescription;
     private TextView textViewNoClusterMap;
     private Button buttonContribute;
-    private CardView cardViewApiError;
+    private MaterialCardView cardViewApiError;
     private ViewGroup layoutDisabledLayer;
     private TextView textViewWarningDisabledLayer;
     private ViewGroup layoutLevel;
@@ -133,7 +134,7 @@ public class ClusterMapInfoFragment
 
         }
     };
-    private TextWatcher textWatcherLevelMin = new TextWatcher() {
+    private TextWatcher textWatcherLevelMax = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -142,13 +143,20 @@ public class ClusterMapInfoFragment
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             multiSliderLevels.setOnThumbValueChangeListener(null);
-            try {
-                activity.layerSettingsInProgress.layerLevelMin = Float.parseFloat(s.toString());
-                multiSliderLevels.getThumb(0).setValue(Math.round(activity.layerSettingsInProgress.layerLevelMin));
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+            if (s.toString().contentEquals("21+")) {
+                activity.layerSettingsInProgress.layerLevelMax = -1;
+                multiSliderLevels.getThumb(1).setValue(22);
+                multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
+            } else {
+                try {
+                    activity.layerSettingsInProgress.layerLevelMax = Float.parseFloat(s.toString());
+                    multiSliderLevels.getThumb(1).setValue(Math.round(activity.layerSettingsInProgress.layerLevelMax));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                } finally {
+                    multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
+                }
             }
-            multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
             updateButton();
         }
 
@@ -181,7 +189,7 @@ public class ClusterMapInfoFragment
             updateButton();
         }
     };
-    private TextWatcher textWatcherLevelMax = new TextWatcher() {
+    private TextWatcher textWatcherLevelMin = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -190,20 +198,13 @@ public class ClusterMapInfoFragment
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             multiSliderLevels.setOnThumbValueChangeListener(null);
-            if (s.toString().contentEquals("21+")) {
-                activity.layerSettingsInProgress.layerLevelMax = -1;
-                multiSliderLevels.getThumb(1).setValue(22);
-                multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
-            } else {
-                try {
-                    activity.layerSettingsInProgress.layerLevelMax = Float.parseFloat(s.toString());
-                    multiSliderLevels.getThumb(1).setValue(Math.round(activity.layerSettingsInProgress.layerLevelMax));
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                } finally {
-                    multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
-                }
+            try {
+                activity.layerSettingsInProgress.layerLevelMin = Float.parseFloat(s.toString());
+                multiSliderLevels.getThumb(0).setValue(Math.round(activity.layerSettingsInProgress.layerLevelMin));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
             }
+            multiSliderLevels.setOnThumbValueChangeListener(onThumbValueChangeListener);
             updateButton();
         }
 

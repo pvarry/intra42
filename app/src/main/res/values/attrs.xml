@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="Galaxy">
-        <attr name="backgroundColor" format="color" />
+        <attr name="colorProjectBackground" format="color" />
         <attr name="colorProjectUnavailable" format="color" />
         <attr name="colorProjectAvailable" format="color" />
         <attr name="colorProjectValidated" format="color" />
         <attr name="colorProjectFailed" format="color" />
         <attr name="colorProjectInProgress" format="color" />
-        <attr name="colorProjectTextUnavailable" format="color" />
-        <attr name="colorProjectTextAvailable" format="color" />
-        <attr name="colorProjectTextValidated" format="color" />
-        <attr name="colorProjectTextFailed" format="color" />
-        <attr name="colorProjectTextInProgress" format="color" />
+        <attr name="colorProjectOnUnavailable" format="color" />
+        <attr name="colorProjectOnAvailable" format="color" />
+        <attr name="colorProjectOnValidated" format="color" />
+        <attr name="colorProjectOnFailed" format="color" />
+        <attr name="colorProjectOnInProgress" format="color" />
         <attr name="weightPath" format="dimension" />
         <attr name="labelPosition" format="enum">
             <enum name="left" value="0" />
@@ -20,11 +20,9 @@
     </declare-styleable>
 
     <declare-styleable name="Theme">
-        <attr name="colorSecondary" format="color" />
         <attr name="themeSelectionBar" format="reference" />
         <attr name="tintColor" format="color" />
         <attr name="bigBackgroundTextTheme" format="reference" />
         <attr name="backgroundOverlay" format="reference" />
-        <attr name="colorAccentDark" format="color" />
     </declare-styleable>
 </resources>

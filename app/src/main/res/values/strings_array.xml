@@ -95,7 +95,6 @@
         <item>@string/pref_theme_list_titles_blue_the_federation</item>
         <item>@string/pref_theme_list_titles_purple_the_assembly</item>
         <item>@string/pref_theme_list_titles_red_the_order</item>
-        <item>@string/pref_theme_list_titles_android</item>
     </string-array>
 
     <string-array name="pref_theme_list_values">
@@ -104,7 +103,6 @@
         <item>blue</item>
         <item>purple</item>
         <item>red</item>
-        <item>android</item>
     </string-array>
 
     <!-- Search stuff -->

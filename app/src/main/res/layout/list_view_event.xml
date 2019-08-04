@@ -1,104 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <View
+        android:id="@+id/viewVerticalStart"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewRegistered"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/shape_triangle"
+        android:backgroundTint="@color/colorSuccess"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textViewFull"
-        style="?bigBackgroundTextTheme"
-        android:text="@string/event_full" />
+        style="@style/AppTheme.BigTextBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.3"
+        android:text="@string/event_full"
+        android:textColor="?attr/colorError"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:text="New Text"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/list_event_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearLayoutSide"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/textViewDateDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewName"
+        app:layout_constraintEnd_toStartOf="@+id/list_event_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="16" />
 
-            <TextView
-                android:id="@+id/textViewDateDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="New Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/textViewDateMonth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/list_event_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDateDay"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Aug" />
 
-            <TextView
-                android:id="@+id/textViewDateMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text" />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPlace"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/list_event_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        tools:text="16:30 - 17:30" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp">
+    <TextView
+        android:id="@+id/textViewPlace"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:lines="1"
+        android:text="New Text"
+        android:textAlignment="textEnd"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewTime" />
 
-            <TextView
-                android:id="@+id/textViewName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="New Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/list_event_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.12" />
 
-            <TextView
-                android:id="@+id/textViewDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewName"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:singleLine="false"
-                android:text="New Text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?android:textColorSecondary" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewDescription"
-                android:layout_marginTop="2dp">
-
-                <TextView
-                    android:id="@+id/textViewTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="New Text"
-                    android:textColor="?android:textColorTertiary" />
-
-                <TextView
-                    android:id="@+id/textViewPlace"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_toEndOf="@+id/textViewTime"
-                    android:layout_toRightOf="@+id/textViewTime"
-                    android:gravity="end"
-                    android:text="New Text"
-                    android:textColor="?android:textColorTertiary" />
-
-            </RelativeLayout>
-        </RelativeLayout>
-
-
-    </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

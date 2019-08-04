@@ -1,19 +1,18 @@
 package com.paulvarry.intra42.adapters;
 
 import android.content.Context;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.chip.ChipGroup;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.TopicActivity;
-import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Topics;
+import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.UserImage;
 
 import java.util.List;
@@ -73,10 +72,11 @@ public class ListAdapterTopics extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = vi.inflate(R.layout.list_view_topics, parent, false);
+            holder.layoutParent = convertView.findViewById(R.id.list_topic_layoutParent);
             holder.imageViewUser = convertView.findViewById(R.id.imageViewUser);
             holder.textViewTitle = convertView.findViewById(R.id.textViewTitle);
             holder.textViewSummary = convertView.findViewById(R.id.textViewSummary);
-            holder.completionViewTags = convertView.findViewById(R.id.completion_view_tags);
+            holder.chipGroup = convertView.findViewById(R.id.chipGroup);
 
             convertView.setTag(holder);
         } else {
@@ -87,45 +87,19 @@ public class ListAdapterTopics extends BaseAdapter {
 
         UserImage.setImage(context, topic.author, holder.imageViewUser);
         holder.textViewTitle.setText(topic.name);
-
-        if (topic.tags == null || topic.tags.size() == 0) {
-            holder.completionViewTags.setVisibility(View.GONE);
-        } else {
-            ArrayAdapter<Tags> adapterTags = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, topic.tags);
-            holder.completionViewTags.setAdapter(adapterTags);
-            holder.completionViewTags.allowDuplicates(false);
-            holder.completionViewTags.allowCollapse(false);
-
-            holder.completionViewTags.clear();
-            Editable text = holder.completionViewTags.getText();
-            if (text != null) text.clear();
-            for (Tags t : topic.tags)
-                holder.completionViewTags.addObject(t);
-
-//        holder.completionViewTags.setPrefix(topic.name + " ");
-            holder.completionViewTags.setFocusable(false);
-            holder.completionViewTags.setCursorVisible(false);
-            holder.completionViewTags.setClickable(true);
-
-            holder.completionViewTags.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    parent.callOnClick();
-                    TopicActivity.openIt(context, topic);
-                }
-            });
-        }
-
+        Tag.setTagForum(context, topic.tags, holder.chipGroup);
         holder.textViewSummary.setText(topic.getSub(context));
 
+        holder.layoutParent.setOnClickListener(view -> TopicActivity.openIt(context, topic));
         return convertView;
     }
 
     private static class ViewHolder {
 
+        private ViewGroup layoutParent;
         private ImageView imageViewUser;
         private TextView textViewTitle;
-        private CompletionViewTags completionViewTags;
+        private ChipGroup chipGroup;
         private TextView textViewSummary;
     }
 }

@@ -14,17 +14,31 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.*;
+import android.preference.ListPreference;
+import android.preference.MultiSelectListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+import android.preference.RingtonePreference;
+import android.preference.SwitchPreference;
 import android.text.TextUtils;
 import android.util.SparseArray;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -72,7 +86,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 int index = listPreference.findIndexOfValue(stringValue);
 
                 // Set the summary to reflect the new value.
-                preference.setSummary(index >= 0 ? listPreference.getEntries()[index] : null);
+                CharSequence summary = null;
+                if (index >= 0 && index < listPreference.getEntries().length)
+                    summary = listPreference.getEntries()[index];
+                preference.setSummary(summary);
 
 
                 // Change Theme
@@ -200,7 +217,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CALENDAR: {
                 // If request is cancelled, the result arrays are empty.
@@ -380,8 +397,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             ListPreference prefListCalendar = (ListPreference) findPreference(AppSettings.Notifications.LIST_CALENDAR);
             if (calendar != null) {
-                CharSequence entryKey[] = new String[calendar.size()];
-                CharSequence entryValues[] = new String[calendar.size()];
+                CharSequence[] entryKey = new String[calendar.size()];
+                CharSequence[] entryValues = new String[calendar.size()];
 
                 for (int i = 0; i < calendar.size(); i++) {
                     int key = calendar.keyAt(i);
@@ -559,8 +576,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             ListPreference listPreferenceCursus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CURSUS);
             if (listPreferenceCursus != null) {
                 int cursusSize = cursusCache != null ? cursusCache.size() : 0;
-                CharSequence entries[] = new String[cursusSize + 2];
-                CharSequence entryValues[] = new String[cursusSize + 2];
+                CharSequence[] entries = new String[cursusSize + 2];
+                CharSequence[] entryValues = new String[cursusSize + 2];
 
                 entries[0] = context.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";
@@ -580,8 +597,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             ListPreference listPreferenceCampus = (ListPreference) findPreference(AppSettings.Advanced.PREFERENCE_ADVANCED_FORCE_CAMPUS);
             if (listPreferenceCampus != null) {
                 int campusSize = campusCache != null ? campusCache.size() : 0;
-                CharSequence entries[] = new String[campusSize + 2];
-                CharSequence entryValues[] = new String[campusSize + 2];
+                CharSequence[] entries = new String[campusSize + 2];
+                CharSequence[] entryValues = new String[campusSize + 2];
 
                 entries[0] = context.getString(R.string.pref_advanced_dont_force);
                 entryValues[0] = "-1";

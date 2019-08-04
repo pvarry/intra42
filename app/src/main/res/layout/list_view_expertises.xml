@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:text="New Text" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp">
+        android:layout_marginEnd="8dp"
+        android:textAppearance="?attr/textAppearanceListItemSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/checkboxInterested"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Android" />
 
-        <CheckBox
-            android:id="@+id/checkboxInterested"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="true"
-            android:clickable="false"
-            android:focusable="false" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:numStars="5"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:rating="2" />
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkboxInterested"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ratingBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
-</FrameLayout>
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:numStars="5"
+        android:rating="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,10 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.chip.Chip;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Apps;
 import com.paulvarry.intra42.utils.mImage;
-import com.veinhorn.tagview.TagView;
 
 import java.util.List;
 
@@ -139,7 +139,7 @@ public class ListAdapterApps extends BaseAdapter {
         private TextView textViewName;
         private TextView textViewSub;
         private TextView textVieWebSite;
-        private TagView tagViewOfficialApp;
+        private Chip tagViewOfficialApp;
         private TextView textViewBack;
     }
 }

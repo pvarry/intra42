@@ -196,7 +196,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:tint="@color/textColorError"
+                            android:tint="?attr/colorError"
                             app:srcCompat="@drawable/ic_warning_black_24dp" />
 
                         <TextView
@@ -206,7 +206,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:text="@string/cluster_map_info_layer_warning_disabled"
-                            android:textColor="@color/textColorError" />
+                            android:textColor="?attr/colorError" />
                     </LinearLayout>
 
                     <Button
@@ -220,7 +220,7 @@
                         android:layout_marginBottom="8dp"
                         android:text="@string/cluster_map_info_button_update" />
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardViewApiError"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -229,8 +229,8 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="8dp"
-                        android:background="@color/textColorError"
-                        android:backgroundTint="@color/textColorError"
+                        android:background="?attr/colorError"
+                        android:backgroundTint="?attr/colorError"
                         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -245,7 +245,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
-                                android:tint="#fff"
+                                android:tint="?attr/colorOnError"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/ic_warning_black_24dp" />
@@ -255,7 +255,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
                                 android:layout_marginLeft="6dp"
-                                android:text="Api Error"
+                                android:text="@string/cluster_map_layer_data_unavailable_title"
+                                android:textColor="?attr/colorOnError"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                                 app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -270,7 +271,8 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_marginBottom="8dp"
-                                android:text="Data temporarily unavailable, try again later"
+                                android:text="@string/cluster_map_layer_data_unavailable_content"
+                                android:textColor="?attr/colorOnError"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -278,7 +280,7 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 

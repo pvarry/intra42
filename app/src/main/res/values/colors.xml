@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="color_background">@color/design_default_color_background</color>
+    <color name="color_on_background">#1E1E1E</color>
+    <color name="color_surface">#F0F0F0</color>
+    <color name="color_on_surface">#1E1E1E</color>
+
+    <!-- Theme Intra -->
+    <color name="themeIntra_colorPrimary">#495166</color>
+    <color name="themeIntra_colorPrimaryVariant">#2e3442</color>
+    <color name="themeIntra_colorSecondary">#00babc</color>
+    <color name="themeIntra_colorSecondaryVariant">#00898c</color>
+
+    <!-- Theme Intra Order -->
+    <color name="themeIntraOrder_colorSecondary">#FF6950</color>
+    <color name="themeIntraOrder_colorSecondaryVariant">#c63626</color>
+
+    <!-- Theme Intra Assembly -->
+    <color name="themeIntraAssembly_colorSecondary">#A061D1</color>
+    <color name="themeIntraAssembly_colorSecondaryVariant">#6f349f</color>
+
+    <!-- Theme Intra Alliance -->
+    <color name="themeIntraAlliance_colorSecondary">#33C47F</color>
+    <color name="themeIntraAlliance_colorSecondaryVariant">#009252</color>
+
+    <!-- Theme Intra Federation -->
+    <color name="themeIntraFederation_colorSecondary">#4180DB</color>
+    <color name="themeIntraFederation_colorSecondaryVariant">#0054a9</color>
+
+
     <color name="textColorPrimary">#DEffffff</color>
     <color name="textColorSecondary">#8Affffff</color>
     <color name="textColorDisabled">#61ffffff</color>
@@ -21,9 +49,6 @@
     <color name="colorTintCross">#c62828</color>
     <color name="dividers">#1f000000</color>
 
-    <color name="colorErrorSurface">#B00020</color>
-    <color name="colorErrorOnSurface">#ffffff</color>
-    <color name="textColorError">#D30915</color>
     <color name="colorClusterMapWall">#e0e0e0</color>
     <color name="colorClusterMapComputerColor">#263238</color>
     <color name="colorClusterMapTextBackground">#96ffffff</color>
@@ -72,18 +97,13 @@
     <color name="tag__y">#b300bc92</color>
     <color name="tag__z">#b300babc</color>
 
-    <color name="tag_event_conference">#00babc</color>
-    <color name="tag_event_other">#c0c0c0</color>
-    <color name="tag_event_extern">#c0c0c0</color>
+    <color name="tag_event_default">#404040</color>
+    <color name="tag_event_pedago">#da5a51</color>
+    <color name="tag_event_meet">#01a2a4</color>
+    <color name="tag_event_association">#7e93d4</color>
+    <color name="tag_event_speed_working">#2abb77</color>
     <color name="tag_event_atelier">#9DDA62</color>
-    <color name="tag_event_meet_up">#00babc</color>
-    <color name="tag_event_hackathon">#39D88F</color>
-    <color name="tag_event_workshop">#39D88F</color>
-    <color name="tag_event_association">#a2b3e5</color>
-    <color name="tag_event_partnership">#39D88F</color>
-    <color name="tag_event_challenge">#39D88F</color>
-    <color name="tag_event_event">#00babc</color>
-    <color name="tag_event_">#00babc</color>
+    <color name="tag_on_event">#FFFFFF</color>
 
     <color name="toggle_hover">@color/gray</color>
     <color name="toggle_normal">@color/gainsboro</color>

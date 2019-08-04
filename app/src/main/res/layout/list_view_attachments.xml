@@ -1,40 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageViewIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
+        android:alpha="0.8"
         android:contentDescription="@string/icon_project"
-        android:tint="@color/colorGrayTint"
+        android:tint="?attr/colorOnSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_class_black_24px" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:orientation="vertical">
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="New Text"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/textViewSub"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="New Text"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
-        <TextView
-            android:id="@+id/textViewSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text" />
 
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

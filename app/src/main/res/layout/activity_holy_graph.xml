@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <com.paulvarry.intra42.ui.Galaxy
         android:id="@+id/galaxy"
+        style="@style/AppTheme.Galaxy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:backgroundColor="#303030"
-        app:colorProjectAvailable="#bdbdbd"
-        app:colorProjectFailed="@color/colorFail"
-        app:colorProjectInProgress="#ffffff"
-        app:colorProjectTextAvailable="#616161"
-        app:colorProjectTextFailed="#e0e0e0"
-        app:colorProjectTextInProgress="#212121"
-        app:colorProjectTextUnavailable="#fff"
-        app:colorProjectTextValidated="#e0e0e0"
-        app:colorProjectUnavailable="#616161"
-        app:colorProjectValidated="?attr/colorAccentDark"
-        app:weightPath="4.5dp" />
+        android:layout_height="match_parent" />
 
     <ListView
         android:id="@+id/listViewAll"

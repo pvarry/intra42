@@ -21,6 +21,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.ImageViewerActivity;
@@ -36,17 +44,9 @@ import com.paulvarry.intra42.ui.TagSpanGenerator;
 import com.paulvarry.intra42.utils.Analytics;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Share;
-import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.Tools;
 import com.paulvarry.intra42.utils.UserImage;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.Group;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -277,9 +277,7 @@ public class UserOverviewFragment
             }
         }
 
-        TagSpanGenerator span = new TagSpanGenerator.Builder(getContext())
-                .setTextSize(textViewName.getTextSize())
-                .build();
+        TagSpanGenerator span = new TagSpanGenerator(requireContext());
         span.addText(user.displayName);
         span.addText(" - ");
 
@@ -291,7 +289,7 @@ public class UserOverviewFragment
         if (user.groups != null && !user.groups.isEmpty()) {
             span.addText(" ");
             for (Tags tag : user.groups) {
-                span.addTag(tag.name, Tag.getUsersTagColor(tag));
+                span.addTag(tag);
             }
         }
         textViewName.setText(span.getString());
@@ -321,7 +319,7 @@ public class UserOverviewFragment
             }
         }
         textViewPosition.setText(strLocation);
-        String wallet = String.valueOf(user.wallet) + " ₳";
+        String wallet = user.wallet + " ₳";
         textViewWallet.setText(wallet);
         textViewCorrectionPoints.setText(String.valueOf(user.correction_point));
 
@@ -468,14 +466,10 @@ public class UserOverviewFragment
             if (!isFriend) {
                 buttonFriend.setText(R.string.user_profile_add_to_friends);
                 TypedValue typedValue = new TypedValue();
-                Context context = getContext();
-                if (context == null)
-                    return;
-                Resources.Theme theme = context.getTheme();
+                Resources.Theme theme = buttonFriend.getContext().getTheme();
                 theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
                 @ColorInt int color = typedValue.data;
                 buttonFriend.setTextColor(color);
-
             } else {
                 buttonFriend.setText(R.string.user_profile_remove_from_friends);
                 buttonFriend.setTextColor(getResources().getColor(R.color.colorGray));
@@ -584,7 +578,7 @@ public class UserOverviewFragment
         final Context context = getContext();
         if (context == null)
             return;
-        CharSequence action[] = new CharSequence[]{
+        CharSequence[] action = new CharSequence[]{
                 context.getString(R.string.copy),
                 context.getString(R.string.navigation_share)};
 

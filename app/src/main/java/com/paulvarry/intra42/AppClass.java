@@ -13,6 +13,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
@@ -52,9 +56,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AppCompatDelegate;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -209,6 +210,17 @@ public class AppClass extends Application {
                 SharedPreferences.Editor pref = AppSettings.getSharedPreferences(this).edit();
                 pref.remove("should_sync_friends");
                 pref.apply();
+            }
+            if (appVersion <= 20190803) {
+                Log.d("Start param migration", "theme 2");
+                SharedPreferences pref = AppSettings.getSharedPreferences(this);
+
+                String string = pref.getString(AppSettings.Theme.THEME, "default");
+                if (string.contentEquals("android")) {
+                    SharedPreferences.Editor editor = pref.edit();
+                    edit.remove(AppSettings.Theme.THEME);
+                    editor.apply();
+                }
             }
 
             //clear logs on each version

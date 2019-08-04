@@ -14,10 +14,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -30,7 +31,6 @@ import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tag;
 import com.paulvarry.intra42.utils.Tools;
-import com.veinhorn.tagview.TagView;
 
 import java.util.Date;
 import java.util.List;
@@ -249,14 +249,14 @@ public class EventFragment extends Fragment implements View.OnClickListener {
             return;
 
         TextView textViewTitle = contentView.findViewById(R.id.textViewTitle);
-        TagView tagViewKind = contentView.findViewById(R.id.tagViewKind);
+        Chip tagViewKind = contentView.findViewById(R.id.tagViewKind);
         TextView textViewDate = contentView.findViewById(R.id.textViewDate);
         TextView textViewTime = contentView.findViewById(R.id.textViewTime);
         LinearLayout linearLayoutPlace = contentView.findViewById(R.id.linearLayoutPlace);
         TextView textViewPlace = contentView.findViewById(R.id.textViewPlace);
         TextView textViewPeople = contentView.findViewById(R.id.textViewPeople);
         ViewGroup linearLayoutPeople = contentView.findViewById(R.id.linearLayoutPeople);
-        CardView cardViewUnsubscribeLimit = contentView.findViewById(R.id.cardViewUnsubscribeLimit);
+        MaterialCardView cardViewUnsubscribeLimit = contentView.findViewById(R.id.cardViewUnsubscribeLimit);
         TextView textViewUnsubscribeLimit = contentView.findViewById(R.id.textViewUnsubscribeLimit);
         TextView textViewDescription = contentView.findViewById(R.id.textViewDescription);
         buttonSubscribe = contentView.findViewById(R.id.buttonSubscribe);

@@ -8,10 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.SlotsTools;
@@ -23,7 +24,9 @@ public class RecyclerAdapterSlotsItem extends RecyclerView.Adapter<RecyclerAdapt
     private final Context context;
     private List<SlotsTools.SlotsGroup> slots;
     @ColorInt
-    private int defaultTextColor;
+    private int textColorDefault;
+    @ColorInt
+    private int textColorError;
     private OnItemClickListener listener;
 
     RecyclerAdapterSlotsItem(Context context, List<SlotsTools.SlotsGroup> slots) {
@@ -31,13 +34,20 @@ public class RecyclerAdapterSlotsItem extends RecyclerView.Adapter<RecyclerAdapt
         this.context = context;
         this.slots = slots;
 
-        // Get the primary text color of the theme
-        TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();
-        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true);
-        TypedArray arr = context.obtainStyledAttributes(typedValue.data, new int[]{android.R.attr.textColorPrimary});
-        defaultTextColor = arr.getColor(0, -1);
-        arr.recycle();
+
+        // Get the primary text color of the theme
+        TypedValue typedValueDefault = new TypedValue();
+        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValueDefault, true);
+        TypedArray arrDefault = context.obtainStyledAttributes(typedValueDefault.data, new int[]{android.R.attr.textColorPrimary});
+        textColorDefault = arrDefault.getColor(0, -1);
+        arrDefault.recycle();
+
+        TypedValue typedValueError = new TypedValue();
+        theme.resolveAttribute(R.attr.colorError, typedValueError, true);
+        TypedArray arrError = context.obtainStyledAttributes(typedValueError.data, new int[]{R.attr.colorError});
+        textColorError = arrError.getColor(0, -1);
+        arrError.recycle();
     }
 
     public SlotsTools.SlotsGroup getItem(int position) {
@@ -59,9 +69,9 @@ public class RecyclerAdapterSlotsItem extends RecyclerView.Adapter<RecyclerAdapt
         String date = DateTool.getTimeShort(item.beginAt) + " - " + DateTool.getTimeShort(item.endAt);
         holder.textViewDate.setText(date);
         if (item.scaleTeam != null || item.isBooked)
-            holder.textViewDate.setTextColor(ContextCompat.getColor(context, R.color.textColorError));
+            holder.textViewDate.setTextColor(textColorError);
         else
-            holder.textViewDate.setTextColor(defaultTextColor);
+            holder.textViewDate.setTextColor(textColorDefault);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

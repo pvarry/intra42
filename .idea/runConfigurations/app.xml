@@ -50,6 +50,7 @@
     <option name="ACTIVITY_CLASS" value="com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity" />
     <method v="2">
       <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="" />
     </method>
   </configuration>
 </component>

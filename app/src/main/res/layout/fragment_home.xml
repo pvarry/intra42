@@ -61,8 +61,10 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="8dp"
+                        android:alpha="0.90"
                         android:text="New Text"
                         android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:tint="?attr/colorOnBackground"
                         app:layout_constraintEnd_toStartOf="@+id/imageViewOpenProfile"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -78,10 +80,11 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/icon_eye"
                         android:padding="4dp"
-                        android:tint="?tintColor"
+                        android:tint="?attr/colorOnBackground"
                         app:layout_constraintBottom_toBottomOf="@+id/textViewName"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -93,9 +96,10 @@
                         android:id="@+id/textViewWalletLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="6dp"
+                        android:alpha="0.75"
                         android:text="@string/user_wallet_money"
-                        android:textColor="?android:textColorTertiary"
+                        android:textColor="?attr/colorOnBackground"
                         app:layout_constraintStart_toStartOf="@+id/textViewName"
                         app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
@@ -107,6 +111,8 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
+                        android:textColor="?attr/colorOnBackground"
                         app:layout_constraintBaseline_toBaselineOf="@+id/textViewWalletLabel"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textViewWalletLabel" />
@@ -116,8 +122,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="19dp"
                         android:layout_marginTop="2dp"
+                        android:alpha="0.75"
                         android:text="@string/user_correction_points"
-                        android:textColor="?android:textColorTertiary"
+                        android:textColor="?attr/colorOnBackground"
                         app:layout_constraintStart_toStartOf="@+id/textViewName"
                         app:layout_constraintTop_toBottomOf="@+id/textViewWalletLabel" />
 
@@ -129,6 +136,8 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
+                        android:textColor="?attr/colorOnBackground"
                         app:layout_constraintBaseline_toBaselineOf="@+id/textViewCpLabel"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textViewCpLabel" />
@@ -139,7 +148,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="16dp"
+                        android:alpha="0.75"
                         android:text="@string/user_level"
+                        android:textColor="?attr/colorOnBackground"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textViewName"
                         app:layout_constraintTop_toBottomOf="@+id/textViewCpLabel" />
@@ -150,7 +161,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
+                        android:alpha="0.75"
                         android:text="New Text"
+                        android:textColor="?attr/colorOnBackground"
                         app:layout_constraintBaseline_toBaselineOf="@+id/textViewLevelLabel"
                         app:layout_constraintStart_toEndOf="@+id/textViewLevelLabel" />
 
@@ -188,14 +201,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
                         android:contentDescription="@string/icon_project"
-                        android:tint="?tintColor"
+                        android:tint="?attr/colorOnBackground"
                         app:srcCompat="@drawable/ic_device_hub_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_tab_projects_graphic" />
+                        android:text="@string/title_tab_projects_graphic"
+                        android:textAppearance="?attr/textAppearanceListItem" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -213,14 +228,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
                         android:contentDescription="@string/icon_location"
-                        android:tint="?tintColor"
+                        android:tint="?attr/colorOnBackground"
                         app:srcCompat="@drawable/ic_map_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/navigation_cluster_map" />
+                        android:text="@string/navigation_cluster_map"
+                        android:textAppearance="?attr/textAppearanceListItem" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -238,14 +255,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
                         android:contentDescription="@string/icon_menu"
-                        android:tint="?tintColor"
+                        android:tint="?attr/colorOnBackground"
                         app:srcCompat="@drawable/ic_restaurant_menu_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cantina_menu_fremont_only" />
+                        android:text="@string/cantina_menu_fremont_only"
+                        android:textAppearance="?attr/textAppearanceListItem" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -263,14 +282,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
                         android:contentDescription="@string/icon_friends"
-                        android:tint="?tintColor"
+                        android:tint="?attr/colorOnBackground"
                         app:srcCompat="@drawable/ic_people_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_activity_friends" />
+                        android:text="@string/title_activity_friends"
+                        android:textColor="?attr/colorOnBackground" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -288,14 +309,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
                         android:contentDescription="@string/icon_time"
-                        android:tint="?tintColor"
+                        android:tint="?attr/colorOnBackground"
                         app:srcCompat="@drawable/ic_access_time_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/navigation_time_on_campus" />
+                        android:text="@string/navigation_time_on_campus"
+                        android:textAppearance="?attr/textAppearanceListItem" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -313,14 +336,16 @@
                         android:layout_height="24dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:alpha="0.75"
                         android:contentDescription="@string/icon_menu"
-                        android:tint="?tintColor"
+                        android:tint="?attr/colorOnBackground"
                         app:srcCompat="@drawable/banner" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_activity_coalitions" />
+                        android:text="@string/title_activity_coalitions"
+                        android:textAppearance="?attr/textAppearanceListItem" />
                 </LinearLayout>
 
             </LinearLayout>

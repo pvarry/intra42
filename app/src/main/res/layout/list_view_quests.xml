@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="6dp">
+        android:layout_marginStart="@dimen/card_spacing"
+        android:layout_marginTop="@dimen/card_spacing_half"
+        android:layout_marginEnd="@dimen/card_spacing"
+        android:layout_marginBottom="@dimen/card_spacing_half">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -83,5 +83,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </FrameLayout>

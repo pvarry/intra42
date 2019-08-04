@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.ui.TagSpanGenerator;
-import in.uncod.android.bypass.Bypass;
 
 import java.util.List;
+
+import in.uncod.android.bypass.Bypass;
 
 // usage of Deprecated but is work in progress
 @Deprecated
@@ -167,7 +170,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Context context = itemView.getContext();
 
             textViewName.setText(item.name);
-            TagSpanGenerator span = new TagSpanGenerator.Builder(context).setTextSize(textViewName.getTextSize()).build();
+            TagSpanGenerator span = new TagSpanGenerator(context);
             if (item.kind != null)
                 span.addTag(item.kind.getString(context), item.kind.getColorInt(context));
             span.addText(item.name);

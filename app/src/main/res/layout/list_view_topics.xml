@@ -1,54 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/list_topic_layoutParent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="4dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageViewUser"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_margin="9dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/icon_people"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_person_black_custom" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="0dp"
-        android:paddingLeft="0dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="4dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Medium Text"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUser"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUser"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
-        <com.paulvarry.intra42.adapters.CompletionViewTags
-            android:id="@+id/completion_view_tags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/forum_tags" />
+    <TextView
+        android:id="@+id/textViewSummary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="New Text"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUser"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
-        <TextView
-            android:id="@+id/textViewSummary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="New Text" />
 
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

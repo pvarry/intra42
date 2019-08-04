@@ -1,13 +1,11 @@
-<resources xmlns:android="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme" parent="AppTheme.Base">
-
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
-
     </style>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="AppTheme.Base" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="themeSelectionBar">@style/ThemeSelectionBar</item>
         <item name="tintColor">@color/colorGrayTint</item>
         <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
@@ -23,54 +21,52 @@
 
         <item name="autoCompleteTextViewStyle">@style/myAutoCompleteTextViewStyle</item>
         <item name="weightPath">4.5dp</item>
-        <item name="colorAccentDark">#00675b</item>
     </style>
 
     <style name="myAutoCompleteTextViewStyle" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="android:popupBackground">#ffffff</item>
     </style>
 
-    <style name="ThemeIntra" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#292D39</item>
-        <item name="colorPrimaryDark">#1e212a</item>
-        <item name="colorSecondary">#525663</item>
-        <item name="colorAccent">#00babc</item>
-        <item name="colorAccentDark">#00898c</item>
+    <style name="ThemeIntra.Base" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">@color/themeIntra_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/themeIntra_colorPrimaryVariant</item>
+        <item name="colorPrimaryVariant">@color/themeIntra_colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/themeIntra_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/themeIntra_colorSecondaryVariant</item>
+        <item name="colorAccent">@color/themeIntra_colorSecondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorOnBackground">@color/color_on_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+        <item name="android:windowBackground">@color/color_background</item>
     </style>
 
+    <style name="ThemeIntra" parent="ThemeIntra.Base" />
+
     <style name="ThemeIntraOrder" parent="ThemeIntra">
-        <item name="colorAccent">#FF6950</item>
-        <item name="colorAccentDark">#c63626</item>
+        <item name="colorSecondary">@color/themeIntraOrder_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/themeIntraOrder_colorSecondaryVariant</item>
+        <item name="colorAccent">@color/themeIntraOrder_colorSecondary</item>
     </style>
 
     <style name="ThemeIntraAssembly" parent="ThemeIntra">
-        <item name="colorAccent">#A061D1</item>
-        <item name="colorAccentDark">#6f349f</item>
+        <item name="colorSecondary">@color/themeIntraAssembly_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/themeIntraAssembly_colorSecondaryVariant</item>
+        <item name="colorAccent">@color/themeIntraAssembly_colorSecondary</item>
     </style>
 
     <style name="ThemeIntraAlliance" parent="ThemeIntra">
-        <item name="colorAccent">#33C47F</item>
-        <item name="colorAccentDark">#009252</item>
+        <item name="colorSecondary">@color/themeIntraAlliance_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/themeIntraAlliance_colorSecondaryVariant</item>
+        <item name="colorAccent">@color/themeIntraAlliance_colorSecondary</item>
     </style>
 
     <style name="ThemeIntraFederation" parent="ThemeIntra">
-        <item name="colorAccent">#4180DB</item>
-        <item name="colorAccentDark">#0054a9</item>
-    </style>
-
-    <style name="ThemeDarkAndroid" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#212121</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="colorSecondary">#ff37474f</item>
-        <item name="colorAccent">@color/mdtp_accent_color</item>
-        <item name="colorAccentDark">#00675b</item>
-    </style>
-
-    <style name="ThemeOld" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#3F51B5</item>
-        <item name="colorPrimaryDark">#303f9f</item>
-        <item name="colorAccent">#FF4081</item>
-        <item name="colorSecondary">#7a89dc</item>
+        <item name="colorSecondary">@color/themeIntraFederation_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/themeIntraFederation_colorSecondaryVariant</item>
+        <item name="colorAccent">@color/themeIntraFederation_colorSecondary</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -78,7 +74,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -93,8 +89,17 @@
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.Button.Borderless" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:textColor">?colorAccent</item>
+    <style name="AppTheme.Button" parent="@style/Widget.MaterialComponents.Button">
+        <item name="colorPrimary">?colorSecondary</item>
+        <item name="colorOnPrimary">?colorOnSecondary</item>
+    </style>
+
+    <style name="AppTheme.Chip">
+        <item name="chipCornerRadius">5dp</item>
+    </style>
+
+    <style name="AppTheme.Navigation">
+        <item name="colorPrimary">?attr/colorOnBackground</item>
     </style>
 
     <style name="AppTheme.Button.BorderlessDrawable" parent="@style/Widget.AppCompat.Button.Borderless">
@@ -146,16 +151,17 @@
     <style name="AppTheme.Galaxy">
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
-        <item name="backgroundColor">#000000</item>
-        <item name="colorProjectAvailable">#ffffff</item>
-        <item name="colorProjectFailed">@color/colorFail</item>
-        <item name="colorProjectInProgress">#ffffff</item>
-        <item name="colorProjectTextAvailable">?attr/colorAccent</item>
-        <item name="colorProjectTextFailed">#ffffff</item>
-        <item name="colorProjectTextUnavailable">#ffffff</item>
-        <item name="colorProjectTextValidated">#ffffff</item>
-        <item name="colorProjectUnavailable">#46484C</item>
-        <item name="colorProjectValidated">?android:attr/colorAccent</item>
+        <item name="colorProjectBackground">?android:attr/colorBackground</item>
+        <item name="colorProjectUnavailable">?attr/colorPrimaryVariant</item>
+        <item name="colorProjectOnUnavailable">?attr/colorOnPrimary</item>
+        <item name="colorProjectAvailable">?attr/colorPrimary</item>
+        <item name="colorProjectOnAvailable">?attr/colorOnPrimary</item>
+        <item name="colorProjectInProgress">?attr/colorOnBackground</item>
+        <item name="colorProjectOnInProgress">?android:attr/colorBackground</item>
+        <item name="colorProjectValidated">?attr/colorSecondary</item>
+        <item name="colorProjectOnValidated">?attr/colorOnSecondary</item>
+        <item name="colorProjectFailed">?attr/colorError</item>
+        <item name="colorProjectOnFailed">?attr/colorOnError</item>
         <item name="weightPath">4.5dp</item>
     </style>
 
@@ -174,7 +180,7 @@
     </style>
 
     <style name="CounterOverflow" parent="TextAppearance.Design.Counter.Overflow">
-        <item name="android:textColor">@color/textColorError</item>
+        <item name="android:textColor">?attr/colorError</item>
     </style>
 
     <style name="AppTheme.TextView" />
@@ -210,6 +216,14 @@
     <style name="Introduction.Translation" parent="AppTheme.NoActionBar">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">#4688F1</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.EventTagOnList" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">monospace</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0</item>
     </style>
 
 </resources>

@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:tint="@color/colorGrayLight"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 

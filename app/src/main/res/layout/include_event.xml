@@ -138,26 +138,25 @@
             android:text="New Text" />
     </LinearLayout>
 
-    <com.veinhorn.tagview.TagView
+    <com.google.android.material.chip.Chip
         android:id="@+id/tagViewKind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:theme="@style/AppTheme.Chip"
         android:layout_marginBottom="4dp"
         android:text="New Text"
-        app:tagBorderRadius="5"
-        app:tagColor="#ffaa66cc"
-        app:tagType="classic"
-        app:tagUpperCase="true" />
+        android:textAllCaps="true"
+        app:chipBackgroundColor="#ffaa66cc" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewUnsubscribeLimit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorErrorSurface"
-        android:backgroundTint="@color/colorErrorSurface"
+        android:background="?attr/colorError"
+        android:backgroundTint="?attr/colorError"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <TextView
@@ -171,9 +170,9 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
             android:text="@string/event_prohibition_of_cancellation"
-            android:textColor="@color/colorErrorOnSurface" />
+            android:textColor="?attr/colorOnError" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/textViewDescription"
@@ -204,13 +203,13 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp" />
 
-            <Button
-
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonSubscribe"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/event_subscribe" />
+                android:text="@string/event_subscribe"
+                android:theme="@style/AppTheme.Button" />
         </LinearLayout>
 
         <LinearLayout

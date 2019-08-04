@@ -2,21 +2,27 @@ package com.paulvarry.intra42.adapters;
 
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Events;
-import com.paulvarry.intra42.ui.TagSpanGenerator;
 import com.paulvarry.intra42.utils.DateTool;
+import com.paulvarry.intra42.utils.Tools;
 
 import java.util.List;
-
-import in.uncod.android.bypass.Bypass;
 
 public class ListAdapterEvents extends BaseAdapter {
 
@@ -75,10 +81,10 @@ public class ListAdapterEvents extends BaseAdapter {
                 return null;
             convertView = inflater.inflate(R.layout.list_view_event, parent, false);
 
+            holder.viewRegistered = convertView.findViewById(R.id.viewRegistered);
             holder.textViewDateDay = convertView.findViewById(R.id.textViewDateDay);
             holder.textViewDateMonth = convertView.findViewById(R.id.textViewDateMonth);
             holder.textViewName = convertView.findViewById(R.id.textViewName);
-            holder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
             holder.textViewTime = convertView.findViewById(R.id.textViewTime);
             holder.textViewPlace = convertView.findViewById(R.id.textViewPlace);
             holder.textViewFull = convertView.findViewById(R.id.textViewFull);
@@ -94,27 +100,26 @@ public class ListAdapterEvents extends BaseAdapter {
         holder.textViewDateDay.setText(DateTool.getDay(item.beginAt));
         holder.textViewDateMonth.setText(DateTool.getMonthMedium(item.beginAt));
         holder.textViewName.setText(item.name);
-        TagSpanGenerator span = new TagSpanGenerator.Builder(context).setTextSize(holder.textViewName.getTextSize()).build();
-        if (item.kind != null)
-            span.addTag(item.kind.getString(context), item.kind.getColorInt(context));
-        span.addText(item.name);
-        holder.textViewName.setText(span.getString());
 
-        String content = item.description;
-        content = content.replace("\r\n\r\n", " ");
-        content = content.replace("\n\n", " ");
-        content = content.replace("\r\n", " ");
-        content = content.replace('\n', ' ');
-        holder.textViewDescription.setText(content);
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+        if (item.kind != null) {
+            String text = context.getString(item.kind.getName());
+            stringBuilder.append(text);
+            stringBuilder.append("  ");
+            int color = ContextCompat.getColor(context, item.kind.getColorRes());
+            int length = text.length();
 
-        try {
-            Bypass b = new Bypass(context);
-            String content_tmp = b.markdownToSpannable(item.description).toString().replace('\n', ' ');
-            holder.textViewDescription.setText(content_tmp);
-        } catch (Throwable e) {
-            e.printStackTrace();
-            holder.textViewDescription.setText(item.description.replace('\n', ' '));
+            stringBuilder.setSpan(new ForegroundColorSpan(color), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            stringBuilder.setSpan(new TypefaceSpan("monospace"), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            stringBuilder.setSpan(new StyleSpan(Typeface.BOLD), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.setSpan(new TextAppearanceSpan("monospace", Typeface.BOLD, Math.round(Tools.dpToPx(context, 18)), ColorStateList.valueOf(color), ColorStateList.valueOf(color)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         }
+        stringBuilder.append(item.name);
+        holder.textViewName.setText(stringBuilder);
+
+        holder.viewRegistered.setVisibility(View.GONE);
+
         String time;
         time = DateUtils.formatDateRange(context, item.beginAt.getTime(), item.endAt.getTime(), DateUtils.FORMAT_SHOW_TIME);
         if (time.length() > 30)
@@ -132,10 +137,10 @@ public class ListAdapterEvents extends BaseAdapter {
 
     private static class ViewHolder {
 
+        View viewRegistered;
         TextView textViewDateDay;
         TextView textViewDateMonth;
         TextView textViewName;
-        TextView textViewDescription;
         TextView textViewTime;
         TextView textViewPlace;
         TextView textViewFull;

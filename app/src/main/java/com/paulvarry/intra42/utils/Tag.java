@@ -1,25 +1,26 @@
 package com.paulvarry.intra42.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.adapters.ChipViewAdapterForum;
-import com.paulvarry.intra42.adapters.ChipViewAdapterUsers;
-import com.paulvarry.intra42.api.model.Achievements;
 import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.api.model.Tags;
-import com.plumillonforge.android.chipview.ChipView;
-import com.veinhorn.tagview.TagView;
 
 import java.util.List;
 
 public class Tag {
 
-    public static void setTagEvent(Events event, TagView tagView) {
+    public static void setTagEvent(Events event, Chip tagView) {
         String str;
         Context context = tagView.getContext();
 
@@ -29,44 +30,11 @@ public class Tag {
             str = context.getString(R.string.event_kind_unknown);
 
         tagView.setText(str);
-        tagView.setTagColor(event.kind.getColorInt(context));
+        tagView.setChipBackgroundColorResource(event.kind.getColorRes());
+        tagView.setTextColor(ContextCompat.getColor(tagView.getContext(), R.color.tag_on_event));
     }
 
-    public static void setTagAchievement(Context context, Achievements achievement, TagView tagView) {
-
-        String str = null;
-        int color = 0;
-        tagView.setVisibility(View.VISIBLE);
-        switch (achievement.tier) {
-            case "easy":
-                str = context.getString(R.string.user_achievement_bronze);
-                color = ContextCompat.getColor(context, R.color.user_achievements_bronze);
-                break;
-            case "medium":
-                str = context.getString(R.string.user_achievement_silver);
-                color = ContextCompat.getColor(context, R.color.user_achievements_silver);
-                break;
-            case "hard":
-                str = context.getString(R.string.user_achievement_gold);
-                color = ContextCompat.getColor(context, R.color.user_achievements_gold);
-                break;
-            case "challenge":
-                str = context.getString(R.string.user_achievements_platinum);
-                color = ContextCompat.getColor(context, R.color.user_achievements_platinum);
-                break;
-            case "none":
-                tagView.setVisibility(View.GONE);
-                break;
-            default:
-                str = achievement.tier;
-        }
-
-        if (str != null)
-            tagView.setText(str);
-        if (color != 0)
-            tagView.setTagColor(color);
-    }
-
+    @ColorInt
     public static int getUsersTagColor(Tags tag) {
 
         int color = 0;
@@ -105,40 +73,44 @@ public class Tag {
                 color = Color.parseColor("#33516D");
                 break;
             default:
-                Log.i("setTagUser", String.valueOf(tag.id) + " - " + tag.name);
+                Log.i("setTagUser", tag.id + " - " + tag.name);
         }
 
         return color;
     }
 
-    public static void setTagForum(Context context, List<Tags> tags, ChipView chipViewTags) {
+    public static void setTagForum(Context context, List<Tags> tags, ChipGroup chipViewTags) {
+        chipViewTags.removeAllViews();
         if (tags == null || tags.size() == 0) {
             chipViewTags.setVisibility(View.GONE);
             return;
         } else
             chipViewTags.setVisibility(View.VISIBLE);
 
-        ChipViewAdapterForum adapter = new ChipViewAdapterForum(context);
-        adapter.setTagList(tags);
-        adapter.setChipCornerRadius(5);
+        chipViewTags.setChipSpacingHorizontalResource(R.dimen.chip_group_spacing_horizontal);
+        chipViewTags.setChipSpacingVerticalResource(R.dimen.chip_group_spacing_vertical);
 
-        chipViewTags.setAdapter(adapter);
-        chipViewTags.setChipCornerRadius(5);
+        for (Tags tag : tags) {
+            Chip chip = new Chip(context);
+            chip.setText(tag.name);
+            chip.setChipBackgroundColorResource(getTagColor(context, tag));
+            chipViewTags.addView(chip);
+        }
     }
 
-    public static void setTagUsers(Context context, List<Tags> tags, ChipView chipViewTags) {
+    public static void setTagUsers(Context context, List<Tags> tags, ChipGroup chipViewTags) {
         if (tags == null || tags.size() == 0) {
             chipViewTags.setVisibility(View.GONE);
             return;
         } else
             chipViewTags.setVisibility(View.VISIBLE);
 
-        ChipViewAdapterUsers adapter = new ChipViewAdapterUsers(context);
-        adapter.setTagList(tags);
-        adapter.setChipCornerRadius(5);
-
-        chipViewTags.setAdapter(adapter);
-        chipViewTags.setChipCornerRadius(5);
+        for (Tags tag : tags) {
+            Chip chip = new Chip(context);
+            chip.setText(tag.name);
+            chip.setChipBackgroundColor(ColorStateList.valueOf(getUsersTagColor(tag)));
+            chipViewTags.addView(chip);
+        }
     }
 
     @ColorRes

@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary"
+        android:background="?attr/colorPrimary"
         android:orientation="vertical">
 
         <TextView
@@ -25,7 +25,7 @@
             android:paddingBottom="32dp"
             android:text="New Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorGrayLight" />
+            android:textColor="?attr/colorOnPrimary" />
 
     </FrameLayout>
 
@@ -160,21 +160,22 @@
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="editTextEndTime,editTextEndDate,textViewEndSeparator" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonDelete"
-            style="@style/AppTheme.Button.Borderless"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/delete"
+            android:theme="@style/AppTheme.Button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/barrier2" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonSave"
-            style="@style/AppTheme.Button.Borderless"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -182,6 +183,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:text="@string/save"
+            android:theme="@style/AppTheme.Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/barrier2" />
 
@@ -194,7 +196,7 @@
             android:layout_marginRight="24dp"
             android:gravity="center"
             android:text="New Text"
-            android:textColor="@color/textColorError"
+            android:textColor="?attr/colorError"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/barrier2" />
 

@@ -5,8 +5,10 @@ import android.content.Context;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatDelegate;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -97,9 +99,6 @@ public class ThemeHelper {
         int themeRes;
 
         switch (theme) {
-            case DEFAULT:
-                themeRes = R.style.ThemeIntra;
-                break;
             case RED:
                 themeRes = R.style.ThemeIntraOrder;
                 break;
@@ -111,9 +110,6 @@ public class ThemeHelper {
                 break;
             case GREEN:
                 themeRes = R.style.ThemeIntraAlliance;
-                break;
-            case ANDROID:
-                themeRes = R.style.ThemeDarkAndroid;
                 break;
             default:
                 themeRes = R.style.ThemeIntra;

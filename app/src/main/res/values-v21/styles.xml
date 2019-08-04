@@ -41,12 +41,8 @@
 
     </style>
 
-    <style name="ThemeIntra" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#292D39</item>
-        <item name="colorPrimaryDark">#1e212a</item>
-        <item name="colorSecondary">#525663</item>
-        <item name="colorAccent">#00babc</item>
-        <item name="android:navigationBarColor">#1e212a</item>
+    <style name="ThemeIntra" parent="ThemeIntra.Base">
+        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="TexAppTheme.TextView.Subhead" parent="TextAppearance.AppCompat.Subhead">

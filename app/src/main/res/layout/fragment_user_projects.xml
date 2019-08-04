@@ -1,12 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.paulvarry.intra42.activities.user.UserProjectsFragment">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?colorSecondary"
@@ -27,20 +26,9 @@
 
         <com.paulvarry.intra42.ui.Galaxy
             android:id="@+id/galaxy"
+            style="@style/AppTheme.Galaxy"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:backgroundColor="#303030"
-            app:colorProjectAvailable="#bdbdbd"
-            app:colorProjectFailed="@color/colorFail"
-            app:colorProjectInProgress="#ffffff"
-            app:colorProjectTextAvailable="#616161"
-            app:colorProjectTextFailed="#e0e0e0"
-            app:colorProjectTextInProgress="#212121"
-            app:colorProjectTextUnavailable="#fff"
-            app:colorProjectTextValidated="#e0e0e0"
-            app:colorProjectUnavailable="#616161"
-            app:colorProjectValidated="?attr/colorAccentDark"
-            app:weightPath="4.5dp" />
+            android:layout_height="match_parent" />
 
         <ListView
             android:id="@+id/listViewAll"

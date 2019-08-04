@@ -151,7 +151,7 @@
 
             <Button
                 android:id="@+id/buttonFriend"
-                style="@style/AppTheme.Button.Borderless"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -160,7 +160,6 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/user_profile_add_to_friends"
                 android:textColor="@color/colorGray"
-                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/barrier"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guidelineInfoStart"
@@ -192,18 +191,16 @@
                 app:constraint_referenced_ids="buttonFriend,imageControl"
                 tools:layout_editor_absoluteY="160dp" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewContact"
+                style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
+                android:layout_marginStart="@dimen/card_spacing"
+                android:layout_marginLeft="@dimen/card_spacing"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
-                app:cardCornerRadius="2dp"
-                app:cardElevation="3dp"
-                app:cardPreventCornerOverlap="false"
+                android:layout_marginEnd="@dimen/card_spacing"
+                android:layout_marginRight="@dimen/card_spacing"
                 app:contentPadding="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -291,7 +288,8 @@
                         android:layout_height="1dp"
                         android:layout_marginStart="72dp"
                         android:layout_marginLeft="72dp"
-                        android:background="?android:listDivider" />
+                        android:alpha="0.10"
+                        android:background="?attr/colorOnSurface" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutMail"
@@ -346,7 +344,8 @@
                         android:layout_height="1dp"
                         android:layout_marginStart="72dp"
                         android:layout_marginLeft="72dp"
-                        android:background="?android:listDivider" />
+                        android:alpha="0.10"
+                        android:background="?attr/colorOnSurface" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutLocation"
@@ -395,22 +394,19 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewCursus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="@dimen/card_spacing"
+                android:layout_marginLeft="@dimen/card_spacing"
+                android:layout_marginTop="@dimen/card_spacing"
+                android:layout_marginEnd="@dimen/card_spacing"
+                android:layout_marginRight="@dimen/card_spacing"
+                android:layout_marginBottom="@dimen/card_spacing"
                 android:visibility="visible"
-                app:cardCornerRadius="2dp"
-                app:cardElevation="3dp"
-                app:cardPreventCornerOverlap="false"
                 app:contentPadding="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -436,8 +432,9 @@
                     <View
                         android:id="@+id/viewSeparatorGrade"
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="?android:listDivider" />
+                        android:layout_height="1.5dp"
+                        android:alpha="0.10"
+                        android:background="?attr/colorOnSurface" />
 
                     <LinearLayout
                         android:id="@+id/linearLayoutGrade"
@@ -465,7 +462,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider" />
+                        android:alpha="0.10"
+                        android:background="?attr/colorOnSurface" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -529,7 +527,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider" />
+                        android:alpha="0.10"
+                        android:background="?attr/colorOnSurface" />
 
                     <LinearLayout
                         android:id="@+id/linearLayoutCursusDate"
@@ -565,7 +564,7 @@
                     android:padding="16dp"
                     android:text="@string/user_no_cursus_available"
                     android:visibility="gone" />
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

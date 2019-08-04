@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="tag_event_other">#404040</color>
-    <color name="tag_event_extern">#404040</color>
+    <color name="color_background">#121212</color>
+    <color name="color_on_background">#DCDCDC</color>
+    <color name="color_surface">#141414</color>
+    <color name="color_on_surface">#DCDCDC</color>
 
-    <color name="textColorError">#FD6F71</color>
-    <color name="colorErrorSurface">#CF6679</color>
-    <color name="colorErrorOnSurface">#000000</color>
+    <!-- Tags -->
+    <color name="tag_event_default">#c0c0c0</color>
+    <color name="tag_event_pedago">#ED8179</color>
+    <color name="tag_event_meet">#00babc</color>
+    <color name="tag_event_association">#a2b3e5</color>
+    <color name="tag_event_speed_working">#39D88F</color>
+    <color name="tag_on_event">#000000</color>
+
     <color name="dividers">#1fffffff</color>
 
     <color name="colorClusterMapWall">#424242</color>
     <color name="colorClusterMapComputerColor">#9E9E9E</color>
     <color name="colorClusterMapTextBackground">#96000000</color>
+
+    <!-- Theme Intra -->
+    <color name="themeIntra_colorPrimary">#1e212a</color>
+    <color name="themeIntra_colorPrimaryVariant">#1e212a</color>
 </resources>

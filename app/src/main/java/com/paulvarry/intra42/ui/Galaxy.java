@@ -14,7 +14,9 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Scroller;
+
 import androidx.annotation.Nullable;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.ProjectDataIntra;
 
@@ -101,17 +103,17 @@ public class Galaxy extends View {
 
         try {
             int defaultTextColor = Color.parseColor("#3F51B5");
-            backgroundColor = attributes.getColor(R.styleable.Galaxy_backgroundColor, 0);
+            backgroundColor = attributes.getColor(R.styleable.Galaxy_colorProjectBackground, 0);
             colorProjectUnavailable = attributes.getColor(R.styleable.Galaxy_colorProjectUnavailable, 0);
             colorProjectAvailable = attributes.getColor(R.styleable.Galaxy_colorProjectAvailable, 0);
             colorProjectValidated = attributes.getColor(R.styleable.Galaxy_colorProjectValidated, 0);
             colorProjectFailed = attributes.getColor(R.styleable.Galaxy_colorProjectFailed, 0);
             colorProjectInProgress = attributes.getColor(R.styleable.Galaxy_colorProjectInProgress, 0);
-            colorProjectTextUnavailable = attributes.getColor(R.styleable.Galaxy_colorProjectTextUnavailable, defaultTextColor);
-            colorProjectTextAvailable = attributes.getColor(R.styleable.Galaxy_colorProjectTextAvailable, defaultTextColor);
-            colorProjectTextValidated = attributes.getColor(R.styleable.Galaxy_colorProjectTextValidated, defaultTextColor);
-            colorProjectTextFailed = attributes.getColor(R.styleable.Galaxy_colorProjectTextFailed, defaultTextColor);
-            colorProjectTextInProgress = attributes.getColor(R.styleable.Galaxy_colorProjectTextInProgress, defaultTextColor);
+            colorProjectTextUnavailable = attributes.getColor(R.styleable.Galaxy_colorProjectOnUnavailable, defaultTextColor);
+            colorProjectTextAvailable = attributes.getColor(R.styleable.Galaxy_colorProjectOnAvailable, defaultTextColor);
+            colorProjectTextValidated = attributes.getColor(R.styleable.Galaxy_colorProjectOnValidated, defaultTextColor);
+            colorProjectTextFailed = attributes.getColor(R.styleable.Galaxy_colorProjectOnFailed, defaultTextColor);
+            colorProjectTextInProgress = attributes.getColor(R.styleable.Galaxy_colorProjectOnInProgress, defaultTextColor);
             weightPath = attributes.getDimension(R.styleable.Galaxy_weightPath, 1.f);
 
         } finally {

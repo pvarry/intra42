@@ -7,11 +7,12 @@
     android:animateLayoutChanges="true"
     android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true"
-    android:theme="?actionBarTheme">
+    android:theme="?attr/actionBarTheme">
 
-    <RelativeLayout
+    <com.paulvarry.intra42.ui.InsetRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
         <ImageView
             android:id="@+id/imageViewActionBar"
@@ -40,11 +41,15 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
+                style="@style/Widget.MaterialComponents.TabLayout.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
                 android:visibility="gone"
+                app:tabBackground="@android:color/transparent"
+                app:tabIndicatorFullWidth="false"
                 app:tabMode="scrollable" />
         </com.paulvarry.intra42.ui.InsetLinearLayout>
-    </RelativeLayout>
+    </com.paulvarry.intra42.ui.InsetRelativeLayout>
 
 </com.google.android.material.appbar.AppBarLayout>

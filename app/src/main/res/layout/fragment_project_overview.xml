@@ -106,8 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/navigation_header_info"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
                     android:id="@+id/tvInfo"
@@ -121,7 +120,8 @@
                 android:id="@+id/viewInfoLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:listDivider" />
+                android:alpha="0.10"
+                android:background="?attr/colorOnSurface" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutDescription"
@@ -140,8 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/project_description"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
                     android:id="@+id/tvDescription"
@@ -155,7 +154,8 @@
                 android:id="@+id/viewDescriptionLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:listDivider" />
+                android:alpha="0.10"
+                android:background="?attr/colorOnSurface" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutSkills"
@@ -174,8 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/project_skills"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
                     android:id="@+id/tvSkills"
@@ -189,7 +188,8 @@
                 android:id="@+id/viewSkillsLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:listDivider" />
+                android:alpha="0.10"
+                android:background="?attr/colorOnSurface" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutSession"
@@ -209,8 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/project_session"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
                     android:id="@+id/tvSession"
@@ -224,7 +223,8 @@
                 android:id="@+id/viewSessionLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:listDivider" />
+                android:alpha="0.10"
+                android:background="?attr/colorOnSurface" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutObjectives"
@@ -244,8 +244,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/project_objectives"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
                     android:id="@+id/tvObjectives"
@@ -259,7 +258,8 @@
                 android:id="@+id/viewObjectivesLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?android:listDivider" />
+                android:alpha="0.10"
+                android:background="?attr/colorOnSurface" />
 
             <Button
                 android:id="@+id/buttonParent"

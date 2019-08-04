@@ -1,13 +1,12 @@
 package com.paulvarry.intra42.api.model;
 
 import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.utils.Pagination;
 import com.paulvarry.intra42.utils.Tools;
-import com.plumillonforge.android.chipview.Chip;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -15,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Tags implements Chip, Serializable {
+import retrofit2.Response;
+
+public class Tags implements Serializable {
 
     static final String API_ID = "id";
     static final String API_NAME = "name";
@@ -81,10 +82,5 @@ public class Tags implements Chip, Serializable {
 
     public boolean equals(Tags tag) {
         return tag != null && tag.id == id;
-    }
-
-    @Override
-    public String getText() {
-        return name;
     }
 }

@@ -93,17 +93,18 @@ public class Events implements IBaseItemSmall {
     }
 
     public enum EventKind {
-        @SerializedName("conference") CONFERENCE(R.string.event_kind_conf, R.color.tag_event_conference),
-        @SerializedName("meet_up") MEET_UP(R.string.event_kind_meet_up, R.color.tag_event_meet_up),
-        @SerializedName("extern") EXTERN(R.string.event_kind_extern, R.color.tag_event_extern),
-        @SerializedName("hackathon") HACKATHON(R.string.event_kind_hackathon, R.color.tag_event_hackathon),
-        @SerializedName("workshop") WORKSHOP(R.string.event_kind_workshop, R.color.tag_event_workshop),
-        @SerializedName("event") EVENT(R.string.event_kind_event, R.color.tag_event_event),
+        @SerializedName("conference") CONFERENCE(R.string.event_kind_conf, R.color.tag_event_meet),
+        @SerializedName("meet_up") MEET_UP(R.string.event_kind_meet_up, R.color.tag_event_meet),
+        @SerializedName("extern") EXTERN(R.string.event_kind_extern, R.color.tag_event_default),
+        @SerializedName("hackathon") HACKATHON(R.string.event_kind_hackathon, R.color.tag_event_speed_working),
+        @SerializedName("workshop") WORKSHOP(R.string.event_kind_workshop, R.color.tag_event_speed_working),
+        @SerializedName("event") EVENT(R.string.event_kind_event, R.color.tag_event_meet),
         @SerializedName("atelier") ATELIER(R.string.event_kind_atelier, R.color.tag_event_atelier),
-        @SerializedName("other") OTHER(R.string.event_kind_other, R.color.tag_event_other),
+        @SerializedName("other") OTHER(R.string.event_kind_other, R.color.tag_event_default),
         @SerializedName("association") ASSOCIATION(R.string.event_kind_association, R.color.tag_event_association),
-        @SerializedName("partnership") PARTNERSHIP(R.string.event_kind_partnership, R.color.tag_event_partnership),
-        @SerializedName("challenge") CHALLENGE(R.string.event_kind_challenge, R.color.tag_event_challenge);
+        @SerializedName("partnership") PARTNERSHIP(R.string.event_kind_partnership, R.color.tag_event_speed_working),
+        @SerializedName("challenge") CHALLENGE(R.string.event_kind_challenge, R.color.tag_event_speed_working),
+        @SerializedName("speed_working") SPEED_WORKING(R.string.event_kind_speed_working, R.color.tag_event_speed_working);
 
         @StringRes
         private final int name;
