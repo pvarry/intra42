@@ -16,6 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.SectionListView;
@@ -38,10 +43,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -253,8 +254,8 @@ public class SearchableActivity
             stringToSearch = query;
 
         Call<List<UsersLTE>> callUsersLogin = apiService.getUsersSearchLogin(stringToSearch);
-        Call<List<UsersLTE>> callUsersFirstName = apiService.getUsersSearchFirstName(stringToSearch);
-        Call<List<UsersLTE>> callUsersLastName = apiService.getUsersSearchLastName(stringToSearch);
+//        Call<List<UsersLTE>> callUsersFirstName = apiService.getUsersSearchFirstName(stringToSearch);
+//        Call<List<UsersLTE>> callUsersLastName = apiService.getUsersSearchLastName(stringToSearch);
 
         Call<List<Projects>> callProjects;
         if (cursusUsers != null)
@@ -269,8 +270,8 @@ public class SearchableActivity
             callTopics = apiService.getTopicsSearch(stringToSearch);
 
         Response<List<UsersLTE>> responseUsersLogin = null;
-        Response<List<UsersLTE>> responseUsersFirstName = null;
-        Response<List<UsersLTE>> responseUsersLastName = null;
+//        Response<List<UsersLTE>> responseUsersFirstName = null;
+//        Response<List<UsersLTE>> responseUsersLastName = null;
         Response<List<Projects>> responseProjects = null;
         Response<List<Topics>> responseTopics = null;
 
@@ -279,8 +280,8 @@ public class SearchableActivity
             if (SuperSearch.searchOnArray(R.array.search_users, split[0], SearchableActivity.this)) {
                 Analytics.search("SEARCH_USERS", query);
                 responseUsersLogin = execUsers(callUsersLogin, 1, 4);
-                responseUsersFirstName = execUsers(callUsersFirstName, 2, 4);
-                responseUsersLastName = execUsers(callUsersLastName, 3, 4);
+//                responseUsersFirstName = execUsers(callUsersFirstName, 2, 4);
+//                responseUsersLastName = execUsers(callUsersLastName, 3, 4);
             } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
                 Analytics.search("SEARCH_PROJECTS", query);
                 responseProjects = execProjects(callProjects, 1, 2);
@@ -290,15 +291,15 @@ public class SearchableActivity
             } else {
                 Analytics.search(null, query);
                 responseUsersLogin = execUsers(callUsersLogin, 1, 5);
-                responseUsersFirstName = execUsers(callUsersFirstName, 2, 5);
+//                responseUsersFirstName = execUsers(callUsersFirstName, 2, 5);
                 responseProjects = execProjects(callProjects, 3, 5);
                 responseTopics = execTopics(callTopics, 4, 5);
             }
         } else {
             Analytics.search(null, query);
             responseUsersLogin = execUsers(callUsersLogin, 1, 6);
-            responseUsersFirstName = execUsers(callUsersFirstName, 2, 6);
-            responseUsersLastName = execUsers(callUsersLastName, 3, 6);
+//            responseUsersFirstName = execUsers(callUsersFirstName, 2, 6);
+//            responseUsersLastName = execUsers(callUsersLastName, 3, 6);
             responseProjects = execProjects(callProjects, 4, 6);
             responseTopics = execTopics(callTopics, 5, 6);
         }
@@ -312,17 +313,17 @@ public class SearchableActivity
                 items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
         }
 
-        if (responseUsersFirstName != null && Tools.apiIsSuccessful(responseUsersFirstName)) {
-            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_users_first_name)));
-            for (UsersLTE u : responseUsersFirstName.body())
-                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
-        }
-
-        if (responseUsersLastName != null && Tools.apiIsSuccessful(responseUsersLastName)) {
-            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_users_last_name)));
-            for (UsersLTE u : responseUsersLastName.body())
-                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
-        }
+//        if (responseUsersFirstName != null && Tools.apiIsSuccessful(responseUsersFirstName)) {
+//            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_users_first_name)));
+//            for (UsersLTE u : responseUsersFirstName.body())
+//                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
+//        }
+//
+//        if (responseUsersLastName != null && Tools.apiIsSuccessful(responseUsersLastName)) {
+//            items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_users_last_name)));
+//            for (UsersLTE u : responseUsersLastName.body())
+//                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, u, u.getName(this)));
+//        }
 
         if (responseProjects != null && Tools.apiIsSuccessful(responseProjects)) {
             items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_projects)));
@@ -363,7 +364,7 @@ public class SearchableActivity
             else if (response.errorBody() != null) {
                 apiRaw = response.errorBody().string();
             } else
-                apiRaw = String.valueOf(response.code()) + " " + response.message();
+                apiRaw = response.code() + " " + response.message();
 
             try {
                 if (apiRaw.charAt(0) == '[')
