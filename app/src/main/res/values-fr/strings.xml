@@ -287,16 +287,12 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
     <string name="about_poeditor">"Projet sur POEditor"</string>
     <string name="info_api_unauthorized">"vous n'êtes pas autorisé"</string>
     <string name="pref_title_notifications_sync_allow">"Activer les notifications et synchronisation"</string>
-    <string name="pref_title_notifications_sync_calendar">"Synchroniser le calendrier"</string>
     <string name="pref_title_calendar_list">"Calendrier pour mettre des évènements"</string>
     <string name="pref_category_notifications">"Notifications"</string>
     <string name="pref_summary_notifications_events">"Me notifier pour tous les évènements publiés sur l'intra de 42"</string>
     <string name="pref_summary_notifications_scales">"Rappel des évaluations"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Automatiquement vérifier vos évènements suivis et les ajouter"</string>
     <string name="pref_title_calendar_enable">"Activer l'édition du calendrier"</string>
     <string name="pref_summary_calendar_enable">"Après vous ètre connecté a votre calendrier, cette application pourra publier les évènements sur ce dernié"</string>
-    <string name="pref_title_calendar_after_subscription">"Insérer au calendrier"</string>
-    <string name="pref_summary_calendar_after_subscription">"Insérer l'évènement juste après l'avoir suivi"</string>
     <string name="pref_title_calendar">"Synchronisation des évènements"</string>
     <string name="friends_nothing_found">"Vous pouvez ajouter des amis depuis leur profil"</string>
     <string name="friend_group_name">"Nom du groupe"</string>
@@ -503,7 +499,7 @@ Avertissement : Cet application n'est en aucun cas affilié, autorisé, maintenu
     <string name="pref_title_advanced_data_past_events">"Événements passés"</string>
     <string name="pref_title_advanced_section_other">"Autres fonctionnalités"</string>
     <string name="pref_title_advanced_section_features">"Fonctionnalités avancées"</string>
-    <string name="pref_summary_advanced_data_enable_beta">"Désactivé par défaut"</string>
+    <string name="pref_summary_advanced_settings">"Désactivé par défaut"</string>
     <string name="title_tab_cluster_map_info">"Info"</string>
     <string name="cluster_map_info_button_update">"mettre a jour"</string>
     <string name="cluster_map_info_button_update_disabled">"déjà à jour"</string>
@@ -624,7 +620,7 @@ Orientation des Clusters :
     <string name="pref_theme_list_titles_red_the_order">"Rouge (L'ordre)"</string>
     <string name="pref_theme_list_titles_android">"Android Noir"</string>
     <string name="pref_theme_switch_action_bar_background">"Afficher l'image du thème sur l'arrière-plan de la barre d’application"</string>
-    <string name="pref_theme_switch_dark_theme">"Utiliser le thème sombre "</string>
+    <string name="pref_theme_switch_brightness">"Utiliser le thème sombre "</string>
     <string name="cluster_map_info_layer_spinner_main_none">"Aucun"</string>
     <string name="hint_date">"Date"</string>
     <string name="hint_time">"heure"</string>

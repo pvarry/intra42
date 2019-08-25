@@ -288,16 +288,12 @@
     <string name="about_poeditor">"Proyecto en POEditor"</string>
     <string name="info_api_unauthorized">"No tienes acceso"</string>
     <string name="pref_title_notifications_sync_allow">"Habilitar notificaciones y sincronización"</string>
-    <string name="pref_title_notifications_sync_calendar">"Sincronizar calendario"</string>
     <string name="pref_title_calendar_list">"Elegir calendario para insertar eventos"</string>
     <string name="pref_category_notifications">"Notificacioens"</string>
     <string name="pref_summary_notifications_events">"Notificar los nuevos eventos publicados en la intranet de 42"</string>
     <string name="pref_summary_notifications_scales">"Recuerdame las evaluaciones"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Revisa automáticamente los eventos suscritos y añádelos"</string>
     <string name="pref_title_calendar_enable">"Habilita la edición del calendario"</string>
     <string name="pref_summary_calendar_enable">"Tras autorizar el calendario, esta app podrá añadir eventos a tu calendario"</string>
-    <string name="pref_title_calendar_after_subscription">"Insertar calendario"</string>
-    <string name="pref_summary_calendar_after_subscription">"Insertar evento tras suscribirme"</string>
     <string name="pref_title_calendar">"Sincronizar eventos"</string>
     <string name="friends_nothing_found">"Puedes añadir amigos desde sus perfiles"</string>
     <string name="friend_group_name">"Nombre del grupo"</string>
@@ -492,7 +488,7 @@ Descargo de responsabilidad: Este código no está de ninguna manera afiliado, a
     <string name="pref_title_advanced_data_past_events">"Eventos pasados"</string>
     <string name="pref_title_advanced_section_other">"Otras características"</string>
     <string name="pref_title_advanced_section_features">"Características avanzadas"</string>
-    <string name="pref_summary_advanced_data_enable_beta">"predeterminado a falso"</string>
+    <string name="pref_summary_advanced_settings">"predeterminado a falso"</string>
     <string name="title_tab_cluster_map_info">"Información"</string>
     <string name="cluster_map_info_button_update">"actualizar"</string>
     <string name="cluster_map_info_button_update_disabled">"no necesita actualizarse"</string>
@@ -610,7 +606,7 @@ Guía: Orientación del grupo
     <string name="pref_theme_list_titles_red_the_order">"Rojo (La Orden)"</string>
     <string name="pref_theme_list_titles_android">"Android Oscuro"</string>
     <string name="pref_theme_switch_action_bar_background">"Establecer imagen como fondo de la Aplicación"</string>
-    <string name="pref_theme_switch_dark_theme">"Usar modo oscuro"</string>
+    <string name="pref_theme_switch_brightness">"Usar modo oscuro"</string>
     <string name="cluster_map_info_layer_spinner_main_none">"Nada"</string>
     <string name="hint_date">"fecha"</string>
     <string name="hint_time">"tiempo"</string>

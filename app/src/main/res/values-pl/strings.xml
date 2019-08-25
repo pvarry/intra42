@@ -276,11 +276,8 @@ Stracisz punkt korekcyjny."</string>
     <string name="about_poeditor">"Projekt w POEditor"</string>
     <string name="info_api_unauthorized">"Nie jesteś upoważniony"</string>
     <string name="pref_title_notifications_sync_allow">"Aktywuj powiadomienia i synchronizacje"</string>
-    <string name="pref_title_notifications_sync_calendar">"Synchronizuj kalendarz"</string>
     <string name="pref_category_notifications">"Powiadomienia"</string>
     <string name="pref_summary_notifications_events">"Powiadamiaj o nowych eventach publikowanych na 42 intra"</string>
     <string name="pref_summary_notifications_scales">"Przypominaj o ewaluacjach"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Automatycznie sprawdź subskrybcje eventów i wtedy dodaj "</string>
-    <string name="pref_title_calendar_after_subscription">"Wprowadź do kalendarza"</string>
     <string name="pref_title_calendar">"Synchronizacja eventów"</string>
 </resources>

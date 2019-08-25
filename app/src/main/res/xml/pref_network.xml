@@ -1,35 +1,40 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory
-        android:title="Profile picture size">
-
-        <ListPreference
-            android:defaultValue="small"
-            android:entries="@array/list_preference_network_titles"
-            android:entryValues="@array/list_preference_network_values"
-            android:key="list_preference_network_mobile_slow"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            android:title="@string/pref_title_network_over_cellular_slow" />
+    <PreferenceCategory android:title="@string/pref_network_profile_pic_size_title">
 
         <ListPreference
-            android:defaultValue="medium"
-            android:entries="@array/list_preference_network_titles"
-            android:entryValues="@array/list_preference_network_values"
-            android:key="list_preference_network_mobile_fast"
+            android:icon="@drawable/ic_network_low_24dp"
+            app:defaultValue="small"
+            app:entries="@array/list_preference_network_titles"
+            app:entryValues="@array/list_preference_network_values"
+            app:key="list_preference_network_mobile_slow"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_network_over_cellular_fast" />
+            app:title="@string/pref_title_network_over_cellular_slow"
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            android:defaultValue="large"
-            android:entries="@array/list_preference_network_titles"
-            android:entryValues="@array/list_preference_network_values"
-            android:key="list_preference_network_wifi"
+            android:icon="@drawable/ic_network_high_24dp"
+            app:defaultValue="medium"
+            app:entries="@array/list_preference_network_titles"
+            app:entryValues="@array/list_preference_network_values"
+            app:key="list_preference_network_mobile_fast"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_network_over_wifi" />
+            app:title="@string/pref_title_network_over_cellular_fast"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:icon="@drawable/ic_wifi_black_24dp"
+            app:defaultValue="large"
+            app:entries="@array/list_preference_network_titles"
+            app:entryValues="@array/list_preference_network_values"
+            app:key="list_preference_network_wifi"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:title="@string/pref_title_network_over_wifi"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
-
 </PreferenceScreen>

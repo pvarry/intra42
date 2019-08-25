@@ -131,11 +131,16 @@
         <item name="android:paddingRight">10dp</item>
     </style>
 
+    <style name="MyPopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:dropDownHorizontalOffset">-48dp</item>
+        <item name="android:dropDownVerticalOffset">-32dp</item>
+    </style>
+
     <style name="AppTheme.BigTextBackground">
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">#28ff0000</item>
-        <item name="android:textSize">70sp</item>
+        <item name="android:textSize">60sp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
     </style>

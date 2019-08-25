@@ -1,4 +1,4 @@
-<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- These settings headers are only used on tablets. -->
 
@@ -12,24 +12,27 @@
     <!--android:icon="@drawable/ic_info_black_24dp"-->
     <!--android:title="@string/title_activity_about" />-->
 
-    <header
-        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$ThemePreferenceFragment"
-        android:icon="@drawable/ic_format_paint_black_24dp"
-        android:title="@string/pref_header_theme" />
+    <Preference
+        app:fragment="com.paulvarry.intra42.activities.settings.ThemePreferenceFragment"
+        app:icon="@drawable/ic_format_paint_black_24dp"
+        app:key="header_preference_theme"
+        app:title="@string/pref_header_theme" />
 
-    <header
-        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$NotificationPreferenceFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/pref_header_notifications" />
+    <Preference
+        app:fragment="com.paulvarry.intra42.activities.settings.NotificationPreferenceFragment"
+        app:icon="@drawable/ic_notifications_black_24dp"
+        app:key="header_preference_notification"
+        app:title="@string/pref_header_notifications" />
 
-    <header
-        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$NetworkPreferenceFragment"
-        android:icon="@drawable/ic_wifi_black_24dp"
-        android:title="@string/pref_header_network" />
+    <Preference
+        app:fragment="com.paulvarry.intra42.activities.settings.NetworkPreferenceFragment"
+        app:icon="@drawable/ic_wifi_black_24dp"
+        app:title="@string/pref_header_network" />
 
-    <header
-        android:fragment="com.paulvarry.intra42.activities.SettingsActivity$AdvancedPreferenceFragment"
-        android:icon="@drawable/ic_developer_mode_black_24dp"
-        android:title="Advanced" />
+    <Preference
+        app:key="header_preference_advanced"
+        app:fragment="com.paulvarry.intra42.activities.settings.AdvancedPreferenceFragment"
+        app:icon="@drawable/ic_developer_mode_black_24dp"
+        app:title="Advanced" />
 
-</preference-headers>
+</PreferenceScreen>

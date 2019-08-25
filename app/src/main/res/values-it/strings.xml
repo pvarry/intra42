@@ -293,16 +293,12 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="about_poeditor">"Progetto su POEditor"</string>
     <string name="info_api_unauthorized">"Non ti è permesso"</string>
     <string name="pref_title_notifications_sync_allow">"Abilita notifiche e sincronia"</string>
-    <string name="pref_title_notifications_sync_calendar">"Sincronia calendario"</string>
     <string name="pref_title_calendar_list">"Seleziona il calendario dove inserire gli eventi"</string>
     <string name="pref_category_notifications">"Notifiche"</string>
     <string name="pref_summary_notifications_events">"Notifica per nuovi eventi pubblicati nell'intra"</string>
     <string name="pref_summary_notifications_scales">"Ricordami delle correzioni"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Controlla automaticamente l'iscrizione agli eventi e aggiungili automaticamente"</string>
     <string name="pref_title_calendar_enable">"Abilita edizione calendario"</string>
     <string name="pref_summary_calendar_enable">"Dopo aver concesso l'utilizzo del calendario, questa app potrà mettere automaticamente gli eventi"</string>
-    <string name="pref_title_calendar_after_subscription">"Aggiungi al calendario"</string>
-    <string name="pref_summary_calendar_after_subscription">"Aggiungi l'evento appena mi sono iscritto"</string>
     <string name="pref_title_calendar">"Sincronizza eventi"</string>
     <string name="friends_nothing_found">"Puoi aggiungere gli amici dal loro profilo"</string>
     <string name="friend_group_name">"Nome del gruppo"</string>
@@ -428,7 +424,7 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Viola (L'Assembly)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Rosso (L'Ordine)"</string>
     <string name="pref_theme_list_titles_android">"Android Scuro"</string>
-    <string name="pref_theme_switch_dark_theme">"Usa tema scuro"</string>
+    <string name="pref_theme_switch_brightness">"Usa tema scuro"</string>
     <string name="cluster_map_info_layer_spinner_main_none">"Nullo"</string>
     <string name="hint_date">"data"</string>
     <string name="hint_time">"tempo"</string>

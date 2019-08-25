@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
@@ -83,7 +85,7 @@ public class IntroCalendarFragment extends Fragment implements CompoundButton.On
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             switchEnableCalendar.setVisibility(View.VISIBLE);
-            switchEnableCalendar.setChecked(AppSettings.Notifications.getEnableCalendar(context));
+            switchEnableCalendar.setChecked(AppSettings.Notifications.getCalendarSyncEnable(context));
         } else {
             buttonAskPermission.setVisibility(View.VISIBLE);
         }
@@ -117,7 +119,7 @@ public class IntroCalendarFragment extends Fragment implements CompoundButton.On
         if (isChecked)
             Calendar.setEnableCalendarWithAutoSelect(context, true);
         else
-            AppSettings.Notifications.setEnableCalendar(context, false);
+            AppSettings.Notifications.setCalendarSyncEnable(context, false);
     }
 
     @Override

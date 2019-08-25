@@ -235,11 +235,9 @@ public class AppSettings {
         public static final String FREQUENCY = "notifications_frequency";
         public static final String CHECKBOX_EVENTS = "check_box_preference_notifications_events";
         public static final String CHECKBOX_SCALES = "check_box_preference_notifications_scales";
-        public static final String ENABLE_CALENDAR = "switch_preference_enable_calendar";
         public static final String CHECKBOX_ANNOUNCEMENTS = "check_box_preference_notifications_announcements";
-        public static final String LIST_CALENDAR = "sync_events_calendars";
-        public static final String CHECKBOX_SYNC_CALENDAR = "check_box_preference_notifications_sync_calendar";
-        public static final String SWITCH_PREFERENCE_ENABLE_PUT_TO_CALENDAR = "check_box_preference_put_to_calendar";
+
+        public static final String ENABLE_CALENDAR = "switch_preference_enable_calendar";
         public static final String SELECTED_CALENDAR = "sync_events_calendars";
 
         public static boolean permissionCalendarEnable(Context context) {
@@ -295,30 +293,21 @@ public class AppSettings {
          * @param context THe context.
          * @return Boolean
          */
-        public static boolean getEnableCalendar(Context context) {
-            return context != null
-                    && getSharedPreferences(context).getBoolean(ENABLE_CALENDAR, false)
+        public static boolean getCalendarSyncEnable(Context context) {
+            return getCalendarSyncEnableNoPermissionCheck(context)
                     && permissionCalendarEnable(context);
         }
 
         /**
-         * Check if calendar primary option have been touch, what event the value contained.
+         * Return true when calendar sync is enable. This will check if calendar primary option is
+         * enable in prefs.
          *
-         * @param settings Prefs.
-         * @return true if the prefs contain calendar primary option.
+         * @param context THe context.
+         * @return Boolean
          */
-        public static boolean containEnableCalendar(SharedPreferences settings) {
-            return settings.contains(ENABLE_CALENDAR);
-        }
-
-        /**
-         * Check if calendar primary option have been touch, what event the value contained.
-         *
-         * @param context Context.
-         * @return true if the prefs contain calendar primary option.
-         */
-        public static boolean containEnableCalendar(Context context) {
-            return context != null && containEnableCalendar(getSharedPreferences(context));
+        public static boolean getCalendarSyncEnableNoPermissionCheck(Context context) {
+            return context != null
+                    && getSharedPreferences(context).getBoolean(ENABLE_CALENDAR, false);
         }
 
         /**
@@ -328,43 +317,11 @@ public class AppSettings {
          * @param context Context.
          * @param enable  value to set
          */
-        public static void setEnableCalendar(Context context, boolean enable) {
+        public static void setCalendarSyncEnable(Context context, boolean enable) {
             SharedPreferences sharedPreferences = getSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(ENABLE_CALENDAR, enable);
             editor.apply();
-        }
-
-        /**
-         * Check if put events to calendar after subscribe to a event from the app. Will also check
-         * if primary option is enable and if calendar permissions are enable.
-         * <p>
-         * Note: this method will not verify if a calendar is correctly selected.
-         *
-         * @param context Context.
-         * @return If you can put events to calendar after subscription.
-         */
-        public static boolean getCalendarAfterSubscription(Context context) {
-            if (!getEnableCalendar(context))
-                return false;
-            SharedPreferences preferences = getSharedPreferences(context);
-            return preferences.getBoolean(SWITCH_PREFERENCE_ENABLE_PUT_TO_CALENDAR, true);
-        }
-
-        /**
-         * Check if auto sync of the events in the calendar is enable. If enable, subscribed events
-         * will be periodically synchronised with the calendar.
-         * <p>
-         * Note: this method will not verify if a calendar is correctly selected.
-         *
-         * @param context Context.
-         * @return If you can put events to calendar after subscription.
-         */
-        public static boolean getCalendarSync(Context context) {
-            if (!getEnableCalendar(context))
-                return false;
-            SharedPreferences preferences = getSharedPreferences(context);
-            return preferences.getBoolean(CHECKBOX_SYNC_CALENDAR, true);
         }
 
         /**
@@ -411,32 +368,37 @@ public class AppSettings {
         public static boolean getNotificationsAnnouncements(SharedPreferences settings) {
             return settings.getBoolean(CHECKBOX_SCALES, false);
         }
-
     }
 
     static public class Theme {
 
         public static final String THEME = "list_preference_theme";
         public static final String ACTIONBAR_BACKGROUND = "switch_theme_actionbar_enable_background";
-        public static final String DARK_THEME = "switch_theme_dark_theme";
+        public static final String BRIGHTNESS = "list_preference_theme_brightness";
 
         public static boolean getActionBarBackgroundEnable(Context context) {
             SharedPreferences preferences = getSharedPreferences(context);
             return preferences.getBoolean(ACTIONBAR_BACKGROUND, true);
         }
 
-        public static boolean getDarkThemeEnable(Context context) {
-            return context == null || getDarkThemeEnable(getSharedPreferences(context));
+        public static EnumBrightness getBrightness(Context context) {
+            if (context == null)
+                return EnumBrightness.SYSTEM;
+            return getBrightness(getSharedPreferences(context));
         }
 
-        public static boolean getDarkThemeEnable(SharedPreferences preferences) {
-            return preferences.getBoolean(DARK_THEME, true);
+        public static EnumBrightness getBrightness(SharedPreferences preferences) {
+            try {
+                return EnumBrightness.valueOf(preferences.getString(BRIGHTNESS, EnumBrightness.SYSTEM.name()));
+            } catch (java.lang.IllegalArgumentException e) {
+                return EnumBrightness.SYSTEM;
+            }
         }
 
-        public static void setDarkThemeEnable(Context context, boolean enable) {
+        public static void setBrightness(Context context, EnumBrightness selection) {
             SharedPreferences.Editor preferences = getSharedPreferences(context).edit();
-            preferences.putBoolean(DARK_THEME, enable);
-            preferences.commit();
+            preferences.putString(BRIGHTNESS, selection.name());
+            preferences.apply();
         }
 
         public static EnumTheme getEnumTheme(Context context) {
@@ -447,7 +409,6 @@ public class AppSettings {
 
         public static EnumTheme getEnumTheme(SharedPreferences preferences) {
             String string = preferences.getString(THEME, "default");
-            boolean darkThemeEnable = getDarkThemeEnable(preferences);
 
             EnumTheme enumTheme;
             switch (string) {
@@ -467,7 +428,6 @@ public class AppSettings {
                     enumTheme = EnumTheme.DEFAULT;
             }
 
-            enumTheme.setDark(darkThemeEnable);
             return enumTheme;
         }
 
@@ -494,7 +454,6 @@ public class AppSettings {
                         break;
                 }
                 if (themeTmp != null) {
-                    themeTmp.setDark(theme.isDark);
                     theme = themeTmp;
                 }
             }
@@ -503,30 +462,19 @@ public class AppSettings {
         }
 
         public enum EnumTheme {
-            DEFAULT("default", false, R.string.pref_theme_list_titles_default),
-            RED("red", false, R.string.pref_theme_list_titles_red_the_order),
-            PURPLE("purple", false, R.string.pref_theme_list_titles_purple_the_assembly),
-            BLUE("blue", false, R.string.pref_theme_list_titles_blue_the_federation),
-            GREEN("green", false, R.string.pref_theme_list_titles_green_the_alliance);
+            DEFAULT("default", R.string.pref_theme_list_titles_default),
+            RED("red", R.string.pref_theme_list_titles_red_the_order),
+            PURPLE("purple", R.string.pref_theme_list_titles_purple_the_assembly),
+            BLUE("blue", R.string.pref_theme_list_titles_blue_the_federation),
+            GREEN("green", R.string.pref_theme_list_titles_green_the_alliance);
 
             private String key;
-            private boolean isDark;
-            @StringRes
             private int name;
 
-            EnumTheme(String key, boolean isDark, @StringRes int name) {
+            EnumTheme(String key, @StringRes int name) {
 
                 this.key = key;
-                this.isDark = isDark;
                 this.name = name;
-            }
-
-            public boolean isDark() {
-                return isDark;
-            }
-
-            void setDark(boolean isDark) {
-                this.isDark = isDark;
             }
 
             public int getName() {
@@ -534,6 +482,11 @@ public class AppSettings {
             }
         }
 
+        public enum EnumBrightness {
+            SYSTEM,
+            DARK,
+            LIGHT
+        }
     }
 
 }

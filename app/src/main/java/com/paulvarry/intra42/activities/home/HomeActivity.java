@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.ViewPagerAdapter;
 import com.paulvarry.intra42.fragments.EventFragment;
@@ -13,9 +16,6 @@ import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.Calendar;
-
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
 
 public class HomeActivity extends BasicTabActivity
         implements HomeFragment.OnFragmentInteractionListener, HomeEventsFragment.OnFragmentInteractionListener,
@@ -30,21 +30,13 @@ public class HomeActivity extends BasicTabActivity
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_CALENDAR: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == PERMISSIONS_REQUEST_CALENDAR) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Calendar.setEnableCalendarWithAutoSelect(this, true);
-                    refresh();
-
-                } else
-                    Calendar.setEnableCalendarWithAutoSelect(this, true);
+                Calendar.setEnableCalendarWithAutoSelect(this, true);
+                refresh();
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 

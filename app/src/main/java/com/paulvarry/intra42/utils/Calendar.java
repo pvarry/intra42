@@ -11,7 +11,9 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.SparseArray;
+
 import androidx.core.app.ActivityCompat;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.api.model.Events;
@@ -94,17 +96,17 @@ public class Calendar {
     }
 
     public static boolean syncEventCalendarAfterSubscription(Context context, Events event, EventsUsers eventsUsers) {
-        boolean calendarEnable = AppSettings.Notifications.getCalendarAfterSubscription(context);
+        boolean calendarEnable = AppSettings.Notifications.getCalendarSyncEnable(context);
         return calendarEnable && syncEventCalendar(context, event, eventsUsers);
     }
 
     public static boolean syncEventCalendarNotificationDeleteOnly(Context context, int event, EventsUsers eventsUsers) {
-        boolean calendarEnable = AppSettings.Notifications.getCalendarSync(context);
+        boolean calendarEnable = AppSettings.Notifications.getCalendarSyncEnable(context);
         return calendarEnable && syncEventCalendarDeleteOnly(context, event, eventsUsers);
     }
 
     public static boolean syncEventCalendarNotification(Context context, List<EventsUsers> eventsUsers) {
-        boolean calendarEnable = AppSettings.Notifications.getCalendarSync(context);
+        boolean calendarEnable = AppSettings.Notifications.getCalendarSyncEnable(context);
         if (!calendarEnable)
             return false;
         for (EventsUsers e : eventsUsers)
@@ -236,23 +238,13 @@ public class Calendar {
         SparseArray<String> calendar = new SparseArray<>();
 
         final String[] EVENT_PROJECTION;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            EVENT_PROJECTION = new String[]{
-                    CalendarContract.Calendars._ID,
-                    CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
-                    CalendarContract.Calendars.CALENDAR_COLOR,
-                    CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL,
-                    CalendarContract.Calendars.IS_PRIMARY
-            };
-        } else
-            EVENT_PROJECTION = new String[]{
-                    CalendarContract.Calendars._ID,
-                    CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
-                    CalendarContract.Calendars.CALENDAR_COLOR,
-                    CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL,
-                    CalendarContract.Calendars.OWNER_ACCOUNT,
-                    CalendarContract.Calendars.ACCOUNT_NAME
-            };
+        EVENT_PROJECTION = new String[]{
+                CalendarContract.Calendars._ID,
+                CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+                CalendarContract.Calendars.CALENDAR_COLOR,
+                CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL,
+                CalendarContract.Calendars.IS_PRIMARY
+        };
 
         final ContentResolver cr = context.getContentResolver();
         final Uri uri = CalendarContract.Calendars.CONTENT_URI;
@@ -264,13 +256,8 @@ public class Calendar {
             if (cur.getInt(3) < 300)
                 continue;
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                if (cur.getInt(4) != 1)
-                    continue;
-            } else {
-                if (!cur.getString(4).contentEquals(cur.getString(5)))
-                    continue;
-            }
+            if (cur.getInt(4) != 1)
+                continue;
 
 
             Long id = cur.getLong(0);
@@ -284,7 +271,7 @@ public class Calendar {
     }
 
     public static boolean setEnableCalendarWithAutoSelect(Context context, boolean enable) {
-        AppSettings.Notifications.setEnableCalendar(context, enable);
+        AppSettings.Notifications.setCalendarSyncEnable(context, enable);
         if (enable) {
             AppSettings.Notifications.setNotificationsAllow(context, true);
             AppClass.scheduleAlarm(context);

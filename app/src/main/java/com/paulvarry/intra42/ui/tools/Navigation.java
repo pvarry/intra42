@@ -10,12 +10,12 @@ import com.paulvarry.intra42.activities.AboutActivity;
 import com.paulvarry.intra42.activities.FriendsActivity;
 import com.paulvarry.intra42.activities.HolyGraphActivity;
 import com.paulvarry.intra42.activities.MarvinMealsActivity;
-import com.paulvarry.intra42.activities.SettingsActivity;
 import com.paulvarry.intra42.activities.TimeActivity;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.activities.forum.ForumActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.activities.notions.NotionsActivity;
+import com.paulvarry.intra42.activities.settings.SettingsActivity;
 import com.paulvarry.intra42.activities.users.UsersActivity;
 
 public class Navigation {

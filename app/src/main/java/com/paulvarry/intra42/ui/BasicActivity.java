@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,13 +21,28 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.SearchableActivity;
-import com.paulvarry.intra42.activities.SettingsActivity;
+import com.paulvarry.intra42.activities.settings.SettingsActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.Analytics;
@@ -39,20 +55,6 @@ import com.paulvarry.intra42.utils.UserImage;
 import com.squareup.picasso.RequestCreator;
 
 import java.util.Locale;
-
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GravityCompat;
-import androidx.cursoradapter.widget.CursorAdapter;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 public abstract class BasicActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -601,21 +603,45 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
             }
 
             /* ***** Setup dark theme button ***** */
-            if (app.themeSettings.isDark())
-                imageButtonDayLight.setImageResource(R.drawable.ic_brightness_3_black_24dp);
-            else
-                imageButtonDayLight.setImageResource(R.drawable.ic_brightness_2_black_24dp);
+            switch (AppSettings.Theme.getBrightness(this)) {
+                case LIGHT:
+                    imageButtonDayLight.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
+                    break;
+                case DARK:
+                    imageButtonDayLight.setImageResource(R.drawable.ic_brightness_3_24dp);
+                    break;
+                case SYSTEM:
+                    imageButtonDayLight.setImageResource(R.drawable.ic_theme_light_dark);
+                    break;
+            }
 
-            imageButtonDayLight.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Analytics.setBrightness(!app.themeSettings.isDark());
-                    AppSettings.Theme.setDarkThemeEnable(BasicActivity.this, !app.themeSettings.isDark());
-                    ThemeHelper.setTheme(app);
-                    recreate();
-                }
-            });
+            imageButtonDayLight.setOnClickListener(this::openThemeBrightnessChoice);
         }
+    }
+
+    private void openThemeBrightnessChoice(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view, Gravity.END, 0, R.style.MyPopupMenu);
+        popupMenu.inflate(R.menu.menu_change_theme_brightness);
+        popupMenu.setOnMenuItemClickListener(item -> {
+            AppSettings.Theme.EnumBrightness brightness = AppSettings.Theme.getBrightness(BasicActivity.this);
+            switch (item.getItemId()) {
+                case R.id.menu_theme_auth:
+                    brightness = AppSettings.Theme.EnumBrightness.SYSTEM;
+                    break;
+                case R.id.menu_theme_dark:
+                    brightness = AppSettings.Theme.EnumBrightness.DARK;
+                    break;
+                case R.id.menu_theme_light:
+                    brightness = AppSettings.Theme.EnumBrightness.LIGHT;
+                    break;
+            }
+            Analytics.setBrightness(brightness);
+            AppSettings.Theme.setBrightness(BasicActivity.this, brightness);
+            ThemeHelper.setTheme(app);
+            recreate();
+            return true;
+        });
+        popupMenu.show();
     }
 
     /**

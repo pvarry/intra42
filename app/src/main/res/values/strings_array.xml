@@ -89,6 +89,8 @@
         <item>-1</item>
     </string-array>
 
+    <!-- Settings for Theme -->
+
     <string-array name="pref_theme_list_titles">
         <item>@string/pref_theme_list_titles_default</item>
         <item>@string/pref_theme_list_titles_green_the_alliance</item>
@@ -103,6 +105,18 @@
         <item>blue</item>
         <item>purple</item>
         <item>red</item>
+    </string-array>
+
+    <string-array name="pref_theme_theme_brightness_list_titles">
+        <item>@string/pref_theme_color_scheme_list_titles_auto</item>
+        <item>@string/pref_theme_color_scheme_list_titles_dark</item>
+        <item>@string/pref_theme_color_scheme_list_titles_light</item>
+    </string-array>
+
+    <string-array name="pref_theme_theme_brightness_list_values">
+        <item>SYSTEM</item>
+        <item>DARK</item>
+        <item>LIGHT</item>
     </string-array>
 
     <!-- Search stuff -->

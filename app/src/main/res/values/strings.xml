@@ -288,16 +288,12 @@ You will lose a correction point"</string>
     <string name="about_poeditor">"Project on POEditor"</string>
     <string name="info_api_unauthorized">"You not allowed"</string>
     <string name="pref_title_notifications_sync_allow">"Enable notifications &amp; sync"</string>
-    <string name="pref_title_notifications_sync_calendar">"Sync calendar"</string>
     <string name="pref_title_calendar_list">"Choose calendar to insert events"</string>
     <string name="pref_category_notifications">"Notifications"</string>
     <string name="pref_summary_notifications_events">"Notify for new events published to 42 intranet"</string>
     <string name="pref_summary_notifications_scales">"Remind you about evaluations"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Automatically check your events subscriptions and add then"</string>
     <string name="pref_title_calendar_enable">"Enable calendar edition"</string>
     <string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
-    <string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
-    <string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
     <string name="pref_title_calendar">"Events sync"</string>
     <string name="friends_nothing_found">"You can add friends from their profile"</string>
     <string name="friend_group_name">"Group name"</string>
@@ -355,7 +351,7 @@ You will lose a correction point"</string>
     <string name="title_activity_friends_groups">"Friends groups"</string>
     <string name="project_solo">"solo"</string>
     <string name="project_group">"group"</string>
-    <string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
+    <string name="pref_theme_info_need_restart_to_apply">"You need to restart the app to fully apply selected theme"</string>
     <string name="event_kind_conf">"conf"</string>
     <string name="event_kind_other">"other"</string>
     <string name="event_kind_extern">"extern"</string>
@@ -467,9 +463,7 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="shortcut_long_galaxy">"Holy Graph (projects)"</string>
     <string name="bookings_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
     <string name="pref_title_advanced_data_allow_beta">"Enable advanced preferences"</string>
-    <string name="pref_summary_advanced_data_print_ids">"Enable this to show ids and slugs in the app"</string>
     <string name="pref_title_advanced_data_print_ids">"Show advanced data (ids, slugs ...)"</string>
-    <string name="pref_summary_advanced_data_markdown_render">"For forum and events (default true)"</string>
     <string name="pref_title_advanced_data_markdown_render">"Render markdown"</string>
     <string name="pref_summary_advanced_data_save_logs">"On enabling this feature, extra logs will be generated and logs will be saved on \"~/Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. Warning: private information (like phone number) will be saved on device storage. (default false)"</string>
     <string name="pref_title_advanced_data_save_logs">"Save logs on disk"</string>
@@ -477,7 +471,6 @@ Disclaimer : This code is in no way affiliated with, authorised, maintained, spo
     <string name="pref_title_advanced_data_past_events">"Past events"</string>
     <string name="pref_title_advanced_section_other">"Others features"</string>
     <string name="pref_title_advanced_section_features">"Advanced features"</string>
-    <string name="pref_summary_advanced_data_enable_beta">"default false"</string>
     <string name="title_tab_cluster_map_info">"Info"</string>
     <string name="cluster_map_info_button_update">"update"</string>
     <string name="cluster_map_info_button_update_disabled">"no need to update"</string>
@@ -595,8 +588,7 @@ Cluster orientation :
     <string name="pref_theme_list_titles_purple_the_assembly">"Purple (The Assembly)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Red (The Order)"</string>
     <string name="pref_theme_list_titles_android">"Android Dark"</string>
-    <string name="pref_theme_switch_action_bar_background">"Display image on App Bar background"</string>
-    <string name="pref_theme_switch_dark_theme">"Use dark theme"</string>
+    <string name="pref_theme_switch_brightness">"Use dark theme"</string>
     <string name="cluster_map_info_layer_spinner_main_none">"None"</string>
     <string name="hint_date">"date"</string>
     <string name="hint_time">"time"</string>
@@ -643,4 +635,18 @@ long click for more action"</string>
     <string name="event_cancellation_date_exceeded">Cancellation date limit exceeded</string>
     <string name="cluster_map_layer_data_unavailable_content">Data temporarily unavailable, try again later</string>
     <string name="cluster_map_layer_data_unavailable_title">Api Error</string>
+    <string name="pref_theme_color_scheme_list_titles_dark">"Dark"</string>
+    <string name="pref_theme_color_scheme_list_titles_light">"Light"</string>
+    <string name="pref_theme_color_scheme_list_titles_auto">"Follow system theme"</string>
+    <string name="pref_network_profile_pic_size_title">Profile picture size</string>
+    <string name="pref_summary_advanced_data_markdown_render_enabled">Use a Markdown render engine for text in forum and event views</string>
+    <string name="pref_summary_advanced_data_markdown_render_disabled">Display raw text on forum and events views</string>
+    <string name="pref_summary_advanced_data_print_ids_enabled">Display additional information like ids and slugs over the app</string>
+    <string name="pref_summary_advanced_data_print_ids_disabled">Normal usage, use this as default</string>
+    <string name="pref_summary_advanced_settings_enabled">"Use advanced setting, if you do not know what it is, please disable it"</string>
+    <string name="pref_summary_advanced_settings_disabled">"Default usage"</string>
+    <string name="pref_theme_app_bar_background">"Image on app bar"</string>
+    <string name="pref_summary_theme_app_bar_background">Display a themed image on the app bar background</string>
+    <string name="pref_title_theme">App theme</string>
+    <string name="pref_theme_title_example">Theme example</string>
 </resources>

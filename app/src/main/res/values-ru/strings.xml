@@ -290,16 +290,12 @@
     <string name="about_poeditor">"Проект на POEditor"</string>
     <string name="info_api_unauthorized">"Тебе этого нельзя"</string>
     <string name="pref_title_notifications_sync_allow">"Включить уведомления и синхронизацию"</string>
-    <string name="pref_title_notifications_sync_calendar">"Синхронизировать календарь"</string>
     <string name="pref_title_calendar_list">"Выбрать календарь для вставки событий"</string>
     <string name="pref_category_notifications">"Уведомления"</string>
     <string name="pref_summary_notifications_events">"Уведомлять о новых событиях, опубликованных в интранете 42"</string>
     <string name="pref_summary_notifications_scales">"Напоминать мне о проверках"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Автоматически проверять и добавлять события, затем"</string>
     <string name="pref_title_calendar_enable">"Включить редактирование календаря"</string>
     <string name="pref_summary_calendar_enable">"После предоставления доступа к календарю это приложение сможет добавлять события в календарь"</string>
-    <string name="pref_title_calendar_after_subscription">"Добавить в календарь"</string>
-    <string name="pref_summary_calendar_after_subscription">"Добавить событие сразу после подписки на него"</string>
     <string name="pref_title_calendar">"Синхронизация событий"</string>
     <string name="friends_nothing_found">"Вы можете добавить друзей из их профодя"</string>
     <string name="friend_group_name">"Название группы"</string>
@@ -496,7 +492,7 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="pref_title_advanced_data_past_events">"Прошедшие события"</string>
     <string name="pref_title_advanced_section_other">"Другие атрибуты"</string>
     <string name="pref_title_advanced_section_features">"Продвинутые атрибуты"</string>
-    <string name="pref_summary_advanced_data_enable_beta">"по умолчанию отключено"</string>
+    <string name="pref_summary_advanced_settings">"по умолчанию отключено"</string>
     <string name="title_tab_cluster_map_info">"Инфо"</string>
     <string name="cluster_map_info_button_update">"обновить"</string>
     <string name="cluster_map_info_button_update_disabled">"не нужно обновлять"</string>
@@ -615,7 +611,7 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="pref_theme_list_titles_red_the_order">"Красный (Ордин)"</string>
     <string name="pref_theme_list_titles_android">"Андроид Тёмный"</string>
     <string name="pref_theme_switch_action_bar_background">"Показать изображение на заднем плане приложения"</string>
-    <string name="pref_theme_switch_dark_theme">"Использовать темную тему"</string>
+    <string name="pref_theme_switch_brightness">"Использовать темную тему"</string>
     <string name="cluster_map_info_layer_spinner_main_none">"Пусто"</string>
     <string name="hint_date">"дата"</string>
     <string name="hint_time">"время"</string>

@@ -19,18 +19,12 @@ public class ThemeHelper {
     public static void setTheme(AppClass app) {
         app.themeSettings = AppSettings.Theme.getEnumTheme(app, app.me);
         app.themeRes = ThemeHelper.getThemeResource(app.themeSettings);
-        if (app.themeSettings.isDark())
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        applyThemeBlitheness(app);
         app.setTheme(app.themeRes);
     }
 
     public static void setTheme(Activity activity, AppClass app) {
-        if (app.themeSettings.isDark())
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        applyThemeBlitheness(app);
         activity.setTheme(app.themeRes);
     }
 
@@ -39,6 +33,17 @@ public class ThemeHelper {
             return;
 
         activity.setTheme(getThemeResource(AppSettings.Theme.getEnumTheme(activity, user)));
+    }
+
+    private static void applyThemeBlitheness(Context context) {
+        AppSettings.Theme.EnumBrightness brightness = AppSettings.Theme.getBrightness(context);
+
+        if (brightness == AppSettings.Theme.EnumBrightness.DARK)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else if (brightness == AppSettings.Theme.EnumBrightness.LIGHT)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
     public static void setActionBar(AppBarLayout appBarLayout, AppClass app) {

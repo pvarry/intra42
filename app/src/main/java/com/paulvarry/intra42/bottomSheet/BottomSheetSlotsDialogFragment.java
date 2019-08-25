@@ -280,7 +280,8 @@ public /*abstract*/ class BottomSheetSlotsDialogFragment extends ListenedBottomS
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
 
                 timePickerDialog.setTimeInterval(1, 15);
-                timePickerDialog.setThemeDark(app.themeSettings.isDark());
+//                timePickerDialog.setThemeDark(app.themeSettings.isDark());
+                //TODO
                 timePickerDialog.show(activity.getSupportFragmentManager(), "");
 
             }

@@ -34,10 +34,7 @@ public class Analytics {
         SharedPreferences preferences = AppSettings.getSharedPreferences(context);
 
         mFirebaseAnalytics.setUserProperty(USER_PROPERTY_APP_THEME, AppSettings.Theme.getEnumTheme(preferences).name());
-        if (AppSettings.Theme.getDarkThemeEnable(preferences))
-            mFirebaseAnalytics.setUserProperty(USER_PROPERTY_APP_THEME_DARK, "DARK");
-        else
-            mFirebaseAnalytics.setUserProperty(USER_PROPERTY_APP_THEME_DARK, "LIGHT");
+        mFirebaseAnalytics.setUserProperty(USER_PROPERTY_APP_THEME_DARK, AppSettings.Theme.getBrightness(preferences).name());
     }
 
     public static void slotSave(SlotsTools.SlotsGroup slotsGroup) {
@@ -128,9 +125,9 @@ public class Analytics {
         firebaseAnalytics.logEvent("shortcut_cluster_map", null);
     }
 
-    public static void setBrightness(boolean isDark) {
+    public static void setBrightness(AppSettings.Theme.EnumBrightness brightness) {
         Bundle params = new Bundle();
-        params.putString(EVENT_PARAM_BRIGHTNESS, isDark ? "DARK" : "LIGHT");
+        params.putString(EVENT_PARAM_BRIGHTNESS, brightness.name());
         firebaseAnalytics.logEvent("brightness_switched_menu", params);
     }
 

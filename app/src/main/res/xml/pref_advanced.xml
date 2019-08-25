@@ -1,65 +1,85 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
 
     <SwitchPreference
-        android:defaultValue="false"
-        android:key="switch_preference_advanced_allow_beta"
-        android:summary="@string/pref_summary_advanced_data_enable_beta"
-        android:title="@string/pref_title_advanced_data_allow_beta" />
+        app:defaultValue="false"
+        app:iconSpaceReserved="false"
+        app:key="switch_preference_advanced_allow_beta"
+        app:summaryOff="@string/pref_summary_advanced_settings_disabled"
+        app:summaryOn="@string/pref_summary_advanced_settings_enabled"
+        app:title="@string/pref_title_advanced_data_allow_beta" />
 
     <PreferenceCategory
-        android:dependency="switch_preference_advanced_allow_beta"
-        android:title="@string/pref_title_advanced_section_features">
+        app:dependency="switch_preference_advanced_allow_beta"
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_title_advanced_section_features">
 
         <SwitchPreference
-            android:defaultValue="false"
-            android:key="switch_preference_advanced_allow_advanced_data"
-            android:summary="@string/pref_summary_advanced_data_print_ids"
-            android:title="@string/pref_title_advanced_data_print_ids" />
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="switch_preference_advanced_allow_advanced_data"
+            app:summaryOff="@string/pref_summary_advanced_data_print_ids_disabled"
+            app:summaryOn="@string/pref_summary_advanced_data_print_ids_enabled"
+            app:title="@string/pref_title_advanced_data_print_ids" />
 
         <SwitchPreference
-            android:defaultValue="true"
-            android:key="switch_preference_advanced_allow_markdown_renderer"
-            android:summary="@string/pref_summary_advanced_data_markdown_render"
-            android:title="@string/pref_title_advanced_data_markdown_render" />
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="switch_preference_advanced_allow_markdown_renderer"
+            app:summaryOff="@string/pref_summary_advanced_data_markdown_render_disabled"
+            app:summaryOn="@string/pref_summary_advanced_data_markdown_render_enabled"
+            app:title="@string/pref_title_advanced_data_markdown_render" />
 
         <SwitchPreference
-            android:defaultValue="false"
-            android:key="switch_preference_advanced_allow_save_logs_on_file"
-            android:summary="@string/pref_summary_advanced_data_save_logs"
-            android:title="@string/pref_title_advanced_data_save_logs" />
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="switch_preference_advanced_allow_save_logs_on_file"
+            app:summary="@string/pref_summary_advanced_data_save_logs"
+            app:title="@string/pref_title_advanced_data_save_logs" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:dependency="switch_preference_advanced_allow_beta"
-        android:title="@string/pref_force_content_location">
+        app:dependency="switch_preference_advanced_allow_beta"
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_force_content_location">
 
         <ListPreference
-            android:defaultValue="-1"
-            android:key="list_preference_advanced_force_cursus"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/cursus" />
+            app:defaultValue="-1"
+            app:iconSpaceReserved="false"
+            app:key="list_preference_advanced_force_cursus"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/cursus"
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            android:defaultValue="-1"
-            android:key="list_preference_advanced_force_campus"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/campus" />
+            app:defaultValue="-1"
+            app:iconSpaceReserved="false"
+            app:key="list_preference_advanced_force_campus"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/campus"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:dependency="switch_preference_advanced_allow_beta"
-        android:title="@string/pref_title_advanced_section_other">
+        app:dependency="switch_preference_advanced_allow_beta"
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_title_advanced_section_other">
 
         <SwitchPreference
-            android:defaultValue="false"
-            android:key="switch_preference_advanced_allow_past_events"
-            android:summary="@string/pref_summary_advanced_data_past_events"
-            android:title="@string/pref_title_advanced_data_past_events" />
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="switch_preference_advanced_allow_past_events"
+            app:summary="@string/pref_summary_advanced_data_past_events"
+            app:title="@string/pref_title_advanced_data_past_events" />
 
     </PreferenceCategory>
-
 </PreferenceScreen>

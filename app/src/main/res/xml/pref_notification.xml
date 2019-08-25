@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- A 'parent' preference, which enables/disables child preferences (below)
          when checked/unchecked. -->
@@ -6,7 +7,8 @@
         android:defaultValue="true"
         android:key="notifications_allow"
         android:summary="Enable recurrent actions"
-        android:title="@string/pref_title_notifications_sync_allow" />
+        android:title="@string/pref_title_notifications_sync_allow"
+        app:iconSpaceReserved="false" />
 
     <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
      dismiss it. -->
@@ -19,11 +21,14 @@
         android:key="notifications_frequency"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_title_notifications_frequency" />
+        android:title="@string/pref_title_notifications_frequency"
+        app:iconSpaceReserved="false"
+        app:useSimpleSummaryProvider="true" />
 
     <PreferenceCategory
         android:dependency="notifications_allow"
-        android:title="@string/pref_category_notifications">
+        android:title="@string/pref_category_notifications"
+        app:iconSpaceReserved="false">
 
         <!--<CheckBoxPreference-->
         <!--android:defaultValue="true"-->
@@ -34,44 +39,38 @@
             android:defaultValue="true"
             android:key="check_box_preference_notifications_events"
             android:summary="@string/pref_summary_notifications_events"
-            android:title="@string/pref_title_notifications_events" />
+            android:title="@string/pref_title_notifications_events"
+            app:iconSpaceReserved="false" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="check_box_preference_notifications_scales"
             android:summary="@string/pref_summary_notifications_scales"
-            android:title="@string/pref_title_notifications_scales" />
+            android:title="@string/pref_title_notifications_scales"
+            app:iconSpaceReserved="false" />
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="check_box_preference_notifications_sync_calendar"
-            android:summary="@string/pref_summary_notifications_sync_calendar"
-            android:title="@string/pref_title_notifications_sync_calendar" />
     </PreferenceCategory>
 
     <PreferenceCategory
         android:dependency="notifications_allow"
-        android:title="@string/pref_title_calendar">
+        android:title="@string/pref_title_calendar"
+        app:iconSpaceReserved="false">
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="switch_preference_enable_calendar"
             android:summary="@string/pref_summary_calendar_enable"
-            android:title="@string/pref_title_calendar_enable" />
+            android:title="@string/pref_title_calendar_enable"
+            app:iconSpaceReserved="false" />
 
         <ListPreference
             android:dependency="switch_preference_enable_calendar"
             android:key="sync_events_calendars"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_calendar_list" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:dependency="switch_preference_enable_calendar"
-            android:key="check_box_preference_notifications_sync_calendar"
-            android:summary="@string/pref_summary_calendar_after_subscription"
-            android:title="@string/pref_title_calendar_after_subscription" />
+            android:title="@string/pref_title_calendar_list"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 </PreferenceScreen>

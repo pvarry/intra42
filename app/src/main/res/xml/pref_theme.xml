@@ -1,28 +1,53 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-        android:icon="@drawable/ic_info_black_24dp"
-        android:key="about"
-        android:selectable="false"
-        android:summary="@string/pref_theme_info_need_restart" />
-
-    <ListPreference
-        android:defaultValue="default"
-        android:entries="@array/pref_theme_list_titles"
-        android:entryValues="@array/pref_theme_list_values"
-        android:key="list_preference_theme"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        android:title="@string/pref_theme_title_change_theme" />
+        app:icon="@drawable/ic_info_24dp"
+        app:selectable="false"
+        app:summary="@string/pref_theme_info_need_restart_to_apply" />
 
     <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="switch_theme_actionbar_enable_background"
-        android:title="@string/pref_theme_switch_action_bar_background" />
+        app:defaultValue="true"
+        app:persistent="false"
+        app:selectable="false"
+        app:title="@string/pref_theme_title_example" />
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="switch_theme_dark_theme"
-        android:title="@string/pref_theme_switch_dark_theme" />
+    <PreferenceCategory
+        android:title="@string/pref_title_theme"
+        app:iconSpaceReserved="false">
 
+        <ListPreference
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:defaultValue="default"
+            app:entries="@array/pref_theme_list_titles"
+            app:entryValues="@array/pref_theme_list_values"
+            app:icon="@drawable/ic_format_paint_black_24dp"
+            app:key="list_preference_theme"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/pref_theme_title_change_theme"
+            app:useSimpleSummaryProvider="true" />
+
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:icon="@drawable/ic_image_24dp"
+            app:key="switch_theme_actionbar_enable_background"
+            app:summary="@string/pref_summary_theme_app_bar_background"
+            app:title="@string/pref_theme_app_bar_background" />
+
+        <ListPreference
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:defaultValue="SYSTEM"
+            app:entries="@array/pref_theme_theme_brightness_list_titles"
+            app:entryValues="@array/pref_theme_theme_brightness_list_values"
+            app:icon="@drawable/ic_brightness_3_24dp"
+            app:key="list_preference_theme_brightness"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/pref_theme_switch_brightness"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
 </PreferenceScreen>
