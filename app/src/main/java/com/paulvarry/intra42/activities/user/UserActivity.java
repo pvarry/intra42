@@ -18,6 +18,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -46,10 +51,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.viewpager.widget.ViewPager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -323,12 +324,12 @@ public class UserActivity extends BasicTabActivity
             Date timeout = calendar.getTime();
             if (timeout.before(new Date())) {
 
-                Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.info_data_cached_long_time_ago, Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(baseActivityContent, R.string.info_data_cached_long_time_ago, Snackbar.LENGTH_LONG);
                 snackbar.setAction(R.string.refresh, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        final Snackbar snackbarRefreshing = Snackbar.make(coordinatorLayout, R.string.refreshing, Snackbar.LENGTH_INDEFINITE);
+                        final Snackbar snackbarRefreshing = Snackbar.make(baseActivityContent, R.string.refreshing, Snackbar.LENGTH_INDEFINITE);
                         snackbarRefreshing.show();
 
                         refresh(new Runnable() {

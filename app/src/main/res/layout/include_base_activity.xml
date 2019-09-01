@@ -7,8 +7,8 @@
 
     <include layout="@layout/include_actionbar" />
 
-    <FrameLayout
-        android:id="@+id/coordinatorLayout"
+    <com.paulvarry.intra42.ui.FrameLayoutDispatchInsets
+        android:id="@+id/baseActivityContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -17,15 +17,15 @@
 
         <include layout="@layout/include_constraint_layout_on_error" />
 
-    </FrameLayout>
+    </com.paulvarry.intra42.ui.FrameLayoutDispatchInsets>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabBaseActivity"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 

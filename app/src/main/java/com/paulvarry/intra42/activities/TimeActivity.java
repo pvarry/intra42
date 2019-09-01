@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.GridView;
+
 import androidx.annotation.Nullable;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.GridAdapterTimeTool;
 import com.paulvarry.intra42.api.model.Campus;
@@ -94,7 +96,7 @@ public class TimeActivity extends BasicThreadActivity implements BasicThreadActi
         if (campusList == null)
             return;
 
-        GridView gridView = coordinatorLayout.findViewById(R.id.gridViewTime);
+        GridView gridView = baseActivityContent.findViewById(R.id.gridViewTime);
         adapterTimeTool = new GridAdapterTimeTool(this, campusList);
         gridView.setAdapter(adapterTimeTool);
 

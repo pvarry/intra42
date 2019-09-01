@@ -64,7 +64,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
     public MenuItem menuItemSpinner;
     public ProgressBar progressBarLoading;
     public AppBarLayout actionBar;
-    protected ViewGroup coordinatorLayout;
+    protected ViewGroup baseActivityContent;
     protected View viewContent;
     protected NavigationView navigationView;
     protected FloatingActionButton fabBaseActivity;
@@ -95,7 +95,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        baseActivityContent = findViewById(R.id.baseActivityContent);
         constraintLayoutLoading = findViewById(R.id.constraintLayoutLoading);
         constraintOnError = findViewById(R.id.constraintOnError);
 
@@ -151,9 +151,9 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (inflater == null)
             return;
-        viewContent = inflater.inflate(resContentId, coordinatorLayout, false);
+        viewContent = inflater.inflate(resContentId, baseActivityContent, false);
         viewContent.setFitsSystemWindows(true);
-        coordinatorLayout.addView(viewContent);
+        baseActivityContent.addView(viewContent);
         viewContent.requestLayout();
     }
 

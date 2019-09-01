@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:theme="?attr/actionBarTheme">
 
-    <com.paulvarry.intra42.ui.InsetRelativeLayout
+    <com.paulvarry.intra42.ui.RelativeLayoutDispatchInsets
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
@@ -50,6 +50,6 @@
                 app:tabIndicatorFullWidth="false"
                 app:tabMode="scrollable" />
         </com.paulvarry.intra42.ui.InsetLinearLayout>
-    </com.paulvarry.intra42.ui.InsetRelativeLayout>
+    </com.paulvarry.intra42.ui.RelativeLayoutDispatchInsets>
 
 </com.google.android.material.appbar.AppBarLayout>

@@ -61,7 +61,7 @@
         <activity
             android:name=".activities.LaunchActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.Login">
+            android:theme="@style/ThemeIntra.Base">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 

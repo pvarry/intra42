@@ -4,21 +4,21 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 
-public class InsetRelativeLayout extends RelativeLayout {
+public class FrameLayoutDispatchInsets extends FrameLayout {
 
-    public InsetRelativeLayout(Context context) {
+    public FrameLayoutDispatchInsets(Context context) {
         super(context);
     }
 
-    public InsetRelativeLayout(Context context, @Nullable AttributeSet attrs) {
+    public FrameLayoutDispatchInsets(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public InsetRelativeLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public FrameLayoutDispatchInsets(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
