@@ -225,15 +225,15 @@ public class AppClass extends Application {
             if (appVersion <= 20190901 || true) {
                 Log.d("Start param migration", "theme 3");
                 SharedPreferences pref = AppSettings.getSharedPreferences(this);
-                String string = pref.getString("switch_theme_dark_theme", "auto");
 
-                AppSettings.Theme.EnumBrightness brightness;
-                if (string.contentEquals("false"))
-                    brightness = AppSettings.Theme.EnumBrightness.LIGHT;
-                else if (string.contentEquals("true"))
-                    brightness = AppSettings.Theme.EnumBrightness.DARK;
-                else
-                    brightness = AppSettings.Theme.EnumBrightness.SYSTEM;
+                AppSettings.Theme.EnumBrightness brightness = AppSettings.Theme.EnumBrightness.SYSTEM;
+                if (pref.contains("switch_theme_dark_theme")) {
+                    boolean string = pref.getBoolean("switch_theme_dark_theme", true);
+                    if (string)
+                        brightness = AppSettings.Theme.EnumBrightness.LIGHT;
+                    else
+                        brightness = AppSettings.Theme.EnumBrightness.DARK;
+                }
                 AppSettings.Theme.setBrightness(this, brightness);
                 SharedPreferences.Editor editor = pref.edit();
                 edit.remove("switch_theme_dark_theme");
