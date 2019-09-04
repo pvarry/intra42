@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -33,6 +35,7 @@ public class Quests implements Serializable {
     public Integer cursuId;
     @SerializedName(API_CAMPUS_ID)
     public Integer campusId;
+    @Nullable
     @SerializedName(API_GRADE_ID)
     public Integer gradeId;
     @SerializedName(API_POSITION)

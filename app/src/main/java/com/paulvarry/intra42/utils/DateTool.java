@@ -2,6 +2,8 @@ package com.paulvarry.intra42.utils;
 
 import android.content.Context;
 
+import androidx.annotation.Nullable;
+
 import com.paulvarry.intra42.R;
 
 import org.ocpsoft.prettytime.Duration;
@@ -85,8 +87,11 @@ public class DateTool extends java.util.Date {
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
-    static public boolean isInFuture(Date date) {
-        return date != null && date.after(new Date(System.currentTimeMillis()));
+    @Nullable
+    static public Boolean isInFuture(@Nullable Date date) {
+        if (date == null)
+            return null;
+        return date.after(new Date(System.currentTimeMillis()));
     }
 
     static public boolean isInPast(Date date) {

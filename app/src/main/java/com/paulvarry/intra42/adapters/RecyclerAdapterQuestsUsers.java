@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.QuestsUsers;
 import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapterQuestsUsers extends RecyclerView.Adapter<RecyclerAdapterQuestsUsers.ViewHolder> {
 
@@ -43,23 +43,31 @@ public class RecyclerAdapterQuestsUsers extends RecyclerView.Adapter<RecyclerAda
         Context c = holder.itemView.getContext();
 
         holder.imageViewStatus.setVisibility(View.INVISIBLE);
-        if (DateTool.isInFuture(questsUsers.end_at)) {
-            holder.textViewStatus.setText(R.string.quest_in_progress);
-        } else if (questsUsers.validatedAt != null) { // validated
+        Boolean endAtIsFuture = DateTool.isInFuture(questsUsers.end_at);
+
+        if (questsUsers.validatedAt != null) { // validated
             holder.imageViewStatus.setVisibility(View.VISIBLE);
             holder.textViewStatus.setText(R.string.quest_validated);
             holder.textViewStatus.setTextColor(ContextCompat.getColor(c, R.color.colorSuccess));
             holder.imageViewStatus.setImageResource(R.drawable.ic_check_black_24dp);
             holder.imageViewStatus.setColorFilter(ContextCompat.getColor(c, R.color.colorSuccess));
-        } else { // failed
-            holder.imageViewStatus.setVisibility(View.VISIBLE);
-            holder.textViewStatus.setText(R.string.quest_failed);
-            holder.textViewStatus.setTextColor(ContextCompat.getColor(c, R.color.colorFail));
-            holder.imageViewStatus.setImageResource(R.drawable.ic_close_black_24dp);
-            holder.imageViewStatus.setColorFilter(ContextCompat.getColor(c, R.color.colorFail));
+        } else if (endAtIsFuture != null) {
+            if (endAtIsFuture) {
+                holder.textViewStatus.setText(R.string.quest_in_progress);
+            } else { // failed
+                holder.imageViewStatus.setVisibility(View.VISIBLE);
+                holder.textViewStatus.setText(R.string.quest_failed);
+                holder.textViewStatus.setTextColor(ContextCompat.getColor(c, R.color.colorFail));
+                holder.imageViewStatus.setImageResource(R.drawable.ic_close_black_24dp);
+                holder.imageViewStatus.setColorFilter(ContextCompat.getColor(c, R.color.colorFail));
+            }
+        } else {
+            holder.textViewStatus.setText(R.string.quest_status_unknown);//TODO: change color
         }
 
-        holder.textViewDate.setText(DateTool.getDateLong(questsUsers.end_at));
+        holder.textViewDate.setText(null);
+        if (questsUsers.end_at != null)
+            holder.textViewDate.setText(DateTool.getDateLong(questsUsers.end_at));
         holder.textViewAdvancement.setVisibility(View.GONE);
         if (questsUsers.advancement != null) {
             holder.textViewAdvancement.setVisibility(View.VISIBLE);

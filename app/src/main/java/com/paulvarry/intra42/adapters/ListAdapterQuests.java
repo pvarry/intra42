@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Quests;
 import com.paulvarry.intra42.api.model.QuestsUsers;
@@ -15,10 +19,6 @@ import com.paulvarry.intra42.utils.DateTool;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class ListAdapterQuests extends BaseAdapter {
 
@@ -96,14 +96,21 @@ public class ListAdapterQuests extends BaseAdapter {
         holder.textViewTitle.setText(quest.name);
         holder.textViewSummary.setText(quest.description);
 
-        if (DateTool.isInFuture(questUser.end_at)) {
-            holder.textViewStatus.setText(R.string.quest_in_progress);
-        } else if (questUser.validatedAt != null) { // validated
+        holder.textViewStatus.setTextColor(ContextCompat.getColor(context, R.color.colorGray));
+        Boolean endAtIsFuture = DateTool.isInFuture(questUser.end_at);
+        if (questUser.validatedAt != null) { // validated
             holder.textViewStatus.setText(R.string.quest_validated);
             holder.textViewStatus.setTextColor(ContextCompat.getColor(context, R.color.colorSuccess));
-        } else { // failed
-            holder.textViewStatus.setText(R.string.quest_failed);
-            holder.textViewStatus.setTextColor(ContextCompat.getColor(context, R.color.colorFail));
+        } else if (endAtIsFuture != null) {
+            if (endAtIsFuture) {
+                holder.textViewStatus.setText(R.string.quest_in_progress);
+            } else { // failed
+                holder.textViewStatus.setText(R.string.quest_failed);
+                holder.textViewStatus.setTextColor(ContextCompat.getColor(context, R.color.colorFail));
+            }
+        } else {
+            holder.textViewStatus.setText(R.string.quest_status_unknown);
+            holder.textViewStatus.setTextColor(ContextCompat.getColor(context, R.color.colorGray)); //TODO: change color
         }
 
         holder.textViewRetryLeft.setVisibility(View.GONE);

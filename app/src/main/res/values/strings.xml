@@ -649,4 +649,5 @@ long click for more action"</string>
     <string name="pref_summary_theme_app_bar_background">Display a themed image on the app bar background</string>
     <string name="pref_title_theme">App theme</string>
     <string name="pref_theme_title_example">Theme example</string>
+    <string name="quest_status_unknown">Unknown</string>
 </resources>

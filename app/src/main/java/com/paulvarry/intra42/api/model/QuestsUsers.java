@@ -1,5 +1,7 @@
 package com.paulvarry.intra42.api.model;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -21,6 +23,7 @@ public class QuestsUsers implements Serializable {
     @SerializedName(API_ID)
     public int id;
     @SerializedName(API_END_AT)
+    @Nullable
     public Date end_at;
     @SerializedName(API_QUEST_ID)
     public int questId;
@@ -29,6 +32,7 @@ public class QuestsUsers implements Serializable {
     @SerializedName(API_PRCT)
     public int prct;
     @SerializedName(API_ADVANCEMENT)
+    @Nullable
     public String advancement;
     @SerializedName(API_CREATED_AT)
     public Date created_at;
