@@ -1,33 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about_content">"Uaktywnij swoje intra z ojczystą aplikacją. Skontaktuj się ze mną na Slaku lub mailowo (pvarry)."</string>
+    <string name="about_library_list">"Lista bibliotek"</string>
+    <string name="about_on_github">"Na Githubie"</string>
+    <string name="about_poeditor">"Projekt w POEditor"</string>
+    <string name="about_report_bug">"Zgłoś błąd"</string>
+    <string name="about_version">"Wersja"</string>
+    <string name="about_view_source">"Wyświetl źródło"</string>
+    <string name="accessibility_navigation_drawer_close">"Zamknij okno nawigacji"</string>
+    <string name="accessibility_navigation_drawer_open">"Otwórz okno nawigacji"</string>
     <string name="app_name">"Intra 42"</string>
-    <string name="pref_advanced_dont_force">"Dezaktywuj (nie wymuszaj)"</string>
-    <string name="pref_force_content_location">"Wymuś zawartość lokalizacji"</string>
-    <string name="pref_unactivated">"Nieaktywny"</string>
-    <string name="pref_activated">"Aktywny"</string>
-    <string name="pref_value_all">"Wszystko"</string>
-    <string name="pref_header_notifications">"Powiadomienia"</string>
-    <string name="pref_title_notifications_events">"Powiadamiaj o eventach"</string>
-    <string name="pref_title_notifications_scales">"Powiadamiaj o korekcjach (beta)"</string>
-    <string name="pref_title_notifications_frequency">"Częstotliwość synchronizacji"</string>
-    <string name="pref_header_network">"Sieć"</string>
-    <string name="pref_title_network_over_cellular_slow">"Przez wolną sieć komórkową"</string>
-    <string name="pref_title_network_over_cellular_fast">"Przez szybką sieć komórkową"</string>
-    <string name="pref_title_network_over_wifi">"Przez wifi"</string>
-    <string name="notifications_events_sub_text">"Event"</string>
-    <string name="notifications_events_channel_name">"Eventy"</string>
-    <string name="notifications_events_channel_description">"Powiadomienia o eventach"</string>
-    <string name="notifications_bookings_sub_text">"Rezerwacja"</string>
-    <string name="notifications_bookings_channel_name">"Rezerwacje"</string>
-    <string name="notifications_bookings_channel_description">"Powiadomienia o zarezerwowanych korekcjach"</string>
-    <string name="notifications_announcements_channel_name">"Wydarzenia"</string>
-    <string name="notifications_announcements_channel_description">"Powiadomienia wydarzeń"</string>
-
-    <!-- Format warning -->
-    <string name="bookings_corrected_by">"Twój _project_ będzie oceniany _date_."</string>
-
-    <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"Twój _project_ będzie oceniany _date_  przez _login_."</string>
 
     <!-- Format warning -->
     <string name="bookings_correct_login">"_date_ będziesz oceniać projekt _login_."</string>
@@ -37,39 +19,21 @@
 "</string>
 
     <!-- Format warning -->
-    <string name="format_dont_have_any_expertise_yet">"%s nie ma jeszcze żadnych kompetencji"</string>
+    <string name="bookings_corrected_by">"Twój _project_ będzie oceniany _date_."</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s nie napisał(a) jeszcze żadnego wątku"</string>
-
-    <!-- Format warning -->
-    <string name="format__host_s_history">"Historia %s"</string>
+    <string name="bookings_corrected_by_login">"Twój _project_ będzie oceniany _date_  przez _login_."</string>
     <string name="campus">"Kampus"</string>
-    <string name="cursus">"Program nauczania"</string>
     <string name="cancel">"Anuluj"</string>
+    <string name="cantina_menu_fremont_only">"Menu stołówki"</string>
     <string name="copied">"Skopiowany"</string>
     <string name="copy">"Kopiuj"</string>
+    <string name="cursus">"Program nauczania"</string>
     <string name="delete">"Usuń"</string>
     <string name="done">"Zrobione"</string>
-    <string name="error">"Błąd"</string>
-    <string name="ok">"OK"</string>
-    <string name="open_this">"Otwórz"</string>
-    <string name="save">"Zapisz"</string>
-    <string name="soon">"Wkrótce"</string>
-    <string name="sort_by">"Sortuj przez"</string>
-    <string name="refresh">"Odśwież"</string>
-    <string name="today">"Dzisiaj"</string>
-    <string name="tomorrow">"Jutro"</string>
-    <string name="value">"Wartość"</string>
-    <string name="tags">"Tagi"</string>
-    <string name="shortcut_friends">"Przyjaciele"</string>
-    <string name="shortcut_long_friends">"Lista przyjaciół"</string>
-    <string name="shortcut_long_cluster_map">"Mapa klastrów"</string>
-    <string name="about_content">"Uaktywnij swoje intra z ojczystą aplikacją. Skontaktuj się ze mną na Slaku lub mailowo (pvarry)."</string>
-    <string name="about_version">"Wersja"</string>
-    <string name="cantina_menu_fremont_only">"Menu stołówki"</string>
     <string name="elearning_select_file_to_open">"Wybierz plik do otworzenia"</string>
     <string name="elearning_title">"E-nauczanie"</string>
+    <string name="error">"Błąd"</string>
     <string name="evaluation_correct_someone">"Korekcje"</string>
     <string name="evaluation_corrected_by">"Korektowany przez"</string>
     <string name="evaluation_on_project">"Włączony"</string>
@@ -83,6 +47,7 @@
     <string name="evaluation_slot_start_before_end">"W tym czasie, początek musi być przed końcem"</string>
     <string name="evaluation_slot_success">"Pomyślny"</string>
     <string name="evaluation_someone">"Ktoś"</string>
+    <string name="evaluation_user_nothing">"Nie masz korekcji"</string>
     <string name="evaluation_with">"Z"</string>
     <string name="evaluations_booked_slot">"Zarezerwowany Slot"</string>
     <string name="evaluations_confirmation_delete_booked_slot">"Czy jesteś pewny że chcesz usunąć slot z rezerwacją?
@@ -95,6 +60,15 @@ Stracisz punkt korekcyjny."</string>
     <string name="event_subscription_unavailable">"Subskrybcja niedostępna"</string>
     <string name="event_unsubscribe">"Zrezygnuj z subskrybcji"</string>
     <string name="event_unsubscribed">"Zrezygnowano z subskrybcji"</string>
+
+    <!-- Format warning -->
+    <string name="format__dont_have_write_topic">"%s nie napisał(a) jeszcze żadnego wątku"</string>
+
+    <!-- Format warning -->
+    <string name="format__host_s_history">"Historia %s"</string>
+
+    <!-- Format warning -->
+    <string name="format_dont_have_any_expertise_yet">"%s nie ma jeszcze żadnych kompetencji"</string>
     <string name="forum_about_this_message">"O wiadomości"</string>
     <string name="forum_confirmation_delete_message">"Czy jesteś pewny, że chcesz usunąć tą wiadomość?"</string>
     <string name="forum_created_at">"Stworzono"</string>
@@ -117,11 +91,15 @@ Stracisz punkt korekcyjny."</string>
     <string name="galaxy_succeeded">"Zaliczony"</string>
     <string name="galaxy_unavailable">"Niedostępny"</string>
     <string name="galaxy_unknown_state">"Nieznany status"</string>
+    <string name="home_help_POEditor">"Jeżeli znalazłeś(aś) błąd gramatyczny lub chcesz przetłumaczyć tą aplikację, możesz to zrobić z POEditor. Kliknij tutaj"</string>
     <string name="info_api_request_users_1_1">"Łączenie z użytkownikiem 1/1"</string>
     <string name="info_api_requesting">"Łączenie..."</string>
+    <string name="info_api_unauthorized">"Nie jesteś upoważniony"</string>
     <string name="info_error_on_loading_this_page">"Wystąpił błąd podczas ładowania tej strony"</string>
     <string name="info_initializing">"Inicjalizowanie"</string>
     <string name="info_loading">"Ładowanie..."</string>
+    <string name="info_loading_cache">"Zdobądź cache..."</string>
+    <string name="info_loading_current_user">"Obecny użytkownik"</string>
     <string name="info_loading_please_wait">"Ładowanie. Proszę czekać..."</string>
     <string name="info_network_no_internet">"Nie można połączyć się z internetem"</string>
     <string name="info_nothing_to_show">"Nic do pokazania"</string>
@@ -129,6 +107,11 @@ Stracisz punkt korekcyjny."</string>
     <string name="language_french">"Francuski"</string>
     <string name="language_romanian">"Rumuński"</string>
     <string name="language_ukrainian">"Ukraiński"</string>
+    <string name="list_preference_network_titles_default">"Standardowe (200×240)"</string>
+    <string name="list_preference_network_titles_large">"Duże (583×700)"</string>
+    <string name="list_preference_network_titles_medium">"Średnie (292×350)"</string>
+    <string name="list_preference_network_titles_none">"Żadne"</string>
+    <string name="list_preference_network_titles_small">"Małe (146×175)"</string>
     <string name="login_view_sources">"Wyświetl źródła"</string>
     <string name="menu_action_filter">"Filtr"</string>
     <string name="menu_action_open_intra">"Pokaż wersję na komputer"</string>
@@ -153,7 +136,44 @@ Stracisz punkt korekcyjny."</string>
     <string name="notification_bookings_title_new">"Masz nową rezerwację"</string>
     <string name="notification_see_project">"Zobacz projekt"</string>
     <string name="notification_see_user">"Zobacz użytkownika"</string>
+    <string name="notifications_announcements_channel_description">"Powiadomienia wydarzeń"</string>
+    <string name="notifications_announcements_channel_name">"Wydarzenia"</string>
     <string name="notifications_announcements_sub_text">"Wydarzenia"</string>
+    <string name="notifications_bookings_channel_description">"Powiadomienia o zarezerwowanych korekcjach"</string>
+    <string name="notifications_bookings_channel_name">"Rezerwacje"</string>
+    <string name="notifications_bookings_sub_text">"Rezerwacja"</string>
+    <string name="notifications_events_channel_description">"Powiadomienia o eventach"</string>
+    <string name="notifications_events_channel_name">"Eventy"</string>
+    <string name="notifications_events_sub_text">"Event"</string>
+    <string name="ok">"OK"</string>
+    <string name="open_this">"Otwórz"</string>
+    <string name="pref_activated">"Aktywny"</string>
+    <string name="pref_advanced_dont_force">"Dezaktywuj (nie wymuszaj)"</string>
+    <string name="pref_category_notifications">"Powiadomienia"</string>
+    <string name="pref_force_content_location">"Wymuś zawartość lokalizacji"</string>
+    <string name="pref_header_network">"Sieć"</string>
+    <string name="pref_header_notifications">"Powiadomienia"</string>
+    <string name="pref_notifications_frequency_titles_15min">"15 minut"</string>
+    <string name="pref_notifications_frequency_titles_1hour">"1 godzina (standardowo)"</string>
+    <string name="pref_notifications_frequency_titles_30min">"30 minut"</string>
+    <string name="pref_notifications_frequency_titles_3hour">"3 godziny"</string>
+    <string name="pref_notifications_frequency_titles_6hour">"6 godzin"</string>
+    <string name="pref_notifications_frequency_titles_never">"Nigdy"</string>
+    <string name="pref_summary_notifications_events">"Powiadamiaj o nowych eventach publikowanych na 42 intra"</string>
+    <string name="pref_summary_notifications_scales">"Przypominaj o ewaluacjach"</string>
+    <string name="pref_summary_notifications_sync_calendar">"Automatycznie sprawdź subskrybcje eventów i wtedy dodaj "</string>
+    <string name="pref_title_calendar">"Synchronizacja eventów"</string>
+    <string name="pref_title_calendar_after_subscription">"Wprowadź do kalendarza"</string>
+    <string name="pref_title_network_over_cellular_fast">"Przez szybką sieć komórkową"</string>
+    <string name="pref_title_network_over_cellular_slow">"Przez wolną sieć komórkową"</string>
+    <string name="pref_title_network_over_wifi">"Przez wifi"</string>
+    <string name="pref_title_notifications_events">"Powiadamiaj o eventach"</string>
+    <string name="pref_title_notifications_frequency">"Częstotliwość synchronizacji"</string>
+    <string name="pref_title_notifications_scales">"Powiadamiaj o korekcjach (beta)"</string>
+    <string name="pref_title_notifications_sync_allow">"Aktywuj powiadomienia i synchronizacje"</string>
+    <string name="pref_title_notifications_sync_calendar">"Synchronizuj kalendarz"</string>
+    <string name="pref_unactivated">"Nieaktywny"</string>
+    <string name="pref_value_all">"Wszystko"</string>
     <string name="profile_apps_private">"Prywatny"</string>
     <string name="project_automatic_correction">"Automatyczna ewaluacja"</string>
     <string name="project_automatic_corrections">"Automatyczne ewaluacje"</string>
@@ -183,6 +203,8 @@ Stracisz punkt korekcyjny."</string>
     <string name="project_user_status_waiting_for_correction">"Oczekiwanie na ewaluację"</string>
     <string name="project_user_status_waiting_to_start">"Oczekiwanie na rozpoczęcie"</string>
     <string name="project_you_cant_have_mark_for_this_project">"Nie możesz zaznaczyć tego projektu"</string>
+    <string name="refresh">"Odśwież"</string>
+    <string name="save">"Zapisz"</string>
     <string name="search_by">"Wyszukuj przez"</string>
     <string name="search_error_on_open_this_element">"Błąd przy otwieraniu tego elementu"</string>
     <string name="search_on_projects">"Wyszukiwanie w projektach"</string>
@@ -191,6 +213,14 @@ Stracisz punkt korekcyjny."</string>
     <string name="search_section_projects">"Projekty"</string>
     <string name="search_section_topics">"Wątki"</string>
     <string name="searching">"Wyszukiwanie..."</string>
+    <string name="shortcut_friends">"Przyjaciele"</string>
+    <string name="shortcut_long_cluster_map">"Mapa klastrów"</string>
+    <string name="shortcut_long_friends">"Lista przyjaciół"</string>
+    <string name="soon">"Wkrótce"</string>
+    <string name="sort_by">"Sortuj przez"</string>
+    <string name="spinner_user_projects_all">"Wszystko"</string>
+    <string name="spinner_user_projects_in_progress">"W toku"</string>
+    <string name="tags">"Tagi"</string>
     <string name="time_zone_error">"Błąd strefy czasowej"</string>
     <string name="title">"Tytuł"</string>
     <string name="title_activity_about">"O nas"</string>
@@ -229,6 +259,8 @@ Stracisz punkt korekcyjny."</string>
     <string name="title_tab_user_projects">"Projekty"</string>
     <string name="title_tab_user_skills">"Umiejętności"</string>
     <string name="title_tab_users_all">"Wszystko"</string>
+    <string name="today">"Dzisiaj"</string>
+    <string name="tomorrow">"Jutro"</string>
     <string name="user_app_official">"Oficjalna aplikacja"</string>
     <string name="user_correction_points">"Punkty korekcyjne"</string>
     <string name="user_cursus_date">"Data"</string>
@@ -248,36 +280,7 @@ Stracisz punkt korekcyjny."</string>
     <string name="user_overview_cursus_date_not_start_not_finised">"Nie zaczęto i nie skończono jeszcze"</string>
     <string name="user_pool">"Piscine"</string>
     <string name="user_unavailable">"Niedostępny"</string>
-    <string name="user_you_dont_have_any_expertise_yet">"Nie masz jeszcze żadnych kompetencji"</string>
-    <string name="info_loading_cache">"Zdobądź cache..."</string>
-    <string name="info_loading_current_user">"Obecny użytkownik"</string>
-    <string name="evaluation_user_nothing">"Nie masz korekcji"</string>
-    <string name="home_help_POEditor">"Jeżeli znalazłeś(aś) błąd gramatyczny lub chcesz przetłumaczyć tą aplikację, możesz to zrobić z POEditor. Kliknij tutaj"</string>
-    <string name="pref_notifications_frequency_titles_15min">"15 minut"</string>
-    <string name="pref_notifications_frequency_titles_30min">"30 minut"</string>
-    <string name="pref_notifications_frequency_titles_1hour">"1 godzina (standardowo)"</string>
-    <string name="pref_notifications_frequency_titles_3hour">"3 godziny"</string>
-    <string name="pref_notifications_frequency_titles_6hour">"6 godzin"</string>
-    <string name="pref_notifications_frequency_titles_never">"Nigdy"</string>
-    <string name="list_preference_network_titles_large">"Duże (583×700)"</string>
-    <string name="list_preference_network_titles_medium">"Średnie (292×350)"</string>
-    <string name="list_preference_network_titles_default">"Standardowe (200×240)"</string>
-    <string name="list_preference_network_titles_small">"Małe (146×175)"</string>
-    <string name="list_preference_network_titles_none">"Żadne"</string>
-    <string name="spinner_user_projects_all">"Wszystko"</string>
-    <string name="spinner_user_projects_in_progress">"W toku"</string>
-    <string name="accessibility_navigation_drawer_close">"Zamknij okno nawigacji"</string>
-    <string name="accessibility_navigation_drawer_open">"Otwórz okno nawigacji"</string>
     <string name="user_wallet_money">"Portfel"</string>
-    <string name="about_view_source">"Wyświetl źródło"</string>
-    <string name="about_on_github">"Na Githubie"</string>
-    <string name="about_report_bug">"Zgłoś błąd"</string>
-    <string name="about_library_list">"Lista bibliotek"</string>
-    <string name="about_poeditor">"Projekt w POEditor"</string>
-    <string name="info_api_unauthorized">"Nie jesteś upoważniony"</string>
-    <string name="pref_title_notifications_sync_allow">"Aktywuj powiadomienia i synchronizacje"</string>
-    <string name="pref_category_notifications">"Powiadomienia"</string>
-    <string name="pref_summary_notifications_events">"Powiadamiaj o nowych eventach publikowanych na 42 intra"</string>
-    <string name="pref_summary_notifications_scales">"Przypominaj o ewaluacjach"</string>
-    <string name="pref_title_calendar">"Synchronizacja eventów"</string>
+    <string name="user_you_dont_have_any_expertise_yet">"Nie masz jeszcze żadnych kompetencji"</string>
+    <string name="value">"Wartość"</string>
 </resources>

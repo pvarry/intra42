@@ -36,7 +36,7 @@ languages.each do |data|
 
   puts "Update language: #{local}"
   req = Net::HTTP::Post.new('/v2/projects/export')
-  req.body = URI.encode_www_form({ api_token: POEDITOR_API_KEY, id: POEDITOR_PROJET_ID, language: language, type: 'android_strings', filters: 'translated' })
+  req.body = URI.encode_www_form({ api_token: POEDITOR_API_KEY, id: POEDITOR_PROJET_ID, language: language, type: 'android_strings', filters: 'translated', order: 'terms' })
   res = conn.request(req)
   json = JSON.parse(res.body)
 

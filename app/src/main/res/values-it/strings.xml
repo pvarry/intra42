@@ -1,41 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about_content">"Accedi all'intra con un'app nativa
+Contattami su Slack o tramite mail (pvarry)"</string>
+    <string name="about_library_list">"Lista libreria"</string>
+    <string name="about_on_github">"Su github"</string>
+    <string name="about_poeditor">"Progetto su POEditor"</string>
+    <string name="about_report_bug">"Segnala un bug"</string>
+    <string name="about_version">"Versione"</string>
+    <string name="about_view_source">"Mostra sorgente"</string>
+    <string name="accessibility_navigation_drawer_close">"Chiudi il drawer di navigazione"</string>
+    <string name="accessibility_navigation_drawer_open">"Apri il drawer di navigazione"</string>
     <string name="app_name">"Intra 42"</string>
-    <string name="pref_advanced_dont_force">"Disabilita (non forzare)"</string>
-    <string name="pref_force_content_location">"Forza posizione contenuto"</string>
-    <string name="pref_unactivated">"Disattivo"</string>
-    <string name="pref_activated">"Attivo"</string>
-    <string name="pref_value_all">"Tutto"</string>
-
-    <!-- Impostazioni Notifiche -->
-    <!-- Fuzzy -->
-    <string name="pref_header_notifications">"Impostazioni Notifiche"</string>
-    <string name="pref_title_notifications_events">"Consenti eventi"</string>
-    <string name="pref_title_notifications_scales">"Notifica correzioni (beta)"</string>
-    <string name="pref_title_notifications_frequency">"Frequenza di sincronizzazione"</string>
-
-    <!-- done -->
-    <!-- Fuzzy -->
-    <string name="pref_header_network">"Impostazioni Rete"</string>
-    <string name="pref_title_network_over_cellular_slow">"Via rete cellulare lenta"</string>
-    <string name="pref_title_network_over_cellular_fast">"Via rete cellulare veloce"</string>
-    <string name="pref_title_network_over_wifi">"Via wifi"</string>
-
-    <!-- ok -->
-    <string name="notifications_events_sub_text">"evento"</string>
-    <string name="notifications_events_channel_name">"Eventi"</string>
-    <string name="notifications_events_channel_description">"Notifiche per eventi"</string>
-    <string name="notifications_bookings_sub_text">"prenotazione"</string>
-    <string name="notifications_bookings_channel_name">"Prenotazione"</string>
-    <string name="notifications_bookings_channel_description">"Notifiche per prenotazioni corrette"</string>
-    <string name="notifications_announcements_channel_name">"Avvisi"</string>
-    <string name="notifications_announcements_channel_description">"Notifiche avvisi"</string>
-
-    <!-- Format warning -->
-    <string name="bookings_corrected_by">"Il tuo _project_ verrà valutato a _date_."</string>
-
-    <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"Il tuo _project_ verrà valutato da _login_ a _date_."</string>
 
     <!-- Format warning -->
     <string name="bookings_correct_login">"Esaminerai il progetto di _login_ a _date_."</string>
@@ -44,41 +19,59 @@
     <string name="bookings_correct_somebody">"Esaminerai il codice di qualcuno a _date_."</string>
 
     <!-- Format warning -->
-    <string name="format_dont_have_any_expertise_yet">"%s non ha ancora alcuna esperienza"</string>
+    <string name="bookings_corrected_by">"Il tuo _project_ verrà valutato a _date_."</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s non ha ancora scritto alcun topic"</string>
-
-    <!-- Format warning -->
-    <string name="format__host_s_history">"cronologia %s"</string>
+    <string name="bookings_corrected_by_login">"Il tuo _project_ verrà valutato da _login_ a _date_."</string>
     <string name="campus">"Campus"</string>
-    <string name="cursus">"Corsi"</string>
     <string name="cancel">"Annulla"</string>
+    <string name="cantina_menu_fremont_only">"Menu Cantina"</string>
+    <string name="cluster_map_contribute_button_edit_layout">"modifica mappa"</string>
+    <string name="cluster_map_contribute_button_edit_metadata">"modifica metadata"</string>
+    <string name="cluster_map_contribute_dialog_add_action_column_left">"Aggiungi colonna a sinistra"</string>
+    <string name="cluster_map_contribute_dialog_add_action_column_right">"Aggiungi colonna a destra"</string>
+    <string name="cluster_map_contribute_dialog_add_action_row_bottom">"Aggiungi riga in basso"</string>
+    <string name="cluster_map_contribute_dialog_add_action_row_top">"Aggiungi riga al top"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_delete_column">"Elimina questa colonna"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_delete_row">"Elimina questa riga"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Imposta dimensione colonna"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Imposta dimensione riga"</string>
+    <string name="cluster_map_contribute_dialog_delete_message_col">"Stai per eliminare la colonna x=%d, questa azione non può essere annullata"</string>
+    <string name="cluster_map_contribute_dialog_delete_message_row">"Stai per eliminare la riga y=%d, questa azione non può essere annullata"</string>
+    <string name="cluster_map_contribute_dialog_delete_title">"Sei sicuro di eliminare questa riga/colonna?"</string>
+    <string name="cluster_map_contribute_dialog_location_title">"Modifica: _x_,_y_"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Commento"</string>
+    <string name="cluster_map_contribute_dialog_metadata_title">"Modifica metadati cluster"</string>
+    <string name="cluster_map_contribute_toolbar_info_too_late">"Troppo tardi, non puoi salvare i tuoi cambiamenti"</string>
+    <string name="cluster_map_info_button_contribute">"Aggiungi dati mancanti"</string>
+    <string name="cluster_map_info_button_update">"Aggiorna"</string>
+    <string name="cluster_map_info_button_update_disabled">"Aggiornamento non necessario"</string>
+    <string name="cluster_map_info_clusters">"Clusters"</string>
+    <string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
+    <string name="cluster_map_info_layer_input_project">"progetto"</string>
+    <string name="cluster_map_info_layer_spinner_main_coalitions">"Coalizioni"</string>
+    <string name="cluster_map_info_layer_spinner_main_friends">"Amici"</string>
+    <string name="cluster_map_info_layer_spinner_main_login">"Utente"</string>
+    <string name="cluster_map_info_layer_spinner_main_none">"Nullo"</string>
+    <string name="cluster_map_info_layer_spinner_main_project">"Progetto"</string>
+    <string name="cluster_map_info_project_dialog_not_found">"Non trovato"</string>
+    <string name="cluster_map_info_project_dialog_not_found_content_format">"Nessun progetto trovato per: %s"</string>
+    <string name="cluster_map_no_layout">"Layout non disponibile per questo cluster"</string>
+    <string name="coalition_score">"Punteggio"</string>
+    <string name="coalitions_nothing_selected_cursus_campus">"Nessuna coalizione trovata per il corso/campo selezionato"</string>
     <string name="copied">"Copiato"</string>
     <string name="copy">"Copia"</string>
+    <string name="cursus">"Corsi"</string>
     <string name="delete">"Elimina"</string>
+    <string name="discard_changes">"Annulla"</string>
     <string name="done">"Fatto"</string>
-    <string name="error">"errore"</string>
-    <string name="ok">"OK"</string>
-    <string name="open_this">"Apri questo"</string>
-    <string name="save">"Salva"</string>
-    <string name="soon">"Presto"</string>
-    <string name="sort_by">"Ordina per"</string>
-    <string name="refresh">"Aggiorna"</string>
-    <string name="today">"Oggi"</string>
-    <string name="tomorrow">"Domani"</string>
-    <string name="value">"Valore"</string>
-    <string name="tags">"Tags"</string>
-    <string name="shortcut_friends">"Amici"</string>
-    <string name="shortcut_long_friends">"Lista amici"</string>
-    <string name="shortcut_long_cluster_map">"Mappa cluster"</string>
-    <string name="shortcut_galaxy">"Grafo progetti"</string>
-    <string name="about_content">"Accedi all'intra con un'app nativa
-Contattami su Slack o tramite mail (pvarry)"</string>
-    <string name="about_version">"Versione"</string>
-    <string name="cantina_menu_fremont_only">"Menu Cantina"</string>
     <string name="elearning_select_file_to_open">"Seleziona file da aprire"</string>
     <string name="elearning_title">"Elearning"</string>
+    <string name="error">"errore"</string>
+    <string name="error_scale_is_too_big">"Ridimensionamento troppo grande"</string>
+    <string name="error_scale_is_too_small">"Ridimensionamento troppo piccolo"</string>
+    <string name="error_text_is_too_long">"Testo troppo lungo"</string>
+    <string name="error_value_must_be_set">"Inserire un valore"</string>
     <string name="evaluation_correct_someone">"Correzioni"</string>
     <string name="evaluation_corrected_by">"Corretto da"</string>
     <string name="evaluation_on_project">"su"</string>
@@ -92,18 +85,39 @@ Contattami su Slack o tramite mail (pvarry)"</string>
     <string name="evaluation_slot_start_before_end">"In questo intervallo, l'inizio deve essere prima della fine"</string>
     <string name="evaluation_slot_success">"successo"</string>
     <string name="evaluation_someone">"qualcuno"</string>
+    <string name="evaluation_user_nothing">"non hai correzioni"</string>
     <string name="evaluation_with">"Con"</string>
     <string name="evaluations_booked_slot">"Slot prenotati"</string>
     <string name="evaluations_confirmation_delete_booked_slot">"Sei sicuro di voler eliminare questo slot prenotato?
 Perderai un punto correzione"</string>
     <string name="event_check_registration">"Controllo la tua registrazione"</string>
     <string name="event_full">"Al completo"</string>
+    <string name="event_kind_association">"Associazione"</string>
+    <string name="event_kind_challenge">"Sfida"</string>
+    <string name="event_kind_event">"Evento"</string>
+    <string name="event_kind_hackathon">"Hackathon"</string>
+    <string name="event_kind_meet_up">"Conferenze"</string>
+    <string name="event_kind_partnership">"Partnership"</string>
+    <string name="event_kind_unknown">"Sconosciuto"</string>
+    <string name="event_kind_workshop">"Workshop"</string>
     <string name="event_nothing_found_for_your_campus_cursus">"Nessun evento trovato per il tuo campus/corso"</string>
     <string name="event_subscribe">"Iscriviti"</string>
     <string name="event_subscribed">"Iscritto"</string>
     <string name="event_subscription_unavailable">"Iscrizione non disponibile"</string>
     <string name="event_unsubscribe">"Annulla iscrizione"</string>
     <string name="event_unsubscribed">"Iscrizione annullata"</string>
+
+    <!-- Format warning -->
+    <string name="format__dont_have_write_topic">"%s non ha ancora scritto alcun topic"</string>
+
+    <!-- Format warning -->
+    <string name="format__host_s_history">"cronologia %s"</string>
+
+    <!-- Format warning -->
+    <string name="format__user_profile">"Profilo di %s"</string>
+
+    <!-- Format warning -->
+    <string name="format_dont_have_any_expertise_yet">"%s non ha ancora alcuna esperienza"</string>
     <string name="forum_about_this_message">"Info messaggio"</string>
     <string name="forum_confirmation_delete_message">"Sei sicuro di voler eliminare questo messaggio?"</string>
     <string name="forum_created_at">"Creato a"</string>
@@ -121,25 +135,84 @@ Perderai un punto correzione"</string>
     <string name="forum_topics_kind_question">"Domanda"</string>
     <string name="forum_updated_at">"Aggiornato a"</string>
     <string name="forum_you">"tu"</string>
+    <string name="friend_group_list">"Gruppo"</string>
+    <string name="friend_group_name">"Nome del gruppo"</string>
+    <string name="friends">"Amici"</string>
+    <string name="friends_add_to_group">"Aggiungi al gruppo"</string>
+    <string name="friends_adding_to_group">"Aggiungi amici al gruppo"</string>
+
+    <!-- i think that is not correct, anyway i've just translated "as is" -->
+    <string name="friends_delete_friends_title">"Vuoi eliminare questi amici?"</string>
+    <string name="friends_group_edit_in_group">"Amici nel gruppo"</string>
+    <string name="friends_groups_all">"Tutti"</string>
+    <string name="friends_groups_edit">"Modifica gruppo amici"</string>
+    <string name="friends_groups_edit_no_empty_name">"Non può essere vuoto"</string>
+    <string name="friends_groups_edit_no_name_set">"Nessun nome impostato"</string>
+    <string name="friends_groups_new">"Nuovo gruppo amici"</string>
+    <string name="friends_groups_nothing">"Devi prima creare un gruppo"</string>
+    <string name="friends_info_api_data_processing">"Friends API stanno processando i nuovi dati, i tuoi amici verranno aggiunti presto"</string>
+    <string name="friends_info_api_try_again">"Le Friends API stanno ottenendo nuovi utenti, attendi 2 minuti"</string>
+    <string name="friends_info_database_update">"Aggiorna database amici"</string>
+    <string name="friends_nothing_found">"Puoi aggiungere gli amici dal loro profilo"</string>
+    <string name="friends_remove_from_group">"Rimuovi dal gruppo"</string>
+    <string name="friends_removing_from_group">"Rimuovi amici dal gruppo"</string>
+    <string name="friends_select_group">"Seleziona gruppo"</string>
+
+    <!-- Format warning -->
+    <string name="friends_summary_format_friend">"%d amico"</string>
+
+    <!-- Format warning -->
+    <string name="friends_summary_format_friends">"%d amico"</string>
+    <string name="friends_summary_no_friends">"Nessun amico"</string>
     <string name="galaxy_available">"Disponibile"</string>
     <string name="galaxy_failed">"Fallito"</string>
     <string name="galaxy_in_progress">"in corso"</string>
+    <string name="galaxy_no_live_data">"Impossibile ottenere dati real-time per il Grafo"</string>
     <string name="galaxy_not_found">"Grafo non disponibile"</string>
     <string name="galaxy_succeeded">"Superato"</string>
     <string name="galaxy_unavailable">"Non disponibile"</string>
     <string name="galaxy_unknown_state">"Stato sconosciuto"</string>
+    <string name="hint_date">"data"</string>
+    <string name="hint_time">"tempo"</string>
+    <string name="home_help_POEditor">"Se trovi errori grammaticali o se vuoi tradurre questa applicazione,
+puoi farlo con POEditor. Clicca qui"</string>
+    <string name="info_api_finishing">"Finendo"</string>
     <string name="info_api_request_users_1_1">"chiamando utenti 1/1"</string>
     <string name="info_api_requesting">"chiamando ..."</string>
+    <string name="info_api_unauthorized">"Non ti è permesso"</string>
+    <string name="info_attachment_no_app">"Nessuna applicazione installata per aprire questo"</string>
+    <string name="info_attachment_no_app_pdf">"Nessuna applicazione installata per aprire questo, puoi installare un lettore PDF"</string>
+    <string name="info_attachment_no_app_video">"Nessuna applicazione installata per aprire questo, puoi installare VLC"</string>
+    <string name="info_data_cached_long_time_ago">"Dati in cache vecchi"</string>
     <string name="info_error_on_loading_this_page">"Errore caricamento pagina"</string>
     <string name="info_initializing">"Inizializzazione"</string>
     <string name="info_loading">"caricamento ..."</string>
+    <string name="info_loading_cache">"Carico la cache ..."</string>
+    <string name="info_loading_calculating">"calcolo"</string>
+    <string name="info_loading_current_user">"utente corrente"</string>
+    <string name="info_loading_friends">"Caricamento amici..."</string>
+    <string name="info_loading_locations">"Caricamento posizioni..."</string>
+    <string name="info_loading_page_on">"Caricamento pagina %d di %d"</string>
     <string name="info_loading_please_wait">"Caricamento. Attendere..."</string>
+    <string name="info_loading_processing_data">"Elaborazione dati"</string>
+    <string name="info_loading_topic">"Caricamento topic ..."</string>
+    <string name="info_loading_topic_reply">"Caricamento risposta ..."</string>
     <string name="info_network_no_internet">"Impossibile collegarsi a internet"</string>
     <string name="info_nothing_to_show">"Nulla da mostrare"</string>
+    <string name="introduction_calendar_action">"Consenti calendario"</string>
+    <string name="introduction_calendar_description">"Gli eventi a cui sei iscritto verranno automaticamente inseriti nel tuo calendario"</string>
+    <string name="introduction_calendar_switch">"Abilita sync del Calendario"</string>
+    <string name="introduction_calendar_title">"Sincronizza calendario"</string>
     <string name="language_english">"Inglese"</string>
     <string name="language_french">"Francese"</string>
     <string name="language_romanian">"Rumeno"</string>
     <string name="language_ukrainian">"Ucraino"</string>
+    <string name="list_preference_network_titles_default">"Default (200x240)"</string>
+    <string name="list_preference_network_titles_large">"Grande (583x700)"</string>
+    <string name="list_preference_network_titles_medium">"Medio (292x350)"</string>
+    <string name="list_preference_network_titles_none">"Nessuna"</string>
+    <string name="list_preference_network_titles_small">"Piccolo (146x175)"</string>
+    <string name="location_undetermined">"indeterminato"</string>
     <string name="login_view_sources">"Mostra sorgenti"</string>
     <string name="menu_action_filter">"filtro"</string>
     <string name="menu_action_open_intra">"Mostra versione web"</string>
@@ -164,7 +237,68 @@ Perderai un punto correzione"</string>
     <string name="notification_bookings_title_new">"Hai una nuova prenotazione"</string>
     <string name="notification_see_project">"vedi progetto"</string>
     <string name="notification_see_user">"vedi utente"</string>
+    <string name="notifications_announcements_channel_description">"Notifiche avvisi"</string>
+    <string name="notifications_announcements_channel_name">"Avvisi"</string>
     <string name="notifications_announcements_sub_text">"avvisi"</string>
+    <string name="notifications_bookings_channel_description">"Notifiche per prenotazioni corrette"</string>
+    <string name="notifications_bookings_channel_name">"Prenotazione"</string>
+    <string name="notifications_bookings_sub_text">"prenotazione"</string>
+    <string name="notifications_events_channel_description">"Notifiche per eventi"</string>
+    <string name="notifications_events_channel_name">"Eventi"</string>
+
+    <!-- ok -->
+    <string name="notifications_events_sub_text">"evento"</string>
+    <string name="ok">"OK"</string>
+    <string name="open_this">"Apri questo"</string>
+    <string name="opening_in_progress">"Apertura in corso"</string>
+    <string name="pref_activated">"Attivo"</string>
+    <string name="pref_advanced_dont_force">"Disabilita (non forzare)"</string>
+    <string name="pref_category_notifications">"Notifiche"</string>
+    <string name="pref_force_content_location">"Forza posizione contenuto"</string>
+
+    <!-- done -->
+    <!-- Fuzzy -->
+    <string name="pref_header_network">"Impostazioni Rete"</string>
+
+    <!-- Impostazioni Notifiche -->
+    <!-- Fuzzy -->
+    <string name="pref_header_notifications">"Impostazioni Notifiche"</string>
+    <string name="pref_header_theme">"Tema"</string>
+    <string name="pref_notifications_frequency_titles_15min">"15 minuti"</string>
+    <string name="pref_notifications_frequency_titles_1hour">"1 ora (default)"</string>
+    <string name="pref_notifications_frequency_titles_30min">"30 minuti"</string>
+    <string name="pref_notifications_frequency_titles_3hour">"3 ore"</string>
+    <string name="pref_notifications_frequency_titles_6hour">"6 ore"</string>
+    <string name="pref_notifications_frequency_titles_never">"Mai"</string>
+    <string name="pref_summary_calendar_after_subscription">"Aggiungi l'evento appena mi sono iscritto"</string>
+    <string name="pref_summary_calendar_enable">"Dopo aver concesso l'utilizzo del calendario, questa app potrà mettere automaticamente gli eventi"</string>
+    <string name="pref_summary_notifications_events">"Notifica per nuovi eventi pubblicati nell'intra"</string>
+    <string name="pref_summary_notifications_scales">"Ricordami delle correzioni"</string>
+    <string name="pref_summary_notifications_sync_calendar">"Controlla automaticamente l'iscrizione agli eventi e aggiungili automaticamente"</string>
+    <string name="pref_theme_list_titles_android">"Android Scuro"</string>
+    <string name="pref_theme_list_titles_blue_the_federation">"Blu (La federazione)"</string>
+    <string name="pref_theme_list_titles_green_the_alliance">"Verde (L'alleanza)"</string>
+    <string name="pref_theme_list_titles_purple_the_assembly">"Viola (L'Assembly)"</string>
+    <string name="pref_theme_list_titles_red_the_order">"Rosso (L'Ordine)"</string>
+    <string name="pref_theme_switch_dark_theme">"Usa tema scuro"</string>
+    <string name="pref_theme_title_change_theme">"Scegli tema"</string>
+    <string name="pref_title_advanced_data_past_events">"Eventi passati"</string>
+    <string name="pref_title_advanced_section_features">"Funzionalità avanzate"</string>
+    <string name="pref_title_advanced_section_other">"Altre funzionalità"</string>
+    <string name="pref_title_calendar">"Sincronizza eventi"</string>
+    <string name="pref_title_calendar_after_subscription">"Aggiungi al calendario"</string>
+    <string name="pref_title_calendar_enable">"Abilita edizione calendario"</string>
+    <string name="pref_title_calendar_list">"Seleziona il calendario dove inserire gli eventi"</string>
+    <string name="pref_title_network_over_cellular_fast">"Via rete cellulare veloce"</string>
+    <string name="pref_title_network_over_cellular_slow">"Via rete cellulare lenta"</string>
+    <string name="pref_title_network_over_wifi">"Via wifi"</string>
+    <string name="pref_title_notifications_events">"Consenti eventi"</string>
+    <string name="pref_title_notifications_frequency">"Frequenza di sincronizzazione"</string>
+    <string name="pref_title_notifications_scales">"Notifica correzioni (beta)"</string>
+    <string name="pref_title_notifications_sync_allow">"Abilita notifiche e sincronia"</string>
+    <string name="pref_title_notifications_sync_calendar">"Sincronia calendario"</string>
+    <string name="pref_unactivated">"Disattivo"</string>
+    <string name="pref_value_all">"Tutto"</string>
     <string name="profile_apps_private">"privato"</string>
     <string name="project_automatic_correction">"Valutazione automatica"</string>
     <string name="project_automatic_corrections">"Valutazione automatica"</string>
@@ -180,9 +314,15 @@ Perderai un punto correzione"</string>
     <string name="project_past_session">"Sessioni passate"</string>
     <string name="project_peer_corrections">"Valutazioni peer"</string>
     <string name="project_register">"Registra"</string>
+    <string name="project_scale_feedback">"Feedback"</string>
     <string name="project_session">"Sessione"</string>
     <string name="project_show_mine">"Vai al mio"</string>
     <string name="project_skills">"Competenze"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_team_users_toast">"%s
+Pressione prolungata per avere più info"</string>
+    <string name="project_team_users_toast_leader">"%s (capo team)"</string>
     <string name="project_user_status_creating_group">"creazione gruppo"</string>
     <string name="project_user_status_finished">"finito"</string>
     <string name="project_user_status_in_progress">"in corso"</string>
@@ -191,6 +331,10 @@ Perderai un punto correzione"</string>
     <string name="project_user_status_waiting_for_correction">"in attesa di valutazione"</string>
     <string name="project_user_status_waiting_to_start">"In attesa di iniziare"</string>
     <string name="project_you_cant_have_mark_for_this_project">"Non puoi essere corretto in questo progetto"</string>
+    <string name="readme">"Leggimi"</string>
+    <string name="refresh">"Aggiorna"</string>
+    <string name="refreshing">"Aggiornamento"</string>
+    <string name="save">"Salva"</string>
     <string name="search_by">"Cerca per"</string>
     <string name="search_error_on_open_this_element">"Errore aprendo questo elemento"</string>
     <string name="search_hint">"Ricerca"</string>
@@ -199,13 +343,28 @@ Perderai un punto correzione"</string>
     <string name="search_on_users">"Cerca tra gli utenti"</string>
     <string name="search_section_projects">"progetti"</string>
     <string name="search_section_topics">"argomenti"</string>
+    <string name="search_section_users_first_name">"utente ― nome"</string>
+    <string name="search_section_users_last_name">"utente ― cognome"</string>
+    <string name="search_section_users_login">"utente ― login"</string>
     <string name="searching">"Ricerca ..."</string>
+    <string name="select">"Seleziona"</string>
     <string name="share_using">"Condividi tramite"</string>
+    <string name="shortcut_friends">"Amici"</string>
+    <string name="shortcut_galaxy">"Grafo progetti"</string>
+    <string name="shortcut_long_cluster_map">"Mappa cluster"</string>
+    <string name="shortcut_long_friends">"Lista amici"</string>
+    <string name="soon">"Presto"</string>
+    <string name="sort_by">"Ordina per"</string>
+    <string name="spinner_user_projects_all">"Tutto"</string>
+    <string name="spinner_user_projects_galaxy">"Grafo Progetti"</string>
+    <string name="spinner_user_projects_in_progress">"In corso"</string>
+    <string name="tags">"Tags"</string>
     <string name="time_zone_error">"Errore time zone"</string>
     <string name="title">"Titolo"</string>
     <string name="title_activity_about">"Info"</string>
     <string name="title_activity_cantina_menu">"Menu Cantina (Fremont)"</string>
     <string name="title_activity_cluster_map">"Mappa cluster"</string>
+    <string name="title_activity_coalitions">"Coalizioni"</string>
     <string name="title_activity_elearning">"Elearning"</string>
     <string name="title_activity_event">"Evento"</string>
     <string name="title_activity_forum_new_topic">"Nuovo topic"</string>
@@ -221,8 +380,10 @@ Perderai un punto correzione"</string>
     <string name="title_activity_user">"Utente"</string>
     <string name="title_activity_user_location_history">"Cronologia Posizione"</string>
     <string name="title_activity_users">"Utenti"</string>
+    <string name="title_tab_cluster_map_info">"Info"</string>
     <string name="title_tab_elearning_all">"Tutto"</string>
     <string name="title_tab_elearning_tags">"Tags"</string>
+    <string name="title_tab_forum_unread">"Non letto"</string>
     <string name="title_tab_home_agenda">"Agenda"</string>
     <string name="title_tab_home_evaluation">"Valutazioni"</string>
     <string name="title_tab_home_home">"Home"</string>
@@ -243,7 +404,13 @@ Perderai un punto correzione"</string>
     <string name="title_tab_user_projects">"Progetti"</string>
     <string name="title_tab_user_skills">"Competenze"</string>
     <string name="title_tab_users_all">"Tutto"</string>
+    <string name="today">"Oggi"</string>
+    <string name="tomorrow">"Domani"</string>
     <string name="topics_kind_survey">"Sondaggio"</string>
+    <string name="user_achievement_bronze">"Bronzo"</string>
+    <string name="user_achievement_gold">"Oro"</string>
+    <string name="user_achievement_silver">"Argento"</string>
+    <string name="user_achievements_platinum">"Platino"</string>
     <string name="user_app_official">"App Ufficiale"</string>
     <string name="user_correction_points">"Punti correzione"</string>
     <string name="user_cursus_date">"Data"</string>
@@ -258,177 +425,16 @@ Perderai un punto correzione"</string>
     <string name="user_mobile_phone">"Mobile"</string>
     <string name="user_no_achievements">"Nessuna conquista"</string>
     <string name="user_no_cursus_available">"Nessun corso disponibile"</string>
+    <string name="user_open_it_not_found">"Utenti non trovati"</string>
     <string name="user_overview_cursus_date_not_finished">"Non ancora concluso"</string>
     <string name="user_overview_cursus_date_not_start">"Non ancora iniziato"</string>
     <string name="user_overview_cursus_date_not_start_not_finised">"Non ancora iniziato e finito"</string>
     <string name="user_pool">"Piscina"</string>
-    <string name="user_unavailable">"Non disponibile"</string>
-    <string name="user_you_dont_have_any_expertise_yet">"Non hai ancora alcuna esperienza"</string>
-    <string name="info_loading_cache">"Carico la cache ..."</string>
-    <string name="info_loading_current_user">"utente corrente"</string>
-    <string name="evaluation_user_nothing">"non hai correzioni"</string>
-    <string name="home_help_POEditor">"Se trovi errori grammaticali o se vuoi tradurre questa applicazione,
-puoi farlo con POEditor. Clicca qui"</string>
-    <string name="pref_notifications_frequency_titles_15min">"15 minuti"</string>
-    <string name="pref_notifications_frequency_titles_30min">"30 minuti"</string>
-    <string name="pref_notifications_frequency_titles_1hour">"1 ora (default)"</string>
-    <string name="pref_notifications_frequency_titles_3hour">"3 ore"</string>
-    <string name="pref_notifications_frequency_titles_6hour">"6 ore"</string>
-    <string name="pref_notifications_frequency_titles_never">"Mai"</string>
-    <string name="list_preference_network_titles_large">"Grande (583x700)"</string>
-    <string name="list_preference_network_titles_medium">"Medio (292x350)"</string>
-    <string name="list_preference_network_titles_default">"Default (200x240)"</string>
-    <string name="list_preference_network_titles_small">"Piccolo (146x175)"</string>
-    <string name="list_preference_network_titles_none">"Nessuna"</string>
-    <string name="spinner_user_projects_galaxy">"Grafo Progetti"</string>
-    <string name="spinner_user_projects_all">"Tutto"</string>
-    <string name="spinner_user_projects_in_progress">"In corso"</string>
-    <string name="accessibility_navigation_drawer_close">"Chiudi il drawer di navigazione"</string>
-    <string name="accessibility_navigation_drawer_open">"Apri il drawer di navigazione"</string>
-    <string name="user_wallet_money">"Portafoglio"</string>
-    <string name="about_view_source">"Mostra sorgente"</string>
-    <string name="about_on_github">"Su github"</string>
-    <string name="about_report_bug">"Segnala un bug"</string>
-    <string name="about_library_list">"Lista libreria"</string>
-    <string name="about_poeditor">"Progetto su POEditor"</string>
-    <string name="info_api_unauthorized">"Non ti è permesso"</string>
-    <string name="pref_title_notifications_sync_allow">"Abilita notifiche e sincronia"</string>
-    <string name="pref_title_calendar_list">"Seleziona il calendario dove inserire gli eventi"</string>
-    <string name="pref_category_notifications">"Notifiche"</string>
-    <string name="pref_summary_notifications_events">"Notifica per nuovi eventi pubblicati nell'intra"</string>
-    <string name="pref_summary_notifications_scales">"Ricordami delle correzioni"</string>
-    <string name="pref_title_calendar_enable">"Abilita edizione calendario"</string>
-    <string name="pref_summary_calendar_enable">"Dopo aver concesso l'utilizzo del calendario, questa app potrà mettere automaticamente gli eventi"</string>
-    <string name="pref_title_calendar">"Sincronizza eventi"</string>
-    <string name="friends_nothing_found">"Puoi aggiungere gli amici dal loro profilo"</string>
-    <string name="friend_group_name">"Nome del gruppo"</string>
-    <string name="friends">"Amici"</string>
-    <string name="friends_group_edit_in_group">"Amici nel gruppo"</string>
-    <string name="friends_groups_edit_no_empty_name">"Non può essere vuoto"</string>
-    <string name="friends_groups_edit_no_name_set">"Nessun nome impostato"</string>
-    <string name="friends_select_group">"Seleziona gruppo"</string>
-    <string name="friends_groups_all">"Tutti"</string>
-    <string name="friends_groups_new">"Nuovo gruppo amici"</string>
-    <string name="friends_groups_edit">"Modifica gruppo amici"</string>
-    <string name="location_undetermined">"indeterminato"</string>
-    <string name="friends_summary_no_friends">"Nessun amico"</string>
-
-    <!-- Format warning -->
-    <string name="friends_summary_format_friend">"%d amico"</string>
-
-    <!-- Format warning -->
-    <string name="friends_summary_format_friends">"%d amico"</string>
-    <string name="friends_add_to_group">"Aggiungi al gruppo"</string>
-    <string name="friends_remove_from_group">"Rimuovi dal gruppo"</string>
-
-    <!-- i think that is not correct, anyway i've just translated "as is" -->
-    <string name="friends_delete_friends_title">"Vuoi eliminare questi amici?"</string>
-    <string name="friends_groups_nothing">"Devi prima creare un gruppo"</string>
-    <string name="info_loading_locations">"Caricamento posizioni..."</string>
-    <string name="info_loading_friends">"Caricamento amici..."</string>
-    <string name="friend_group_list">"Gruppo"</string>
-    <string name="info_loading_calculating">"calcolo"</string>
-    <string name="friends_info_api_try_again">"Le Friends API stanno ottenendo nuovi utenti, attendi 2 minuti"</string>
-    <string name="friends_info_database_update">"Aggiorna database amici"</string>
-    <string name="pref_theme_title_change_theme">"Scegli tema"</string>
-    <string name="pref_header_theme">"Tema"</string>
-    <string name="info_api_finishing">"Finendo"</string>
-    <string name="search_section_users_login">"utente ― login"</string>
-    <string name="search_section_users_first_name">"utente ― nome"</string>
-    <string name="search_section_users_last_name">"utente ― cognome"</string>
-    <string name="title_activity_coalitions">"Coalizioni"</string>
-    <string name="coalitions_nothing_selected_cursus_campus">"Nessuna coalizione trovata per il corso/campo selezionato"</string>
-    <string name="friends_adding_to_group">"Aggiungi amici al gruppo"</string>
-    <string name="friends_removing_from_group">"Rimuovi amici dal gruppo"</string>
-    <string name="galaxy_no_live_data">"Impossibile ottenere dati real-time per il Grafo"</string>
-    <string name="coalition_score">"Punteggio"</string>
-    <string name="refreshing">"Aggiornamento"</string>
-    <string name="info_data_cached_long_time_ago">"Dati in cache vecchi"</string>
-
-    <!-- Format warning -->
-    <string name="format__user_profile">"Profilo di %s"</string>
-    <string name="title_tab_forum_unread">"Non letto"</string>
-    <string name="event_kind_meet_up">"Conferenze"</string>
-    <string name="event_kind_hackathon">"Hackathon"</string>
-    <string name="event_kind_workshop">"Workshop"</string>
-    <string name="event_kind_association">"Associazione"</string>
-    <string name="event_kind_partnership">"Partnership"</string>
-    <string name="event_kind_unknown">"Sconosciuto"</string>
-    <string name="user_achievement_bronze">"Bronzo"</string>
-    <string name="user_achievement_silver">"Argento"</string>
-    <string name="user_achievement_gold">"Oro"</string>
-    <string name="user_achievements_platinum">"Platino"</string>
-    <string name="event_kind_event">"Evento"</string>
-    <string name="event_kind_challenge">"Sfida"</string>
-    <string name="info_attachment_no_app_video">"Nessuna applicazione installata per aprire questo, puoi installare VLC"</string>
-    <string name="info_attachment_no_app_pdf">"Nessuna applicazione installata per aprire questo, puoi installare un lettore PDF"</string>
-    <string name="info_attachment_no_app">"Nessuna applicazione installata per aprire questo"</string>
-    <string name="info_loading_page_on">"Caricamento pagina %d di %d"</string>
-    <string name="info_loading_topic">"Caricamento topic ..."</string>
-    <string name="info_loading_topic_reply">"Caricamento risposta ..."</string>
-    <string name="info_loading_processing_data">"Elaborazione dati"</string>
-    <string name="pref_title_advanced_data_past_events">"Eventi passati"</string>
-    <string name="pref_title_advanced_section_other">"Altre funzionalità"</string>
-    <string name="pref_title_advanced_section_features">"Funzionalità avanzate"</string>
-    <string name="title_tab_cluster_map_info">"Info"</string>
-    <string name="cluster_map_info_button_update">"Aggiorna"</string>
-    <string name="cluster_map_info_button_update_disabled">"Aggiornamento non necessario"</string>
-    <string name="cluster_map_info_layer_input_project">"progetto"</string>
-    <string name="cluster_map_info_clusters">"Clusters"</string>
-    <string name="cluster_map_info_layer_spinner_main_friends">"Amici"</string>
-    <string name="cluster_map_info_layer_spinner_main_login">"Utente"</string>
-    <string name="cluster_map_info_layer_spinner_main_coalitions">"Coalizioni"</string>
-    <string name="cluster_map_info_layer_spinner_main_project">"Progetto"</string>
-    <string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
-    <string name="select">"Seleziona"</string>
-    <string name="cluster_map_info_project_dialog_not_found">"Non trovato"</string>
-    <string name="cluster_map_info_project_dialog_not_found_content_format">"Nessun progetto trovato per: %s"</string>
-    <string name="opening_in_progress">"Apertura in corso"</string>
-    <string name="error_text_is_too_long">"Testo troppo lungo"</string>
-    <string name="cluster_map_contribute_dialog_metadata_title">"Modifica metadati cluster"</string>
-    <string name="cluster_map_contribute_button_edit_metadata">"modifica metadata"</string>
-    <string name="cluster_map_contribute_button_edit_layout">"modifica mappa"</string>
-    <string name="cluster_map_contribute_dialog_location_title">"Modifica: _x_,_y_"</string>
-    <string name="error_scale_is_too_small">"Ridimensionamento troppo piccolo"</string>
-    <string name="error_scale_is_too_big">"Ridimensionamento troppo grande"</string>
-    <string name="error_value_must_be_set">"Inserire un valore"</string>
-    <string name="cluster_map_contribute_dialog_controller_action_delete_row">"Elimina questa riga"</string>
-    <string name="cluster_map_contribute_dialog_controller_action_delete_column">"Elimina questa colonna"</string>
-    <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Imposta dimensione riga"</string>
-    <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Imposta dimensione colonna"</string>
-    <string name="cluster_map_contribute_dialog_add_action_row_top">"Aggiungi riga al top"</string>
-    <string name="cluster_map_contribute_dialog_add_action_row_bottom">"Aggiungi riga in basso"</string>
-    <string name="cluster_map_contribute_dialog_add_action_column_left">"Aggiungi colonna a sinistra"</string>
-    <string name="cluster_map_contribute_dialog_add_action_column_right">"Aggiungi colonna a destra"</string>
-    <string name="cluster_map_info_button_contribute">"Aggiungi dati mancanti"</string>
-    <string name="cluster_map_contribute_dialog_delete_title">"Sei sicuro di eliminare questa riga/colonna?"</string>
-    <string name="cluster_map_contribute_dialog_delete_message_row">"Stai per eliminare la riga y=%d, questa azione non può essere annullata"</string>
-    <string name="cluster_map_contribute_dialog_delete_message_col">"Stai per eliminare la colonna x=%d, questa azione non può essere annullata"</string>
-    <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Commento"</string>
-    <string name="cluster_map_no_layout">"Layout non disponibile per questo cluster"</string>
-    <string name="readme">"Leggimi"</string>
-    <string name="user_open_it_not_found">"Utenti non trovati"</string>
-    <string name="discard_changes">"Annulla"</string>
-    <string name="cluster_map_contribute_toolbar_info_too_late">"Troppo tardi, non puoi salvare i tuoi cambiamenti"</string>
-    <string name="project_scale_feedback">"Feedback"</string>
-    <string name="friends_info_api_data_processing">"Friends API stanno processando i nuovi dati, i tuoi amici verranno aggiunti presto"</string>
-    <string name="user_profile_grade_rank">"Grado"</string>
     <string name="user_profile_add_to_friends">"Aggiungi agli amici"</string>
+    <string name="user_profile_grade_rank">"Grado"</string>
     <string name="user_profile_remove_from_friends">"Rimuovi dagli amici"</string>
-    <string name="introduction_calendar_title">"Sincronizza calendario"</string>
-    <string name="introduction_calendar_description">"Gli eventi a cui sei iscritto verranno automaticamente inseriti nel tuo calendario"</string>
-    <string name="introduction_calendar_action">"Consenti calendario"</string>
-    <string name="introduction_calendar_switch">"Abilita sync del Calendario"</string>
-    <string name="pref_theme_list_titles_green_the_alliance">"Verde (L'alleanza)"</string>
-    <string name="pref_theme_list_titles_blue_the_federation">"Blu (La federazione)"</string>
-    <string name="pref_theme_list_titles_purple_the_assembly">"Viola (L'Assembly)"</string>
-    <string name="pref_theme_list_titles_red_the_order">"Rosso (L'Ordine)"</string>
-    <string name="pref_theme_list_titles_android">"Android Scuro"</string>
-    <string name="pref_theme_switch_brightness">"Usa tema scuro"</string>
-    <string name="cluster_map_info_layer_spinner_main_none">"Nullo"</string>
-    <string name="hint_date">"data"</string>
-    <string name="hint_time">"tempo"</string>
-    <string name="project_team_users_toast_leader">"%s (capo team)"</string>
-    <string name="project_team_users_toast">"%s
-Pressione prolungata per avere più info"</string>
+    <string name="user_unavailable">"Non disponibile"</string>
+    <string name="user_wallet_money">"Portafoglio"</string>
+    <string name="user_you_dont_have_any_expertise_yet">"Non hai ancora alcuna esperienza"</string>
+    <string name="value">"Valore"</string>
 </resources>
