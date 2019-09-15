@@ -27,3 +27,7 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
+-keep class org.xmlpull.v1.** { *; }
+-keepnames class ** implements org.ocpsoft.prettytime.TimeUnit
+-keep class org.ocpsoft.prettytime.i18n.**

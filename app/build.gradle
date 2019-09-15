@@ -65,7 +65,6 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
             signingConfig signingConfigs.config
@@ -75,20 +74,18 @@ android {
 //            preBuild.dependsOn(update_cluster_map)
 //            preBuild.dependsOn(update_strings)
         }
-        beta {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            debuggable false
-            signingConfig signingConfigs.config
-            buildConfigField "Boolean", "REPORT_CRASH", 'true'
-            zipAlignEnabled true
-        }
         debug {
             buildConfigField "Boolean", "REPORT_CRASH", 'false'
             debuggable true
             applicationIdSuffix ".debug"
             versionNameSuffix '.debug'
+        }
+        debugMini {
+            initWith debug
+            minifyEnabled true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            matchingFallbacks = ['debug']
         }
     }
 
