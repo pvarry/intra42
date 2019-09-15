@@ -10,12 +10,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
 
 import com.crashlytics.android.Crashlytics;
 import com.paulvarry.intra42.AppClass;
@@ -37,9 +42,6 @@ import com.paulvarry.intra42.utils.Tools;
 import java.io.IOException;
 import java.util.List;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.customtabs.CustomTabsIntent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -157,6 +159,7 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("resume", "resume");
 
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(Credential.API_OAUTH_REDIRECT)) {
@@ -168,6 +171,12 @@ public class LaunchActivity extends AppCompatActivity {
                 Toast.makeText(LaunchActivity.this, "code is missing", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d("resume", "new Intent");
     }
 
     private String getLoginReferrer() {
@@ -293,18 +302,20 @@ public class LaunchActivity extends AppCompatActivity {
 
     public void login(View view) {
         Analytics.signInAttempt();
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-
         Uri loginUri = Uri.parse(ApiService.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
+
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setShowTitle(true);
+        builder.setInstantAppsEnabled(true);
 
         Intent defaultBrowserIntent = new Intent(Intent.ACTION_VIEW);
         defaultBrowserIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         defaultBrowserIntent.setData(loginUri);
         PendingIntent defaultBrowserPendingIntent = PendingIntent.getActivity(this, 0, defaultBrowserIntent, 0);
 
-
         builder.addMenuItem(getString(R.string.login_custom_chrome_tabs_open_default_browser), defaultBrowserPendingIntent);
         CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             customTabsIntent.launchUrl(this, loginUri);
         } catch (ActivityNotFoundException e) {
