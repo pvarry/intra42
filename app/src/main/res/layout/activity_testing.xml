@@ -27,11 +27,6 @@
             android:text="run notif &amp; sync job"
             tools:ignore="HardcodedText" />
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chartView"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,60 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paulvarry.intra42.activities.CoalitionsActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chartView"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginBottom="4dp" />
-
-        <LinearLayout
-            android:id="@+id/viewGroupChartInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tint="?tintColor"
-                app:srcCompat="@drawable/ic_info_black_24dp" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:gravity="center_vertical"
-                android:text="To scroll inside the graph: Hold and Move" />
-        </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBarChart"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="32dp"
-            android:indeterminate="true" />
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    tools:context="com.paulvarry.intra42.activities.CoalitionsActivity" />
