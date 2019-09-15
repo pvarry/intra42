@@ -18,4 +18,12 @@
 
 # -keep class !com.paulvarry.intra42.*
 
--printmapping build/outputs/mapping/release/mapping.txt
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+
+-keepclassmembers class * extends java.lang.Enum {
+    <fields>;
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
