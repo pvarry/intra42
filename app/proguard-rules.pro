@@ -31,3 +31,5 @@
 -keep class org.xmlpull.v1.** { *; }
 -keepnames class ** implements org.ocpsoft.prettytime.TimeUnit
 -keep class org.ocpsoft.prettytime.i18n.**
+
+-keep public class * extends androidx.preference.PreferenceFragmentCompat
