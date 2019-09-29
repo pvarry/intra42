@@ -27,7 +27,6 @@ import com.paulvarry.intra42.adapters.SectionListView;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.Projects;
-import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Analytics;
@@ -51,18 +50,15 @@ public class SearchableActivity
         extends BasicThreadActivity
         implements AdapterView.OnItemClickListener, BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
 
-    private LinearLayout layoutApi;
-    private JsonViewer jsonViewer;
-    private TextView textViewError;
-
-    private ListView listView;
-
     List<SectionListView.Item> items;
     String apiRaw;
-
     AppClass app;
     ApiService apiService;
     String query;
+    private LinearLayout layoutApi;
+    private JsonViewer jsonViewer;
+    private TextView textViewError;
+    private ListView listView;
     private SimpleCursorAdapter searchAdapter;
     private Object json;
 
@@ -263,17 +259,10 @@ public class SearchableActivity
         else
             callProjects = apiService.getProjectsSearch(stringToSearch);
 
-        Call<List<Topics>> callTopics;
-        if (cursusUsers != null)
-            callTopics = apiService.getTopicsSearch(cursusUsers.cursusId, stringToSearch);
-        else
-            callTopics = apiService.getTopicsSearch(stringToSearch);
-
         Response<List<UsersLTE>> responseUsersLogin = null;
 //        Response<List<UsersLTE>> responseUsersFirstName = null;
 //        Response<List<UsersLTE>> responseUsersLastName = null;
         Response<List<Projects>> responseProjects = null;
-        Response<List<Topics>> responseTopics = null;
 
         if (split.length > 1) {
 
@@ -285,15 +274,11 @@ public class SearchableActivity
             } else if (SuperSearch.searchOnArray(R.array.search_projects, split[0], SearchableActivity.this)) {
                 Analytics.search("SEARCH_PROJECTS", query);
                 responseProjects = execProjects(callProjects, 1, 2);
-            } else if (SuperSearch.searchOnArray(R.array.search_topics, split[0], SearchableActivity.this)) {
-                Analytics.search("SEARCH_TOPICS", query);
-                responseTopics = execTopics(callTopics, 1, 2);
             } else {
                 Analytics.search(null, query);
                 responseUsersLogin = execUsers(callUsersLogin, 1, 5);
 //                responseUsersFirstName = execUsers(callUsersFirstName, 2, 5);
                 responseProjects = execProjects(callProjects, 3, 5);
-                responseTopics = execTopics(callTopics, 4, 5);
             }
         } else {
             Analytics.search(null, query);
@@ -301,7 +286,6 @@ public class SearchableActivity
 //            responseUsersFirstName = execUsers(callUsersFirstName, 2, 6);
 //            responseUsersLastName = execUsers(callUsersLastName, 3, 6);
             responseProjects = execProjects(callProjects, 4, 6);
-            responseTopics = execTopics(callTopics, 5, 6);
         }
         setLoadingProgress(getString(R.string.info_api_finishing), 1, 1);
 
@@ -329,12 +313,6 @@ public class SearchableActivity
             items.add(new SectionListView.Item<Projects>(SectionListView.Item.SECTION, null, getString(R.string.search_section_projects)));
             for (Projects p : responseProjects.body())
                 items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, p, p.getName(this)));
-        }
-
-        if (responseTopics != null && Tools.apiIsSuccessful(responseTopics)) {
-            items.add(new SectionListView.Item<Topics>(SectionListView.Item.SECTION, null, getString(R.string.search_section_topics)));
-            for (Topics t : responseTopics.body())
-                items.add(new SectionListView.Item<>(SectionListView.Item.ITEM, t, t.getName(this)));
         }
     }
 
@@ -391,12 +369,8 @@ public class SearchableActivity
         return callProjects.execute();
     }
 
-    Response<List<Topics>> execTopics(Call<List<Topics>> callTopics, int cur, int max) throws IOException {
-        setLoadingProgress(getString(R.string.search_on_topics), cur, max);
-        return callTopics.execute();
-    }
-
     public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         setIntent(intent);
         handleIntent(intent);
     }

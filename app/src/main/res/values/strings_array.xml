@@ -133,13 +133,6 @@
         <item>project</item>
     </string-array>
 
-    <string-array name="search_topics">
-        <item>t</item>
-        <item>topic</item>
-        <item>f</item>
-        <item>forum</item>
-    </string-array>
-
     <string-array name="search_tags">
         <item>tag</item>
     </string-array>

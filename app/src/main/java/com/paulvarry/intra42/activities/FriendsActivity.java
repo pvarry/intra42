@@ -15,6 +15,12 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -39,11 +45,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -77,7 +78,7 @@ public class FriendsActivity
         super.onCreate(savedInstanceState);
 
         super.setContentView(R.layout.activity_friends);
-        super.setSelectedMenu(5, 0);
+        super.setSelectedMenu(4, 0);
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
 
         registerGetDataOnMainTread(this);

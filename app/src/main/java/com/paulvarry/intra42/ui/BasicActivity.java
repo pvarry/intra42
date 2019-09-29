@@ -599,7 +599,7 @@ public abstract class BasicActivity extends AppCompatActivity implements Navigat
                 });
 
                 if (AppSettings.getAppCampus(app) != 7)
-                    navigationView.getMenu().getItem(5).getSubMenu().getItem(3).setVisible(false);
+                    navigationView.getMenu().getItem(4).getSubMenu().getItem(3).setVisible(false);
             }
 
             /* ***** Setup dark theme button ***** */

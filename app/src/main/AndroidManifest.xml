@@ -140,20 +140,9 @@
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.forum.ForumActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.ActionBar" />
-        <activity
-            android:name=".activities.TopicActivity"
-            android:label="@string/title_activity_topic"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.NewTopicActivity"
-            android:label="@string/title_activity_forum_new_topic"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.notions.NotionsActivity"
             android:label="@string/title_activity_elearning"

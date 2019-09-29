@@ -25,7 +25,6 @@ import com.paulvarry.intra42.api.model.Subnotions;
 import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.api.model.Teams;
 import com.paulvarry.intra42.api.model.TeamsUploads;
-import com.paulvarry.intra42.api.model.Topics;
 import com.paulvarry.intra42.api.model.Users;
 import com.paulvarry.intra42.api.model.UsersLTE;
 import com.paulvarry.intra42.api.model.Votes;
@@ -83,52 +82,6 @@ public interface ApiService {
     @GET("/v2/notions/{slug}/subnotions?sort=position&page[size]=100")
     Call<List<Subnotions>> getSubnotions(@Path("slug") String notionSlug, @Query("page") Integer page);
 
-    /* Topics */
-    @GET("v2/topics?sort=-write_at")
-    Call<List<Topics>> getTopics(@Query("page") Integer page);
-
-    @GET("v2/topics?sort=-write_at")
-    Call<List<Topics>> getTopicsSearch(@Query("search[name]") String name);
-
-    @GET("v2/cursus/{cursus_id}/topics?sort=-write_at")
-    Call<List<Topics>> getTopicsSearch(@Path("cursus_id") int cursus, @Query("search[name]") String name);
-
-    @GET("v2/topics/unread?sort=-write_at")
-    Call<List<Topics>> getTopicsUnread(@Query("page") Integer page);
-
-    @GET("/v2/tags/{tag_id}/topics?sort=-write_at")
-    Call<List<Topics>> getTopicsTag(@Path("tag_id") int tagsId, @Query("page") int page);
-
-    @GET("/v2/topics/{id}")
-    Call<Topics> getTopic(@Path("id") int id);
-
-    @GET("/v2/topics/{id}/messages")
-    Call<List<Messages>> getTopicMessages(@Path("id") int id);
-
-    @GET("/v2/me/topics/{id}/votes")
-    Call<List<Votes>> getTopicVotesMe(@Path("id") int id);
-
-    @POST("/v2/topics/{id}/messages")
-    Call<Messages> createTopicReply(@Path("id") int topicId, @Query("message[author_id]") int authorId, @Query("message[content]") String content);
-
-    @POST("/v2/topics")
-    Call<Topics> createTopic(@Query("topic[name]") String name,
-                             @Query("topic[kind]") String kind,
-                             @Query("topic[language_id]") int languageId,
-                             @Query("topic[messages_attributes][content]") String content,
-                             @Query("topic[tag_ids]") String tagsIds,
-                             @Query("topic[cursus_ids]") String cursusIds);
-
-    @FormUrlEncoded
-    @PUT("/v2/topics/{id}")
-    Call<Topics> updateTopic(@Path("id") int topicId,
-                             @Field("topic[name]") String name,
-                             @Field("topic[kind]") String kind,
-                             @Field("topic[language_id]") int languageId,
-                             @Field("topic[messages_attributes][content]") String content,
-                             @Field("topic[tag_ids]") String tagsIds,
-                             @Field("topic[cursus_ids]") String cursusIds);
-
     /* Users */
     @GET("/v2/users?sort=login")
     Call<List<UsersLTE>> getUsers(@Query("page") int page);
@@ -156,12 +109,6 @@ public interface ApiService {
 
     @GET("/v2/me")
     Call<Users> getUserMe();
-
-    @GET("/v2/users/{id}/topics")
-    Call<List<Topics>> getUserTopics(@Path("id") int id, @Query("page") int page);
-
-    @GET("/v2/users/{slug}/topics")
-    Call<List<Topics>> getUserTopics(@Path("slug") String slug, @Query("page") int page);
 
     @GET("/v2/users/{id}/expertises_users?sort=-value")
     Call<List<ExpertiseUsers>> getUserExpertises(@Path("id") int userId, @Query("page") int page);

@@ -6,6 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.SparseArray;
 
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,9 +41,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import retrofit2.Response;
 
 public class ClusterMapActivity
@@ -98,7 +99,7 @@ public class ClusterMapActivity
         registerGetDataOnMainTread(this);
 
         campusId = AppSettings.getAppCampus(app);
-        super.setSelectedMenu(5, 2);
+        super.setSelectedMenu(4, 2);
 
         super.onCreateFinished();
     }

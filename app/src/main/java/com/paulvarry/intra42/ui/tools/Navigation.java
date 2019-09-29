@@ -12,7 +12,6 @@ import com.paulvarry.intra42.activities.HolyGraphActivity;
 import com.paulvarry.intra42.activities.MarvinMealsActivity;
 import com.paulvarry.intra42.activities.TimeActivity;
 import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
-import com.paulvarry.intra42.activities.forum.ForumActivity;
 import com.paulvarry.intra42.activities.home.HomeActivity;
 import com.paulvarry.intra42.activities.notions.NotionsActivity;
 import com.paulvarry.intra42.activities.settings.SettingsActivity;
@@ -23,13 +22,12 @@ public class Navigation {
     public static final int MENU_SELECTED_HOME = 0;
     public static final int MENU_SELECTED_USERS = 1;
     public static final int MENU_SELECTED_PROJECTS = 2;
-    public static final int MENU_SELECTED_FORUM = 3;
-    public static final int MENU_SELECTED_ELEARNING = 4;
-    public static final int MENU_SELECTED_TIME_ON_CAMPUS = 5;
-    public static final int MENU_SELECTED_CLUSTER_MAP = 6;
-    public static final int MENU_SELECTED_ABOUT = 7;
-    public static final int MENU_SELECTED_SHARE = 8;
-    public static final int MENU_SELECTED_SETTINGS = 10;
+    public static final int MENU_SELECTED_ELEARNING = 3;
+    public static final int MENU_SELECTED_TIME_ON_CAMPUS = 4;
+    public static final int MENU_SELECTED_CLUSTER_MAP = 5;
+    public static final int MENU_SELECTED_ABOUT = 6;
+    public static final int MENU_SELECTED_SHARE = 7;
+    public static final int MENU_SELECTED_SETTINGS = 9;
 
     public static boolean onNavigationItemSelected(Activity activity, MenuItem item) {
         // Handle navigation view item clicks here.
@@ -45,10 +43,6 @@ public class Navigation {
             activity.startActivity(intent);
         } else if (id == R.id.nav_projects) {
             Intent intent = new Intent(activity, HolyGraphActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            activity.startActivity(intent);
-        } else if (id == R.id.nav_forum) {
-            Intent intent = new Intent(activity, ForumActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             activity.startActivity(intent);
         } else if (id == R.id.nav_elearning) {

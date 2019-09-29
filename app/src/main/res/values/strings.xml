@@ -256,9 +256,6 @@ You will lose a correction point"</string>
     <string name="event_unsubscribed">"Unsubscribed"</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s don't have write any topic yet"</string>
-
-    <!-- Format warning -->
     <string name="format__host_s_history">"%s's history"</string>
 
     <!-- Format warning -->
@@ -267,23 +264,6 @@ You will lose a correction point"</string>
     <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">"%s don't have any expertise yet"</string>
     <string name="format_project_team_users_action_open">"Open {project} of {user}"</string>
-    <string name="forum_about_this_message">"About message"</string>
-    <string name="forum_confirmation_delete_message">"Are you sure to delete this message ?"</string>
-    <string name="forum_created_at">"Created at"</string>
-    <string name="forum_delete_message">"Delete Message"</string>
-    <string name="forum_delete_topic">"Delete Topic"</string>
-    <string name="forum_message_edit">"Edit message"</string>
-    <string name="forum_message_hint">"Message"</string>
-    <string name="forum_readings">"Readings"</string>
-    <string name="forum_reply">"Reply"</string>
-    <string name="forum_tags">"Tags"</string>
-    <string name="forum_topic_content">"Content"</string>
-    <string name="forum_topic_edit_button">"Edit Topic"</string>
-    <string name="forum_topic_error_empty">"empty"</string>
-    <string name="forum_topics_kind_announce">"Announce"</string>
-    <string name="forum_topics_kind_question">"Question"</string>
-    <string name="forum_updated_at">"Updated at"</string>
-    <string name="forum_you">"you"</string>
     <string name="friend_group_list">"Group"</string>
     <string name="friend_group_name">"Group name"</string>
     <string name="friends">"Friends"</string>
@@ -347,8 +327,6 @@ You will lose a correction point"</string>
     <string name="info_loading_please_wait">"Loading. Please wait…"</string>
     <string name="info_loading_processing_data">"Processing data"</string>
     <string name="info_loading_resolve_number_page">"Resolve number of page"</string>
-    <string name="info_loading_topic">"Loading topic …"</string>
-    <string name="info_loading_topic_reply">"Loading reply …"</string>
     <string name="info_network_error">"Network error"</string>
     <string name="info_network_no_internet">"unable to connect to internet"</string>
     <string name="info_nothing_to_show">"Nothing to show"</string>
@@ -388,7 +366,6 @@ You will lose a correction point"</string>
     <string name="menu_action_user_add_to_home">"Add to home screen"</string>
     <string name="min">"min"</string>
     <string name="navigation_cluster_map">"Cluster Map"</string>
-    <string name="navigation_forum">"Forum"</string>
     <string name="navigation_header_action">"Actions"</string>
     <string name="navigation_header_info">"Info"</string>
     <string name="navigation_header_tools">"Tools"</string>
@@ -553,10 +530,8 @@ long click for more action"</string>
     <string name="search_error_on_open_this_element">"Error on opening this element"</string>
     <string name="search_hint">"Search"</string>
     <string name="search_on_projects">"Searching on projects"</string>
-    <string name="search_on_topics">"Searching on topics"</string>
     <string name="search_on_users">"Searching on users"</string>
     <string name="search_section_projects">"projects"</string>
-    <string name="search_section_topics">"topics"</string>
     <string name="search_section_users_first_name">"user ― first name"</string>
     <string name="search_section_users_last_name">"user ― last name"</string>
     <string name="search_section_users_login">"user ― login"</string>
@@ -588,7 +563,6 @@ long click for more action"</string>
     <string name="title_activity_coalitions">"Coalitions"</string>
     <string name="title_activity_elearning">"Elearning"</string>
     <string name="title_activity_event">"Event"</string>
-    <string name="title_activity_forum_new_topic">"New topic"</string>
     <string name="title_activity_friends">"Friends"</string>
     <string name="title_activity_friends_groups">"Friends groups"</string>
     <string name="title_activity_library_list">"Library list"</string>
@@ -599,16 +573,12 @@ long click for more action"</string>
     <string name="title_activity_sub_notion">"Sub notion"</string>
     <string name="title_activity_tag">"Tag"</string>
     <string name="title_activity_time">"Time"</string>
-    <string name="title_activity_topic">"Topic"</string>
     <string name="title_activity_user">"User"</string>
     <string name="title_activity_user_location_history">"Location History"</string>
     <string name="title_activity_users">"Users"</string>
     <string name="title_tab_cluster_map_info">"Info"</string>
     <string name="title_tab_elearning_all">"All"</string>
     <string name="title_tab_elearning_tags">"Tags"</string>
-    <string name="title_tab_forum_last_topics">"Last topics"</string>
-    <string name="title_tab_forum_tag">"Tags"</string>
-    <string name="title_tab_forum_unread">"Unread"</string>
     <string name="title_tab_home_agenda">"Agenda"</string>
     <string name="title_tab_home_evaluation">"Evaluations"</string>
     <string name="title_tab_home_home">"Home"</string>
@@ -619,12 +589,10 @@ long click for more action"</string>
     <string name="title_tab_project_overview">"Overview"</string>
     <string name="title_tab_project_users">"Users"</string>
     <string name="title_tab_projects_graphic">"Holy Graph"</string>
-    <string name="title_tab_tags_forum">"Forum"</string>
     <string name="title_tab_tags_notions">"Notions"</string>
     <string name="title_tab_user_achievements">"Achievements"</string>
     <string name="title_tab_user_apps">"Apps"</string>
     <string name="title_tab_user_expertises">"Expertises"</string>
-    <string name="title_tab_user_forum">"Forum"</string>
     <string name="title_tab_user_overview">"Overview"</string>
     <string name="title_tab_user_partnerships">"Partnerships"</string>
     <string name="title_tab_user_patronages">"Patronages"</string>
@@ -635,7 +603,6 @@ long click for more action"</string>
     <string name="toast_logs_disabled">"Logs disabled"</string>
     <string name="today">"Today"</string>
     <string name="tomorrow">"Tomorrow"</string>
-    <string name="topics_kind_survey">"Survey"</string>
     <string name="user_achievement_bronze">"bronze"</string>
     <string name="user_achievement_gold">"gold"</string>
     <string name="user_achievement_silver">"silver"</string>

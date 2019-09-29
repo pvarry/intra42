@@ -49,7 +49,7 @@ public class TimeActivity extends BasicThreadActivity implements BasicThreadActi
         registerGetDataOnOtherThread(this);
         registerGetDataOnMainTread(this);
 
-        navigationView.getMenu().getItem(5).getSubMenu().getItem(1).setChecked(true);
+        navigationView.getMenu().getItem(4).getSubMenu().getItem(1).setChecked(true);
 
         super.onCreateFinished();
     }

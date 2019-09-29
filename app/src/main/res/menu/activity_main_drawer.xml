@@ -15,10 +15,6 @@
             android:icon="@drawable/ic_class_black_24px"
             android:title="@string/title_activity_projects" />
         <item
-            android:id="@+id/nav_forum"
-            android:icon="@drawable/ic_forum_black_24px"
-            android:title="@string/navigation_forum" />
-        <item
             android:id="@+id/nav_elearning"
             android:icon="@drawable/ic_videocam_black_24dp"
             android:title="@string/elearning_title" />

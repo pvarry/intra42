@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.viewpager.widget.ViewPager;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.user.UserActivity;
@@ -14,13 +16,14 @@ import com.paulvarry.intra42.api.model.Tags;
 import com.paulvarry.intra42.ui.BasicTabActivity;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.Tools;
-import retrofit2.Response;
 
 import java.io.IOException;
 
+import retrofit2.Response;
+
 public class TagsActivity
         extends BasicTabActivity
-        implements TagsForumFragment.OnFragmentInteractionListener, TagsNotionsFragment.OnFragmentInteractionListener, TagsProjectsFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnThread {
+        implements TagsNotionsFragment.OnFragmentInteractionListener, TagsProjectsFragment.OnFragmentInteractionListener, BasicThreadActivity.GetDataOnThread {
 
     private static final String INTENT_TAG = "login";
     private static final String INTENT_TAG_ID = "tag_id";
@@ -95,7 +98,6 @@ public class TagsActivity
     public void setupViewPager(ViewPager viewPager) {
         ViewStatePagerAdapter adapter = new ViewStatePagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(TagsProjectsFragment.newInstance(), getString(R.string.tab_tags_projects));
-        adapter.addFragment(TagsForumFragment.newInstance(), getString(R.string.title_tab_tags_forum));
         adapter.addFragment(TagsNotionsFragment.newInstance(), getString(R.string.title_tab_tags_notions));
         viewPager.setAdapter(adapter);
     }

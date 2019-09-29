@@ -58,7 +58,7 @@ import retrofit2.Response;
 public class UserActivity extends BasicTabActivity
         implements UserOverviewFragment.OnFragmentInteractionListener, UserMarksFragment.OnFragmentInteractionListener,
         UserProjectsDoingFragment.OnFragmentInteractionListener, UserSkillsFragment.OnFragmentInteractionListener,
-        UserAchievementsFragment.OnFragmentInteractionListener, UserForumFragment.OnFragmentInteractionListener,
+        UserAchievementsFragment.OnFragmentInteractionListener,
         UserExpertisesFragment.OnFragmentInteractionListener, UserProjectsFragment.OnFragmentInteractionListener,
         UserPatronagesFragment.OnFragmentInteractionListener, UserQuestsFragment.OnFragmentInteractionListener,
         BasicThreadActivity.GetDataOnMain, BasicThreadActivity.GetDataOnThread {
@@ -351,9 +351,8 @@ public class UserActivity extends BasicTabActivity
 
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(UserOverviewFragment.newInstance(), getString(R.string.title_tab_user_overview));
-        adapter.addFragment(UserForumFragment.newInstance(), getString(R.string.title_tab_user_forum));
-        adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.title_tab_user_projects));
         adapter.addFragment(UserQuestsFragment.newInstance(), getString(R.string.title_tab_user_quests));
+        adapter.addFragment(UserProjectsFragment.newInstance(), getString(R.string.title_tab_user_projects));
 //        adapter.addFragment(UserMarksFragment.newInstance(), getString(R.string.tab_user_marks));
 //        adapter.addFragment(UserProjectsDoingFragment.newInstance(), getString(R.string.tab_user_projects));
         adapter.addFragment(UserExpertisesFragment.newInstance(), getString(R.string.title_tab_user_expertises));

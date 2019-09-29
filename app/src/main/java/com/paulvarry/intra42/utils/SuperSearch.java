@@ -7,20 +7,19 @@ import android.database.MatrixCursor;
 import android.provider.BaseColumns;
 import android.widget.Toast;
 
+import androidx.annotation.ArrayRes;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.SubnotionListActivity;
-import com.paulvarry.intra42.activities.TopicActivity;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.activities.tags.TagsActivity;
 import com.paulvarry.intra42.activities.user.UserActivity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import androidx.annotation.ArrayRes;
-import androidx.cursoradapter.widget.CursorAdapter;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
 public class SuperSearch {
 
@@ -80,12 +79,6 @@ public class SuperSearch {
                 UserActivity.openIt(activity, split[2], activity);
                 return true;
             }
-        } else if (query.contains("forum.intra.42")) {
-            if (split.length >= 3 && split[1].contentEquals("topics")) {
-                Analytics.search("OPEN_URL_TOPIC", query);
-                TopicActivity.openIt(activity, Integer.parseInt(split[2]));
-                return true;
-            }
         } else if (query.contains("elearning.intra.42")) {
             if (split.length < 3)
                 return false;
@@ -121,10 +114,6 @@ public class SuperSearch {
             } else if (searchOnArray(R.array.search_projects, split[0], activity)) {
                 Analytics.search("OPEN_PROJECT", query);
                 ProjectActivity.openIt(activity, split[1]);
-                return true;
-            } else if (searchOnArray(R.array.search_topics, split[0], activity)) {
-                Analytics.search("OPEN_TOPIC", query);
-                TopicActivity.openIt(activity, Integer.parseInt(split[1]));
                 return true;
             } else if (searchOnArray(R.array.search_tags, split[0], activity)) {
                 Analytics.search("OPEN_TAG", query);

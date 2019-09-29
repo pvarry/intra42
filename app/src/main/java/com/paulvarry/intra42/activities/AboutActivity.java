@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
+
 import com.paulvarry.intra42.BuildConfig;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.intro.IntroActivity;
@@ -26,7 +28,7 @@ public class AboutActivity extends BasicThreadActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_about);
         super.setActionBarToggle(ActionBarToggle.HAMBURGER);
-        navigationView.getMenu().getItem(6).getSubMenu().getItem(0).setChecked(true);
+        navigationView.getMenu().getItem(5).getSubMenu().getItem(0).setChecked(true);
         super.onCreateFinished();
     }
 
@@ -51,7 +53,7 @@ public class AboutActivity extends BasicThreadActivity {
         item = new Item(getString(R.string.about_content), null);
         list.add(item);
 
-        String str = BuildConfig.VERSION_NAME + " (" + String.valueOf(BuildConfig.VERSION_CODE) + ")";
+        String str = BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
         item = new Item(str, getString(R.string.about_version));
         list.add(item);
 
