@@ -2,6 +2,8 @@ package com.paulvarry.intra42.api.cluster_map;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.model.UsersLTE;
@@ -11,12 +13,13 @@ import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import androidx.annotation.NonNull;
-
 public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster> {
 
+    @SerializedName("name")
     public String name;
+    @SerializedName("nameShort")
     public String nameShort;
+    @SerializedName("slug")
     public String slug;
     @SerializedName("hostPrefix")
     public String hostPrefix;
@@ -28,7 +31,9 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
     public int sizeX;
     @SerializedName("height")
     public int sizeY;
-    public Location map[][];
+    @SerializedName("map")
+    public Location[][] map;
+    @SerializedName("comment")
     public String comment;
     @SerializedName("isReadyToPublish")
     public boolean isReadyToPublish;

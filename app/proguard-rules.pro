@@ -33,3 +33,8 @@
 -keep class org.ocpsoft.prettytime.i18n.**
 
 -keep public class * extends androidx.preference.PreferenceFragmentCompat
+
+-keepattributes Signature
+-keepclassmembers public class * implements com.paulvarry.intra42.api.FirebaseDatabaseContent {
+    *;
+}

@@ -3,7 +3,11 @@ package com.paulvarry.intra42.api.cluster_map_contribute;
 import android.content.Context;
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
+
+import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.AppClass;
+import com.paulvarry.intra42.api.FirebaseDatabaseContent;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 import com.paulvarry.intra42.api.cluster_map.Location;
 import com.paulvarry.intra42.api.model.Campus;
@@ -15,26 +19,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
+public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster>, FirebaseDatabaseContent {
 
-public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster> {
-
+    @SerializedName("name")
     public String name;
+    @SerializedName("nameShort")
     public String nameShort;
+    @SerializedName("slug")
     public String slug;
+    @SerializedName("hostPrefix")
     public String hostPrefix;
+    @SerializedName("campusId")
     public int campusId;
+    @SerializedName("position")
     public int position;
     /**
      * Size X
      */
+    @SerializedName("width")
     public int width;
     /**
      * Size Y
      */
+    @SerializedName("height")
     public int height;
+    @SerializedName("map")
     public MapStore map;
+    @SerializedName("comment")
     public String comment;
+    @SerializedName("isReadyToPublish")
     public boolean isReadyToPublish;
 
     private transient Campus campus;
@@ -175,8 +188,14 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
             else
                 return -1;
         }
-        return name.compareTo(o.name);
 
+        String tmpName = name;
+        String tmpNameOther = o.name;
+        if (tmpName == null)
+            tmpName = "";
+        if (tmpNameOther == null)
+            tmpNameOther = "";
+        return tmpName.compareTo(tmpNameOther);
     }
 
     @Override
