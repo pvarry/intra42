@@ -55,7 +55,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 29
         versionCode getVersionCodeTimestamp()
-        versionName "0.11.0-beta6"
+        versionName "0.11.0-beta7"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -115,17 +115,17 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'com.github.Commit451:bypasses:1.1.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.firebase:firebase-core:17.2.0'
     implementation 'com.google.firebase:firebase-config:19.0.2'
     implementation 'com.google.firebase:firebase-database:19.1.0'
     implementation 'com.google.firebase:firebase-perf:19.0.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.2.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     implementation 'de.halfbit:pinned-section-listview:1.0.0'
     implementation 'jp.wasabeef:picasso-transformations:2.1.2'
