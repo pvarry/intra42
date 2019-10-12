@@ -269,9 +269,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="event_unsubscribed">"Запись отменена"</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s ещё не написал ни одной заметки"</string>
-
-    <!-- Format warning -->
     <string name="format__host_s_history">"История %s"</string>
 
     <!-- Format warning -->
@@ -280,23 +277,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">"У %s ещё нет опыта"</string>
     <string name="format_project_team_users_action_open">"Открыть {project} пользователя {user}"</string>
-    <string name="forum_about_this_message">"О сообщении"</string>
-    <string name="forum_confirmation_delete_message">"Вы уверены, что хотите удалить это сообщение?"</string>
-    <string name="forum_created_at">"Создано"</string>
-    <string name="forum_delete_message">"Удалить сообщение"</string>
-    <string name="forum_delete_topic">"Удалить тему"</string>
-    <string name="forum_message_edit">"Редактировать сообщение"</string>
-    <string name="forum_message_hint">"Сообщение"</string>
-    <string name="forum_readings">"Прочтения"</string>
-    <string name="forum_reply">"Ответить"</string>
-    <string name="forum_tags">"Теги"</string>
-    <string name="forum_topic_content">"Содержание"</string>
-    <string name="forum_topic_edit_button">"Редактировать тему"</string>
-    <string name="forum_topic_error_empty">"пустой"</string>
-    <string name="forum_topics_kind_announce">"Анонс"</string>
-    <string name="forum_topics_kind_question">"Вопрос"</string>
-    <string name="forum_updated_at">"Обновлено в"</string>
-    <string name="forum_you">"вы"</string>
     <string name="friend_group_list">"Группы"</string>
     <string name="friend_group_name">"Название группы"</string>
     <string name="friends">"Друзья"</string>
@@ -360,8 +340,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="info_loading_please_wait">"Загрузка. Пожалуйста, подождите..."</string>
     <string name="info_loading_processing_data">"Обработка данных"</string>
     <string name="info_loading_resolve_number_page">"Разрешить номер страницы"</string>
-    <string name="info_loading_topic">"Загрузка темы..."</string>
-    <string name="info_loading_topic_reply">"Загрузка ответа ..."</string>
     <string name="info_network_error">"Ошибка сети"</string>
     <string name="info_network_no_internet">"невозможно подключиться к интернету"</string>
     <string name="info_nothing_to_show">"Тут ничего нет"</string>
@@ -401,7 +379,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="menu_action_user_add_to_home">"Добавить на домашний экран"</string>
     <string name="min">"Мин."</string>
     <string name="navigation_cluster_map">"Карта Кластера"</string>
-    <string name="navigation_forum">"Форум"</string>
     <string name="navigation_header_action">"Действия"</string>
     <string name="navigation_header_info">"Информация"</string>
     <string name="navigation_header_tools">"Инструменты"</string>
@@ -442,25 +419,17 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="pref_notifications_frequency_titles_3hour">"3 часа"</string>
     <string name="pref_notifications_frequency_titles_6hour">"6 часов"</string>
     <string name="pref_notifications_frequency_titles_never">"Никогда"</string>
-    <string name="pref_summary_advanced_data_enable_beta">"по умолчанию отключено"</string>
-    <string name="pref_summary_advanced_data_markdown_render">"Для форума и мероприятий (по умолчанию - истина)"</string>
     <string name="pref_summary_advanced_data_past_events">"Специально для пикселей"</string>
-    <string name="pref_summary_advanced_data_print_ids">"Включите это, чтобы показать ИД в приложении"</string>
     <string name="pref_summary_advanced_data_save_logs">"При включении этой функции будут созданы дополнительные логи, которые будут сохранены на \"~/Android/com.paulvarry.intra42/files/logs\". Необходимо перезапустить приложение, чтобы изменения вступили в силу. Внимание: частная информация (например, номер телефона) будет сохранена в памяти устройства. (по умолчанию отключено)"</string>
-    <string name="pref_summary_calendar_after_subscription">"Добавить событие сразу после подписки на него"</string>
     <string name="pref_summary_calendar_enable">"После предоставления доступа к календарю это приложение сможет добавлять события в календарь"</string>
     <string name="pref_summary_notifications_events">"Уведомлять о новых событиях, опубликованных в интранете 42"</string>
     <string name="pref_summary_notifications_scales">"Напоминать мне о проверках"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Автоматически проверять и добавлять события, затем"</string>
-    <string name="pref_theme_info_need_restart">"Необходимо перезапустить приложение, чтобы обновить тему"</string>
     <string name="pref_theme_list_titles_android">"Андроид Тёмный"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Синий (Федерация)"</string>
     <string name="pref_theme_list_titles_default">"Интра (авто-темы для коалиций)"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Зеленый (Альянс)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Пурпурный (Ассамблея)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Красный (Ордин)"</string>
-    <string name="pref_theme_switch_action_bar_background">"Показать изображение на заднем плане приложения"</string>
-    <string name="pref_theme_switch_dark_theme">"Использовать темную тему"</string>
     <string name="pref_theme_title_change_theme">"Настроить тему"</string>
     <string name="pref_title_advanced_data_allow_beta">"Включит дополнительные настройки"</string>
     <string name="pref_title_advanced_data_markdown_render">"Снижение рендера"</string>
@@ -470,7 +439,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="pref_title_advanced_section_features">"Продвинутые атрибуты"</string>
     <string name="pref_title_advanced_section_other">"Другие атрибуты"</string>
     <string name="pref_title_calendar">"Синхронизация событий"</string>
-    <string name="pref_title_calendar_after_subscription">"Добавить в календарь"</string>
     <string name="pref_title_calendar_enable">"Включить редактирование календаря"</string>
     <string name="pref_title_calendar_list">"Выбрать календарь для вставки событий"</string>
     <string name="pref_title_network_over_cellular_fast">"Через быструю сотовую сеть"</string>
@@ -480,7 +448,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="pref_title_notifications_frequency">"Частота синхронизации"</string>
     <string name="pref_title_notifications_scales">"Уведомления о проверках (бета)"</string>
     <string name="pref_title_notifications_sync_allow">"Включить уведомления и синхронизацию"</string>
-    <string name="pref_title_notifications_sync_calendar">"Синхронизировать календарь"</string>
 
     <!-- Fuzzy -->
     <string name="pref_unactivated">"Отключено"</string>
@@ -529,16 +496,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
 
     <!-- %d is %days or just %d is how much tries left? -->
     <string name="quest_retry_left">"%d попыток осталось"</string>
-
-    <!-- Fuzzy -->
-    <string name="quest_status_failed">"Провал"</string>
-    <string name="quest_status_in_progress">"В процессе выполнения"</string>
-
-    <!-- Fuzzy -->
-    <string name="quest_status_progress">"Прогресс: %s"</string>
-
-    <!-- Fuzzy -->
-    <string name="quest_status_validated">"Успех"</string>
     <string name="readme">"Читать обязательно"</string>
     <string name="refresh">"Обновить"</string>
     <string name="refreshing">"Обновление"</string>
@@ -551,10 +508,8 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="search_error_on_open_this_element">"Не получилось открыть элемент"</string>
     <string name="search_hint">"Поиск"</string>
     <string name="search_on_projects">"Поиск по проектам"</string>
-    <string name="search_on_topics">"Поиск по темам"</string>
     <string name="search_on_users">"Поиск по пользователям"</string>
     <string name="search_section_projects">"проекты"</string>
-    <string name="search_section_topics">"темы"</string>
     <string name="search_section_users_first_name">"пользователь имя"</string>
     <string name="search_section_users_last_name">"пользователь фамилия"</string>
     <string name="search_section_users_login">"пользователь - логин"</string>
@@ -586,7 +541,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="title_activity_coalitions">"Коалиции"</string>
     <string name="title_activity_elearning">"Обучение"</string>
     <string name="title_activity_event">"Событие"</string>
-    <string name="title_activity_forum_new_topic">"Новая тема"</string>
     <string name="title_activity_friends">"Друзья"</string>
     <string name="title_activity_friends_groups">"Группы друзей"</string>
     <string name="title_activity_library_list">"Список библиотек"</string>
@@ -597,16 +551,12 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="title_activity_sub_notion">"Подзаголовок"</string>
     <string name="title_activity_tag">"Тег"</string>
     <string name="title_activity_time">"Время"</string>
-    <string name="title_activity_topic">"Тема"</string>
     <string name="title_activity_user">"Пользователь"</string>
     <string name="title_activity_user_location_history">"История местоположений"</string>
     <string name="title_activity_users">"Пользователи"</string>
     <string name="title_tab_cluster_map_info">"Инфо"</string>
     <string name="title_tab_elearning_all">"Все"</string>
     <string name="title_tab_elearning_tags">"Теги"</string>
-    <string name="title_tab_forum_last_topics">"Последние темы"</string>
-    <string name="title_tab_forum_tag">"Теги"</string>
-    <string name="title_tab_forum_unread">"Не прочтённые"</string>
     <string name="title_tab_home_agenda">"Расписание"</string>
     <string name="title_tab_home_evaluation">"Оценивание"</string>
     <string name="title_tab_home_home">"Главная"</string>
@@ -617,12 +567,10 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="title_tab_project_overview">"Обзор"</string>
     <string name="title_tab_project_users">"Пользователи"</string>
     <string name="title_tab_projects_graphic">"Святой Граф"</string>
-    <string name="title_tab_tags_forum">"Форум"</string>
     <string name="title_tab_tags_notions">"Заголовки"</string>
     <string name="title_tab_user_achievements">"Достижения"</string>
     <string name="title_tab_user_apps">"Приложения"</string>
     <string name="title_tab_user_expertises">"Опыт"</string>
-    <string name="title_tab_user_forum">"Форум"</string>
     <string name="title_tab_user_overview">"Обзор"</string>
     <string name="title_tab_user_partnerships">"Партнёрские программы"</string>
     <string name="title_tab_user_patronages">"ШЕФСТВА"</string>
@@ -633,7 +581,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="toast_logs_disabled">"Логи отключены"</string>
     <string name="today">"Сегодня"</string>
     <string name="tomorrow">"Завтра"</string>
-    <string name="topics_kind_survey">"Исследование"</string>
     <string name="user_achievement_bronze">"бронза"</string>
     <string name="user_achievement_gold">"золото"</string>
     <string name="user_achievement_silver">"серебро"</string>

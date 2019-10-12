@@ -108,9 +108,6 @@ Perderai un punto correzione"</string>
     <string name="event_unsubscribed">"Iscrizione annullata"</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s non ha ancora scritto alcun topic"</string>
-
-    <!-- Format warning -->
     <string name="format__host_s_history">"cronologia %s"</string>
 
     <!-- Format warning -->
@@ -118,23 +115,6 @@ Perderai un punto correzione"</string>
 
     <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">"%s non ha ancora alcuna esperienza"</string>
-    <string name="forum_about_this_message">"Info messaggio"</string>
-    <string name="forum_confirmation_delete_message">"Sei sicuro di voler eliminare questo messaggio?"</string>
-    <string name="forum_created_at">"Creato a"</string>
-    <string name="forum_delete_message">"Elimina Messaggio"</string>
-    <string name="forum_delete_topic">"Elimina Topic"</string>
-    <string name="forum_message_edit">"Modifica messaggio"</string>
-    <string name="forum_message_hint">"Messaggio"</string>
-    <string name="forum_readings">"Letture"</string>
-    <string name="forum_reply">"Rispondi"</string>
-    <string name="forum_tags">"Tags"</string>
-    <string name="forum_topic_content">"Contenuto"</string>
-    <string name="forum_topic_edit_button">"Modifica Topic"</string>
-    <string name="forum_topic_error_empty">"vuoto"</string>
-    <string name="forum_topics_kind_announce">"Annuncio"</string>
-    <string name="forum_topics_kind_question">"Domanda"</string>
-    <string name="forum_updated_at">"Aggiornato a"</string>
-    <string name="forum_you">"tu"</string>
     <string name="friend_group_list">"Gruppo"</string>
     <string name="friend_group_name">"Nome del gruppo"</string>
     <string name="friends">"Amici"</string>
@@ -195,8 +175,6 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="info_loading_page_on">"Caricamento pagina %d di %d"</string>
     <string name="info_loading_please_wait">"Caricamento. Attendere..."</string>
     <string name="info_loading_processing_data">"Elaborazione dati"</string>
-    <string name="info_loading_topic">"Caricamento topic ..."</string>
-    <string name="info_loading_topic_reply">"Caricamento risposta ..."</string>
     <string name="info_network_no_internet">"Impossibile collegarsi a internet"</string>
     <string name="info_nothing_to_show">"Nulla da mostrare"</string>
     <string name="introduction_calendar_action">"Consenti calendario"</string>
@@ -221,7 +199,6 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="menu_action_share">"Condividi"</string>
     <string name="menu_action_user_add_to_home">"Aggiungi alla schermata home"</string>
     <string name="navigation_cluster_map">"Mappa Cluster"</string>
-    <string name="navigation_forum">"Forum"</string>
     <string name="navigation_header_action">"Azioni"</string>
     <string name="navigation_header_info">"Info"</string>
     <string name="navigation_header_tools">"Strumenti"</string>
@@ -270,23 +247,19 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="pref_notifications_frequency_titles_3hour">"3 ore"</string>
     <string name="pref_notifications_frequency_titles_6hour">"6 ore"</string>
     <string name="pref_notifications_frequency_titles_never">"Mai"</string>
-    <string name="pref_summary_calendar_after_subscription">"Aggiungi l'evento appena mi sono iscritto"</string>
     <string name="pref_summary_calendar_enable">"Dopo aver concesso l'utilizzo del calendario, questa app potrà mettere automaticamente gli eventi"</string>
     <string name="pref_summary_notifications_events">"Notifica per nuovi eventi pubblicati nell'intra"</string>
     <string name="pref_summary_notifications_scales">"Ricordami delle correzioni"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Controlla automaticamente l'iscrizione agli eventi e aggiungili automaticamente"</string>
     <string name="pref_theme_list_titles_android">"Android Scuro"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Blu (La federazione)"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Verde (L'alleanza)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Viola (L'Assembly)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Rosso (L'Ordine)"</string>
-    <string name="pref_theme_switch_dark_theme">"Usa tema scuro"</string>
     <string name="pref_theme_title_change_theme">"Scegli tema"</string>
     <string name="pref_title_advanced_data_past_events">"Eventi passati"</string>
     <string name="pref_title_advanced_section_features">"Funzionalità avanzate"</string>
     <string name="pref_title_advanced_section_other">"Altre funzionalità"</string>
     <string name="pref_title_calendar">"Sincronizza eventi"</string>
-    <string name="pref_title_calendar_after_subscription">"Aggiungi al calendario"</string>
     <string name="pref_title_calendar_enable">"Abilita edizione calendario"</string>
     <string name="pref_title_calendar_list">"Seleziona il calendario dove inserire gli eventi"</string>
     <string name="pref_title_network_over_cellular_fast">"Via rete cellulare veloce"</string>
@@ -296,7 +269,6 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="pref_title_notifications_frequency">"Frequenza di sincronizzazione"</string>
     <string name="pref_title_notifications_scales">"Notifica correzioni (beta)"</string>
     <string name="pref_title_notifications_sync_allow">"Abilita notifiche e sincronia"</string>
-    <string name="pref_title_notifications_sync_calendar">"Sincronia calendario"</string>
     <string name="pref_unactivated">"Disattivo"</string>
     <string name="pref_value_all">"Tutto"</string>
     <string name="profile_apps_private">"privato"</string>
@@ -339,10 +311,8 @@ Pressione prolungata per avere più info"</string>
     <string name="search_error_on_open_this_element">"Errore aprendo questo elemento"</string>
     <string name="search_hint">"Ricerca"</string>
     <string name="search_on_projects">"Cerca nei progetti"</string>
-    <string name="search_on_topics">"Cerca nei topics"</string>
     <string name="search_on_users">"Cerca tra gli utenti"</string>
     <string name="search_section_projects">"progetti"</string>
-    <string name="search_section_topics">"argomenti"</string>
     <string name="search_section_users_first_name">"utente ― nome"</string>
     <string name="search_section_users_last_name">"utente ― cognome"</string>
     <string name="search_section_users_login">"utente ― login"</string>
@@ -367,7 +337,6 @@ Pressione prolungata per avere più info"</string>
     <string name="title_activity_coalitions">"Coalizioni"</string>
     <string name="title_activity_elearning">"Elearning"</string>
     <string name="title_activity_event">"Evento"</string>
-    <string name="title_activity_forum_new_topic">"Nuovo topic"</string>
     <string name="title_activity_friends">"Amici"</string>
     <string name="title_activity_library_list">"lista Libreria"</string>
     <string name="title_activity_project">"Progetto"</string>
@@ -376,14 +345,12 @@ Pressione prolungata per avere più info"</string>
     <string name="title_activity_settings">"Impostazioni"</string>
     <string name="title_activity_tag">"Tag"</string>
     <string name="title_activity_time">"Tempo"</string>
-    <string name="title_activity_topic">"Topic"</string>
     <string name="title_activity_user">"Utente"</string>
     <string name="title_activity_user_location_history">"Cronologia Posizione"</string>
     <string name="title_activity_users">"Utenti"</string>
     <string name="title_tab_cluster_map_info">"Info"</string>
     <string name="title_tab_elearning_all">"Tutto"</string>
     <string name="title_tab_elearning_tags">"Tags"</string>
-    <string name="title_tab_forum_unread">"Non letto"</string>
     <string name="title_tab_home_agenda">"Agenda"</string>
     <string name="title_tab_home_evaluation">"Valutazioni"</string>
     <string name="title_tab_home_home">"Home"</string>
@@ -394,11 +361,9 @@ Pressione prolungata per avere più info"</string>
     <string name="title_tab_project_overview">"Panoramica"</string>
     <string name="title_tab_project_users">"Utenti"</string>
     <string name="title_tab_projects_graphic">"Grafo Progetti"</string>
-    <string name="title_tab_tags_forum">"Forum"</string>
     <string name="title_tab_tags_notions">"Nozioni"</string>
     <string name="title_tab_user_achievements">"Conquiste"</string>
     <string name="title_tab_user_expertises">"Esperienze"</string>
-    <string name="title_tab_user_forum">"Forum"</string>
     <string name="title_tab_user_overview">"Panoramica"</string>
     <string name="title_tab_user_partnerships">"Partenariato"</string>
     <string name="title_tab_user_projects">"Progetti"</string>
@@ -406,7 +371,6 @@ Pressione prolungata per avere più info"</string>
     <string name="title_tab_users_all">"Tutto"</string>
     <string name="today">"Oggi"</string>
     <string name="tomorrow">"Domani"</string>
-    <string name="topics_kind_survey">"Sondaggio"</string>
     <string name="user_achievement_bronze">"Bronzo"</string>
     <string name="user_achievement_gold">"Oro"</string>
     <string name="user_achievement_silver">"Argento"</string>

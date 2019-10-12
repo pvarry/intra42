@@ -407,28 +407,22 @@ You will lose a correction point"</string>
     <string name="pref_notifications_frequency_titles_3hour">"3 hours"</string>
     <string name="pref_notifications_frequency_titles_6hour">"6 hours"</string>
     <string name="pref_notifications_frequency_titles_never">"Never"</string>
-    <string name="pref_summary_advanced_data_enable_beta">"default false"</string>
-    <string name="pref_summary_advanced_data_markdown_render">"For forum and events (default true)"</string>
     <string name="pref_summary_advanced_data_markdown_render_disabled">"Display raw text on forum and events views"</string>
     <string name="pref_summary_advanced_data_markdown_render_enabled">"Use a Markdown render engine for text in forum and event views"</string>
     <string name="pref_summary_advanced_data_past_events">"Specially for pixels"</string>
-    <string name="pref_summary_advanced_data_print_ids">"Enable this to show ids and slugs in the app"</string>
     <string name="pref_summary_advanced_data_print_ids_disabled">"Normal usage, use this as default"</string>
     <string name="pref_summary_advanced_data_print_ids_enabled">"Display additional information like ids and slugs over the app"</string>
     <string name="pref_summary_advanced_data_save_logs">"On enabling this feature, extra logs will be generated and logs will be saved on \"~/Android/com.paulvarry.intra42/files/logs\". You have to restart the app to apply changes. Warning: private information (like phone number) will be saved on device storage. (default false)"</string>
     <string name="pref_summary_advanced_settings_disabled">"Default usage"</string>
     <string name="pref_summary_advanced_settings_enabled">"Use advanced setting, if you do not know what it is, please disable it"</string>
-    <string name="pref_summary_calendar_after_subscription">"Insert the event just after subscription to it"</string>
     <string name="pref_summary_calendar_enable">"After grant calendar auth, this app will be able to put events tou your calendar"</string>
     <string name="pref_summary_notifications_events">"Notify for new events published to 42 intranet"</string>
     <string name="pref_summary_notifications_scales">"Remind you about evaluations"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Automatically check your events subscriptions and add then"</string>
     <string name="pref_summary_theme_app_bar_background">"Display a themed image on the app bar background"</string>
     <string name="pref_theme_app_bar_background">"Image on app bar"</string>
     <string name="pref_theme_color_scheme_list_titles_auto">"Follow system theme"</string>
     <string name="pref_theme_color_scheme_list_titles_dark">"Dark"</string>
     <string name="pref_theme_color_scheme_list_titles_light">"Light"</string>
-    <string name="pref_theme_info_need_restart">"You need to restart app to update theme"</string>
     <string name="pref_theme_info_need_restart_to_apply">"You need to restart the app to fully apply selected theme"</string>
     <string name="pref_theme_list_titles_android">"Android Dark"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Blue (The Federation)"</string>
@@ -436,9 +430,7 @@ You will lose a correction point"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Green (The Alliance)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Purple (The Assembly)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Red (The Order)"</string>
-    <string name="pref_theme_switch_action_bar_background">"Display image on App Bar background"</string>
     <string name="pref_theme_switch_brightness">"Use dark theme"</string>
-    <string name="pref_theme_switch_dark_theme">"Use dark theme"</string>
     <string name="pref_theme_title_change_theme">"Set theme"</string>
     <string name="pref_theme_title_example">"Theme example"</string>
     <string name="pref_title_advanced_data_allow_beta">"Enable advanced preferences"</string>
@@ -449,7 +441,6 @@ You will lose a correction point"</string>
     <string name="pref_title_advanced_section_features">"Advanced features"</string>
     <string name="pref_title_advanced_section_other">"Others features"</string>
     <string name="pref_title_calendar">"Events sync"</string>
-    <string name="pref_title_calendar_after_subscription">"Insert to calendar"</string>
     <string name="pref_title_calendar_enable">"Enable calendar edition"</string>
     <string name="pref_title_calendar_list">"Choose calendar to insert events"</string>
     <string name="pref_title_network_over_cellular_fast">"Over fast cellular network"</string>
@@ -459,7 +450,6 @@ You will lose a correction point"</string>
     <string name="pref_title_notifications_frequency">"Sync frequency"</string>
     <string name="pref_title_notifications_scales">"Notify corrections (beta)"</string>
     <string name="pref_title_notifications_sync_allow">"Enable notifications &amp; sync"</string>
-    <string name="pref_title_notifications_sync_calendar">"Sync calendar"</string>
     <string name="pref_title_theme">"App theme"</string>
     <string name="pref_unactivated">"Unactivated"</string>
     <string name="pref_value_all">"All"</string>
@@ -506,17 +496,7 @@ long click for more action"</string>
     <string name="quest_in_progress">"In Progress"</string>
     <string name="quest_progress">"Progress: %s"</string>
     <string name="quest_retry_left">"%d retry left"</string>
-
-    <!-- Fuzzy -->
-    <string name="quest_status_failed">"Failed"</string>
-    <string name="quest_status_in_progress">"In Progress"</string>
-
-    <!-- Fuzzy -->
-    <string name="quest_status_progress">"Progress: %s"</string>
     <string name="quest_status_unknown">"Unknown"</string>
-
-    <!-- Fuzzy -->
-    <string name="quest_status_validated">"Success"</string>
     <string name="quest_validated">"Success"</string>
     <string name="readme">"Readme"</string>
     <string name="refresh">"Refresh"</string>

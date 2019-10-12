@@ -91,30 +91,11 @@
     <string name="event_unsubscribed">"Відписано"</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s ще не створив жодого обговорення."</string>
-
-    <!-- Format warning -->
     <!-- Fuzzy -->
     <string name="format__host_s_history">"%s's історія"</string>
 
     <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">"%s ще немає жодних навичків."</string>
-    <string name="forum_about_this_message">"Про повідомлення"</string>
-    <string name="forum_confirmation_delete_message">"Ти впевнений що хочеш видалити повідомлення"</string>
-    <string name="forum_created_at">"Створено о"</string>
-    <string name="forum_delete_message">"Видалити Повідомлення"</string>
-    <string name="forum_delete_topic">"Видалити Обговорення"</string>
-    <string name="forum_message_edit">"Редагувати повідомлення"</string>
-    <string name="forum_message_hint">"Повідомлення"</string>
-    <string name="forum_reply">"Відповісти"</string>
-    <string name="forum_tags">"Теги"</string>
-    <string name="forum_topic_content">"Вміст"</string>
-    <string name="forum_topic_edit_button">"Редагувати Обговорення"</string>
-    <string name="forum_topic_error_empty">"пусто"</string>
-    <string name="forum_topics_kind_announce">"Анонс"</string>
-    <string name="forum_topics_kind_question">"Запитання"</string>
-    <string name="forum_updated_at">"Оновлено в"</string>
-    <string name="forum_you">"ти"</string>
     <string name="friend_group_list">"Група"</string>
     <string name="friend_group_name">"Назва групи"</string>
     <string name="friends">"Друзі"</string>
@@ -152,7 +133,6 @@
     <string name="menu_action_share">"Поширити"</string>
     <string name="menu_action_user_add_to_home">"Додати на домашній екран"</string>
     <string name="navigation_cluster_map">"Карта кластеру"</string>
-    <string name="navigation_forum">"Форум"</string>
     <string name="navigation_header_action">"Дії"</string>
     <string name="navigation_header_info">"Інформація"</string>
     <string name="navigation_header_tools">"Інструменти"</string>
@@ -237,7 +217,6 @@
     <string name="title_activity_cluster_map_contribute_edit">"Створити карту кластеру"</string>
     <string name="title_activity_coalitions">"Коаліції"</string>
     <string name="title_activity_event">"Подія"</string>
-    <string name="title_activity_forum_new_topic">"Нове обговорення"</string>
     <string name="title_activity_friends">"Друзі"</string>
     <string name="title_activity_library_list">"Список літератури"</string>
     <string name="title_activity_project">"Проект"</string>
@@ -245,7 +224,6 @@
     <string name="title_activity_search">"Пошук"</string>
     <string name="title_activity_settings">"Налаштування"</string>
     <string name="title_activity_time">"Час"</string>
-    <string name="title_activity_topic">"Обговорення"</string>
     <string name="title_activity_user">"Користувач"</string>
     <string name="title_activity_users">"Користувачі"</string>
     <string name="title_tab_elearning_all">"Всі"</string>
@@ -253,16 +231,13 @@
     <string name="title_tab_home_slots">"Слоти"</string>
     <string name="title_tab_project_me">"Я"</string>
     <string name="title_tab_project_users">"Користувачі"</string>
-    <string name="title_tab_tags_forum">"Форум"</string>
     <string name="title_tab_user_achievements">"Досягнення"</string>
-    <string name="title_tab_user_forum">"Форум"</string>
     <string name="title_tab_user_partnerships">"Партнерство"</string>
     <string name="title_tab_user_projects">"Проекти"</string>
     <string name="title_tab_user_skills">"Навички"</string>
     <string name="title_tab_users_all">"Всі"</string>
     <string name="today">"Сьогодні"</string>
     <string name="tomorrow">"Завтра"</string>
-    <string name="topics_kind_survey">"Опитування"</string>
     <string name="user_achievement_bronze">"бронза"</string>
     <string name="user_achievement_gold">"золото"</string>
     <string name="user_achievement_silver">"срібло"</string>

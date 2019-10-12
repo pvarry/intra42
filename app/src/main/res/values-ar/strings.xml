@@ -15,7 +15,6 @@
     <string name="evaluation_slot_create">"إنشاء"</string>
     <string name="evaluation_slot_deleted">"محذوف"</string>
     <string name="event_full">"كامل"</string>
-    <string name="forum_topic_error_empty">"فارغ"</string>
     <string name="friends">"الأصدقاء"</string>
     <string name="friends_groups_all">"الكل"</string>
     <string name="friends_groups_edit_no_empty_name">"لا يمكن أن تكون فارغة"</string>
@@ -66,15 +65,12 @@
     <string name="share_using">"نشر عبر"</string>
     <string name="shortcut_friends">"الأصدقاء"</string>
     <string name="soon">"قريبا"</string>
-    <string name="title_activity_forum_new_topic">"موضوع جديد"</string>
     <string name="title_activity_friends">"الأصدقاء"</string>
     <string name="title_activity_time">"الوقت"</string>
-    <string name="title_activity_topic">"الموضوع"</string>
     <string name="title_activity_user">"العضو"</string>
     <string name="title_activity_users">"الأعضاء"</string>
     <string name="title_tab_elearning_all">"الكل"</string>
     <string name="title_tab_project_me">"أنا"</string>
-    <string name="title_tab_tags_forum">"المنتدى"</string>
     <string name="today">"اليوم"</string>
     <string name="tomorrow">"الغد"</string>
     <string name="user_correction_points">"نقاط التصحيح"</string>

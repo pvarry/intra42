@@ -62,29 +62,10 @@ Stracisz punkt korekcyjny."</string>
     <string name="event_unsubscribed">"Zrezygnowano z subskrybcji"</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s nie napisał(a) jeszcze żadnego wątku"</string>
-
-    <!-- Format warning -->
     <string name="format__host_s_history">"Historia %s"</string>
 
     <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">"%s nie ma jeszcze żadnych kompetencji"</string>
-    <string name="forum_about_this_message">"O wiadomości"</string>
-    <string name="forum_confirmation_delete_message">"Czy jesteś pewny, że chcesz usunąć tą wiadomość?"</string>
-    <string name="forum_created_at">"Stworzono"</string>
-    <string name="forum_delete_message">"Usuń wiadomość"</string>
-    <string name="forum_delete_topic">"Usuń wątek"</string>
-    <string name="forum_message_edit">"Edytuj wiadomość"</string>
-    <string name="forum_message_hint">"Wiadomość"</string>
-    <string name="forum_reply">"Odpowiedz"</string>
-    <string name="forum_tags">"Tagi"</string>
-    <string name="forum_topic_content">"Zawartość"</string>
-    <string name="forum_topic_edit_button">"Edytuj wątek"</string>
-    <string name="forum_topic_error_empty">"Pusty"</string>
-    <string name="forum_topics_kind_announce">"Ogłaszać"</string>
-    <string name="forum_topics_kind_question">"Pytanie"</string>
-    <string name="forum_updated_at">"Zaktualizowano"</string>
-    <string name="forum_you">"Ty"</string>
     <string name="galaxy_available">"Dostępny"</string>
     <string name="galaxy_failed">"Nie zdany"</string>
     <string name="galaxy_in_progress">"W trakcje realizacji"</string>
@@ -120,7 +101,6 @@ Stracisz punkt korekcyjny."</string>
     <string name="menu_action_share">"Udostępnij"</string>
     <string name="menu_action_user_add_to_home">"Dodaj do ekranu głównego"</string>
     <string name="navigation_cluster_map">"Mapa w"</string>
-    <string name="navigation_forum">"Forum"</string>
     <string name="navigation_header_action">"Działania"</string>
     <string name="navigation_header_info">"Informacje"</string>
     <string name="navigation_header_tools">"Narzędzia"</string>
@@ -161,9 +141,7 @@ Stracisz punkt korekcyjny."</string>
     <string name="pref_notifications_frequency_titles_never">"Nigdy"</string>
     <string name="pref_summary_notifications_events">"Powiadamiaj o nowych eventach publikowanych na 42 intra"</string>
     <string name="pref_summary_notifications_scales">"Przypominaj o ewaluacjach"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Automatycznie sprawdź subskrybcje eventów i wtedy dodaj "</string>
     <string name="pref_title_calendar">"Synchronizacja eventów"</string>
-    <string name="pref_title_calendar_after_subscription">"Wprowadź do kalendarza"</string>
     <string name="pref_title_network_over_cellular_fast">"Przez szybką sieć komórkową"</string>
     <string name="pref_title_network_over_cellular_slow">"Przez wolną sieć komórkową"</string>
     <string name="pref_title_network_over_wifi">"Przez wifi"</string>
@@ -171,7 +149,6 @@ Stracisz punkt korekcyjny."</string>
     <string name="pref_title_notifications_frequency">"Częstotliwość synchronizacji"</string>
     <string name="pref_title_notifications_scales">"Powiadamiaj o korekcjach (beta)"</string>
     <string name="pref_title_notifications_sync_allow">"Aktywuj powiadomienia i synchronizacje"</string>
-    <string name="pref_title_notifications_sync_calendar">"Synchronizuj kalendarz"</string>
     <string name="pref_unactivated">"Nieaktywny"</string>
     <string name="pref_value_all">"Wszystko"</string>
     <string name="profile_apps_private">"Prywatny"</string>
@@ -208,10 +185,8 @@ Stracisz punkt korekcyjny."</string>
     <string name="search_by">"Wyszukuj przez"</string>
     <string name="search_error_on_open_this_element">"Błąd przy otwieraniu tego elementu"</string>
     <string name="search_on_projects">"Wyszukiwanie w projektach"</string>
-    <string name="search_on_topics">"Wyszukiwanie w wątkach"</string>
     <string name="search_on_users">"Wyszukiwanie w użytkownikach"</string>
     <string name="search_section_projects">"Projekty"</string>
-    <string name="search_section_topics">"Wątki"</string>
     <string name="searching">"Wyszukiwanie..."</string>
     <string name="shortcut_friends">"Przyjaciele"</string>
     <string name="shortcut_long_cluster_map">"Mapa klastrów"</string>
@@ -228,7 +203,6 @@ Stracisz punkt korekcyjny."</string>
     <string name="title_activity_cluster_map">"Mapa klastra"</string>
     <string name="title_activity_elearning">"E-nauczanie"</string>
     <string name="title_activity_event">"Event"</string>
-    <string name="title_activity_forum_new_topic">"Nowy wątek"</string>
     <string name="title_activity_friends">"Przyjaciele"</string>
     <string name="title_activity_library_list">"Lista biblioteki"</string>
     <string name="title_activity_project">"Projekt"</string>
@@ -238,7 +212,6 @@ Stracisz punkt korekcyjny."</string>
     <string name="title_activity_sub_notion">"Pod pojęcie"</string>
     <string name="title_activity_tag">"Tag"</string>
     <string name="title_activity_time">"Czas"</string>
-    <string name="title_activity_topic">"Wątek"</string>
     <string name="title_activity_user">"Użytkownik"</string>
     <string name="title_activity_user_location_history">"Historia lokalizacji"</string>
     <string name="title_activity_users">"Użytkownicy"</string>
@@ -252,10 +225,8 @@ Stracisz punkt korekcyjny."</string>
     <string name="title_tab_project_attachments">"Załączniki"</string>
     <string name="title_tab_project_me">"Ja"</string>
     <string name="title_tab_project_users">"Użytkownicy"</string>
-    <string name="title_tab_tags_forum">"Forum"</string>
     <string name="title_tab_user_achievements">"Osiągnięcia"</string>
     <string name="title_tab_user_expertises">"Kompetencje"</string>
-    <string name="title_tab_user_forum">"Forum"</string>
     <string name="title_tab_user_projects">"Projekty"</string>
     <string name="title_tab_user_skills">"Umiejętności"</string>
     <string name="title_tab_users_all">"Wszystko"</string>

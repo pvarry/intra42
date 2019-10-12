@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_version">"Versão"</string>
+    <string name="app_name">"Intra 42"</string>
+    <string name="campus">"Campus"</string>
+    <string name="cancel">"Cancelar"</string>
+    <string name="copied">"Copiado"</string>
+    <string name="copy">"Copiar"</string>
+    <string name="delete">"Deletar"</string>
+    <string name="done">"Feito"</string>
+    <string name="error">"error"</string>
+    <string name="evaluation_corrected_by">"Corrigido por"</string>
+    <string name="evaluation_on_project">"on"</string>
+    <string name="notifications_bookings_channel_name">"Reservas"</string>
+    <string name="notifications_bookings_sub_text">"reserva"</string>
+    <string name="notifications_events_channel_description">"Notificação para eventos"</string>
+    <string name="notifications_events_channel_name">"Eventos"</string>
+    <string name="notifications_events_sub_text">"evento"</string>
+    <string name="ok">"Ok"</string>
+    <string name="pref_activated">"Ativado"</string>
+    <string name="pref_header_network">"Rede"</string>
+    <string name="pref_header_notifications">"Notificações"</string>
+    <string name="pref_title_notifications_events">"Notificar eventos"</string>
+    <string name="pref_title_notifications_frequency">"Frequência de sincronização"</string>
+    <string name="pref_title_notifications_scales">"Notificar correções"</string>
+    <string name="pref_unactivated">"Desativado"</string>
+    <string name="pref_value_all">"Todos"</string>
+    <string name="refresh">"Atualizar"</string>
+    <string name="save">"Salvar"</string>
+    <string name="shortcut_friends">"Amigos"</string>
+    <string name="shortcut_long_cluster_map">"Mapa de Clusters"</string>
+    <string name="shortcut_long_friends">"Lista de amigos"</string>
+    <string name="soon">"Em breve"</string>
+    <string name="sort_by">"Ordenar por"</string>
+    <string name="tags">"Tags"</string>
+    <string name="today">"Hoje"</string>
+    <string name="tomorrow">"Amanhã"</string>
+    <string name="value">"Valor"</string>
+</resources>

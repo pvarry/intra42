@@ -256,9 +256,6 @@ Guía: Orientación del grupo
     <string name="event_unsubscribed">"Desuscrito"</string>
 
     <!-- Format warning -->
-    <string name="format__dont_have_write_topic">"%s no ha escrito ningún tópico aún"</string>
-
-    <!-- Format warning -->
     <string name="format__host_s_history">"Historial de %s"</string>
 
     <!-- Format warning -->
@@ -267,23 +264,6 @@ Guía: Orientación del grupo
     <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">"%s no tiene ninguna experiencia aún"</string>
     <string name="format_project_team_users_action_open">"Abrir {proyecto} de {user}"</string>
-    <string name="forum_about_this_message">"Acerca del mensaje"</string>
-    <string name="forum_confirmation_delete_message">"¿Estás seguro que quieres eliminar este mensaje?"</string>
-    <string name="forum_created_at">"Creado a las"</string>
-    <string name="forum_delete_message">"Eliminar mensaje"</string>
-    <string name="forum_delete_topic">"Eliminar tópico"</string>
-    <string name="forum_message_edit">"Editar mensaje"</string>
-    <string name="forum_message_hint">"Mensaje"</string>
-    <string name="forum_readings">"Lecturas"</string>
-    <string name="forum_reply">"Responder"</string>
-    <string name="forum_tags">"Etiquetas"</string>
-    <string name="forum_topic_content">"Contenido"</string>
-    <string name="forum_topic_edit_button">"Editar tópico"</string>
-    <string name="forum_topic_error_empty">"vacío"</string>
-    <string name="forum_topics_kind_announce">"Anuncio"</string>
-    <string name="forum_topics_kind_question">"Pregunta"</string>
-    <string name="forum_updated_at">"Actualizado a las"</string>
-    <string name="forum_you">"tú"</string>
     <string name="friend_group_list">"Grupo"</string>
     <string name="friend_group_name">"Nombre del grupo"</string>
     <string name="friends">"Amigos"</string>
@@ -347,8 +327,6 @@ Guía: Orientación del grupo
     <string name="info_loading_please_wait">"Cargando. Por favor espere..."</string>
     <string name="info_loading_processing_data">"Procesando datos"</string>
     <string name="info_loading_resolve_number_page">"Calculando el número de página"</string>
-    <string name="info_loading_topic">"Cargando tópico ..."</string>
-    <string name="info_loading_topic_reply">"Cargando respuesta ..."</string>
     <string name="info_network_error">"Error de red"</string>
     <string name="info_network_no_internet">"imposible conectar a internet"</string>
     <string name="info_nothing_to_show">"Nada que mostrar"</string>
@@ -383,7 +361,6 @@ Guía: Orientación del grupo
     <string name="menu_action_share">"Compartir"</string>
     <string name="menu_action_user_add_to_home">"Añadir a Inicio"</string>
     <string name="navigation_cluster_map">"Mapa de Grupo"</string>
-    <string name="navigation_forum">"Foro"</string>
     <string name="navigation_header_action">"Acciones"</string>
     <string name="navigation_header_info">"Información"</string>
     <string name="navigation_header_tools">"Herramientas"</string>
@@ -424,25 +401,17 @@ Guía: Orientación del grupo
     <string name="pref_notifications_frequency_titles_3hour">"3 horas"</string>
     <string name="pref_notifications_frequency_titles_6hour">"6 horas"</string>
     <string name="pref_notifications_frequency_titles_never">"Nunca"</string>
-    <string name="pref_summary_advanced_data_enable_beta">"predeterminado a falso"</string>
-    <string name="pref_summary_advanced_data_markdown_render">"Para el foro y los eventos (predeterminado a verdadero)"</string>
     <string name="pref_summary_advanced_data_past_events">"Especialmente para píxeles"</string>
-    <string name="pref_summary_advanced_data_print_ids">"Habilitar para mostrar los ids y fichas en la app"</string>
     <string name="pref_summary_advanced_data_save_logs">"Al habilitar esta función, se generarán registros adicionales que se guardarán en \"~/Android/com.paulvarry.intra42/files/logs\". Debes reiniciar la aplicación para aplicar los cambios. Advertencia: la información privada (como el número de teléfono) se guardará en el almacenamiento del dispositivo. (predeterminado a falso)"</string>
-    <string name="pref_summary_calendar_after_subscription">"Insertar evento tras suscribirme"</string>
     <string name="pref_summary_calendar_enable">"Tras autorizar el calendario, esta app podrá añadir eventos a tu calendario"</string>
     <string name="pref_summary_notifications_events">"Notificar los nuevos eventos publicados en la intranet de 42"</string>
     <string name="pref_summary_notifications_scales">"Recuerdame las evaluaciones"</string>
-    <string name="pref_summary_notifications_sync_calendar">"Revisa automáticamente los eventos suscritos y añádelos"</string>
-    <string name="pref_theme_info_need_restart">"Necesitas reiniciar la apliación para actualizar el tema"</string>
     <string name="pref_theme_list_titles_android">"Android Oscuro"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Azul (La Federación)"</string>
     <string name="pref_theme_list_titles_default">"Intra (coalition auto theming)"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Verde (La Alianza)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Violeta / Lila (El Consejo)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Rojo (La Orden)"</string>
-    <string name="pref_theme_switch_action_bar_background">"Establecer imagen como fondo de la Aplicación"</string>
-    <string name="pref_theme_switch_dark_theme">"Usar modo oscuro"</string>
     <string name="pref_theme_title_change_theme">"Seleccionar tema"</string>
     <string name="pref_title_advanced_data_allow_beta">"Habilitar características avanzadas"</string>
     <string name="pref_title_advanced_data_markdown_render">"Reducir renderización"</string>
@@ -452,7 +421,6 @@ Guía: Orientación del grupo
     <string name="pref_title_advanced_section_features">"Características avanzadas"</string>
     <string name="pref_title_advanced_section_other">"Otras características"</string>
     <string name="pref_title_calendar">"Sincronizar eventos"</string>
-    <string name="pref_title_calendar_after_subscription">"Insertar calendario"</string>
     <string name="pref_title_calendar_enable">"Habilita la edición del calendario"</string>
     <string name="pref_title_calendar_list">"Elegir calendario para insertar eventos"</string>
     <string name="pref_title_network_over_cellular_fast">"Red rápida"</string>
@@ -462,7 +430,6 @@ Guía: Orientación del grupo
     <string name="pref_title_notifications_frequency">"Frecuenca de sincronización"</string>
     <string name="pref_title_notifications_scales">"Notificar correcciones (beta)"</string>
     <string name="pref_title_notifications_sync_allow">"Habilitar notificaciones y sincronización"</string>
-    <string name="pref_title_notifications_sync_calendar">"Sincronizar calendario"</string>
     <string name="pref_unactivated">"Desactivado"</string>
     <string name="pref_value_all">"todo"</string>
     <string name="profile_apps_private">"privado"</string>
@@ -513,10 +480,8 @@ Mantenga pulsado para más opciones"</string>
     <string name="search_error_on_open_this_element">"Error al abrir el elemento"</string>
     <string name="search_hint">"Buscar"</string>
     <string name="search_on_projects">"Buscando en proyectos"</string>
-    <string name="search_on_topics">"Buscando en tópicos"</string>
     <string name="search_on_users">"Buscando en usuarios"</string>
     <string name="search_section_projects">"proyectos"</string>
-    <string name="search_section_topics">"tópicos"</string>
     <string name="search_section_users_first_name">"usuario - primer nombre"</string>
     <string name="search_section_users_last_name">"usuario - primer apellido"</string>
     <string name="search_section_users_login">"usuario - login"</string>
@@ -547,7 +512,6 @@ Mantenga pulsado para más opciones"</string>
     <string name="title_activity_coalitions">"Coaliciones"</string>
     <string name="title_activity_elearning">"eLearning"</string>
     <string name="title_activity_event">"Evento"</string>
-    <string name="title_activity_forum_new_topic">"Nuevo tópico"</string>
     <string name="title_activity_friends">"Amigos"</string>
     <string name="title_activity_friends_groups">"Grupos de amigos"</string>
     <string name="title_activity_library_list">"Lista de librerías"</string>
@@ -558,16 +522,12 @@ Mantenga pulsado para más opciones"</string>
     <string name="title_activity_sub_notion">"Nociones menores"</string>
     <string name="title_activity_tag">"Etiqueta"</string>
     <string name="title_activity_time">"Tiempo"</string>
-    <string name="title_activity_topic">"Tópico"</string>
     <string name="title_activity_user">"Usuario"</string>
     <string name="title_activity_user_location_history">"Historias de Ubicaciones"</string>
     <string name="title_activity_users">"Usuarios"</string>
     <string name="title_tab_cluster_map_info">"Información"</string>
     <string name="title_tab_elearning_all">"Todo"</string>
     <string name="title_tab_elearning_tags">"Etiquetas"</string>
-    <string name="title_tab_forum_last_topics">"Últimos tópicos"</string>
-    <string name="title_tab_forum_tag">"Etiquetas"</string>
-    <string name="title_tab_forum_unread">"Sin leer"</string>
     <string name="title_tab_home_agenda">"Agenda"</string>
     <string name="title_tab_home_evaluation">"Evaluaciones"</string>
     <string name="title_tab_home_home">"Inicio"</string>
@@ -578,12 +538,10 @@ Mantenga pulsado para más opciones"</string>
     <string name="title_tab_project_overview">"Vista Previa"</string>
     <string name="title_tab_project_users">"Usuarios"</string>
     <string name="title_tab_projects_graphic">"Gráficos Sagrados"</string>
-    <string name="title_tab_tags_forum">"Foro"</string>
     <string name="title_tab_tags_notions">"Nociones"</string>
     <string name="title_tab_user_achievements">"Logros"</string>
     <string name="title_tab_user_apps">"Aplicaciones"</string>
     <string name="title_tab_user_expertises">"Experiencias"</string>
-    <string name="title_tab_user_forum">"Foro"</string>
     <string name="title_tab_user_overview">"Vista Previa"</string>
     <string name="title_tab_user_partnerships">"Patrocinios"</string>
     <string name="title_tab_user_patronages">"Patrocinadores"</string>
@@ -592,7 +550,6 @@ Mantenga pulsado para más opciones"</string>
     <string name="title_tab_users_all">"Todo"</string>
     <string name="today">"Hoy"</string>
     <string name="tomorrow">"Mañana"</string>
-    <string name="topics_kind_survey">"Encuesta"</string>
     <string name="user_achievement_bronze">"bronce"</string>
     <string name="user_achievement_gold">"oro"</string>
     <string name="user_achievement_silver">"plata"</string>
