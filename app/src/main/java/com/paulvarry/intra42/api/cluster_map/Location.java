@@ -2,6 +2,8 @@ package com.paulvarry.intra42.api.cluster_map;
 
 import android.util.SparseArray;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.model.CursusUsers;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
@@ -12,8 +14,6 @@ import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
-
-import androidx.annotation.Nullable;
 
 public class Location implements Serializable {
 
@@ -28,13 +28,13 @@ public class Location implements Serializable {
      * Default 1
      */
     @SerializedName("sizeX")
-    public float sizeX;
+    public float sizeX = 1;
     /**
      * between 0 and 1
      * Default 1
      */
     @SerializedName("sizeY")
-    public float sizeY;
+    public float sizeY = 1;
     @SerializedName("angle")
     public float angle;
 
@@ -44,9 +44,16 @@ public class Location implements Serializable {
         host = (String) map.get("host");
         if (map.get("kind") != null)
             kind = Kind.valueOf((String) map.get("kind"));
-        sizeX = Float.valueOf(map.get("sizeX").toString());
-        sizeY = Float.valueOf(map.get("sizeY").toString());
-        angle = Float.valueOf(map.get("angle").toString());
+
+        Object x = map.get("sizeX");
+        if (x != null)
+            sizeX = Float.valueOf(x.toString());
+        Object y = map.get("sizeY");
+        if (y != null)
+            sizeY = Float.valueOf(y.toString());
+        Object a = map.get("angle");
+        if (a != null)
+            angle = Float.valueOf(a.toString());
     }
 
     public Location() {
