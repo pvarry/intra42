@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorBackgroundFloating"
+    android:background="?attr/colorSurface"
     android:clickable="true"
     android:elevation="2dp"
     android:focusable="true"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="?android:textColorPrimary" />
+            android:textColor="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/textViewSummary"

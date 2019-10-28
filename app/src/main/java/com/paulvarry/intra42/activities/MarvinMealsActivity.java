@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.adapters.RecyclerItemSmall;
 import com.paulvarry.intra42.adapters.SimpleHeaderRecyclerAdapter;
@@ -14,13 +16,14 @@ import com.paulvarry.intra42.api.cantina.MarvinMeals;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
 import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Tools;
-import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import retrofit2.Response;
 
 public class MarvinMealsActivity extends BasicThreadActivity implements BasicThreadActivity.GetDataOnThread {
 
@@ -41,7 +44,7 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
 
         registerGetDataOnOtherThread(this);
 
-        MenuItem menuItem = navigationView.getMenu().getItem(5).getSubMenu().getItem(3);
+        MenuItem menuItem = navigationView.getMenu().getItem(4).getSubMenu().getItem(3);
         if (menuItem != null)
             menuItem.setChecked(true);
 
@@ -82,7 +85,7 @@ public class MarvinMealsActivity extends BasicThreadActivity implements BasicThr
             MarvinMeals last = null;
             for (MarvinMeals m : marvinMealList) {
                 if (last == null || !DateTool.sameDayOf(m.beginAt, last.beginAt))
-                    items.add(new RecyclerItemSmall<MarvinMeals>(DateTool.getDateLong(m.beginAt)));
+                    items.add(new RecyclerItemSmall<>(DateTool.getDateLong(m.beginAt)));
                 items.add(new RecyclerItemSmall<>(m));
                 last = m;
             }

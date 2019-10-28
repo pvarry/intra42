@@ -5,13 +5,6 @@ import android.content.Context;
 import com.google.gson.annotations.SerializedName;
 import com.paulvarry.intra42.api.IBaseItemMedium;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Partnerships implements IBaseItemMedium {
 
     private static final String API_ID = "id";
@@ -34,40 +27,6 @@ public class Partnerships implements IBaseItemMedium {
     @SerializedName(API_PARTNERSHIPS_USERS_URL)
     public String partnershipsUsersUrl;
 
-    static public List<Partnerships> get(JSONArray jsonArray) {
-        List<Partnerships> cursusArrayList = new ArrayList<>();
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                cursusArrayList.add(get(jsonArray.getJSONObject(i)));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return cursusArrayList;
-    }
-
-    static public Partnerships get(JSONObject jsonObject) {
-        Partnerships partnerships = null;
-
-        if (jsonObject != null) {
-            partnerships = new Partnerships();
-
-            try {
-                partnerships.id = jsonObject.getInt(API_ID);
-                partnerships.name = jsonObject.getString(API_NAME);
-                partnerships.tier = jsonObject.getInt(API_TIER);
-                partnerships.slug = jsonObject.getString(API_SLUG);
-                partnerships.url = jsonObject.getString(API_URL);
-                partnerships.partnershipsUsersUrl = jsonObject.getString(API_PARTNERSHIPS_USERS_URL);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return partnerships;
-    }
 
     @Override
     public String getName(Context context) {
@@ -86,7 +45,7 @@ public class Partnerships implements IBaseItemMedium {
 
     @Override
     public String getDetail(Context context) {
-        return "T" + String.valueOf(this.tier);
+        return "T" + this.tier;
     }
 
     @Override

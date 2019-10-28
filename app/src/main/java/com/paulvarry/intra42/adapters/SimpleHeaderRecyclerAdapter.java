@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.IBaseItemSmall;
 
@@ -105,12 +107,9 @@ public class SimpleHeaderRecyclerAdapter<T extends IBaseItemSmall> extends Recyc
         ViewHolderItem(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_view_section_item, parent, false));
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null)
-                        listener.onItemClick(item);
-                }
+            itemView.setOnClickListener(v -> {
+                if (listener != null)
+                    listener.onItemClick(item);
             });
 
             textViewTitle = itemView.findViewById(R.id.textViewTitle);

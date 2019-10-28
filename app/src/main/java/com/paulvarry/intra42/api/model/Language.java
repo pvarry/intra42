@@ -1,13 +1,6 @@
 package com.paulvarry.intra42.api.model;
 
-
-import android.content.Context;
-
 import com.google.gson.annotations.SerializedName;
-import com.paulvarry.intra42.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Language {
 
@@ -22,26 +15,10 @@ public class Language {
     @SerializedName(API_IDENTIFIER)
     public String identifier;
 
-    public Language() {
-    }
-
     public Language(int id, String name, String identifier) {
         this.id = id;
         this.name = name;
         this.identifier = identifier;
-    }
-
-    public static List<Language> getListOfLanguage(Context context) {
-
-        List<Language> list = new ArrayList<>();
-
-        list.add(new Language(1, context.getString(R.string.language_french), "fr"));
-        list.add(new Language(2, context.getString(R.string.language_english), "en"));
-        list.add(new Language(3, context.getString(R.string.language_romanian), "ro"));
-        list.add(new Language(5, context.getString(R.string.language_ukrainian), "uk"));
-
-        return list;
-
     }
 
     public String getFlag() {

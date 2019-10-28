@@ -19,7 +19,6 @@ public class BaseListAdapterSlugDetail<T extends IBaseItemMedium> extends BaseAd
     private List<T> itemList;
 
     public BaseListAdapterSlugDetail(Context context, List<T> items) {
-
         this.context = context;
         this.itemList = items;
     }
