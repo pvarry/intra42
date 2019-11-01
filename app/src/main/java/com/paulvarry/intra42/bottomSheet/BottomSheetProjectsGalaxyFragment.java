@@ -6,15 +6,17 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.api.ApiService;
 import com.paulvarry.intra42.api.ServiceGenerator;
-import com.paulvarry.intra42.api.model.ProjectDataIntra;
 import com.paulvarry.intra42.ui.ListenedBottomSheetDialogFragment;
+import com.paulvarry.intra42.ui.galaxy.model.ProjectDataIntra;
 
 public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialogFragment implements View.OnClickListener {
 
@@ -77,42 +79,42 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
         buttonOpen = contentView.findViewById(R.id.buttonOpen);
 
         buttonOpen.setOnClickListener(this);
-        textViewTitle.setText(projectData.name);
+        textViewTitle.setText(projectData.getName());
 
         String state;
-        if (projectData.state == null)
+        if (projectData.getState() == null)
             state = getString(R.string.galaxy_unknown_state);
-        else if (projectData.state == ProjectDataIntra.State.DONE)
+        else if (projectData.getState() == ProjectDataIntra.State.DONE)
             state = getString(R.string.galaxy_succeeded);
-        else if (projectData.state == ProjectDataIntra.State.FAIL)
+        else if (projectData.getState() == ProjectDataIntra.State.FAIL)
             state = getString(R.string.galaxy_failed);
-        else if (projectData.state == ProjectDataIntra.State.IN_PROGRESS)
+        else if (projectData.getState() == ProjectDataIntra.State.IN_PROGRESS)
             state = getString(R.string.galaxy_in_progress);
-        else if (projectData.state == ProjectDataIntra.State.AVAILABLE)
+        else if (projectData.getState() == ProjectDataIntra.State.AVAILABLE)
             state = getString(R.string.galaxy_available);
-        else if (projectData.state == ProjectDataIntra.State.UNAVAILABLE)
+        else if (projectData.getState() == ProjectDataIntra.State.UNAVAILABLE)
             state = getString(R.string.galaxy_unavailable);
         else
-            state = projectData.state.toString();
+            state = projectData.getState().toString();
 
-        if (!state.isEmpty() && projectData.finalMark != null)
+        if (!state.isEmpty() && projectData.getFinalMark() != null)
             state += " • ";
-        if (projectData.finalMark != null)
-            state += projectData.finalMark;
+        if (projectData.getFinalMark() != null)
+            state += projectData.getFinalMark();
         textViewState.setText(state);
 
-        String info = projectData.difficulty;
-        if (projectData.duration != null && !projectData.duration.isEmpty())
-            info += " • " + projectData.duration;
+        String info = projectData.getDifficulty();
+        if (projectData.getDuration() != null && !projectData.getDuration().isEmpty())
+            info += " • " + projectData.getDuration();
         textViewInfo.setText(info);
 
-        if (projectData.rules != null && !projectData.rules.isEmpty()) {
+        if (projectData.getRules() != null && !projectData.getRules().isEmpty()) {
             linearLayoutRules.setVisibility(View.VISIBLE);
-            textViewRules.setText(projectData.rules);
+            textViewRules.setText(projectData.getRules());
         } else
             linearLayoutRules.setVisibility(View.GONE);
 
-        textViewDescription.setText(projectData.description);
+        textViewDescription.setText(projectData.getDescription());
     }
 
     /**
@@ -123,7 +125,7 @@ public class BottomSheetProjectsGalaxyFragment extends ListenedBottomSheetDialog
     @Override
     public void onClick(View v) {
         if (v == buttonOpen)
-            ProjectActivity.openIt(getContext(), projectData.slug, idUser);
+            ProjectActivity.openIt(getContext(), projectData.getSlug(), idUser);
     }
 
 }

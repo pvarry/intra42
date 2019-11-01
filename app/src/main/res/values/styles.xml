@@ -165,7 +165,7 @@
         <item name="colorProjectOnValidated">?attr/colorOnSecondary</item>
         <item name="colorProjectFailed">?attr/colorError</item>
         <item name="colorProjectOnFailed">?attr/colorOnError</item>
-        <item name="weightPath">4.5dp</item>
+        <item name="weightPath">4dp</item>
     </style>
 
     <style name="AppTheme.Transparent" parent="AppTheme.NoActionBar">

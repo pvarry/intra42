@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.paulvarry.intra42.ui.Galaxy
+    <com.paulvarry.intra42.ui.galaxy.Galaxy
         android:id="@+id/galaxy"
         style="@style/AppTheme.Galaxy"
         android:layout_width="match_parent"

@@ -9,26 +9,34 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.adapters.ListAdapterMarks;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
-import com.paulvarry.intra42.api.model.ProjectDataIntra;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
-import com.paulvarry.intra42.ui.Galaxy;
+import com.paulvarry.intra42.ui.galaxy.Galaxy;
+import com.paulvarry.intra42.ui.galaxy.model.ProjectDataIntra;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.GalaxyUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -117,7 +125,7 @@ public class UserProjectsFragment
                 @Override
                 public void onResponse(Call<List<ProjectDataIntra>> call, Response<List<ProjectDataIntra>> response) {
                     if (response.isSuccessful())
-                        galaxy.setData(response.body());
+                        galaxy.setData(response.body(), activity.selectedCursus.cursusId);
                     else {
                         setGalaxyNoData();
                     }
@@ -129,24 +137,23 @@ public class UserProjectsFragment
                     setGalaxyNoData();
                 }
             });
-            galaxy.setState(getString(R.string.info_loading));
+            galaxy.setMessage(getString(R.string.info_loading));
         }
     }
 
-    void setGalaxyNoData() {
+    private void setGalaxyNoData() {
         if (!isAdded() || isDetached()) return;
         Toast.makeText(activity, R.string.galaxy_no_live_data, Toast.LENGTH_SHORT).show();
-        List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(activity, activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
-        galaxy.setData(list);
+        List<ProjectDataIntra> list = GalaxyUtils.Companion.getDataFromApp(activity, activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+        galaxy.setData(list, activity.selectedCursus.cursusId);
     }
 
-    void setViewHide() {
+    private void setViewHide() {
         galaxy.setVisibility(View.GONE);
         listView.setVisibility(View.GONE);
         listViewAll.setVisibility(View.GONE);
         textViewNoItem.setVisibility(View.GONE);
     }
-
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -217,8 +224,8 @@ public class UserProjectsFragment
             return;
         spinnerSelected = position;
         if (position == 0) { // show galaxy
-            List<ProjectDataIntra> list = GalaxyUtils.getDataFromApp(activity, activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
-            galaxy.setData(list);
+            List<ProjectDataIntra> list = GalaxyUtils.Companion.getDataFromApp(activity, activity.selectedCursus.cursusId, AppSettings.getUserCampus(activity.app), activity.user);
+            galaxy.setData(list, activity.selectedCursus.cursusId);
             animate(spinnerContent, galaxy);
         } else {
             List<ProjectsUsers> list;

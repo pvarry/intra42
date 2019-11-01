@@ -18,15 +18,20 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.Toolbar;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.activities.project.ProjectActivity;
 import com.paulvarry.intra42.adapters.ListAdapterMarks;
 import com.paulvarry.intra42.api.ApiServiceAuthServer;
-import com.paulvarry.intra42.api.model.ProjectDataIntra;
 import com.paulvarry.intra42.api.model.ProjectsUsers;
 import com.paulvarry.intra42.bottomSheet.BottomSheetProjectsGalaxyFragment;
 import com.paulvarry.intra42.ui.BasicThreadActivity;
-import com.paulvarry.intra42.ui.Galaxy;
+import com.paulvarry.intra42.ui.galaxy.Galaxy;
+import com.paulvarry.intra42.ui.galaxy.model.ProjectDataIntra;
 import com.paulvarry.intra42.ui.tools.Navigation;
 import com.paulvarry.intra42.utils.AppSettings;
 import com.paulvarry.intra42.utils.GalaxyUtils;
@@ -35,10 +40,6 @@ import com.paulvarry.intra42.utils.Tools;
 import java.io.IOException;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.Toolbar;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -144,7 +145,7 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
             textViewNoItem.setVisibility(View.VISIBLE);
         else {
             galaxy.bringToFront();
-            galaxy.setData(galaxyData);
+            galaxy.setData(galaxyData, cursus);
         }
     }
 
@@ -254,7 +255,7 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
         if (Tools.apiIsSuccessfulNoThrow(res))
             galaxyData = res.body();
         else
-            galaxyData = GalaxyUtils.getDataFromApp(this, cursus, campus, app.me);
+            galaxyData = GalaxyUtils.Companion.getDataFromApp(this, cursus, campus, app.me);
         if (spinnerSelected == -1)
             spinnerSelected = 0;
     }

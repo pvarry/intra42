@@ -1,6 +1,6 @@
 package com.paulvarry.intra42.api;
 
-import com.paulvarry.intra42.api.model.ProjectDataIntra;
+import com.paulvarry.intra42.ui.galaxy.model.ProjectDataIntra;
 
 import java.util.List;
 
