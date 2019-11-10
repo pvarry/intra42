@@ -17,7 +17,6 @@ import com.paulvarry.intra42.utils.DateTool;
 import com.paulvarry.intra42.utils.Pagination;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,9 +42,6 @@ public class TestingActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-
-                Date d = new Date(2017, 7, 0);
 
                 int campus = AppSettings.getUserCampus(app);
                 int cursus = AppSettings.getUserCursus(app);

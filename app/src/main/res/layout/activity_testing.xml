@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.paulvarry.intra42.activities.TestingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ornare efficitur quam et elementum. Duis maximus justo id diam iaculis interdum. Fusce at sem id elit hendrerit tempor. Aenean lectus libero, euismod et tortor quis, suscipit malesuada neque. Maecenas pharetra tempus leo non imperdiet. Mauris porta nibh eu tempus maximus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce tincidunt eu massa id volutpat. Pellentesque convallis, nulla vel mollis cursus, odio velit placerat erat, vitae posuere nisi est id lorem. In non scelerisque sapien. Etiam felis ligula, suscipit sit amet tincidunt viverra, viverra sed augue.
 
 Morbi sed sollicitudin ipsum, et pellentesque urna. Sed nibh mauris, cursus sit amet feugiat non, faucibus finibus erat. Cras consectetur, arcu in egestas cursus, est turpis fringilla tellus, id pellentesque massa magna a erat. Donec nec tortor eget eros lobortis tincidunt. Vivamus non ligula a odio interdum mollis in at erat. Quisque elementum arcu sit amet faucibus suscipit. Duis facilisis lacus blandit tortor vehicula lobortis. Aliquam efficitur tortor sed porta posuere. Etiam sit amet elit lacus. Etiam ac porttitor magna. Sed id viverra ante." />

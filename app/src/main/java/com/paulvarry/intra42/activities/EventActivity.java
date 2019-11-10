@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.R;
@@ -22,7 +24,9 @@ import com.paulvarry.intra42.api.model.Events;
 import com.paulvarry.intra42.fragments.EventFragment;
 import com.paulvarry.intra42.utils.Calendar;
 import com.paulvarry.intra42.utils.ThemeHelper;
+
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,7 +44,7 @@ public class EventActivity extends AppCompatActivity implements EventFragment.On
 
     public static Intent getIntent(Context context, Events event) {
         Intent intent = new Intent(context, EventActivity.class);
-        intent.putExtra(EventActivity.ARG_EVENT, ServiceGenerator.getGson().toJson(event));
+        intent.putExtra(ARG_EVENT, ServiceGenerator.getGson().toJson(event));
         return intent;
     }
 

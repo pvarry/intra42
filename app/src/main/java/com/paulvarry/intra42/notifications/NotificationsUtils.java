@@ -108,14 +108,10 @@ public class NotificationsUtils {
     public static void notify(final Context context, final Events event, EventsUsers eventsUsers, boolean activeAction, boolean autoCancel) {
 
         Intent notificationIntent = EventActivity.getIntent(context, event);
-
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        PendingIntent intent = PendingIntent.getActivity(context, event.id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         final NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
-                .setContentTitle(event.name)
+                .setContentTitle(event.name.trim())
                 .setContentText(event.description.replace('\n', ' '))
                 .setWhen(event.beginAt.getTime())
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(event.description))
@@ -130,11 +126,7 @@ public class NotificationsUtils {
 
             Handler h = new Handler();
             long delayInMilliseconds = 5000;
-            h.postDelayed(new Runnable() {
-                public void run() {
-                    NotificationManagerCompat.from(context).cancel(context.getString(R.string.notifications_events_unique_id), event.id);
-                }
-            }, delayInMilliseconds);
+            h.postDelayed(() -> NotificationManagerCompat.from(context).cancel(context.getString(R.string.notifications_events_unique_id), event.id), delayInMilliseconds);
 
         } else if (activeAction) {
             Intent notificationIntentAction = new Intent(context, IntentEvent.class);
@@ -231,7 +223,7 @@ public class NotificationsUtils {
         if (notificationIntent != null) {
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            pendingIntentOpen = PendingIntent.getActivity(app, 0, notificationIntent, 0);
+            pendingIntentOpen = PendingIntent.getActivity(app, scaleTeams.id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
         builder.setChannelId(app.getString(R.string.notifications_bookings_unique_id))
@@ -278,7 +270,7 @@ public class NotificationsUtils {
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        PendingIntent intent = PendingIntent.getActivity(context, announcements.id, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = getBaseNotification(context)
                 .setChannelId(context.getString(R.string.notifications_announcements_unique_id))
