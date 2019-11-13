@@ -57,7 +57,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode getVersionCodeTimestamp()
-        versionName "0.11.2"
+        versionName "0.12.0"
         signingConfig signingConfigs.config
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -113,7 +113,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0-beta01'
+    implementation 'com.google.android.material:material:1.1.0-beta02'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'com.github.Commit451:bypasses:1.1.0'
