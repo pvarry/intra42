@@ -1,10 +1,8 @@
 package com.paulvarry.intra42.activities;
 
-import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -12,7 +10,6 @@ import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,7 +37,6 @@ import com.paulvarry.intra42.utils.Token;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +45,7 @@ import retrofit2.Response;
 public class LaunchActivity extends AppCompatActivity {
 
     public AppClass app;
-    private ViewGroup viewGroupNeedLogin;
+    private Button buttonLogin;
     private Button buttonViewSources;
     private TextView textViewLoadingInfo;
     private ProgressBar progressBarLoading;
@@ -75,7 +71,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         AppClass.scheduleAlarm(this);
 
-        viewGroupNeedLogin = findViewById(R.id.linearLayoutNeedLogin);
+        buttonLogin = findViewById(R.id.launch_buttonLogin);
         buttonViewSources = findViewById(R.id.buttonViewSources);
         textViewLoadingInfo = findViewById(R.id.textViewLoadingInfo);
         progressBarLoading = findViewById(R.id.progressBarLoading);
@@ -87,59 +83,30 @@ public class LaunchActivity extends AppCompatActivity {
         else if (ServiceGenerator.have42Token() && app.userIsLogged(false)) {
             setViewLoading();
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            new Thread(() -> {
+                final boolean ret = app.initCache(false, LaunchActivity.this);
+                runOnUiThread(() -> {
+                            if (ret) {
+                                finishCache();
+                            } else
+                                setViewLogin();
+                        }
+                );
 
-                    final boolean ret = app.initCache(false, LaunchActivity.this);
-                    runOnUiThread(new Runnable() {
-                                      @Override
-                                      public void run() {
-                                          if (ret) {
-                                              finishCache();
-                                          } else
-                                              setViewLogin();
-                                      }
-                                  }
-                    );
-
-                }
             }).start();
         } else
             setViewLogin();
 
-        buttonViewSources.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!AppSettings.Advanced.getAllowAdvanced(LaunchActivity.this)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LaunchActivity.this);
-                    builder.setTitle(R.string.pref_title_advanced_data_save_logs);
-                    builder.setMessage(R.string.pref_summary_advanced_data_save_logs);
-                    builder.setNegativeButton(android.R.string.cancel, null);
-                    builder.setPositiveButton(getString(R.string.dialog_enable_app_logs), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            AppSettings.Advanced.setAllowAdvanced(LaunchActivity.this, true);
-                            AppSettings.Advanced.setAllowSaveLogs(LaunchActivity.this, true);
-                            Toast.makeText(LaunchActivity.this, getString(R.string.dont_forget_to_restart), Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    builder.show();
-                } else {
-                    AppSettings.Advanced.setAllowSaveLogs(LaunchActivity.this, false);
-                    Toast.makeText(LaunchActivity.this, getString(R.string.toast_logs_disabled), Toast.LENGTH_LONG).show();
-                }
-
-                return true;
-            }
-        });
+        buttonViewSources.setOnLongClickListener(this::onViewSourcesLongClick);
+        buttonViewSources.setOnClickListener(this::onViewSourcesClick);
+        buttonLogin.setOnClickListener(this::onLoginClick);
     }
 
     private void setViewHide() {
         textViewLoadingInfo.setVisibility(View.GONE);
         textViewStatus.setVisibility(View.GONE);
         progressBarLoading.setVisibility(View.GONE);
-        viewGroupNeedLogin.setVisibility(View.GONE);
+        buttonLogin.setVisibility(View.GONE);
         buttonViewSources.setVisibility(View.GONE);
     }
 
@@ -152,7 +119,7 @@ public class LaunchActivity extends AppCompatActivity {
 
     private void setViewLogin() {
         setViewHide();
-        viewGroupNeedLogin.setVisibility(View.VISIBLE);
+        buttonLogin.setVisibility(View.VISIBLE);
         buttonViewSources.setVisibility(View.VISIBLE);
     }
 
@@ -186,21 +153,6 @@ public class LaunchActivity extends AppCompatActivity {
             if (referrerUri != null)
                 referrer = referrerUri.getHost();
         }
-        ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
-        if (referrer == null && am != null) {
-            try {
-                List<ActivityManager.RecentTaskInfo> recentTasks = am.getRecentTasks(10000, ActivityManager.RECENT_WITH_EXCLUDED);
-                ActivityManager.RecentTaskInfo t = recentTasks.get(1);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-                    referrer = t.baseActivity.getPackageName();
-                else {
-                    if (t.origActivity != null)
-                        referrer = t.origActivity.getPackageName();
-                }
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            }
-        }
         return referrer;
     }
 
@@ -229,19 +181,11 @@ public class LaunchActivity extends AppCompatActivity {
                     Token.save(LaunchActivity.this, token);
                     ServiceGenerator.setToken(token);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            app.initCache(true, LaunchActivity.this);
-                            AppClass.scheduleAlarm(LaunchActivity.this);
+                    new Thread(() -> {
+                        app.initCache(true, LaunchActivity.this);
+                        AppClass.scheduleAlarm(LaunchActivity.this);
 
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    finishCache();
-                                }
-                            });
-                        }
+                        runOnUiThread(() -> finishCache());
                     }).start();
 
                 } else if (response.code() == 200) {
@@ -300,7 +244,7 @@ public class LaunchActivity extends AppCompatActivity {
         finish();
     }
 
-    public void login(View view) {
+    public void onLoginClick(View view) {
         Analytics.signInAttempt();
         Uri loginUri = Uri.parse(ApiService.API_BASE_URL + "/oauth/authorize?client_id=" + Credential.UID + "&redirect_uri=" + Credential.API_OAUTH_REDIRECT + "&response_type=code&scope=" + Credential.SCOPE);
 
@@ -325,7 +269,7 @@ public class LaunchActivity extends AppCompatActivity {
         }
     }
 
-    public void openSources(View view) {
+    public void onViewSourcesClick(View view) {
         Uri uri = Uri.parse(getString(R.string.Github_link));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
@@ -333,20 +277,37 @@ public class LaunchActivity extends AppCompatActivity {
         finish();
     }
 
+    private boolean onViewSourcesLongClick(View view) {
+        if (!AppSettings.Advanced.getAllowAdvanced(LaunchActivity.this)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(LaunchActivity.this);
+            builder.setTitle(R.string.pref_title_advanced_data_save_logs);
+            builder.setMessage(R.string.pref_summary_advanced_data_save_logs);
+            builder.setNegativeButton(android.R.string.cancel, null);
+            builder.setPositiveButton(getString(R.string.dialog_enable_app_logs), (dialog, which) -> {
+                AppSettings.Advanced.setAllowAdvanced(LaunchActivity.this, true);
+                AppSettings.Advanced.setAllowSaveLogs(LaunchActivity.this, true);
+                Toast.makeText(LaunchActivity.this, getString(R.string.dont_forget_to_restart), Toast.LENGTH_LONG).show();
+            });
+            builder.show();
+        } else {
+            AppSettings.Advanced.setAllowSaveLogs(LaunchActivity.this, false);
+            Toast.makeText(LaunchActivity.this, getString(R.string.toast_logs_disabled), Toast.LENGTH_LONG).show();
+        }
+
+        return true;
+    }
+
     public void updateViewState(final String info, final String status, final int progress, final int progressMax) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (info != null)
-                    textViewLoadingInfo.setText(info);
-                if (status != null)
-                    textViewStatus.setText(status);
-                if (progressBarLoading != null) {
-                    progressBarLoading.setIndeterminate(false);
-                    progressBarLoading.setProgress(progress);
-                    if (progressMax != -1)
-                        progressBarLoading.setMax(progressMax);
-                }
+        runOnUiThread(() -> {
+            if (info != null)
+                textViewLoadingInfo.setText(info);
+            if (status != null)
+                textViewStatus.setText(status);
+            if (progressBarLoading != null) {
+                progressBarLoading.setIndeterminate(false);
+                progressBarLoading.setProgress(progress);
+                if (progressMax != -1)
+                    progressBarLoading.setMax(progressMax);
             }
         });
     }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="?colorPrimary"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -85,38 +85,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBarLoading" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayoutNeedLogin"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/launch_buttonLogin"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical"
+        android:text="@string/login_open_custom_chrome_tabs"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.6">
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="login"
-            android:text="@string/login_open_custom_chrome_tabs"
-            android:theme="@style/AppTheme.Button"
-            app:layout_constraintStart_toStartOf="@+id/linearLayoutNeedLogin"
-            app:layout_constraintTop_toTopOf="@+id/linearLayoutNeedLogin" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.6" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonViewSources"
@@ -127,15 +111,15 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="0dp"
-        android:onClick="openSources"
+        android:alpha="0.5"
         android:text="@string/login_view_sources"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-        android:textColor="?colorPrimaryDark"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutNeedLogin"
+        app:layout_constraintTop_toBottomOf="@+id/launch_buttonLogin"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
