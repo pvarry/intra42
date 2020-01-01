@@ -16,7 +16,7 @@ import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.api.model.Users;
 
 /**
- * This class is a interface for app Settings set with {@link com.paulvarry.intra42.activities.SettingsActivity SettingsActivity}.
+ * This class is a interface for app Settings set with {@link com.paulvarry.intra42.activities.settings.SettingsActivity SettingsActivity}.
  * <p>
  * Default value for list settings:
  * <p>
@@ -439,17 +439,17 @@ public class AppSettings {
 
                 EnumTheme themeTmp = null;
                 Coalitions coalitions = user.coalitions.get(0);
-                switch (coalitions.id) {
-                    case 1:
+                switch (coalitions.color.replace("#", "").toUpperCase()) {
+                    case "4180DB": //The Federation
                         themeTmp = EnumTheme.BLUE;
                         break;
-                    case 2:
+                    case "33C47F": //The Alliance
                         themeTmp = EnumTheme.GREEN;
                         break;
-                    case 3:
+                    case "A061D1": //The Assembly
                         themeTmp = EnumTheme.PURPLE;
                         break;
-                    case 4:
+                    case "FF6950": //The Order
                         themeTmp = EnumTheme.RED;
                         break;
                 }
