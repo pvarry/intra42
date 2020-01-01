@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.model.Coalitions;
 import com.paulvarry.intra42.utils.mImage;
@@ -19,9 +23,6 @@ import com.paulvarry.intra42.utils.mImage;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapterCoalitionsBlocs extends RecyclerView.Adapter<RecyclerAdapterCoalitionsBlocs.ViewHolder> {
 
@@ -54,40 +55,16 @@ public class RecyclerAdapterCoalitionsBlocs extends RecyclerView.Adapter<Recycle
         NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
         holder.textViewScore.setText(numberFormat.format(item.score));
 
-        holder.imageView.setVisibility(View.VISIBLE);
-        switch (item.slug) {
-            case "the-federation":
-                holder.imageView.setImageResource(R.drawable.federation_background);
-                break;
-            case "the-alliance":
-                holder.imageView.setImageResource(R.drawable.alliance_background);
-                break;
-            case "the-assembly":
-                holder.imageView.setImageResource(R.drawable.assembly_background);
-                break;
-            case "the-order":
-                holder.imageView.setImageResource(R.drawable.order_background);
-                break;
-            default:
-                holder.imageView.setVisibility(View.GONE);
-        }
+        mImage.setPicasso(Uri.parse(item.coverUrl), holder.imageViewBackground, 0);
 
         holder.frameLayoutBanner.setBackgroundResource(R.drawable.banner);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.frameLayoutBanner.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(item.color)));
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final Bitmap bitmap = mImage.loadImageSVG(item.imageUrl);
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        holder.imageViewBanner.setImageBitmap(bitmap);
-                    }
-                });
-            }
+        new Thread(() -> {
+            final Bitmap bitmap = mImage.loadImageSVG(item.imageUrl);
+            activity.runOnUiThread(() -> holder.imageViewBanner.setImageBitmap(bitmap));
         }).start();
     }
 
@@ -102,7 +79,7 @@ public class RecyclerAdapterCoalitionsBlocs extends RecyclerView.Adapter<Recycle
 
         private FrameLayout frameLayoutBanner;
         private ImageView imageViewBanner;
-        private ImageView imageView;
+        private ImageView imageViewBackground;
         private TextView textViewCoalitions;
         private TextView textViewScore;
 
@@ -111,7 +88,7 @@ public class RecyclerAdapterCoalitionsBlocs extends RecyclerView.Adapter<Recycle
 
             frameLayoutBanner = itemView.findViewById(R.id.frameLayoutBanner);
             imageViewBanner = itemView.findViewById(R.id.imageViewBanner);
-            imageView = itemView.findViewById(R.id.imageView);
+            imageViewBackground = itemView.findViewById(R.id.imageViewBackground);
             textViewCoalitions = itemView.findViewById(R.id.textViewCoalitions);
             textViewScore = itemView.findViewById(R.id.textViewScore);
         }

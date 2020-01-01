@@ -12,6 +12,8 @@ public class Coalitions {
     public String slug;
     @SerializedName("image_url")
     public String imageUrl;
+    @SerializedName("cover_url")
+    public String coverUrl;
     @SerializedName("color")
     public String color;
     @SerializedName("score")

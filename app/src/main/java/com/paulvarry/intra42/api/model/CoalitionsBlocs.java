@@ -18,9 +18,9 @@ public class CoalitionsBlocs {
     @SerializedName(API_ID)
     public int id;
     @SerializedName(API_CAMPUS_ID)
-    public int cursusId;
-    @SerializedName(API_CURSUS_ID)
     public int campusId;
+    @SerializedName(API_CURSUS_ID)
+    public int cursusId;
     @SerializedName(API_SQUAD_SIZE)
     public int squadSize;
     @SerializedName(API_CREATED_AT)

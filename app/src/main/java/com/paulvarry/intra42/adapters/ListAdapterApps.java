@@ -128,7 +128,7 @@ public class ListAdapterApps extends BaseAdapter {
 
             uri = Uri.parse(url.replace("/uploads", ""));
         }
-        mImage.setPicasso(context, uri, holder.imageViewIcon, R.drawable.ic_app_no_image);
+        mImage.setPicasso(uri, holder.imageViewIcon, R.drawable.ic_app_no_image);
 
         return convertView;
     }

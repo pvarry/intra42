@@ -1,6 +1,5 @@
 package com.paulvarry.intra42.utils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -51,7 +50,7 @@ public class mImage {
         return null;
     }
 
-    public static void setPicasso(Context context, Uri url, ImageView imageView, @DrawableRes int placeHolder) {
+    public static void setPicasso(Uri url, ImageView imageView, @DrawableRes int placeHolder) {
 
         Picasso picasso = Picasso.get();
 
@@ -60,13 +59,15 @@ public class mImage {
 
         RequestCreator requestCreator = picasso.load(url);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            requestCreator.placeholder(placeHolder);
-            requestCreator.error(placeHolder);
-        } else {
-            Drawable drawable = ContextCompat.getDrawable(context, placeHolder);
-            requestCreator.placeholder(drawable);
-            requestCreator.error(drawable);
+        if (placeHolder != 0) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                requestCreator.placeholder(placeHolder);
+                requestCreator.error(placeHolder);
+            } else {
+                Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), placeHolder);
+                requestCreator.placeholder(drawable);
+                requestCreator.error(drawable);
+            }
         }
 
         requestCreator.into(imageView);

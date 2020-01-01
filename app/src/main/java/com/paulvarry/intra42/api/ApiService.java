@@ -366,7 +366,7 @@ public interface ApiService {
     Call<List<Coalitions>> getUsersCoalitions(@Path("login") String login);
 
     @GET("/v2/blocs")
-    Call<List<CoalitionsBlocs>> getCoalitionsBlocs();
+    Call<List<CoalitionsBlocs>> getCoalitionsBlocs(@Query("filter[cursus_id]") int cursus_id, @Query("filter[campus_id]") int campus_id);
 
     /* Quests */
     @GET("/v2/users/{login}/quests_users")

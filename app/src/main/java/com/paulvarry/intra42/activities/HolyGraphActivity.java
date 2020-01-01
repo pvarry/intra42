@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -82,11 +81,9 @@ public class HolyGraphActivity extends BasicThreadActivity implements AdapterVie
         spinner.getBackground().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Toolbar.LayoutParams lp = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMarginStart((int) Tools.dpToPx(context, 8));
-            spinner.setLayoutParams(lp);
-        }
+        Toolbar.LayoutParams lp = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMarginStart((int) Tools.dpToPx(context, 8));
+        spinner.setLayoutParams(lp);
 
         if (savedInstanceState != null)
             spinner.setSelection(savedInstanceState.getInt(STATE_POSITION));

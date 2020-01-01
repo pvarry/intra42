@@ -2,6 +2,7 @@ package com.paulvarry.intra42.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -84,7 +85,11 @@ public class CoalitionsActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        Drawable decoDrawable = decoration.getDrawable();
+        decoDrawable.setAlpha(1);
+        decoration.setDrawable(decoDrawable);
+        recyclerView.addItemDecoration(decoration);
     }
 
     @Override
@@ -98,7 +103,7 @@ public class CoalitionsActivity
         int campus = AppSettings.getAppCampus(app);
         int cursus = AppSettings.getAppCursus(app);
 
-        Response<List<CoalitionsBlocs>> responseCoalitions = api.getCoalitionsBlocs().execute();
+        Response<List<CoalitionsBlocs>> responseCoalitions = api.getCoalitionsBlocs(cursus, campus).execute();
         if (Tools.apiIsSuccessful(responseCoalitions)) {
             for (CoalitionsBlocs b : responseCoalitions.body()) {
                 if (b.campusId == campus && b.cursusId == cursus) {
