@@ -248,6 +248,7 @@ La modification sera possible à _timeFuture_."</string>
     <string name="evaluation_with">"Avec"</string>
     <string name="evaluations_booked_slot">"Créneau de correction"</string>
     <string name="evaluations_confirmation_delete_booked_slot">"Êtes-vous sûr de vouloir supprimer ce slot avec une correction ?"</string>
+    <string name="event_cancellation_date_exceeded">"Limite de date d'annulation dépassée"</string>
     <string name="event_check_registration">"Vérification de votre inscription"</string>
     <string name="event_full">"Complet"</string>
     <string name="event_kind_association">"association"</string>
@@ -263,7 +264,7 @@ La modification sera possible à _timeFuture_."</string>
     <string name="event_kind_unknown">"inconnu"</string>
     <string name="event_kind_workshop">"workshop"</string>
     <string name="event_nothing_found_for_your_campus_cursus">"Aucun événement trouvé pour votre campus/cursus"</string>
-    <string name="event_subscribe">"Souscrire"</string>
+    <string name="event_subscribe">"S'inscrire"</string>
     <string name="event_subscribed">"Inscrit"</string>
     <string name="event_subscription_unavailable">"Inscription impossible"</string>
     <string name="event_unsubscribe">"Se désinscrire"</string>
@@ -429,13 +430,21 @@ La modification sera possible à _timeFuture_."</string>
     <string name="pref_summary_calendar_enable">"Après vous ètre connecté a votre calendrier, cette application pourra publier les évènements sur ce dernié"</string>
     <string name="pref_summary_notifications_events">"Me notifier pour tous les évènements publiés sur l'intra de 42"</string>
     <string name="pref_summary_notifications_scales">"Rappel des évaluations"</string>
+    <string name="pref_summary_theme_app_bar_background">"Afficher une image stylisée relative au thème dans la barre d'application"</string>
+    <string name="pref_theme_app_bar_background">"Image dans la barre d'application"</string>
+    <string name="pref_theme_color_scheme_list_titles_auto">"Suivre le thème du système"</string>
+    <string name="pref_theme_color_scheme_list_titles_dark">"Sombre"</string>
+    <string name="pref_theme_color_scheme_list_titles_light">"Claire"</string>
+    <string name="pref_theme_info_need_restart_to_apply">"Vous devez redémarrer l'application pour pleinement appliquer le thème"</string>
     <string name="pref_theme_list_titles_android">"Android Noir"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Bleu (La Fédération)"</string>
     <string name="pref_theme_list_titles_default">"Intra (thème de la coalition automatique)"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Vert (L'Alliance)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Mauve (L'Assemblée)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Rouge (L'ordre)"</string>
+    <string name="pref_theme_switch_brightness">"Utiliser le thème sombre"</string>
     <string name="pref_theme_title_change_theme">"Choix du theme"</string>
+    <string name="pref_theme_title_example">"Exemple de theme"</string>
     <string name="pref_title_advanced_data_allow_beta">"Activer les paramètres avancés"</string>
     <string name="pref_title_advanced_data_markdown_render">"Interpréter le markdown"</string>
     <string name="pref_title_advanced_data_past_events">"Événements passés"</string>
@@ -455,6 +464,7 @@ La modification sera possible à _timeFuture_."</string>
     <string name="pref_title_notifications_frequency">"Fréquence de synchronisation"</string>
     <string name="pref_title_notifications_scales">"Notifier les corrections (beta)"</string>
     <string name="pref_title_notifications_sync_allow">"Activer les notifications et synchronisation"</string>
+    <string name="pref_title_theme">"Theme de l'application"</string>
     <string name="pref_unactivated">"Désactivé"</string>
     <string name="pref_value_all">"Tout"</string>
     <string name="profile_apps_private">"privé"</string>
@@ -488,7 +498,7 @@ La modification sera possible à _timeFuture_."</string>
 clique long pour plus d'action"</string>
     <string name="project_team_users_toast_leader">"%s (chef d'équipe)
 clique long pour plus d'action"</string>
-    <string name="project_user_not_registered">"Non enregistré "</string>
+    <string name="project_user_not_registered">"Non enregistré"</string>
     <string name="project_user_status_creating_group">"création de groupe"</string>
     <string name="project_user_status_finished">"fini"</string>
     <string name="project_user_status_in_progress">"en cours"</string>
