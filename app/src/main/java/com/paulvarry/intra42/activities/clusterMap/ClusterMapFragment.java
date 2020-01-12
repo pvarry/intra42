@@ -9,14 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.LocationHistoryActivity;
-import com.paulvarry.intra42.activities.user.UserActivity;
-import com.paulvarry.intra42.api.cluster_map.Cluster;
-import com.paulvarry.intra42.api.cluster_map.Location;
-import com.paulvarry.intra42.api.model.UsersLTE;
-import com.paulvarry.intra42.utils.clusterMap.ClusterData;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.paulvarry.intra42.R;
+import com.paulvarry.intra42.activities.LocationHistoryActivity;
+import com.paulvarry.intra42.activities.user.UserActivity;
+import com.paulvarry.intra42.api.cluster_map.Cluster;
+import com.paulvarry.intra42.api.cluster_map.Location;
+import com.paulvarry.intra42.api.model.UsersLTE;
+import com.paulvarry.intra42.utils.clusterMap.ClusterData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.onLocationClickListener {
     private static final String ARG_HOST_PREFIX = "hostPrefix";
 
-    private String clusterName;
+    private String clusterHostPrefix;
     private ClusterMapActivity activity;
     private ClusterData clusters;
 
@@ -54,13 +54,13 @@ public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.on
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param hostPrefix Hast prefix of this cluster.
      * @return A new instance of fragment ClusterMapFragment.
      */
-    public static ClusterMapFragment newInstance(String param1) {
+    public static ClusterMapFragment newInstance(String hostPrefix) {
         ClusterMapFragment fragment = new ClusterMapFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_HOST_PREFIX, param1);
+        args.putString(ARG_HOST_PREFIX, hostPrefix);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,7 +69,7 @@ public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.on
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            clusterName = getArguments().getString(ARG_HOST_PREFIX);
+            clusterHostPrefix = getArguments().getString(ARG_HOST_PREFIX);
         }
         activity = (ClusterMapActivity) getActivity();
     }
@@ -92,7 +92,7 @@ public class ClusterMapFragment extends Fragment implements ClusterMapAdapter.on
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         clusters = activity.clusterData;
-        Cluster clusterInfo = activity.clusterData.getCluster(clusterName);
+        Cluster clusterInfo = activity.clusterData.getCluster(clusterHostPrefix);
 
         if (clusterInfo == null || clusterInfo.map == null || clusterInfo.map.length == 0 || clusterInfo.sizeY == 0 || clusterInfo.sizeX == 0) {
             recyclerView.setVisibility(View.GONE);

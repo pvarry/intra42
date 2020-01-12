@@ -10,19 +10,31 @@ old_files = Dir.entries(OUTPUT_PATH)
                .map{|i| File.join(OUTPUT_PATH, i)}
 File.delete(*old_files) if old_files.any?
 
+COLOR_RED = "\033[0;31m"
+COLOR_GREEN = "\033[0;32m"
+COLOR_YELLOW = "\033[1;33m"
+COLOR_BLUE = "\033[0;34m"
+COLOR_RESET = "\033[0m"
+
 masters = JSON.parse(File.read("cluster_map-export.json"))
 maps = masters.map { |slug, cluster_map|
 
                 if cluster_map.nil?
-                  puts "[not found] ― #{cluster_map['name']} (#{slug})"
+                  puts "#{COLOR_YELLOW}[not found]#{COLOR_RESET} ― #{cluster_map['name']} (#{slug})"
                   next
                 end
 
                 unless cluster_map['isReadyToPublish']
-                  puts "[not ready] ― #{cluster_map['name']} (#{slug})"
+                  puts "#{COLOR_BLUE}[not ready]#{COLOR_RESET} ― #{cluster_map['name']} (#{slug})"
                   next
                 end
-                puts "[good]      ― #{cluster_map['name']} (#{slug})"
+
+                unless cluster_map['map'].is_a?(Array)
+                  puts "#{COLOR_RED}[corrupted]#{COLOR_RESET} ― #{cluster_map['name']} (#{slug})"
+                  next
+                end
+
+                puts "#{COLOR_GREEN}[good]#{COLOR_RESET}      ― #{cluster_map['name']} (#{slug})"
 
                 cluster_map
               }

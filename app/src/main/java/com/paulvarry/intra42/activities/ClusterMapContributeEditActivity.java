@@ -22,7 +22,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+
 import com.crashlytics.android.Crashlytics;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,11 +45,6 @@ import com.paulvarry.intra42.ui.BasicEditActivity;
 import com.paulvarry.intra42.utils.Tools;
 
 import java.util.Map;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 
 public class ClusterMapContributeEditActivity extends BasicEditActivity implements View.OnClickListener, ValueEventListener {
 
@@ -251,7 +252,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
 
         long end = System.nanoTime();
         long duration = end - start;
-        Log.d("map building took", String.valueOf(duration) + " nano seconds ; " + String.valueOf(duration / 1000000000.0d) + " seconds");
+        Log.d("map building took", duration + " nano seconds ; " + duration / 1000000000.0d + " seconds");
     }
 
     private View inflateClusterMapItem(int x, int y) {
@@ -393,7 +394,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         final RadioButton radioButtonWall = view.findViewById(R.id.radioButtonWall);
 //        Spinner spinnerLocationKind = view.findViewById(R.id.spinnerLocationKind);
 
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final MaterialAlertDialogBuilder alert = new MaterialAlertDialogBuilder(this);
 
         textInputLayoutHost.setVisibility(View.GONE);
 
@@ -494,7 +495,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         else if (wrapper.y == cluster.height)
             isRow = false;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 
         String[] action;
         if (isRow) {
@@ -531,7 +532,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         final EditText editTextScale = view.findViewById(R.id.editTextScale);
         final TextInputLayout textInputLayoutScale = view.findViewById(R.id.textInputLayoutScale);
 
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final MaterialAlertDialogBuilder alert = new MaterialAlertDialogBuilder(this);
 
         float baseValue = 1.0f;
         if (wrapper.location != null) {
@@ -617,7 +618,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
         if (wrapper == null)
             return;
 
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final MaterialAlertDialogBuilder alert = new MaterialAlertDialogBuilder(this);
 
         alert.setTitle(R.string.cluster_map_contribute_dialog_delete_title);
         if (finalIsRow)

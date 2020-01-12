@@ -13,47 +13,52 @@ import com.paulvarry.intra42.utils.clusterMap.ClusterLayersSettings;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Location implements Serializable {
 
+    private final static String FIELD_HOST = "host";
+    private final static String FIELD_KIND = "kind";
+    private final static String FIELD_SIZE_X = "sizeX";
+    private final static String FIELD_SIZE_Y = "sizeY";
+    private final static String FIELD_ANGLE = "angle";
     @Nullable
-    @SerializedName("host")
+    @SerializedName(FIELD_HOST)
     public String host;
     @Nullable
-    @SerializedName("kind")
+    @SerializedName(FIELD_KIND)
     public Kind kind;
     /**
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("sizeX")
+    @SerializedName(FIELD_SIZE_X)
     public float sizeX = 1;
     /**
      * between 0 and 1
      * Default 1
      */
-    @SerializedName("sizeY")
+    @SerializedName(FIELD_SIZE_Y)
     public float sizeY = 1;
-    @SerializedName("angle")
+    @SerializedName(FIELD_ANGLE)
     public float angle;
-
     public transient boolean highlight = false;
 
     public Location(Map<String, Object> map) {
-        host = (String) map.get("host");
-        if (map.get("kind") != null)
-            kind = Kind.valueOf((String) map.get("kind"));
+        host = (String) map.get(FIELD_HOST);
+        if (map.get(FIELD_KIND) != null)
+            kind = Kind.valueOf((String) map.get(FIELD_KIND));
 
-        Object x = map.get("sizeX");
+        Object x = map.get(FIELD_SIZE_X);
         if (x != null)
-            sizeX = Float.valueOf(x.toString());
-        Object y = map.get("sizeY");
+            sizeX = Float.parseFloat(x.toString());
+        Object y = map.get(FIELD_SIZE_Y);
         if (y != null)
-            sizeY = Float.valueOf(y.toString());
-        Object a = map.get("angle");
+            sizeY = Float.parseFloat(y.toString());
+        Object a = map.get(FIELD_ANGLE);
         if (a != null)
-            angle = Float.valueOf(a.toString());
+            angle = Float.parseFloat(a.toString());
     }
 
     public Location() {
@@ -105,7 +110,20 @@ public class Location implements Serializable {
         return highlight;
     }
 
+    public Map<String, Object> export() {
+        Map<String, Object> item = new HashMap<>();
+        item.put(FIELD_HOST, host);
+        if (kind != null)
+            item.put(FIELD_KIND, kind.name().toUpperCase());
+        item.put(FIELD_SIZE_X, sizeX);
+        item.put(FIELD_SIZE_Y, sizeY);
+        item.put(FIELD_ANGLE, angle);
+
+        return item;
+    }
+
     public enum Kind implements Serializable {
         @SerializedName("USER") USER, @SerializedName("CORRIDOR") CORRIDOR, @SerializedName("WALL") WALL
     }
+
 }

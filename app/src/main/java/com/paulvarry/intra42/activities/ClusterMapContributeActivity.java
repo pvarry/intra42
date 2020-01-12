@@ -15,7 +15,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.crashlytics.android.Crashlytics;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,14 +46,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class ClusterMapContributeActivity
         extends BasicActivity
@@ -208,7 +209,7 @@ public class ClusterMapContributeActivity
             listCampusString.add("[none]");
             for (int i = 0; i < listCampus.size(); i++) {
                 c = listCampus.get(i);
-                listCampusString.add(c.name + " (id: " + String.valueOf(c.id) + ")");
+                listCampusString.add(c.name + " (id: " + c.id + ")");
                 if (cluster != null && c.id == cluster.campusId)
                     selection = i + 1;
             }
@@ -220,7 +221,7 @@ public class ClusterMapContributeActivity
         editTextName.addTextChangedListener(textWatcher);
         editTextNameShort.addTextChangedListener(textWatcher);
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ClusterMapContributeActivity.this);
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(ClusterMapContributeActivity.this);
         if (cluster != null) {
             editTextPrefix.setText(cluster.hostPrefix);
             editTextNameShort.setText(cluster.nameShort);
@@ -259,7 +260,7 @@ public class ClusterMapContributeActivity
                 }
 
                 if (newCluster.slug == null)
-                    newCluster.slug = String.valueOf(newCluster.campusId) + "_" + newCluster.hostPrefix + "_" + String.valueOf(System.currentTimeMillis());
+                    newCluster.slug = newCluster.campusId + "_" + newCluster.hostPrefix + "_" + System.currentTimeMillis();
                 DatabaseReference newData = app.firebaseRefClusterMapContribute.child(newCluster.slug);
                 if (isCreate) {
                     newData.setValue(newCluster);
@@ -334,7 +335,7 @@ public class ClusterMapContributeActivity
      */
     @Override
     public void onItemClicked(final int position, Cluster item) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 
         String[] str = new String[]{
                 getString(R.string.cluster_map_contribute_button_edit_metadata),
