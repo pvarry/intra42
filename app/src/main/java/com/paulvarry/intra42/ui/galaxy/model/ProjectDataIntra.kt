@@ -98,7 +98,10 @@ class ProjectDataIntra {
         @SerializedName("unavailable")
         UNAVAILABLE(0);
 
-        fun overridedBy(state: State) = (state.layerIndex > this.layerIndex)
+        /**
+         * Test if the state send in parameter is more important then the source state
+         */
+        fun overriddenBy(state: State?) = (state != null && state.layerIndex > this.layerIndex)
 
     }
 

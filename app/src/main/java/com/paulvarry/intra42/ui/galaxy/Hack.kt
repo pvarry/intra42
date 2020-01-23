@@ -77,7 +77,7 @@ object Hack {
             project.kind = it.kind
 
             computedCircles.getOrNull(it.circleIndex)?.let { draw ->
-                if (draw.state?.overridedBy(project.state!!) != false)
+                if (draw.state?.overriddenBy(project.state) != false)
                     draw.state = project.state
             }
         }
