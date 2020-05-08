@@ -23,9 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +34,6 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.adapters.BaseRecyclerAdapterItem;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.model.Campus;
@@ -297,7 +296,7 @@ public class ClusterMapContributeActivity
                             onRefresh();
                             if (databaseError != null) {
                                 Log.d("ClusterMapContribute", "postTransaction:onComplete:" + databaseError);
-                                Crashlytics.log(0, ClusterMapActivity.class.getName(), "postTransaction:onComplete:" + databaseError);
+                                FirebaseCrashlytics.getInstance().log("postTransaction:onComplete:" + databaseError);
                             }
                         }
                     });

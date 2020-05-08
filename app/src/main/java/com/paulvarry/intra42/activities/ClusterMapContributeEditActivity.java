@@ -27,9 +27,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +37,6 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.paulvarry.intra42.R;
-import com.paulvarry.intra42.activities.clusterMap.ClusterMapActivity;
 import com.paulvarry.intra42.api.cluster_map.Location;
 import com.paulvarry.intra42.api.cluster_map_contribute.Cluster;
 import com.paulvarry.intra42.api.cluster_map_contribute.MapStore;
@@ -207,7 +206,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
                                    DataSnapshot dataSnapshot) {
                 // Transaction completed
                 if (databaseError != null)
-                    Crashlytics.log(0, ClusterMapActivity.class.getName(), "postTransaction:onComplete:" + databaseError);
+                    FirebaseCrashlytics.getInstance().log("postTransaction:onComplete:" + databaseError);
             }
         });
     }
@@ -741,7 +740,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
         Toast.makeText(app, R.string.error, Toast.LENGTH_SHORT).show();
-        Crashlytics.log(0, ClusterMapActivity.class.getName(), "onCancelled:" + databaseError);
+        FirebaseCrashlytics.getInstance().log("onCancelled:" + databaseError);
     }
 
     private class DialogFinalWrapper {

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.paulvarry.intra42.R;
 import com.paulvarry.intra42.api.ItemWithId;
 import com.paulvarry.intra42.api.model.Attachments;
@@ -103,7 +103,7 @@ public class Tools {
             try {
                 activity.startActivity(intent);
             } catch (android.content.ActivityNotFoundException ex) {
-                Crashlytics.logException(ex);
+                FirebaseCrashlytics.getInstance().recordException(ex);
                 if (url.contains(".3gp") || url.contains(".mpg") || url.contains(".mpeg") || url.contains(".mpe") || url.contains(".mp4") || url.contains(".avi"))
                     Toast.makeText(activity, R.string.info_attachment_no_app_video, Toast.LENGTH_SHORT).show();
                 else if (url.contains(".pdf"))
@@ -111,7 +111,7 @@ public class Tools {
                 else
                     Toast.makeText(activity, R.string.info_attachment_no_app, Toast.LENGTH_SHORT).show();
             } catch (java.lang.SecurityException e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
                 Toast.makeText(activity, R.string.info_attachment_no_app, Toast.LENGTH_SHORT).show();
             }
         }

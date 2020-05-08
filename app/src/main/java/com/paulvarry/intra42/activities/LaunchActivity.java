@@ -19,7 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.paulvarry.intra42.AppClass;
 import com.paulvarry.intra42.Credential;
 import com.paulvarry.intra42.R;
@@ -264,7 +264,7 @@ public class LaunchActivity extends AppCompatActivity {
             customTabsIntent.launchUrl(this, loginUri);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
             Toast.makeText(app, R.string.login_error_web_browser_required, Toast.LENGTH_SHORT).show();
         }
     }

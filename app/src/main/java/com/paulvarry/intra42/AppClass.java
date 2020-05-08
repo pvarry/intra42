@@ -17,8 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -157,7 +157,7 @@ public class AppClass extends Application {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
                         exception.printStackTrace();
-                        Crashlytics.logException(exception);
+                        FirebaseCrashlytics.getInstance().recordException(exception);
                     }
                 })
                 .build();
@@ -254,7 +254,7 @@ public class AppClass extends Application {
                     }
                 } catch (Throwable e) {
                     e.printStackTrace();
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
                 }
             }
 
@@ -283,7 +283,7 @@ public class AppClass extends Application {
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
 
-        Crashlytics.setBool("save_logs_enabled", AppSettings.Advanced.getAllowSaveLogs(this));
+        FirebaseCrashlytics.getInstance().setCustomKey("save_logs_enabled", AppSettings.Advanced.getAllowSaveLogs(this));
         if (isExternalStorageWritable() && (AppSettings.Advanced.getAllowSaveLogs(this) || BuildConfig.DEBUG)) {
 
             File appDirectory = getExternalFilesDir(null);
@@ -305,7 +305,7 @@ public class AppClass extends Application {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
             }
         }
     }
@@ -366,7 +366,7 @@ public class AppClass extends Application {
         if (me == null)
             return false;
 
-        Crashlytics.setUserIdentifier(String.valueOf(me.id));
+        FirebaseCrashlytics.getInstance().setUserId(String.valueOf(me.id));
         cursus = me.cursusUsers;
         initFirebase();
         ThemeHelper.setTheme(this); // init theme
@@ -427,7 +427,7 @@ public class AppClass extends Application {
             firebaseRefClusterMapContribute = database.getReference("cluster_map");
         } catch (IllegalStateException | NullPointerException e) {
             e.printStackTrace();
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
         }
     }
 
@@ -509,7 +509,7 @@ public class AppClass extends Application {
         editor.remove(API_ME_LOGIN);
         editor.apply();
         Token.removeToken(this);
-        Crashlytics.setUserIdentifier(null);
+        FirebaseCrashlytics.getInstance().setUserId("");
     }
 
     public void logoutAndRedirect() {
