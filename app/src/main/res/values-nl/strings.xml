@@ -17,7 +17,6 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
     <string name="app_name">"Intra 42"</string>
 
     <!-- Format warning -->
-    <!-- Fuzzy -->
     <string name="booking_correct_login">"Je zal _login_'s opdracht nakijken op _date_."</string>
     <string name="booking_correct_login_project">"Je zal de _project_-opdracht van _login_ nakijken op _date_."</string>
 
@@ -232,7 +231,7 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
     <string name="navigation_place_holder_login">"Inloggen"</string>
     <string name="navigation_settings">"Instellingen"</string>
     <string name="navigation_share">"Delen"</string>
-    <string name="navigation_time_on_campus">"Tijd doorgebracht"</string>
+    <string name="navigation_time_on_campus">"Tijd op campus"</string>
     <string name="notification_auto_clear">"sluit automatisch over 5s"</string>
     <string name="notification_bookings_title_imminent">"Evaluatie begint bijna"</string>
     <string name="notification_bookings_title_new">"Je hebt een nieuwe boeking"</string>

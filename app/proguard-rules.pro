@@ -18,6 +18,8 @@
 
 # -keep class !com.paulvarry.intra42.*
 
+-dontobfuscate
+
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable
 -keep public class * extends java.lang.Exception

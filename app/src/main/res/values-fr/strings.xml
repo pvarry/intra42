@@ -211,6 +211,7 @@ La modification sera possible à _timeFuture_."</string>
     <string name="cluster_map_info_vacant_posts_nothing">"aucun poste vacant"</string>
     <string name="cluster_map_info_vacant_posts_plural">"%d postes vacants"</string>
     <string name="cluster_map_info_vacant_posts_singular">"%d poste vacant"</string>
+    <string name="cluster_map_layer_data_unavailable_title">"Erreur de l'API"</string>
     <string name="cluster_map_no_layout">"Pas de carte disponible pour ce Cluster"</string>
     <string name="cluster_map_not_in_campus">"La carte des Clusters n'est pas disponnible pour votre campus"</string>
     <string name="coalition_score">"Score"</string>
@@ -220,6 +221,8 @@ La modification sera possible à _timeFuture_."</string>
     <string name="copy">"Copier"</string>
     <string name="cursus">"Cursus"</string>
     <string name="delete">"Effacer"</string>
+    <string name="dialog_delete_message">"Voulez-vous supprimer cet élément, cette action ne peut pas être annulée ?"</string>
+    <string name="dialog_enable_app_logs">"Activer la journalisation"</string>
     <string name="discard_changes">"Annuler "</string>
     <string name="done">"Fait"</string>
     <string name="edit_unsaved_changes_content">"Voulez vous sauvegarder les changements de ce groupe ?"</string>
@@ -535,6 +538,7 @@ clique long pour plus d'action"</string>
     <string name="shortcut_long_friends">"Liste d'amis"</string>
     <string name="shortcut_long_galaxy">"Saint Graph (projects)"</string>
     <string name="sign_in_error_invalid_grant">"Vous ne pouvez pas utiliser cet application pour le moment, votre compte 42 est peut-être close"</string>
+    <string name="slots_delete_dialog_error_booked">"Un slot ne peut pas être supprimé, son état a changé"</string>
     <string name="soon">"Bientôt"</string>
     <string name="sort_by">"Trier par"</string>
     <string name="spinner_user_projects_all">"Tous"</string>
@@ -588,6 +592,7 @@ clique long pour plus d'action"</string>
     <string name="title_tab_user_projects">"Projects"</string>
     <string name="title_tab_user_skills">"Compétences"</string>
     <string name="title_tab_users_all">"Tout"</string>
+    <string name="toast_logs_disabled">"La journalisation est activée"</string>
     <string name="today">"Aujourd'hui"</string>
     <string name="tomorrow">"Demain"</string>
     <string name="user_achievement_bronze">"bronze"</string>

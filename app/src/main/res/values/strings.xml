@@ -198,7 +198,7 @@ You will be able to edit this cluster at _timeFuture_."</string>
     <string name="copy">"Copy"</string>
     <string name="cursus">"Cursus"</string>
     <string name="delete">"Delete"</string>
-    <string name="dialog_delete_message">"Do you to delete this element, this action can't be undo ?"</string>
+    <string name="dialog_delete_message">"Do you want to delete this item, this action cannot be undone?"</string>
     <string name="dialog_enable_app_logs">"Enable Logs"</string>
     <string name="discard_changes">"discard"</string>
     <string name="done">"Done"</string>
@@ -525,7 +525,7 @@ long click for more action"</string>
     <string name="shortcut_long_friends">"Friends list"</string>
     <string name="shortcut_long_galaxy">"Holy Graph (projects)"</string>
     <string name="sign_in_error_invalid_grant">"You can't use this app right now, your 42 account is maybe closed"</string>
-    <string name="slots_delete_dialog_error_booked">"A slot can't be deleted, it changed state"</string>
+    <string name="slots_delete_dialog_error_booked">"A slot can't be deleted, his state has changed"</string>
     <string name="soon">"Soon"</string>
     <string name="sort_by">"Sort by"</string>
     <string name="spinner_user_projects_all">"All"</string>
