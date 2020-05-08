@@ -107,17 +107,17 @@ Descargo de responsabilidad: Este código no está de ninguna manera afiliado, a
     <string name="app_name">"Intra 42"</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_login">"Vas a revisar el proyecto de _login_ durante _date_"</string>
-    <string name="bookings_correct_login_project">"Vas a corregir el _project_ de _login_ a las _date_"</string>
+    <string name="booking_correct_login">"Vas a revisar el proyecto de _login_ durante _date_"</string>
+    <string name="booking_correct_login_project">"Vas a corregir el _project_ de _login_ a las _date_"</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_somebody">"Vas a revisar el código de alguien durante _date_"</string>
+    <string name="booking_correct_somebody">"Vas a revisar el código de alguien durante _date_"</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by">"Tu _project_ será evaluado durante _date_"</string>
+    <string name="booking_corrected_by">"Tu _project_ será evaluado durante _date_"</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"Tu _project_ será evaluado por _login_ durante _date_"</string>
+    <string name="booking_corrected_by_login">"Tu _project_ será evaluado por _login_ durante _date_"</string>
     <string name="campus">"Campus"</string>
     <string name="cancel">"Cancelar"</string>
     <string name="cantina_menu_fremont_only">"Menú de la Cantina"</string>

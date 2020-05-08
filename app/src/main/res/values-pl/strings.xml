@@ -12,17 +12,17 @@
     <string name="app_name">"Intra 42"</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_login">"_date_ będziesz oceniać projekt _login_."</string>
+    <string name="booking_correct_login">"_date_ będziesz oceniać projekt _login_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_somebody">"_date_ będziesz oceniać czyiś kod źródłowy.
+    <string name="booking_correct_somebody">"_date_ będziesz oceniać czyiś kod źródłowy.
 "</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by">"Twój _project_ będzie oceniany _date_."</string>
+    <string name="booking_corrected_by">"Twój _project_ będzie oceniany _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"Twój _project_ będzie oceniany _date_  przez _login_."</string>
+    <string name="booking_corrected_by_login">"Twój _project_ będzie oceniany _date_  przez _login_."</string>
     <string name="campus">"Kampus"</string>
     <string name="cancel">"Anuluj"</string>
     <string name="cantina_menu_fremont_only">"Menu stołówki"</string>

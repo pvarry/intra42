@@ -13,16 +13,16 @@ Contattami su Slack o tramite mail (pvarry)"</string>
     <string name="app_name">"Intra 42"</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_login">"Esaminerai il progetto di _login_ a _date_."</string>
+    <string name="booking_correct_login">"Esaminerai il progetto di _login_ a _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_somebody">"Esaminerai il codice di qualcuno a _date_."</string>
+    <string name="booking_correct_somebody">"Esaminerai il codice di qualcuno a _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by">"Il tuo _project_ verrà valutato a _date_."</string>
+    <string name="booking_corrected_by">"Il tuo _project_ verrà valutato a _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"Il tuo _project_ verrà valutato da _login_ a _date_."</string>
+    <string name="booking_corrected_by_login">"Il tuo _project_ verrà valutato da _login_ a _date_."</string>
     <string name="campus">"Campus"</string>
     <string name="cancel">"Annulla"</string>
     <string name="cantina_menu_fremont_only">"Menu Cantina"</string>

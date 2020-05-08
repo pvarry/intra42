@@ -12,16 +12,16 @@
     <string name="about_view_source">"انظر المصدر"</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_login">"ستُراجع مشروع _اسم_المستخدم_ في_الوقت_."</string>
+    <string name="booking_correct_login">"ستُراجع مشروع _اسم_المستخدم_ في_الوقت_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_somebody">"ستُراجع كود شهص ما في_الوقت_."</string>
+    <string name="booking_correct_somebody">"ستُراجع كود شهص ما في_الوقت_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by">"_مشروع_ك  سيُراجع في _الوقت_."</string>
+    <string name="booking_corrected_by">"_مشروع_ك  سيُراجع في _الوقت_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"_مشروع_ك  سيُراجع من _اسم_المستخدم_في _الوقت_."</string>
+    <string name="booking_corrected_by_login">"_مشروع_ك  سيُراجع من _اسم_المستخدم_في _الوقت_."</string>
     <string name="campus">"حرم جامعي"</string>
     <string name="cancel">"إلغاء"</string>
     <string name="cluster_map_contribute_button_edit_layout">"تعديل الخريطة"</string>

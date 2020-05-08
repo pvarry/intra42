@@ -92,17 +92,17 @@ Contact me on Slack or mail (pvarry)"</string>
     <string name="app_name">"Intra 42"</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_login">"You will review _login_'s project at _date_."</string>
-    <string name="bookings_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
+    <string name="booking_correct_login">"You will review _login_'s project at _date_."</string>
+    <string name="booking_correct_login_project">"You will review _login_ on _project_ at _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_somebody">"You will review somebody's code at _date_."</string>
+    <string name="booking_correct_somebody">"You will review somebody's code at _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by">"Your _project_'s will be reviewed at _date_."</string>
+    <string name="booking_corrected_by">"Your _project_'s will be reviewed at _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"Your _project_'s will be reviewed by _login_ at _date_."</string>
+    <string name="booking_corrected_by_login">"Your _project_'s will be reviewed by _login_ at _date_."</string>
     <string name="campus">"Campus"</string>
     <string name="cancel">"Cancel"</string>
     <string name="cantina_menu_fremont_only">"Cantina Menu"</string>

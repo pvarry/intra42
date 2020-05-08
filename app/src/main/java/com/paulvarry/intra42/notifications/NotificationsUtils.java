@@ -186,30 +186,30 @@ public class NotificationsUtils {
                 userAction = scaleTeams.correcteds.get(0);
 
             if (userAction == null)
-                text = app.getString(R.string.bookings_correct_somebody)
+                text = app.getString(R.string.booking_correct_somebody)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt));
             else if (scaleTeams.scale != null) {
                 notificationIntent = UserActivity.getIntent(app, userAction);
-                text = app.getString(R.string.bookings_correct_login_project)
+                text = app.getString(R.string.booking_correct_login_project)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt))
                         .replace("_project_", scaleTeams.scale.name)
                         .replace("_login_", userAction.login);
             } else {
                 notificationIntent = UserActivity.getIntent(app, userAction);
-                text = app.getString(R.string.bookings_correct_login)
+                text = app.getString(R.string.booking_correct_login)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt))
                         .replace("_login_", userAction.login);
             }
         } else { // i'm corrected
 
             if (scaleTeams.corrector == null && scaleTeams.scale != null) {
-                text = app.getString(R.string.bookings_corrected_by)
+                text = app.getString(R.string.booking_corrected_by)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt))
                         .replace("_project_", scaleTeams.scale.name);
             } else if (scaleTeams.corrector != null && scaleTeams.scale != null) {
                 notificationIntent = UserActivity.getIntent(app, scaleTeams.corrector);
                 userAction = scaleTeams.corrector;
-                text = app.getString(R.string.bookings_corrected_by_login)
+                text = app.getString(R.string.booking_corrected_by_login)
                         .replace("_date_", DateTool.getDateTimeLong(scaleTeams.beginAt))
                         .replace("_project_", scaleTeams.scale.name)
                         .replace("_login_", scaleTeams.corrector.login);

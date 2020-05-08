@@ -109,17 +109,17 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="app_name">"Интра 42"</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_login">"Вы будете проверять проект _login_ _date_."</string>
-    <string name="bookings_correct_login_project">"Вы оцените _login_  по _project_ в _date_."</string>
+    <string name="booking_correct_login">"Вы будете проверять проект _login_ _date_."</string>
+    <string name="booking_correct_login_project">"Вы оцените _login_  по _project_ в _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_correct_somebody">"Вы будете проверять чей-то код _date_."</string>
+    <string name="booking_correct_somebody">"Вы будете проверять чей-то код _date_."</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by">"Ваш проект _project_ будет проверен _date_"</string>
+    <string name="booking_corrected_by">"Ваш проект _project_ будет проверен _date_"</string>
 
     <!-- Format warning -->
-    <string name="bookings_corrected_by_login">"Ваш проект будет проверять _login_ _date_."</string>
+    <string name="booking_corrected_by_login">"Ваш проект будет проверять _login_ _date_."</string>
     <string name="campus">"Кампус"</string>
     <string name="cancel">"Отмена"</string>
     <string name="cantina_menu_fremont_only">"Меню Кантины"</string>

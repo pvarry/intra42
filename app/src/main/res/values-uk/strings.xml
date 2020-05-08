@@ -12,19 +12,19 @@
 
     <!-- Format warning -->
     <!-- Fuzzy -->
-    <string name="bookings_correct_login">"Ти перевіриш _login_'s проект at _date_."</string>
+    <string name="booking_correct_login">"Ти перевіриш _login_'s проект at _date_."</string>
 
     <!-- Format warning -->
     <!-- Fuzzy -->
-    <string name="bookings_correct_somebody">"Ти перевіриш чийсь код at _date_."</string>
+    <string name="booking_correct_somebody">"Ти перевіриш чийсь код at _date_."</string>
 
     <!-- Format warning -->
     <!-- Fuzzy -->
-    <string name="bookings_corrected_by">"Твій _project_'s буде перевірено _date_."</string>
+    <string name="booking_corrected_by">"Твій _project_'s буде перевірено _date_."</string>
 
     <!-- Format warning -->
     <!-- Fuzzy -->
-    <string name="bookings_corrected_by_login">"Твій _project_'s буде перевірено  _login_ _date_."</string>
+    <string name="booking_corrected_by_login">"Твій _project_'s буде перевірено  _login_ _date_."</string>
     <string name="campus">"Кампус"</string>
     <string name="cancel">"Закінчити"</string>
     <string name="cluster_map_contribute_button_edit_layout">"редагувати карту"</string>
