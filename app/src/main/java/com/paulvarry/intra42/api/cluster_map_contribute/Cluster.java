@@ -118,17 +118,23 @@ public class Cluster implements IBaseItemSmall, Serializable, Comparable<Cluster
         map.put("comment", comment);
         map.put("isReadyToPublish", isReadyToPublish);
 
-        ArrayList<ArrayList<Map<String, Object>>> arrayListExport = new ArrayList<>(width);
-        for (int i = 0; i < width; i++) {
-            SparseArray<Location> sparseArrayCol = this.map.get(i);
-            arrayListExport.add(i, new ArrayList<>(height));
+        if (this.map != null) {
+            ArrayList<ArrayList<Map<String, Object>>> arrayListExport = new ArrayList<>(width);
+            for (int i = 0; i < width; i++) {
+                SparseArray<Location> sparseArrayCol = this.map.get(i);
+                arrayListExport.add(i, new ArrayList<>(height));
 
-            if (sparseArrayCol != null)
+                if (sparseArrayCol == null)
+                    continue;
                 for (int j = 0; j < height; j++) {
-                    arrayListExport.get(i).add(j, sparseArrayCol.get(j).export());
+                    Location cel = sparseArrayCol.get(j);
+                    if (cel == null)
+                        continue;
+                    arrayListExport.get(i).add(j, cel.export());
                 }
+            }
+            map.put("map", arrayListExport);
         }
-        map.put("map", arrayListExport);
 
         return map;
     }

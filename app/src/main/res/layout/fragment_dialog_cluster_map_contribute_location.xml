@@ -37,13 +37,13 @@
         android:id="@+id/textInputLayoutHost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="4dp"
+        android:hint="@string/cluster_map_contribute_dialog_location_layout_host_hint">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextHost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/cluster_map_contribute_dialog_location_layout_host_hint"
             android:inputType="textVisiblePassword" />
     </com.google.android.material.textfield.TextInputLayout>
 

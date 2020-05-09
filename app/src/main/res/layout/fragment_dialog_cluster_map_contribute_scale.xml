@@ -19,13 +19,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:hint="@string/cluster_map_contribute_dialog_scale_layout_scale_hint"
         app:errorTextAppearance="@style/CounterOverflow">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextScale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/cluster_map_contribute_dialog_scale_layout_scale_hint"
             android:inputType="numberDecimal|numberSigned" />
     </com.google.android.material.textfield.TextInputLayout>
 

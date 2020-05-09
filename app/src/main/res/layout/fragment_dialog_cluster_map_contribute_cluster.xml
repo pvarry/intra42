@@ -8,16 +8,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="16dp"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="16dp">
+        android:paddingBottom="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:hint="@string/cluster_map_contribute_dialog_metadata_layout_full_name"
             android:orientation="horizontal"
             app:counterEnabled="true"
             app:counterMaxLength="40"
@@ -28,7 +29,6 @@
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_full_name"
                 android:inputType="textVisiblePassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:hint="@string/cluster_map_contribute_dialog_metadata_layout_short_name"
             app:counterEnabled="true"
             app:counterMaxLength="6"
             app:counterOverflowTextAppearance="@style/CounterOverflow"
@@ -46,7 +47,6 @@
                 android:id="@+id/editTextNameShort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_short_name"
                 android:inputType="textVisiblePassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,13 +54,13 @@
             android:id="@+id/textInputPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="4dp"
+            android:hint="@string/cluster_map_contribute_dialog_metadata_layout_position">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_position"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,8 +68,8 @@
             style="@style/TextAppearance.Design.Hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
             android:text="@string/campus"
             android:textColor="#9B9B9B" />
@@ -78,29 +78,29 @@
             android:id="@+id/spinnerCampus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="-4dp"
-            android:layout_marginStart="-4dp" />
+            android:layout_marginStart="-4dp"
+            android:layout_marginLeft="-4dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutPrefix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="4dp"
+            android:hint="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPrefix"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix"
                 android:inputType="textVisiblePassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/cluster_map_contribute_dialog_metadata_layout_location_prefix_info" />
 
         <LinearLayout
@@ -126,13 +126,13 @@
             android:id="@+id/textInputLayoutComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="4dp"
+            android:hint="@string/cluster_map_contribute_dialog_metadata_layout_comment">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/cluster_map_contribute_dialog_metadata_layout_comment"
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
