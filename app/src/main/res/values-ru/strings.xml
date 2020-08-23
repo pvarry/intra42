@@ -135,7 +135,11 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Задать размер колонки"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Задать размер линии"</string>
     <string name="cluster_map_contribute_dialog_controller_title_row">"Действия для этой линии"</string>
+
+    <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_col">"Вы собираетесь удалить колонку на x=%d, это действие не может быть отменено"</string>
+
+    <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_row">"Вы собираетесь удалить линию на  y=%d, это действие не может быть отменено"</string>
     <string name="cluster_map_contribute_dialog_delete_title">"Действительно удалить эту линию/колонку?"</string>
     <string name="cluster_map_contribute_dialog_location_layout_corridor">"коридор"</string>

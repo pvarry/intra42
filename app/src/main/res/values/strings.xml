@@ -118,8 +118,12 @@ Contact me on Slack or mail (pvarry)"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Set column size"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Set row size"</string>
     <string name="cluster_map_contribute_dialog_controller_title_row">"Actions for this row"</string>
-    <string name="cluster_map_contribute_dialog_delete_message_col">"You are going to delete column on x=%d, this action can't be undo"</string>
-    <string name="cluster_map_contribute_dialog_delete_message_row">"You are going to delete row on y=%d, this action can't be undo"</string>
+
+    <!-- Fuzzy -->
+    <string name="cluster_map_contribute_dialog_delete_message_col">"You are about to delete column n°%d, this action cannot be undone"</string>
+
+    <!-- Fuzzy -->
+    <string name="cluster_map_contribute_dialog_delete_message_row">"You are about to delete row n°%d, this action cannot be undone"</string>
     <string name="cluster_map_contribute_dialog_delete_title">"Are you sure to delete this row/column ?"</string>
     <string name="cluster_map_contribute_dialog_location_layout_corridor">"corridor"</string>
     <string name="cluster_map_contribute_dialog_location_layout_host_hint">"host"</string>

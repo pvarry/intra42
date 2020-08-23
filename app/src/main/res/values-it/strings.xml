@@ -36,7 +36,11 @@ Contattami su Slack o tramite mail (pvarry)"</string>
     <string name="cluster_map_contribute_dialog_controller_action_delete_row">"Elimina questa riga"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Imposta dimensione colonna"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Imposta dimensione riga"</string>
+
+    <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_col">"Stai per eliminare la colonna x=%d, questa azione non può essere annullata"</string>
+
+    <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_row">"Stai per eliminare la riga y=%d, questa azione non può essere annullata"</string>
     <string name="cluster_map_contribute_dialog_delete_title">"Sei sicuro di eliminare questa riga/colonna?"</string>
     <string name="cluster_map_contribute_dialog_location_title">"Modifica: _x_,_y_"</string>

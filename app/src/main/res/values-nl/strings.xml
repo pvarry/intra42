@@ -22,32 +22,99 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
 
     <!-- Format warning -->
     <string name="booking_correct_somebody">"Je zal iemands opdracht nakijken op _date_."</string>
+
+    <!-- Format warning -->
+    <string name="booking_corrected_by">"Jouw _project_-en worden nagekeken op _date_."</string>
+
+    <!-- Format warning -->
+    <string name="booking_corrected_by_login">"Jouw _project_-en worden nagekeken door _login_ op _date_."</string>
     <string name="campus">"Campus"</string>
     <string name="cancel">"Annuleren"</string>
     <string name="cantina_menu_fremont_only">"Kantinemenukaart"</string>
+    <string name="cluster_map_contribute_button_edit_layout">"bewerk kaart"</string>
+    <string name="cluster_map_contribute_button_edit_metadata">"bewerk metadata"</string>
+    <string name="cluster_map_contribute_dialog_add_action_column_left">"Voeg kolom links in"</string>
+    <string name="cluster_map_contribute_dialog_add_action_column_right">"Voeg kolom rechts in"</string>
     <string name="cluster_map_contribute_dialog_add_action_row_bottom">"Voeg rij onder toe"</string>
     <string name="cluster_map_contribute_dialog_add_action_row_top">"Voeg rij boven toe"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_column">"Acties voor deze kolom"</string>
     <string name="cluster_map_contribute_dialog_controller_action_delete_column">"Verwijder kolom"</string>
     <string name="cluster_map_contribute_dialog_controller_action_delete_row">"Verwijder rij"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Kies kolomgrootte"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Kies rijgrootte"</string>
+    <string name="cluster_map_contribute_dialog_controller_title_row">"Acties voor deze rij"</string>
+
+    <!-- Isn't it column on Y and row on X, rather than the other way around? -->
+    <!-- Fuzzy -->
+    <string name="cluster_map_contribute_dialog_delete_message_col">"Je verwijdert de kolom op x=%d, dit kan niet ongedaan worden gemaakt"</string>
+
+    <!-- Isn't it column on Y and row on X, rather than the other way around? -->
+    <!-- Fuzzy -->
+    <string name="cluster_map_contribute_dialog_delete_message_row">"Je verwijdert de rij op y=%d, dit kan niet ongedaan worden gemaakt"</string>
+    <string name="cluster_map_contribute_dialog_delete_title">"Weet je zeker dat je deze rij/kolom wilt verwijderen?"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_corridor">"gang"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_host_hint">"host"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_user">"gebruiker"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_wall">"muur"</string>
+    <string name="cluster_map_contribute_dialog_location_title">"Bewerk: _x_,_y_"</string>
+    <string name="cluster_map_contribute_dialog_location_title_host">"Bewerk: _x_,_y_ (_host_)"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Opmerking"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_full_name">"Volledige naam"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix">"Locatie-prefix"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">"Info: Locatie-prefix is het begin van alle hostnamen in dit cluster."</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_position">"Positie van dit cluster op de lijst"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_short_name">"Korte naam"</string>
+    <string name="cluster_map_contribute_dialog_metadata_title">"Bewerk cluster-metadata"</string>
+    <string name="cluster_map_contribute_dialog_scale_layout_info">"Door een schaal in te stellen voor een rij of kolom, vergroot of verklein je hun grootte."</string>
+    <string name="cluster_map_contribute_dialog_scale_layout_scale_hint">"schaal"</string>
     <string name="cluster_map_contribute_dialog_scale_title">"Wijzig schaal van rij/kolom"</string>
+    <string name="cluster_map_contribute_dialog_time_up_message">"Vergrendelingstijd bijna voorbij, het is aan te raden je wijzigingen zo snel mogelijk op te slaan."</string>
+    <string name="cluster_map_contribute_dialog_time_up_title">"Tijd is om"</string>
+    <string name="cluster_map_contribute_error_data_locked">"Handeling niet voltooid, gegevens vergrendeld"</string>
+    <string name="cluster_map_contribute_error_fail_to_retrieve_data_response">"Handeling niet voltooid, kon gegevens niet ophalen"</string>
+    <string name="cluster_map_contribute_locked_indicator">"Cluster vergrendeld door _user_ om _time_.
+Je zal dit cluster kunnen bewerken om _timeFuture_."</string>
     <string name="cluster_map_contribute_ready_publish">"Deze cluster is klaar om gepubliceerd te worden"</string>
+    <string name="cluster_map_contribute_toolbar_info_minute_second">"Clustervergrendeling voor: _minute_ m en _second_ s"</string>
+    <string name="cluster_map_contribute_toolbar_info_second">"Clustervergrendeling voor: _second_ s"</string>
+    <string name="cluster_map_contribute_toolbar_info_too_late">"Te laat, je kunt je wijzigingen niet meer opslaan"</string>
     <string name="cluster_map_contribute_warning_empty_host">"Let op: hostnaam moet zijn ingevuld"</string>
     <string name="cluster_map_contribute_warning_host_prefix">"Let op: hostnaam moet niet beginnen met cluster prefix, die wordt vanzelf toegevoegd"</string>
     <string name="cluster_map_dialog_action">"Actie voor deze locatie"</string>
+    <string name="cluster_map_info_button_contribute">"Ontbrekende gegevens toevoegen"</string>
     <string name="cluster_map_info_button_update">"update"</string>
     <string name="cluster_map_info_button_update_disabled">"geen update nodig"</string>
     <string name="cluster_map_info_clusters">"Clusters"</string>
+    <string name="cluster_map_info_contribute_description">"Maak, bewerk, en vul een clusterkaart voor je campus. Help andere leerlingen hun vrienden vinden met deze kaart"</string>
+    <string name="cluster_map_info_contribute_title">"Voeg ontbrekend cluster toe"</string>
     <string name="cluster_map_info_data_layer">"Gegevenslaag"</string>
+    <string name="cluster_map_info_data_layer_description">"Met deze functie kun je de gemarkeerde posten (kleur rondom de profielfoto) op de clusterkaart veranderen; kies de gegevenslaag die je wilt en klik op \"update\"."</string>
+    <string name="cluster_map_info_data_layer_error">"fout bij laden en/of toepassen van laag"</string>
+    <string name="cluster_map_info_highlight_nothing">"geen markering"</string>
+
+    <!-- Shouldn't this be "highlights" in English? -->
+    <string name="cluster_map_info_highlight_plural">"%d markeringen"</string>
+    <string name="cluster_map_info_highlight_singular">"%d markering"</string>
     <string name="cluster_map_info_layer_input_login">"login"</string>
     <string name="cluster_map_info_layer_input_project">"opdracht"</string>
+    <string name="cluster_map_info_layer_spinner_main_coalitions">"Coalities"</string>
     <string name="cluster_map_info_layer_spinner_main_friends">"Vrienden"</string>
+    <string name="cluster_map_info_layer_spinner_main_level">"Verdiepingen"</string>
+    <string name="cluster_map_info_layer_spinner_main_location">"Computer"</string>
     <string name="cluster_map_info_layer_spinner_main_login">"Gebruiker"</string>
     <string name="cluster_map_info_layer_spinner_main_none">"Geen"</string>
+    <string name="cluster_map_info_layer_spinner_main_project">"Opdracht"</string>
     <string name="cluster_map_info_layer_warning_disabled">"Kan deze gegevenslaag niet gebruiken, er word onderhoud gepleegd, probeer later nog eens"</string>
+    <string name="cluster_map_info_levels_display_closed">"Laat gesloten leerlingen zien (bijv. klaar met piscine)"</string>
+    <string name="cluster_map_info_no_map">"Geen clusterkaart beschikbaar"</string>
+    <string name="cluster_map_info_project_dialog_not_found">"Niet gevonden"</string>
+    <string name="cluster_map_info_project_dialog_not_found_content_format">"Geen opdracht gevonden voor: %s"</string>
+    <string name="cluster_map_info_vacant_posts_nothing">"geen lege post"</string>
+    <string name="cluster_map_info_vacant_posts_plural">"%d lege posten"</string>
+    <string name="cluster_map_info_vacant_posts_singular">"%d lege post"</string>
     <string name="cluster_map_layer_data_unavailable_content">"Gegevens tijdelijk niet beschikbaar, probeer later nog eens"</string>
     <string name="cluster_map_layer_data_unavailable_title">"API-fout"</string>
+    <string name="cluster_map_no_layout">"Geen layout beschikbaar voor dit cluster"</string>
     <string name="cluster_map_not_in_campus">"Clusterkaart niet beschikbaar voor jouw campus"</string>
     <string name="coalition_score">"Score"</string>
     <string name="coalitions_nothing_selected_cursus_campus">"Geen coalitie gevonden voor gekozen cursus/campus"</string>
@@ -69,9 +136,10 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
     <string name="error_scale_is_too_big">"Schaal te groot"</string>
     <string name="error_scale_is_too_small">"Schaal te klein"</string>
     <string name="error_server_contect_support">"Serverfout, neem contact op met ondersteuning."</string>
+    <string name="error_text_is_too_long">"Tekst is te lang"</string>
     <string name="error_value_must_be_set">"Geen waarde ingevuld"</string>
-    <string name="evaluation_correct_someone">"Corrigeert"</string>
-    <string name="evaluation_corrected_by">"Word gecorrigeerd door"</string>
+    <string name="evaluation_correct_someone">"Evalueert"</string>
+    <string name="evaluation_corrected_by">"Word geëvalueerd door"</string>
     <string name="evaluation_on_project">"op"</string>
     <string name="evaluation_slot_begin_at">"Begint om"</string>
     <string name="evaluation_slot_create">"Aanmaken"</string>
@@ -248,6 +316,7 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
     <string name="notifications_events_sub_text">"evenement"</string>
     <string name="ok">"Oké"</string>
     <string name="open_this">"Open dit"</string>
+    <string name="opening_in_progress">"Openen in voortgang"</string>
     <string name="pref_activated">"Geactiveerd"</string>
     <string name="pref_advanced_dont_force">"Uit (niet forceren)"</string>
     <string name="pref_category_notifications">"Meldingen"</string>
@@ -267,7 +336,7 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
     <string name="pref_summary_advanced_data_past_events">"Speciaal voor pixels"</string>
     <string name="pref_summary_advanced_data_print_ids_disabled">"Normal gebruik, gebruik dit als standaard"</string>
     <string name="pref_summary_advanced_data_print_ids_enabled">"Weergeef extra informatie zoals ID's en slugs over de app heen"</string>
-    <string name="pref_summary_advanced_data_save_logs">"Als je dit aanzet worden extra logs gegenereerd en opgeslagen in \"~/Android/com.paulvarry.intra42/files/logs\". Je moet de app opnieuw opstarten voordat dit effect heeft. Let op: privégegevens (zoals je telefoonnummer) zullen ook worden opgeslagen in je apparaatgeheugen. (standaard uit)"</string>
+    <string name="pref_summary_advanced_data_save_logs">"Als je dit aanzet worden extra logs gegenereerd en opgeslagen in \"~/Android/com.paulvarry.intra42/files/logs\". Je moet de app opnieuw opstarten voordat dit effect heeft. Let op: privégegevens (zoals telefoonnummer) zullen ook worden opgeslagen in je apparaatgeheugen. (standaard uit)"</string>
     <string name="pref_summary_advanced_settings_disabled">"Standaard gebruik"</string>
     <string name="pref_summary_advanced_settings_enabled">"Gebruik geavanceerde instellingen, laat dit uitstaan als je er geen verstand van hebt"</string>
     <string name="pref_summary_calendar_enable">"Als je toestemming voor de agenda geeft, kan de app evenementen in je agenda zetten."</string>
@@ -281,7 +350,7 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
     <string name="pref_theme_info_need_restart_to_apply">"Je moet de app herstarten om dit thema volledig toe te passen"</string>
     <string name="pref_theme_list_titles_android">"Android Donker"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Blauw"</string>
-    <string name="pref_theme_list_titles_default">"Intra (auto. thema op basis van coalitie)"</string>
+    <string name="pref_theme_list_titles_default">"Intra (auto. coalitie-thema)"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Groen (Cetus)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Paars (Pyxis)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Rood (Vela)"</string>
@@ -296,6 +365,7 @@ Neem contact op via Slack of e-mail (pvarry)"</string>
     <string name="pref_title_advanced_section_features">"Geavanceerde functies"</string>
     <string name="pref_title_advanced_section_other">"Andere functies"</string>
     <string name="pref_title_calendar">"Synchroniseer evenementen"</string>
+    <string name="pref_title_calendar_enable">"Activeer agendaintegratie"</string>
     <string name="pref_title_calendar_list">"Kies agenda om evenementen in te zetten"</string>
     <string name="pref_title_network_over_cellular_fast">"Via snel mobiel netwerk"</string>
     <string name="pref_title_network_over_cellular_slow">"Via langzaam mobiel netwerk"</string>
@@ -392,6 +462,8 @@ houd lang ingedrukt voor meer acties"</string>
     <string name="title_activity_about">"Over"</string>
     <string name="title_activity_cantina_menu">"Kantinemenukaart (Fremont)"</string>
     <string name="title_activity_cluster_map">"Clusterkaart"</string>
+    <string name="title_activity_cluster_map_contribute">"Bijdragen aan clusterkaart"</string>
+    <string name="title_activity_cluster_map_contribute_edit">"Creëer clusterkaart"</string>
     <string name="title_activity_coalitions">"Coalities"</string>
     <string name="title_activity_elearning">"E-learning"</string>
     <string name="title_activity_event">"Evenement"</string>

@@ -142,8 +142,12 @@ Contacte moi sur Slack ou par mail (pvarry)"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Changer la taille de la colonne"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Changer la taille de la ligne"</string>
     <string name="cluster_map_contribute_dialog_controller_title_row">"Actions pour cette ligne"</string>
-    <string name="cluster_map_contribute_dialog_delete_message_col">"Vous êtes sur le point de supprimer la colonne y=%d, cette action est irréversible"</string>
-    <string name="cluster_map_contribute_dialog_delete_message_row">"Vous êtes sur le point de supprimer la ligne y=%d, cette action est irréversible"</string>
+
+    <!-- Fuzzy -->
+    <string name="cluster_map_contribute_dialog_delete_message_col">"Vous êtes sur le point de supprimer la colonne n°%d, cette action est irréversible"</string>
+
+    <!-- Fuzzy -->
+    <string name="cluster_map_contribute_dialog_delete_message_row">"Vous êtes sur le point de supprimer la ligne n°%d, cette action est irréversible"</string>
     <string name="cluster_map_contribute_dialog_delete_title">"Êtes-vous sûre de supprimer cette colonne/ligne ?"</string>
     <string name="cluster_map_contribute_dialog_location_layout_corridor">"couloir"</string>
     <string name="cluster_map_contribute_dialog_location_layout_host_hint">"nom du poste"</string>

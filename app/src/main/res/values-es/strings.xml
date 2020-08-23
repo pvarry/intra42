@@ -133,7 +133,11 @@ Descargo de responsabilidad: Este código no está de ninguna manera afiliado, a
     <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Establecer el tamaño de columna"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Establecer el tamaño de fila"</string>
     <string name="cluster_map_contribute_dialog_controller_title_row">"Acciones para esta fila"</string>
+
+    <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_col">"Vas a eliminar la columna en x=%d, esta acción no se puede deshacer"</string>
+
+    <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_row">"Vas a eliminar la fila y=%d, esta acción no puede deshacerse"</string>
     <string name="cluster_map_contribute_dialog_delete_title">"¿Seguro que quieres eliminar esta fila/columna?"</string>
     <string name="cluster_map_contribute_dialog_location_layout_corridor">"corredor"</string>
