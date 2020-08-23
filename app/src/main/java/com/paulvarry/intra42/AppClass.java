@@ -222,7 +222,7 @@ public class AppClass extends Application {
                     editor.apply();
                 }
             }
-            if (appVersion <= 20190901 || true) {
+            if (appVersion <= 20190901) {
                 Log.d("Start param migration", "theme 3");
                 SharedPreferences pref = AppSettings.getSharedPreferences(this);
 

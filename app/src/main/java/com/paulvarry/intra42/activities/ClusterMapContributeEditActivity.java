@@ -740,7 +740,7 @@ public class ClusterMapContributeEditActivity extends BasicEditActivity implemen
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
         Toast.makeText(app, R.string.error, Toast.LENGTH_SHORT).show();
-        FirebaseCrashlytics.getInstance().log("onCancelled:" + databaseError);
+        FirebaseCrashlytics.getInstance().recordException(databaseError.toException());
     }
 
     private class DialogFinalWrapper {

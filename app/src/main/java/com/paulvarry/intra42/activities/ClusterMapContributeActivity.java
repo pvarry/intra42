@@ -296,7 +296,7 @@ public class ClusterMapContributeActivity
                             onRefresh();
                             if (databaseError != null) {
                                 Log.d("ClusterMapContribute", "postTransaction:onComplete:" + databaseError);
-                                FirebaseCrashlytics.getInstance().log("postTransaction:onComplete:" + databaseError);
+                                FirebaseCrashlytics.getInstance().recordException(databaseError.toException());
                             }
                         }
                     });
