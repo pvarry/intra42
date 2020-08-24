@@ -29,3 +29,4 @@ Thumbs.db
 
 app/src/*/google-services.json
 app/src/**/java/com/paulvarry/intra42/Credential.java
+!app/src/release/java/com/paulvarry/intra42/Credential.java
