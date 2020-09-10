@@ -13,7 +13,7 @@
     "express": "^4.16.3",
     "form-data": "^2.3.2",
     "morgan": "^1.9.0",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.6.1",
     "rollup": "^0.45.2",
     "rollup-plugin-json": "^2.3.1",
     "rollup-plugin-replace": "^1.2.1"
