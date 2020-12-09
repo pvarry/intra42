@@ -22,7 +22,7 @@ public class Users extends UsersLTE {
     private final static String API_LOGIN = "login";
     private final static String API_URL = "url";
     private final static String API_PHONE = "phone";
-    private final static String API_NAME = "displayname";
+    private final static String API_NAME = "usual_full_name";
     private final static String API_IMAGE_URL = "image_url";
     private final static String API_STAFF = "staff?";
     private final static String API_CORRECTION_POINT = "correction_point";
