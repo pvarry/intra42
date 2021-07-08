@@ -263,7 +263,7 @@ Je zal dit cluster kunnen bewerken om _timeFuture_."</string>
     <string name="introduction_cluster_map_contribute_title">"Maak en bewerk een clusterkaart voor jouw campus"</string>
     <string name="introduction_translate_image_content_description">"vertaal-illustratie"</string>
     <string name="introduction_translation_action">"Wijzig strings"</string>
-    <string name="introduction_translation_description">"Als je grammaticafouten vind of wil meehelpen met het vertalen van deze app, kan dat met POEditor"</string>
+    <string name="introduction_translation_description">"Als je grammaticafouten vindt of wil meehelpen met het vertalen van deze app, kan dat met POEditor"</string>
     <string name="introduction_translation_text_bottom">"Grammatica-Nazi's zijn welkom"</string>
     <string name="introduction_translation_title">"Doe mee aan de vertaalgemeenschap"</string>
     <string name="language_english">"Engels"</string>

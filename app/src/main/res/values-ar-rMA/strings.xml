@@ -246,6 +246,9 @@
     <string name="project_user_status_waiting_for_correction">"انتظار التصحيحات"</string>
     <string name="project_user_status_waiting_to_start">"انتظار البدء"</string>
     <string name="project_you_cant_have_mark_for_this_project">"لا يمكنك الحصول على علامة في هذا المشروع"</string>
+
+    <!-- Fuzzy -->
+    <string name="quest_status_unknown">"غير معروف"</string>
     <string name="readme">"اقرأني"</string>
     <string name="refresh">"تحديث"</string>
     <string name="refreshing">"تحديث"</string>

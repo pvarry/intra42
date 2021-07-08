@@ -1,54 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Fuzzy -->
     <string name="about_version">"Versão"</string>
+
+    <!-- Fuzzy -->
     <string name="app_name">"Intra 42"</string>
+
+    <!-- Fuzzy -->
     <string name="campus">"Campus"</string>
+
+    <!-- Fuzzy -->
     <string name="cancel">"Cancelar"</string>
+
+    <!-- Fuzzy -->
     <string name="cluster_map_layer_data_unavailable_content">"Dado temporariamente indisponível, tente novamente mais tarde"</string>
+
+    <!-- Fuzzy -->
     <string name="copied">"Copiado"</string>
+
+    <!-- Fuzzy -->
     <string name="copy">"Copiar"</string>
+
+    <!-- Fuzzy -->
     <string name="delete">"Deletar"</string>
+
+    <!-- Fuzzy -->
     <string name="dialog_enable_app_logs">"Habilitar Logs"</string>
+
+    <!-- Fuzzy -->
     <string name="done">"Feito"</string>
-    <string name="dont_forget_to_restart">"Não esqueça de reiniciar o aplicativo "</string>
+
+    <!-- Fuzzy -->
+    <string name="dont_forget_to_restart">"Não esqueça de reiniciar o aplicativo"</string>
+
+    <!-- Fuzzy -->
     <string name="error">"error"</string>
+
+    <!-- Fuzzy -->
     <string name="evaluation_corrected_by">"Corrigido por"</string>
+
+    <!-- Fuzzy -->
     <string name="evaluation_on_project">"on"</string>
+
+    <!-- Fuzzy -->
+    <string name="evaluation_slot_new">"Novo slot"</string>
+
+    <!-- Fuzzy -->
+    <string name="evaluation_slot_success">"Sucesso"</string>
+
+    <!-- Fuzzy -->
+    <string name="evaluation_someone">"Alguém"</string>
+
+    <!-- Fuzzy -->
+    <string name="evaluation_with">"com"</string>
+
+    <!-- Fuzzy -->
+    <string name="evaluations_booked_slot">"Slot reservado"</string>
+
+    <!-- Fuzzy -->
+    <string name="evaluations_confirmation_delete_booked_slot">"Tem certeza que deseja excluir o slot reservado?
+Você irá perder um ponto de correção"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_check_registration">"Verificando seu registro"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_full">"Cheio"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_nothing_found_for_your_campus_cursus">"Nenhum evento encontrar em seu Campus/curso"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_subscribe">"Inscrever"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_subscribed">"Inscrito"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_subscription_unavailable">"Inscrição indisponível"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_unsubscribe">"Desinscrever"</string>
+
+    <!-- Fuzzy -->
+    <string name="event_unsubscribed">"Não inscrito"</string>
+
+    <!-- Fuzzy -->
+    <string name="galaxy_available">"Disponível"</string>
+
+    <!-- Fuzzy -->
+    <string name="galaxy_failed">"Falhou"</string>
+
+    <!-- Fuzzy -->
+    <string name="galaxy_in_progress">"Em andamento"</string>
+
+    <!-- Fuzzy -->
+    <string name="galaxy_not_found">"Gráfico da galáxia indisponível"</string>
+
+    <!-- Fuzzy -->
+    <string name="galaxy_succeeded">"Bem-sucedido"</string>
+
+    <!-- Fuzzy -->
+    <string name="menu_action_share">"Compartilhar"</string>
+
+    <!-- Fuzzy -->
+    <string name="menu_action_user_add_to_home">"Adicionar na tela inicial"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_cluster_map">"Mapa de grupo"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_header_action">"Ações"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_header_info">"Info"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_header_tools">"Ferramentas"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_home">"Início"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_logout">"Sair"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_place_holder_login">"Login"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_settings">"Configuração"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_share">"Compartilhar"</string>
+
+    <!-- Fuzzy -->
+    <string name="navigation_time_on_campus">"Tempo no campus"</string>
+
+    <!-- Fuzzy -->
+    <string name="notification_auto_clear">"Fechando em 5s"</string>
+
+    <!-- Fuzzy -->
+    <string name="notification_bookings_title_imminent">"Avaliação próxima"</string>
+
+    <!-- Fuzzy -->
+    <string name="notification_bookings_title_new">"Você tem uma nova reserva"</string>
+
+    <!-- Fuzzy -->
+    <string name="notification_see_project">"Ver projeto"</string>
+
+    <!-- Fuzzy -->
+    <string name="notification_see_user">"Ver usuário"</string>
+
+    <!-- Fuzzy -->
+    <string name="notifications_announcements_sub_text">"Anúncios"</string>
+
+    <!-- Fuzzy -->
     <string name="notifications_bookings_channel_name">"Reservas"</string>
-    <string name="notifications_bookings_sub_text">"reserva"</string>
-    <string name="notifications_events_channel_description">"Notificação para eventos"</string>
+
+    <!-- Fuzzy -->
+    <string name="notifications_bookings_sub_text">"Reserva"</string>
+
+    <!-- Fuzzy -->
+    <string name="notifications_events_channel_description">"Notificação de eventos"</string>
+
+    <!-- Fuzzy -->
     <string name="notifications_events_channel_name">"Eventos"</string>
-    <string name="notifications_events_sub_text">"evento"</string>
+
+    <!-- Fuzzy -->
+    <string name="notifications_events_sub_text">"Evento"</string>
+
+    <!-- Fuzzy -->
     <string name="ok">"Ok"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_activated">"Ativado"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_advanced_dont_force">"Inativo (sem forçar)"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_force_content_location">"Forcar conteúdo"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_header_network">"Rede"</string>
-    <string name="pref_header_notifications">"Notificações"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_header_notifications">"Notificação"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_summary_advanced_data_print_ids_enabled">"Exibir informações adicionais como IDs e url sobre o aplicativo"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_summary_advanced_settings_enabled">"Usar configurações avançadas, desabilite caso não saiba o que é"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_theme_info_need_restart_to_apply">"Você deve reiniciar o aplicativo para aplicar completamente o tema selecionado"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_theme_switch_brightness">"Usar tema escuro"</string>
-    <string name="pref_title_notifications_events">"Notificar eventos"</string>
-    <string name="pref_title_notifications_frequency">"Frequência de sincronização"</string>
-    <string name="pref_title_notifications_scales">"Notificar correções"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_title_network_over_cellular_fast">"Rede móvel rápida"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_title_network_over_cellular_slow">"Rede móvel fraca"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_title_network_over_wifi">"Wireless"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_title_notifications_events">"Aviso de eventos"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_title_notifications_frequency">"Sync Intervalo"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_title_notifications_scales">"Aviso de correções (beta)"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_title_theme">"Tema"</string>
-    <string name="pref_unactivated">"Desativado"</string>
-    <string name="pref_value_all">"Todos"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_unactivated">"Inativado"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_value_all">"Tudo"</string>
+
+    <!-- Fuzzy -->
+    <string name="profile_apps_private">"Privado"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_creating_group">"Criando grupo"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_finished">"Finalizado"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_in_progress">"Em andamento"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_parent">"pai"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_searching_a_group">"Procurando um grupo"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_unknown">"Desconhecido"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_waiting_for_correction">"Esperando avaliações"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_user_status_waiting_to_start">"Esperando início"</string>
+
+    <!-- Fuzzy -->
+    <string name="project_you_cant_have_mark_for_this_project">"Você não pode iniciar esse projeto"</string>
+
+    <!-- Fuzzy -->
     <string name="quest_in_progress">"Em Progresso"</string>
+
+    <!-- Fuzzy -->
     <string name="quest_progress">"Progresso: %s"</string>
+
+    <!-- Fuzzy -->
     <string name="quest_retry_left">"%d tentativas restantes"</string>
+
+    <!-- Fuzzy -->
     <string name="quest_status_unknown">"Desconhecido"</string>
+
+    <!-- Fuzzy -->
     <string name="quest_validated">"Sucesso"</string>
+
+    <!-- Fuzzy -->
     <string name="refresh">"Atualizar"</string>
+
+    <!-- Fuzzy -->
     <string name="save">"Salvar"</string>
+
+    <!-- Fuzzy -->
+    <string name="search_by">"Procurar por"</string>
+
+    <!-- Fuzzy -->
+    <string name="search_error_on_open_this_element">"Erro ao abrir esse conteúdo"</string>
+
+    <!-- Fuzzy -->
+    <string name="search_hint">"Procurar"</string>
+
+    <!-- Fuzzy -->
+    <string name="search_on_projects">"Procurando em projetos"</string>
+
+    <!-- Fuzzy -->
+    <string name="search_on_users">"Procurando em usuários"</string>
+
+    <!-- Fuzzy -->
+    <string name="search_section_projects">"Projetos"</string>
+
+    <!-- Fuzzy -->
+    <string name="searching">"Procurando"</string>
+
+    <!-- Fuzzy -->
+    <string name="share_using">"Compartilhar usando"</string>
+
+    <!-- Fuzzy -->
     <string name="shortcut_friends">"Amigos"</string>
+
+    <!-- Fuzzy -->
     <string name="shortcut_long_cluster_map">"Mapa de Clusters"</string>
+
+    <!-- Fuzzy -->
     <string name="shortcut_long_friends">"Lista de amigos"</string>
+
+    <!-- Fuzzy -->
     <string name="soon">"Em breve"</string>
+
+    <!-- Fuzzy -->
     <string name="sort_by">"Ordenar por"</string>
+
+    <!-- Fuzzy -->
     <string name="tags">"Tags"</string>
+
+    <!-- Fuzzy -->
+    <string name="time_zone_error">"Fuso horário error"</string>
+
+    <!-- Fuzzy -->
+    <string name="title">"Título"</string>
+
+    <!-- Fuzzy -->
+    <string name="title_activity_about">"Sobre"</string>
+
+    <!-- Fuzzy -->
     <string name="title_tab_user_quests">"Buraco Negro"</string>
+
+    <!-- Fuzzy -->
     <string name="toast_logs_disabled">"Logs desativados"</string>
+
+    <!-- Fuzzy -->
     <string name="today">"Hoje"</string>
+
+    <!-- Fuzzy -->
     <string name="tomorrow">"Amanhã"</string>
+
+    <!-- Fuzzy -->
     <string name="value">"Valor"</string>
 </resources>

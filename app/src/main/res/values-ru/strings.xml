@@ -187,7 +187,7 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="cluster_map_info_data_layer">"Уровень данных"</string>
     <string name="cluster_map_info_data_layer_description">"С помощью этой функции можно изменять выделенные (цветом вокруг аватары пользователя) посты на карте кластера, необходимо всего лишь выбрать нужный уровень данных и нажать \"обновить\"."</string>
     <string name="cluster_map_info_data_layer_error">"ошибка при загрузке и/или применении слоя"</string>
-    <string name="cluster_map_info_highlight_nothing">"ничегоне отмечено"</string>
+    <string name="cluster_map_info_highlight_nothing">"ничего не отмечено"</string>
     <string name="cluster_map_info_highlight_plural">"%d отмечено"</string>
     <string name="cluster_map_info_highlight_singular">"%d отмечено"</string>
     <string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
@@ -208,6 +208,9 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="cluster_map_info_vacant_posts_nothing">"нет вакантных постов"</string>
     <string name="cluster_map_info_vacant_posts_plural">"%d выкантных постов"</string>
     <string name="cluster_map_info_vacant_posts_singular">"%d вакантный пост"</string>
+
+    <!-- Fuzzy -->
+    <string name="cluster_map_layer_data_unavailable_content">"Не удается загрузить, попробуйте позже"</string>
     <string name="cluster_map_no_layout">"Слой для этого кластера недоступен"</string>
     <string name="cluster_map_not_in_campus">"Карта кластера пока не доступна для вашего кампуса"</string>
     <string name="coalition_score">"Счет"</string>
@@ -297,7 +300,6 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="friends_info_api_data_processing">"АПИ Друзья сейчас обрабатывает данные, ваши друзья скоро будут добавлены"</string>
     <string name="friends_info_api_try_again">"API друзей сейчас получает новых пользователей, попробуйте через 2мин"</string>
     <string name="friends_info_database_update">"Обновит список друзей"</string>
-    <string name="friends_nothing_found">"Вы можете добавить друзей из их профодя"</string>
     <string name="friends_remove_from_group">"Удалить из группы"</string>
     <string name="friends_removing_from_group">"Удаление друзей из группы"</string>
     <string name="friends_select_group">"Выбрать группу"</string>
@@ -428,12 +430,18 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="pref_summary_calendar_enable">"После предоставления доступа к календарю это приложение сможет добавлять события в календарь"</string>
     <string name="pref_summary_notifications_events">"Уведомлять о новых событиях, опубликованных в интранете 42"</string>
     <string name="pref_summary_notifications_scales">"Напоминать мне о проверках"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_theme_info_need_restart_to_apply">"Требуется перезапустить приложение для применения темы"</string>
     <string name="pref_theme_list_titles_android">"Андроид Тёмный"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Синий (Федерация)"</string>
     <string name="pref_theme_list_titles_default">"Интра (авто-темы для коалиций)"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Зеленый (Альянс)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Пурпурный (Ассамблея)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Красный (Ордин)"</string>
+
+    <!-- Fuzzy -->
+    <string name="pref_theme_switch_brightness">"Темная тема"</string>
     <string name="pref_theme_title_change_theme">"Настроить тему"</string>
     <string name="pref_title_advanced_data_allow_beta">"Включит дополнительные настройки"</string>
     <string name="pref_title_advanced_data_markdown_render">"Снижение рендера"</string>
@@ -497,9 +505,12 @@ https://forum.intra.42.fr/topics/9650/messages/last
     <string name="project_user_status_waiting_for_correction">"в ожидании проверок"</string>
     <string name="project_user_status_waiting_to_start">"в ожидании начала"</string>
     <string name="project_you_cant_have_mark_for_this_project">"Вы не можете получить оценку за этот проект"</string>
+    <string name="quest_failed">"Провал"</string>
+    <string name="quest_in_progress">"В процессе"</string>
 
     <!-- %d is %days or just %d is how much tries left? -->
     <string name="quest_retry_left">"%d попыток осталось"</string>
+    <string name="quest_validated">"Успешно"</string>
     <string name="readme">"Читать обязательно"</string>
     <string name="refresh">"Обновить"</string>
     <string name="refreshing">"Обновление"</string>
