@@ -1,13 +1,7 @@
-import fetch from 'node-fetch'
+import fetch from '../intra_auth'
 
 async function _coalitions(id) {
-  const res = await fetch(`https://profile.intra.42.fr/blocs/${id}/stats`, {
-    method: 'GET',
-    headers: {
-      'User-Agent': 'intra42/1.0 (+https://github.com/pvarry/intra42)',
-      'Cookie': `_intra_42_session_production=${INTRA_COOKIE}`
-    }
-  })
+  const res = await fetch(`https://profile.intra.42.fr/blocs/${id}/stats`)
 
   return [res.status, await res.json()]
 }
