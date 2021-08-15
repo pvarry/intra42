@@ -1,13 +1,15 @@
-import json from 'rollup-plugin-json'
-import replace from 'rollup-plugin-replace'
+import json from '@rollup/plugin-json'
+import replace from '@rollup/plugin-replace'
 
 const pkg = require('./package.json')
 
 export default {
-  banner: `// ${pkg.name} - ${pkg.version}`,
-  entry: 'src/main.js',
-  dest: 'dist/bundle.js',
-  format: 'cjs',
+  input: 'src/main.js',
+  output: {
+    banner: `// ${pkg.name} - ${pkg.version}`,
+    file: 'dist/bundle.js',
+    format: 'cjs'
+  },
   plugins: [
     json({
       exclude: 'node_modules/**',
