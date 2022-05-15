@@ -1,11 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="_super_forum">"Solo per studenti di 42 (www.42.fr), questa app è disponibile per tutti i campus :)
+
+L'app è un client non ufficiale dell'intra di 42 per piattaforme Android. È fatta in JAVA e usa l'SDK ufficiale di Android.
+
+Scaricala da : [https://play.google.com/store/apps/details?id=com.paulvarry.intra42](https://play.google.com/store/apps/details?id=com.paulvarry.intra42)
+
+Visualizza sorgenti : [https://github.com/pvarry/intra42](https://github.com/pvarry/intra42)
+
+## Funzionalità :
+- Essere informati sugli eventi e sincronizzare il calendario
+- Essere notificati sugli eventi e i punteggi
+- Visualizzare progetti e punteggi
+- Visualizzare utenti e i relativi progetti
+- Commentare sul forum
+- Guardare video su e-learning
+
+Qualsiasi funzionalità e contribuzione è benvenuta!
+
+Strumenti utili :
+
+&gt; [pdf viewer](https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer)
+
+&gt; [vlc](https://play.google.com/store/apps/details?id=org.videolan.vlc) for playing e-learning videos.
+
+## Contribuire
+
+Puoi contribuire a questo progetto fixando bug o aggiungendo funzionalità mancanti
+
+### Modifica codice sorgente
+
+Sorgenti : [https://github.com/pvarry/intra42](https://github.com/pvarry/intra42)
+
+Per eseguire l'applicazione localmente devi :
+- Usare Android Studio come IDE.
+- Creare un'applicazione su https://profile.intra.42.fr/oauth/applications
+- Duplicare il file `app/src/debug/java/com/paulvarry/intra42/Credential.java.sample` e completarlo con le tue credenziali.
+
+### Modifica delle risorse stringa
+
+Se trovi errori grammaticali o se vuoi tradurre quest'app, puoi farlo con [POEditor](https://poeditor.com/join/project/hDRec5Vk8b).
+
+## Screenshot
+
+![home](https://lh3.googleusercontent.com/kVno0ZG2ZQHiG3NXgKsN6pZ7Bx2L18wT54_OCfLJejKYPecyllImXpNQ0KWXRXMFJpE=h310-rw)
+
+![Galaxy](https://lh3.googleusercontent.com/8sl1WUfwK0buyA1BN1uxH0OmhJOfByZfXtJ_u1sVFBPjYPeCQgqin0DnrnNhNwfkW3ot=h310-rw)
+
+![Cluster Map](https://lh3.googleusercontent.com/o5xlA1lXr1qoYWC81RUAg_e4jaWpFg9LoU5kStmR9PuXatqKnUvY8QJ3a2L4M41RKtxd=h310-rw)
+
+![Event](https://lh3.googleusercontent.com/EvbKktad0gKoUU4KBIo4x9eglSHSLlSIfOMgFbIZfIE3Pp6N2ZkguYLYM27nFZOwfg=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/WWOLxkqUmtg51B5DC0UlJzj1jD-9ju1bDTPcuLd88YW-wFcuHlUDrRcloiOIKpQURZk=h310-rw)
+
+![Projects](https://lh3.googleusercontent.com/9vEGqxY4duq8rK4VeDFgB8rU6JC_8E3kzX1Cl0-jrc3amrPoqFjHwZLTLKpSRdShXkXT=h310-rw)
+
+Disclaimer : Questo codice non è in alcun modo affiliato con, autorizzato, mantenuto, sponsorizzato o approvato da 42. Questa è una applicazione non ufficiale e indipendente per Android."</string>
+    <string name="_super_store_full_description">"Solamente per studenti di 42 (www.42.fr
+
+Questa è un'app non ufficale dell'intra di 42 per dispositivi Android. È fatta in JAVA e usa l'SDK ufficale di Android
+
+Funzionalità:
+-Tenersi informati sugli eventi e sincronizzare il calendario
+-Essere informato su eventi e punteggi
+-Visualizzare progetti e punteggi
+-Visualizzare i profili degli utenti e i relativi progetti
+-Commentare sul forum
+-Guardare video su e-learning
+-Qualsiasi richiesta di funzionalità e contribuzioni sono benvenute!
+
+Maggiori informazioni : https://forum.intra.42.fr/topics/9650/messages/last
+https://github.com/pvarry/intra42
+
+Disclaimer : Questo codice non è in alcun modo affiliato con, autorizzato, mantenuto, sponsorizzato o approvato da 42. Questa è un'applicazione non ufficiale e indipendente"</string>
+    <string name="_super_store_short_description">"App dell'intra di 42 non ufficiale, free e open-source"</string>
+    <string name="_super_store_title">"Intra 42"</string>
+    <string name="about_app_summary">"Applicazione non ufficiale, free e open-source"</string>
     <string name="about_content">"Accedi all'intra con un'app nativa
 Contattami su Slack o tramite mail (pvarry)"</string>
     <string name="about_library_list">"Lista libreria"</string>
     <string name="about_on_github">"Su github"</string>
     <string name="about_poeditor">"Progetto su POEditor"</string>
     <string name="about_report_bug">"Segnala un bug"</string>
+    <string name="about_show_introduction">"Mostra Introduzione"</string>
     <string name="about_version">"Versione"</string>
     <string name="about_view_source">"Mostra sorgente"</string>
     <string name="accessibility_navigation_drawer_close">"Chiudi il drawer di navigazione"</string>
@@ -14,6 +91,7 @@ Contattami su Slack o tramite mail (pvarry)"</string>
 
     <!-- Format warning -->
     <string name="booking_correct_login">"Esaminerai il progetto di _login_ a _date_."</string>
+    <string name="booking_correct_login_project">"Esaminerai _login_ su _project_ alle _date_"</string>
 
     <!-- Format warning -->
     <string name="booking_correct_somebody">"Esaminerai il codice di qualcuno a _date_."</string>
@@ -32,10 +110,12 @@ Contattami su Slack o tramite mail (pvarry)"</string>
     <string name="cluster_map_contribute_dialog_add_action_column_right">"Aggiungi colonna a destra"</string>
     <string name="cluster_map_contribute_dialog_add_action_row_bottom">"Aggiungi riga in basso"</string>
     <string name="cluster_map_contribute_dialog_add_action_row_top">"Aggiungi riga al top"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_column">"Azioni per questa colonna"</string>
     <string name="cluster_map_contribute_dialog_controller_action_delete_column">"Elimina questa colonna"</string>
     <string name="cluster_map_contribute_dialog_controller_action_delete_row">"Elimina questa riga"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Imposta dimensione colonna"</string>
     <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Imposta dimensione riga"</string>
+    <string name="cluster_map_contribute_dialog_controller_title_row">"Azioni per questa riga"</string>
 
     <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_col">"Stai per eliminare la colonna x=%d, questa azione non può essere annullata"</string>
@@ -43,37 +123,94 @@ Contattami su Slack o tramite mail (pvarry)"</string>
     <!-- Fuzzy -->
     <string name="cluster_map_contribute_dialog_delete_message_row">"Stai per eliminare la riga y=%d, questa azione non può essere annullata"</string>
     <string name="cluster_map_contribute_dialog_delete_title">"Sei sicuro di eliminare questa riga/colonna?"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_corridor">"corridoio"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_host_hint">"host"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_user">"utente"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_wall">"muro"</string>
     <string name="cluster_map_contribute_dialog_location_title">"Modifica: _x_,_y_"</string>
+    <string name="cluster_map_contribute_dialog_location_title_host">"Modifica: _x_,_y_(_host_)"</string>
     <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Commento"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_full_name">"Nome completo"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix">"Prefisso di posizione"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">"Info: Il prefisso della posizione è l'inizio di tutti gli hostname di questo cluster."</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_position">"Posizione di questo cluster nella lista"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_short_name">"Nome breve"</string>
     <string name="cluster_map_contribute_dialog_metadata_title">"Modifica metadati cluster"</string>
+    <string name="cluster_map_contribute_dialog_scale_layout_info">"Impostando una scala su una riga o una colonna, si riduce o si aumenta la sua dimensione."</string>
+    <string name="cluster_map_contribute_dialog_scale_title">"Modifica la scala di questa riga/colonna"</string>
+    <string name="cluster_map_contribute_dialog_time_up_message">"Lock si bloccherà presto, dovresti considerare di salvare le modifiche il più presto possibile."</string>
+    <string name="cluster_map_contribute_dialog_time_up_title">"Tempo scaduto"</string>
+    <string name="cluster_map_contribute_error_data_locked">"L'operazione non può essere terminata, i dati sono bloccati"</string>
+    <string name="cluster_map_contribute_error_fail_to_retrieve_data_response">"L'operazione non può essere terminata, impossibile recuperare i dati"</string>
+    <string name="cluster_map_contribute_explanations">"La mappa del cluster può essere modificata da utenti multipli come il tempo di risparmio, si possono vedere i cambiamenti dinamici durante la modifica.
+
+Pronto per essere pubblicato : Quando questo flag è impostato, il cluster sarà pubblicato manualmente sul prossimo aggiornamento dell'app.
+
+Orientamento del cluster :
+    - Tutti i cluster di un edificio devono avere lo stesso orientamento.
+    - Il nord non è necessariamente in alto, è preferibile avere l'ingresso del Cluster in basso."</string>
+    <string name="cluster_map_contribute_locked_indicator">"Cluster bloccato da _user_ at _time_.
+Sarà possibile modificare questo cluster a _timeFuture_."</string>
+    <string name="cluster_map_contribute_ready_publish">"Questo cluster è pronto per essere pubblicato"</string>
+    <string name="cluster_map_contribute_toolbar_info_minute_second">"Blocco cluster per: _minute_ m e _second_ s"</string>
+    <string name="cluster_map_contribute_toolbar_info_second">"Blocco cluster per: _second_ s"</string>
     <string name="cluster_map_contribute_toolbar_info_too_late">"Troppo tardi, non puoi salvare i tuoi cambiamenti"</string>
+    <string name="cluster_map_contribute_warning_empty_host">"Attenzione: il nome dell'host deve essere compilato"</string>
+    <string name="cluster_map_contribute_warning_host_prefix">"Attenzione: il nome dell'host non deve iniziare con il prefisso del cluster, sarà aggiunto automaticamente"</string>
+    <string name="cluster_map_dialog_action">"Azioni per questa posizione"</string>
     <string name="cluster_map_info_button_contribute">"Aggiungi dati mancanti"</string>
     <string name="cluster_map_info_button_update">"Aggiorna"</string>
     <string name="cluster_map_info_button_update_disabled">"Aggiornamento non necessario"</string>
     <string name="cluster_map_info_clusters">"Clusters"</string>
+    <string name="cluster_map_info_contribute_description">"Crea, modifica e completa la cluster map per il tuo campus. Aiuta gli altri studenti a trovare i loro amici da questa mappa"</string>
+    <string name="cluster_map_info_contribute_title">"Aggiungi il cluster mancante"</string>
+    <string name="cluster_map_info_data_layer">"Layer dati"</string>
+    <string name="cluster_map_info_data_layer_description">"Con questa funzione è possibile modificare i post evidenziati (colore intorno al profilo dell'immagine utente) sulla cluster map, basta selezionare il livello di dati desiderato e cliccare su \"aggiorna\"."</string>
+    <string name="cluster_map_info_data_layer_error">"errore di caricamento e/o applicazione del livello"</string>
+    <string name="cluster_map_info_highlight_nothing">"nessun highlight"</string>
+    <string name="cluster_map_info_highlight_plural">"%d highlights"</string>
+    <string name="cluster_map_info_highlight_singular">"%d highlight"</string>
     <string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
+    <string name="cluster_map_info_layer_input_login">"login"</string>
     <string name="cluster_map_info_layer_input_project">"progetto"</string>
     <string name="cluster_map_info_layer_spinner_main_coalitions">"Coalizioni"</string>
     <string name="cluster_map_info_layer_spinner_main_friends">"Amici"</string>
+    <string name="cluster_map_info_layer_spinner_main_level">"Livelli"</string>
     <string name="cluster_map_info_layer_spinner_main_login">"Utente"</string>
     <string name="cluster_map_info_layer_spinner_main_none">"Nullo"</string>
     <string name="cluster_map_info_layer_spinner_main_project">"Progetto"</string>
+    <string name="cluster_map_info_layer_warning_disabled">"Impossibile utilizzare questo livello di dati, il server che fornisce questi dati è in manutenzione, riprovare più tardi"</string>
+    <string name="cluster_map_info_levels_display_closed">"Mostra gli studenti chiusi (come la piscina finita)"</string>
+    <string name="cluster_map_info_no_map">"Nessuna mappa dei cluster disponibile"</string>
     <string name="cluster_map_info_project_dialog_not_found">"Non trovato"</string>
     <string name="cluster_map_info_project_dialog_not_found_content_format">"Nessun progetto trovato per: %s"</string>
+    <string name="cluster_map_info_vacant_posts_nothing">"nessun posto libero"</string>
+    <string name="cluster_map_info_vacant_posts_plural">"%d posti liberi"</string>
+    <string name="cluster_map_info_vacant_posts_singular">"%d posto libero"</string>
+    <string name="cluster_map_layer_data_unavailable_content">"Dati temporaneamente non disponibili, riprovare più tardi"</string>
+    <string name="cluster_map_layer_data_unavailable_title">"Errore Api"</string>
     <string name="cluster_map_no_layout">"Layout non disponibile per questo cluster"</string>
+    <string name="cluster_map_not_in_campus">"La mappa del cluster non è disponibile nel tuo campus"</string>
     <string name="coalition_score">"Punteggio"</string>
     <string name="coalitions_nothing_selected_cursus_campus">"Nessuna coalizione trovata per il corso/campo selezionato"</string>
+    <string name="continue_editing">"continua modifica"</string>
     <string name="copied">"Copiato"</string>
     <string name="copy">"Copia"</string>
     <string name="cursus">"Corsi"</string>
     <string name="delete">"Elimina"</string>
+    <string name="dialog_delete_message">"Vuoi cancellare questa voce, questa azione non può essere annullata?"</string>
+    <string name="dialog_enable_app_logs">"Abilita logs"</string>
     <string name="discard_changes">"Annulla"</string>
     <string name="done">"Fatto"</string>
+    <string name="dont_forget_to_restart">"Non dimenticare di riavviare l'app"</string>
+    <string name="edit_unsaved_changes_content">"Desideri salvare i cambiamenti di questo gruppo?"</string>
+    <string name="edit_unsaved_changes_title">"Hai modifiche non salvate"</string>
     <string name="elearning_select_file_to_open">"Seleziona file da aprire"</string>
     <string name="elearning_title">"Elearning"</string>
     <string name="error">"errore"</string>
     <string name="error_scale_is_too_big">"Ridimensionamento troppo grande"</string>
     <string name="error_scale_is_too_small">"Ridimensionamento troppo piccolo"</string>
+    <string name="error_server_contect_support">"Errore del server, si prega di contattare il supporto"</string>
     <string name="error_text_is_too_long">"Testo troppo lungo"</string>
     <string name="error_value_must_be_set">"Inserire un valore"</string>
     <string name="evaluation_correct_someone">"Correzioni"</string>
@@ -94,17 +231,24 @@ Contattami su Slack o tramite mail (pvarry)"</string>
     <string name="evaluations_booked_slot">"Slot prenotati"</string>
     <string name="evaluations_confirmation_delete_booked_slot">"Sei sicuro di voler eliminare questo slot prenotato?
 Perderai un punto correzione"</string>
+    <string name="event_cancellation_date_exceeded">"Data limite di cancellazione superata"</string>
     <string name="event_check_registration">"Controllo la tua registrazione"</string>
     <string name="event_full">"Al completo"</string>
     <string name="event_kind_association">"Associazione"</string>
+    <string name="event_kind_atelier">"laboratorio"</string>
     <string name="event_kind_challenge">"Sfida"</string>
+    <string name="event_kind_conf">"conf"</string>
     <string name="event_kind_event">"Evento"</string>
+    <string name="event_kind_extern">"esterno"</string>
     <string name="event_kind_hackathon">"Hackathon"</string>
     <string name="event_kind_meet_up">"Conferenze"</string>
+    <string name="event_kind_other">"altro"</string>
     <string name="event_kind_partnership">"Partnership"</string>
+    <string name="event_kind_speed_working">"velocità di lavoro"</string>
     <string name="event_kind_unknown">"Sconosciuto"</string>
     <string name="event_kind_workshop">"Workshop"</string>
     <string name="event_nothing_found_for_your_campus_cursus">"Nessun evento trovato per il tuo campus/corso"</string>
+    <string name="event_prohibition_of_cancellation">"Le iscrizioni non possono più essere cancellate dopo %s"</string>
     <string name="event_subscribe">"Iscriviti"</string>
     <string name="event_subscribed">"Iscritto"</string>
     <string name="event_subscription_unavailable">"Iscrizione non disponibile"</string>
@@ -119,6 +263,7 @@ Perderai un punto correzione"</string>
 
     <!-- Format warning -->
     <string name="format_dont_have_any_expertise_yet">"%s non ha ancora alcuna esperienza"</string>
+    <string name="format_project_team_users_action_open">"Apri {project} di {user}"</string>
     <string name="friend_group_list">"Gruppo"</string>
     <string name="friend_group_name">"Nome del gruppo"</string>
     <string name="friends">"Amici"</string>
@@ -148,6 +293,7 @@ Perderai un punto correzione"</string>
     <!-- Format warning -->
     <string name="friends_summary_format_friends">"%d amico"</string>
     <string name="friends_summary_no_friends">"Nessun amico"</string>
+    <string name="friends_warning">"La funzione Amici non è disponibile, il server è in manutenzione"</string>
     <string name="galaxy_available">"Disponibile"</string>
     <string name="galaxy_failed">"Fallito"</string>
     <string name="galaxy_in_progress">"in corso"</string>
@@ -158,6 +304,9 @@ Perderai un punto correzione"</string>
     <string name="galaxy_unknown_state">"Stato sconosciuto"</string>
     <string name="hint_date">"data"</string>
     <string name="hint_time">"tempo"</string>
+    <string name="home_help_calendar_enable">"abilita"</string>
+    <string name="home_help_calendar_hide">"nascondi"</string>
+    <string name="home_help_calendar_sync">"Sincronizza il tuo calendario telefonico con gli eventi sottoscritti"</string>
     <string name="home_help_POEditor">"Se trovi errori grammaticali o se vuoi tradurre questa applicazione,
 puoi farlo con POEditor. Clicca qui"</string>
     <string name="info_api_finishing">"Finendo"</string>
@@ -172,6 +321,7 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="info_initializing">"Inizializzazione"</string>
     <string name="info_loading">"caricamento ..."</string>
     <string name="info_loading_cache">"Carico la cache ..."</string>
+    <string name="info_loading_cache_cursus_campus">"Ottenere la cache dall'API per Cursus e Campus"</string>
     <string name="info_loading_calculating">"calcolo"</string>
     <string name="info_loading_current_user">"utente corrente"</string>
     <string name="info_loading_friends">"Caricamento amici..."</string>
@@ -179,12 +329,21 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="info_loading_page_on">"Caricamento pagina %d di %d"</string>
     <string name="info_loading_please_wait">"Caricamento. Attendere..."</string>
     <string name="info_loading_processing_data">"Elaborazione dati"</string>
+    <string name="info_network_error">"Errore di rete"</string>
     <string name="info_network_no_internet">"Impossibile collegarsi a internet"</string>
     <string name="info_nothing_to_show">"Nulla da mostrare"</string>
     <string name="introduction_calendar_action">"Consenti calendario"</string>
     <string name="introduction_calendar_description">"Gli eventi a cui sei iscritto verranno automaticamente inseriti nel tuo calendario"</string>
+    <string name="introduction_calendar_image_content_description">"illustrazione del calendario"</string>
     <string name="introduction_calendar_switch">"Abilita sync del Calendario"</string>
     <string name="introduction_calendar_title">"Sincronizza calendario"</string>
+    <string name="introduction_cluster_map_contribute_description">"Metti a disposizione di tutti la mappa dei cluster del tuo campus, aggiungi o modifica il layout della mappa dei cluster direttamente dall'applicazione nella sezione cluster map"</string>
+    <string name="introduction_cluster_map_contribute_title">"Crea e modifica la mappa dei cluster per il tuo campus"</string>
+    <string name="introduction_translate_image_content_description">"tradurre l'illustrazione"</string>
+    <string name="introduction_translation_action">"Modificare le risorse delle stringhe"</string>
+    <string name="introduction_translation_description">"Se trovate errori grammaticali o se volete tradurre questa app, potete farlo con POEditor."</string>
+    <string name="introduction_translation_text_bottom">"I nazisti della grammatica sono i benvenuti"</string>
+    <string name="introduction_translation_title">"Unisciti alla Comunità di Traduzione"</string>
     <string name="language_english">"Inglese"</string>
     <string name="language_french">"Francese"</string>
     <string name="language_romanian">"Rumeno"</string>
@@ -195,13 +354,19 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="list_preference_network_titles_none">"Nessuna"</string>
     <string name="list_preference_network_titles_small">"Piccolo (146x175)"</string>
     <string name="location_undetermined">"indeterminato"</string>
+    <string name="login_custom_chrome_tabs_open_default_browser">"Apri il browser di default"</string>
+    <string name="login_error_web_browser_required">"Devi installare un browser web"</string>
+    <string name="login_open_custom_chrome_tabs">"accedi"</string>
+    <string name="login_summary">"Intranet"</string>
     <string name="login_view_sources">"Mostra sorgenti"</string>
+    <string name="max">"max"</string>
     <string name="menu_action_filter">"filtro"</string>
     <string name="menu_action_open_intra">"Mostra versione web"</string>
     <string name="menu_action_search">"Cerca"</string>
     <string name="menu_action_settings">"Impostazioni"</string>
     <string name="menu_action_share">"Condividi"</string>
     <string name="menu_action_user_add_to_home">"Aggiungi alla schermata home"</string>
+    <string name="min">"min"</string>
     <string name="navigation_cluster_map">"Mappa Cluster"</string>
     <string name="navigation_header_action">"Azioni"</string>
     <string name="navigation_header_info">"Info"</string>
@@ -222,7 +387,7 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="notifications_announcements_channel_name">"Avvisi"</string>
     <string name="notifications_announcements_sub_text">"avvisi"</string>
     <string name="notifications_bookings_channel_description">"Notifiche per prenotazioni corrette"</string>
-    <string name="notifications_bookings_channel_name">"Prenotazione"</string>
+    <string name="notifications_bookings_channel_name">"Prenotazioni"</string>
     <string name="notifications_bookings_sub_text">"prenotazione"</string>
     <string name="notifications_events_channel_description">"Notifiche per eventi"</string>
     <string name="notifications_events_channel_name">"Eventi"</string>
@@ -232,7 +397,7 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="ok">"OK"</string>
     <string name="open_this">"Apri questo"</string>
     <string name="opening_in_progress">"Apertura in corso"</string>
-    <string name="pref_activated">"Attivo"</string>
+    <string name="pref_activated">"Attivato"</string>
     <string name="pref_advanced_dont_force">"Disabilita (non forzare)"</string>
     <string name="pref_category_notifications">"Notifiche"</string>
     <string name="pref_force_content_location">"Forza posizione contenuto"</string>
@@ -243,24 +408,44 @@ puoi farlo con POEditor. Clicca qui"</string>
 
     <!-- Impostazioni Notifiche -->
     <!-- Fuzzy -->
-    <string name="pref_header_notifications">"Impostazioni Notifiche"</string>
+    <string name="pref_header_notifications">"Notifiche"</string>
     <string name="pref_header_theme">"Tema"</string>
+    <string name="pref_network_profile_pic_size_title">"Dimensione immagine di profilo"</string>
     <string name="pref_notifications_frequency_titles_15min">"15 minuti"</string>
     <string name="pref_notifications_frequency_titles_1hour">"1 ora (default)"</string>
     <string name="pref_notifications_frequency_titles_30min">"30 minuti"</string>
     <string name="pref_notifications_frequency_titles_3hour">"3 ore"</string>
     <string name="pref_notifications_frequency_titles_6hour">"6 ore"</string>
     <string name="pref_notifications_frequency_titles_never">"Mai"</string>
+    <string name="pref_summary_advanced_data_markdown_render_disabled">"Visualizzazione del testo grezzo su forum ed eventi"</string>
+    <string name="pref_summary_advanced_data_markdown_render_enabled">"Utilizzare un motore di rendering Markdown per il testo nelle visualizzazioni di forum ed eventi"</string>
+    <string name="pref_summary_advanced_data_print_ids_disabled">"Uso normale, usare questo come impostazione predefinita"</string>
+    <string name="pref_summary_advanced_data_print_ids_enabled">"Visualizzare informazioni aggiuntive come ids e slugs attraverso l'app"</string>
+    <string name="pref_summary_advanced_data_save_logs">"Abilitando questa funzionalità, logs aggiuntivi verranno generati e salvati in \"~/Android/com.paulvarry.intra42/files/logs\". Dovrai riavviare l'applicazione per rendere effettive le modifiche. Attenzione: informazioni personali (come il numero di telefono) verranno salvate sulla memoria del dispositivo. (default false)"</string>
+    <string name="pref_summary_advanced_settings_disabled">"Uso predefinito"</string>
+    <string name="pref_summary_advanced_settings_enabled">"Usa l'impostazione avanzata, se non si sa di cosa si tratta, si prega di disattivarla"</string>
     <string name="pref_summary_calendar_enable">"Dopo aver concesso l'utilizzo del calendario, questa app potrà mettere automaticamente gli eventi"</string>
     <string name="pref_summary_notifications_events">"Notifica per nuovi eventi pubblicati nell'intra"</string>
     <string name="pref_summary_notifications_scales">"Ricordami delle correzioni"</string>
+    <string name="pref_summary_theme_app_bar_background">"Visualizzare un'immagine a tema sullo sfondo della barra delle applicazioni"</string>
+    <string name="pref_theme_app_bar_background">"Immagine sulla barra delle applicazioni"</string>
+    <string name="pref_theme_color_scheme_list_titles_auto">"Utilizza tema sistema"</string>
+    <string name="pref_theme_color_scheme_list_titles_dark">"Scuro"</string>
+    <string name="pref_theme_color_scheme_list_titles_light">"Chiaro"</string>
+    <string name="pref_theme_info_need_restart_to_apply">"Devi riavviare l'app per utilizzare a pieno il tema selezionato"</string>
     <string name="pref_theme_list_titles_android">"Android Scuro"</string>
     <string name="pref_theme_list_titles_blue_the_federation">"Blu (La federazione)"</string>
+    <string name="pref_theme_list_titles_default">"Intra (coalizione auto tematizzazione)"</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Verde (L'alleanza)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Viola (L'Assembly)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Rosso (L'Ordine)"</string>
+    <string name="pref_theme_switch_brightness">"Usa tema scuro"</string>
     <string name="pref_theme_title_change_theme">"Scegli tema"</string>
+    <string name="pref_theme_title_example">"Tema esempio"</string>
+    <string name="pref_title_advanced_data_allow_beta">"Abilita impostazioni avanzate"</string>
     <string name="pref_title_advanced_data_past_events">"Eventi passati"</string>
+    <string name="pref_title_advanced_data_print_ids">"Mostra dati avanzati (ids, slugs ...)"</string>
+    <string name="pref_title_advanced_data_save_logs">"Salva logs sul disco"</string>
     <string name="pref_title_advanced_section_features">"Funzionalità avanzate"</string>
     <string name="pref_title_advanced_section_other">"Altre funzionalità"</string>
     <string name="pref_title_calendar">"Sincronizza eventi"</string>
@@ -268,12 +453,13 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="pref_title_calendar_list">"Seleziona il calendario dove inserire gli eventi"</string>
     <string name="pref_title_network_over_cellular_fast">"Via rete cellulare veloce"</string>
     <string name="pref_title_network_over_cellular_slow">"Via rete cellulare lenta"</string>
-    <string name="pref_title_network_over_wifi">"Via wifi"</string>
+    <string name="pref_title_network_over_wifi">"Via WiFi"</string>
     <string name="pref_title_notifications_events">"Consenti eventi"</string>
     <string name="pref_title_notifications_frequency">"Frequenza di sincronizzazione"</string>
     <string name="pref_title_notifications_scales">"Notifica correzioni (beta)"</string>
     <string name="pref_title_notifications_sync_allow">"Abilita notifiche e sincronia"</string>
-    <string name="pref_unactivated">"Disattivo"</string>
+    <string name="pref_title_theme">"Tema dell'app"</string>
+    <string name="pref_unactivated">"Disattivato"</string>
     <string name="pref_value_all">"Tutto"</string>
     <string name="profile_apps_private">"privato"</string>
     <string name="project_automatic_correction">"Valutazione automatica"</string>
@@ -283,6 +469,7 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="project_evaluation_plural">"valutazioni"</string>
     <string name="project_forbidden_to_open">"negato"</string>
     <string name="project_git_repository">"Repository Git del team"</string>
+    <string name="project_group">"gruppo"</string>
     <string name="project_list_user_team">"Utenti in questo team"</string>
     <string name="project_moulinette">"Moulinette"</string>
     <string name="project_no_session_found_for_this_cursus_campus">"Nessuna sessione trovata per il corso/campus selezionato"</string>
@@ -294,23 +481,39 @@ puoi farlo con POEditor. Clicca qui"</string>
     <string name="project_session">"Sessione"</string>
     <string name="project_show_mine">"Vai al mio"</string>
     <string name="project_skills">"Competenze"</string>
+    <string name="project_solo">"solo"</string>
+    <string name="project_sub_projects">"Sub"</string>
+    <string name="project_team_status_closed">"chiuso"</string>
+    <string name="project_team_status_locked">"bloccato"</string>
 
     <!-- Fuzzy -->
     <string name="project_team_users_toast">"%s
 Pressione prolungata per avere più info"</string>
     <string name="project_team_users_toast_leader">"%s (capo team)"</string>
+    <string name="project_user_not_registered">"non registrato"</string>
     <string name="project_user_status_creating_group">"creazione gruppo"</string>
     <string name="project_user_status_finished">"finito"</string>
     <string name="project_user_status_in_progress">"in corso"</string>
+    <string name="project_user_status_parent">"parent"</string>
     <string name="project_user_status_searching_a_group">"ricerca di un gruppo"</string>
     <string name="project_user_status_unknown">"sconosciuto"</string>
     <string name="project_user_status_waiting_for_correction">"in attesa di valutazione"</string>
     <string name="project_user_status_waiting_to_start">"In attesa di iniziare"</string>
     <string name="project_you_cant_have_mark_for_this_project">"Non puoi essere corretto in questo progetto"</string>
+    <string name="quest_failed">"Fallito"</string>
+    <string name="quest_in_progress">"In corso"</string>
+    <string name="quest_progress">"Progresso: %s"</string>
+    <string name="quest_retry_left">"%d tentativi rimasti"</string>
+    <string name="quest_status_unknown">"Sconosciuto"</string>
+    <string name="quest_validated">"Successo"</string>
     <string name="readme">"Leggimi"</string>
     <string name="refresh">"Aggiorna"</string>
     <string name="refreshing">"Aggiornamento"</string>
+    <string name="retry">"Riprova"</string>
     <string name="save">"Salva"</string>
+
+    <!-- Short word (under 6 char) -->
+    <string name="save_short">"Salva"</string>
     <string name="search_by">"Cerca per"</string>
     <string name="search_error_on_open_this_element">"Errore aprendo questo elemento"</string>
     <string name="search_hint">"Ricerca"</string>
@@ -323,21 +526,28 @@ Pressione prolungata per avere più info"</string>
     <string name="searching">"Ricerca ..."</string>
     <string name="select">"Seleziona"</string>
     <string name="share_using">"Condividi tramite"</string>
+    <string name="shortcut_cluster_map">"Clusters"</string>
     <string name="shortcut_friends">"Amici"</string>
     <string name="shortcut_galaxy">"Grafo progetti"</string>
     <string name="shortcut_long_cluster_map">"Mappa cluster"</string>
     <string name="shortcut_long_friends">"Lista amici"</string>
+    <string name="shortcut_long_galaxy">"Holy Graph (progetti)"</string>
+    <string name="sign_in_error_invalid_grant">"Non puoi usare questa app in questo momento, il tuo account 42 è forse chiuso"</string>
+    <string name="slots_delete_dialog_error_booked">"Uno slot non può essere cancellato, il suo stato è cambiato"</string>
     <string name="soon">"Presto"</string>
     <string name="sort_by">"Ordina per"</string>
     <string name="spinner_user_projects_all">"Tutto"</string>
     <string name="spinner_user_projects_galaxy">"Grafo Progetti"</string>
     <string name="spinner_user_projects_in_progress">"In corso"</string>
+    <string name="spinner_user_projects_my_projects">"I miei progetti"</string>
     <string name="tags">"Tags"</string>
     <string name="time_zone_error">"Errore time zone"</string>
     <string name="title">"Titolo"</string>
     <string name="title_activity_about">"Info"</string>
     <string name="title_activity_cantina_menu">"Menu Cantina (Fremont)"</string>
     <string name="title_activity_cluster_map">"Mappa cluster"</string>
+    <string name="title_activity_cluster_map_contribute">"Contribuisci alla mappa dei cluster"</string>
+    <string name="title_activity_cluster_map_contribute_edit">"Creare una mappa dei cluster"</string>
     <string name="title_activity_coalitions">"Coalizioni"</string>
     <string name="title_activity_elearning">"Elearning"</string>
     <string name="title_activity_event">"Evento"</string>
@@ -367,12 +577,16 @@ Pressione prolungata per avere più info"</string>
     <string name="title_tab_projects_graphic">"Grafo Progetti"</string>
     <string name="title_tab_tags_notions">"Nozioni"</string>
     <string name="title_tab_user_achievements">"Conquiste"</string>
+    <string name="title_tab_user_apps">"Applicazioni"</string>
     <string name="title_tab_user_expertises">"Esperienze"</string>
     <string name="title_tab_user_overview">"Panoramica"</string>
     <string name="title_tab_user_partnerships">"Partenariato"</string>
+    <string name="title_tab_user_patronages">"Patrocini"</string>
     <string name="title_tab_user_projects">"Progetti"</string>
+    <string name="title_tab_user_quests">"Black Hole"</string>
     <string name="title_tab_user_skills">"Competenze"</string>
     <string name="title_tab_users_all">"Tutto"</string>
+    <string name="toast_logs_disabled">"Logs disabilitati"</string>
     <string name="today">"Oggi"</string>
     <string name="tomorrow">"Domani"</string>
     <string name="user_achievement_bronze">"Bronzo"</string>
@@ -397,6 +611,10 @@ Pressione prolungata per avere più info"</string>
     <string name="user_overview_cursus_date_not_finished">"Non ancora concluso"</string>
     <string name="user_overview_cursus_date_not_start">"Non ancora iniziato"</string>
     <string name="user_overview_cursus_date_not_start_not_finised">"Non ancora iniziato e finito"</string>
+    <string name="user_patronages_no_patron">"Nessun patrono"</string>
+    <string name="user_patronages_no_patroning">"NESSUN PATROCINIO"</string>
+    <string name="user_patronages_patron">"Patrono"</string>
+    <string name="user_patronages_patroning">"Patrocinio"</string>
     <string name="user_pool">"Piscina"</string>
     <string name="user_profile_add_to_friends">"Aggiungi agli amici"</string>
     <string name="user_profile_grade_rank">"Grado"</string>

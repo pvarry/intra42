@@ -16,7 +16,7 @@ COLOR_YELLOW = "\033[1;33m"
 COLOR_BLUE = "\033[0;34m"
 COLOR_RESET = "\033[0m"
 
-masters = JSON.parse(File.read("cluster_map-export.json"))
+masters = JSON.parse(File.read("cluster_map-export.json", encoding: "iso-8859-1").force_encoding("UTF-8"))
 maps = masters.map { |slug, cluster_map|
 
                 if cluster_map.nil?
