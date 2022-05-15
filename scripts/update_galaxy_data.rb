@@ -28,11 +28,11 @@ conn_api = Net::HTTP.new('api.intra.42.fr', 443)
 conn_api.use_ssl = true
 conn_api.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-req_cursus = Net::HTTP::Get.new("/v2/cursus?sort=id")
+req_cursus = Net::HTTP::Get.new("/v2/cursus?sort=id&page[size]=100")
 req_cursus.add_field("Authorization",  'Bearer '+ API_42_TOKEN)
 res_cursus = conn_api.request(req_cursus)
 
-req_campus = Net::HTTP::Get.new("/v2/campus?sort=id")
+req_campus = Net::HTTP::Get.new("/v2/campus?sort=id&page[size]=100")
 req_campus.add_field("Authorization",  'Bearer '+ API_42_TOKEN)
 res_campus = conn_api.request(req_campus)
 
@@ -66,12 +66,15 @@ File.delete(*old_files) if old_files.any?
 cursus = JSON.parse(res_cursus.body)
 campus = JSON.parse(res_campus.body)
 max = (cursus.length * campus.length).to_f
+cookie = CGI::Cookie.new('_intra_42_session_production', INTRA_42_SESSION_KEY).to_s
 
-cursus.each_with_index do |cursus_item, cursus_index|
-  campus.each_with_index do |campus_item, campus_index|
+campus.each_with_index do |campus_item, campus_index|
+  next unless campus_item['active']
+
+  cursus.each_with_index do |cursus_item, cursus_index|
 
     print "\r"
-    percentage = (campus.length * cursus_index + campus_index) / max
+    percentage = (cursus.length * campus_index + cursus_index) / max
     p = (percentage * 20).round
 
     (0..p).each do
@@ -84,10 +87,10 @@ cursus.each_with_index do |cursus_item, cursus_index|
 
     print " " + (percentage * 100).round(2).to_s + "%"
 
-    print " Calling cursus: #{cursus_item['id']}, campus: #{campus_item['id']} ..."
+    print " Calling campus: #{campus_item['id']}, cursus: #{cursus_item['id']} ..."
 
     req = Net::HTTP::Get.new("/project_data.json?cursus_id=#{cursus_item["id"]}&campus_id=#{campus_item["id"]}")
-    req['Cookie'] = CGI::Cookie.new('_intra_42_session_production', INTRA_42_SESSION_KEY).to_s
+    req['Cookie'] = cookie
 
     res = conn_intra.request(req)
     json = JSON.parse(res.body)
