@@ -3,6 +3,9 @@
     <string name="about_report_bug">"أبلغ عن مشكل"</string>
     <string name="about_version">"نسخة"</string>
     <string name="app_name">"إنترا 42"</string>
+
+    <!-- Format warning -->
+    <string name="booking_correct_somebody">"سوف تقوم بمراجعة الكود لأحدهم في_تاريخ_."</string>
     <string name="cancel">"إلغاء"</string>
     <string name="copied">"ثم النسخ"</string>
     <string name="copy">"نسخ"</string>
@@ -38,6 +41,10 @@
     <string name="notification_auto_clear">"إغلاق تلقائي بعد 5 ثواني"</string>
     <string name="notifications_announcements_channel_description">"تنبيعات الإعلانات"</string>
     <string name="notifications_announcements_channel_name">"الإعلانات"</string>
+    <string name="notifications_bookings_channel_description">"إشعارات لتصحيح الحجوزات"</string>
+    <string name="notifications_bookings_channel_name">"حجوزات"</string>
+    <string name="notifications_bookings_sub_text">"حجز"</string>
+    <string name="notifications_events_channel_description">"إشعارات للأحداث"</string>
     <string name="notifications_events_channel_name">"الأحداث"</string>
     <string name="notifications_events_sub_text">"حدث"</string>
     <string name="ok">"أوكي"</string>
@@ -52,6 +59,8 @@
     <string name="pref_notifications_frequency_titles_3hour">"3 ساعات"</string>
     <string name="pref_notifications_frequency_titles_6hour">"6 ساعات"</string>
     <string name="pref_notifications_frequency_titles_never">"أبدا"</string>
+    <string name="pref_title_network_over_cellular_fast">"على شبكه الجوال السريعه"</string>
+    <string name="pref_title_network_over_cellular_slow">"على شبكه الجوال البطيئه"</string>
     <string name="pref_title_network_over_wifi">"عبر الوايفاي"</string>
     <string name="pref_unactivated">"غير مفعل"</string>
     <string name="pref_value_all">"الكل"</string>

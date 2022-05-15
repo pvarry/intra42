@@ -1,78 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Fuzzy -->
+    <string name="_super_store_short_description">"O aplicativo de código aberto não-oficial da Intranet 42."</string>
+    <string name="_super_store_title">"Intra 42"</string>
+    <string name="about_app_summary">"Aplicativo não-oficial, grátis e de código aberto"</string>
+    <string name="about_content">"Acesse a intra pelo aplicativo.
+Fale comigo no Slack ou e-mail (pvarry)."</string>
+    <string name="about_library_list">"Lista de bibliotecas"</string>
+    <string name="about_on_github">"no Github"</string>
+    <string name="about_poeditor">"Projeto no POEditor"</string>
+    <string name="about_report_bug">"Relatar um erro"</string>
+    <string name="about_show_introduction">"Exibir apresentação"</string>
     <string name="about_version">"Versão"</string>
-
-    <!-- Fuzzy -->
+    <string name="about_view_source">"Ver fonte"</string>
+    <string name="accessibility_navigation_drawer_close">"Fechar navegação"</string>
+    <string name="accessibility_navigation_drawer_open">"Abrir navegação"</string>
     <string name="app_name">"Intra 42"</string>
 
-    <!-- Fuzzy -->
+    <!-- Format warning -->
+    <string name="booking_correct_login">"Você vai avaliar um projeto de _login_ dia _date_."</string>
+    <string name="booking_correct_login_project">"Você vai avaliar o _project_ de _login_ dia _date_."</string>
+
+    <!-- Format warning -->
+    <string name="booking_correct_somebody">"Você vai avaliar alguém dia _date_."</string>
+
+    <!-- Format warning -->
+    <string name="booking_corrected_by">"Seu _project_ será avaliado dia _date_."</string>
+
+    <!-- Format warning -->
+    <string name="booking_corrected_by_login">"Seu _project_ será avaliado por _login_ dia _date_."</string>
     <string name="campus">"Campus"</string>
 
     <!-- Fuzzy -->
     <string name="cancel">"Cancelar"</string>
+    <string name="cantina_menu_fremont_only">"Cardápio"</string>
+    <string name="cluster_map_contribute_button_edit_layout">"editar mapa"</string>
+    <string name="cluster_map_contribute_button_edit_metadata">"editar metadados"</string>
+    <string name="cluster_map_contribute_dialog_add_action_column_left">"Adicionar coluna à esquerda"</string>
+    <string name="cluster_map_contribute_dialog_add_action_column_right">"Adicionar coluna à direita"</string>
+    <string name="cluster_map_contribute_dialog_add_action_row_bottom">"Adicionar linha abaixo"</string>
+    <string name="cluster_map_contribute_dialog_add_action_row_top">"Adicionar linha acima"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_column">"Ações para esta coluna"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_delete_column">"Apagar essa coluna"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_delete_row">"Apagar essa linha"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_scale_column">"Definir tamanho da coluna"</string>
+    <string name="cluster_map_contribute_dialog_controller_action_scale_row">"Definir tamanho da linha"</string>
+    <string name="cluster_map_contribute_dialog_controller_title_row">"Ações para esta fileira"</string>
+    <string name="cluster_map_contribute_dialog_delete_message_col">"Você está prestes a apagar a %dª coluna, essa ação é irreversível."</string>
+    <string name="cluster_map_contribute_dialog_delete_message_row">"Você está prestes a apagar a %dª linha, essa ação é irreversível."</string>
+    <string name="cluster_map_contribute_dialog_delete_title">"Quer mesmo apagar essa linha/coluna?"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_corridor">"corredor"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_host_hint">"anfitrião"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_user">"usuário"</string>
+    <string name="cluster_map_contribute_dialog_location_layout_wall">"parede"</string>
+    <string name="cluster_map_contribute_dialog_location_title">"Editar _x_,_y_"</string>
+    <string name="cluster_map_contribute_dialog_location_title_host">"Editar _x_,_y_ (anfitrião)"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_comment">"Comentário"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_full_name">"Nome completo"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix">"Prefixo do local"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_location_prefix_info">"O prefixo do local são as iniciais dos anfitriões desse grupo."</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_position">"Posição desse setor na lista"</string>
+    <string name="cluster_map_contribute_dialog_metadata_layout_short_name">"Nome curto"</string>
+    <string name="cluster_map_contribute_dialog_metadata_title">"Editar metadados do setor"</string>
+    <string name="cluster_map_contribute_dialog_scale_layout_info">"Ao definir o escopo de uma linha ou coluna, você reduz ou aumenta seu tamanho."</string>
+    <string name="cluster_map_contribute_dialog_scale_layout_scale_hint">"escopo"</string>
+    <string name="cluster_map_contribute_dialog_scale_title">"Editar escopo dessa linha/coluna"</string>
+    <string name="cluster_map_contribute_dialog_time_up_message">"O tempo está esgotando, salve suas alterações assim que der."</string>
+    <string name="cluster_map_contribute_dialog_time_up_title">"Tempo esgotado"</string>
+    <string name="cluster_map_contribute_error_data_locked">"A operação não pôde ser concluída, dados trancados"</string>
+    <string name="cluster_map_contribute_error_fail_to_retrieve_data_response">"A operação não pôde ser concluída, falha ao recuperar dados"</string>
+    <string name="cluster_map_contribute_explanations">"O mapa de setores pode ser editado por vários usuários ao mesmo tempo. Você poderá ver mudanças enquanto estiver editando.
+
+Quando marcar a opção Pronto para publicar, o setor será publicado manualmente na próxima atualização do aplicativo.
+
+Orientação de setores:
+    - Todos os setores do prédio devem seguir a mesma orientação.
+    - O norte não é necessariamente no topo. É melhor que a entrada no setor fique embaixo."</string>
+    <string name="cluster_map_contribute_locked_indicator">"Setor trancado por _user_ às _time_. Você poderá editá-lo às _timeFuture_."</string>
+    <string name="cluster_map_contribute_ready_publish">"Esse setor pode ser publicado"</string>
+    <string name="cluster_map_contribute_toolbar_info_minute_second">"Grupo trancado por _minute_ m e _second_ s"</string>
+    <string name="cluster_map_contribute_toolbar_info_second">"Grupo trancado por _second_ s"</string>
+    <string name="cluster_map_contribute_toolbar_info_too_late">"Tarde demais, você não pode mais salvar."</string>
+    <string name="cluster_map_contribute_warning_empty_host">"Atenção: diga quem é o anfitrião."</string>
+    <string name="cluster_map_contribute_warning_host_prefix">"Atenção: o nome do anfitrião não pode começar com o prefixo do setor (será adicionado automaticamente)"</string>
+    <string name="cluster_map_dialog_action">"Ação para esse local"</string>
+    <string name="cluster_map_info_button_contribute">"Adicionar dados faltantes"</string>
+    <string name="cluster_map_info_button_update">"atualizar"</string>
+    <string name="cluster_map_info_button_update_disabled">"não precisa atualizar"</string>
+    <string name="cluster_map_info_clusters">"Setores"</string>
+    <string name="cluster_map_info_contribute_description">"Crie, modifique e preencha o mapa de setores do seu campus. Ajude outros alunos a encontrar amigos no mapa."</string>
+    <string name="cluster_map_info_contribute_title">"Adicionar setor faltante"</string>
+    <string name="cluster_map_info_data_layer">"Camada de dados"</string>
+    <string name="cluster_map_info_data_layer_description">"Com esse recurso você pode alterar as publicações destacadas no mapa do setor (borda na foto). Apenas selecione a camada de dados e toque em \"atualizar\"."</string>
+    <string name="cluster_map_info_data_layer_error">"erro ao carregar ou aplicar camada"</string>
+    <string name="cluster_map_info_highlight_nothing">"sem destaques"</string>
+    <string name="cluster_map_info_highlight_plural">"%d em destaque"</string>
+    <string name="cluster_map_info_highlight_singular">"%d em destaque"</string>
+    <string name="cluster_map_info_layer_input_location">"eXrXpX"</string>
+    <string name="cluster_map_info_layer_input_login">"acessar"</string>
+    <string name="cluster_map_info_layer_input_project">"projeto"</string>
+    <string name="cluster_map_info_layer_spinner_main_coalitions">"Ligas"</string>
+    <string name="cluster_map_info_layer_spinner_main_friends">"Amigos"</string>
+    <string name="cluster_map_info_layer_spinner_main_level">"Níveis"</string>
+    <string name="cluster_map_info_layer_spinner_main_location">"Computador"</string>
+    <string name="cluster_map_info_layer_spinner_main_login">"Usuário"</string>
+    <string name="cluster_map_info_layer_spinner_main_none">"Nenhum"</string>
+    <string name="cluster_map_info_layer_spinner_main_project">"Projeto"</string>
+    <string name="cluster_map_info_layer_warning_disabled">"Não foi possível obter a camada de dados, o servidor está em manutenção. Tente novamente mais tarde."</string>
+    <string name="cluster_map_info_levels_display_closed">"Exibir alunos abarcados (piscina fechada)"</string>
+    <string name="cluster_map_info_no_map">"Sem mapas disponíveis."</string>
+    <string name="cluster_map_info_project_dialog_not_found">"Não encontrado"</string>
+    <string name="cluster_map_info_project_dialog_not_found_content_format">"Nenhum projeto encontrado para %s."</string>
+    <string name="cluster_map_info_vacant_posts_nothing">"sem lugares"</string>
+    <string name="cluster_map_info_vacant_posts_plural">"%d lugares"</string>
+    <string name="cluster_map_info_vacant_posts_singular">"%d lugar"</string>
 
     <!-- Fuzzy -->
-    <string name="cluster_map_layer_data_unavailable_content">"Dado temporariamente indisponível, tente novamente mais tarde"</string>
+    <string name="cluster_map_layer_data_unavailable_content">"Dado temporariamente indisponível. Tente novamente mais tarde."</string>
+    <string name="cluster_map_layer_data_unavailable_title">"Erro de API"</string>
+    <string name="cluster_map_no_layout">"Não há plantas deste setor."</string>
+    <string name="cluster_map_not_in_campus">"Mapa de setores indisponível no seu campus"</string>
+    <string name="coalition_score">"Pontuação"</string>
+    <string name="coalitions_nothing_selected_cursus_campus">"Não há ligas nesse curso/campus."</string>
+    <string name="continue_editing">"Continuar editando"</string>
 
     <!-- Fuzzy -->
     <string name="copied">"Copiado"</string>
 
     <!-- Fuzzy -->
     <string name="copy">"Copiar"</string>
+    <string name="cursus">"Curso"</string>
 
     <!-- Fuzzy -->
-    <string name="delete">"Deletar"</string>
+    <string name="delete">"Apagar"</string>
+    <string name="dialog_delete_message">"Quer mesmo apagar este item? Esta ação é irreversível."</string>
 
     <!-- Fuzzy -->
-    <string name="dialog_enable_app_logs">"Habilitar Logs"</string>
+    <string name="dialog_enable_app_logs">"Permitir registros"</string>
+    <string name="discard_changes">"descartar"</string>
 
     <!-- Fuzzy -->
     <string name="done">"Feito"</string>
 
     <!-- Fuzzy -->
-    <string name="dont_forget_to_restart">"Não esqueça de reiniciar o aplicativo"</string>
+    <string name="dont_forget_to_restart">"Não esqueça de reiniciar o aplicativo."</string>
+    <string name="edit_unsaved_changes_content">"Deseja salvar as mudanças no grupo?"</string>
+    <string name="edit_unsaved_changes_title">"Você possui mudanças não-salvas"</string>
+    <string name="elearning_select_file_to_open">"Selecione arquivo para abrir"</string>
+    <string name="elearning_title">"Aula virtual"</string>
 
     <!-- Fuzzy -->
-    <string name="error">"error"</string>
+    <string name="error">"erro"</string>
+    <string name="error_scale_is_too_big">"Escopo muito grande"</string>
+    <string name="error_scale_is_too_small">"Escopo muito pequeno"</string>
+    <string name="error_server_contect_support">"Erro no servidor. Entre em contato com o suporte."</string>
+    <string name="error_text_is_too_long">"Texto muito grande"</string>
+    <string name="error_value_must_be_set">"É preciso definir um valor"</string>
 
     <!-- Fuzzy -->
-    <string name="evaluation_corrected_by">"Corrigido por"</string>
+    <string name="evaluation_correct_someone">"Avalia"</string>
 
     <!-- Fuzzy -->
-    <string name="evaluation_on_project">"on"</string>
+    <string name="evaluation_corrected_by">"Avaliado por"</string>
 
     <!-- Fuzzy -->
-    <string name="evaluation_slot_new">"Novo slot"</string>
+    <string name="evaluation_on_project">"em"</string>
+    <string name="evaluation_slot_begin_at">"Começa às"</string>
+    <string name="evaluation_slot_create">"Criar"</string>
+    <string name="evaluation_slot_delete_button">"Apagar horário"</string>
+    <string name="evaluation_slot_deleted">"Apagado"</string>
+    <string name="evaluation_slot_end_at">"Termina às"</string>
+    <string name="evaluation_slot_modify">"Mudar horário"</string>
+
+    <!-- Fuzzy -->
+    <string name="evaluation_slot_new">"Novo horário"</string>
+    <string name="evaluation_slot_start_before_end">"Nessa dimensão o início vem antes do fim."</string>
 
     <!-- Fuzzy -->
     <string name="evaluation_slot_success">"Sucesso"</string>
 
     <!-- Fuzzy -->
     <string name="evaluation_someone">"Alguém"</string>
+    <string name="evaluation_user_nothing">"Você não tem avaliações."</string>
 
     <!-- Fuzzy -->
-    <string name="evaluation_with">"com"</string>
+    <string name="evaluation_with">"Com"</string>
 
     <!-- Fuzzy -->
-    <string name="evaluations_booked_slot">"Slot reservado"</string>
+    <string name="evaluations_booked_slot">"Horário agendado"</string>
 
     <!-- Fuzzy -->
-    <string name="evaluations_confirmation_delete_booked_slot">"Tem certeza que deseja excluir o slot reservado?
-Você irá perder um ponto de correção"</string>
+    <string name="evaluations_confirmation_delete_booked_slot">"Quer mesmo apagar o horário agendado?
+Você vai perder um ponto de avaliação."</string>
+    <string name="event_cancellation_date_exceeded">"Prazo para cancelamento expirado."</string>
 
     <!-- Fuzzy -->
     <string name="event_check_registration">"Verificando seu registro"</string>
 
     <!-- Fuzzy -->
-    <string name="event_full">"Cheio"</string>
+    <string name="event_full">"Lotado"</string>
+    <string name="event_kind_association">"associação"</string>
+    <string name="event_kind_atelier">"ateliê"</string>
+    <string name="event_kind_challenge">"desafio"</string>
+    <string name="event_kind_conf">"restrito"</string>
+    <string name="event_kind_event">"evento"</string>
+    <string name="event_kind_extern">"externo"</string>
+    <string name="event_kind_hackathon">"hackatona"</string>
+    <string name="event_kind_meet_up">"encontro"</string>
+    <string name="event_kind_other">"outro"</string>
+    <string name="event_kind_partnership">"parceria"</string>
+    <string name="event_kind_speed_working">"velocidade"</string>
+    <string name="event_kind_unknown">"desconhecido"</string>
+    <string name="event_kind_workshop">"oficina"</string>
 
     <!-- Fuzzy -->
-    <string name="event_nothing_found_for_your_campus_cursus">"Nenhum evento encontrar em seu Campus/curso"</string>
+    <string name="event_nothing_found_for_your_campus_cursus">"Nenhum evento encontrado no seu campus/curso."</string>
+    <string name="event_prohibition_of_cancellation">"Não é possível cancelar inscrições após %s."</string>
 
     <!-- Fuzzy -->
-    <string name="event_subscribe">"Inscrever"</string>
+    <string name="event_subscribe">"Inscrever-se"</string>
 
     <!-- Fuzzy -->
     <string name="event_subscribed">"Inscrito"</string>
@@ -81,10 +226,48 @@ Você irá perder um ponto de correção"</string>
     <string name="event_subscription_unavailable">"Inscrição indisponível"</string>
 
     <!-- Fuzzy -->
-    <string name="event_unsubscribe">"Desinscrever"</string>
+    <string name="event_unsubscribe">"Desinscrever-se"</string>
 
     <!-- Fuzzy -->
     <string name="event_unsubscribed">"Não inscrito"</string>
+
+    <!-- Format warning -->
+    <string name="format__host_s_history">"Histórico de %s"</string>
+
+    <!-- Format warning -->
+    <string name="format__user_profile">"perfil de %s"</string>
+
+    <!-- Format warning -->
+    <string name="format_dont_have_any_expertise_yet">"%s ainda não possui competências."</string>
+    <string name="format_project_team_users_action_open">"Abrir {project} de {user}"</string>
+    <string name="friend_group_list">"Grupo"</string>
+    <string name="friend_group_name">"Nome do grupo"</string>
+    <string name="friends">"Amigos"</string>
+    <string name="friends_add_to_group">"Adicionar ao grupo"</string>
+    <string name="friends_adding_to_group">"Adicionando amigos ao grupo"</string>
+    <string name="friends_delete_friends_title">"Quer mesmo excluir esses amigos?"</string>
+    <string name="friends_group_edit_in_group">"Amigos no grupo"</string>
+    <string name="friends_groups_all">"Todos"</string>
+    <string name="friends_groups_edit">"Editar grupo de amigos"</string>
+    <string name="friends_groups_edit_no_empty_name">"Não pode estar vazio"</string>
+    <string name="friends_groups_edit_no_name_set">"Nenhum nome definido"</string>
+    <string name="friends_groups_new">"Novo grupo de amigos"</string>
+    <string name="friends_groups_nothing">"Você deve criar um gurpo primeiro."</string>
+    <string name="friends_info_api_data_processing">"A API está processando novos dados, seus amigos serão adicionados em breve."</string>
+    <string name="friends_info_api_try_again">"A API está obtendo novas informações; tente mais tarde."</string>
+    <string name="friends_info_database_update">"Atualizar lista de amigos"</string>
+    <string name="friends_nothing_found">"Adicione amigos em seus perfis"</string>
+    <string name="friends_remove_from_group">"Retirar do grupo"</string>
+    <string name="friends_removing_from_group">"Retirando amigos do grupo"</string>
+    <string name="friends_select_group">"Selecionar grupo"</string>
+
+    <!-- Format warning -->
+    <string name="friends_summary_format_friend">"%d amigo"</string>
+
+    <!-- Format warning -->
+    <string name="friends_summary_format_friends">"%d amigos"</string>
+    <string name="friends_summary_no_friends">"Sem amigos"</string>
+    <string name="friends_warning">"Recurso indisponível. O servidor está em manutenção."</string>
 
     <!-- Fuzzy -->
     <string name="galaxy_available">"Disponível"</string>
@@ -94,21 +277,85 @@ Você irá perder um ponto de correção"</string>
 
     <!-- Fuzzy -->
     <string name="galaxy_in_progress">"Em andamento"</string>
+    <string name="galaxy_no_live_data">"Sem dados atualizados do mapa galáctico."</string>
 
     <!-- Fuzzy -->
-    <string name="galaxy_not_found">"Gráfico da galáxia indisponível"</string>
+    <string name="galaxy_not_found">"Nenhum mapa galáctico"</string>
 
     <!-- Fuzzy -->
     <string name="galaxy_succeeded">"Bem-sucedido"</string>
+    <string name="galaxy_unavailable">"Indisponível"</string>
+    <string name="galaxy_unknown_state">"Situação desconhecida"</string>
+    <string name="hint_date">"dia"</string>
+    <string name="hint_time">"horário"</string>
+    <string name="home_help_calendar_enable">"permitir"</string>
+    <string name="home_help_calendar_hide">"ocultar"</string>
+    <string name="home_help_calendar_sync">"Sincronize o calendário do seu telefone com eventos da 42"</string>
+    <string name="home_help_POEditor">"Se encontrar erros gramaticais ou quiser traduzir o aplicativo, venha para o POEditor. Toque aqui."</string>
+    <string name="info_api_finishing">"encerrando"</string>
+    <string name="info_api_request_users_1_1">"Convocando usuários 1/1"</string>
+    <string name="info_api_requesting">"Convocando…"</string>
+    <string name="info_api_unauthorized">"Não-autorizado"</string>
+    <string name="info_attachment_no_app">"Não há aplicativos que abram esse arquivo"</string>
+    <string name="info_attachment_no_app_pdf">"Não há aplicativos que abram esse documento, instale um leitor de pdf."</string>
+    <string name="info_attachment_no_app_video">"Não há aplicativos que reproduzam esse formato, instale o VLC."</string>
+    <string name="info_data_cached_long_time_ago">"Dados salvos há muito tempo"</string>
+    <string name="info_error_on_loading_this_page">"Erro ao carregar a página"</string>
+    <string name="info_initializing">"Iniciando"</string>
+    <string name="info_loading">"Carregando…"</string>
+    <string name="info_loading_cache">"Obtendo cachê…"</string>
+    <string name="info_loading_cache_cursus_campus">"Obtendo cachê da API do curso e do campus"</string>
+    <string name="info_loading_calculating">"calculando"</string>
+    <string name="info_loading_current_user">"usuário atual"</string>
+    <string name="info_loading_friends">"Carregando amigos…"</string>
+    <string name="info_loading_locations">"Carregando locais…"</string>
+    <string name="info_loading_page_on">"Carregando página %d de %d"</string>
+    <string name="info_loading_please_wait">"Carregando, aguarde…"</string>
+    <string name="info_loading_processing_data">"Processando dados"</string>
+    <string name="info_loading_resolve_number_page">"Estabelecer página"</string>
+    <string name="info_network_error">"Erro de rede"</string>
+    <string name="info_network_no_internet">"Não foi possível conectar à Internet"</string>
+    <string name="info_nothing_to_show">"Nada a exibir."</string>
+    <string name="introduction_calendar_action">"Permitir calendário"</string>
+    <string name="introduction_calendar_description">"Eventos nos quais se inscrever vão automaticamente para o seu calendário."</string>
+    <string name="introduction_calendar_switch">"Permitir sincronização com calendário"</string>
+    <string name="introduction_calendar_title">"Sincronizar com calendário"</string>
+    <string name="introduction_cluster_map_contribute_description">"Publique um mapa do seu campus, adicione ou edite a planta de um setor diretamente no aplicativo."</string>
+    <string name="introduction_cluster_map_contribute_title">"Crie e modifique mapas dos setores do seu campus"</string>
+    <string name="introduction_translation_action">"Editar cadeias de caracteres"</string>
+    <string name="introduction_translation_description">"Se encontrar erros gramaticais ou quiser traduzir o aplicativo, venha para o POEditor."</string>
+    <string name="introduction_translation_text_bottom">"Chatonildos são bem-vindos"</string>
+    <string name="introduction_translation_title">"Junte-se aos tradutores"</string>
+    <string name="language_english">"Inglês"</string>
+    <string name="language_french">"Francês"</string>
+    <string name="language_romanian">"Romeno"</string>
+    <string name="language_ukrainian">"Ucraniano"</string>
+    <string name="list_preference_network_titles_default">"Padrão (200×240)"</string>
+    <string name="list_preference_network_titles_large">"Grande (583×700)"</string>
+    <string name="list_preference_network_titles_medium">"Médio (292×350)"</string>
+    <string name="list_preference_network_titles_none">"Nenhum"</string>
+    <string name="list_preference_network_titles_small">"Pequeno (146×175)"</string>
+    <string name="location_undetermined">"indeterminado"</string>
+    <string name="login_custom_chrome_tabs_open_default_browser">"Abrir navegador padrão"</string>
+    <string name="login_error_web_browser_required">"Instale um navegador."</string>
+    <string name="login_open_custom_chrome_tabs">"Acessar"</string>
+    <string name="login_summary">"Intranet"</string>
+    <string name="login_view_sources">"Ver fontes"</string>
+    <string name="max">"máx."</string>
+    <string name="menu_action_filter">"filtro"</string>
+    <string name="menu_action_open_intra">"Exibir versão para a Web"</string>
+    <string name="menu_action_search">"Busca"</string>
+    <string name="menu_action_settings">"Ajustes"</string>
 
     <!-- Fuzzy -->
     <string name="menu_action_share">"Compartilhar"</string>
 
     <!-- Fuzzy -->
-    <string name="menu_action_user_add_to_home">"Adicionar na tela inicial"</string>
+    <string name="menu_action_user_add_to_home">"Adicionar à tela inicial"</string>
+    <string name="min">"mín."</string>
 
     <!-- Fuzzy -->
-    <string name="navigation_cluster_map">"Mapa de grupo"</string>
+    <string name="navigation_cluster_map">"Mapa do setor"</string>
 
     <!-- Fuzzy -->
     <string name="navigation_header_action">"Ações"</string>
@@ -124,111 +371,164 @@ Você irá perder um ponto de correção"</string>
 
     <!-- Fuzzy -->
     <string name="navigation_logout">"Sair"</string>
+    <string name="navigation_place_holder_email">"login@student.42.us.org"</string>
 
     <!-- Fuzzy -->
-    <string name="navigation_place_holder_login">"Login"</string>
+    <string name="navigation_place_holder_login">"Acessar"</string>
 
     <!-- Fuzzy -->
-    <string name="navigation_settings">"Configuração"</string>
+    <string name="navigation_settings">"Ajustes"</string>
 
     <!-- Fuzzy -->
     <string name="navigation_share">"Compartilhar"</string>
-
-    <!-- Fuzzy -->
-    <string name="navigation_time_on_campus">"Tempo no campus"</string>
+    <string name="navigation_time_on_campus">"Hora no campus"</string>
 
     <!-- Fuzzy -->
     <string name="notification_auto_clear">"Fechando em 5s"</string>
 
     <!-- Fuzzy -->
-    <string name="notification_bookings_title_imminent">"Avaliação próxima"</string>
+    <string name="notification_bookings_title_imminent">"Avaliação em breve"</string>
 
     <!-- Fuzzy -->
-    <string name="notification_bookings_title_new">"Você tem uma nova reserva"</string>
+    <string name="notification_bookings_title_new">"Você tem um novo horário"</string>
 
     <!-- Fuzzy -->
     <string name="notification_see_project">"Ver projeto"</string>
 
     <!-- Fuzzy -->
     <string name="notification_see_user">"Ver usuário"</string>
+    <string name="notifications_announcements_channel_description">"Notificações de avisos"</string>
+    <string name="notifications_announcements_channel_name">"Avisos"</string>
 
     <!-- Fuzzy -->
-    <string name="notifications_announcements_sub_text">"Anúncios"</string>
-
-    <!-- Fuzzy -->
-    <string name="notifications_bookings_channel_name">"Reservas"</string>
-
-    <!-- Fuzzy -->
-    <string name="notifications_bookings_sub_text">"Reserva"</string>
-
-    <!-- Fuzzy -->
-    <string name="notifications_events_channel_description">"Notificação de eventos"</string>
-
-    <!-- Fuzzy -->
+    <string name="notifications_announcements_sub_text">"Avisos"</string>
+    <string name="notifications_bookings_channel_description">"Notificações de agendamentos"</string>
+    <string name="notifications_bookings_channel_name">"Agendamentos"</string>
+    <string name="notifications_bookings_sub_text">"Agendamento"</string>
+    <string name="notifications_events_channel_description">"Notificações de eventos"</string>
     <string name="notifications_events_channel_name">"Eventos"</string>
-
-    <!-- Fuzzy -->
     <string name="notifications_events_sub_text">"Evento"</string>
 
     <!-- Fuzzy -->
-    <string name="ok">"Ok"</string>
+    <string name="ok">"OK"</string>
+    <string name="open_this">"Abra"</string>
+    <string name="opening_in_progress">"Abertura em andamento"</string>
 
     <!-- Fuzzy -->
     <string name="pref_activated">"Ativado"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_advanced_dont_force">"Inativo (sem forçar)"</string>
+    <string name="pref_advanced_dont_force">"Desativar (não forçar)"</string>
+    <string name="pref_category_notifications">"Notificações"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_force_content_location">"Forcar conteúdo"</string>
-
-    <!-- Fuzzy -->
+    <string name="pref_force_content_location">"Forçar conteúdo local"</string>
     <string name="pref_header_network">"Rede"</string>
+    <string name="pref_header_notifications">"Notificações"</string>
+    <string name="pref_header_theme">"Tema"</string>
+    <string name="pref_network_profile_pic_size_title">"Tamanho da foto de perfil"</string>
+    <string name="pref_notifications_frequency_titles_15min">"15 minutos"</string>
+    <string name="pref_notifications_frequency_titles_1hour">"1 hora (padrão)"</string>
+    <string name="pref_notifications_frequency_titles_30min">"30 minutos"</string>
+    <string name="pref_notifications_frequency_titles_3hour">"3 horas"</string>
+    <string name="pref_notifications_frequency_titles_6hour">"6 horas"</string>
+    <string name="pref_notifications_frequency_titles_never">"Nunca"</string>
+    <string name="pref_summary_advanced_data_markdown_render_disabled">"Exibir texto sem formatação no fórum e eventos"</string>
+    <string name="pref_summary_advanced_data_markdown_render_enabled">"Usar editor de formatação para textos no fórum e eventos"</string>
+    <string name="pref_summary_advanced_data_past_events">"Especialmente para os pixels"</string>
+    <string name="pref_summary_advanced_data_print_ids_disabled">"Utilização padrão"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_header_notifications">"Notificação"</string>
+    <string name="pref_summary_advanced_data_print_ids_enabled">"Exibir informações adicionais no aplicativo, como IDs e slugs"</string>
+    <string name="pref_summary_advanced_data_save_logs">"Ao ativar esse recurso, mais registros serão gerados e salvos em \"~/Android/com.paulvarry.intra42/files/logs\". Você terá de reiniciar o aplicativo para as efetuar as alterações. Atenção: informações particulares (como número de telefone) serão salvas no armazenamento do aparelho (inativo por padrão)."</string>
+    <string name="pref_summary_advanced_settings_disabled">"Utilização padrão"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_summary_advanced_data_print_ids_enabled">"Exibir informações adicionais como IDs e url sobre o aplicativo"</string>
+    <string name="pref_summary_advanced_settings_enabled">"Usar configurações avançadas (não habilite caso não saiba o que é)"</string>
+    <string name="pref_summary_calendar_enable">"Após autenticar, o aplicativo poderá criar eventos no seu calendário"</string>
+    <string name="pref_summary_notifications_events">"Notificar sobre eventos publicados na intranet da 42"</string>
+    <string name="pref_summary_notifications_scales">"Lembrar sobre avaliações"</string>
+    <string name="pref_summary_theme_app_bar_background">"Exibir imagem temática no fundo da barra de aplicativos"</string>
+    <string name="pref_theme_app_bar_background">"Ícone na barra de aplicativos"</string>
+    <string name="pref_theme_color_scheme_list_titles_auto">"Tema do sistema"</string>
+    <string name="pref_theme_color_scheme_list_titles_dark">"Escuro"</string>
+    <string name="pref_theme_color_scheme_list_titles_light">"Claro"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_summary_advanced_settings_enabled">"Usar configurações avançadas, desabilite caso não saiba o que é"</string>
-
-    <!-- Fuzzy -->
-    <string name="pref_theme_info_need_restart_to_apply">"Você deve reiniciar o aplicativo para aplicar completamente o tema selecionado"</string>
-
-    <!-- Fuzzy -->
+    <string name="pref_theme_info_need_restart_to_apply">"Você deve reiniciar o aplicativo para aplicar o tema selecionado."</string>
+    <string name="pref_theme_list_titles_android">"Android Escuro"</string>
+    <string name="pref_theme_list_titles_blue_the_federation">"Azul (A federação)"</string>
+    <string name="pref_theme_list_titles_default">"Intra (tema padrão)"</string>
+    <string name="pref_theme_list_titles_green_the_alliance">"Verde (A aliança)"</string>
+    <string name="pref_theme_list_titles_purple_the_assembly">"Roxo (A assembleia)"</string>
+    <string name="pref_theme_list_titles_red_the_order">"Vermelho (A ordem)"</string>
     <string name="pref_theme_switch_brightness">"Usar tema escuro"</string>
+    <string name="pref_theme_title_change_theme">"Definir tema"</string>
+    <string name="pref_theme_title_example">"Exemplo"</string>
+    <string name="pref_title_advanced_data_allow_beta">"Ativar ajustes avançados"</string>
 
     <!-- Fuzzy -->
+    <string name="pref_title_advanced_data_markdown_render">"Editor de formatação"</string>
+    <string name="pref_title_advanced_data_past_events">"Eventos passados"</string>
+    <string name="pref_title_advanced_data_print_ids">"Exibir dados avançados (como ids, slugs…)"</string>
+    <string name="pref_title_advanced_data_save_logs">"Salvar registros no disco"</string>
+    <string name="pref_title_advanced_section_features">"Recursos avançados"</string>
+    <string name="pref_title_advanced_section_other">"Outros recursos"</string>
+    <string name="pref_title_calendar">"Sincronizar eventos"</string>
+    <string name="pref_title_calendar_enable">"Permitir edição do calendário"</string>
+    <string name="pref_title_calendar_list">"Escolha o calendário para criar eventos"</string>
     <string name="pref_title_network_over_cellular_fast">"Rede móvel rápida"</string>
-
-    <!-- Fuzzy -->
-    <string name="pref_title_network_over_cellular_slow">"Rede móvel fraca"</string>
-
-    <!-- Fuzzy -->
-    <string name="pref_title_network_over_wifi">"Wireless"</string>
+    <string name="pref_title_network_over_cellular_slow">"Rede móvel lenta"</string>
+    <string name="pref_title_network_over_wifi">"Sem-fio"</string>
 
     <!-- Fuzzy -->
     <string name="pref_title_notifications_events">"Aviso de eventos"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_title_notifications_frequency">"Sync Intervalo"</string>
+    <string name="pref_title_notifications_frequency">"Frequência de sincronização"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_title_notifications_scales">"Aviso de correções (beta)"</string>
-
-    <!-- Fuzzy -->
+    <string name="pref_title_notifications_scales">"Aviso de avaliações (beta)"</string>
+    <string name="pref_title_notifications_sync_allow">"Permitir notificações e sincronização"</string>
     <string name="pref_title_theme">"Tema"</string>
 
     <!-- Fuzzy -->
-    <string name="pref_unactivated">"Inativado"</string>
+    <string name="pref_unactivated">"Desativado"</string>
 
     <!-- Fuzzy -->
     <string name="pref_value_all">"Tudo"</string>
 
     <!-- Fuzzy -->
     <string name="profile_apps_private">"Privado"</string>
+    <string name="project_automatic_correction">"Avaliação automática"</string>
+    <string name="project_automatic_corrections">"Avaliações automáticas"</string>
+    <string name="project_description">"Descrição"</string>
+    <string name="project_evaluation">"avaliação"</string>
+    <string name="project_evaluation_plural">"avaliações"</string>
+    <string name="project_forbidden_to_open">"proibido"</string>
+    <string name="project_git_repository">"Repositório Git da equipe"</string>
+    <string name="project_group">"em grupo"</string>
+    <string name="project_list_user_team">"Usuários na equipe"</string>
+    <string name="project_moulinette">"Moulinette"</string>
+    <string name="project_no_scale">"Sem escala"</string>
+    <string name="project_no_session_found_for_this_cursus_campus">"Nenhuma sessão encontrada para esse curso/campus"</string>
+    <string name="project_objectives">"Metas"</string>
+    <string name="project_past_session">"Sessão passada"</string>
+    <string name="project_peer_corrections">"Avaliações dos pares"</string>
+    <string name="project_register">"Registrar-se"</string>
+    <string name="project_scale_feedback">"Opinião"</string>
+    <string name="project_session">"Sessão"</string>
+    <string name="project_show_mine">"Exibir o meu"</string>
+    <string name="project_skills">"Habilidades"</string>
+    <string name="project_solo">"só"</string>
+    <string name="project_sub_projects">"Sub"</string>
+    <string name="project_team_status_closed">"fechado"</string>
+    <string name="project_team_status_locked">"trancado"</string>
+    <string name="project_team_users_toast">"%s
+segure para mais opções"</string>
+    <string name="project_team_users_toast_leader">"%s (líder da equipe)
+segure para mais opções"</string>
+    <string name="project_user_not_registered">"não-registrado"</string>
 
     <!-- Fuzzy -->
     <string name="project_user_status_creating_group">"Criando grupo"</string>
@@ -256,14 +556,13 @@ Você irá perder um ponto de correção"</string>
 
     <!-- Fuzzy -->
     <string name="project_you_cant_have_mark_for_this_project">"Você não pode iniciar esse projeto"</string>
+    <string name="quest_failed">"Falhou"</string>
 
     <!-- Fuzzy -->
-    <string name="quest_in_progress">"Em Progresso"</string>
+    <string name="quest_in_progress">"Em andamento"</string>
 
     <!-- Fuzzy -->
     <string name="quest_progress">"Progresso: %s"</string>
-
-    <!-- Fuzzy -->
     <string name="quest_retry_left">"%d tentativas restantes"</string>
 
     <!-- Fuzzy -->
@@ -271,75 +570,170 @@ Você irá perder um ponto de correção"</string>
 
     <!-- Fuzzy -->
     <string name="quest_validated">"Sucesso"</string>
+    <string name="readme">"Leia-me"</string>
 
     <!-- Fuzzy -->
     <string name="refresh">"Atualizar"</string>
+    <string name="refreshing">"Atualizando"</string>
+    <string name="retry">"Tentar novamente"</string>
 
     <!-- Fuzzy -->
     <string name="save">"Salvar"</string>
 
+    <!-- Short word (under 6 char) -->
+    <string name="save_short">"Salvar"</string>
+
     <!-- Fuzzy -->
-    <string name="search_by">"Procurar por"</string>
+    <string name="search_by">"Buscar por"</string>
 
     <!-- Fuzzy -->
     <string name="search_error_on_open_this_element">"Erro ao abrir esse conteúdo"</string>
 
     <!-- Fuzzy -->
-    <string name="search_hint">"Procurar"</string>
+    <string name="search_hint">"Buscar"</string>
 
     <!-- Fuzzy -->
-    <string name="search_on_projects">"Procurando em projetos"</string>
+    <string name="search_on_projects">"Buscando projetos"</string>
 
     <!-- Fuzzy -->
-    <string name="search_on_users">"Procurando em usuários"</string>
+    <string name="search_on_users">"Buscando usuários"</string>
 
     <!-- Fuzzy -->
     <string name="search_section_projects">"Projetos"</string>
+    <string name="search_section_users_first_name">"nome"</string>
+    <string name="search_section_users_last_name">"sobrenome"</string>
+    <string name="search_section_users_login">"nome 42"</string>
 
     <!-- Fuzzy -->
-    <string name="searching">"Procurando"</string>
+    <string name="searching">"Buscando…"</string>
+    <string name="select">"Selecionar"</string>
 
     <!-- Fuzzy -->
-    <string name="share_using">"Compartilhar usando"</string>
-
-    <!-- Fuzzy -->
+    <string name="share_using">"Compartilhar via"</string>
+    <string name="shortcut_cluster_map">"Setores"</string>
     <string name="shortcut_friends">"Amigos"</string>
-
-    <!-- Fuzzy -->
-    <string name="shortcut_long_cluster_map">"Mapa de Clusters"</string>
-
-    <!-- Fuzzy -->
+    <string name="shortcut_galaxy">"Mapa galáctico"</string>
+    <string name="shortcut_long_cluster_map">"Mapa de setores"</string>
     <string name="shortcut_long_friends">"Lista de amigos"</string>
+    <string name="shortcut_long_galaxy">"Mapa galáctico (projetos)"</string>
+    <string name="sign_in_error_invalid_grant">"Você não pode usar esse aplicativo no momento. Verifique se sua conta na 42 está ativa."</string>
+    <string name="slots_delete_dialog_error_booked">"O horário não pôde ser apagado. Situação alterada."</string>
 
     <!-- Fuzzy -->
     <string name="soon">"Em breve"</string>
 
     <!-- Fuzzy -->
     <string name="sort_by">"Ordenar por"</string>
+    <string name="spinner_user_projects_all">"Todos"</string>
+    <string name="spinner_user_projects_galaxy">"Mapa galáctico"</string>
+    <string name="spinner_user_projects_in_progress">"Em andamento"</string>
+    <string name="spinner_user_projects_my_projects">"Meus projetos"</string>
+    <string name="tags">"Categorias"</string>
 
     <!-- Fuzzy -->
-    <string name="tags">"Tags"</string>
-
-    <!-- Fuzzy -->
-    <string name="time_zone_error">"Fuso horário error"</string>
+    <string name="time_zone_error">"Erro de fuso horário"</string>
 
     <!-- Fuzzy -->
     <string name="title">"Título"</string>
 
     <!-- Fuzzy -->
     <string name="title_activity_about">"Sobre"</string>
+    <string name="title_activity_cantina_menu">"Cardápio (Fremont)"</string>
+    <string name="title_activity_cluster_map">"Mapa do setor"</string>
+    <string name="title_activity_cluster_map_contribute">"Contribuir com o mapa do setor"</string>
+    <string name="title_activity_cluster_map_contribute_edit">"Criar mapa do setor"</string>
+    <string name="title_activity_coalitions">"Ligas"</string>
+    <string name="title_activity_elearning">"Aula virtual"</string>
+    <string name="title_activity_event">"Evento"</string>
+    <string name="title_activity_friends">"Amigos"</string>
+    <string name="title_activity_friends_groups">"Grupos de amigos"</string>
+    <string name="title_activity_library_list">"Lista de bibliotecas"</string>
+    <string name="title_activity_project">"Projeto"</string>
+    <string name="title_activity_projects">"Projetos"</string>
+    <string name="title_activity_search">"Busca"</string>
+    <string name="title_activity_settings">"Ajustes"</string>
+    <string name="title_activity_tag">"Etiqueta"</string>
+    <string name="title_activity_time">"Hora"</string>
+    <string name="title_activity_user">"Usuário"</string>
+    <string name="title_activity_user_location_history">"Histórico de localização"</string>
+    <string name="title_activity_users">"Usuários"</string>
+    <string name="title_tab_cluster_map_info">"Info"</string>
+    <string name="title_tab_elearning_all">"Todas"</string>
+    <string name="title_tab_elearning_tags">"Categorias"</string>
+    <string name="title_tab_home_agenda">"Agenda"</string>
+    <string name="title_tab_home_evaluation">"Avaliações"</string>
+    <string name="title_tab_home_home">"Início"</string>
+    <string name="title_tab_home_past_events">"Eventos passados"</string>
+    <string name="title_tab_home_slots">"Horários"</string>
+    <string name="title_tab_project_attachments">"Anexos"</string>
+    <string name="title_tab_project_me">"Eu"</string>
+    <string name="title_tab_project_overview">"Geral"</string>
+    <string name="title_tab_project_users">"Usuários"</string>
+    <string name="title_tab_projects_graphic">"Mapa galáctico"</string>
+    <string name="title_tab_user_achievements">"Conquistas"</string>
+    <string name="title_tab_user_apps">"Aplicativos"</string>
+    <string name="title_tab_user_expertises">"Competências"</string>
+    <string name="title_tab_user_overview">"Geral"</string>
+    <string name="title_tab_user_partnerships">"Parcerias"</string>
 
     <!-- Fuzzy -->
-    <string name="title_tab_user_quests">"Buraco Negro"</string>
+    <string name="title_tab_user_patronages">"Apadrinhamento"</string>
+    <string name="title_tab_user_projects">"Projetos"</string>
 
     <!-- Fuzzy -->
-    <string name="toast_logs_disabled">"Logs desativados"</string>
+    <string name="title_tab_user_quests">"Buraco negro"</string>
+    <string name="title_tab_user_skills">"Habilidades"</string>
+    <string name="title_tab_users_all">"Tudo"</string>
+
+    <!-- Fuzzy -->
+    <string name="toast_logs_disabled">"Registros desativados"</string>
 
     <!-- Fuzzy -->
     <string name="today">"Hoje"</string>
 
     <!-- Fuzzy -->
     <string name="tomorrow">"Amanhã"</string>
+    <string name="user_achievement_bronze">"bronze"</string>
+    <string name="user_achievement_gold">"ouro"</string>
+    <string name="user_achievement_silver">"prata"</string>
+    <string name="user_achievements_platinum">"platina"</string>
+    <string name="user_app_official">"Aplicativo oficial"</string>
+    <string name="user_correction_points">"Pontos de avaliação"</string>
+    <string name="user_cursus_date">"Data"</string>
+    <string name="user_email">"e-mail"</string>
+    <string name="user_expertise_deleted">"Apagada"</string>
+    <string name="user_expertise_edit">"Editar competência"</string>
+    <string name="user_expertise_edit_plural">"Editar competências"</string>
+    <string name="user_expertise_interested">"Interesses:"</string>
+    <string name="user_expertise_new">"Adicionar competência"</string>
+    <string name="user_level">"Nível"</string>
+    <string name="user_location">"Local"</string>
+    <string name="user_mobile_phone">"Celular"</string>
+    <string name="user_no_achievements">"Sem conquistas"</string>
+    <string name="user_no_cursus_available">"Sem curso"</string>
+    <string name="user_open_it_not_found">"Usuários não encontrados"</string>
+    <string name="user_overview_cursus_date_not_finished">"Não concluiu"</string>
+    <string name="user_overview_cursus_date_not_start">"Não começou"</string>
+    <string name="user_overview_cursus_date_not_start_not_finised">"Não começou nem concluiu"</string>
+
+    <!-- Fuzzy -->
+    <string name="user_patronages_no_patron">"SEM PADRINHO"</string>
+
+    <!-- Fuzzy -->
+    <string name="user_patronages_no_patroning">"SEM PUPILOS"</string>
+
+    <!-- Fuzzy -->
+    <string name="user_patronages_patron">"Padrinho"</string>
+
+    <!-- Fuzzy -->
+    <string name="user_patronages_patroning">"Pupilos"</string>
+    <string name="user_pool">"Piscina"</string>
+    <string name="user_profile_add_to_friends">"Adicionar amigo"</string>
+    <string name="user_profile_grade_rank">"Boletim"</string>
+    <string name="user_profile_remove_from_friends">"Excluir amigo"</string>
+    <string name="user_unavailable">"Indisponível"</string>
+    <string name="user_wallet_money">"Carteira"</string>
+    <string name="user_you_dont_have_any_expertise_yet">"Você ainda não possui competências."</string>
 
     <!-- Fuzzy -->
     <string name="value">"Valor"</string>

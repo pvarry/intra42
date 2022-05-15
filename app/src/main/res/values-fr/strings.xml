@@ -229,6 +229,7 @@ La modification sera possible à _timeFuture_."</string>
     <string name="dialog_enable_app_logs">"Activer la journalisation"</string>
     <string name="discard_changes">"Annuler "</string>
     <string name="done">"Fait"</string>
+    <string name="dont_forget_to_restart">"N'oubliez pas de redémarrer l'application"</string>
     <string name="edit_unsaved_changes_content">"Voulez vous sauvegarder les changements de ce groupe ?"</string>
     <string name="edit_unsaved_changes_title">"Vous avez des modifications non enregistrées"</string>
     <string name="elearning_select_file_to_open">"Sélectionnez le fichier à ouvrir"</string>

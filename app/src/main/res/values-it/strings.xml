@@ -176,6 +176,7 @@ Sarà possibile modificare questo cluster a _timeFuture_."</string>
     <string name="cluster_map_info_layer_spinner_main_coalitions">"Coalizioni"</string>
     <string name="cluster_map_info_layer_spinner_main_friends">"Amici"</string>
     <string name="cluster_map_info_layer_spinner_main_level">"Livelli"</string>
+    <string name="cluster_map_info_layer_spinner_main_location">"Computer"</string>
     <string name="cluster_map_info_layer_spinner_main_login">"Utente"</string>
     <string name="cluster_map_info_layer_spinner_main_none">"Nullo"</string>
     <string name="cluster_map_info_layer_spinner_main_project">"Progetto"</string>
@@ -552,6 +553,7 @@ Pressione prolungata per avere più info"</string>
     <string name="title_activity_elearning">"Elearning"</string>
     <string name="title_activity_event">"Evento"</string>
     <string name="title_activity_friends">"Amici"</string>
+    <string name="title_activity_friends_groups">"Gruppi amici"</string>
     <string name="title_activity_library_list">"lista Libreria"</string>
     <string name="title_activity_project">"Progetto"</string>
     <string name="title_activity_projects">"Progetti"</string>

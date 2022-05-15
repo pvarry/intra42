@@ -89,6 +89,8 @@ Contact me on Slack or mail (pvarry)"</string>
     <string name="about_view_source">"View source"</string>
     <string name="accessibility_navigation_drawer_close">"Close navigation drawer"</string>
     <string name="accessibility_navigation_drawer_open">"Open navigation drawer"</string>
+
+    <!-- Fuzzy -->
     <string name="app_name">"Intra 42"</string>
 
     <!-- Format warning -->
