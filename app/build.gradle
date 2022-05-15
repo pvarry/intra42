@@ -50,12 +50,12 @@ android {
         config {
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.paulvarry.intra42"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode getVersionCodeTimestamp()
         versionName "0.12.7"
         signingConfig signingConfigs.config
