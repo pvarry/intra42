@@ -6,9 +6,11 @@
 
     <!-- Format warning -->
     <string name="booking_correct_somebody">"سوف تقوم بمراجعة الكود لأحدهم في_تاريخ_."</string>
+    <string name="campus">" الحرم"</string>
     <string name="cancel">"إلغاء"</string>
     <string name="copied">"ثم النسخ"</string>
     <string name="copy">"نسخ"</string>
+    <string name="cursus">"الفصول"</string>
     <string name="delete">"حذف"</string>
     <string name="done">"ثم"</string>
     <string name="error">"خطأ"</string>
@@ -16,8 +18,18 @@
     <string name="evaluation_corrected_by">"التصحيح من طرف"</string>
     <string name="evaluation_slot_begin_at">"يبدأ من"</string>
     <string name="evaluation_slot_create">"إنشاء"</string>
+    <string name="evaluation_slot_delete_button">"إمسح هذه الخانة"</string>
     <string name="evaluation_slot_deleted">"محذوف"</string>
+    <string name="evaluation_slot_end_at">"تنتهي في"</string>
+    <string name="evaluation_slot_modify">"حور الخانة"</string>
+    <string name="evaluation_slot_new">"خانة جديدة"</string>
     <string name="event_full">"كامل"</string>
+
+    <!-- Format warning -->
+    <string name="format__host_s_history">"٪s سجل"</string>
+
+    <!-- Format warning -->
+    <string name="format_dont_have_any_expertise_yet">"٪s ليس لديك أي خبرة حتى الآن"</string>
     <string name="friends">"الأصدقاء"</string>
     <string name="friends_groups_all">"الكل"</string>
     <string name="friends_groups_edit_no_empty_name">"لا يمكن أن تكون فارغة"</string>
@@ -62,6 +74,9 @@
     <string name="pref_title_network_over_cellular_fast">"على شبكه الجوال السريعه"</string>
     <string name="pref_title_network_over_cellular_slow">"على شبكه الجوال البطيئه"</string>
     <string name="pref_title_network_over_wifi">"عبر الوايفاي"</string>
+    <string name="pref_title_notifications_events">"تنبيهات الأحداث"</string>
+    <string name="pref_title_notifications_frequency">"تردد المزامنة"</string>
+    <string name="pref_title_notifications_scales">"تنبيهات التصحيح"</string>
     <string name="pref_unactivated">"غير مفعل"</string>
     <string name="pref_value_all">"الكل"</string>
     <string name="project_register">"تسجيل"</string>
@@ -73,7 +88,12 @@
     <string name="searching">"يثم البحث ..."</string>
     <string name="share_using">"نشر عبر"</string>
     <string name="shortcut_friends">"الأصدقاء"</string>
+    <string name="shortcut_galaxy">"الرسم البياني"</string>
+    <string name="shortcut_long_cluster_map">"خريطة الحرم"</string>
+    <string name="shortcut_long_friends">"قائمة الأصدقاء"</string>
     <string name="soon">"قريبا"</string>
+    <string name="sort_by">"رتب ب"</string>
+    <string name="tags">"الوسوم"</string>
     <string name="title_activity_friends">"الأصدقاء"</string>
     <string name="title_activity_time">"الوقت"</string>
     <string name="title_activity_user">"العضو"</string>

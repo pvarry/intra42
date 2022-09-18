@@ -425,7 +425,7 @@ Você vai perder um ponto de avaliação."</string>
     <string name="pref_force_content_location">"Forçar conteúdo local"</string>
     <string name="pref_header_network">"Rede"</string>
     <string name="pref_header_notifications">"Notificações"</string>
-    <string name="pref_header_theme">"Tema"</string>
+    <string name="pref_header_theme">"Aparência"</string>
     <string name="pref_network_profile_pic_size_title">"Tamanho da foto de perfil"</string>
     <string name="pref_notifications_frequency_titles_15min">"15 minutos"</string>
     <string name="pref_notifications_frequency_titles_1hour">"1 hora (padrão)"</string>
@@ -462,8 +462,8 @@ Você vai perder um ponto de avaliação."</string>
     <string name="pref_theme_list_titles_green_the_alliance">"Verde (A aliança)"</string>
     <string name="pref_theme_list_titles_purple_the_assembly">"Roxo (A assembleia)"</string>
     <string name="pref_theme_list_titles_red_the_order">"Vermelho (A ordem)"</string>
-    <string name="pref_theme_switch_brightness">"Usar tema escuro"</string>
-    <string name="pref_theme_title_change_theme">"Definir tema"</string>
+    <string name="pref_theme_switch_brightness">"Aparência"</string>
+    <string name="pref_theme_title_change_theme">"Definir aparência"</string>
     <string name="pref_theme_title_example">"Exemplo"</string>
     <string name="pref_title_advanced_data_allow_beta">"Ativar ajustes avançados"</string>
 
@@ -490,7 +490,7 @@ Você vai perder um ponto de avaliação."</string>
     <!-- Fuzzy -->
     <string name="pref_title_notifications_scales">"Aviso de avaliações (beta)"</string>
     <string name="pref_title_notifications_sync_allow">"Permitir notificações e sincronização"</string>
-    <string name="pref_title_theme">"Tema"</string>
+    <string name="pref_title_theme">"Aparência"</string>
 
     <!-- Fuzzy -->
     <string name="pref_unactivated">"Desativado"</string>
@@ -729,7 +729,7 @@ segure para mais opções"</string>
     <string name="user_patronages_patroning">"Pupilos"</string>
     <string name="user_pool">"Piscina"</string>
     <string name="user_profile_add_to_friends">"Adicionar amigo"</string>
-    <string name="user_profile_grade_rank">"Boletim"</string>
+    <string name="user_profile_grade_rank">"Categoria"</string>
     <string name="user_profile_remove_from_friends">"Excluir amigo"</string>
     <string name="user_unavailable">"Indisponível"</string>
     <string name="user_wallet_money">"Carteira"</string>
