@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
 async function _oauth_token(code, redirect_uri) {
-  const res = await fetch('https://api.intra.42.fr/oauth/token', {
+  const response = await fetch('https://api.intra.42.fr/oauth/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -15,14 +15,15 @@ async function _oauth_token(code, redirect_uri) {
     })
   })
 
-  return res.json()
+  return response.json()
 }
 
 export default async (req, res) => {
+  const client_id = req.params.uid
   const code = req.query.code
   const redirect_uri = req.query.redirect_uri || 'com.paulvarry.intra42://oauth2redirect'
 
-  if (!code) {
+  if (!code || client_id !== CLIENT_ID) {
     return res.status(400).json({
       error: 400,
       message: 'You need to specify \'code\''
@@ -33,8 +34,7 @@ export default async (req, res) => {
 
   if (json.error) {
     res.status(401).json({
-      error: 401,
-      message: json.error_description
+      error: 'invalid grant'
     })
   } else {
     res.status(200).json(json)

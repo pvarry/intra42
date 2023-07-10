@@ -25,7 +25,7 @@ app.get('*', (req, res, next) => {
 })
 
 app.get('/', route_root)
-app.get('/auth', route_auth)
+app.get('/oauth/authorize/:uid', route_auth)
 app.get('/galaxy', route_galaxy)
 app.get('/coalitions', route_coalitions)
 
