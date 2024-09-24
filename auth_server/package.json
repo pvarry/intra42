@@ -14,8 +14,8 @@
     "form-data": "^4.0.0",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.1",
-    "rollup": "^2.56.2",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-replace": "^3.0.0"
+    "rollup": "^4.22.4",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-replace": "^6.0.1"
   }
 }
